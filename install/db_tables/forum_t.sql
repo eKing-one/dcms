@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS `forum_t` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_forum` int(11) NOT NULL,
+  `id_razdel` int(11) DEFAULT NULL,
+  `name` varchar(32) NOT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `time_create` int(11) NOT NULL,
+  `time` int(11) NOT NULL,
+  `up` set('0','1') NOT NULL DEFAULT '0',
+  `close` set('0','1') NOT NULL DEFAULT '0',
+  `text` varchar(2000) NOT NULL,
+  `id_edit` int(11) default NULL,
+  `id_close` int(11) default NULL,
+  `time_edit` int(11) default NULL,
+  `vote` varchar(90) default NULL,
+  `vote_close` enum('0','1') default '0',
+  PRIMARY KEY (`id`),
+  KEY `id_forum` (`id_forum`,`id_razdel`),
+  FULLTEXT KEY `name` (`name`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;

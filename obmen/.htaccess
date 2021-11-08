@@ -1,0 +1,5 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^(.*)/([^/]*)$ index.php?d=$1&f=$2 [L,QSA]
+RewriteRule ^(.*)/$ index.php?d=$1 [L,QSA]
+</IfModule>

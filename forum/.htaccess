@@ -1,0 +1,21 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+##Попадаем в редактирование поста
+RewriteRule ^([0-9]*)/([0-9]*)/([0-9]*)/([0-9]*)/cit index.php?id_forum=$1&id_razdel=$2&id_them=$3&id_post=$4&act=cit&page=end [L,QSA]
+RewriteRule ^([0-9]*)/([0-9]*)/([0-9]*)/([0-9]*)/msg index.php?id_forum=$1&id_razdel=$2&id_them=$3&id_post=$4&act=msg&page=end [L,QSA]
+RewriteRule ^([0-9]*)/([0-9]*)/([0-9]*)/([0-9]*)/edit index.php?id_forum=$1&id_razdel=$2&id_them=$3&id_post=$4&act=edit&page=end [L,QSA]
+RewriteRule ^([0-9]*)/([0-9]*)/([0-9]*)/([0-9]*)/delete index.php?id_forum=$1&id_razdel=$2&id_them=$3&id_post=$4&act=delete&page=end [L,QSA]
+##Попадаем в тему
+RewriteRule ^([0-9]*)/([0-9]*)/([0-9]*)/txt$ index.php?id_forum=$1&id_razdel=$2&id_them=$3&act=txt [L,QSA]
+RewriteRule ^([0-9]*)/([0-9]*)/([0-9]*)/d_file([0-9]*)$ index.php?id_forum=$1&id_razdel=$2&id_them=$3&f_del=$4&page=end [L,QSA]
+RewriteRule ^([0-9]*)/([0-9]*)/([0-9]*)/new index.php?id_forum=$1&id_razdel=$2&id_them=$3&act=new&page=end [L,QSA]
+RewriteRule ^([0-9]*)/([0-9]*)/([0-9]*)/?$ index.php?id_forum=$1&id_razdel=$2&id_them=$3 [L,QSA]
+RewriteRule ^([0-9]*)/([0-9]*)/([0-9]*)/mark/(.*)$ index.php?id_forum=$1&id_razdel=$2&id_them=$3&mark=$4 [L,QSA]
+##Попадаем в раздел
+RewriteRule ^([0-9]*)/([0-9]*)/?$ index.php?id_forum=$1&id_razdel=$2 [L,QSA]
+##Попадаем в подфорум
+RewriteRule ^([0-9]*)/?$ index.php?id_forum=$1 [L,QSA]
+## Файлы
+RewriteRule ^files/delete/([0-9]*)/ files.php?id=$1&del [L,QSA]
+RewriteRule ^files/([0-9]*)/ files.php?id=$1 [L,QSA]
+</IfModule>

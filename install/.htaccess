@@ -1,0 +1,5 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+# RewriteBase physical-directory-path
+ RewriteRule ^mod_rewrite.test$ mod_rewrite_test.php 
+</IfModule>
