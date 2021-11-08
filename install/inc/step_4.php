@@ -22,7 +22,7 @@ if(isset($_GET['step']) && $_GET['step']=='5')
 {
 
 
-$tmp_set['title']=strtoupper($_SERVER['HTTP_HOST']).' - Главная';
+$tmp_set['title']=strtoupper($_SERVER['HTTP_HOST']).' - 主';
 $tmp_set['mysql_host']=$_SESSION['host'];
 $tmp_set['mysql_user']=$_SESSION['user'];
 $tmp_set['mysql_pass']=$_SESSION['pass'];
@@ -52,9 +52,9 @@ elseif (isset($_POST['reg']))
 {
 
 // проверка ника
-if( !preg_match("#^([A-zА-я0-9\-\_\ ])+$#ui", $_POST['nick']))$err[]='В нике присутствуют запрещенные символы';
-if (preg_match("#[a-z]+#ui", $_POST['nick']) && preg_match("#[а-я]+#ui", $_POST['nick']))$err[]='Разрешается использовать символы только русского или только английского алфавита';
-if (preg_match("#(^\ )|(\ $)#ui", $_POST['nick']))$err[]='Запрещено использовать пробел в начале и конце ника';
+if( !preg_match("#^([A-zА-я0-9\-\_\ ])+$#ui", $_POST['nick']))$err[]='昵称中有禁字';
+if (preg_match("#[a-z]+#ui", $_POST['nick']) && preg_match("#[а-я]+#ui", $_POST['nick']))$err[]='只允许使用俄文或英文字母字符';
+if (preg_match("#(^\ )|(\ $)#ui", $_POST['nick']))$err[]='禁止在昵称的开头和结尾使用空格';
 else{
 if (strlen2($_POST['nick'])<3)$err[]='Ник короче 3-х символов';
 elseif (strlen2($_POST['nick'])>16)$err[]='Ник длиннее 16-ти символов';
@@ -73,7 +73,7 @@ else $password=$_POST['password'];
 }
 
 
-if (!isset($_POST['pol']) || !is_numeric($_POST['pol']) || ($_POST['pol']!=='0' && $_POST['pol']!=='1'))$err[]='Ошибка при выборе пола';
+if (!isset($_POST['pol']) || !is_numeric($_POST['pol']) || ($_POST['pol']!=='0' && $_POST['pol']!=='1'))$err[]='选择楼层时出错';
 else $pol=intval($_POST['pol']);
 
 
