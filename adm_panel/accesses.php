@@ -1,4 +1,4 @@
-<?//网页标题//网页标题
+<?//网页标题
 
 
 
@@ -108,7 +108,7 @@ $group=dbassoc(dbquery("SELECT * FROM `user_group` WHERE `id` = '".intval($_GET[
 
 
 
-$set['title']=output_text('Группа "'.$group['name'].'" - привилегии'); // заголовок страницы
+$set['title']=output_text('Группа "'.$group['name'].'" - 特权'); // заголовок страницы
 
 
 
