@@ -124,7 +124,7 @@ title();
 
 
 
-echo "<div class='nav2'><form method='post' name='message' action='/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit'>\n";
+echo "<div class='nav2'><form method='post' name='message' action='/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit'>";
 
 $msg2=output_text($post['msg'],false,true,false,false,false);
 
@@ -134,23 +134,23 @@ include_once H.'style/themes/'.$set['set_them'].'/altername_post_form.php';
 
 else
 
-echo "Сообщение:<br />\n<textarea name=\"msg\">".$msg2."</textarea><br />\n";
+echo "Сообщение:<br /><textarea name=\"msg\">".$msg2."</textarea><br />";
 
-echo "<input name='post' value='Изменить' type='submit' /><br />\n";
+echo "<input name='post' value='Изменить' type='submit' /><br />";
 
-echo "</form></div>\n";
+echo "</form></div>";
 
-echo "<div class=\"foot\">\n";
+echo "<div class=\"foot\">";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?page=end\" title='返回在主题'>在主题</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?page=end\" title='返回在主题'>在主题</a><br />";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/$razdel[id]/\" title='至该组'>" . text($razdel['name']) . "</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/$razdel[id]/\" title='至该组'>" . text($razdel['name']) . "</a><br />";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/\" title='到子论坛'>" . text($forum['name']) . "</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/\" title='到子论坛'>" . text($forum['name']) . "</a><br />";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">论坛</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">论坛</a><br />";
 
-echo "</div>\n";
+echo "</div>";
 
 include_once '../sys/inc/tfoot.php';
 
@@ -178,9 +178,9 @@ aut();
 
 
 
-echo "<div class='nav2'><form method='post' name='message' action='/forum/$forum[id]/$razdel[id]/$them[id]/new'>\n";
+echo "<div class='nav2'><form method='post' name='message' action='/forum/$forum[id]/$razdel[id]/$them[id]/new'>";
 
-echo "<a href='/info.php?id=$ank[id]'>查看问卷</a><br />\n";
+echo "<a href='/info.php?id=$ank[id]'>查看问卷</a><br />";
 
 $msg2=$ank['nick'].', ';
 
@@ -190,35 +190,35 @@ include_once H.'style/themes/'.$set['set_them'].'/altername_post_form.php';
 
 else
 
-echo "信息:<br />\n<textarea name=\"msg\">$ank[nick], </textarea><br />\n";
+echo "信息:<br /><textarea name=\"msg\">$ank[nick], </textarea><br />";
 
-echo "<input name='post' value='发送信息' type='submit' /><br />\n";
+echo "<input name='post' value='发送信息' type='submit' /><br />";
 
-echo "</form></div>\n";
+echo "</form></div>";
 
-echo "<div class=\"foot\">\n";
+echo "<div class=\"foot\">";
 
-echo "<img src='/style/icons/str.gif' alt='*'> <a href=\"/smiles.php\">表情符号</a><br />\n";
+echo "<img src='/style/icons/str.gif' alt='*'> <a href=\"/smiles.php\">表情符号</a><br />";
 
-echo "<img src='/style/icons/str.gif' alt='*'> <a href=\"/rules.php\">规则</a><br />\n";
+echo "<img src='/style/icons/str.gif' alt='*'> <a href=\"/rules.php\">规则</a><br />";
 
-echo "</div>\n";
-
-
-
-echo "<div class=\"foot\">\n";
-
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?page=end\" title='返回在主题'>在主题</a><br />\n";
-
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/$razdel[id]/\" title='至该组'>" . text($razdel['name']) . "</a><br />\n";
-
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/\" title='到子论坛'>" . text($forum['name']) . "</a><br />\n";
-
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">论坛</a><br />\n";
+echo "</div>";
 
 
 
-echo "</div>\n";
+echo "<div class=\"foot\">";
+
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?page=end\" title='返回在主题'>在主题</a><br />";
+
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/$razdel[id]/\" title='至该组'>" . text($razdel['name']) . "</a><br />";
+
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/\" title='到子论坛'>" . text($forum['name']) . "</a><br />";
+
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">论坛</a><br />";
+
+
+
+echo "</div>";
 
 include_once '../sys/inc/tfoot.php';
 
@@ -238,17 +238,17 @@ title();
 
 aut();
 
-echo "<div class='nav2'>该消息将被引用:<br/>\n";
+echo "<div class='nav2'>该消息将被引用:<br/>";
 
 
 
-echo "<div class='cit'>\n";
+echo "<div class='cit'>";
 
-echo output_text($post['msg'])."<br />\n";
+echo output_text($post['msg'])."<br />";
 
-echo "</div>\n";
+echo "</div>";
 
-echo "<form method='post' name='message' action='/forum/$forum[id]/$razdel[id]/$them[id]/new'>\n";
+echo "<form method='post' name='message' action='/forum/$forum[id]/$razdel[id]/$them[id]/new'>";
 
 echo "<input name='cit' value='$post[id]' type='hidden' />";
 
@@ -260,27 +260,27 @@ include_once H.'style/themes/'.$set['set_them'].'/altername_post_form.php';
 
 else
 
-echo "信息:<br />\n<textarea name=\"msg\">$ank[nick], </textarea><br />\n";
+echo "信息:<br /><textarea name=\"msg\">$ank[nick], </textarea><br />";
 
-echo "<input name='post' value='发送信息' type='submit' /><br />\n";
+echo "<input name='post' value='发送信息' type='submit' /><br />";
 
-echo "</form></div>\n";
-
-
+echo "</form></div>";
 
 
 
-echo "<div class=\"foot\">\n";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?page=end\" title='回到正题'>在主题</a><br />\n";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/$razdel[id]/\" title='至该组'>" . text($razdel['name']) . "</a><br />\n";
+echo "<div class=\"foot\">";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/\" title='到子论坛'>" . text($forum['name']) . "</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?page=end\" title='回到正题'>在主题</a><br />";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">论坛</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/$razdel[id]/\" title='至该组'>" . text($razdel['name']) . "</a><br />";
 
-echo "</div>\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/\" title='到子论坛'>" . text($forum['name']) . "</a><br />";
+
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">论坛</a><br />";
+
+echo "</div>";
 
 include_once '../sys/inc/tfoot.php';
 
@@ -356,15 +356,15 @@ include 'inc/set_them_form.php';
 
 
 
-echo "<div class=\"foot\">\n";
+echo "<div class=\"foot\">";
 
 
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">论坛</a> | <a href=\"/forum/$forum[id]/\" title='到子论坛'>" . text($forum['name']) . "</a> | <a href=\"/forum/$forum[id]/$razdel[id]/\" title='至该组'>" . text($razdel['name']) . "</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">论坛</a> | <a href=\"/forum/$forum[id]/\" title='到子论坛'>" . text($forum['name']) . "</a> | <a href=\"/forum/$forum[id]/$razdel[id]/\" title='至该组'>" . text($razdel['name']) . "</a><br />";
 
-echo "</div>\n";
+echo "</div>";
 
 include_once '../sys/inc/tfoot.php';
 
@@ -412,13 +412,13 @@ if (user_access('forum_razd_edit'))include 'inc/set_razdel_form.php';
 
 
 
-echo "<div class=\"foot\">\n";
+echo "<div class=\"foot\">";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/\">" . text($forum['name']) . "</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/\">" . text($forum['name']) . "</a><br />";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">论坛</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">论坛</a><br />";
 
-echo "</div>\n";
+echo "</div>";
 
 }
 
@@ -462,11 +462,11 @@ include 'inc/set_forum_form.php'; // формы действий над подф
 
 
 
-echo "<div class=\"foot\">\n";
+echo "<div class=\"foot\">";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">论坛</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">论坛</a><br />";
 
-echo "</div>\n";
+echo "</div>";
 
 include_once '../sys/inc/tfoot.php';
 
@@ -540,32 +540,32 @@ err();
 
 aut(); // форма авторизации
 
-echo "<div class=\"err\">\n";
+echo "<div class=\"err\">";
 
-echo "<a href='/rules.php'>规则</a><br />\n";
+echo "<a href='/rules.php'>规则</a><br />";
 
-echo "</div>\n";
+echo "</div>";
 
-echo "<div class=\"main\">\n";
+echo "<div class=\"main\">";
 
-echo "<img src='/style/icons/New.gif'> 新的: <a href='/forum/new_t.php'>&bull; 主题</a> | \n";
+echo "<img src='/style/icons/New.gif'> 新的: <a href='/forum/new_t.php'>&bull; 主题</a> | ";
 
-echo "<a href='/forum/new_p.php'>&bull; 通讯</a><br />\n";
+echo "<a href='/forum/new_p.php'>&bull; 通讯</a><br />";
 
 if (isset($user)){
 
-echo "<img src='/style/icons/top.gif'> 我的: <a href='/user/info/them_p.php?id=".$user['id']."'>&bull; 主题</a> | \n";
+echo "<img src='/style/icons/top.gif'> 我的: <a href='/user/info/them_p.php?id=".$user['id']."'>&bull; 主题</a> | ";
 echo "<a href='/user/bookmark/forum.php?id=".$user['id']."'> &bull; 书签</a> | <a href='/user/info/them_p.php?id=".$user['id']."&komm'> &bull; 职位</a><br/>";
 }
-echo "<img src='/style/icons/searcher.png'> <a href='/forum/search.php'>论坛搜索<br /></a>\n";
+echo "<img src='/style/icons/searcher.png'> <a href='/forum/search.php'>论坛搜索<br /></a>";
 
-echo "</div>\n";
-
-
+echo "</div>";
 
 
 
-echo "<table class='post'>\n";
+
+
+echo "<table class='post'>";
 
 
 
@@ -577,11 +577,11 @@ $q=dbquery("SELECT * FROM `forum_f`".((!isset($user) || $user['level']==0)?" WHE
 
 if (dbrows($q)==0) {
 
-echo "  <div class='mess'>\n";
+echo "  <div class='mess'>";
 
-echo "没有子论坛\n";
+echo "没有子论坛";
 
-echo "  </div>\n";
+echo "  </div>";
 
 }
 
@@ -590,19 +590,19 @@ while ($forum = dbassoc($q))
 {
 /*-----------зебра-----------*/
   if ($num==0){
-  echo "  <div class='nav1'>\n";
+  echo "  <div class='nav1'>";
   $num=1;
   }
   elseif ($num==1)
   {
-  echo "  <div class='nav2'>\n";
+  echo "  <div class='nav2'>";
   $num=0;
   }
 /*---------------------------*/
 
 echo "<img src='/style/forum/$forum[icon]' alt='*'/> ";
 
-echo "<a href='/forum/$forum[id]/'><b>" . text($forum['name']) . "</b></a> <span style='color:#666;'>(".dbresult(dbquery("SELECT COUNT(*) FROM `forum_p` WHERE `id_forum` = '$forum[id]'"),0).'/'.dbresult(dbquery("SELECT COUNT(*) FROM `forum_t` WHERE `id_forum` = '$forum[id]'"),0).")\n";
+echo "<a href='/forum/$forum[id]/'><b>" . text($forum['name']) . "</b></a> <span style='color:#666;'>(".dbresult(dbquery("SELECT COUNT(*) FROM `forum_p` WHERE `id_forum` = '$forum[id]'"),0).'/'.dbresult(dbquery("SELECT COUNT(*) FROM `forum_t` WHERE `id_forum` = '$forum[id]'"),0).")";
 
 
 
@@ -610,11 +610,11 @@ if ($forum['opis']!=NULL)echo '<br />'.output_text($forum['opis']);
 
 
 
-echo "  </span> </div>\n";
+echo "  </span> </div>";
 
 }
 
-echo "</table>\n";
+echo "</table>";
 
 echo "<div class='foot'>";
 echo "<img src='/style/icons/soob114.gif'> <a href='on-forum.php'>谁在论坛？</a> | <a href='/user/admin.user.php?forum'>适度</a>";
@@ -624,21 +624,21 @@ if (user_access('forum_for_create') && (isset($_GET['act']) && $_GET['act']=='ne
 
 {
 
-echo "<form method=\"post\" action=\"/forum/index.php?act=new&amp;ok\">\n";
+echo "<form method=\"post\" action=\"/forum/index.php?act=new&amp;ok\">";
 
-echo "子论坛的名称:<br />\n";
+echo "子论坛的名称:<br />";
 
-echo "<input name=\"name\" type=\"text\" maxlength='32' value='' /><br />\n";
+echo "<input name=\"name\" type=\"text\" maxlength='32' value='' /><br />";
 
-echo "资料描述:<br />\n";
+echo "资料描述:<br />";
 
-echo "<textarea name=\"opis\"></textarea><br />\n";
+echo "<textarea name=\"opis\"></textarea><br />";
 
-echo "职位:<br />\n";
+echo "职位:<br />";
 
 $pos=dbresult(dbquery("SELECT MAX(`pos`) FROM `forum_f`"), 0)+1;
 
-echo "<input name=\"pos\" type=\"text\" maxlength='3' value='$pos' /><br />\n";
+echo "<input name=\"pos\" type=\"text\" maxlength='3' value='$pos' /><br />";
 
 $icon=array();
 
@@ -656,27 +656,27 @@ $icon[]=$icons;
 
 closedir($opendiricon);
 
-echo "图标:<br />\n";
+echo "图标:<br />";
 
-echo "<select name='icon'>\n";
+echo "<select name='icon'>";
 
-echo "<option value='default.png'>默认情况下</option>\n";
+echo "<option value='default.png'>默认情况下</option>";
 
 for ($i=0;$i<sizeof($icon);$i++)
 
 {
 
-echo "<option value='$icon[$i]'>$icon[$i]</option>\n";
+echo "<option value='$icon[$i]'>$icon[$i]</option>";
 
 }
 
-echo "</select><br />\n";
+echo "</select><br />";
 
-echo "<input value=\"Создать\" type=\"submit\" /><br />\n";
+echo "<input value=\"Создать\" type=\"submit\" /><br />";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">取消</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">取消</a><br />";
 
-echo "</form>\n";
+echo "</form>";
 
 }
 
@@ -684,11 +684,11 @@ echo "</form>\n";
 
 if (user_access('forum_for_create') && dbresult(dbquery("SELECT COUNT(*) FROM `forum_f`"),0)>0){
 
-echo "<div class=\"foot\">\n";
+echo "<div class=\"foot\">";
 
-echo "<img src='/style/icons/str.gif' alt='*'> <a href=\"/forum/?act=new\">新的子论坛</a><br />\n";
+echo "<img src='/style/icons/str.gif' alt='*'> <a href=\"/forum/?act=new\">新的子论坛</a><br />";
 
-echo "</div>\n";
+echo "</div>";
 
 }
 

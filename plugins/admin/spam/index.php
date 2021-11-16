@@ -303,7 +303,7 @@ $start=$set['p_str']*$page-$set['p_str'];
 
 
 
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 
 
 
@@ -318,17 +318,17 @@ if ($k_post==0)
 
 
 
-echo "<div class='mess'>\n";
+echo "<div class='mess'>";
 
 
 
 
-echo "没有新的投诉\n";
+echo "没有新的投诉";
 
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 
@@ -338,7 +338,7 @@ echo "</div>\n";
 
 
 
-echo "<div class='mess'>\n";
+echo "<div class='mess'>";
 
 
 
@@ -348,7 +348,7 @@ echo "注意！审查投诉后，不要忘记删除它！";
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 
@@ -398,7 +398,7 @@ if ($num==0)
 
 
 
-{echo "  <div class='nav1'>\n";
+{echo "  <div class='nav1'>";
 
 
 
@@ -413,7 +413,7 @@ $num=1;
 
 
 
-{echo "  <div class='nav2'>\n";
+{echo "  <div class='nav2'>";
 
 
 
@@ -503,7 +503,7 @@ if ($post['razdel'] == 'files_komm'){  // Файлы юзеров
 
 
 
-	echo " <a href='/user/personalfiles/$file_id[id_user]/$dir[id]/?id_file=$file_id[id]'>".htmlspecialchars($file_id['name'])."</a><br />\n";
+	echo " <a href='/user/personalfiles/$file_id[id_user]/$dir[id]/?id_file=$file_id[id]'>".htmlspecialchars($file_id['name'])."</a><br />";
 
 
 
@@ -558,7 +558,7 @@ if ($post['razdel'] == 'obmen_komm'){  // Обменник
 
 
 
-	echo " <a href='/obmen$dir_id[dir]$file_id[id].$file_id[ras]?showinfo'>".htmlspecialchars($file_id['name'])."</a><br />\n";
+	echo " <a href='/obmen$dir_id[dir]$file_id[id].$file_id[ras]?showinfo'>".htmlspecialchars($file_id['name'])."</a><br />";
 
 
 
@@ -598,7 +598,7 @@ if ($post['razdel'] == 'notes_komm'){  // Дневники
 
 
 
-	echo " <a href='/plugins/notes/list.php?id=$notes[id]'>".htmlspecialchars($notes['name'])."</a><br />\n";
+	echo " <a href='/plugins/notes/list.php?id=$notes[id]'>".htmlspecialchars($notes['name'])."</a><br />";
 
 
 
@@ -638,7 +638,7 @@ if ($post['razdel'] == 'forum'){  // Тема форума
 
 
 
-	echo " <a href='/forum/$them[id_forum]/$them[id_razdel]/$them[id]/'>".htmlspecialchars($them['name'])."</a><br />\n";
+	echo " <a href='/forum/$them[id_forum]/$them[id_razdel]/$them[id]/'>".htmlspecialchars($them['name'])."</a><br />";
 
 
 
@@ -683,7 +683,7 @@ if ($post['razdel'] == 'loads_komm'){  // Загрузки
 
 
 
-	echo " <a href='/loads/?komm&d=$file[path]&f=$file[name]'>".htmlspecialchars($file['name'])."</a><br />\n";
+	echo " <a href='/loads/?komm&d=$file[path]&f=$file[name]'>".htmlspecialchars($file['name'])."</a><br />";
 
 
 
@@ -723,7 +723,7 @@ if ($post['razdel'] == 'foto_komm'){  // Фотографии
 
 
 
-	echo " <a href='/foto/$foto[id_user]/$foto[id_gallery]/$foto[id]/'>".htmlspecialchars($foto['name'])."</a><br />\n";
+	echo " <a href='/foto/$foto[id_user]/$foto[id_gallery]/$foto[id]/'>".htmlspecialchars($foto['name'])."</a><br />";
 
 
 
@@ -763,7 +763,7 @@ if ($post['razdel'] == 'stena') // Стена юзера
 
 
 
-	echo " <a href='/info.php?id=$anketa[id]'>$anketa[nick]</a>\n";
+	echo " <a href='/info.php?id=$anketa[id]'>$anketa[nick]</a>";
 
 
 
@@ -808,7 +808,7 @@ if ($post['razdel'] == 'status_komm')	// Статус
 
 
 
-	echo " <a href='/info.php?id=$anketa[id]'>$anketa[nick]</a>\n";
+	echo " <a href='/info.php?id=$anketa[id]'>$anketa[nick]</a>";
 
 
 
@@ -833,7 +833,7 @@ if ($post['razdel'] == 'status_komm')	// Статус
 
 
 
-echo "<b>Жалоба от:</b> <a href='/info.php?id=$ank[id]'>$ank[nick]</a>\n";
+echo "<b>Жалоба от:</b> <a href='/info.php?id=$ank[id]'>$ank[nick]</a>";
 
 
 
@@ -853,7 +853,7 @@ if ($post['razdel']=='mail' || $post['razdel']=='guest' || $post['razdel']=='for
 
 
 
-echo "<b>На сообщение:</b> <font color='red' style='border-bottom: 1px solid green;'>".output_text($post['spam'])."<br /></font>\n";
+echo "<b>На сообщение:</b> <font color='red' style='border-bottom: 1px solid green;'>".output_text($post['spam'])."<br /></font>";
 
 
 
@@ -883,7 +883,7 @@ echo "".medal($spamer['id'])." ".online($spamer['id'])."<br />";
 
 
 
-echo "   </div>\n";
+echo "   </div>";
 
 
 
@@ -903,7 +903,7 @@ echo "<div class='mess'>[<a href='/adm_panel/ban.php?id=$spamer[id]'><img src='/
 
 
 
-[<a href='delete.php?id=$post[id]&amp;otkl'><img src='/style/icons/delete.gif' alt='*'> отклонить</a>] [<a href='delete.php?id=$post[id]'><img src='/style/icons/ok.gif' alt='*'> рассмотрена</a>] </div>\n";
+[<a href='delete.php?id=$post[id]&amp;otkl'><img src='/style/icons/delete.gif' alt='*'> отклонить</a>] [<a href='delete.php?id=$post[id]'><img src='/style/icons/ok.gif' alt='*'> рассмотрена</a>] </div>";
 
 
 
@@ -913,17 +913,17 @@ echo "<div class='mess'>[<a href='/adm_panel/ban.php?id=$spamer[id]'><img src='/
 
 
 
-пожалуста дождитесь администратора для выяснения обстоятельств.</div>\n";}
+пожалуста дождитесь администратора для выяснения обстоятельств.</div>";}
 
 
 
 
-else{echo "<div class='mess'>У вас не достаточно полномочий, для рассмотрения этой жалобы.</div>\n";}
+else{echo "<div class='mess'>У вас не достаточно полномочий, для рассмотрения этой жалобы.</div>";}
 
 
 
 
-echo "</table>\n";
+echo "</table>";
 
 
 
@@ -963,17 +963,17 @@ if ($k_page>1)str('?',$k_page,$page); // Вывод страниц
 
 
 
-echo "<div class='foot'>\n";
+echo "<div class='foot'>";
 
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/plugins/admin/'>Админ раздел</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/plugins/admin/'>Админ раздел</a><br />";
 
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 

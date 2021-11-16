@@ -18,7 +18,7 @@ $k_post=dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_komm` WHERE `id_file` =
 $k_page=k_page($k_post,$set['p_str']);
 $page=page($k_page);
 $start=$set['p_str']*$page-$set['p_str'];
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 
 echo '<div class="foot">';
 echo "评论：";
@@ -27,7 +27,7 @@ echo '</div>';
 if ($k_post==0)
 {
 echo '<div class="mess">';
-echo "没有留言\n";
+echo "没有留言";
 echo '</div>';
 }
 else if (isset($user))
@@ -63,12 +63,12 @@ while ($post = dbassoc($q))
 /*---------------------------*/
 	echo " ".group($anketa['id'])." <a href='/info.php?id=$anketa[id]'>$anketa[nick]</a>";
 	if (isset($user) && $anketa['id'] != $user['id'])echo ' <a href="?id_file='.$file_id['id'].'&amp;page='.$page.'&amp;response='.$anketa['id'].'">[*]</a> ';
-	echo "".online($anketa['id'])." (".vremja($post['time']).")<br />\n";
+	echo "".online($anketa['id'])." (".vremja($post['time']).")<br />";
 	
 $postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'files') AND `post` = '1' AND `id_user` = '$anketa[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
 if ($postBan == 0) // Блок сообщения
 {	
-	echo esc(trim(br(bbcode(smiles(links(stripcslashes(htmlspecialchars($post['msg']))))))))."<br />\n";
+	echo esc(trim(br(bbcode(smiles(links(stripcslashes(htmlspecialchars($post['msg']))))))))."<br />";
 }else{
 	echo output_text($banMess).'<br />';
 }
@@ -83,12 +83,12 @@ echo '<div style="text-align:right;">';
 
 	if (user_access('obmen_komm_del') || $anketa['id'] == $user['id'])
 		echo '<a href="?id_file='.$file_id['id'].'&amp;page='.$page.'&amp;del_post='.$post['id'].'"><img src="/style/icons/delete.gif" alt="*"></a>';
-	echo "   </div>\n";
+	echo "   </div>";
 }
 
-	echo "   </div>\n";
+	echo "   </div>";
 }
-echo "</table>\n";
+echo "</table>";
 
 
 if ($k_page>1)str('?id_file='.$file_id['id'].'&amp;',$k_page,$page); // Вывод страниц
@@ -96,13 +96,13 @@ if ($k_page>1)str('?id_file='.$file_id['id'].'&amp;',$k_page,$page); // Выво
 
 if (isset($user))
 {
-echo "<form method=\"post\" name='message' action=\"?id_file=$file_id[id]".$go_otv."\">\n";
+echo "<form method=\"post\" name='message' action=\"?id_file=$file_id[id]".$go_otv."\">";
 if ($set['web'] && is_file(H.'style/themes/'.$set['set_them'].'/altername_post_form.php'))
 include_once H.'style/themes/'.$set['set_them'].'/altername_post_form.php';
 else
-echo "$tPanel<textarea name=\"msg\">$respons_msg</textarea><br />\n";
-echo "<input value=\"发送\" type=\"submit\" />\n";
-echo "</form>\n";
+echo "$tPanel<textarea name=\"msg\">$respons_msg</textarea><br />";
+echo "<input value=\"发送\" type=\"submit\" />";
+echo "</form>";
 
 }
 

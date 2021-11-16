@@ -62,27 +62,27 @@ exit;
 
 err();
 
-echo "<div class=\"foot\">\n";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Дневники</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>\n";
+echo "<div class=\"foot\">";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Дневники</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>";
 echo " | <a href='list.php?id=$notes[id]'>" . text($notes['name']) . "</a> | <b>Редактирование</b>";
-echo "</div>\n";
+echo "</div>";
 
 $notes=dbarray(dbquery("select * from `notes` where `id`='".intval($_GET['id'])."';"));
 
-echo "<form method='post' name='message' action='?id=".intval($_GET['id'])."&amp;edit'>\n";
-echo "Название:<br />\n<input type=\"text\" name=\"name\" value=\""  . text($notes['name']) . "\" /><br />\n";
+echo "<form method='post' name='message' action='?id=".intval($_GET['id'])."&amp;edit'>";
+echo "Название:<br /><input type=\"text\" name=\"name\" value=\""  . text($notes['name']) . "\" /><br />";
 $msg2 = text($notes['msg']);
-if ($set['web'] && is_file(H.'style/themes/'.$set['set_them'].'/altername_post_form.php')){include_once H.'style/themes/'.$set['set_them'].'/altername_post_form.php';}else{echo "Сообщение:$tPanel<textarea name=\"msg\">"  . text($notes['msg']) . "</textarea><br />\n";}
-echo "Категория:<br />\n<select name='id_dir'>\n";
+if ($set['web'] && is_file(H.'style/themes/'.$set['set_them'].'/altername_post_form.php')){include_once H.'style/themes/'.$set['set_them'].'/altername_post_form.php';}else{echo "Сообщение:$tPanel<textarea name=\"msg\">"  . text($notes['msg']) . "</textarea><br />";}
+echo "Категория:<br /><select name='id_dir'>";
 $q=dbquery("SELECT * FROM `notes_dir` ORDER BY `id` DESC");
 
-echo "<option value='0'".(!$notes['id_dir'] ? " selected='selected'":null)."><b>Без категории</b></option>\n";
+echo "<option value='0'".(!$notes['id_dir'] ? " selected='selected'":null)."><b>Без категории</b></option>";
 
 while ($post = dbassoc($q))
 {
-echo "<option value='$post[id]'".($notes['id_dir'] == $post['id'] ?" selected='selected'":null).">" . text($post['name']) . "</option>\n";
+echo "<option value='$post[id]'".($notes['id_dir'] == $post['id'] ?" selected='selected'":null).">" . text($post['name']) . "</option>";
 }
-echo "</select><br />\n";
+echo "</select><br />";
 echo "<div class='main'>Могут смотреть:<br /><input name='private' type='radio' ".($notes['private']==0?' checked="checked"':null)." value='0' />Все ";
 echo "<input name='private' type='radio' ".($notes['private']==1?' checked="checked"':null)." value='1' />Друзья ";
 echo "<input name='private' type='radio' ".($notes['private']==2?' checked="checked"':null)." value='2' />Только я</div>";
@@ -91,12 +91,12 @@ echo "<div class='main'>Могут комментировать:<br /><input nam
 echo "<input name='private_komm' type='radio' ".($notes['private_komm']==1?' checked="checked"':null)." value='1' />Друзья ";
 echo "<input name='private_komm' type='radio' ".($notes['private_komm']==2?' checked="checked"':null)." value='2' />Только я</div>";
 
-echo "<input value=\"Применить\" type=\"submit\" />\n";
-echo "</form>\n";
-echo "<div class=\"foot\">\n";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Дневники</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>\n";
+echo "<input value=\"Применить\" type=\"submit\" />";
+echo "</form>";
+echo "<div class=\"foot\">";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Дневники</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>";
 echo " | <a href='list.php?id=$notes[id]'>" . text($notes['name']) . "</a> | <b>Редактирование</b>";
-echo "</div>\n";
+echo "</div>";
 }
 include_once '../../sys/inc/tfoot.php';
 

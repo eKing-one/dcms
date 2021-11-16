@@ -123,7 +123,7 @@ echo "Вы действительно желаете удалить <b>".htmlspe
 
 
 
-echo "[<a href='?delete_folder=$folder[id]&amp;ok'><img src='/style/icons/ok.gif' alt='*'> Да</a>] [<a href='?'><img src='/style/icons/delete.gif' alt='*'> 取消</a>] \n";
+echo "[<a href='?delete_folder=$folder[id]&amp;ok'><img src='/style/icons/ok.gif' alt='*'> Да</a>] [<a href='?'><img src='/style/icons/delete.gif' alt='*'> 取消</a>] ";
 
 
 

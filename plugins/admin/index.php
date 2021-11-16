@@ -108,7 +108,7 @@ if (user_access('adm_panel_show')){
 
 
 
-echo "<div class='main'>\n";
+echo "<div class='main'>";
 
 
 
@@ -138,7 +138,7 @@ echo "</div>";
 
 
 
-echo "<div class='main'>\n";
+echo "<div class='main'>";
 
 
 
@@ -168,12 +168,12 @@ if (user_access('adm_panel_show')){
 
 
 
-echo "<div class='main_seriy'>\n";
+echo "<div class='main_seriy'>";
 
 
 
 
-echo "<div class='main'>\n";
+echo "<div class='main'>";
 
 
 

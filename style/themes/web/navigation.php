@@ -270,7 +270,7 @@ echo '<div id="user" style="display:none;">';
 echo '<div class="mess">
 
 
-Войти через:<br />' . $tUlogin;
+登录 через:<br />' . $tUlogin;
 
 
 echo '</div>';
@@ -291,7 +291,7 @@ echo "<div class = 'foot'>Авторизация</div>";
 		<label><input type='checkbox' name='aut_save' value='1' /> Запомнить меня</label><br />
 
 
-		<input type='submit' value='Войти' /> <a href='/pass.php'>Забыли пароль?</a> <br />
+		<input type='submit' value='登录' /> <a href='/pass.php'>Забыли пароль?</a> <br />
 
 
 		</form><br />";
@@ -300,19 +300,19 @@ echo "<div class = 'foot'>Авторизация</div>";
 echo "<div class = 'foot'>Регистрация</div>";
 
 
-echo "<form class='mess' method='post' action='/reg.php?$passgen'>\n";
+echo "<form class='mess' method='post' action='/reg.php?$passgen'>";
 
 
-echo "Выберите ник [A-z0-9 -_]:<br /><input type='text' name='nick' maxlength='32' /><br />\n";
+echo "Выберите ник [A-z0-9 -_]:<br /><input type='text' name='nick' maxlength='32' /><br />";
 
 
-echo "Регистрируясь, Вы автоматически соглашаетесь с <a href='/rules.php'>правилами</a> сайта<br />\n";
+echo "Регистрируясь, Вы автоматически соглашаетесь с <a href='/rules.php'>правилами</a> сайта<br />";
 
 
-echo "<input type='submit' value='Продолжить' />\n";
+echo "<input type='submit' value='Продолжить' />";
 
 
-echo "</form><br />\n";
+echo "</form><br />";
 
 
 			

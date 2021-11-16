@@ -23,10 +23,10 @@ if ($ank['id'] == 0) {
 	include_once 'sys/inc/thead.php';
 	title();
 	aut();
-	echo "<span class=\"status\">$ank[group_name]</span><br />\n";
-	if ($ank['ank_o_sebe'] != NULL) echo "<span class=\"ank_n\">О себе:</span> <span class=\"ank_d\">$ank[ank_o_sebe]</span><br />\n";
+	echo "<span class=\"status\">$ank[group_name]</span><br />";
+	if ($ank['ank_o_sebe'] != NULL) echo "<span class=\"ank_n\">О себе:</span> <span class=\"ank_d\">$ank[ank_o_sebe]</span><br />";
 	if (isset($_SESSION['refer']) && $_SESSION['refer'] != NULL && otkuda($_SESSION['refer']))
-		echo "<div class='foot'>&laquo;<a href='$_SESSION[refer]'>" . otkuda($_SESSION['refer']) . "</a><br />\n</div>\n";
+		echo "<div class='foot'>&laquo;<a href='$_SESSION[refer]'>" . otkuda($_SESSION['refer']) . "</a><br /></div>";
 	include_once 'sys/inc/tfoot.php';
 	exit;
 }
@@ -262,27 +262,27 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'stena'"), 0) == 0) {
 		echo "<div class='mess'>虚假信息会导致昵称被屏蔽。
 		如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
-		echo "<form class='nav1' method='post' action='/info.php?id=$ank[id]&amp;spam=$mess[id]&amp;page=" . intval($_GET['page']) . "'>\n";
+		echo "<form class='nav1' method='post' action='/info.php?id=$ank[id]&amp;spam=$mess[id]&amp;page=" . intval($_GET['page']) . "'>";
 		echo "<b>用户:</b> ";
-		echo " " . avatar($spamer['id']) . " <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>\n";
+		echo " " . avatar($spamer['id']) . " <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>";
 		echo "" . medal($spamer['id']) . " " . online($spamer['id']) . " (" . vremja($mess['time']) . ")<br />";
 		echo "<b>违规行为:</b> <font color='green'>" . output_text($mess['msg']) . "</font><br />";
-		echo "原因:<br />\n<select name='types'>\n";
-		echo "<option value='1' selected='selected'>垃圾邮件/广告</option>\n";
-		echo "<option value='2' selected='selected'>欺诈行为</option>\n";
-		echo "<option value='3' selected='selected'>进攻</option>\n";
-		echo "<option value='0' selected='selected'>其他</option>\n";
-		echo "</select><br />\n";
+		echo "原因:<br /><select name='types'>";
+		echo "<option value='1' selected='selected'>垃圾邮件/广告</option>";
+		echo "<option value='2' selected='selected'>欺诈行为</option>";
+		echo "<option value='3' selected='selected'>进攻</option>";
+		echo "<option value='0' selected='selected'>其他</option>";
+		echo "</select><br />";
 		echo "评论:$tPanel";
 		echo "<textarea name=\"spamus\"></textarea><br />";
-		echo "<input value=\"发送\" type=\"submit\" />\n";
-		echo "</form>\n";
+		echo "<input value=\"发送\" type=\"submit\" />";
+		echo "</form>";
 	} else {
 		echo "<div class='mess'>投诉有关 <font color='green'>$spamer[nick]</font> 它将在不久的将来考虑。</div>";
 	}
-	echo "<div class='foot'>\n";
-	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>返回</a><br />\n";
-	echo "</div>\n";
+	echo "<div class='foot'>";
+	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>返回</a><br />";
+	echo "</div>";
 	include_once 'sys/inc/tfoot.php';
 }
 /*
@@ -306,7 +306,7 @@ $frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` =
 if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 	if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) // Начинаем вывод если стр имеет приват настройки
 	{
-		if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>\n";
+		if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
 		echo "<div class='nav1'>";
 		echo group($ank['id']) . " $ank[nick] ";
 		echo medal($ank['id']) . " " . online($ank['id']) . " ";
@@ -328,11 +328,11 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 		if (isset($user)) {
 			echo '<div class="nav1">';
 			if ($frend_new == 0 && $frend == 0) {
-				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=" . $ank['id'] . "'>添加到朋友</a><br />\n";
+				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=" . $ank['id'] . "'>添加到朋友</a><br />";
 			} elseif ($frend_new == 1) {
-				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$ank[id]'>拒绝申请</a><br />\n";
+				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$ank[id]'>拒绝申请</a><br />";
 			} elseif ($frend == 2) {
-				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>从朋友中删除</a><br />\n";
+				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>从朋友中删除</a><br />";
 			}
 			echo "</div>";
 		}

@@ -189,28 +189,28 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]
 { 
     echo "<div class='mess'>虚假信息会导致昵称被屏蔽。
     如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>"; 
-    echo "<form class='nav1' method='post' action='/obmen$dir_id[dir]$file_id[id].$file_id[ras]?showinfo&spam=$mess[id]&page=".intval($_GET['page'])."'>\n"; 
+    echo "<form class='nav1' method='post' action='/obmen$dir_id[dir]$file_id[id].$file_id[ras]?showinfo&spam=$mess[id]&page=".intval($_GET['page'])."'>"; 
     echo "<b>用户:</b> "; 
-    echo " ".status($spamer['id'])."  ".group($spamer['id'])." <a href='/info.php?id=$spamer[id]>$spamer[nick]</a>\n"; 
+    echo " ".status($spamer['id'])."  ".group($spamer['id'])." <a href='/info.php?id=$spamer[id]>$spamer[nick]</a>"; 
     echo "".medal($spamer['id'])." ".online($spamer['id'])." (".vremja($mess['time']).") "; 
     echo "<b>违规行为:</b> <font color='green'>".output_text($mess['msg'])."</font> "; 
-    echo "原因:\n<select name='types'>\n"; 
-    echo "<option value='1' selected='selected'>垃圾邮件/广告</option>\n"; 
-    echo "<option value='2' selected='selected'>欺诈行为</option>\n"; 
-    echo "<option value='3' selected='selected'>进攻</option>\n"; 
-    echo "<option value='0' selected='selected'>其他</option>\n"; 
-    echo "</select>\n"; 
+    echo "原因:<select name='types'>"; 
+    echo "<option value='1' selected='selected'>垃圾邮件/广告</option>"; 
+    echo "<option value='2' selected='selected'>欺诈行为</option>"; 
+    echo "<option value='3' selected='selected'>进攻</option>"; 
+    echo "<option value='0' selected='selected'>其他</option>"; 
+    echo "</select>"; 
     echo "评论: "; 
     echo "<textarea name='msg'></textarea>"; 
-    echo "<input value='发送' type='submit'/>\n"; 
-    echo "</form>\n"; 
+    echo "<input value='发送' type='submit'/>"; 
+    echo "</form>"; 
 } else { 
     echo "<div class='mess'>投诉有关<font color='green'>$spamer[nick]</font> 它将在不久的将来考虑。</div>"; 
 } 
 
-echo "<div class='foot'>\n"; 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/obmen$dir_id[dir]$file_id[id].$file_id[ras]?showinfo&page=".intval($_GET['page'])."'>返回</a>\n"; 
-echo "</div>\n"; 
+echo "<div class='foot'>"; 
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/obmen$dir_id[dir]$file_id[id].$file_id[ras]?showinfo&page=".intval($_GET['page'])."'>返回</a>"; 
+echo "</div>"; 
 include_once '../sys/inc/tfoot.php'; 
 exit; 
 } 
@@ -411,9 +411,9 @@ if (isset($user)){
     echo "<div class='main'>"; 
     echo "<img src='/style/icons/add_fav.gif' alt='*' /> "; 
     if (dbresult(dbquery("SELECT COUNT(`id`) FROM `bookmarks` WHERE `id_user` = '" . $user['id'] . "' AND `id_object` = '".$file_id['id']."' AND `type`='file' LIMIT 1"),0)  ==  0)
-    echo "<a href='?showinfo&fav=1'>添加到书签</a>\n"; 
+    echo "<a href='?showinfo&fav=1'>添加到书签</a>"; 
     else 
-    echo "<a href='?showinfo&fav=0'>从书签中删除</a>\n"; 
+    echo "<a href='?showinfo&fav=0'>从书签中删除</a>"; 
     echo "<br/><img src='/style/icons/add_fav.gif' alt='*' /'> В закладках у <a href='?showinfo&markinfo'>$markinfo</a> чел."; 
     echo "</div>"; 
 } 

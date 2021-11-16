@@ -100,15 +100,15 @@ echo '</div>';
 }
 if (isset($_GET['sort']) && $_GET['sort'] =='t'){
 echo'<div class="foot">';
-echo"<b>Новые</b> | <a href='?id=$id_dir&amp;sort=c'>Популярные</a>\n";
+echo"<b>Новые</b> | <a href='?id=$id_dir&amp;sort=c'>Популярные</a>";
 echo '</div>';
 }elseif (isset($_GET['sort']) && $_GET['sort'] =='c'){
 echo'<div class="foot">';
-echo"<a href='?id=$id_dir&amp;sort=t'>Новые</a> | <b>Популярные</b>\n";
+echo"<a href='?id=$id_dir&amp;sort=t'>Новые</a> | <b>Популярные</b>";
 echo '</div>';
 }else{
 echo'<div class="foot">';
-echo"<b>Новые</b> | <a href='?id=$id_dir&amp;sort=c'>Популярные</a>\n";
+echo"<b>Новые</b> | <a href='?id=$id_dir&amp;sort=c'>Популярные</a>";
 echo '</div>';
 }
 $k_post=dbresult(dbquery("SELECT COUNT(*) FROM `notes`  WHERE `id_dir` = '$id_dir'"),0);
@@ -120,9 +120,9 @@ $q=dbquery("SELECT * FROM `notes` WHERE `id_dir` = '$id_dir' $order LIMIT $start
 if ($k_post==0)
 {
 
-echo "  <div class='mess'>\n";
-echo "Нет записей\n";
-echo "  </div>\n";
+echo "  <div class='mess'>";
+echo "Нет записей";
+echo "  </div>";
 
 }
 $num=0;
@@ -130,25 +130,25 @@ while ($post = dbassoc($q))
 {
 /*-----------зебра-----------*/
 if ($num==0)
-{echo "  <div class='nav1'>\n";
+{echo "  <div class='nav1'>";
 $num=1;
 }elseif ($num==1)
-{echo "  <div class='nav2'>\n";
+{echo "  <div class='nav2'>";
 $num=0;}
 /*---------------------------*/
 
 
 echo "<img src='/style/icons/dnev.png' alt='*'> ";
 
-echo "<a href='list.php?id=$post[id]&amp;dir=$post[id_dir]'>" . htmlspecialchars($post['name']) . "</a> \n";
+echo "<a href='list.php?id=$post[id]&amp;dir=$post[id_dir]'>" . htmlspecialchars($post['name']) . "</a> ";
 
-echo " <span style='time'>(".vremja($post['time']).")</span>\n";
+echo " <span style='time'>(".vremja($post['time']).")</span>";
 
 $k_n= dbresult(dbquery("SELECT COUNT(*) FROM `notes` WHERE `id` = $post[id] AND `time` > '".$ftime."'",$db), 0);
 if ($k_n!=0)echo " <img src='/style/icons/new.gif' alt='*'>";
 
 
-echo "   </div>\n";
+echo "   </div>";
 }
 
 if (isset($_GET['sort'])) $dop="sort=" . my_esc($_GET['sort']) . "&amp;";
@@ -167,22 +167,22 @@ exit;
 */
 $k_post=dbresult(dbquery("SELECT COUNT(*) FROM `notes_dir` "),0);
 $q=dbquery("SELECT * FROM `notes_dir` ORDER BY `id` DESC");
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 if ($k_post==0)
 {
-echo "  <div class='mess'>\n";
-echo "Нет категорий\n";
-echo "  </div>\n";
+echo "  <div class='mess'>";
+echo "Нет категорий";
+echo "  </div>";
 }
 $num=0;
 while ($post = dbassoc($q))
 {
 /*-----------зебра-----------*/
 if ($num==0)
-{echo "  <div class='nav1'>\n";
+{echo "  <div class='nav1'>";
 $num=1;
 }elseif ($num==1)
-{echo "  <div class='nav2'>\n";
+{echo "  <div class='nav2'>";
 $num=0;}
 /*---------------------------*/
 
@@ -194,38 +194,38 @@ $k_nn="<font color='red'>+$k_nn</font>";
 else
 $k_nn=NULL;
 
-echo "<a href='dir.php?id=$post[id]'>" . output_text($post['name']) . "</a> ($k_pp) $k_nn\n";
+echo "<a href='dir.php?id=$post[id]'>" . output_text($post['name']) . "</a> ($k_pp) $k_nn";
 
 
 if (isset($user) && ($user['level']>3))
-echo "<a href='delete.php?dir=$post[id]'><img src='/style/icons/delete.gif' alt='*'></a><br />\n";
+echo "<a href='delete.php?dir=$post[id]'><img src='/style/icons/delete.gif' alt='*'></a><br />";
 //$k_n= dbresult(dbquery("SELECT COUNT(*) FROM `notes` WHERE `id_dir` = $post[id] AND `time` > '".$ftime."'",$db), 0);
 
-echo output_text($post['msg'])."<br />\n";
+echo output_text($post['msg'])."<br />";
 
-echo "   </div>\n";
+echo "   </div>";
 }
-echo "</table>\n";
+echo "</table>";
 
 
 if (isset($user) && user_access('notes_edit')){
 if (isset($_GET['create'])){
-echo "<form method=\"post\" action=\"dir.php\">\n";
-echo "Название:<br />\n<input name=\"title\" size=\"16\" maxlength=\"32\" value=\"\" type=\"text\" /><br />\n";
-echo "Описание:<br />\n<textarea name=\"msg\" ></textarea><br />\n";
+echo "<form method=\"post\" action=\"dir.php\">";
+echo "Название:<br /><input name=\"title\" size=\"16\" maxlength=\"32\" value=\"\" type=\"text\" /><br />";
+echo "Описание:<br /><textarea name=\"msg\" ></textarea><br />";
 
-echo "<input value=\"Создать\" type=\"submit\" />\n";
-echo "</form>\n";
+echo "<input value=\"Создать\" type=\"submit\" />";
+echo "</form>";
 }else{
-echo "<div class='foot'>\n";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='dir.php?create'>Добавить категорию</a><br />\n";
-echo "</div>\n";
+echo "<div class='foot'>";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='dir.php?create'>Добавить категорию</a><br />";
+echo "</div>";
 }
 }
 
-echo "<div class='foot'>\n";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Все дневники</a><br />\n";
-echo "</div>\n";
+echo "<div class='foot'>";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Все дневники</a><br />";
+echo "</div>";
 
 include_once '../../sys/inc/tfoot.php';
 ?>

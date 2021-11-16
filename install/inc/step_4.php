@@ -121,20 +121,20 @@ $_SESSION['adm_reg_ok']=true;
 
 if (isset($_SESSION['adm_reg_ok']) && $_SESSION['adm_reg_ok']==true)
 {
-echo "<div class='msg'>管理员注册成功</div>\n";
+echo "<div class='msg'>管理员注册成功</div>";
 if (isset($msg))
 {
 foreach ($msg as $key=>$value) {
-echo "<div class='msg'>$value</div>\n";
+echo "<div class='msg'>$value</div>";
 }
 }
-echo "<hr />\n";
-echo "<form method=\"get\" action=\"index.php\">\n";
-echo "<input name='gen' value='$passgen' type='hidden' />\n";
-echo "<input name=\"step\" value=\"".($_SESSION['install_step']+1)."\" type=\"hidden\" />\n";
-echo "<input value='完成安装' type=\"submit\" />\n";
-echo "</form>\n";
-echo "* 安装后，请务必删除文件夹 /install/<br />\n";
+echo "<hr />";
+echo "<form method=\"get\" action=\"index.php\">";
+echo "<input name='gen' value='$passgen' type='hidden' />";
+echo "<input name=\"step\" value=\"".($_SESSION['install_step']+1)."\" type=\"hidden\" />";
+echo "<input value='完成安装' type=\"submit\" />";
+echo "</form>";
+echo "* 安装后，请务必删除文件夹 /install/<br />";
 }
 else
 {
@@ -142,32 +142,32 @@ else
 if (isset($err))
 {
 foreach ($err as $key=>$value) {
-echo "<div class='err'>$value</div>\n";
+echo "<div class='err'>$value</div>";
 }
-echo "<hr />\n";
+echo "<hr />";
 }
 
 
-echo "<form action='index.php?$passgen' method='post'>\n";
-echo "登录名 (3-16 字符):<br />\n<input type='text' name='nick'".((isset($nick))?" value='".$nick."'":" value='Admin'")." maxlength='16' /><br />\n";
-echo "密码 (6-16 字符):<br />\n<input type='password'".((isset($password))?" value='".$password."'":null)." name='password' maxlength='16' /><br />\n";
-echo "* 使用简单的密码使黑客的生活更轻松<br />\n";
-echo "确认密码:<br />\n<input type='password'".((isset($password))?" value='".$password."'":null)." name='password_retry' maxlength='16' /><br />\n";
+echo "<form action='index.php?$passgen' method='post'>";
+echo "登录名 (3-16 字符):<br /><input type='text' name='nick'".((isset($nick))?" value='".$nick."'":" value='Admin'")." maxlength='16' /><br />";
+echo "密码 (6-16 字符):<br /><input type='password'".((isset($password))?" value='".$password."'":null)." name='password' maxlength='16' /><br />";
+echo "* 使用简单的密码使黑客的生活更轻松<br />";
+echo "确认密码:<br /><input type='password'".((isset($password))?" value='".$password."'":null)." name='password_retry' maxlength='16' /><br />";
 
 
-echo "您的性别:<br />\n";
-echo "<select name='pol'>\n";
-echo "<option value='1'".((isset($pol) && $pol===1)?" selected='selected'":null).">男性的</option>\n";
-echo "<option value='0'".((isset($pol) && $pol===0)?" selected='selected'":null).">妇女的</option>\n";
-echo "</select><br />\n";
+echo "您的性别:<br />";
+echo "<select name='pol'>";
+echo "<option value='1'".((isset($pol) && $pol===1)?" selected='selected'":null).">男性的</option>";
+echo "<option value='0'".((isset($pol) && $pol===0)?" selected='selected'":null).">妇女的</option>";
+echo "</select><br />";
 
 
-echo "* 所有字段都必须填写<br />\n";
-echo "<input type='submit' name='reg' value='注册' /><br />\n";
-echo "</form>\n";
+echo "* 所有字段都必须填写<br />";
+echo "<input type='submit' name='reg' value='注册' /><br />";
+echo "</form>";
 }
-echo "<hr />\n";
-echo "<b>步骤: $_SESSION[install_step]</b>\n";
+echo "<hr />";
+echo "<b>步骤: $_SESSION[install_step]</b>";
 
 include_once 'inc/foot.php'; //设计主题的底部
 ?>

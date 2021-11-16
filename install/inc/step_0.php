@@ -31,14 +31,14 @@ echo "</form>";
 	</div>		<hr />	要继续使用此版本，您必须同意以下条件:<br /> <b>您是否承诺不在不购买许可证的情况下拍摄文案？</b><br />
 <?
 
-echo "<form method='get' action='index.php'>\n";
-echo "<input name='step' value='".($_SESSION['install_step']+1)."' type='hidden' />\n";
-echo "<input name='gen' value='$passgen' type='hidden' />\n";
-echo "<input value='是的，我同意' name='yes' type='submit' />\n";
-echo "<input value='不，再见' name='no' type=\"submit\" /><br />\n";
-echo "</form>\n";
+echo "<form method='get' action='index.php'>";
+echo "<input name='step' value='".($_SESSION['install_step']+1)."' type='hidden' />";
+echo "<input name='gen' value='$passgen' type='hidden' />";
+echo "<input value='是的，我同意' name='yes' type='submit' />";
+echo "<input value='不，再见' name='no' type=\"submit\" /><br />";
+echo "</form>";
 
-echo "<hr />\n";
-echo "<b>步骤: $_SESSION[install_step]</b>\n";
+echo "<hr />";
+echo "<b>步骤: $_SESSION[install_step]</b>";
 include_once 'inc/foot.php'; //设计主题的底部
 ?>

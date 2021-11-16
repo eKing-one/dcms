@@ -96,8 +96,8 @@ class Archive_Tar extends PEAR
                 $this->_compress = true;
                 $this->_compress_type = 'bz2';
             } else {
-                die("Unsupported compression type '$p_compress'\n".
-                    "Supported types are 'gz' and 'bz2'.\n");
+                die("Unsupported compression type '$p_compress'".
+                    "Supported types are 'gz' and 'bz2'.");
                 return false;
             }
         }
@@ -112,9 +112,9 @@ class Archive_Tar extends PEAR
                 PEAR::loadExtension($extname);
             }
             if (!extension_loaded($extname)) {
-                die("The extension '$extname' couldn't be found.\n".
+                die("The extension '$extname' couldn't be found.".
                     "Please make sure your version of PHP was built ".
-                    "with '$extname' support.\n");
+                    "with '$extname' support.");
                 return false;
             }
         }

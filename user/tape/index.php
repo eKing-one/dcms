@@ -150,9 +150,9 @@ $q = dbquery("SELECT * FROM `tape` WHERE `id_user` = '$user[id]' ORDER BY `time`
 
 if ($k_post == 0)
 {
-	echo "  <div class='mess'>\n";
-	echo "Нет новых событий\n";
-	echo "  </div>\n";
+	echo "  <div class='mess'>";
+	echo "Нет новых событий";
+	echo "  </div>";
 }
 
 while ($post = dbassoc($q))

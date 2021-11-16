@@ -155,7 +155,7 @@ exit;
 }
 if (isset($_GET['act']) && $_GET['act']=='post_delete' && (user_access('forum_post_ed') || isset($user) && $ank2['id']==$user['id']))
 {
-echo "<form method='post' action='/forum/$forum[id]/$razdel[id]/$them[id]/?act=post_delete&amp;ok'>\n";
+echo "<form method='post' action='/forum/$forum[id]/$razdel[id]/$them[id]/?act=post_delete&amp;ok'>";
 }
 
 ?>

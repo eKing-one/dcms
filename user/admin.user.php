@@ -70,7 +70,7 @@ $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
 $q = dbquery("SELECT * FROM `user` WHERE $gr ORDER BY `date_last` DESC LIMIT $start, $set[p_str]");
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 if ($k_post == 0) {
 	echo '<div class="mess">';
 	echo '列表为空';
@@ -92,14 +92,14 @@ while ($ank = dbassoc($q)) {
 	} elseif ($set['set_show_icon'] == 1) {
 		echo "" . status($ank['id']) . "";
 	}
-	echo "<a href='/info.php?id=$ank[id]'>$ank[nick]</a>\n";
+	echo "<a href='/info.php?id=$ank[id]'>$ank[nick]</a>";
 	echo "" . medal($ank['id']) . " " . online($ank['id']) . " <br />";
 	echo "$ank[group_name]";
 	if ($ank['id'] != $user['id']) {
-		echo "<br /> <a href=\"/mail.php?id=$ank[id]\"><img src='/style/icons/pochta.gif' alt='*' /> 信息</a> \n";
+		echo "<br /> <a href=\"/mail.php?id=$ank[id]\"><img src='/style/icons/pochta.gif' alt='*' /> 信息</a> ";
 	}
-	echo "</div>\n";
+	echo "</div>";
 }
-echo "</table>\n";
+echo "</table>";
 if ($k_page > 1) str("?", $k_page, $page); // Вывод страниц
 include_once '../sys/inc/tfoot.php';

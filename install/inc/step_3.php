@@ -82,51 +82,51 @@ $_SESSION['mysql_ok']=true;
 
 if (isset($_SESSION['mysql_ok']) && $_SESSION['mysql_ok']==true)
 {
-echo "<div class='msg'>数据库连接成功</div>\n";
+echo "<div class='msg'>数据库连接成功</div>";
 
 if (isset($msg))
 {
 foreach ($msg as $key=>$value) {
-echo "<div class='msg'>$value</div>\n";
+echo "<div class='msg'>$value</div>";
 }
 }
 if (isset($err))
 {
 foreach ($err as $key=>$value) {
-echo "<div class='err'>$value</div>\n";
+echo "<div class='err'>$value</div>";
 }
 }
-echo "<hr />\n";
-echo "<form method=\"get\" action=\"index.php\">\n";
-echo "<input name=\"step\" value=\"".($_SESSION['install_step']+1)."\" type=\"hidden\" />\n";
-echo "<input value=\"".(isset($err)?'尚未准备好安装':'继续')."\" type=\"submit\"".(isset($err)?' disabled="disabled"':null)." />\n";
-echo "</form>\n";
+echo "<hr />";
+echo "<form method=\"get\" action=\"index.php\">";
+echo "<input name=\"step\" value=\"".($_SESSION['install_step']+1)."\" type=\"hidden\" />";
+echo "<input value=\"".(isset($err)?'尚未准备好安装':'继续')."\" type=\"submit\"".(isset($err)?' disabled="disabled"':null)." />";
+echo "</form>";
 }
 else
 {
 if (isset($err))
 {
 foreach ($err as $key=>$value) {
-echo "<div class='err'>$value</div>\n";
+echo "<div class='err'>$value</div>";
 }
 }
-echo "<form method=\"post\" action=\"index.php?$passgen\">\n";
-echo "主机:<br />\n";
-echo "<input name=\"host\" value=\"$set[mysql_host]\" type=\"text\" /><br />\n";
-echo "用户:<br />\n";
-echo "<input name=\"user\" value=\"$set[mysql_user]\" type=\"text\" /><br />\n";
-echo "密码:<br />\n";
-echo "<input name=\"pass\" value=\"$set[mysql_pass]\" type=\"text\" /><br />\n";
-echo "基地名称:<br />\n";
-echo "<input name=\"db\" value=\"$set[mysql_db_name]\" type=\"text\" /><br />\n";
+echo "<form method=\"post\" action=\"index.php?$passgen\">";
+echo "主机:<br />";
+echo "<input name=\"host\" value=\"$set[mysql_host]\" type=\"text\" /><br />";
+echo "用户:<br />";
+echo "<input name=\"user\" value=\"$set[mysql_user]\" type=\"text\" /><br />";
+echo "密码:<br />";
+echo "<input name=\"pass\" value=\"$set[mysql_pass]\" type=\"text\" /><br />";
+echo "基地名称:<br />";
+echo "<input name=\"db\" value=\"$set[mysql_db_name]\" type=\"text\" /><br />";
 if (isset($db_not_null))
-echo "<label><input type='checkbox' checked='checked' name='rename' value='1' /> 重命名现有表<br /></label>\n";
-echo "<br /><input value=\"Далее\" type=\"submit\" />\n";
-echo "</form>\n";
+echo "<label><input type='checkbox' checked='checked' name='rename' value='1' /> 重命名现有表<br /></label>";
+echo "<br /><input value=\"Далее\" type=\"submit\" />";
+echo "</form>";
 }
 
-echo "<hr />\n";
-echo "<b>步骤: $_SESSION[install_step]</b>\n";
+echo "<hr />";
+echo "<b>步骤: $_SESSION[install_step]</b>";
 
 include_once 'inc/foot.php'; //设计主题的底部
 ?>

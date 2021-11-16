@@ -111,12 +111,12 @@ echo "</div>";
 echo "<div class='webmenu last'>";echo "<a href='/user/info/secure.php' >Пароль</a>";echo "</div>"; 
 echo "</div>";
 
-echo "<form method='post' action='?$passgen'>\n";
+echo "<form method='post' action='?$passgen'>";
 
-echo "Автообновление в чате:<br />\n<input type='text' name='set_time_chat' value='$set[time_chat]' maxlength='3' /><br />\n";
-echo "Пунктов на страницу:<br />\n<input type='text' name='set_p_str' value='$set[p_str]' maxlength='3' /><br />\n";
+echo "Автообновление в чате:<br /><input type='text' name='set_time_chat' value='$set[time_chat]' maxlength='3' /><br />";
+echo "Пунктов на страницу:<br /><input type='text' name='set_p_str' value='$set[p_str]' maxlength='3' /><br />";
 
-echo "Тема (".($webbrowser?'WEB':'WAP')."):<br />\n<select name='set_them".($webbrowser?'2':null)."'>\n";
+echo "Тема (".($webbrowser?'WEB':'WAP')."):<br /><select name='set_them".($webbrowser?'2':null)."'>";
 $opendirthem=opendir(H.'style/themes');
 while ($themes=readdir($opendirthem)){
 // пропускаем корневые папки и файлы
@@ -124,40 +124,40 @@ if ($themes=='.' || $themes=='..' || !is_dir(H."style/themes/$themes"))continue;
 // пропускаем темы для определенных браузеров
 if (file_exists(H."style/themes/$themes/.only_for_".($webbrowser?'wap':'web')))continue;
 
-echo "<option value='$themes'".($user['set_them'.($webbrowser?'2':null)]==$themes?" selected='selected'":null).">".trim(file_get_contents(H.'style/themes/'.$themes.'/them.name'))."</option>\n";
+echo "<option value='$themes'".($user['set_them'.($webbrowser?'2':null)]==$themes?" selected='selected'":null).">".trim(file_get_contents(H.'style/themes/'.$themes.'/them.name'))."</option>";
 }
 closedir($opendirthem);
-echo "</select><br />\n";echo "Выгрузка файлов:<br />\n<select name='set_files'>\n";
-echo "<option value='1'".($user['set_files']==1?" selected='selected'":null).">Показывать поле</option>\n";
-echo "<option value='0'".($user['set_files']==0?" selected='selected'":null).">Не использовать выгрузку</option>\n";
-echo "</select><br />\n";
+echo "</select><br />";echo "Выгрузка файлов:<br /><select name='set_files'>";
+echo "<option value='1'".($user['set_files']==1?" selected='selected'":null).">Показывать поле</option>";
+echo "<option value='0'".($user['set_files']==0?" selected='selected'":null).">Не использовать выгрузку</option>";
+echo "</select><br />";
 
-echo "Местоположение:<br />\n<select name='show_url'>\n";
-echo "<option value='1'".($user['show_url']==1?" selected='selected'":null).">Показывать</option>\n";
-echo "<option value='0'".($user['show_url']==0?" selected='selected'":null).">Скрывать</option>\n";
-echo "</select><br />\n";
+echo "Местоположение:<br /><select name='show_url'>";
+echo "<option value='1'".($user['show_url']==1?" selected='selected'":null).">Показывать</option>";
+echo "<option value='0'".($user['show_url']==0?" selected='selected'":null).">Скрывать</option>";
+echo "</select><br />";
 
-echo "Добавление контактов:<br />\n<select name='add_konts'>\n";
-echo "<option value='2'".($user['add_konts']==2?" selected='selected'":null).">При чтении сообщений</option>\n";
-echo "<option value='1'".($user['add_konts']==1?" selected='selected'":null).">При написании сообщения</option>\n";
-echo "<option value='0'".($user['add_konts']==0?" selected='selected'":null).">Только вручную</option>\n";
-echo "</select><br />\n";
+echo "Добавление контактов:<br /><select name='add_konts'>";
+echo "<option value='2'".($user['add_konts']==2?" selected='selected'":null).">При чтении сообщений</option>";
+echo "<option value='1'".($user['add_konts']==1?" selected='selected'":null).">При написании сообщения</option>";
+echo "<option value='0'".($user['add_konts']==0?" selected='selected'":null).">Только вручную</option>";
+echo "</select><br />";
 
-echo "Время<br />\n<select name=\"set_timesdvig\"><br />\n";
+echo "Время<br /><select name=\"set_timesdvig\"><br />";
 for ($i=-12;$i<12;$i++){
-echo "<option value='$i'".($user['set_timesdvig']==$i?" selected='selected'":null).">".date("G:i", $time+$i*60*60)."</option>\n";}
-echo "</select><br />\n";
+echo "<option value='$i'".($user['set_timesdvig']==$i?" selected='selected'":null).">".date("G:i", $time+$i*60*60)."</option>";}
+echo "</select><br />";
 
 if ($user['ank_mail'])
-echo "<label><input type='checkbox' name='set_news_to_mail'".($user['set_news_to_mail']?" checked='checked'":null)." value='1' /> Получать новости на E-mail</label><br />\n";
+echo "<label><input type='checkbox' name='set_news_to_mail'".($user['set_news_to_mail']?" checked='checked'":null)." value='1' /> Получать новости на E-mail</label><br />";
 echo "Показ эротического материала без предупреждений:<br />";echo "<input name='metka'".($user['abuld']==0?" checked='checked'":null)."  type='radio' value='0' />Вкл ";echo "<input name='metka'".($user['abuld']==1?" checked='checked'":null)."  type='radio' value='1' />Выкл<br />";
 
-echo "<input type='submit' name='save' value='Сохранить' />\n";
-echo "</form>\n";
+echo "<input type='submit' name='save' value='Сохранить' />";
+echo "</form>";
 
-echo "<div class=\"foot\">\n";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$user[id]'>$user[nick]</a> | \n";
+echo "<div class=\"foot\">";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$user[id]'>$user[nick]</a> | ";
 echo '<b>Общие</b>';
-echo "</div>\n";
+echo "</div>";
 include_once '../../sys/inc/tfoot.php';
 ?>

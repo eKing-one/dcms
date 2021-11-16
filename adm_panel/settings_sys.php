@@ -70,26 +70,26 @@ aut();
 
 
 
-echo "<form method=\"post\" action=\"?\">\n";
+echo "<form method=\"post\" action=\"?\">";
 
-echo "Название сайта:<br />\n<input name=\"title\" value=\"$temp_set[title]\" type=\"text\" /><br />\n";
-echo "Пунктов на страницу:<br />\n<input name=\"p_str\" value=\"$temp_set[p_str]\" type=\"text\" /><br />\n";
+echo "Название сайта:<br /><input name=\"title\" value=\"$temp_set[title]\" type=\"text\" /><br />";
+echo "Пунктов на страницу:<br /><input name=\"p_str\" value=\"$temp_set[p_str]\" type=\"text\" /><br />";
 
 
 
-echo "Тема (WAP):<br />\n<select name='set_them'>\n";
+echo "Тема (WAP):<br /><select name='set_them'>";
 $opendirthem=opendir(H.'style/themes');
 while ($themes=readdir($opendirthem)){
 // пропускаем корневые папки и файлы
 if ($themes=='.' || $themes=='..' || !is_dir(H."style/themes/$themes"))continue;
 // пропускаем темы для web браузеров
 if (file_exists(H."style/themes/$themes/.only_for_web"))continue;
-echo "<option value='$themes'".($temp_set['set_them']==$themes?" selected='selected'":null).">".trim(file_get_contents(H.'style/themes/'.$themes.'/them.name'))."</option>\n";
+echo "<option value='$themes'".($temp_set['set_them']==$themes?" selected='selected'":null).">".trim(file_get_contents(H.'style/themes/'.$themes.'/them.name'))."</option>";
 }
 closedir($opendirthem);
-echo "</select><br />\n";
+echo "</select><br />";
 
-echo "Тема (WEB):<br />\n<select name='set_them2'>\n";
+echo "Тема (WEB):<br /><select name='set_them2'>";
 $opendirthem=opendir(H.'style/themes');
 
 while ($themes=readdir($opendirthem)){
@@ -97,38 +97,38 @@ while ($themes=readdir($opendirthem)){
 if ($themes=='.' || $themes=='..' || !is_dir(H."style/themes/$themes"))continue;
 // пропускаем темы для wap браузеров
 if (file_exists(H."style/themes/$themes/.only_for_wap"))continue;
-echo "<option value='$themes'".($temp_set['set_them2']==$themes?" selected='selected'":null).">".trim(file_get_contents(H.'style/themes/'.$themes.'/them.name'))."</option>\n";
+echo "<option value='$themes'".($temp_set['set_them2']==$themes?" selected='selected'":null).">".trim(file_get_contents(H.'style/themes/'.$themes.'/them.name'))."</option>";
 }
 closedir($opendirthem);
-echo "</select><br />\n";
-echo "Ключевые слова (META):<br />\n";
-echo "<textarea name='meta_keywords'>$temp_set[meta_keywords]</textarea><br />\n";
-echo "Описание (META):<br />\n";
-echo "<textarea name='meta_description'>$temp_set[meta_description]</textarea><br />\n";
+echo "</select><br />";
+echo "Ключевые слова (META):<br />";
+echo "<textarea name='meta_keywords'>$temp_set[meta_keywords]</textarea><br />";
+echo "Описание (META):<br />";
+echo "<textarea name='meta_description'>$temp_set[meta_description]</textarea><br />";
 
 
-echo "<label><input type='checkbox'".($temp_set['antidos']?" checked='checked'":null)." name='antidos' value='1' /> Анти-Dos*</label><br />\n";
-echo "<label><input type='checkbox'".($temp_set['antimat']?" checked='checked'":null)." name='antimat' value='1' /> Анти-Мат</label><br />\n";
+echo "<label><input type='checkbox'".($temp_set['antidos']?" checked='checked'":null)." name='antidos' value='1' /> Анти-Dos*</label><br />";
+echo "<label><input type='checkbox'".($temp_set['antimat']?" checked='checked'":null)." name='antimat' value='1' /> Анти-Мат</label><br />";
 
-echo "Ошибки интерпретатора:<br />\n<select name=\"show_err_php\">\n";
-echo "<option value='0'".($temp_set['show_err_php']==0?" selected='selected'":null).">Скрывать</option>\n";
-echo "<option value='1'".($temp_set['show_err_php']==1?" selected='selected'":null).">Показывать администрации</option>\n";
-echo "</select><br />\n";
-
-
+echo "Ошибки интерпретатора:<br /><select name=\"show_err_php\">";
+echo "<option value='0'".($temp_set['show_err_php']==0?" selected='selected'":null).">Скрывать</option>";
+echo "<option value='1'".($temp_set['show_err_php']==1?" selected='selected'":null).">Показывать администрации</option>";
+echo "</select><br />";
 
 
-echo "E-mail для BackUp:<br />\n<input type='text' name='mail_backup' value='$temp_set[mail_backup]'  /><br />\n";
 
-echo "<br />\n";
-echo "* Анти-Dos - защита от частых запросов с одного IP-адреса<br />\n";
-echo "<input value=\"Изменить\" name='save' type=\"submit\" />\n";
-echo "</form>\n";
+
+echo "E-mail для BackUp:<br /><input type='text' name='mail_backup' value='$temp_set[mail_backup]'  /><br />";
+
+echo "<br />";
+echo "* Анти-Dos - защита от частых запросов с одного IP-адреса<br />";
+echo "<input value=\"Изменить\" name='save' type=\"submit\" />";
+echo "</form>";
 
 if (user_access('adm_panel_show')){
-echo "<div class='foot'>\n";
-echo "&laquo;<a href='/adm_panel/'>В админку</a><br />\n";
-echo "</div>\n";
+echo "<div class='foot'>";
+echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
+echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
 ?>

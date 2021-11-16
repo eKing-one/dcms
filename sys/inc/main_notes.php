@@ -8,7 +8,7 @@ while($post=dbassoc($q)){
 $note_name = '<a href="/plugins/notes/list.php?id='.$post['id'].'"><span style="color:#06f">'.text($post['name']).'</span></a>';
 $note_text =$post['msg'];
 $count_comm =dbresult(dbquery("SELECT COUNT(`id`) FROM `notes_komm` WHERE `id_notes`='".$post['id']."'"),0);
-echo "<div style='border-bottom:1px #d5dde5 solid;' class='nav2'>\n";
+echo "<div style='border-bottom:1px #d5dde5 solid;' class='nav2'>";
 ?><?=group($post['id_user']);?> 
 <?=user::nick($post['id_user'],1,1,1);?> : <?=$note_name;?>
 <br/>

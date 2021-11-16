@@ -19,28 +19,28 @@ $k_page=k_page($k_post,$set['p_str']);
 $page=page($k_page);
 $start=$set['p_str']*$page-$set['p_str'];
 $q = dbquery("SELECT * FROM `user` WHERE `date_last` > '".(time()-600)."' AND `url` like '/forum/%' ORDER BY `date_last` DESC LIMIT $start, $set[p_str]");
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 if ($k_post==0)
 {
-echo "   <tr>\n";
-echo "  <td class='p_t'>\n";
-echo "Нет никого\n";
-echo "  </td>\n";
-echo "   </tr>\n";
+echo "   <tr>";
+echo "  <td class='p_t'>";
+echo "Нет никого";
+echo "  </td>";
+echo "   </tr>";
 }
 while ($forum = dbarray($q))
 {
 	echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 	$num++;
 	echo avatar($forum['id']) . group($forum['id']);
-	echo " <a href='/info.php?id=$forum[id]'>$forum[nick]</a>\n";
-	echo " ".medal($forum['id'])."  ".online($forum['id'])."</td>\n";
-	echo "</div>\n"; 
+	echo " <a href='/info.php?id=$forum[id]'>$forum[nick]</a>";
+	echo " ".medal($forum['id'])."  ".online($forum['id'])."</td>";
+	echo "</div>"; 
 }
-echo "</table>\n";
+echo "</table>";
 if ($k_page>1)str("?",$k_page,$page); // Вывод страниц
 echo "<div class='foot'>
 	  &laquo;<a href='/forum/'>Назад в форум</a><br />
-	  </div>\n";
+	  </div>";
 include_once '../sys/inc/tfoot.php';
 ?>

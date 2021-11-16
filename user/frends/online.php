@@ -25,7 +25,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0)
 {
 	if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) // Начинаем вывод если стр имеет приват настройки
 	{
-		if ($ank['group_access']>1)echo "<div class='err'>$ank[group_name]</div>\n";
+		if ($ank['group_access']>1)echo "<div class='err'>$ank[group_name]</div>";
 		echo "<div class='nav1'>";
 		echo group($ank['id'])." ";
 		echo user::nick($ank['id'],1,1,1);
@@ -46,12 +46,12 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0)
 
 			echo '<div class="nav1">';
 			if ($frend_new == 0 && $frend==0){
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=".$ank['id']."'>Добавить в друзья</a><br />\n";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=".$ank['id']."'>Добавить в друзья</a><br />";
 			}elseif ($frend_new == 1){
 
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$ank[id]'>Отклонить заявку</a><br />\n";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$ank[id]'>Отклонить заявку</a><br />";
 			}elseif ($frend == 2){
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>Удалить из друзей</a><br />\n";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>Удалить из друзей</a><br />";
 			}
 			echo "</div>";}
 	include_once '../sys/inc/tfoot.php';
@@ -142,10 +142,10 @@ echo '<img class="friends" style="width:'.($webbrowser ? '80px;' : '50px;').'" s
 }
 echo '</td><td style="width:80%;">';
 if (isset($user) && $user['id']==$ank['id'])echo " <input type='checkbox' name='post_$frend[id]' value='1' /> ";
-echo " ".group($frend['id'])." \n";
+echo " ".group($frend['id'])." ";
 echo user::nick($frend['id'],1,1,1);
 echo '<br/><img src="/style/icons/alarm.png"> '.($webbrowser ? 'Посл. активность:' : null ).' '.vremja($frend['date_last']).' </td><td style="width:18px;">';
-if (isset($user)){	echo "<a href=\"/mail.php?id=$frend[id]\"><img src='/style/icons/pochta.gif' alt='*' /></a><br/>\n";	
+if (isset($user)){	echo "<a href=\"/mail.php?id=$frend[id]\"><img src='/style/icons/pochta.gif' alt='*' /></a><br/>";	
 		if ($ank['id']==$user['id'])			echo "<a href='create.php?del=$frend[id]'><img src='/style/icons/delete.gif' alt='*' /></a>";
 }
 echo '</td></table></div>';

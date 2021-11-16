@@ -116,8 +116,8 @@ if (count($res)!=0)
         } 
         else 
         { 
-            echo esc(br(bbcode(preg_replace($searched['mark'], "<span class='search_cit'>1</span>",htmlentities($them['msg'], ENT_QUOTES, 'UTF-8')))))."\n"; 
-            echo "比赛总数: ".$them['k_post']."\n"; 
+            echo esc(br(bbcode(preg_replace($searched['mark'], "<span class='search_cit'>1</span>",htmlentities($them['msg'], ENT_QUOTES, 'UTF-8'))))).""; 
+            echo "比赛总数: ".$them['k_post'].""; 
         } 
     } 
      

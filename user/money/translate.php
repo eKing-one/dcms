@@ -84,11 +84,11 @@ aut();
 
 err();
 
-echo "<div class='foot'>\n";
+echo "<div class='foot'>";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | Перевод<br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | Перевод<br />";
 
-echo "</div>\n";
+echo "</div>";
 
 
 
@@ -100,15 +100,15 @@ echo '<div class="mess">';
 
 	if ($user['pol']==0){
 
-		echo "Извини <b>красавица,</b> \n";
+		echo "Извини <b>красавица,</b> ";
 
 	} else {
 
-		echo "<b>Извини братан,</b> \n";
+		echo "<b>Извини братан,</b> ";
 
 	}
 
-		echo "но чтобы переводить $sMonet[2] другим обитателям необходимо набрать минимум <b>2</b> $sMonet[2]<br/>У вас <b>$user[money] </b>$sMonet[0]\n";
+		echo "но чтобы переводить $sMonet[2] другим обитателям необходимо набрать минимум <b>2</b> $sMonet[2]<br/>У вас <b>$user[money] </b>$sMonet[0]";
 
 echo '</div>';
 
@@ -120,7 +120,7 @@ else
 
 echo '<div class="mess">';
 
-echo "Ваши $sMonet[2]: <b>$user[money]</b><br />\n";
+echo "Ваши $sMonet[2]: <b>$user[money]</b><br />";
 
 echo '</div>';
 
@@ -128,11 +128,11 @@ echo '</div>';
 
 echo "<form class='main' action=\"?id=$ank[id]&amp;act\" method=\"post\">";
 
-echo "Количество $sMonet[0]:<br />\n";
+echo "Количество $sMonet[0]:<br />";
 
-echo "<input type='text' name='money' value='1' /><br />\n";
+echo "<input type='text' name='money' value='1' /><br />";
 
-echo "<input class='submit' type='submit' value='Перевести' /><br />\n";
+echo "<input class='submit' type='submit' value='Перевести' /><br />";
 
 echo "</form>";
 
@@ -144,11 +144,11 @@ echo "</form>";
 
 
 
-echo "<div class='foot'>\n";
+echo "<div class='foot'>";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | Перевод<br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | Перевод<br />";
 
-echo "</div>\n";
+echo "</div>";
 
 include_once '../../sys/inc/tfoot.php';
 

@@ -1,8 +1,8 @@
 <?
 
 list($msec, $sec) = explode(chr(32), microtime());
-echo "<div class='foot'>\n";
-//echo "<a href='/' accesskey='0' title='На главную'>".(isset ($set['copy']) && $set['copy']!=null?$set['copy']:'На главную')."</a><br />\n";
+echo "<div class='foot'>";
+//echo "<a href='/' accesskey='0' title='На главную'>".(isset ($set['copy']) && $set['copy']!=null?$set['copy']:'На главную')."</a><br />";
 
 $page_size = ob_get_length(); 
 ob_end_flush(); 
@@ -15,8 +15,8 @@ echo '<center>
 您的流量: '.round($_SESSION['traf'] / 1024, 2).' KB <br />
 生成页面: '.round(($sec + $msec) - $conf['headtime'], 3).'秒
 	</center>'; 
-echo "</div>\n";
-echo "</div>\n</body>\n</html>";
+echo "</div>";
+echo "</div></body></html>";
 exit;
 
 ?>

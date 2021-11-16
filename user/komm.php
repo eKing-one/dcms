@@ -72,14 +72,14 @@ aut();
 
 
 $post=dbassoc(dbquery("SELECT * FROM `stena` WHERE `id` = '".abs(intval($_GET['id']))."' LIMIT 1"));
-echo "  <div class='nav2'>\n";
+echo "  <div class='nav2'>";
 echo "<table><td style='width:15%;vertical-align:top;'>"; echo avatar($post['id_user']);
 echo "</td><td style='vertical-align:top;'>";
 echo  group($post['id_user'])." ";
 echo user::nick($post['id_user'],1,1,1);
 echo " <span style='color:#666'>".vremja($post['time'])."</span><br/>";
 stena($post['id_user'],$post['id']);
-echo output_text($post['msg'])."<br />\n";
+echo output_text($post['msg'])."<br />";
 echo "</td></table></div>";
 
 
@@ -112,7 +112,7 @@ echo group($komm['id_user']).' ' ;
 echo user::nick($komm['id_user'],1,1,1);
 echo ' ('.vremja($komm['time']).')';
 echo "<br />";
-echo output_text($komm['msg'])."<br />\n";
+echo output_text($komm['msg'])."<br />";
 if (isset($user) && ($user['level']>=3 || $user['id'] == $post['id_user']))
 echo'<a href="?id='.$post['id'].'&del='.$komm['id'].'">移走</a><br />';
 echo'</div>';

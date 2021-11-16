@@ -82,16 +82,16 @@ if (isset($_POST['nick']) && isset($_POST['mail']) && $_POST['nick'] != NULL && 
 ";
 
 
-        $adds = "From: \"password@$_SERVER[HTTP_HOST]\" <password@$_SERVER[HTTP_HOST]>\n";
+        $adds = "From: \"password@$_SERVER[HTTP_HOST]\" <password@$_SERVER[HTTP_HOST]>";
 
 
-        //$adds = "From: <$set[reg_mail]>\n";
+        //$adds = "From: <$set[reg_mail]>";
 
 
-        //$adds .= "X-sender: <$set[reg_mail]>\n";
+        //$adds .= "X-sender: <$set[reg_mail]>";
 
 
-        $adds .= "Content-Type: text/html; charset=utf-8\n";
+        $adds .= "Content-Type: text/html; charset=utf-8";
 
 
         mail($user2['ank_mail'], '=?utf-8?B?' . base64_encode($subject) . '?=', $regmail, $adds);
@@ -155,25 +155,25 @@ if (
     aut();
 
 
-    echo "<form action='/pass.php?id=$user2[id]&amp;set_new=" . esc($_GET['set_new'], 1) . "&amp;$passgen' method=\"post\">\n";
+    echo "<form action='/pass.php?id=$user2[id]&amp;set_new=" . esc($_GET['set_new'], 1) . "&amp;$passgen' method=\"post\">";
 
 
-    echo "登入:<br />\n";
+    echo "登入:<br />";
 
 
-    echo "<input type=\"text\" disabled='disabled' value='$user2[nick]' maxlength=\"32\" size=\"16\" /><br />\n";
+    echo "<input type=\"text\" disabled='disabled' value='$user2[nick]' maxlength=\"32\" size=\"16\" /><br />";
 
 
-    echo "新密码:<br />\n<input type='password' name='pass1' value='' /><br />\n";
+    echo "新密码:<br /><input type='password' name='pass1' value='' /><br />";
 
 
-    echo "确认书:<br />\n<input type='password' name='pass2' value='' /><br />\n";
+    echo "确认书:<br /><input type='password' name='pass2' value='' /><br />";
 
 
-    echo "<input type='submit' name='save' value='要改变' />\n";
+    echo "<input type='submit' name='save' value='要改变' />";
 
 
-    echo "</form>\n";
+    echo "</form>";
 } else {
 
 
@@ -183,31 +183,31 @@ if (
     aut();
 
 
-    echo "<form action=\"?$passgen\" method=\"post\">\n";
+    echo "<form action=\"?$passgen\" method=\"post\">";
 
 
-    echo "登入:<br />\n";
+    echo "登入:<br />";
 
 
-    echo "<input type=\"text\" name=\"nick\" title=\"登入\" value=\"\" maxlength=\"32\" size=\"16\" /><br />\n";
+    echo "<input type=\"text\" name=\"nick\" title=\"登入\" value=\"\" maxlength=\"32\" size=\"16\" /><br />";
 
 
-    echo "E-mail:<br />\n";
+    echo "E-mail:<br />";
 
 
-    echo "<input type=\"text\" name=\"mail\" title=\"E-mail\" value=\"\" maxlength=\"32\" size=\"16\" /><br />\n";
+    echo "<input type=\"text\" name=\"mail\" title=\"E-mail\" value=\"\" maxlength=\"32\" size=\"16\" /><br />";
 
 
     echo "<input type=\"submit\" value=\"进一步\" title=\"进一步\" />";
 
 
-    echo "</form>\n";
+    echo "</form>";
 
 
-    echo "设置新密码的链接将发送到您的电子邮件。<br />\n";
+    echo "设置新密码的链接将发送到您的电子邮件。<br />";
 
 
-    echo "如果您在问卷中没有关于您的电子邮件的条目，密码恢复是不可能的。<br />\n";
+    echo "如果您在问卷中没有关于您的电子邮件的条目，密码恢复是不可能的。<br />";
 }
 
 

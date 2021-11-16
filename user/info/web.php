@@ -8,7 +8,7 @@ if (isset($user) && $user['id']!=$ank['id']){
 if (isset($_GET['fok'])){
 echo '<center>';
 echo "<div class='foot'><form action='/info.php?id=".$ank['id']."' method=\"post\">";
-echo "<input class=\"submit\" type=\"submit\" value=\"Закрыть\" />\n";
+echo "<input class=\"submit\" type=\"submit\" value=\"Закрыть\" />";
 echo "</form></div>";
 echo '</center>';
 }
@@ -17,8 +17,8 @@ if (isset($user) && isset($_GET['frends'])  && $frend_new==0 && $frend==0 ){
 if ($user['id']!=$ank['id']){
 echo '<center>';
 echo "<div class='err'>Пользователь должен будет подтвердить, что вы друзья.</div><div class='foot'><form action='/user/frends/create.php?add=".$ank['id']."' method=\"post\">";
-echo "<input class=\"submit\" type=\"submit\" value=\"Пригласить\" />\n";
-echo " <a href='/info.php?id=$ank[id]'>Отмена</a><br />\n";
+echo "<input class=\"submit\" type=\"submit\" value=\"Пригласить\" />";
+echo " <a href='/info.php?id=$ank[id]'>Отмена</a><br />";
 echo "</form></div>";
 echo '</center>';
 }
@@ -26,7 +26,7 @@ echo '</center>';
 /*---------------------------------------------------------*/
  // Должность на сайте
 if ($ank['group_access']>1) {
-	 echo "<div class='err'>$ank[group_name]</div>\n"; }?>
+	 echo "<div class='err'>$ank[group_name]</div>"; }?>
 <table class='table_info' cellspacing="0" cellpadding="0">
 <tr><td class='block_menu'>
 <?
@@ -125,8 +125,8 @@ else
 $color = null;
 $color2 = null;
 }
-echo "<a href='/user/myguest/index.php'>".$color."Гости".$color2."</a> \n";
-if($new_g!=0)echo "<font color=\"red\">+$new_g</font>\n";
+echo "<a href='/user/myguest/index.php'>".$color."Гости".$color2."</a> ";
+if($new_g!=0)echo "<font color=\"red\">+$new_g</font>";
 echo "</div>";
 }
 /*-------------------------------------------------------*/
@@ -145,8 +145,8 @@ echo "<div class='main'>";
 		if($k_notif > 0)
 		{
 			echo "<img src='/style/icons/notif.png' alt='*' /> ";
-			echo "<a href='/user/notification/index.php'><font color='red'>Уведомления</font></a> \n";
-			echo "<font color=\"red\">+$k_notif</font> \n";
+			echo "<a href='/user/notification/index.php'><font color='red'>Уведомления</font></a> ";
+			echo "<font color=\"red\">+$k_notif</font> ";
 			echo "<br />";
 		}
 		
@@ -159,10 +159,10 @@ echo "<div class='main'>";
 	$new_g=dbresult(dbquery("SELECT COUNT(*) FROM `discussions` WHERE `id_user` = '$user[id]' AND `count` > '0'"),0);
 		if($new_g!=0)
 		{
-			echo "<a href='/user/discussions/index.php'><font color='red'>Обсуждения</font></a> \n";
-			echo "<font color=\"red\">+$new_g</font> \n";
+			echo "<a href='/user/discussions/index.php'><font color='red'>Обсуждения</font></a> ";
+			echo "<font color=\"red\">+$new_g</font> ";
 		}else{
-			echo "<a href='/user/discussions/index.php'>Обсуждения</a> \n";
+			echo "<a href='/user/discussions/index.php'>Обсуждения</a> ";
 		}
 	echo "<br />";$k_l=dbresult(dbquery("SELECT COUNT(*) FROM `tape` WHERE `id_user` = '$user[id]'  AND  `read` = '0'"),0);
 if($k_l!=0)
@@ -174,24 +174,24 @@ else
 {
 $color = null;$color2 = null;
 }
-echo "<img src='/style/icons/lenta.gif' alt='*' /> <a href='/user/tape/'>".$color."Лента".$color2."</a> \n";
-if($k_l!=0)echo "<font color=\"red\">+$k_l</font>\n";echo "</div>";
+echo "<img src='/style/icons/lenta.gif' alt='*' /> <a href='/user/tape/'>".$color."Лента".$color2."</a> ";
+if($k_l!=0)echo "<font color=\"red\">+$k_l</font>";echo "</div>";
 }
 /*---------------------------------------*/
 
 echo "<div class='main2'>";
-echo "<img src='/style/my_menu/who_rating.png' alt='*' /> <a href='/user/info/who_rating.php?id=$ank[id]'><b>Отзывы</b></a> (".dbresult(dbquery("SELECT COUNT(*) FROM `user_voice2` WHERE `id_kont` = '".$ank['id']."'"),0).")<br />\n";
+echo "<img src='/style/my_menu/who_rating.png' alt='*' /> <a href='/user/info/who_rating.php?id=$ank[id]'><b>Отзывы</b></a> (".dbresult(dbquery("SELECT COUNT(*) FROM `user_voice2` WHERE `id_kont` = '".$ank['id']."'"),0).")<br />";
 echo "</div>";
 
 /*-----------------------------в друзья-------------------------*/
 if (isset($user) && $user['id']!=$ank['id']){
 echo "<div class='main'>";
 if ($frend_new==0 && $frend==0){
-echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/info.php?id=$ank[id]&amp;frends'>Добавить в друзья</a><br />\n";
+echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/info.php?id=$ank[id]&amp;frends'>Добавить в друзья</a><br />";
 }elseif ($frend_new==1){
-echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$ank[id]'>Отклонить заявку</a><br />\n";
+echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$ank[id]'>Отклонить заявку</a><br />";
 }elseif ($frend==2){
-echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>Удалить из друзей</a><br />\n";
+echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>Удалить из друзей</a><br />";
 }
 echo "</div>";
 /*-------------------------------------------------------------*/
@@ -199,7 +199,7 @@ echo "</div>";
 
 /*--------------------Сообщение-----------------------------------*/	
 	echo "<div class='main'>";
-	echo " <a href=\"/mail.php?id=$ank[id]\"><img src='/style/icons/pochta.gif' alt='*' /> Сообщение</a> \n";
+	echo " <a href=\"/mail.php?id=$ank[id]\"><img src='/style/icons/pochta.gif' alt='*' /> Сообщение</a> ";
 	echo "</div>";
 /*----------------------------------------------------------------*/
 	
@@ -210,7 +210,7 @@ echo "</div>";
 ========================================
 */
 echo "<div class='main2'>";
-echo "<img src='/style/icons/many.gif' alt='*' /> <a href=\"/user/money/translate.php?id=$ank[id]\">Перевести $sMonet[0]</a> \n";
+echo "<img src='/style/icons/many.gif' alt='*' /> <a href=\"/user/money/translate.php?id=$ank[id]\">Перевести $sMonet[0]</a> ";
 echo "</div>";
 
 /*
@@ -219,7 +219,7 @@ echo "</div>";
 ========================================
 */
 echo "<div class='main2'>";
-echo "<img src='/style/icons/present.gif' alt='*' /> <a href=\"/user/gift/categories.php?id=$ank[id]\">Сделать подарок</a><br />\n";
+echo "<img src='/style/icons/present.gif' alt='*' /> <a href=\"/user/gift/categories.php?id=$ank[id]\">Сделать подарок</a><br />";
 echo "</div>";
 }
 
@@ -228,7 +228,7 @@ echo "</div>";
 /*-----------------------------настройки-----------------------*/
 if (isset($user) && $ank['id']==$user['id']){
 echo "<div class='main2'>";
-echo "<img src='/style/icons/uslugi.gif' alt='*' /> <a href=\"/user/money/index.php\">Дополнительные услуги</a><br /> \n";echo "<img src='/style/icons/settings.png' alt='*' /> <a href=\"/user/info/settings.php\">Мои настройки</a> | <a href=\"/umenu.php\">Меню</a>\n";
+echo "<img src='/style/icons/uslugi.gif' alt='*' /> <a href=\"/user/money/index.php\">Дополнительные услуги</a><br /> ";echo "<img src='/style/icons/settings.png' alt='*' /> <a href=\"/user/info/settings.php\">Мои настройки</a> | <a href=\"/umenu.php\">Меню</a>";
 echo "</div>";
 }
 /*-------------------------------------------------------------*/
@@ -251,12 +251,12 @@ $ank3=get_user($post3['frend']);
 /*---------зебра---------*/
 if ($num==0)
 {
-echo "  <div class='nav1'>\n";
+echo "  <div class='nav1'>";
 $num=1;
 }
 elseif ($num==1)
 {
-echo "  <div class='nav2'>\n";
+echo "  <div class='nav2'>";
 $num=0;
 }
 
@@ -322,7 +322,7 @@ echo "</a>";
 /*---------------------------Дневники------------------------------*/
 echo "<div>";
 $kol_dnev=dbresult(dbquery("SELECT COUNT(*) FROM `notes` WHERE `id_user` = '".$ank['id']."'"),0);
-echo "<a class='top_nav' href='/plugins/notes/user.php?id=$ank[id]'>Дневники ($kol_dnev)\n";
+echo "<a class='top_nav' href='/plugins/notes/user.php?id=$ank[id]'>Дневники ($kol_dnev)";
 echo "</a>";
 /*----------------------------------------------------------------*/
 
@@ -335,7 +335,7 @@ echo "</a>";
 ========================================
 */
 $zakladki = dbresult(dbquery("SELECT COUNT(id) FROM `bookmarks` WHERE `id_user` = '" . $ank['id'] . "'"),0);
-echo "<a class='top_nav' href='/user/bookmark/index.php?id=$ank[id]'>Закладки($zakladki)\n";
+echo "<a class='top_nav' href='/user/bookmark/index.php?id=$ank[id]'>Закладки($zakladki)";
 echo "</a><br />";
 
 echo '</table>';
@@ -348,7 +348,7 @@ echo "<div class='accordion-group'>
 echo " ".group($ank['id'])." ";
 echo user::nick($ank['id'],1,1,1). " <span style='float:right;color:#666;'>Заходил".($ank['pol']==0 ? 'a': null)." ".vremja($ank['date_last'])."</span> ";
 if ((user_access('user_ban_set') || user_access('user_ban_set_h') || user_access('user_ban_unset')) && $ank['id']!=$user['id'])
-echo "<a href='/adm_panel/ban.php?id=$ank[id]'><font color=red>[Бан]</font></a>\n";
+echo "<a href='/adm_panel/ban.php?id=$ank[id]'><font color=red>[Бан]</font></a>";
 echo "</div></div>";
 
 
@@ -360,8 +360,8 @@ if (isset($status['id']) || $ank['id'] == $user['id'])
 {
 echo '<div class="st_1"></div>';echo '<div class="st_2">';
 if (isset($user) && $user['id']==$ank['id']){echo "<form style='border:none;' action='?id=".$ank['id']."' method=\"post\">";
-echo "<input type=\"text\" style='width:80%;' placeholder=''Что у Вас нового?' name=\"status\" value=\"\"/> \n";
-echo "<input class=\"submit\" style=' width:15%;' type=\"submit\" value=\"+\" />\n";
+echo "<input type=\"text\" style='width:80%;' placeholder=''Что у Вас нового?' name=\"status\" value=\"\"/> ";
+echo "<input class=\"submit\" style=' width:15%;' type=\"submit\" value=\"+\" />";
 echo "</form>";}if (isset($status['id']))echo output_text($status['msg']) . ' <font style="font-size:10px; color:gray;">' . vremja($status['time']) . '</font>';
 echo "</div>"; 
 if (isset($status['id']))
@@ -389,7 +389,7 @@ else
 $st = dbresult(dbquery("SELECT COUNT(*) FROM `status` WHERE `id_user` = '$ank[id]'"),0);if ($st > 0)
 {
 	echo "<div class='main2'>"; // пишем свой див
-	echo " &rarr; <a href='/user/status/index.php?id=$ank[id]'>Все статусы</a> (" . $st . ")\n";
+	echo " &rarr; <a href='/user/status/index.php?id=$ank[id]'>Все статусы</a> (" . $st . ")";
 	echo "</div>";
 }
 }
@@ -438,12 +438,12 @@ $a = "</font>";}
 */
 echo "<div class='nav1'>";
 if ($ank['ank_name']!=NULL)
-echo "$name<span class=\"ank_n\">Имя:</span>$a <span class=\"ank_d\">$ank[ank_name]</span><br />\n";
+echo "$name<span class=\"ank_n\">Имя:</span>$a <span class=\"ank_d\">$ank[ank_name]</span><br />";
 else
-echo "$name<span class=\"ank_n\">Имя:</span>$a<br />\n";echo "$pol<span class=\"ank_n\">Пол:</span>$a <span class=\"ank_d\">".(($ank['pol']==1)?'Мужской':'Женский')."</span><br />\n";if ($ank['ank_city']!=NULL)
-echo "$gorod<span class=\"ank_n\">Город:</span>$a <span class=\"ank_d\">".output_text($ank['ank_city'])."</span><br />\n";
+echo "$name<span class=\"ank_n\">Имя:</span>$a<br />";echo "$pol<span class=\"ank_n\">Пол:</span>$a <span class=\"ank_d\">".(($ank['pol']==1)?'Мужской':'Женский')."</span><br />";if ($ank['ank_city']!=NULL)
+echo "$gorod<span class=\"ank_n\">Город:</span>$a <span class=\"ank_d\">".output_text($ank['ank_city'])."</span><br />";
 else
-echo "$gorod<span class=\"ank_n\">Город:</span>$a<br />\n";if ($ank['ank_d_r']!=NULL && $ank['ank_m_r']!=NULL && $ank['ank_g_r']!=NULL){
+echo "$gorod<span class=\"ank_n\">Город:</span>$a<br />";if ($ank['ank_d_r']!=NULL && $ank['ank_m_r']!=NULL && $ank['ank_g_r']!=NULL){
 if ($ank['ank_m_r']==1)$ank['mes']='Января';
 elseif ($ank['ank_m_r']==2)$ank['mes']='Февраля';
 elseif ($ank['ank_m_r']==3)$ank['mes']='Марта';
@@ -456,11 +456,11 @@ elseif ($ank['ank_m_r']==9)$ank['mes']='Сентября';
 elseif ($ank['ank_m_r']==10)$ank['mes']='Октября';
 elseif ($ank['ank_m_r']==11)$ank['mes']='Ноября';
 else $ank['mes']='Декабря';
-echo "$date<span class=\"ank_n\">Дата рождения:</span>$a $ank[ank_d_r] $ank[mes] $ank[ank_g_r]г. <br />\n";
+echo "$date<span class=\"ank_n\">Дата рождения:</span>$a $ank[ank_d_r] $ank[mes] $ank[ank_g_r]г. <br />";
 $ank['ank_age']=date("Y")-$ank['ank_g_r'];
 if (date("n")<$ank['ank_m_r'])$ank['ank_age']=$ank['ank_age']-1;
 elseif (date("n")==$ank['ank_m_r']&& date("j")<$ank['ank_d_r'])$ank['ank_age']=$ank['ank_age']-1;
-echo "<span class=\"ank_n\">Возраст:</span> $ank[ank_age] \n";
+echo "<span class=\"ank_n\">Возраст:</span> $ank[ank_age] ";
 }
 elseif($ank['ank_d_r']!=NULL && $ank['ank_m_r']!=NULL)
 {
@@ -476,7 +476,7 @@ elseif ($ank['ank_m_r']==9)$ank['mes']='Сентября';
 elseif ($ank['ank_m_r']==10)$ank['mes']='Октября';
 elseif ($ank['ank_m_r']==11)$ank['mes']='Ноября';
 else $ank['mes']='Декабря';
-echo "$date<span class=\"ank_n\">День рождения:</span>$a $ank[ank_d_r] $ank[mes] \n";
+echo "$date<span class=\"ank_n\">День рождения:</span>$a $ank[ank_d_r] $ank[mes] ";
 }if ($ank['ank_d_r']>=19 && $ank['ank_m_r']==1){echo "| Водолей<br />";}
 elseif ($ank['ank_d_r']<=19 && $ank['ank_m_r']==2){echo "| Водолей<br />";}
 elseif ($ank['ank_d_r']>=18 && $ank['ank_m_r']==2){echo "| Рыбы<br />";}
@@ -500,7 +500,7 @@ elseif ($ank['ank_d_r']<=22 && $ank['ank_m_r']==11){echo "| Скорпион<br 
 elseif ($ank['ank_d_r']>=21 && $ank['ank_m_r']==11){echo "| Стрелец<br />";}
 elseif ($ank['ank_d_r']<=22 && $ank['ank_m_r']==12){echo "| Стрелец<br />";}
 elseif ($ank['ank_d_r']>=21 && $ank['ank_m_r']==12){echo "| Козерог<br />";}
-elseif ($ank['ank_d_r']<=20 && $ank['ank_m_r']==1){echo "| Козерог<br />";}echo "</div>\n";
+elseif ($ank['ank_d_r']<=20 && $ank['ank_m_r']==1){echo "| Козерог<br />";}echo "</div>";
 	echo '<form action="someplace.html" method="post" name="myForm"><div id="formResponse">';	
 	echo ' <a onclick="anketa.submit()" name="myForm"><div class="form_info">Показать подробную информацию</div></a>';	
 	echo '</div></form>';	

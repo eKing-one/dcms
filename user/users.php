@@ -101,7 +101,7 @@ if (!isset($_GET['go'])) {
 
 	</div>
 
-	<table class='post'>\n";
+	<table class='post'>";
 
 	if ($k_post == 0) {
 
@@ -128,39 +128,39 @@ if (!isset($_GET['go'])) {
 
 		echo status($ank['id']), group($ank['id']);
 
-		echo " <a href='/info.php?id=$ank[id]'>$ank[nick]</a> \n";
+		echo " <a href='/info.php?id=$ank[id]'>$ank[nick]</a> ";
 
 		echo "" . medal($ank['id']) . " " . online($ank['id']) . "<br />";
 
-		if ($ank['group_access'] > 1) echo "<span class='status'>$ank[group_name]</span><br />\n";
+		if ($ank['group_access'] > 1) echo "<span class='status'>$ank[group_name]</span><br />";
 
 		if ($sort == 'rating')
 
-			echo "<span class=\"ank_n\">评级:</span> <span class=\"ank_d\">$ank[rating]</span><br />\n";
+			echo "<span class=\"ank_n\">评级:</span> <span class=\"ank_d\">$ank[rating]</span><br />";
 
 		if ($sort == 'balls')
 
-			echo "<span class=\"ank_n\">分数:</span> <span class=\"ank_d\">$ank[balls]</span><br />\n";
+			echo "<span class=\"ank_n\">分数:</span> <span class=\"ank_d\">$ank[balls]</span><br />";
 
 		if ($sort == 'pol')
 
-			echo "<span class=\"ank_n\">楼层:</span> <span class=\"ank_d\">" . (($ank['pol'] == 1) ? '男' : '女') . "</span><br />\n";
+			echo "<span class=\"ank_n\">楼层:</span> <span class=\"ank_d\">" . (($ank['pol'] == 1) ? '男' : '女') . "</span><br />";
 
 		if ($sort == 'id')
 
-			echo "<span class=\"ank_n\">登记注册:</span> <span class=\"ank_d\">" . vremja($ank['date_reg']) . "</span><br />\n";
+			echo "<span class=\"ank_n\">登记注册:</span> <span class=\"ank_d\">" . vremja($ank['date_reg']) . "</span><br />";
 
-		echo "<span class=\"ank_n\">参观后:</span> <span class=\"ank_d\">" . vremja($ank['date_last']) . "</span><br />\n";
+		echo "<span class=\"ank_n\">参观后:</span> <span class=\"ank_d\">" . vremja($ank['date_last']) . "</span><br />";
 
 		if (user_access('user_prof_edit') && $user['level'] > $ank['level']) {
 
-			echo "<a href='/adm_panel/user.php?id=$ank[id]'>编辑个人资料</a><br />\n";
+			echo "<a href='/adm_panel/user.php?id=$ank[id]'>编辑个人资料</a><br />";
 		}
 
 		echo '</div>';
 	}
 
-	echo "</table>\n";
+	echo "</table>";
 
 	if ($k_page > 1) str("users.php?sort=$sort&amp;$por&amp;", $k_page, $page); // Вывод страниц
 
@@ -228,7 +228,7 @@ if (isset($_GET['go']) && $usearch != NULL) {
 
 	</td>
 
-	</tr>\n";
+	</tr>";
 	}
 
 	$q = dbquery("SELECT `id` FROM `user` WHERE `nick` like '%" . mysql_real_escape_string($usearch) . "%' OR `id` = '" . intval($usearch) . "' ORDER BY `$sort` $por LIMIT $start, $set[p_str]");
@@ -249,45 +249,45 @@ if (isset($_GET['go']) && $usearch != NULL) {
 
 		echo "" . status($ank['id']) . " " . group($ank['id']) . "";
 
-		echo "<a href='/info.php?id=$ank[id]'>$ank[nick]</a>\n";
+		echo "<a href='/info.php?id=$ank[id]'>$ank[nick]</a>";
 
 		echo "" . medal($ank['id']) . " " . online($ank['id']) . "";
 
-		if ($ank['level'] != 0) echo "<span class=\"status\">$ank[group_name]</span><br />\n";
+		if ($ank['level'] != 0) echo "<span class=\"status\">$ank[group_name]</span><br />";
 
 		if ($sort == 'rating')
 
-			echo "<span class=\"ank_n\">评级:</span> <span class=\"ank_d\">$ank[rating]</span><br />\n";
+			echo "<span class=\"ank_n\">评级:</span> <span class=\"ank_d\">$ank[rating]</span><br />";
 
 		if ($sort == 'balls')
 
-			echo "<span class=\"ank_n\">分数</span> <span class=\"ank_d\">$ank[balls]</span><br />\n";
+			echo "<span class=\"ank_n\">分数</span> <span class=\"ank_d\">$ank[balls]</span><br />";
 
 		if ($sort == 'pol')
 
-			echo "<span class=\"ank_n\">楼层:</span> <span class=\"ank_d\">" . (($ank['pol'] == 1) ? '男' : '女') . "</span><br />\n";
+			echo "<span class=\"ank_n\">楼层:</span> <span class=\"ank_d\">" . (($ank['pol'] == 1) ? '男' : '女') . "</span><br />";
 
 		if ($sort == 'id')
 
-			echo "<span class=\"ank_n\">登记注册:</span> <span class=\"ank_d\">" . vremja($ank['date_reg']) . "</span><br />\n";
+			echo "<span class=\"ank_n\">登记注册:</span> <span class=\"ank_d\">" . vremja($ank['date_reg']) . "</span><br />";
 
-		echo "<span class=\"ank_n\">参观后:</span> <span class=\"ank_d\">" . vremja($ank['date_last']) . "</span><br />\n";
+		echo "<span class=\"ank_n\">参观后:</span> <span class=\"ank_d\">" . vremja($ank['date_last']) . "</span><br />";
 
 		if (user_access('user_prof_edit') && $user['level'] > $ank['level']) {
 
-			echo "<a href='/adm_panel/user.php?id=$ank[id]'>编辑个人资料</a><br />\n";
+			echo "<a href='/adm_panel/user.php?id=$ank[id]'>编辑个人资料</a><br />";
 		}
 
 		echo '</div>';
 	}
 
-	echo "</table>\n";
+	echo "</table>";
 
 	if ($k_page > 1) str("users.php?go&amp;sort=$sort&amp;$por&amp;", $k_page, $page); // Вывод страниц
 
 } else
 
-	echo "<div class=\"post\">\n输入用户的ID或昵称</div>\n";
+	echo "<div class=\"post\">输入用户的ID或昵称</div>";
 
 echo "<form method=\"post\" action=\"?go&amp;sort=$sort&amp;$por\">";
 
@@ -297,10 +297,10 @@ $usearch = stripcslashes(htmlspecialchars($usearch));
 
 // Тут конец моих дум
 
-echo "<input type=\"text\" name=\"usearch\" maxlength=\"16\" value=\"$usearch\" /><br />\n";
+echo "<input type=\"text\" name=\"usearch\" maxlength=\"16\" value=\"$usearch\" /><br />";
 
 echo "<input type=\"submit\" value=\"查找用户\" />";
 
-echo "</form>\n";
+echo "</form>";
 
 include_once '../sys/inc/tfoot.php';

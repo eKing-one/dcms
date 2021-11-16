@@ -88,9 +88,9 @@ echo "</div>";
 	$q=dbquery("SELECT * FROM `notification` WHERE `id_user` = '$user[id]' ORDER BY `time` DESC LIMIT $start, $set[p_str]");
 if ($k_post==0) //Если нет уведомлений, то...
 {
-	echo "  <div class='mess'>\n";
-		echo "Нет новых уведомлений\n";
-	echo "  </div>\n";
+	echo "  <div class='mess'>";
+		echo "Нет новых уведомлений";
+	echo "  </div>";
 }
 //Если есть, то...
 while ($post = dbassoc($q))
@@ -392,9 +392,9 @@ if ($type == 'adm_komm')
 
 if ($k_page>1)str('?',$k_page,$page); // Вывод страниц
 echo '<div class="mess"><img src="/style/icons/delete.gif"> <a href="?delete=all">Удалить все уведомления</a></div>';
-echo "<div class=\"foot\">\n";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$user[id]'>$user[nick]</a> | \n";
+echo "<div class=\"foot\">";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$user[id]'>$user[nick]</a> | ";
 echo '<b>Уведомления</b> | <a href="settings.php">Настройки</a>';
-echo "</div>\n";
+echo "</div>";
 include_once '../../sys/inc/tfoot.php';
 ?>

@@ -363,7 +363,7 @@ $start=$set['p_str']*$page-$set['p_str'];
 
 
 
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 
 
 
@@ -378,17 +378,17 @@ if ($k_post==0)
 
 
 
-echo "  <div class='mess'>\n";
+echo "  <div class='mess'>";
 
 
 
 
-echo "Нет сообщений\n";
+echo "Нет сообщений";
 
 
 
 
-echo "  </div>\n";
+echo "  </div>";
 
 
 
@@ -428,7 +428,7 @@ if ($num==0)
 
 
 
-{echo "  <div class='nav1'>\n";
+{echo "  <div class='nav1'>";
 
 
 
@@ -443,7 +443,7 @@ $num=1;
 
 
 
-{echo "  <div class='nav2'>\n";
+{echo "  <div class='nav2'>";
 
 
 
@@ -493,7 +493,7 @@ avatar($ank['id']);
 
 
 
-echo " ".group($ank['id'])." <a href='/info.php?id=$ank[id]'>$ank[nick]</a> <a href='?response=$ank[id]'>[*]</a>\n";
+echo " ".group($ank['id'])." <a href='/info.php?id=$ank[id]'>$ank[nick]</a> <a href='?response=$ank[id]'>[*]</a>";
 
 
 
@@ -503,7 +503,7 @@ echo " ".medal($ank['id'])." ".online($ank['id'])." (".vremja($post['time']).")<
 
 
 
-echo output_text($post['msg'])."<br />\n";
+echo output_text($post['msg'])."<br />";
 
 
 
@@ -533,7 +533,7 @@ echo '<div style="float:right;"><a href="delete.php?id='.$post['id'].'"><img src
 
 
 
-echo "   </div>\n";
+echo "   </div>";
 
 
 
@@ -548,7 +548,7 @@ echo "   </div>\n";
 
 
 
-echo "</table>\n";
+echo "</table>";
 
 
 
@@ -593,7 +593,7 @@ if (isset($user) || (isset($set['write_guest']) && $set['write_guest']==1 && (!i
 
 
 
-echo "<form method=\"post\" name='message' action=\"?$go_otv\">\n";
+echo "<form method=\"post\" name='message' action=\"?$go_otv\">";
 
 
 
@@ -613,7 +613,7 @@ else
 
 
 
-echo "$tPanel<textarea name=\"msg\">$otvet</textarea><br />\n";
+echo "$tPanel<textarea name=\"msg\">$otvet</textarea><br />";
 
 
 
@@ -623,12 +623,12 @@ echo "$tPanel<textarea name=\"msg\">$otvet</textarea><br />\n";
 
 
 
-echo "<input value=\"发送\" type=\"submit\" />\n";
+echo "<input value=\"发送\" type=\"submit\" />";
 
 
 
 
-echo "</form>\n";
+echo "</form>";
 
 
 
@@ -643,17 +643,17 @@ echo "</form>\n";
 
 
 
-echo "<div class='foot'>\n";
+echo "<div class='foot'>";
 
 
 
 
-echo "<img src='/style/icons/str.gif' alt='*' /> <a href='who.php'>Кто здесь?</a><br />\n";
+echo "<img src='/style/icons/str.gif' alt='*' /> <a href='who.php'>Кто здесь?</a><br />";
 
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 
@@ -663,17 +663,17 @@ include 'inc/admin_form.php';
 
 
 
-echo "<div class='foot'>\n";
+echo "<div class='foot'>";
 
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*' /> <a href='/plugins/admin/'>Админ раздел</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*' /> <a href='/plugins/admin/'>Админ раздел</a><br />";
 
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 

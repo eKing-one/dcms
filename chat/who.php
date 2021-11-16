@@ -103,7 +103,7 @@ $q = dbquery("SELECT * FROM `user` WHERE `date_last` > '".(time()-100)."' AND `u
 
 
 
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 
 
 
@@ -118,27 +118,27 @@ if ($k_post==0)
 
 
 
-echo "   <tr>\n";
+echo "   <tr>";
 
 
 
 
-echo "  <td class='p_t'>\n";
+echo "  <td class='p_t'>";
 
 
 
 
-echo "没有人\n";
+echo "没有人";
 
 
 
 
-echo "  </td>\n";
+echo "  </td>";
 
 
 
 
-echo "   </tr>\n";
+echo "   </tr>";
 
 
 
@@ -158,7 +158,7 @@ while ($chat = dbarray($q))
 
 
 
-echo "   <tr>\n";
+echo "   <tr>";
 
 
 
@@ -173,7 +173,7 @@ if ($set['set_show_icon']==2){
 
 
 
-echo "  <td class='icon48' rowspan='2'>\n";
+echo "  <td class='icon48' rowspan='2'>";
 
 
 
@@ -183,7 +183,7 @@ avatar($chat['id']);
 
 
 
-echo "  </td>\n";
+echo "  </td>";
 
 
 
@@ -203,7 +203,7 @@ elseif ($set['set_show_icon']==1)
 
 
 
-echo "  <td class='icon14'>\n";
+echo "  <td class='icon14'>";
 
 
 
@@ -213,7 +213,7 @@ echo "".status($chat['id'])."";
 
 
 
-echo "  </td>\n";
+echo "  </td>";
 
 
 
@@ -238,27 +238,27 @@ echo "  </td>\n";
 
 
 
-echo "  <td class='p_t'>\n";
+echo "  <td class='p_t'>";
 
 
 
 
-echo "<a href='/info.php?id=$chat[id]'>$chat[nick]</a>\n";
+echo "<a href='/info.php?id=$chat[id]'>$chat[nick]</a>";
 
 
 
 
-echo "  ".medal($chat['id'])." ".online($chat['id'])."\n";
+echo "  ".medal($chat['id'])." ".online($chat['id'])."";
 
 
 
 
-echo "  </td>\n";
+echo "  </td>";
 
 
 
 
-echo "   </tr>\n";
+echo "   </tr>";
 
 
 
@@ -273,7 +273,7 @@ echo "   </tr>\n";
 
 
 
-echo "</table>\n";
+echo "</table>";
 
 
 

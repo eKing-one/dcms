@@ -12,7 +12,7 @@
  if ($post)
  {
  if($post['type']=='foto'){ //Если смена аватара
- echo " <span style='color:darkgreen;'>установил".($ank_stena['pol']==0 ? 'а' : null)." новый аватар на своей страничке</span><br/>\n";
+ echo " <span style='color:darkgreen;'>установил".($ank_stena['pol']==0 ? 'а' : null)." новый аватар на своей страничке</span><br/>";
  $foto=dbassoc(dbquery("SELECT `id`,`id_gallery`,`ras` FROM `gallery_foto` WHERE `id`='".$post['info_1']."' LIMIT 1"));
  echo "<a href='/foto/".$ank_stena['id']."/".$foto['id_gallery']."/".$foto['id']."/'><img class='stenka' style='width:".($webbrowser ? '240px;' : '60px;')."' src='/foto/foto0/".$foto['id'].".".$foto['ras']."'></a>";
  }elseif($post['type']=='note'){ //Если новый дневник
@@ -21,7 +21,7 @@
  echo " <span style='color:#666;'>написал".($ank_stena['pol']==0 ? 'a' : null)." новый дневник, который был удалён.</span>";
  }else{ //А, если существует, то...
  $notes=dbassoc($note);
- echo " <span style='color:darkgreen;'>создал".($ank_stena['pol']==0 ? 'a' : null)." новую запись у себя в дневнике</span><br/>\n";
+ echo " <span style='color:darkgreen;'>создал".($ank_stena['pol']==0 ? 'a' : null)." новую запись у себя в дневнике</span><br/>";
  echo "<a href='/plugins/notes/list.php?id=".$notes['id']."'><b style='color:#999;'>".text($notes['name'])."</b></a><br/>";
  echo '<span style="color:#666;">'.rez_text($notes['msg'],82).'</span>';
  }

@@ -49,9 +49,9 @@ $usearch=preg_replace("#( ){1,}#","",$usearch);
 
 $order='order by `time` desc';echo "<form method=\"post\" action=\"search.php?go\">Поиск по дневникам<br />";
 $usearch=stripcslashes(htmlspecialchars($usearch));
-echo "<input type=\"text\" name=\"usearch\" maxlength=\"16\" value=\"$usearch\" /><br />\n";
+echo "<input type=\"text\" name=\"usearch\" maxlength=\"16\" value=\"$usearch\" /><br />";
 echo "<input type=\"submit\" value=\"Искать\" />";
-echo "</form>\n";
+echo "</form>";
 
 
 if (isset($_GET['go']))
@@ -61,12 +61,12 @@ $k_page=k_page($k_post,$set['p_str']);
 $page=page($k_page);
 $start=$set['p_str']*$page-$set['p_str'];
 $q=dbquery("SELECT * FROM `notes` WHERE `name` like '%".mysql_real_escape_string($usearch)."%' $order LIMIT $start, $set[p_str]");
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 if ($k_post==0)
 {
-echo "<div class='mess'>\n";
-echo "Нет записей\n";
-echo "</div>\n";
+echo "<div class='mess'>";
+echo "Нет записей";
+echo "</div>";
 }
 $num=0;
 while ($post = dbassoc($q))
@@ -84,14 +84,14 @@ while ($post = dbassoc($q))
 
 echo "<img src='/style/icons/dnev.png' alt='*'> ";
 
-echo "<a href='list.php?id=$post[id]'>" . text($post['name']) . "</a> \n";
+echo "<a href='list.php?id=$post[id]'>" . text($post['name']) . "</a> ";
 
-echo " <span style='time'>(".vremja($post['time']).")</span>\n";
+echo " <span style='time'>(".vremja($post['time']).")</span>";
 
 $k_n= dbresult(dbquery("SELECT COUNT(*) FROM `notes` WHERE `id` = $post[id] AND `time` > '".$ftime."'",$db), 0);
-if ($k_n!=0)echo " <img src='/style/icons/new.gif' alt='*'>";echo "  </div>\n";
+if ($k_n!=0)echo " <img src='/style/icons/new.gif' alt='*'>";echo "  </div>";
 }
-echo "</table>\n";
+echo "</table>";
 
 if ($k_page>1)str('?go&amp;',$k_page,$page); // Вывод страниц
 

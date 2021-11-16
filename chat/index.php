@@ -149,57 +149,57 @@ title();
 
 
 
-echo "<a href='/info.php?id=$ank[id]'>查看问卷</a><br />\n";
+echo "<a href='/info.php?id=$ank[id]'>查看问卷</a><br />";
 
 
 
 
-echo "<form method=\"post\" action=\"/chat/room/$room[id]/".rand(1000,9999)."/\">\n";
+echo "<form method=\"post\" action=\"/chat/room/$room[id]/".rand(1000,9999)."/\">";
 
 
 
 
-echo "信息:<br />\n<textarea name=\"msg\">$ank[nick], </textarea><br />\n";
+echo "信息:<br /><textarea name=\"msg\">$ank[nick], </textarea><br />";
 
 
 
 
-echo "<label><input type=\"checkbox\" name=\"privat\" value=\"$ank[id]\" /> 私下里</label><br />\n";
+echo "<label><input type=\"checkbox\" name=\"privat\" value=\"$ank[id]\" /> 私下里</label><br />";
 
 
 
 
-if ($user['set_translit']==1)echo "<label><input type=\"checkbox\" name=\"translit\" value=\"1\" /> 音译,音译</label><br />\n";
+if ($user['set_translit']==1)echo "<label><input type=\"checkbox\" name=\"translit\" value=\"1\" /> 音译,音译</label><br />";
 
 
 
 
-echo "<input value=\"发送\" type=\"submit\" />\n";
+echo "<input value=\"发送\" type=\"submit\" />";
 
 
 
 
-echo "</form>\n";
+echo "</form>";
 
 
 
 
-echo "<div class=\"foot\">\n";
+echo "<div class=\"foot\">";
 
 
 
 
-echo " <img src='/style/icons/str2.gif' alt='*'><a href=\"/chat/room/$room[id]/".rand(1000,9999)."/\">进入房间</a><br />\n";
+echo " <img src='/style/icons/str2.gif' alt='*'><a href=\"/chat/room/$room[id]/".rand(1000,9999)."/\">进入房间</a><br />";
 
 
 
 
-echo " <img src='/style/icons/str2.gif' alt='*'><a href=\"/chat/\">走廊</a><br />\n";
+echo " <img src='/style/icons/str2.gif' alt='*'><a href=\"/chat/\">走廊</a><br />";
 
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 
@@ -259,17 +259,17 @@ include 'inc/room.php';
 
 
 
-echo "<div class=\"foot\">\n";
+echo "<div class=\"foot\">";
 
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/chat/\">走廊</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/chat/\">走廊</a><br />";
 
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 
@@ -314,7 +314,7 @@ aut(); // форма авторизации
 
 
 
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 
 
 
@@ -329,17 +329,17 @@ if ( dbrows($q) == 0 ) {
 
 
 
-echo "  <div class='mess'>\n";
+echo "  <div class='mess'>";
 
 
 
 
-echo "Нет комнат\n";
+echo "Нет комнат";
 
 
 
 
-echo "  </div>\n";
+echo "  </div>";
 
 
 
@@ -379,22 +379,17 @@ echo "<img src='/style/themes/$set[set_them]/chat/14/room.png' alt='' /> ";
 
 
 
-echo "<a href='/chat/room/$room[id]/".rand(1000,9999)."/'>$room[name] (".dbresult(dbquery("SELECT COUNT(*) FROM `chat_who` WHERE `room` = '$room[id]'"),0).")</a> \n";
+echo "<a href='/chat/room/$room[id]/".rand(1000,9999)."/'>$room[name] (".dbresult(dbquery("SELECT COUNT(*) FROM `chat_who` WHERE `room` = '$room[id]'"),0).")</a> ";
 
 
 
 
-if (user_access('chat_room'))echo "<a href='?set=$room[id]'><img src='/style/icons/edit.gif' alt='*' /></a> \n"; 
+if (user_access('chat_room'))echo "<a href='?set=$room[id]'><img src='/style/icons/edit.gif' alt='*' /></a> "; 
 
 
 
 
-if ($room['opis']!=NULL)echo '<br />'.esc(trim(br(bbcode(smiles(links(stripcslashes(htmlspecialchars($room['opis']))))))))."<br />\n";
-
-
-
-
-
+if ($room['opis']!=NULL)echo '<br />'.esc(trim(br(bbcode(smiles(links(stripcslashes(htmlspecialchars($room['opis']))))))))."<br />";
 
 
 
@@ -419,7 +414,12 @@ if ($room['opis']!=NULL)echo '<br />'.esc(trim(br(bbcode(smiles(links(stripcslas
 
 
 
-echo "   </div>\n";
+
+
+
+
+
+echo "   </div>";
 
 
 
@@ -429,22 +429,22 @@ echo "   </div>\n";
 
 
 
-echo "</table>\n";
+echo "</table>";
 
 
 
 
-echo "<div class=\"foot\">\n";
+echo "<div class=\"foot\">";
 
 
 
 
-echo "<img src='/style/icons/str.gif' alt='*'> <a href='who.php'>谁在聊天？</a><br />\n"; 
+echo "<img src='/style/icons/str.gif' alt='*'> <a href='who.php'>谁在聊天？</a><br />"; 
 
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 

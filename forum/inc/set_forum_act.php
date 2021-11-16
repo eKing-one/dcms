@@ -46,7 +46,7 @@ if (isset($_GET['act']) && isset($_GET['ok']) && $_GET['act'] == 'delete' && use
 	msg('子论坛已成功删除');
 	err();
 	aut();
-	echo "<a href=\"/forum/\">到论坛</a><br />\n";
+	echo "<a href=\"/forum/\">到论坛</a><br />";
 	include_once '../sys/inc/tfoot.php';
 }
 

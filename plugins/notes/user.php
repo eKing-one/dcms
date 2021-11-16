@@ -36,7 +36,7 @@ $ank=get_user($ank['id']);
 if ($ank['id']==0)
 {
 $ank=get_user($ank['id']);
-echo "<span class=\"status\">Доступ запрещен!</span><br />\n";
+echo "<span class=\"status\">Доступ запрещен!</span><br />";
 exit;
 }
 
@@ -60,15 +60,15 @@ echo '</div>';
 
 if (isset($_GET['sort']) && $_GET['sort'] =='t'){
 echo'<div class="foot">';
-echo"<b>Новые</b> | <a href='?id=$ank[id]&amp;sort=c'>Популярные</a>\n";
+echo"<b>Новые</b> | <a href='?id=$ank[id]&amp;sort=c'>Популярные</a>";
 echo '</div>';
 }elseif (isset($_GET['sort']) && $_GET['sort'] =='c'){
 echo'<div class="foot">';
-echo"<a href='?id=$ank[id]&amp;sort=t'>Новые</a> | <b>Популярные</b>\n";
+echo"<a href='?id=$ank[id]&amp;sort=t'>Новые</a> | <b>Популярные</b>";
 echo '</div>';
 }else{
 echo'<div class="foot">';
-echo"<b>Новые</b> | <a href='?id=$ank[id]&amp;sort=c'>Популярные</a>\n";
+echo"<b>Новые</b> | <a href='?id=$ank[id]&amp;sort=c'>Популярные</a>";
 echo '</div>';
 }
 $k_post=dbresult(dbquery("SELECT COUNT(*) FROM `notes` WHERE `id_user` = '$ank[id]' "),0);
@@ -76,12 +76,12 @@ $k_page=k_page($k_post,$set['p_str']);
 $page=page($k_page);
 $start=$set['p_str']*$page-$set['p_str'];
 $q=dbquery("SELECT * FROM `notes` WHERE `id_user` = '$ank[id]' $order LIMIT $start, $set[p_str]");
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 if ($k_post==0)
 {
-echo "  <div class='mess'>\n";
-echo "Нет записей\n";
-echo "  </div>\n";
+echo "  <div class='mess'>";
+echo "Нет записей";
+echo "  </div>";
 }
 $num=0;
 while ($post = dbassoc($q))
@@ -100,16 +100,16 @@ while ($post = dbassoc($q))
 
 echo "<img src='/style/icons/dnev.png' alt='*'> ";
 
-echo "<a href='list.php?id=$post[id]'>" . text($post['name']) . "</a>\n";
+echo "<a href='list.php?id=$post[id]'>" . text($post['name']) . "</a>";
 
-echo " <span style='time'>(".vremja($post['time']).")</span> <br />\n";
+echo " <span style='time'>(".vremja($post['time']).")</span> <br />";
 
 $k_n= dbresult(dbquery("SELECT COUNT(*) FROM `notes` WHERE `id` = '$post[id]' AND `time` > '".$ftime."'",$db), 0);
 
 
-echo "   </div>\n";
+echo "   </div>";
 }
-echo "</table>\n";
+echo "</table>";
 
 if (isset($_GET['sort'])) $dop="sort=$_GET[sort]&amp;";
 else $dop='';

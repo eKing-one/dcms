@@ -336,7 +336,7 @@ echo '</div>';
 
 
 
-echo "</table>\n";
+echo "</table>";
 
 
 

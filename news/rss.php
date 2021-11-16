@@ -124,7 +124,7 @@ header("Content-type: application/rss+xml");
 
 
 
-echo "<rss version=\"2.0\">\n";
+echo "<rss version=\"2.0\">";
 
 
 
@@ -133,7 +133,7 @@ echo "<rss version=\"2.0\">\n";
 
 
 
-echo "<channel>\n";
+echo "<channel>";
 
 
 
@@ -142,7 +142,7 @@ echo "<channel>\n";
 
 
 
-echo "<title>Новости ".$_SERVER['SERVER_NAME']."</title>\n";
+echo "<title>Новости ".$_SERVER['SERVER_NAME']."</title>";
 
 
 
@@ -151,7 +151,7 @@ echo "<title>Новости ".$_SERVER['SERVER_NAME']."</title>\n";
 
 
 
-echo "<link>http://".$_SERVER['SERVER_NAME']."</link>\n";
+echo "<link>http://".$_SERVER['SERVER_NAME']."</link>";
 
 
 
@@ -160,7 +160,7 @@ echo "<link>http://".$_SERVER['SERVER_NAME']."</link>\n";
 
 
 
-echo "<description>Новости ".$_SERVER['SERVER_NAME']."</description>\n";
+echo "<description>Новости ".$_SERVER['SERVER_NAME']."</description>";
 
 
 
@@ -169,7 +169,7 @@ echo "<description>Новости ".$_SERVER['SERVER_NAME']."</description>\n";
 
 
 
-echo "<language>zh-CN</language>\n";
+echo "<language>zh-CN</language>";
 
 
 
@@ -178,7 +178,7 @@ echo "<language>zh-CN</language>\n";
 
 
 
-//echo "<webMaster>$set[adm_mail]</webMaster>\n";
+//echo "<webMaster>$set[adm_mail]</webMaster>";
 
 
 
@@ -187,7 +187,7 @@ echo "<language>zh-CN</language>\n";
 
 
 
-echo "<lastBuildDate>".date("r",dbresult(dbquery("SELECT MAX(time) FROM `news`",$db), 0))."</lastBuildDate>\n";
+echo "<lastBuildDate>".date("r",dbresult(dbquery("SELECT MAX(time) FROM `news`",$db), 0))."</lastBuildDate>";
 
 
 
@@ -250,7 +250,7 @@ while ($post = dbassoc($q))
 
 
 
-echo "<item>\n";
+echo "<item>";
 
 
 
@@ -259,7 +259,7 @@ echo "<item>\n";
 
 
 
-echo "<title>$post[title]</title>\n";
+echo "<title>$post[title]</title>";
 
 
 
@@ -295,7 +295,7 @@ if (!preg_match('#^https?://#',$post['link']))
 
 
 
-echo "<link>".htmlentities("http://$_SERVER[SERVER_NAME]$post[link]", ENT_QUOTES, 'UTF-8')."</link>\n";
+echo "<link>".htmlentities("http://$_SERVER[SERVER_NAME]$post[link]", ENT_QUOTES, 'UTF-8')."</link>";
 
 
 
@@ -313,7 +313,7 @@ else
 
 
 
-echo "<link>".htmlentities("$post[link]", ENT_QUOTES, 'UTF-8')."</link>\n";
+echo "<link>".htmlentities("$post[link]", ENT_QUOTES, 'UTF-8')."</link>";
 
 
 
@@ -340,7 +340,7 @@ echo "<description><![CDATA[";
 
 
 
-echo output_text($post['msg'],true,true,false)."\n";
+echo output_text($post['msg'],true,true,false)."";
 
 
 
@@ -349,7 +349,7 @@ echo output_text($post['msg'],true,true,false)."\n";
 
 
 
-echo "]]></description>\n";
+echo "]]></description>";
 
 
 
@@ -358,7 +358,7 @@ echo "]]></description>\n";
 
 
 
-echo "<pubDate>".date("r",$post['time'])."</pubDate>\n";
+echo "<pubDate>".date("r",$post['time'])."</pubDate>";
 
 
 
@@ -376,7 +376,7 @@ echo "<pubDate>".date("r",$post['time'])."</pubDate>\n";
 
 
 
-echo "</item>\n";
+echo "</item>";
 
 
 
@@ -403,7 +403,7 @@ echo "</item>\n";
 
 
 
-echo "</channel>\n";
+echo "</channel>";
 
 
 
@@ -412,7 +412,7 @@ echo "</channel>\n";
 
 
 
-echo "</rss>\n";
+echo "</rss>";
 
 
 

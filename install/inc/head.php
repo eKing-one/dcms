@@ -1,6 +1,6 @@
 <?php
 header("Content-type: application/xhtml+xml;charset=UTF-8");
-/*echo '<?xml version="1.0" encoding="utf-8"?>'."\n";*/
+/*echo '<?xml version="1.0" encoding="utf-8"?>'."";*/
 ?>
 <!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
@@ -14,7 +14,7 @@ header("Content-type: application/xhtml+xml;charset=UTF-8");
 DCMS Social - 社交网络引擎</div>
 <div class="title">
 <?php
-echo $set['title']."\n";
+echo $set['title']."";
 ob_start();
 ?>
 </div>

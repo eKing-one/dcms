@@ -979,7 +979,7 @@ err();
 	echo "О партнере:<br /><input type='text' name='ank_o_par' value='$user[ank_o_par]' maxlength='215' /><br />";
 	
 	
-	echo "<input type='submit' name='save' value='Сохранить' /></form>\n";
+	echo "<input type='submit' name='save' value='Сохранить' /></form>";
 }else{
 
 echo "<div class='nav2'>";
@@ -991,31 +991,31 @@ if ($user['set_nick'] == 1)
 {
 echo "<a href='?set=nick'> <img src='/style/icons/str.gif' alt='*'>  <b>Nick Name</b></a>";
 if ($user['nick']!=NULL)
-echo " &#62; $user[nick]<br />\n";
+echo " &#62; $user[nick]<br />";
 else
-echo "<br />\n";
+echo "<br />";
 }
 echo "<a href='?set=name'> <img src='/style/icons/str.gif' alt='*'>  Имя</a>";
 if ($user['ank_name']!=NULL)
-echo " &#62; $user[ank_name]<br />\n";
+echo " &#62; $user[ank_name]<br />";
 else
-echo "<br />\n";
+echo "<br />";
 
 echo "<a href='?set=pol'> <img src='/style/icons/str.gif' alt='*'>  Пол</a> &#62; ".(($user['pol']==1)?'Мужской':'Женский')."<br />";
 echo "<a href='?set=gorod'> <img src='/style/icons/str.gif' alt='*'>  Город</a>";
 if ($user['ank_city']!=NULL)
-echo " &#62; $user[ank_city]<br />\n";
+echo " &#62; $user[ank_city]<br />";
 else
-echo "<br />\n";
+echo "<br />";
 
 
 
 
 echo "<a href='?set=date'> <img src='/style/icons/str.gif' alt='*'>  Дата рождения</a> ";
 if($user['ank_d_r']!=NULL && $user['ank_m_r']!=NULL && $user['ank_g_r']!=NULL)
-echo " &#62; $user[ank_d_r].$user[ank_m_r].$user[ank_g_r] г. <br />\n";
+echo " &#62; $user[ank_d_r].$user[ank_m_r].$user[ank_g_r] г. <br />";
 elseif($user['ank_d_r']!=NULL && $user['ank_m_r']!=NULL)
-echo " &#62; $user[ank_d_r].$user[ank_m_r]<br />\n";
+echo " &#62; $user[ank_d_r].$user[ank_m_r]<br />";
 echo "</div>";
 
 echo "<div class='nav2'>";
@@ -1025,48 +1025,48 @@ echo "</div>";
 echo "<div class='nav1'>";
 echo "<a href='?set=rost'> <img src='/style/icons/str.gif' alt='*'>  Рост</a>";
 if ($user['ank_rost']!=NULL)
-echo " &#62; $user[ank_rost]<br />\n";
+echo " &#62; $user[ank_rost]<br />";
 else
-echo "<br />\n";
+echo "<br />";
 
 
 echo "<a href='?set=ves'> <img src='/style/icons/str.gif' alt='*'>  Вес</a>";
 if ($user['ank_ves']!=NULL)
-echo " &#62; $user[ank_ves]<br />\n";
+echo " &#62; $user[ank_ves]<br />";
 else
-echo "<br />\n";
+echo "<br />";
 
 
 echo "<a href='?set=glaza'> <img src='/style/icons/str.gif' alt='*'>  Глаза</a>";
 if ($user['ank_cvet_glas']!=NULL)
-echo " &#62; $user[ank_cvet_glas]<br />\n";
+echo " &#62; $user[ank_cvet_glas]<br />";
 else
-echo "<br />\n";
+echo "<br />";
 
 
 echo "<a href='?set=volos'> <img src='/style/icons/str.gif' alt='*'>  Волосы</a>";
 if ($user['ank_volos']!=NULL)
-echo " &#62; $user[ank_volos]<br />\n";
+echo " &#62; $user[ank_volos]<br />";
 else
-echo "<br />\n";
+echo "<br />";
 
 echo "<a href='?set=telo'> <img src='/style/icons/str.gif' alt='*'>  Телосложение</a> ";
 if ($user['ank_telosl']==1)
-echo " &#62; Нет ответа<br />\n";
+echo " &#62; Нет ответа<br />";
 if ($user['ank_telosl']==2)
-echo " &#62; Худощавое<br />\n";
+echo " &#62; Худощавое<br />";
 if ($user['ank_telosl']==3)
-echo " &#62; Обычное<br />\n";
+echo " &#62; Обычное<br />";
 if ($user['ank_telosl']==4)
-echo " &#62; Спортивное<br />\n";
+echo " &#62; Спортивное<br />";
 if ($user['ank_telosl']==5)
-echo " &#62; Мускулистое<br />\n";
+echo " &#62; Мускулистое<br />";
 if ($user['ank_telosl']==6)
-echo " &#62; Плотное<br />\n";
+echo " &#62; Плотное<br />";
 if ($user['ank_telosl']==7)
-echo " &#62; Полное<br />\n";
+echo " &#62; Полное<br />";
 if ($user['ank_telosl']==0)
-echo "<br />\n";
+echo "<br />";
 echo "</div>";
 
 echo "<div class='nav2'>";
@@ -1076,13 +1076,13 @@ echo "</div>";
 echo "<div class='nav1'>";
 echo "<a href='?set=orien'> <img src='/style/icons/str.gif' alt='*'>  Ориентация</a> ";
 if ($user['ank_orien']==0)
-echo "<br />\n";
+echo "<br />";
 if ($user['ank_orien']==1)
-echo " &#62;  Гетеро<br />\n";
+echo " &#62;  Гетеро<br />";
 if ($user['ank_orien']==2)
-echo " &#62;  Би<br />\n";
+echo " &#62;  Би<br />";
 if ($user['ank_orien']==3)
-echo " &#62;  Гей/Лесби<br />\n";
+echo " &#62;  Гей/Лесби<br />";
 
 
 echo "<a href='?set=loves'> <img src='/style/icons/str.gif' alt='*'>  Цели знакомства</a><br />";
@@ -1104,12 +1104,12 @@ if ($user['ank_lov_14']==1)echo " &#62; Занятия спортом<br />";
 
 echo "<a href='?set=opar'> <img src='/style/icons/str.gif' alt='*'>  О партнере</a>";
 if ($user['ank_o_par']!=NULL)
-echo " &#62; ".htmlspecialchars($user['ank_o_par'])."<br />\n";
+echo " &#62; ".htmlspecialchars($user['ank_o_par'])."<br />";
 else
 echo "<br />";
 echo "<a href='?set=osebe'> <img src='/style/icons/str.gif' alt='*'>  О себе</a>";
 if ($user['ank_o_sebe']!=NULL)
-echo " &#62; ".htmlspecialchars($user['ank_o_sebe'])."<br />\n";
+echo " &#62; ".htmlspecialchars($user['ank_o_sebe'])."<br />";
 else
 echo "<br />";
 echo "</div>";
@@ -1127,27 +1127,27 @@ echo " &#62; ".htmlspecialchars($user['ank_zan']);echo '<br />';
 
 echo "<a href='?set=mat_pol'> <img src='/style/icons/str.gif' alt='*'>  Материальное положение</a>";
 if ($user['ank_mat_pol']==1)
-echo " &#62; Непостоянные заработки<br />\n";
+echo " &#62; Непостоянные заработки<br />";
 if ($user['ank_mat_pol']==2)
-echo " &#62; Постоянный небольшой доход<br />\n";
+echo " &#62; Постоянный небольшой доход<br />";
 if ($user['ank_mat_pol']==3)
-echo " &#62; Стабильный средний доход<br />\n";
+echo " &#62; Стабильный средний доход<br />";
 if ($user['ank_mat_pol']==4)
-echo " &#62; Хорошо зарабатываю / обеспечен<br />\n";
+echo " &#62; Хорошо зарабатываю / обеспечен<br />";
 if ($user['ank_mat_pol']==5)
-echo " &#62; Не зарабатываю<br />\n";
+echo " &#62; Не зарабатываю<br />";
 if ($user['ank_mat_pol']==0)
-echo "<br />\n";
+echo "<br />";
 
 echo "<a href='?set=avto'> <img src='/style/icons/str.gif' alt='*'>  Наличие автомобиля</a>";
 if ($user['ank_avto_n']==1)
-echo " &#62; Есть<br />\n";
+echo " &#62; Есть<br />";
 if ($user['ank_avto_n']==2)
-echo " &#62; 取消<br />\n";
+echo " &#62; 取消<br />";
 if ($user['ank_avto_n']==3)
-echo " &#62; Хочу купить<br />\n";
+echo " &#62; Хочу купить<br />";
 if ($user['ank_avto_n']==0)
-echo "<br />\n";
+echo "<br />";
 if ($user['ank_avto'] && $user['ank_avto_n']!=2 && $user['ank_avto_n']!=0)
 echo "<img src='/style/icons/str.gif' alt='*'>  ".htmlspecialchars($user['ank_avto'])."<br />";
 
@@ -1156,32 +1156,32 @@ echo "<img src='/style/icons/str.gif' alt='*'>  ".htmlspecialchars($user['ank_av
 
 echo "<a href='?set=proj'> <img src='/style/icons/str.gif' alt='*'>  Проживание</a> ";
 if ($user['ank_proj']==1)
-echo " &#62; Отдельная квартира (снимаю или своя)<br />\n";
+echo " &#62; Отдельная квартира (снимаю или своя)<br />";
 if ($user['ank_proj']==2)
-echo " &#62; Комната в общежитии, коммуналка<br />\n";
+echo " &#62; Комната в общежитии, коммуналка<br />";
 if ($user['ank_proj']==3)
-echo " &#62; Живу с родителями<br />\n";
+echo " &#62; Живу с родителями<br />";
 if ($user['ank_proj']==4)
-echo " &#62; Живу с приятелем / с подругой<br />\n";
+echo " &#62; Живу с приятелем / с подругой<br />";
 if ($user['ank_proj']==5)
-echo " &#62; Живу с партнером или супругом (-ой)<br />\n";
+echo " &#62; Живу с партнером или супругом (-ой)<br />";
 if ($user['ank_proj']==6)
-echo " &#62; Нет постоянного жилья<br />\n";
+echo " &#62; Нет постоянного жилья<br />";
 if ($user['ank_proj']==0)
-echo "<br />\n";
+echo "<br />";
 
 
 echo "<a href='?set=baby'> <img src='/style/icons/str.gif' alt='*'>  Есть ли дети</a> ";
 if ($user['ank_baby']==1)
-echo " &#62; 取消<br />\n";
+echo " &#62; 取消<br />";
 if ($user['ank_baby']==2)
-echo " &#62; Нет, но хотелось бы<br />\n";
+echo " &#62; Нет, но хотелось бы<br />";
 if ($user['ank_baby']==3)
-echo " &#62; Есть, живем вместе<br />\n";
+echo " &#62; Есть, живем вместе<br />";
 if ($user['ank_baby']==4)
-echo " &#62; Есть, живем порознь<br />\n";
+echo " &#62; Есть, живем порознь<br />";
 if ($user['ank_baby']==0)
-echo "<br />\n";
+echo "<br />";
 echo "</div>";
 
 echo "<div class='nav2'>";
@@ -1191,42 +1191,42 @@ echo "</div>";
 echo "<div class='nav1'>";
 echo "<a href='?set=smok'> <img src='/style/icons/str.gif' alt='*'>  Курение</a>";
 if ($user['ank_smok']==1)
-echo " &#62; Не курю<br />\n";
+echo " &#62; Не курю<br />";
 if ($user['ank_smok']==2)
-echo " &#62; Курю<br />\n";
+echo " &#62; Курю<br />";
 if ($user['ank_smok']==3)
-echo " &#62; Редко<br />\n";
+echo " &#62; Редко<br />";
 if ($user['ank_smok']==4)
-echo " &#62; Бросаю<br />\n";
+echo " &#62; Бросаю<br />";
 if ($user['ank_smok']==5)
-echo " &#62; Успешно бросил<br />\n";
+echo " &#62; Успешно бросил<br />";
 if ($user['ank_smok']==0)
-echo "<br />\n";
+echo "<br />";
 
 echo "<a href='?set=alko'> <img src='/style/icons/str.gif' alt='*'>  Алкоголь</a> ";
 if ($user['ank_alko_n']==1)
-echo "&#62; Да, выпиваю<br />\n";
+echo "&#62; Да, выпиваю<br />";
 if ($user['ank_alko_n']==2)
-echo "&#62; Редко, по праздникам<br />\n";
+echo "&#62; Редко, по праздникам<br />";
 if ($user['ank_alko_n']==3)
-echo "&#62; Нет, категорически не приемлю<br />\n";
+echo "&#62; Нет, категорически не приемлю<br />";
 if ($user['ank_alko_n']==0)
-echo "<br />\n";
+echo "<br />";
 if ($user['ank_alko'] && $user['ank_alko_n']!=3 && $user['ank_alko_n']!=0)
 echo "<img src='/style/icons/str.gif' alt='*'>  ".htmlspecialchars($user['ank_alko'])."<br />";
 
 
 echo "<a href='?set=nark'> <img src='/style/icons/str.gif' alt='*'>  Наркотики</a> ";
 if ($user['ank_nark']==1)
-echo " Да, курю травку<br />\n";
+echo " Да, курю травку<br />";
 if ($user['ank_nark']==2)
-echo "&#62; Да, люблю любой вид наркотических средств<br />\n";
+echo "&#62; Да, люблю любой вид наркотических средств<br />";
 if ($user['ank_nark']==3)
-echo "&#62; Бросаю, прохожу реабилитацию<br />\n";
+echo "&#62; Бросаю, прохожу реабилитацию<br />";
 if ($user['ank_nark']==4)
-echo "&#62; Нет, категорически не приемлю<br />\n";
+echo "&#62; Нет, категорически не приемлю<br />";
 if ($user['ank_nark']==0)
-echo "<br />\n";
+echo "<br />";
 
 echo "</div>";
 echo "<div class='nav2'>";
@@ -1257,7 +1257,7 @@ echo "</div>";
 echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'> <a href='anketa.php'>Посмотреть анкету</a><br />";
 
 if(isset($_SESSION['refer']) && $_SESSION['refer']!=NULL && otkuda($_SESSION['refer']))
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='$_SESSION[refer]'>".otkuda($_SESSION['refer'])."</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='$_SESSION[refer]'>".otkuda($_SESSION['refer'])."</a><br />";
 echo '</div>';
 	
 include_once '../../sys/inc/tfoot.php';

@@ -22,9 +22,9 @@ title();
 aut(); // форма авторизации
 /*** Поле поиска ****/
 echo "<div class='foot'><form method=\"post\" action=\"search.php?go\">";
-echo "<table><td><input style='width:95%;' type=\"text\" name=\"usearch\" maxlength=\"16\" /></td><td> \n";
+echo "<table><td><input style='width:95%;' type=\"text\" name=\"usearch\" maxlength=\"16\" /></td><td> ";
 echo "<input type=\"submit\" value=\"搜索\" /></td></table>";
-echo "</form></div>\n";
+echo "</form></div>";
 
 /**** Панель навигации ****/
 echo "<div id='comments' class='menus'>";
@@ -47,24 +47,24 @@ switch($sortir)
 {
 case 't':
 $order='order by `time` desc';
-echo"<div class='foot'><b>新的</b> | <a href='?sort=c'>流行的</a></div>\n";
+echo"<div class='foot'><b>新的</b> | <a href='?sort=c'>流行的</a></div>";
 break;
 case 'c':
 $order='order by `count` desc';
-echo"<div class='foot'><a href='?sort=t'>新的</a> | <b>Популярные</b></div>\n";
+echo"<div class='foot'><a href='?sort=t'>新的</a> | <b>Популярные</b></div>";
 /* Сортировка популярных дневников по времени */
 echo "<div class='nav2'>";
 if(isset($_GET['new']) && $_GET['new']=='t'){
-echo"<b>新的</b> | <a href='?sort=c&new=m'>每月</a> | <a href='?sort=c&new=v'>一直如此</a>\n";
+echo"<b>新的</b> | <a href='?sort=c&new=m'>每月</a> | <a href='?sort=c&new=v'>一直如此</a>";
 $new=" AND `time`>'".(time()-600)."' ";
 }elseif(isset($_GET['new']) && $_GET['new']=='m'){
-echo"<a href='?sort=c&new=t'>新的</a> | <b>每月</b> | <a href='?sort=c&new=v'>一直如此</a>\n";
+echo"<a href='?sort=c&new=t'>新的</a> | <b>每月</b> | <a href='?sort=c&new=v'>一直如此</a>";
 $new=" AND `time`>'".(time()-2592000)."' ";
 }elseif(isset($_GET['new']) && $_GET['new']=='v'){
-echo"<a href='?sort=c&new=t'>新的</a> | <a href='?sort=c&new=m'>每月</a> | <b>一直如此</b>\n";
+echo"<a href='?sort=c&new=t'>新的</a> | <a href='?sort=c&new=m'>每月</a> | <b>一直如此</b>";
 $new=null;
 }elseif(isset($_GET['sort']) && $_GET['sort']=='c'){
- echo"<b>新的</b> | <a href='?sort=c&new=m'>每月</a> | <a href='?sort=c&new=v'>一直如此</a>\n";
+ echo"<b>新的</b> | <a href='?sort=c&new=m'>每月</a> | <a href='?sort=c&new=v'>一直如此</a>";
 $new=" AND `time`>'".(time()-600)."' ";
 }else{ $new=null; }
 echo "</div>";
@@ -84,13 +84,13 @@ $start=$set['p_str']*$page-$set['p_str'];
 
 $q=dbquery("SELECT * FROM `notes` $order LIMIT $start, $set[p_str]");
 
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 
 if ($k_post==0)
 {
-echo "  <div class='mess'>\n";
-echo "没有记录\n";
-echo "  </div>\n";
+echo "  <div class='mess'>";
+echo "没有记录";
+echo "  </div>";
 }
 
 while ($post = dbassoc($q))
@@ -98,24 +98,24 @@ while ($post = dbassoc($q))
 
 /*-----------зебра-----------*/
 if ($num==0)
-{echo "  <div class='nav1'>\n";
+{echo "  <div class='nav1'>";
 $num=1;
 }elseif ($num==1)
-{echo "  <div class='nav2'>\n";
+{echo "  <div class='nav2'>";
 $num=0;}
 /*---------------------------*/
 echo group($post['id_user'])." ";
 echo user::nick($post['id_user'],1,1,1)." : <a href='/plugins/notes/list.php?id=".$post['id']."'>".text($post['name'])."</a>";
 echo '<span style="float:right;color:#666;">'.vremja($post['time']).'</span><br/>';
-echo rez_text($post['msg'],80)." <br/>\n";
+echo rez_text($post['msg'],80)." <br/>";
 notes_sh($post['id']);
 echo "<br/><img src='/style/icons/uv.png'> <font color=#666>(".dbresult(dbquery("SELECT COUNT(`id`)FROM `notes_komm` WHERE `id_notes`='$post[id]'"),0).") &bull;";
 echo " <a href='fav.php?id=".$post['id']."'><img src='/style/icons/add_fav.gif'> (".dbresult(dbquery("SELECT COUNT(`id`)FROM `bookmarks` WHERE `id_object`='".$post['id']."' AND `type`='notes'"),0).")</a> &bull; ";
 echo " <img src='/style/icons/action_share_color.gif'> (".dbresult(dbquery("SELECT COUNT(`id`)FROM `notes` WHERE `share_id`='".$post['id']."' AND `share_type`='notes'"),0).") </font>";
-echo "  </div>\n";
+echo "  </div>";
 
 }
-echo "</table>\n";
+echo "</table>";
 
 if (isset($_GET['sort'])) $dop="sort=".my_esc($_GET['sort'])."&amp;";
 else $dop='';

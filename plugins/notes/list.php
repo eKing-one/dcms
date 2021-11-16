@@ -82,28 +82,28 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]
 {
 echo "<div class='mess'>虚假信息会导致昵称被屏蔽。
 如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单.</div>";
-echo "<form class='nav1' method='post' action='?id=$notes[id]&amp;page=".intval($_GET['page'])."&amp;spam=$mess[id]'>\n";
+echo "<form class='nav1' method='post' action='?id=$notes[id]&amp;page=".intval($_GET['page'])."&amp;spam=$mess[id]'>";
 echo "<b>用户:</b> ";
-echo " ".avatar($spamer['id'])."  ".group($spamer['id'])." <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>\n";
+echo " ".avatar($spamer['id'])."  ".group($spamer['id'])." <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>";
 echo "".medal($spamer['id'])." ".online($spamer['id'])." (".vremja($mess['time']).")<br />";
 echo "<b>违规：</b> <font color='green'>".output_text($mess['msg'])."</font><br />";
-echo "原因：<br />\n<select name='types'>\n";
-echo "<option value='1' selected='selected'>垃圾邮件/广告</option>\n";
-echo "<option value='2' selected='selected'>欺诈行为</option>\n";
-echo "<option value='3' selected='selected'>进攻</option>\n";
-echo "<option value='0' selected='selected'>其他</option>\n";
-echo "</select><br />\n";
+echo "原因：<br /><select name='types'>";
+echo "<option value='1' selected='selected'>垃圾邮件/广告</option>";
+echo "<option value='2' selected='selected'>欺诈行为</option>";
+echo "<option value='3' selected='selected'>进攻</option>";
+echo "<option value='0' selected='selected'>其他</option>";
+echo "</select><br />";
 echo "评论:$tPanel";
 echo "<textarea name=\"msg\"></textarea><br />";
-echo "<input value=\"发送\" type=\"submit\" />\n";
-echo "</form>\n";
+echo "<input value=\"发送\" type=\"submit\" />";
+echo "</form>";
 }else{
 echo "<div class='mess'>投诉有关<font color='green'>$spamer[nick]</font> 它将在不久的将来考虑。</div>";
 }
 
-echo "<div class='foot'>\n";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='?id=$notes[id]&amp;page=".intval($_GET['page'])."'>返回</a><br />\n";
-echo "</div>\n";
+echo "<div class='foot'>";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='?id=$notes[id]&amp;page=".intval($_GET['page'])."'>返回</a><br />";
+echo "</div>";
 include_once '../../sys/inc/tfoot.php';
 exit;
 }
@@ -215,9 +215,9 @@ err();
 if ($notes['private']==1 && $user['id']!=$avtor['id'] && $frend!=2  && !user_access('notes_delete'))
 {
 	msg('Дневник доступен только для друзей');
-	echo "  <div class='foot'>\n";
-	echo "<a href='index.php'>返回</a><br />\n";
-	echo "   </div>\n";
+	echo "  <div class='foot'>";
+	echo "<a href='index.php'>返回</a><br />";
+	echo "   </div>";
 	include_once '../../sys/inc/tfoot.php';
 	exit;
 }
@@ -225,9 +225,9 @@ if ($notes['private']==1 && $user['id']!=$avtor['id'] && $frend!=2  && !user_acc
 if ($notes['private']==2 && $user['id']!=$avtor['id']  && !user_access('notes_delete'))
 {
 	msg('Пользователь запретил просмотр дневника');
-	echo "  <div class='foot'>\n";
-	echo "<a href='index.php'>返回</a><br />\n";
-	echo "   </div>\n";
+	echo "  <div class='foot'>";
+	echo "<a href='index.php'>返回</a><br />";
+	echo "   </div>";
 	include_once '../../sys/inc/tfoot.php';
 	exit;
 }
@@ -236,7 +236,7 @@ if (isset($_GET['delete']) && ($user['id']==$avtor['id'] || user_access('notes_d
 {
 	echo "<center>";
 	echo "Вы действительно хотите удалить дневник " . output_text($notes['name']) . "?<br />";
-	echo "[<a href='delete.php?id=$notes[id]'><img src='/style/icons/ok.gif'> 移走</a>] [<a href='list.php?id=$notes[id]'><img src='/style/icons/delete.gif'> отмена</a>] \n";
+	echo "[<a href='delete.php?id=$notes[id]'><img src='/style/icons/ok.gif'> 移走</a>] [<a href='list.php?id=$notes[id]'><img src='/style/icons/delete.gif'> отмена</a>] ";
 	echo "</center>";
 	include_once '../../sys/inc/tfoot.php';
 }
@@ -295,10 +295,10 @@ if (isset($user))
 
 }
 
-echo "<div class=\"foot\">\n";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Дневники</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>\n";
+echo "<div class=\"foot\">";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Дневники</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>";
 echo ' | <b>' . output_text($notes['name']) . '</b>';
-echo "</div>\n";
+echo "</div>";
 echo "<div class='main'>";
 echo "<table style='width:110%;'><td style='width:4%;'>".avatar($avtor['id'])."</td>";
 echo "<td style='width:96%;'> Автор: ";
@@ -348,26 +348,26 @@ echo " <a href='share.php?id=".$notes['id']."'><img src='/style/icons/action_sha
 }else{ 
 echo "<img src='/style/icons/action_share_color.gif'> Поделились:  (".$share.")"; }
 if (isset($user) && (user_access('notes_delete') || $user['id']==$avtor['id'])){
-echo "<br/><a href='edit.php?id=$notes[id]'><img src='/style/icons/edit.gif'> Изменить</a> <a href='?id=$notes[id]&amp;delete'><img src='/style/icons/delete.gif'> 移走</a>\n";
+echo "<br/><a href='edit.php?id=$notes[id]'><img src='/style/icons/edit.gif'> Изменить</a> <a href='?id=$notes[id]&amp;delete'><img src='/style/icons/delete.gif'> 移走</a>";
 }
 echo "</div><div class='main'>";
 $l1=dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `like` = '0' AND `id_notes` = '".$notes['id']."' LIMIT 1"),0);
 $l2=dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `like` = '1' AND `id_notes` = '".$notes['id']."' LIMIT 1"),0);
 if (isset($user) && $user['id']!=$avtor['id']){
 if (dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `id_user` = '".$user['id']."' AND `id_notes` = '".$notes['id']."' LIMIT 1"),0)==0)
-echo "<a href='list.php?id=$notes[id]&amp;like=1'><img src='/style/icons/thumbu.png' alt='*' /> </a> (".($l2-$l1).") <a href='list.php?id=$notes[id]&amp;like=0'><img src='/style/icons/thumbd.png' alt='*' /></a>\n";
+echo "<a href='list.php?id=$notes[id]&amp;like=1'><img src='/style/icons/thumbu.png' alt='*' /> </a> (".($l2-$l1).") <a href='list.php?id=$notes[id]&amp;like=0'><img src='/style/icons/thumbd.png' alt='*' /></a>";
 else
-echo " <img src='/style/icons/thumbu.png' alt='*' /> (".($l2-$l1).") <img src='/style/icons/thumbd.png' alt='*' /> \n";
+echo " <img src='/style/icons/thumbu.png' alt='*' /> (".($l2-$l1).") <img src='/style/icons/thumbd.png' alt='*' /> ";
 }else{
-echo " <img src='/style/icons/thumbu.png' alt='*' />  (".($l2-$l1).") <img src='/style/icons/thumbd.png' alt='*' /> \n";
+echo " <img src='/style/icons/thumbu.png' alt='*' />  (".($l2-$l1).") <img src='/style/icons/thumbd.png' alt='*' /> ";
 }
 //--------------------------В закладки-----------------------------//
 if (isset($user)){
 echo "".($webbrowser ? "&bull;" : null)." <img src='/style/icons/add_fav.gif' alt='*' /> ";
 if (dbresult(dbquery("SELECT COUNT(*) FROM `bookmarks` WHERE `id_user` = '".$user['id']."' AND `id_object` = '".$notes['id']."' AND `type`='notes' LIMIT 1"),0)==0)
-echo "<a href='list.php?id=$notes[id]&amp;fav=1'>B закладки</a><br />\n";
+echo "<a href='list.php?id=$notes[id]&amp;fav=1'>B закладки</a><br />";
 else
-echo "<a href='list.php?id=$notes[id]&amp;fav=0'>Из закладок</a><br />\n";
+echo "<a href='list.php?id=$notes[id]&amp;fav=0'>Из закладок</a><br />";
 
 echo "<img src='/style/icons/add_fav.gif' alt='*' />  <a href='fav.php?id=".$notes['id']."'>Кто добавил? </a> (".$markinfo.")";
 } echo '</div>';
@@ -391,13 +391,13 @@ $page=page($k_page);
 $start=$set['p_str']*$page-$set['p_str'];
 
 echo '<div class="foot">';
-echo "<b>Комментарии</b>: (".dbresult(dbquery("SELECT COUNT(`id`)FROM `notes_komm` WHERE `id_notes`='".$notes['id']."'"),0).")\n";
+echo "<b>Комментарии</b>: (".dbresult(dbquery("SELECT COUNT(`id`)FROM `notes_komm` WHERE `id_notes`='".$notes['id']."'"),0).")";
 echo '</div>';
 
 if ($k_post==0)
 {
 echo '<div class="mess">';
-echo "没有留言\n";
+echo "没有留言";
 echo '</div>';
 }
 else if (isset($user))
@@ -418,7 +418,7 @@ echo "</div>";
 
 $q=dbquery("SELECT * FROM `notes_komm` WHERE `id_notes` = '".intval($_GET['id'])."' ORDER BY `time` $sort LIMIT $start, $set[p_str]");
 
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 
 while ($post = dbassoc($q))
 {
@@ -436,12 +436,12 @@ $ank=dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1")
 /*---------------------------*/
 
 echo group($ank['id'])." <a href='/info.php?id=$ank[id]'>$ank[nick]</a> ";
-if (isset($user) && $ank['id'] != $user['id'])echo "<a href='?id=$notes[id]&amp;response=$ank[id]'>[*]</a> \n";
+if (isset($user) && $ank['id'] != $user['id'])echo "<a href='?id=$notes[id]&amp;response=$ank[id]'>[*]</a> ";
 
 echo "".medal($ank['id'])." ".online($ank['id'])." (".vremja($post['time']).")<br />";$postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'notes') AND `post` = '1' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
 if ($postBan == 0) // Блок сообщения
 {	
-echo output_text($post['msg'])."<br />\n";
+echo output_text($post['msg'])."<br />";
 }else{
 	echo output_text($banMess).'<br />';
 }
@@ -457,45 +457,45 @@ echo "<a href=\"?id=$notes[id]&amp;page=$page&amp;spam=$post[id]\"><img src='/st
 		echo '<a href="delete.php?komm='.$post['id'].'"><img src="/style/icons/delete.gif" alt="*"></a>';
 	
 
-echo "</div>\n";
+echo "</div>";
 }
-echo "</div>\n";
+echo "</div>";
 }
-echo "</table>\n";if ($k_page>1)str("list.php?id=".intval($_GET['id']).'&amp;',$k_page,$page); // Вывод страниц
+echo "</table>";if ($k_page>1)str("list.php?id=".intval($_GET['id']).'&amp;',$k_page,$page); // Вывод страниц
 
 if ($notes['private_komm']==1 && $user['id']!=$avtor['id'] && $frend!=2  && !user_access('notes_delete')){
 msg('Комментировать могут только друзья');
-echo "  <div class='foot'>\n";
-echo "<a href='index.php'>返回</a><br />\n";
-echo "   </div>\n";
+echo "  <div class='foot'>";
+echo "<a href='index.php'>返回</a><br />";
+echo "   </div>";
 include_once '../../sys/inc/tfoot.php';
 exit;
 }
 
 if ($notes['private_komm']==2 && $user['id']!=$avtor['id'] && !user_access('notes_delete')){
 msg('Пользователь запретил комментирование дневника');
-echo "  <div class='foot'>\n";
-echo "<a href='index.php'>返回</a><br />\n";
-echo "   </div>\n";
+echo "  <div class='foot'>";
+echo "<a href='index.php'>返回</a><br />";
+echo "   </div>";
 include_once '../../sys/inc/tfoot.php';
 exit;
 }
 
 if (isset($user))
 {
-echo "<form method=\"post\" name='message' action=\"?id=".intval($_GET['id'])."&amp;page=$page".$go_otv."\">\n";
+echo "<form method=\"post\" name='message' action=\"?id=".intval($_GET['id'])."&amp;page=$page".$go_otv."\">";
 if ($set['web'] && is_file(H.'style/themes/'.$set['set_them'].'/altername_post_form.php'))
 include_once H.'style/themes/'.$set['set_them'].'/altername_post_form.php';
 else
-echo "$tPanel<textarea name=\"msg\">$otvet</textarea><br />\n";
-echo "<input value=\"发送\" type=\"submit\" />\n";
-echo "</form>\n";
+echo "$tPanel<textarea name=\"msg\">$otvet</textarea><br />";
+echo "<input value=\"发送\" type=\"submit\" />";
+echo "</form>";
 }
 
-echo "<div class=\"foot\">\n";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Дневники</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>\n";
+echo "<div class=\"foot\">";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Дневники</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>";
 echo ' | <b>' . output_text($notes['name']) . '</b>';
-echo "</div>\n";
+echo "</div>";
 
 include_once '../../sys/inc/tfoot.php';
 ?>

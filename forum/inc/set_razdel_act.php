@@ -51,8 +51,8 @@ admin_log('论坛','部分',"删除分区'$razd[name]'从子论坛'$forum[name]'
 msg('该部分已成功删除');
 err();
 aut();
-echo "<a href=\"/forum/$forum[id]/\">到子论坛</a><br />\n";
-echo "<a href=\"/forum/\">到论坛</a><br />\n";
+echo "<a href=\"/forum/$forum[id]/\">到子论坛</a><br />";
+echo "<a href=\"/forum/\">到论坛</a><br />";
 include_once '../sys/inc/tfoot.php';
 }
 ?>

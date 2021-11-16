@@ -10,7 +10,7 @@
 
 
 
-echo "<div class='title'>网站菜单</a>\n";
+echo "<div class='title'>网站菜单</a>";
 
 echo "</div>";
 
@@ -106,7 +106,7 @@ echo "</div>";
 
 
 
-if ($post_menu['type']=='link')echo "</a>\n";
+if ($post_menu['type']=='link')echo "</a>";
 
 
 
@@ -123,7 +123,7 @@ if ($post_menu['type']=='link')echo "</a>\n";
 
 
 if (user_access('adm_panel_show')){
-echo "<a href='/plugins/admin/'><div class='main_menu'>\n";
+echo "<a href='/plugins/admin/'><div class='main_menu'>";
 echo "管理员面板 ";
 include_once H."plugins/admin/count.php";
 echo "</div></a>";
@@ -143,7 +143,7 @@ if (isset($user))echo "<a href='/exit.php'><div class='main_menu'>退出</div></
 
 
 
-echo "<div class='tof'></a>\n";
+echo "<div class='tof'></a>";
 
 echo "</div>";
 

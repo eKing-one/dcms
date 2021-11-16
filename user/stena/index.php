@@ -108,17 +108,17 @@ if ($k_post==0)
 
 
 
-echo "  <div class='mess'>\n";
+echo "  <div class='mess'>";
 
 
 
 
-echo "没有留言\n";
+echo "没有留言";
 
 
 
 
-echo "  </div>\n";
+echo "  </div>";
 
 
 
@@ -243,7 +243,7 @@ if ($num==0)
 
 
 
-{echo "  <div class='nav1'>\n";
+{echo "  <div class='nav1'>";
 
 
 
@@ -258,7 +258,7 @@ $num=1;
 
 
 
-{echo "  <div class='nav2'>\n";
+{echo "  <div class='nav2'>";
 
 
 
@@ -353,7 +353,7 @@ echo "".group($ank_stena['id'])."";
 
 
 
-echo "<a href='/info.php?id=$ank_stena[id]'>$ank_stena[nick]</a>\n";
+echo "<a href='/info.php?id=$ank_stena[id]'>$ank_stena[nick]</a>";
 
 
 
@@ -378,7 +378,7 @@ echo stena($ank_stena['id'],$post['id']).' <br/>';
 
 
 
-echo output_text($post['msg'])."<br />\n";
+echo output_text($post['msg'])."<br />";
 
 
 
@@ -433,7 +433,7 @@ if (user_access('guest_delete') || $ank['id']==$user['id'])
 
 
 
-echo "<a href='?id=$ank[id]&amp;delete_post=$post[id]'><img src='/style/icons/delete.gif' alt='удалить' /></a>\n";
+echo "<a href='?id=$ank[id]&amp;delete_post=$post[id]'><img src='/style/icons/delete.gif' alt='удалить' /></a>";
 
 
 
@@ -443,7 +443,7 @@ echo "<a href='?id=$ank[id]&amp;delete_post=$post[id]'><img src='/style/icons/de
 
 
 
-echo "   </span>\n";
+echo "   </span>";
 
 
 
@@ -453,7 +453,7 @@ echo "   </span>\n";
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 
@@ -493,7 +493,7 @@ if (isset($user) || (isset($set['write_guest']) && $set['write_guest']==1 && (!i
 
 
 
-echo "<form method=\"post\" name='message' action=\"?id=$ank[id]$go_otv\">\n";
+echo "<form method=\"post\" name='message' action=\"?id=$ank[id]$go_otv\">";
 
 
 
@@ -513,17 +513,17 @@ else
 
 
 
-echo "$tPanel<textarea name=\"msg\">$otvet</textarea><br />\n";
+echo "$tPanel<textarea name=\"msg\">$otvet</textarea><br />";
 
 
 
 
-echo "<input value=\"发送\" type=\"submit\" />\n";
+echo "<input value=\"发送\" type=\"submit\" />";
 
 
 
 
-echo "</form><table width='99%'>\n";
+echo "</form><table width='99%'>";
 
 
 

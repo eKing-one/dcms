@@ -218,7 +218,7 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0)
 
 
 
-		if ($anketa['group_access']>1)echo "<div class='err'>$anketa[group_name]</div>\n";
+		if ($anketa['group_access']>1)echo "<div class='err'>$anketa[group_name]</div>";
 
 
 
@@ -314,7 +314,7 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0)
 
 
 
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=".$anketa['id']."'>Добавить в друзья</a><br />\n";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=".$anketa['id']."'>Добавить в друзья</a><br />";
 
 
 
@@ -322,7 +322,7 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0)
 
 
 
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$anketa[id]'>Отклонить заявку</a><br />\n";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$anketa[id]'>Отклонить заявку</a><br />";
 
 
 
@@ -330,7 +330,7 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0)
 
 
 
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$anketa[id]'>Удалить из друзей</a><br />\n";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$anketa[id]'>Удалить из друзей</a><br />";
 
 
 
@@ -578,7 +578,7 @@ echo "<div class='mess'>Ложная информация может приве�
 
 
 
-echo "<form class='nav1' method='post' action='?id=$status[id]&amp;spam=$mess[id]&amp;page=".intval($_GET['page'])."'>\n";
+echo "<form class='nav1' method='post' action='?id=$status[id]&amp;spam=$mess[id]&amp;page=".intval($_GET['page'])."'>";
 
 
 
@@ -586,7 +586,7 @@ echo "<b>用户:</b> ";
 
 
 
-echo " ".status($spamer['id'])."  ".group($spamer['id'])." <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>\n";
+echo " ".status($spamer['id'])."  ".group($spamer['id'])." <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>";
 
 
 
@@ -598,27 +598,27 @@ echo "<b>违规：</b> <font color='green'>".output_text($mess['msg'])."</font><
 
 
 
-echo "原因：<br />\n<select name='types'>\n";
+echo "原因：<br /><select name='types'>";
 
 
 
-echo "<option value='1' selected='selected'>垃圾邮件/广告</option>\n";
+echo "<option value='1' selected='selected'>垃圾邮件/广告</option>";
 
 
 
-echo "<option value='2' selected='selected'>欺诈行为</option>\n";
+echo "<option value='2' selected='selected'>欺诈行为</option>";
 
 
 
-echo "<option value='3' selected='selected'>进攻</option>\n";
+echo "<option value='3' selected='selected'>进攻</option>";
 
 
 
-echo "<option value='0' selected='selected'>其他</option>\n";
+echo "<option value='0' selected='selected'>其他</option>";
 
 
 
-echo "</select><br />\n";
+echo "</select><br />";
 
 
 
@@ -630,11 +630,11 @@ echo "<textarea name=\"msg\"></textarea><br />";
 
 
 
-echo "<input value=\"发送\" type=\"submit\" />\n";
+echo "<input value=\"发送\" type=\"submit\" />";
 
 
 
-echo "</form>\n";
+echo "</form>";
 
 
 
@@ -654,15 +654,15 @@ echo "<div class='mess'>投诉有关<font color='green'>$spamer[nick]</font> 它
 
 
 
-echo "<div class='foot'>\n";
+echo "<div class='foot'>";
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='?id=$status[id]&page=".intval($_GET['page'])."'>返回</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='?id=$status[id]&page=".intval($_GET['page'])."'>返回</a><br />";
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 
@@ -1122,7 +1122,7 @@ echo " <a href='/info.php?id=$anketa[id]'>$anketa[nick]</a>";
 
 
 
-echo " ".medal($anketa['id'])." ".online($anketa['id'])." <br />\n";
+echo " ".medal($anketa['id'])." ".online($anketa['id'])." <br />";
 
 
 
@@ -1166,11 +1166,11 @@ echo "</div>";
 
 
 
-echo "<div class='foot'>\n";
+echo "<div class='foot'>";
 
 
 
-echo "评论：\n";
+echo "评论：";
 
 
 
@@ -1198,7 +1198,7 @@ $q=dbquery("SELECT * FROM `status_komm` WHERE `id_status` = '".intval($_GET['id'
 
 
 
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 
 
 
@@ -1210,11 +1210,11 @@ if ($k_post==0)
 
 
 
-echo "<div class='mess'>\n";
+echo "<div class='mess'>";
 
 
 
-echo "Нет сообщений\n";
+echo "Нет сообщений";
 
 
 
@@ -1298,7 +1298,7 @@ if (isset($user) && $ank['id'] != $user['id'])echo "<a href='?id=$status[id]&amp
 
 
 
-echo "".medal($ank['id'])." ".online($ank['id'])." (".vremja($post['time']).")<br />\n";
+echo "".medal($ank['id'])." ".online($ank['id'])." (".vremja($post['time']).")<br />";
 
 
 
@@ -1322,7 +1322,7 @@ if ($postBan == 0) // Блок сообщения
 
 
 
-	echo output_text($post['msg'])."<br />\n";
+	echo output_text($post['msg'])."<br />";
 
 
 
@@ -1414,7 +1414,7 @@ if (isset($user))
 
 
 
-echo "<form method=\"post\" name='message' action=\"?id=".intval($_GET['id'])."&amp;page=$page" . $go_otv . "\">\n";
+echo "<form method=\"post\" name='message' action=\"?id=".intval($_GET['id'])."&amp;page=$page" . $go_otv . "\">";
 
 
 
@@ -1430,15 +1430,15 @@ else
 
 
 
-echo "$tPanel<textarea name=\"msg\">$otvet</textarea><br />\n";
+echo "$tPanel<textarea name=\"msg\">$otvet</textarea><br />";
 
 
 
-echo "<input value=\"发送\" type=\"submit\" />\n";
+echo "<input value=\"发送\" type=\"submit\" />";
 
 
 
-echo "</form>\n";
+echo "</form>";
 
 
 

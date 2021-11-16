@@ -286,7 +286,7 @@ for ($i=$start;$i<$end && $i<count($f);$i++)
 
 
 
-echo ($i+1).') '.trim(stripcslashes(htmlspecialchars($f[$i])))."<br />\n";
+echo ($i+1).') '.trim(stripcslashes(htmlspecialchars($f[$i])))."<br />";
 
 
 
@@ -340,7 +340,7 @@ if(isset($_SESSION['refer']) && $_SESSION['refer']!=NULL && otkuda($_SESSION['re
 
 
 
-echo "<div class=\"foot\">\n";
+echo "<div class=\"foot\">";
 
 
 
@@ -349,7 +349,7 @@ echo "<div class=\"foot\">\n";
 
 
 
-echo "&laquo;<a href='$_SESSION[refer]'>".otkuda($_SESSION['refer'])."</a><br />\n";
+echo "&laquo;<a href='$_SESSION[refer]'>".otkuda($_SESSION['refer'])."</a><br />";
 
 
 
@@ -358,7 +358,7 @@ echo "&laquo;<a href='$_SESSION[refer]'>".otkuda($_SESSION['refer'])."</a><br />
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 

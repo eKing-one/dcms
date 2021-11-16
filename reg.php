@@ -28,7 +28,7 @@ if ($set['reg_select'] == 'close') {
 	$err = '暂停登记';
 	err();
 
-	echo "<a href='/aut.php'>授权书</a><br />\n";
+	echo "<a href='/aut.php'>授权书</a><br />";
 	include_once 'sys/inc/tfoot.php';
 } elseif ($set['reg_select'] == 'open_mail' && isset($_GET['id']) && isset($_GET['activation']) && $_GET['activation'] != NULL) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '" . intval($_GET['id']) . "' AND `activation` = '" . my_esc($_GET['activation']) . "'"), 0) == 1) {
@@ -73,10 +73,10 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 如果帐户在24小时内未激活，它将被删除<br />
 真诚的，网站管理<br />
 ";
-			$adds = "From: \"password@$_SERVER[HTTP_HOST]\" <password@$_SERVER[HTTP_HOST]>\n";
-			//$adds = "From: <$set[reg_mail]>\n";
-			//$adds .= "X-sender: <$set[reg_mail]>\n";
-			$adds .= "Content-Type: text/html; charset=utf-8\n";
+			$adds = "From: \"password@$_SERVER[HTTP_HOST]\" <password@$_SERVER[HTTP_HOST]>";
+			//$adds = "From: <$set[reg_mail]>";
+			//$adds .= "X-sender: <$set[reg_mail]>";
+			$adds .= "Content-Type: text/html; charset=utf-8";
 			mail($_POST['ank_mail'], '=?utf-8?B?' . base64_encode($subject) . '?=', $regmail, $adds);
 		} else
 			dbquery("INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_last`, `pol`) values('" . $_SESSION['reg_nick'] . "', '" . shif($_POST['pass1']) . "', '$time', '$time', '" . intval($_POST['pol']) . "')", $db);
@@ -109,13 +109,13 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 			header('Location: /umenu.php?login=' . htmlspecialchars($_POST['reg_nick']) . '&pass=' . htmlspecialchars($_POST['pass1']));
 		}
 
-		echo "如果您的浏览器不支持Cookie，您可以创建一个自动登录书签<br />\n";
-		echo "<input type='text' value='http://$_SERVER[SERVER_NAME]/login.php?id=$user[id]&amp;pass=" . htmlspecialchars($_POST['pass1']) . "' /><br />\n";
+		echo "如果您的浏览器不支持Cookie，您可以创建一个自动登录书签<br />";
+		echo "<input type='text' value='http://$_SERVER[SERVER_NAME]/login.php?id=$user[id]&amp;pass=" . htmlspecialchars($_POST['pass1']) . "' /><br />";
 		if ($set['reg_select'] == 'open_mail') unset($user);
-		echo "<div class='foot'>\n";
-		echo "&raquo;<a href='settings.php'>我的设置</a><br />\n";
-		echo "&raquo;<a href='umenu.php'>我的菜单</a><br />\n";
-		echo "</div>\n";
+		echo "<div class='foot'>";
+		echo "&raquo;<a href='settings.php'>我的设置</a><br />";
+		echo "&raquo;<a href='umenu.php'>我的菜单</a><br />";
+		echo "</div>";
 		include_once 'sys/inc/tfoot.php';
 	}
 } elseif (isset($_POST['nick']) && $_POST['nick'] != NULL) {
@@ -137,32 +137,32 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 err();
 if (isset($_SESSION['step']) && $_SESSION['step'] == 1) {
 
-	echo "<form method='post' action='/reg.php?$passgen'>\n";
-	echo "你的昵称[A-zА-я0-9 -_]:<br /><input type='text' name='nick' maxlength='32' value='$_SESSION[reg_nick]' /><br />\n";
-	echo "<input type='submit' value='另一个' />\n";
-	echo "</form><br />\n";
-	echo "<form method='post' action='/reg.php?$passgen'>\n";
-	echo "你的性别:<br /><select name='pol'><option value='1'>男</option><option value='0'>女</option></select><br />\n";
+	echo "<form method='post' action='/reg.php?$passgen'>";
+	echo "你的昵称[A-zА-я0-9 -_]:<br /><input type='text' name='nick' maxlength='32' value='$_SESSION[reg_nick]' /><br />";
+	echo "<input type='submit' value='另一个' />";
+	echo "</form><br />";
+	echo "<form method='post' action='/reg.php?$passgen'>";
+	echo "你的性别:<br /><select name='pol'><option value='1'>男</option><option value='0'>女</option></select><br />";
 
 	if ($set['reg_select'] == 'open_mail') {
-		echo "E-mail:<br /><input type='text' name='ank_mail' /><br />\n";
-		echo "* 指定您的真实电子邮件地址。您将收到一个激活您的帐户的代码.<br />\n";
+		echo "E-mail:<br /><input type='text' name='ank_mail' /><br />";
+		echo "* 指定您的真实电子邮件地址。您将收到一个激活您的帐户的代码.<br />";
 	}
-	echo "输入密码（6-32个字符）:<br /><input type='password' name='pass1' maxlength='32' /><br />\n";
-	echo "重复密码:<br /><input type='password' name='pass2' maxlength='32' /><br />\n";
-	echo "<img src='/captcha.php?$passgen&amp;SESS=$sess' width='100' height='30' alt='核证号码' /><br />\n<input name='chislo' size='5' maxlength='5' value='' type='text' /><br/>\n";
-	echo "通过注册，您自动同意 <a href='/rules.php'>规则</a> 网站<br />\n";
+	echo "输入密码（6-32个字符）:<br /><input type='password' name='pass1' maxlength='32' /><br />";
+	echo "重复密码:<br /><input type='password' name='pass2' maxlength='32' /><br />";
+	echo "<img src='/captcha.php?$passgen&amp;SESS=$sess' width='100' height='30' alt='核证号码' /><br /><input name='chislo' size='5' maxlength='5' value='' type='text' /><br/>";
+	echo "通过注册，您自动同意 <a href='/rules.php'>规则</a> 网站<br />";
 
-	echo "<input type='submit' value='继续' />\n";
-	echo "</form><br />\n";
+	echo "<input type='submit' value='继续' />";
+	echo "</form><br />";
 } else {
-	echo "<form class='mess' method='post' action='/reg.php?$passgen'>\n";
-	echo "选择昵称 [A-zА-я0-9 -_]:<br /><input type='text' name='nick' maxlength='32' /><br />\n";
-	echo "通过注册，您自动同意 <a href='/rules.php'>规则</a> 网站<br />\n";
-	echo "<input type='submit' value='继续' />\n";
-	echo "</form><br />\n";
+	echo "<form class='mess' method='post' action='/reg.php?$passgen'>";
+	echo "选择昵称 [A-zА-я0-9 -_]:<br /><input type='text' name='nick' maxlength='32' /><br />";
+	echo "通过注册，您自动同意 <a href='/rules.php'>规则</a> 网站<br />";
+	echo "<input type='submit' value='继续' />";
+	echo "</form><br />";
 }
 
 echo "<div class = 'foot'>已经注册？<br />&raquo;<a href='/aut.php'>授权书</a></div>
-<div class = 'foot'>不记得密码？<br />&raquo;<a href='/pass.php'>恢复密码</a></div>\n";
+<div class = 'foot'>不记得密码？<br />&raquo;<a href='/pass.php'>恢复密码</a></div>";
 include_once 'sys/inc/tfoot.php';

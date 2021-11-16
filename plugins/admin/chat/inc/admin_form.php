@@ -33,57 +33,57 @@ if (isset($_GET['act']) && $_GET['act']=='create')
 
 
 
-echo "<form method=\"post\" class='foot' action=\"?\">\n";
+echo "<form method=\"post\" class='foot' action=\"?\">";
 
 
 
 
-echo "Будут удалены посты, написаные ... тому назад<br />\n";
+echo "Будут удалены посты, написаные ... тому назад<br />";
 
 
 
 
-echo "<input name=\"write\" value=\"12\" type=\"text\" size='3' />\n";
+echo "<input name=\"write\" value=\"12\" type=\"text\" size='3' />";
 
 
 
 
-echo "<select name=\"write2\">\n";
+echo "<select name=\"write2\">";
 
 
 
 
-echo "<option value=\"\">       </option>\n";
+echo "<option value=\"\">       </option>";
 
 
 
 
-echo "<option value=\"mes\">Месяцев</option>\n";
+echo "<option value=\"mes\">Месяцев</option>";
 
 
 
 
-echo "<option value=\"sut\">Суток</option>\n";
+echo "<option value=\"sut\">Суток</option>";
 
 
 
 
-echo "</select><br />\n";
+echo "</select><br />";
 
 
 
 
-echo "<img src='/style/icons/ok.gif' alt='*' /> <input value=\"Очистить\" type=\"submit\" /> \n";
+echo "<img src='/style/icons/ok.gif' alt='*' /> <input value=\"Очистить\" type=\"submit\" /> ";
 
 
 
 
-echo "<img src='/style/icons/delete.gif' alt='*' /> <a href=\"?\">Отмена</a><br />\n";
+echo "<img src='/style/icons/delete.gif' alt='*' /> <a href=\"?\">Отмена</a><br />";
 
 
 
 
-echo "</form>\n";
+echo "</form>";
 
 
 
@@ -108,17 +108,17 @@ echo "</form>\n";
 
 
 
-echo "<div class=\"foot\">\n";
+echo "<div class=\"foot\">";
 
 
 
 
-echo "<img src='/style/icons/str.gif' alt='*' /> <a href=\"?act=create\">Очистить чат</a><br />\n";
+echo "<img src='/style/icons/str.gif' alt='*' /> <a href=\"?act=create\">Очистить чат</a><br />";
 
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 

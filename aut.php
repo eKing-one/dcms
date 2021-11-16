@@ -39,7 +39,7 @@ $_SESSION['refer']=str_replace('&','&amp;',preg_replace('#^http://[^/]*/#','/', 
 登入:<br /><input type='text' name='nick' maxlength='32' /><br />
 密码:<br /><input type='password' name='pass' maxlength='32' /><br />
 <label><input type='checkbox' name='aut_save' value='1' />记住我</label><br />
-<input type='submit' value='Войти' />
+<input type='submit' value='登录' />
 </form>					
 
 <div class='foot'>尚未登记？ <br /><a href='/reg.php'>登记注册</a><br /></div>

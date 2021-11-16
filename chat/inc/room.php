@@ -179,7 +179,7 @@ if (isset($user))
 
 
 
-echo "<form method=\"post\" name='message' action=\"/chat/room/$room[id]/".rand(1000,9999)."/\">\n";
+echo "<form method=\"post\" name='message' action=\"/chat/room/$room[id]/".rand(1000,9999)."/\">";
 
 
 
@@ -199,22 +199,22 @@ else
 
 
 
-echo "$tPanel<textarea name=\"msg\"></textarea><br />\n";
+echo "$tPanel<textarea name=\"msg\"></textarea><br />";
 
 
 
 
-echo "<input value=\"发送\" type=\"submit\" />\n";
+echo "<input value=\"发送\" type=\"submit\" />";
 
 
 
 
-echo " <a href='/chat/room/$room[id]/".rand(1000,9999)."/'>更新资料</a><br />\n";
+echo " <a href='/chat/room/$room[id]/".rand(1000,9999)."/'>更新资料</a><br />";
 
 
 
 
-echo "</form>\n";
+echo "</form>";
 
 
 
@@ -254,7 +254,7 @@ $start=$set['p_str']*$page-$set['p_str'];
 
 
 
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 
 
 
@@ -274,17 +274,17 @@ echo "<table class='post'>\n";
 
 
 
-		echo "<div class='mess'>\n";
+		echo "<div class='mess'>";
 
 
 
 
-		echo "没有留言\n";
+		echo "没有留言";
 
 
 
 
-		echo "</div>\n";
+		echo "</div>";
 
 
 
@@ -409,7 +409,7 @@ $num=0;}
 
 
 
-			echo "<img src='/style/themes/$set[set_them]/chat/14/shutnik.png' alt='' />\n";
+			echo "<img src='/style/themes/$set[set_them]/chat/14/shutnik.png' alt='' />";
 
 
 
@@ -424,7 +424,7 @@ $num=0;}
 
 
 
-			echo "<img src='/style/themes/$set[set_them]/chat/14/umnik.png' alt='' />\n";
+			echo "<img src='/style/themes/$set[set_them]/chat/14/umnik.png' alt='' />";
 
 
 
@@ -479,7 +479,7 @@ $num=0;}
 
 
 
-		echo "<a href='/chat/room/$room[id]/".rand(1000,9999)."/$ank[id]/'>$ank[nick]</a>\n";
+		echo "<a href='/chat/room/$room[id]/".rand(1000,9999)."/$ank[id]/'>$ank[nick]</a>";
 
 
 
@@ -504,7 +504,7 @@ $num=0;}
 
 
 
-		echo "$set[chat_umnik] (".vremja($post['time']).")\n";
+		echo "$set[chat_umnik] (".vremja($post['time']).")";
 
 
 
@@ -519,7 +519,7 @@ $num=0;}
 
 
 
-		echo "$set[chat_shutnik] (".vremja($post['time']).")\n";
+		echo "$set[chat_shutnik] (".vremja($post['time']).")";
 
 
 
@@ -539,7 +539,7 @@ $num=0;}
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 
@@ -549,7 +549,7 @@ echo "</div>\n";
 
 
 
-echo "</table>\n";
+echo "</table>";
 
 
 

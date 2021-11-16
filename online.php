@@ -89,7 +89,7 @@ while ($ank = dbassoc($q))
 		$collisions = user_collision($mass);
 		if (count($collisions)>1)
 		{
-			echo '<span class="ank_n">Возможные ники</span> ';
+			echo '<span class="ank_n">可能的昵称</span> ';
 			echo '<span class="ank_d">';
 			for ($i = 1; $i < count($collisions); $i++)
 			{
@@ -105,7 +105,7 @@ while ($ank = dbassoc($q))
 			{
 				echo '<span class="ank_n">IP:</span> <span class="ank_d">' . long2ip($ank['ip']) . '</span>';
 				if (user_access('adm_ban_ip'))
-				echo ' [<a href="/adm_panel/ban_ip.php?min=' . $ank['ip'] . '">Бан</a>]';
+				echo ' [<a href="/adm_panel/ban_ip.php?min=' . $ank['ip'] . '">禁令</a>]';
 				echo '<br />';
 			}
 		}
@@ -117,7 +117,7 @@ while ($ank = dbassoc($q))
 			{
 				echo '<span class="ank_n">IP (CLIENT):</span> <span class="ank_d">' . long2ip($ank['ip_cl']) . '</span>';
 				if (user_access('adm_ban_ip'))
-				echo ' [<a href="/adm_panel/ban_ip.php?min=' . $ank['ip_cl'] . '">Бан</a>]';
+				echo ' [<a href="/adm_panel/ban_ip.php?min=' . $ank['ip_cl'] . '">禁令</a>]';
 				echo '<br />';
 			}
 		}
@@ -129,37 +129,37 @@ while ($ank = dbassoc($q))
 			{
 				echo '<span class="ank_n">IP (XFF):</span> <span class="ank_d">' . long2ip($ank['ip_xff']) . '</span>';
 				if (user_access('adm_ban_ip'))
-				echo ' [<a href="/adm_panel/ban_ip.php?min=' . $ank['ip_xff'] . '">Бан</a>]';
+				echo ' [<a href="/adm_panel/ban_ip.php?min=' . $ank['ip_xff'] . '">禁令</a>]';
 				echo '<br />';
 			}
 		}
 		
 		// Браузер
 		if (user_access('user_show_ua') && $ank['ua']!=NULL)
-		echo '<span class="ank_n">Браузер:</span> <span class="ank_d">' . $ank['ua'] . '</span><br />';
+		echo '<span class="ank_n">浏览器:</span> <span class="ank_d">' . $ank['ua'] . '</span><br />';
 		
 		if (user_access('user_show_ip') && opsos($ank['ip']))
-		echo '<span class="ank_n">Пров:</span> <span class="ank_d">' . opsos($ank['ip']) . '</span><br />';
+		echo '<span class="ank_n">IP:</span> <span class="ank_d">' . opsos($ank['ip']) . '</span><br />';
 		
 		if (user_access('user_show_ip') && opsos($ank['ip_cl']))
-		echo '<span class="ank_n">Пров (CL):</span> <span class="ank_d">' . opsos($ank['ip_cl']) . '</span><br />';
+		echo '<span class="ank_n">IP (CL):</span> <span class="ank_d">' . opsos($ank['ip_cl']) . '</span><br />';
 		
 		if (user_access('user_show_ip') && opsos($ank['ip_xff']))
-		echo '<span class="ank_n">Пров (XFF):</span> <span class="ank_d">' . opsos($ank['ip_xff']) . '</span><br />';
+		echo '<span class="ank_n">IP (XFF):</span> <span class="ank_d">' . opsos($ank['ip_xff']) . '</span><br />';
 		
 		if ($user['level'] > $ank['level'] && $user['id'] != $ank['id'])
 		{
 			if (user_access('user_prof_edit'))
-			echo '[<a href="/adm_panel/user.php?id=' . $ank['id'] . '"><img src="/style/icons/edit.gif" alt="*" /> ред.</a>] ';
+			echo '[<a href="/adm_panel/user.php?id=' . $ank['id'] . '"><img src="/style/icons/edit.gif" alt="*" /> 编辑.</a>] ';
 			
 			if ($user['id'] != $ank['id'])
 			{
 				if (user_access('user_ban_set') || user_access('user_ban_set_h') || user_access('user_ban_unset'))
-				echo '[<a href="/adm_panel/ban.php?id=' . $ank['id'] . '"><img src="/style/icons/blicon.gif" alt="*" /> бан</a>] ';
+				echo '[<a href="/adm_panel/ban.php?id=' . $ank['id'] . '"><img src="/style/icons/blicon.gif" alt="*" /> 禁令</a>] ';
 
 				if (user_access('user_delete'))
 				{
-					echo '[<a href="/adm_panel/delete_user.php?id=' . $ank['id'] . '"><img src="/style/icons/delete.gif" alt="*" /> удл.</a>] ';
+					echo '[<a href="/adm_panel/delete_user.php?id=' . $ank['id'] . '"><img src="/style/icons/delete.gif" alt="*" /> 删除.</a>] ';
 					echo '<br />';
 				}
 			}
@@ -169,7 +169,7 @@ while ($ank = dbassoc($q))
 	}
 	else
 	{
-		echo '<b>('.(($ank['pol'] == 1) ? 'М' : 'Ж') . (($ank['ank_age'] == null) ? '/Не указан' : '/' . $ank['ank_age']) . ')</b>';
+		echo '<b>('.(($ank['pol'] == 1) ? '男' : '女') . (($ank['ank_age'] == null) ? '/未指定' : '/' . $ank['ank_age']) . ')</b>';
 		
 		if ($ank['ank_city'] != NULL)
 		echo ', ' . text($ank['ank_city']);
@@ -188,7 +188,7 @@ if (user_access('user_collisions'))
 {
 	?>
 	<div class="foot">
-	<?=(!isset($_SESSION['admin']) ? '<a href="?admin">Расширенный режим</a> | <b>Обычный режим</b>' : '<b>Расширенный режим</b> | <a href="?admin=close">Обычный режим</a>')?>
+	<?=(!isset($_SESSION['admin']) ? '<a href="?admin">高级模式</a> | <b>正常模式</b>' : '<b>高级模式</b> | <a href="?admin=close">正常模式</a>')?>
 	</div>
 	<?
 }

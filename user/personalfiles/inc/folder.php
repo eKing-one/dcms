@@ -38,7 +38,7 @@ if (isset($user) && (user_access('obmen_file_edit') || $ank['id']==$user['id']))
 
  // Вывод обратной навигации
 echo "<div class='foot'>";
-echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'Файлы':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; '.text($dir['name']))."\n";
+echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'Файлы':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; '.text($dir['name']))."";
 echo "</div>";
 
 
@@ -69,9 +69,9 @@ header("Location: ?");
 if (!user_access('obmen_dir_edit') && ($user['id']!=$ank['id'] && $_SESSION['pass']!=$dir['pass']))
 {
 echo '<form action="?" method="POST">Пароль: <br />		<input type="pass" name="password" value="" /><br />		
-<input type="submit" value="Войти"/></form>';
+<input type="submit" value="登录"/></form>';
 echo "<div class='foot'>";
-echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'Файлы':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; '.text($dir['name']))."\n";
+echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'Файлы':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; '.text($dir['name']))."";
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';
 exit;
@@ -82,10 +82,10 @@ exit;
 if (isset($_GET['go']))
 {
 	echo '<div class="foot">';
-	echo "<img src='/style/icons/ok.gif' alt='*'> <a href='/user/personalfiles/$ank[id]/$dir[id]/?go=$file_go[id]&amp;ok'>Переместить сю是的</a>\n";
+	echo "<img src='/style/icons/ok.gif' alt='*'> <a href='/user/personalfiles/$ank[id]/$dir[id]/?go=$file_go[id]&amp;ok'>Переместить сю是的</a>";
 	echo "</div>";
 	echo '<div class="mess">';
-	echo "Выбирете папку для файла\n";
+	echo "Выбирете папку для файла";
 	echo "</div>";
 }
 
@@ -97,7 +97,7 @@ if (isset($_SESSION['obmen_dir']) || isset($_GET['obmen_dir']))
 	if (isset($_SESSION['obmen_dir']))
 	{
 		echo '<div class="mess">';
-		echo "Выбирете папку для загрузки файла\n";
+		echo "Выбирете папку для загрузки файла";
 		echo "</div>";		
 	}
 
@@ -110,12 +110,12 @@ $k_post=$k_post+$k_files;
 $k_page=k_page($k_post,$set['p_str']);
 $page=page($k_page);
 $start=$set['p_str']*$page-$set['p_str'];
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 if ($k_post==0)
 {
 echo '<div class="mess">';
-echo "Папка пуста\n";
-echo "  </div>\n";
+echo "Папка пуста";
+echo "  </div>";
 }
 
 $q=dbquery("SELECT * FROM `user_files`  WHERE `id_dir` = '$dir[id]'  AND `id_user` = '$ank[id]' ORDER BY time DESC LIMIT $start, $set[p_str]");
@@ -133,9 +133,9 @@ $num=0;}
 
 echo "<img src='/style/themes/$set[set_them]/loads/14/".($post['pass']!=null?'lock.gif':'dir.png')."' alt='*'>";
 if (isset($_GET['go'])) // Если перемещаем файл
-echo " <a href='/user/personalfiles/$ank[id]/$post[id]/?go=$file_go[id]'>".text($post['name'])."</a>\n";
+echo " <a href='/user/personalfiles/$ank[id]/$post[id]/?go=$file_go[id]'>".text($post['name'])."</a>";
 else
-echo " <a href='/user/personalfiles/$ank[id]/$post[id]/'>".text($post['name'])."</a>\n";
+echo " <a href='/user/personalfiles/$ank[id]/$post[id]/'>".text($post['name'])."</a>";
 /*----------------------Счетчик папок---------------------*/
 $k_f=0;
 $q3=dbquery("SELECT * FROM `user_files` WHERE `id_dires` like '%$post[id]%'");
@@ -159,7 +159,7 @@ echo ' ('.$k_f.'/'.$k_f2.') ';
 
 
 if (isset($user) && $user['group_access']>2 || $ank['id']==$user['id'])
-echo "<a href='?edit_folder=$post[id]'><img src='/style/icons/edit.gif' alt='*'></a> <a href='?delete_folder=$post[id]'><img src='/style/icons/delete.gif' alt='*'></a><br />\n";
+echo "<a href='?edit_folder=$post[id]'><img src='/style/icons/edit.gif' alt='*'></a> <a href='?delete_folder=$post[id]'><img src='/style/icons/delete.gif' alt='*'></a><br />";
 
 echo "</div>";
 }
@@ -194,9 +194,9 @@ include H."obmen/inc/icon48/$ras.php";
 //echo "<input type='checkbox' name='files_$post[id]' value='1' /> ";
 
 if (is_file(H.'style/themes/'.$set['set_them'].'/loads/14/'.$ras.'.png'))
-echo "<img src='/style/themes/$set[set_them]/loads/14/$ras.png' alt='$ras' /> \n";
+echo "<img src='/style/themes/$set[set_them]/loads/14/$ras.png' alt='$ras' /> ";
 else 
-echo "<img src='/style/themes/$set[set_them]/loads/14/file.png' alt='file' /> \n";
+echo "<img src='/style/themes/$set[set_them]/loads/14/file.png' alt='file' /> ";
 
 if ($set['echo_rassh']==1)$ras=$post['ras'];else $ras=NULL;
 
@@ -215,11 +215,11 @@ echo '</div>';
 
 }
 //echo "<input value=\"Задание\" type=\"submit\" name=\"job\" />";
-//echo "</form>\n";
-echo "</table>\n";
+//echo "</form>";
+echo "</table>";
 
 if ($k_page>1)str('?',$k_page,$page); // Вывод страниц
 echo "<div class='foot'>";
-echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'Файлы':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; '.text($dir['name']))."\n";
+echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'Файлы':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; '.text($dir['name']))."";
 echo "</div>";
 ?>

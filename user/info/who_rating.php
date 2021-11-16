@@ -74,23 +74,23 @@ if (isset($_GET['id']))$ank['id']=intval($_GET['id']);
 
 if (isset($user) && $user['id']!=$ank['id'] && $user['rating']>=2 && dbresult(dbquery("SELECT SUM(`rating`) FROM `user_voice2` WHERE `id_kont` = '$user[id]'"),0)>=0)
 {
-	echo "<b>Ваше отношение:</b><br />\n";
+	echo "<b>Ваше отношение:</b><br />";
 	// мое отношение к пользователю
 
 	$my_r=intval(@dbresult(dbquery("SELECT `rating` FROM `user_voice2` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"),0));
-	echo "<form method='post' action='?id=$ank[id]&amp;$passgen'>\n";
-	echo "<select name='rating'>\n";
-	echo "<option value='2' ".($my_r==2?'selected="selected"':null).">Замечательное</option>\n";
-	echo "<option value='1' ".($my_r==1?'selected="selected"':null).">Положительное</option>\n";
-	echo "<option value='0' ".($my_r==0?'selected="selected"':null).">Нейтральное</option>\n";
-	echo "<option value='-1' ".($my_r==-1?'selected="selected"':null).">Не очень...</option>\n";
-	echo "<option value='-2' ".($my_r==-2?'selected="selected"':null).">Негативное</option>\n";
-	echo "</select><br />\n";
+	echo "<form method='post' action='?id=$ank[id]&amp;$passgen'>";
+	echo "<select name='rating'>";
+	echo "<option value='2' ".($my_r==2?'selected="selected"':null).">Замечательное</option>";
+	echo "<option value='1' ".($my_r==1?'selected="selected"':null).">Положительное</option>";
+	echo "<option value='0' ".($my_r==0?'selected="selected"':null).">Нейтральное</option>";
+	echo "<option value='-1' ".($my_r==-1?'selected="selected"':null).">Не очень...</option>";
+	echo "<option value='-2' ".($my_r==-2?'selected="selected"':null).">Негативное</option>";
+	echo "</select><br />";
 	echo "Текст: <br />";
 	echo "<textarea name=\"msg\"></textarea><br />";
-	echo "<input type='submit' value='GO' />\n";
-	echo "</form>\n";
-	//echo "<br />\n";
+	echo "<input type='submit' value='GO' />";
+	echo "</form>";
+	//echo "<br />";
 }
 elseif (isset($user) && $user['id'] != $ank['id'])
 {
@@ -106,12 +106,12 @@ $k_page=k_page($k_post,$set['p_str']);
 $page=page($k_page);
 $start=$set['p_str']*$page-$set['p_str'];
 
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 
 if ($k_post==0)
 {
 	echo '<div class="mess">';
-	echo "Нет положительных отзывов\n";
+	echo "Нет положительных отзывов";
 	echo '</div>';
 }
 
@@ -133,29 +133,29 @@ while ($post = dbassoc($q))
 		$num = 0;
 	}
 
-	echo group($ank['id']) . " <a href='/info.php?id=$ank[id]'>$ank[nick]</a> \n";
+	echo group($ank['id']) . " <a href='/info.php?id=$ank[id]'>$ank[nick]</a> ";
 
 	echo "".medal($ank['id'])." ".online($ank['id'])." (".vremja($post['time']).") <br />";
 
 
-	echo "Отзыв:<br />\n";
+	echo "Отзыв:<br />";
 
 	switch ($post['rating'])
 	{
-		case 2:echo "Замечательный<br />\n";	break;
-		case 1:echo "Положительный<br />\n";	break;
-		case 0:echo "Нейтральный<br />\n";	break;
-		case -1:echo "Не очень...<br />\n";	break;
-		case -2:echo "Негативный<br />\n";	break;
+		case 2:echo "Замечательный<br />";	break;
+		case 1:echo "Положительный<br />";	break;
+		case 0:echo "Нейтральный<br />";	break;
+		case -1:echo "Не очень...<br />";	break;
+		case -2:echo "Негативный<br />";	break;
 	}
 
 	$msg=stripcslashes(htmlspecialchars($post['msg']));
-	echo "<br />$msg\n";
+	echo "<br />$msg";
 
 	echo '</div>';
 }
 
-echo "</table>\n";
+echo "</table>";
 
 
 if ($k_page>1)str('who_rating.php?id='.$user_id.'&amp;',$k_page,$page); // Вывод страниц

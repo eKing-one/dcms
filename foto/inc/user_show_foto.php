@@ -262,7 +262,7 @@ if ($user['id'] != $ank['id'] && $gallery['pass'] != NULL)
 	if (!isset($_SESSION['pass']) || $_SESSION['pass'] != $gallery['pass'])
 	{
 		echo '<form action="?" method="POST">Пароль:<br /><input type="pass" name="password" value="" /><br />		
-		<input type="submit" value="Войти"/></form>';
+		<input type="submit" value="登录"/></form>';
 		
 		echo '<div class="foot">';
 		echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">Альбомы</a> | <b>' . text($gallery['name']) . '</b>';

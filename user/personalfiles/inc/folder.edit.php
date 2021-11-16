@@ -50,7 +50,7 @@ if (isset($_GET['edit_folder']))
 	err();
 	
 	echo "<div class='foot'>";
-	echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn'] == 1 ? '<a href="/user/personalfiles/'.$ank['id'].'/'.$dir['id'].'/">Файлы</a>' : '')." ".user_files($dir['id_dires'])." ".($dir['osn'] == 1 ? '' : '&gt; <a href="/user/personalfiles/'.$ank['id'].'/'.$dir['id'].'/">'.text($dir['name']).'</a>')."\n";
+	echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn'] == 1 ? '<a href="/user/personalfiles/'.$ank['id'].'/'.$dir['id'].'/">Файлы</a>' : '')." ".user_files($dir['id_dires'])." ".($dir['osn'] == 1 ? '' : '&gt; <a href="/user/personalfiles/'.$ank['id'].'/'.$dir['id'].'/">'.text($dir['name']).'</a>')."";
 	echo "</div>";
 
 	echo '<form action="?edit_folder=' . $folder['id'] . '" method="post">';
@@ -60,7 +60,7 @@ if (isset($_GET['edit_folder']))
 	echo '<input type="submit" name="sub" value="Сохранить"/></form>';
 
 	echo "<div class='foot'>";
-	echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn'] == 1 ? '<a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">Файлы</a>' : '')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; <a href="/user/personalfiles/'.$ank['id'].'/'.$dir['id'].'/">' . text($dir['name']) . '</a>')."\n";
+	echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn'] == 1 ? '<a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">Файлы</a>' : '')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; <a href="/user/personalfiles/'.$ank['id'].'/'.$dir['id'].'/">' . text($dir['name']) . '</a>')."";
 	echo "</div>";
 
 	include_once '../../sys/inc/tfoot.php';

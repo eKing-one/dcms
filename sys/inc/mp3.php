@@ -133,7 +133,7 @@ $this->study=($study || defined('ID3_AUTO_STUDY'));
 * @access   public
 */
 function read( $file="") {
-if ($this->debug) print($this->debugbeg . "id3('$file')<HR>\n");
+if ($this->debug) print($this->debugbeg . "id3('$file')<HR>");
 
 if(!empty($file))$this->file = $file;
 if ($this->debug) print($this->debugend);
@@ -196,7 +196,7 @@ return $this -> $name ;
 * @access public
 */
 function write($v1 = true) {
-if ($this->debug) print($this->debugbeg . "write()<HR>\n");
+if ($this->debug) print($this->debugbeg . "write()<HR>");
 if ($v1) {
 $this->_write_v1();
 }
@@ -220,7 +220,7 @@ $this->_readframe();
 * @access public
 */
 function copy($from) {
-if ($this->debug) print($this->debugbeg . "copy(\$from)<HR>\n");
+if ($this->debug) print($this->debugbeg . "copy(\$from)<HR>");
 $this->name = $from->name;
 $this->artists  = $from->artists;
 $this->album    = $from->album;
@@ -241,7 +241,7 @@ if ($this->debug) print($this->debugend);
 * @access public
 */
 function remove($id3v1 = true, $id3v2 = true) {
-if ($this->debug) print($this->debugbeg . "remove()<HR>\n");
+if ($this->debug) print($this->debugbeg . "remove()<HR>");
 
 if ($id3v1) {
 $this->_remove_v1();
@@ -265,7 +265,7 @@ if ($this->debug) print($this->debugend);
 * @access private
 */
 function _read_v1() {
-if ($this->debug) print($this->debugbeg . "_read_v1()<HR>\n");
+if ($this->debug) print($this->debugbeg . "_read_v1()<HR>");
 
 $mqr = get_magic_quotes_runtime();
 set_magic_quotes_runtime(0);
@@ -332,7 +332,7 @@ if ($this->debug) print($this->debugend);
 * @access  private
 */
 function _decode_v1($rawtag) {
-if ($this->debug) print($this->debugbeg . "_decode_v1(\$rawtag)<HR>\n");
+if ($this->debug) print($this->debugbeg . "_decode_v1(\$rawtag)<HR>");
 
 if ($rawtag[125] == Chr(0) and $rawtag[126] != Chr(0)) {
 // ID3 v1.1
@@ -362,7 +362,7 @@ return $id3tag;
 * @access private
 */
 function _write_v1() {
-if ($this->debug) print($this->debugbeg . "_write_v1()<HR>\n");
+if ($this->debug) print($this->debugbeg . "_write_v1()<HR>");
 
 $file = $this->file;
 
@@ -412,7 +412,7 @@ if ($this->debug) print($this->debugend);
 * @access private
 */
 function _encode_v1() {
-if ($this->debug) print($this->debugbeg . "_encode_v1()<HR>\n");
+if ($this->debug) print($this->debugbeg . "_encode_v1()<HR>");
 
 if ($this->track) {
 // ID3 v1.1
@@ -442,7 +442,7 @@ $this->genreno
 }
 
 if ($this->debug) {
-print('id3pack: ' . $id3pack . "\n");
+print('id3pack: ' . $id3pack . "");
 $unp = unpack('H*new', $newtag);
 print_r($unp);
 }
@@ -461,7 +461,7 @@ return $newtag;
 * @access private
 */
 function _remove_v1() {
-if ($this->debug) print($this->debugbeg . "_remove_v1()<HR>\n");
+if ($this->debug) print($this->debugbeg . "_remove_v1()<HR>");
 
 $file = $this->file;
 
@@ -500,7 +500,7 @@ return $success;
 * @access private
 */
 function _readframe() {
-if ($this->debug) print($this->debugbeg . "_readframe()<HR>\n");
+if ($this->debug) print($this->debugbeg . "_readframe()<HR>");
 
 $file = $this->file;
 
@@ -516,7 +516,7 @@ $this->filesize = filesize($file);
 
 do {
 while (fread($f,1) != Chr(255)) { // Find the first frame
-if ($this->debug) echo "Find...\n";
+if ($this->debug) echo "Find...";
 if (feof($f)) {
 if ($this->debug) print($this->debugend);
 return PEAR::raiseError( "No mpeg frame found", PEAR_MP3_ID_NOMP3) ;
@@ -532,7 +532,7 @@ $r = fread($f, 4);
 // $bits =  base_convert($bits['bits'],16,2);
 $bits = sprintf("%'08b%'08b%'08b%'08b", ord($r{0}), ord($r{1}), ord($r{2}), ord($r{3}));
 } while (!$bits[8] and !$bits[9] and !$bits[10]); // 1st 8 bits true from the while
-if ($this->debug) print('Bits: ' . $bits . "\n");
+if ($this->debug) print('Bits: ' . $bits . "");
 
 $this->frameoffset = $frameoffset;
 
@@ -566,12 +566,12 @@ $this->encoding_type = 'VBR';
 case 'Info':
 // Extract info from Xing header
 
-if ($this->debug) print('Encoding Header: ' . $r . "\n");
+if ($this->debug) print('Encoding Header: ' . $r . "");
 
 $r = fread($f, 4);
 $vbrbits = sprintf("%'08b", ord($r{3}));
 
-if ($this->debug) print('XING Header Bits: ' . $vbrbits . "\n");
+if ($this->debug) print('XING Header Bits: ' . $vbrbits . "");
 
 if ($vbrbits[7] == 1) {
 // Next 4 bytes contain number of frames
@@ -617,7 +617,7 @@ $this->encoding_type = 'CBR';
 break;
 }
 
-if ($this->debug) print('Encoding Header: ' . $r . "\n");
+if ($this->debug) print('Encoding Header: ' . $r . "");
 
 $this->encoding_type = 'VBR';
 
@@ -668,18 +668,18 @@ $bitrates = array(
 '3' => array(0, 32, 40, 48,  56,  64,  80,  96, 112, 128, 160, 192, 224, 256, 320, 0),
 );
 }
-if ($this->debug) print('MPEG' . $this->mpeg_ver . "\n");
+if ($this->debug) print('MPEG' . $this->mpeg_ver . "");
 
 $layer = array(
 array(0,3),
 array(2,1),
 );
 $this->layer = $layer[$bits[13]][$bits[14]];
-if ($this->debug) print('layer: ' . $this->layer . "\n");
+if ($this->debug) print('layer: ' . $this->layer . "");
 
 if ($bits[15] == 0) {
 // It's backwards, if the bit is not set then it is protected.
-if ($this->debug) print("protected (crc)\n");
+if ($this->debug) print("protected (crc)");
 $this->crc = true;
 }
 
@@ -791,12 +791,12 @@ if ($this->debug) print($this->debugend);
 * @access public
 */
 function getGenre($genreno) {
-if ($this->debug) print($this->debugbeg . "getgenre($genreno)<HR>\n");
+if ($this->debug) print($this->debugbeg . "getgenre($genreno)<HR>");
 
 $genres = $this->genres();
 if (isset($genres[$genreno])) {
 $genre = $genres[$genreno];
-if ($this->debug) print($genre . "\n");
+if ($this->debug) print($genre . "");
 } else {
 $genre = '';
 }
@@ -818,7 +818,7 @@ return $genre;
 * @access public
 */
 function getGenreNo($genre, $default = 0xff) {
-if ($this->debug) print($this->debugbeg . "getgenreno('$genre',$default)<HR>\n");
+if ($this->debug) print($this->debugbeg . "getgenreno('$genre',$default)<HR>");
 
 $genres = $this->genres();
 $genreno = false;

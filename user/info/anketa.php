@@ -32,7 +32,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0)
 
 	if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) // Начинаем вывод если стр имеет приват настройки
 	{
-		if ($ank['group_access']>1)echo "<div class='err'>$ank[group_name]</div>\n";
+		if ($ank['group_access']>1)echo "<div class='err'>$ank[group_name]</div>";
 		echo "<div class='nav1'>";
 		echo group($ank['id'])." $ank[nick] ";
 		echo medal($ank['id'])." ".online($ank['id'])." ";
@@ -56,11 +56,11 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0)
 		{
 			echo '<div class="nav1">';
 			if ($frend_new == 0 && $frend==0){
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=".$ank['id']."'>Добавить в друзья</a><br />\n";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=".$ank['id']."'>Добавить в друзья</a><br />";
 			}elseif ($frend_new == 1){
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$ank[id]'>Отклонить заявку</a><br />\n";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$ank[id]'>Отклонить заявку</a><br />";
 			}elseif ($frend == 2){
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>Удалить из друзей</a><br />\n";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>Удалить из друзей</a><br />";
 			}
 			echo "</div>";
 		}
@@ -81,12 +81,12 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0)
 }
 	
 
-echo "<span class=\"err\">$ank[group_name]</span><br />\n";
+echo "<span class=\"err\">$ank[group_name]</span><br />";
 
-if ($ank['ank_o_sebe']!=NULL)echo "<span class=\"ank_n\">О себе:</span> <span class=\"ank_d\">$ank[ank_o_sebe]</span><br />\n";
+if ($ank['ank_o_sebe']!=NULL)echo "<span class=\"ank_n\">О себе:</span> <span class=\"ank_d\">$ank[ank_o_sebe]</span><br />";
 
 if(isset($_SESSION['refer']) && $_SESSION['refer']!=NULL && otkuda($_SESSION['refer']))
-echo "<div class='foot'>&laquo;<a href='$_SESSION[refer]'>".otkuda($_SESSION['refer'])."</a><br />\n</div>\n";
+echo "<div class='foot'>&laquo;<a href='$_SESSION[refer]'>".otkuda($_SESSION['refer'])."</a><br /></div>";
 
 include_once '../../sys//inc/tfoot.php';
 exit;
@@ -236,14 +236,14 @@ $mobile =   "<font style='color : #005ba8; padding:1px;'>";
 $a = "</font>";
 
 }
-if ($ank['group_access']>1)echo "<div class='err'>$ank[group_name]</div>\n";
+if ($ank['group_access']>1)echo "<div class='err'>$ank[group_name]</div>";
 echo "<div class='nav2'>";
-echo "<span class=\"ank_n\">Посл. посещение:</span> <span class=\"ank_d\">".vremja($ank['date_last'])."</span><br />\n";
-echo "</div>\n";
+echo "<span class=\"ank_n\">Посл. посещение:</span> <span class=\"ank_d\">".vremja($ank['date_last'])."</span><br />";
+echo "</div>";
 
 echo "<div class='nav1'>";
 echo avatar($ank['id'], true, 128, 128);
-echo "</div>\n";
+echo "</div>";
 
 //-------------alex-borisi---------------//
 if ($ank['rating']>=0 && $ank['rating']<= 100){
@@ -311,37 +311,37 @@ echo "<div style='background-color: #73a8c7; width: 200px; height: 17px;'>
 
 if (isset($user) && $user['id']!=$ank['id']){
 echo "<div class='nav2'>";
-echo "<img src='/style/icons/pochta.gif' alt='*' /> <a href=\"/mail.php?id=$ank[id]\"><b>Написать в приват</b></a>\n";
-echo "</div>\n";
+echo "<img src='/style/icons/pochta.gif' alt='*' /> <a href=\"/mail.php?id=$ank[id]\"><b>Написать в приват</b></a>";
+echo "</div>";
 }
 
 echo "<div class='nav2'>";
-echo "<img src='/style/icons/foto.png' alt='*' /> <a href='/foto/$ank[id]/'><b>相片册</b></a><br />\n";
-echo "</div>\n";
+echo "<img src='/style/icons/foto.png' alt='*' /> <a href='/foto/$ank[id]/'><b>相片册</b></a><br />";
+echo "</div>";
 
 //-----------------инфо----------------//
 echo "<div class='nav2'>";
-echo "<b>ID: $ank[id]</b><br /> \n";
+echo "<b>ID: $ank[id]</b><br /> ";
 echo "Баллы (";
-echo "<font color='green'>$ank[balls]</font>)<br /> \n";echo $sMonet[2] . ' (' . $ank['money'] . ')<br />';
-echo "<img src='/style/icons/time.png' alt='*' width='14'/> ($displaystring)<br />  \n";
-echo "</div>\n";
+echo "<font color='green'>$ank[balls]</font>)<br /> ";echo $sMonet[2] . ' (' . $ank['money'] . ')<br />';
+echo "<img src='/style/icons/time.png' alt='*' width='14'/> ($displaystring)<br />  ";
+echo "</div>";
 
 //-------------------------------------------------------//
 
 //------------------основное-------------------//
 echo "<div class='nav1'>";
 if ($ank['ank_name']!=NULL)
-echo "$name<span class=\"ank_n\">Имя:</span>$a <span class=\"ank_d\">$ank[ank_name]</span><br />\n";
+echo "$name<span class=\"ank_n\">Имя:</span>$a <span class=\"ank_d\">$ank[ank_name]</span><br />";
 else
-echo "$name<span class=\"ank_n\">Имя:</span>$a<br />\n";
+echo "$name<span class=\"ank_n\">Имя:</span>$a<br />";
 
-echo "$pol<span class=\"ank_n\">Пол:</span>$a <span class=\"ank_d\">".(($ank['pol']==1)?'Мужской':'Женский')."</span><br />\n";
+echo "$pol<span class=\"ank_n\">Пол:</span>$a <span class=\"ank_d\">".(($ank['pol']==1)?'Мужской':'Женский')."</span><br />";
 
 if ($ank['ank_city']!=NULL)
-echo "$gorod<span class=\"ank_n\">Город:</span>$a <span class=\"ank_d\">".output_text($ank['ank_city'])."</span><br />\n";
+echo "$gorod<span class=\"ank_n\">Город:</span>$a <span class=\"ank_d\">".output_text($ank['ank_city'])."</span><br />";
 else
-echo "$gorod<span class=\"ank_n\">Город:</span>$a<br />\n";
+echo "$gorod<span class=\"ank_n\">Город:</span>$a<br />";
 
 if ($ank['ank_d_r']!=NULL && $ank['ank_m_r']!=NULL && $ank['ank_g_r']!=NULL){
 if ($ank['ank_m_r']==1)$ank['mes']='Января';
@@ -356,11 +356,11 @@ elseif ($ank['ank_m_r']==9)$ank['mes']='Сентября';
 elseif ($ank['ank_m_r']==10)$ank['mes']='Октября';
 elseif ($ank['ank_m_r']==11)$ank['mes']='Ноября';
 else $ank['mes']='Декабря';
-echo "$date<span class=\"ank_n\">Дата рождения:</span>$a $ank[ank_d_r] $ank[mes] $ank[ank_g_r]г. <br />\n";
+echo "$date<span class=\"ank_n\">Дата рождения:</span>$a $ank[ank_d_r] $ank[mes] $ank[ank_g_r]г. <br />";
 $ank['ank_age']=date("Y")-$ank['ank_g_r'];
 if (date("n")<$ank['ank_m_r'])$ank['ank_age']=$ank['ank_age']-1;
 elseif (date("n")==$ank['ank_m_r']&& date("j")<$ank['ank_d_r'])$ank['ank_age']=$ank['ank_age']-1;
-echo "<span class=\"ank_n\">Возраст:</span> $ank[ank_age] \n";
+echo "<span class=\"ank_n\">Возраст:</span> $ank[ank_age] ";
 }
 elseif($ank['ank_d_r']!=NULL && $ank['ank_m_r']!=NULL)
 {
@@ -376,8 +376,8 @@ elseif ($ank['ank_m_r']==9)$ank['mes']='Сентября';
 elseif ($ank['ank_m_r']==10)$ank['mes']='Октября';
 elseif ($ank['ank_m_r']==11)$ank['mes']='Ноября';
 else $ank['mes']='Декабря';
-echo "$date<span class=\"ank_n\">День рождения:</span>$a $ank[ank_d_r] $ank[mes] \n";
-}else{echo "$date<span class=\"ank_n\">Дата рождения:</span>$a\n";}
+echo "$date<span class=\"ank_n\">День рождения:</span>$a $ank[ank_d_r] $ank[mes] ";
+}else{echo "$date<span class=\"ank_n\">Дата рождения:</span>$a";}
 
 if ($ank['ank_d_r']>=19 && $ank['ank_m_r']==1){echo "| Водолей<br />";}
 elseif ($ank['ank_d_r']<=19 && $ank['ank_m_r']==2){echo "| Водолей<br />";}
@@ -404,46 +404,46 @@ elseif ($ank['ank_d_r']<=22 && $ank['ank_m_r']==12){echo "| Стрелец<br />
 elseif ($ank['ank_d_r']>=21 && $ank['ank_m_r']==12){echo "| Козерог<br />";}
 elseif ($ank['ank_d_r']<=20 && $ank['ank_m_r']==1){echo "| Козерог<br />";}
 
-echo "</div>\n";
+echo "</div>";
 //--------------------------------------------------//
 
 
 //--------------внешность---------------//
 echo "<div class='nav2'>";
 if ($ank['ank_rost']!=NULL)
-echo "$rost<span class=\"ank_n\">Рост:</span>$a <span class=\"ank_d\">$ank[ank_rost]</span><br />\n";
+echo "$rost<span class=\"ank_n\">Рост:</span>$a <span class=\"ank_d\">$ank[ank_rost]</span><br />";
 else
-echo "$rost<span class=\"ank_n\">Рост:</span>$a<br />\n";if ($ank['ank_ves']!=NULL)
-echo "$ves<span class=\"ank_n\">Вес:</span>$a <span class=\"ank_d\">$ank[ank_ves]</span><br />\n";
+echo "$rost<span class=\"ank_n\">Рост:</span>$a<br />";if ($ank['ank_ves']!=NULL)
+echo "$ves<span class=\"ank_n\">Вес:</span>$a <span class=\"ank_d\">$ank[ank_ves]</span><br />";
 else
-echo "$ves<span class=\"ank_n\">Вес:</span>$a<br />\n";
+echo "$ves<span class=\"ank_n\">Вес:</span>$a<br />";
 
 if ($ank['ank_cvet_glas']!=NULL)
-echo "$glaza<span class=\"ank_n\">Цвет глаз:</span>$a <span class=\"ank_d\">$ank[ank_cvet_glas]</span><br />\n";
+echo "$glaza<span class=\"ank_n\">Цвет глаз:</span>$a <span class=\"ank_d\">$ank[ank_cvet_glas]</span><br />";
 else
-echo "$glaza<span class=\"ank_n\">Цвет глаз:</span>$a<br />\n";if ($ank['ank_volos']!=NULL)
-echo "$volos<span class=\"ank_n\">Волосы:</span>$a <span class=\"ank_d\">$ank[ank_volos]</span><br />\n";
+echo "$glaza<span class=\"ank_n\">Цвет глаз:</span>$a<br />";if ($ank['ank_volos']!=NULL)
+echo "$volos<span class=\"ank_n\">Волосы:</span>$a <span class=\"ank_d\">$ank[ank_volos]</span><br />";
 else
-echo "$volos<span class=\"ank_n\">Волосы:</span>$a<br />\n";
+echo "$volos<span class=\"ank_n\">Волосы:</span>$a<br />";
 
 echo "$telo<span class=\"ank_n\">Телосложение:</span>$a";
 if ($ank['ank_telosl']==1)
-echo " <span class=\"ank_d\">Нет ответа</span><br />\n";
+echo " <span class=\"ank_d\">Нет ответа</span><br />";
 if ($ank['ank_telosl']==2)
-echo " <span class=\"ank_d\">Худощавое</span><br />\n";
+echo " <span class=\"ank_d\">Худощавое</span><br />";
 if ($ank['ank_telosl']==3)
-echo " <span class=\"ank_d\">Обычное</span><br />\n";
+echo " <span class=\"ank_d\">Обычное</span><br />";
 if ($ank['ank_telosl']==4)
-echo " <span class=\"ank_d\">Спортивное</span><br />\n";
+echo " <span class=\"ank_d\">Спортивное</span><br />";
 if ($ank['ank_telosl']==5)
-echo " <span class=\"ank_d\">Мускулистое</span><br />\n";
+echo " <span class=\"ank_d\">Мускулистое</span><br />";
 if ($ank['ank_telosl']==6)
-echo " <span class=\"ank_d\">Плотное</span><br />\n";
+echo " <span class=\"ank_d\">Плотное</span><br />";
 if ($ank['ank_telosl']==7)
-echo " <span class=\"ank_d\">Полное</span><br />\n";
+echo " <span class=\"ank_d\">Полное</span><br />";
 if ($ank['ank_telosl']==0)
-echo "<br />\n";
-echo "</div>\n";
+echo "<br />";
+echo "</div>";
 //-----------------------------------------------------//
 
 
@@ -452,13 +452,13 @@ echo "<div class='nav1'>";
 
 echo "$orien<span class=\"ank_n\">Ориентация:</span>$a";
 if ($ank['ank_orien']==0)
-echo "<br />\n";
+echo "<br />";
 if ($ank['ank_orien']==1)
-echo " <span class=\"ank_d\">Гетеро</span><br />\n";
+echo " <span class=\"ank_d\">Гетеро</span><br />";
 if ($ank['ank_orien']==2)
-echo " <span class=\"ank_d\">Би</span><br />\n";
+echo " <span class=\"ank_d\">Би</span><br />";
 if ($ank['ank_orien']==3)
-echo " <span class=\"ank_d\">Гей/Лесби</span><br />\n";
+echo " <span class=\"ank_d\">Гей/Лесби</span><br />";
 
 echo "$loves<span class=\"ank_n\">Цели знакомства:</span>$a<br />";
 
@@ -476,88 +476,88 @@ if ($ank['ank_lov_11']==1)echo "<img src='/style/icons/str.gif' alt='*' />  Ро
 if ($ank['ank_lov_12']==1)echo "<img src='/style/icons/str.gif' alt='*' />  Брак для ви是的<br />";
 if ($ank['ank_lov_13']==1)echo "<img src='/style/icons/str.gif' alt='*' />  Совместная аренда жилья<br />";
 if ($ank['ank_lov_14']==1)echo "<img src='/style/icons/str.gif' alt='*' />  Занятия спортом<br />";if ($ank['ank_o_par']!=NULL)
-echo "$opar<span class=\"ank_n\">О партнере:</span>$a <span class=\"ank_d\">".output_text($ank['ank_o_par'])."</span><br />\n";
+echo "$opar<span class=\"ank_n\">О партнере:</span>$a <span class=\"ank_d\">".output_text($ank['ank_o_par'])."</span><br />";
 else
-echo "$opar<span class=\"ank_n\">О партнере:</span>$a<br />\n";
+echo "$opar<span class=\"ank_n\">О партнере:</span>$a<br />";
 
 if ($ank['ank_o_sebe']!=NULL)
-echo "$osebe<span class=\"ank_n\">О себе:</span>$a <span class=\"ank_d\">".output_text($ank['ank_o_sebe'])."</span><br />\n";
+echo "$osebe<span class=\"ank_n\">О себе:</span>$a <span class=\"ank_d\">".output_text($ank['ank_o_sebe'])."</span><br />";
 else
-echo "$osebe<span class=\"ank_n\">О себе:</span>$a<br />\n";
-echo "</div>\n";
+echo "$osebe<span class=\"ank_n\">О себе:</span>$a<br />";
+echo "</div>";
 //-----------------------------------------------------//
 
 
 //--------------о себе------------------//
 echo "<div class='nav2'>";
 if ($ank['ank_zan']!=NULL)
-echo "$zan<span class=\"ank_n\">Чем занимаюсь:</span>$a <span class=\"ank_d\">".output_text($ank['ank_zan'])."</span><br />\n";
+echo "$zan<span class=\"ank_n\">Чем занимаюсь:</span>$a <span class=\"ank_d\">".output_text($ank['ank_zan'])."</span><br />";
 else
-echo "$zan<span class=\"ank_n\">Чем занимаюсь:</span>$a<br />\n";
+echo "$zan<span class=\"ank_n\">Чем занимаюсь:</span>$a<br />";
 
 echo "$smok<span class=\"ank_n\">Курение:</span>$a";
 if ($ank['ank_smok']==1)
-echo " <span class=\"ank_d\">Не курю</span><br />\n";
+echo " <span class=\"ank_d\">Не курю</span><br />";
 if ($ank['ank_smok']==2)
-echo " <span class=\"ank_d\">Курю</span><br />\n";
+echo " <span class=\"ank_d\">Курю</span><br />";
 if ($ank['ank_smok']==3)
-echo " <span class=\"ank_d\">Редко</span><br />\n";
+echo " <span class=\"ank_d\">Редко</span><br />";
 if ($ank['ank_smok']==4)
-echo " <span class=\"ank_d\">Бросаю</span><br />\n";
+echo " <span class=\"ank_d\">Бросаю</span><br />";
 if ($ank['ank_smok']==5)
-echo " <span class=\"ank_d\">Успешно бросил</span><br />\n";
+echo " <span class=\"ank_d\">Успешно бросил</span><br />";
 if ($ank['ank_smok']==0)
-echo "<br />\n";echo "$mat_pol<span class=\"ank_n\">Материальное положение:</span>$a";
+echo "<br />";echo "$mat_pol<span class=\"ank_n\">Материальное положение:</span>$a";
 if ($ank['ank_mat_pol']==1)
-echo " <span class=\"ank_d\">Непостоянные заработки</span><br />\n";
+echo " <span class=\"ank_d\">Непостоянные заработки</span><br />";
 if ($ank['ank_mat_pol']==2)
-echo " <span class=\"ank_d\">Постоянный небольшой доход</span><br />\n";
+echo " <span class=\"ank_d\">Постоянный небольшой доход</span><br />";
 if ($ank['ank_mat_pol']==3)
-echo " <span class=\"ank_d\">Стабильный средний доход</span><br />\n";
+echo " <span class=\"ank_d\">Стабильный средний доход</span><br />";
 if ($ank['ank_mat_pol']==4)
-echo " <span class=\"ank_d\">Хорошо зарабатываю / обеспечен</span><br />\n";
+echo " <span class=\"ank_d\">Хорошо зарабатываю / обеспечен</span><br />";
 if ($ank['ank_mat_pol']==5)
-echo " <span class=\"ank_d\">Не зарабатываю</span><br />\n";
+echo " <span class=\"ank_d\">Не зарабатываю</span><br />";
 if ($ank['ank_mat_pol']==0)
-echo "<br />\n";
+echo "<br />";
 
 echo "$avto<span class=\"ank_n\">Наличие автомобиля:</span>$a";
 if ($ank['ank_avto_n']==1)
-echo " <span class=\"ank_d\">Есть</span><br />\n";
+echo " <span class=\"ank_d\">Есть</span><br />";
 if ($ank['ank_avto_n']==2)
-echo " <span class=\"ank_d\">取消</span><br />\n";
+echo " <span class=\"ank_d\">取消</span><br />";
 if ($ank['ank_avto_n']==3)
-echo " <span class=\"ank_d\">Хочу купить</span><br />\n";
+echo " <span class=\"ank_d\">Хочу купить</span><br />";
 if ($ank['ank_avto_n']==0)
-echo "<br />\n";
+echo "<br />";
 if ($ank['ank_avto'] && $ank['ank_avto_n']!=2 && $ank['ank_avto_n']!=0)
    echo "<img src='/style/icons/str.gif' alt='*' />  <span class=\"ank_d\">".output_text($ank['ank_avto'])."</span><br />";
 echo "$proj<span class=\"ank_n\">Проживание:</span>$a";
 if ($ank['ank_proj']==1)
-echo " <span class=\"ank_d\">Отдельная квартира (снимаю или своя)</span><br />\n";
+echo " <span class=\"ank_d\">Отдельная квартира (снимаю или своя)</span><br />";
 if ($ank['ank_proj']==2)
-echo " <span class=\"ank_d\">Комната в общежитии, коммуналка</span><br />\n";
+echo " <span class=\"ank_d\">Комната в общежитии, коммуналка</span><br />";
 if ($ank['ank_proj']==3)
-echo " <span class=\"ank_d\">Живу с родителями</span><br />\n";
+echo " <span class=\"ank_d\">Живу с родителями</span><br />";
 if ($ank['ank_proj']==4)
-echo " <span class=\"ank_d\">Живу с приятелем / с подругой</span><br />\n";
+echo " <span class=\"ank_d\">Живу с приятелем / с подругой</span><br />";
 if ($ank['ank_proj']==5)
-echo " <span class=\"ank_d\">Живу с партнером или супругом (-ой)</span><br />\n";
+echo " <span class=\"ank_d\">Живу с партнером или супругом (-ой)</span><br />";
 if ($ank['ank_proj']==6)
-echo " <span class=\"ank_d\">Нет постоянного жилья</span><br />\n";
+echo " <span class=\"ank_d\">Нет постоянного жилья</span><br />";
 if ($ank['ank_proj']==0)
-echo "<br />\n";echo "$baby<span class=\"ank_n\">Есть ли дети:</span>$a";
+echo "<br />";echo "$baby<span class=\"ank_n\">Есть ли дети:</span>$a";
 if ($ank['ank_baby']==1)
-echo " <span class=\"ank_d\">取消</span><br />\n";
+echo " <span class=\"ank_d\">取消</span><br />";
 if ($ank['ank_baby']==2)
-echo " <span class=\"ank_d\">Нет, но хотелось бы</span><br />\n";
+echo " <span class=\"ank_d\">Нет, но хотелось бы</span><br />";
 if ($ank['ank_baby']==3)
-echo " <span class=\"ank_d\">Есть, живем вместе</span><br />\n";
+echo " <span class=\"ank_d\">Есть, живем вместе</span><br />";
 if ($ank['ank_baby']==4)
-echo " <span class=\"ank_d\">Есть, живем порознь</span><br />\n";
+echo " <span class=\"ank_d\">Есть, живем порознь</span><br />";
 if ($ank['ank_baby']==0)
-echo "<br />\n";
-echo "</div>\n";
+echo "<br />";
+echo "</div>";
 //-------------------------------------------//
 
 if (isset($user) && $ank['id']==$user['id'])
@@ -577,55 +577,55 @@ echo "<div class='nav1'>";
 
 echo "$alko<span class=\"ank_n\">Алкоголь:</span>$a";
 if ($ank['ank_alko_n']==1)
-echo " <span class=\"ank_d\">Да, выпиваю</span><br />\n";
+echo " <span class=\"ank_d\">Да, выпиваю</span><br />";
 if ($ank['ank_alko_n']==2)
-echo " <span class=\"ank_d\">Редко, по праздникам</span><br />\n";
+echo " <span class=\"ank_d\">Редко, по праздникам</span><br />";
 if ($ank['ank_alko_n']==3)
-echo " <span class=\"ank_d\">Нет, категорически не приемлю</span><br />\n";
+echo " <span class=\"ank_d\">Нет, категорически не приемлю</span><br />";
 if ($ank['ank_alko_n']==0)
-echo "<br />\n";
+echo "<br />";
 if ($ank['ank_alko'] && $ank['ank_alko_n']!=3 && $ank['ank_alko_n']!=0)echo "<img src='/style/icons/str.gif' alt='*' />  <span class=\"ank_d\">".output_text($ank['ank_alko'])."</span><br />";
 echo "$nark<span class=\"ank_n\">Наркотики:</span>$a";
 if ($ank['ank_nark']==1)
-echo " <span class=\"ank_d\">Да, курю травку</span><br />\n";
+echo " <span class=\"ank_d\">Да, курю травку</span><br />";
 if ($ank['ank_nark']==2)
-echo " <span class=\"ank_d\">Да, люблю любой вид наркотических средств</span><br />\n";
+echo " <span class=\"ank_d\">Да, люблю любой вид наркотических средств</span><br />";
 if ($ank['ank_nark']==3)
-echo " <span class=\"ank_d\">Бросаю, прохожу реабилитацию</span><br />\n";
+echo " <span class=\"ank_d\">Бросаю, прохожу реабилитацию</span><br />";
 if ($ank['ank_nark']==4)
-echo " <span class=\"ank_d\">Нет, категорически не приемлю</span><br />\n";
+echo " <span class=\"ank_d\">Нет, категорически не приемлю</span><br />";
 if ($ank['ank_nark']==0)
-echo "<br />\n";echo "</div>\n";
+echo "<br />";echo "</div>";
 //----------------------------------------------------------//
 
 //-------------контакты----------------//
 echo "<div class='nav2'>";
 if ($ank['ank_icq']!=NULL && $ank['ank_icq']!=0)
-echo "$icq<span class=\"ank_n\">ICQ:</span>$a <span class=\"ank_d\">$ank[ank_icq]</span><br />\n";
+echo "$icq<span class=\"ank_n\">ICQ:</span>$a <span class=\"ank_d\">$ank[ank_icq]</span><br />";
 else
-echo "$icq<span class=\"ank_n\">ICQ:</span>$a<br />\n";
+echo "$icq<span class=\"ank_n\">ICQ:</span>$a<br />";
 
 echo "$mail E-Mail:$a";
 if ($ank['ank_mail']!=NULL && ($ank['set_show_mail']==1 || isset($user) && ($user['level']>$ank['level'] || $user['level']==4))){
 if ($ank['set_show_mail']==0)$hide_mail=' (скрыт)';else $hide_mail=NULL;
 if (preg_match("#(@mail\.ru$)|(@bk\.ru$)|(@inbox\.ru$)|(@list\.ru$)#", $ank['ank_mail']))
-echo " <a href=\"mailto:$ank[ank_mail]\" title=\"Написать письмо\" class=\"ank_d\">$ank[ank_mail]</a>$hide_mail<br />\n";
+echo " <a href=\"mailto:$ank[ank_mail]\" title=\"Написать письмо\" class=\"ank_d\">$ank[ank_mail]</a>$hide_mail<br />";
 else 
-echo " <a href=\"mailto:$ank[ank_mail]\" title=\"Написать письмо\" class=\"ank_d\">$ank[ank_mail]</a>$hide_mail<br />\n";
+echo " <a href=\"mailto:$ank[ank_mail]\" title=\"Написать письмо\" class=\"ank_d\">$ank[ank_mail]</a>$hide_mail<br />";
 }
 else
 {
 echo "<br />";
 }
 if ($ank['ank_n_tel']!=NULL)
-echo "$mobile<span class=\"ank_n\">Телефон:</span>$a <span class=\"ank_d\">$ank[ank_n_tel]</span><br />\n";
+echo "$mobile<span class=\"ank_n\">Телефон:</span>$a <span class=\"ank_d\">$ank[ank_n_tel]</span><br />";
 else
-echo "$mobile<span class=\"ank_n\">Телефон:</span>$a<br />\n";
+echo "$mobile<span class=\"ank_n\">Телефон:</span>$a<br />";
 if ($ank['ank_skype']!=NULL)
-echo "$skype<span class=\"ank_n\">Skype:</span>$a <span class=\"ank_d\">$ank[ank_skype]</span><br />\n";
+echo "$skype<span class=\"ank_n\">Skype:</span>$a <span class=\"ank_d\">$ank[ank_skype]</span><br />";
 else
-echo "$skype<span class=\"ank_n\">Skype:</span>$a<br />\n";
-echo "</div>\n";
+echo "$skype<span class=\"ank_n\">Skype:</span>$a<br />";
+echo "</div>";
 //------------------------------------------//
 
 echo "<div class='nav1'>";
@@ -634,23 +634,23 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$ank[id]' AN
 $q=dbquery("SELECT * FROM `ban` WHERE `id_user` = '$ank[id]' AND `time` > '$time' ORDER BY `time` DESC LIMIT 5");
 while ($post = dbassoc($q))
 {
-echo "<span class='ank_n'>Забанен до ".vremja($post['time']).":</span>\n";
-echo "<span class='ank_d'>".output_text($post['prich'])."</span><br />\n";
+echo "<span class='ank_n'>Забанен до ".vremja($post['time']).":</span>";
+echo "<span class='ank_d'>".output_text($post['prich'])."</span><br />";
 }
 }
 else
 {
 $narush=dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$ank[id]'"), 0);
-echo "<span class='ank_n'>Нарушений:</span>".(($narush==0)?" <span class='ank_d'>取消</span><br />\n":" <span class=\"ank_d\">$narush</span><br />\n");
-}echo "<span class=\"ank_n\">Регистрация:</span> <span class=\"ank_d\">".vremja($ank['date_reg'])."</span><br />\n";
+echo "<span class='ank_n'>Нарушений:</span>".(($narush==0)?" <span class='ank_d'>取消</span><br />":" <span class=\"ank_d\">$narush</span><br />");
+}echo "<span class=\"ank_n\">Регистрация:</span> <span class=\"ank_d\">".vremja($ank['date_reg'])."</span><br />";
 
-echo "</div>\n";
+echo "</div>";
 
 if ($user['level']>$ank['level']){
 if (isset($_GET['info'])){
-echo "<div class='foot'>\n";
-echo "<img src='/style/icons/str.gif' alt='*' /> <a href='?id=$ank[id]'>Скрыть</a><br />\n";
-echo "</div>\n";
+echo "<div class='foot'>";
+echo "<img src='/style/icons/str.gif' alt='*' /> <a href='?id=$ank[id]'>Скрыть</a><br />";
+echo "</div>";
 
 echo "<div class='p_t'>";
 if ($ank['ip']!=NULL){
@@ -658,7 +658,7 @@ if (user_access('user_show_ip') && $ank['ip']!=0){
 echo "<span class=\"ank_n\">IP:</span> <span class=\"ank_d\">".long2ip($ank['ip'])."</span>";
 if (user_access('adm_ban_ip'))
 echo " [<a href='/adm_panel/ban_ip.php?min=$ank[ip]'>Бан</a>]";
-echo "<br />\n";
+echo "<br />";
 }
 }
 if ($ank['ip_cl']!=NULL){
@@ -666,7 +666,7 @@ if (user_access('user_show_ip') && $ank['ip_cl']!=0){
 echo "<span class=\"ank_n\">IP (CLIENT):</span> <span class=\"ank_d\">".long2ip($ank['ip_cl'])."</span>";
 if (user_access('adm_ban_ip'))
 echo " [<a href='/adm_panel/ban_ip.php?min=$ank[ip_cl]'>Бан</a>]";
-echo "<br />\n";
+echo "<br />";
 }
 }
 
@@ -675,47 +675,47 @@ if (user_access('user_show_ip') && $ank['ip_xff']!=0){
 echo "<span class=\"ank_n\">IP (XFF):</span> <span class=\"ank_d\">".long2ip($ank['ip_xff'])."</span>";
 if (user_access('adm_ban_ip'))
 echo " [<a href='/adm_panel/ban_ip.php?min=$ank[ip_xff]'>Бан</a>]";
-echo "<br />\n";
+echo "<br />";
 }
 }
 
 if (user_access('user_show_ua') && $ank['ua']!=NULL)
-echo "<span class=\"ank_n\">UA:</span> <span class=\"ank_d\">$ank[ua]</span><br />\n";
+echo "<span class=\"ank_n\">UA:</span> <span class=\"ank_d\">$ank[ua]</span><br />";
 if (user_access('user_show_ip') && opsos($ank['ip']))
-echo "<span class=\"ank_n\">Пров:</span> <span class=\"ank_d\">".opsos($ank['ip'])."</span><br />\n";
+echo "<span class=\"ank_n\">Пров:</span> <span class=\"ank_d\">".opsos($ank['ip'])."</span><br />";
 if (user_access('user_show_ip') && opsos($ank['ip_cl']))
-echo "<span class=\"ank_n\">Пров (CL):</span> <span class=\"ank_d\">".opsos($ank['ip_cl'])."</span><br />\n";
+echo "<span class=\"ank_n\">Пров (CL):</span> <span class=\"ank_d\">".opsos($ank['ip_cl'])."</span><br />";
 if (user_access('user_show_ip') && opsos($ank['ip_xff']))
-echo "<span class=\"ank_n\">Пров (XFF):</span> <span class=\"ank_d\">".opsos($ank['ip_xff'])."</span><br />\n";
+echo "<span class=\"ank_n\">Пров (XFF):</span> <span class=\"ank_d\">".opsos($ank['ip_xff'])."</span><br />";
 
 if ($ank['show_url']==1)
 {
-if (otkuda($ank['url']))echo "<span class=\"ank_n\">URL:</span> <span class=\"ank_d\"><a href='$ank[url]'>".otkuda($ank['url'])."</a></span><br />\n";
+if (otkuda($ank['url']))echo "<span class=\"ank_n\">URL:</span> <span class=\"ank_d\"><a href='$ank[url]'>".otkuda($ank['url'])."</a></span><br />";
 }
 if (user_access('user_collisions') && $user['level']>$ank['level'])
 {
 $mass[0]=$ank['id'];
 $collisions=user_collision($mass);if (count($collisions)>1)
 {
-echo "<span class=\"ank_n\">Возможные ники:</span><br />\n";
-echo "<span class=\"ank_d\">\n";
+echo "<span class=\"ank_n\">Возможные ники:</span><br />";
+echo "<span class=\"ank_d\">";
 
 for ($i=1;$i<count($collisions);$i++)
 {
 $ank_coll=dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$collisions[$i]' LIMIT 1"));
-echo "\"<a href='/info.php?id=$ank_coll[id]'>$ank_coll[nick]</a>\"<br />\n";
+echo "\"<a href='/info.php?id=$ank_coll[id]'>$ank_coll[nick]</a>\"<br />";
 }
 
-echo "</span>\n";
+echo "</span>";
 }
 }
 if (user_access('adm_ref') && ($ank['level']<$user['level'] || $user['id']==$ank['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `user_ref` WHERE `id_user` = '$ank[id]'"), 0))
 {
 $q=dbquery("SELECT * FROM `user_ref` WHERE `id_user` = '$ank[id]' ORDER BY `time` DESC LIMIT $set[p_str]");
-echo "Посещаемые сайты:<br />\n";
+echo "Посещаемые сайты:<br />";
 while ($url=dbassoc($q)) {
 $site=htmlentities($url['url'], ENT_QUOTES, 'UTF-8');
-echo "<a".($set['web']?" target='_blank'":null)." href='/go.php?go=".base64_encode("http://$site")."'>$site</a> (".vremja($url['time']).")<br />\n";
+echo "<a".($set['web']?" target='_blank'":null)." href='/go.php?go=".base64_encode("http://$site")."'>$site</a> (".vremja($url['time']).")<br />";
 }
 }
 if (user_access('user_delete'))
@@ -723,40 +723,40 @@ if (user_access('user_delete'))
 
 if (count(user_collision($mass,1))>1)
 echo "Удаление (<a href='/adm_panel/delete_user.php?id=$ank[id]&amp;all'>Все ники</a>)";
-echo "<br />\n";
+echo "<br />";
 
 }
-echo "</div>\n";
+echo "</div>";
 }else{
-echo "<div class='foot'>\n";
-echo "<img src='/style/icons/str.gif' alt='*' /> <a href='?id=$ank[id]&amp;info'>Доп. инфо</a><br />\n";
-echo "</div>\n";
+echo "<div class='foot'>";
+echo "<img src='/style/icons/str.gif' alt='*' /> <a href='?id=$ank[id]&amp;info'>Доп. инфо</a><br />";
+echo "</div>";
 }
 }
 
-echo "<div class='foot'>\n";
+echo "<div class='foot'>";
 
-if (isset($user) && $user['id']==$ank['id'])echo "<img src='/style/icons/str.gif' alt='*' /> <a href=\"edit.php\">Изменить анкету</a><br />\n";
+if (isset($user) && $user['id']==$ank['id'])echo "<img src='/style/icons/str.gif' alt='*' /> <a href=\"edit.php\">Изменить анкету</a><br />";
    if ($user['level']>$ank['level']){
    	if (user_access('user_prof_edit'))
-echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/user.php?id=$ank[id]'>Редактировать профиль</a><br />\n";
+echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/user.php?id=$ank[id]'>Редактировать профиль</a><br />";
 if ($user['id']!=$ank['id']){
 if (user_access('user_ban_set') || user_access('user_ban_set_h') || user_access('user_ban_unset'))
-echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/ban.php?id=$ank[id]'>Нарушения (бан)</a><br />\n";
+echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/ban.php?id=$ank[id]'>Нарушения (бан)</a><br />";
 
 if (user_access('user_delete'))
 {
 
 echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/delete_user.php?id=$ank[id]'>Удалить пользователя</a>";
-echo "<br />\n";
+echo "<br />";
 
 }
 }
 }
 
 if (user_access('adm_log_read') && $ank['level']!=0 && ($ank['id']==$user['id'] || $ank['level']<$user['level']))
-echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/adm_log.php?id=$ank[id]'>Отчет по администрированию</a><br />\n";
+echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/adm_log.php?id=$ank[id]'>Отчет по администрированию</a><br />";
 
-echo "</div>\n";
+echo "</div>";
 include_once '../../sys//inc/tfoot.php';
 ?>

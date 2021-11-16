@@ -76,93 +76,93 @@ $k_page=k_page($k_post,$set['p_str']);
 $page=page($k_page);
 $start=$set['p_str']*$page-$set['p_str'];
 $q=dbquery("SELECT * FROM `rekl` WHERE `sel` = '$sel' ORDER BY `time_last` DESC LIMIT $start, $set[p_str]");
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 if ($k_post==0)
 {
-echo "   <tr>\n";
-echo "  <td class='p_t'>\n";
-echo "Нет рекламы\n";
-echo "  </td>\n";
-echo "   </tr>\n";
+echo "   <tr>";
+echo "  <td class='p_t'>";
+echo "Нет рекламы";
+echo "  </td>";
+echo "   </tr>";
 }
 
 while ($post = dbassoc($q))
 {
-echo "   <tr>\n";
-echo "  <td class='p_t'>\n";
-if ($post['img']==NULL)echo "$post[name]<br />\n"; else echo "<a href='$post[img]'>[картинка]</a><br />\n";
-if ($post['time_last']>time()) echo "(до ".vremja($post['time_last']).")\n";
-else echo "(срок показа истек)\n";
-echo "  </td>\n";
-echo "   </tr>\n";
-echo "   <tr>\n";
-echo "  <td class='p_m'>\n";
-echo "Ссылка: $post[link]<br />\n";
+echo "   <tr>";
+echo "  <td class='p_t'>";
+if ($post['img']==NULL)echo "$post[name]<br />"; else echo "<a href='$post[img]'>[картинка]</a><br />";
+if ($post['time_last']>time()) echo "(до ".vremja($post['time_last']).")";
+else echo "(срок показа истек)";
+echo "  </td>";
+echo "   </tr>";
+echo "   <tr>";
+echo "  <td class='p_m'>";
+echo "Ссылка: $post[link]<br />";
 if ($post['img']!=NULL)
-echo "Картинка: $post[img]<br />\n";
+echo "Картинка: $post[img]<br />";
 if ($post['dop_str']==1)
-echo "Переходов: $post[count]<br />\n";
-echo "<a href='rekl.php?sel=$sel&amp;del=$post[id]&amp;page=$page'>移走</a><br />\n";
+echo "Переходов: $post[count]<br />";
+echo "<a href='rekl.php?sel=$sel&amp;del=$post[id]&amp;page=$page'>移走</a><br />";
 
 
 if (isset($_GET['set']) && $_GET['set']==$post['id'])
 {
-echo "<form method='post' action='rekl.php?sel=$sel&amp;set=$post[id]&amp;page=$page'>\n";
-echo "Ссылка:<br />\n<input type=\"text\" name=\"link\" value=\"$post[link]\" /><br />\n";
-echo "Название:<br />\n<input type=\"text\" name=\"name\" value=\"$post[name]\" /><br />\n";
-echo "Картинка:<br />\n<input type=\"text\" name=\"img\" value=\"$post[img]\" /><br />\n";
+echo "<form method='post' action='rekl.php?sel=$sel&amp;set=$post[id]&amp;page=$page'>";
+echo "Ссылка:<br /><input type=\"text\" name=\"link\" value=\"$post[link]\" /><br />";
+echo "Название:<br /><input type=\"text\" name=\"name\" value=\"$post[name]\" /><br />";
+echo "Картинка:<br /><input type=\"text\" name=\"img\" value=\"$post[img]\" /><br />";
 
-if ($post['time_last']>time())echo "Продлить на:<br />\n";
-else echo "Продлить до:<br />\n";
+if ($post['time_last']>time())echo "Продлить на:<br />";
+else echo "Продлить до:<br />";
 
-echo "<input type=\"text\" name=\"ch\" size='3' value=\"0\" />\n";
-echo "<select name=\"mn\">\n";
-echo "  <option value=\"1\" selected='selected'>Дней</option>\n";
-echo "  <option value=\"7\">Недель</option>\n";
-echo "  <option value=\"31\">Месяцев</option>\n";
-echo "</select><br />\n";
+echo "<input type=\"text\" name=\"ch\" size='3' value=\"0\" />";
+echo "<select name=\"mn\">";
+echo "  <option value=\"1\" selected='selected'>Дней</option>";
+echo "  <option value=\"7\">Недель</option>";
+echo "  <option value=\"31\">Месяцев</option>";
+echo "</select><br />";
 if ($post['dop_str']==1)$dop=" checked='checked'";else $dop=NULL;
-echo "<label><input type=\"checkbox\"$dop name=\"dop_str\" value=\"1\" /> Доп. страница</label><br />\n";
-echo "<input value=\"Применить\" type=\"submit\" />\n";
-echo "</form>\n";
-echo "<a href='rekl.php?sel=$sel&amp;page=$page'>Отмена</a><br />\n";
+echo "<label><input type=\"checkbox\"$dop name=\"dop_str\" value=\"1\" /> Доп. страница</label><br />";
+echo "<input value=\"Применить\" type=\"submit\" />";
+echo "</form>";
+echo "<a href='rekl.php?sel=$sel&amp;page=$page'>Отмена</a><br />";
 }
 else
-echo "<a href='rekl.php?sel=$sel&amp;set=$post[id]&amp;page=$page'>Изменить</a><br />\n";
-echo "  </td>\n";
-echo "   </tr>\n";
+echo "<a href='rekl.php?sel=$sel&amp;set=$post[id]&amp;page=$page'>Изменить</a><br />";
+echo "  </td>";
+echo "   </tr>";
 }
 
-echo "</table>\n";
+echo "</table>";
 if ($k_page>1)str("rekl.php?sel=$sel&amp;",$k_page,$page); // Вывод страниц
 
 
 
-echo "<form class='foot' method='post' action='rekl.php?sel=$sel&amp;add'>\n";
-echo "Название:<br />\n<input type=\"text\" name=\"name\" value=\"\" /><br />\n";
-echo "Ссылка:<br />\n<input type=\"text\" name=\"link\" value=\"\" /><br />\n";
+echo "<form class='foot' method='post' action='rekl.php?sel=$sel&amp;add'>";
+echo "Название:<br /><input type=\"text\" name=\"name\" value=\"\" /><br />";
+echo "Ссылка:<br /><input type=\"text\" name=\"link\" value=\"\" /><br />";
 
-echo "Картинка:<br />\n<input type=\"text\" name=\"img\" value=\"\" /><br />\n";
+echo "Картинка:<br /><input type=\"text\" name=\"img\" value=\"\" /><br />";
 
-echo "Срок действия:<br />\n";
+echo "Срок действия:<br />";
 
-echo "<input type=\"text\" name=\"ch\" size='3' value=\"1\" />\n";
-echo "<select name=\"mn\">\n";
-echo "  <option value=\"1\">Дней</option>\n";
-echo "  <option value=\"7\" selected='selected'>Недель</option>\n";
-echo "  <option value=\"31\">Месяцев</option>\n";
-echo "</select><br />\n";
+echo "<input type=\"text\" name=\"ch\" size='3' value=\"1\" />";
+echo "<select name=\"mn\">";
+echo "  <option value=\"1\">Дней</option>";
+echo "  <option value=\"7\" selected='selected'>Недель</option>";
+echo "  <option value=\"31\">Месяцев</option>";
+echo "</select><br />";
 
-echo "<label><input type=\"checkbox\" checked='checked' name=\"dop_str\" value=\"1\" /> Доп. страница</label><br />\n";
-echo "<input value=\"Добавить\" type=\"submit\" />\n";
-echo "</form>\n";
+echo "<label><input type=\"checkbox\" checked='checked' name=\"dop_str\" value=\"1\" /> Доп. страница</label><br />";
+echo "<input value=\"Добавить\" type=\"submit\" />";
+echo "</form>";
 
 
-echo "<div class='foot'>\n";
-echo "<a href='rekl.php'>Список рекламы</a><br />\n";
+echo "<div class='foot'>";
+echo "<a href='rekl.php'>Список рекламы</a><br />";
 if (user_access('adm_panel_show'))
-echo "&laquo;<a href='/adm_panel/'>В админку</a><br />\n";
-echo "</div>\n";
+echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
+echo "</div>";
 
 
 include_once '../sys/inc/tfoot.php';
@@ -174,17 +174,17 @@ title();
 err();
 aut();
 
-echo "<div class='menu'>\n";
-echo "<a href='rekl.php?sel=3'>Низ сайта (главная)</a><br />\n";
-echo "<a href='rekl.php?sel=4'>Низ сайта (остальные)</a><br />\n";
-echo "</div>\n";
+echo "<div class='menu'>";
+echo "<a href='rekl.php?sel=3'>Низ сайта (главная)</a><br />";
+echo "<a href='rekl.php?sel=4'>Низ сайта (остальные)</a><br />";
+echo "</div>";
 
 
 
 if (user_access('adm_panel_show')){
-echo "<div class='foot'>\n";
-echo "&laquo;<a href='/adm_panel/'>В админку</a><br />\n";
-echo "</div>\n";
+echo "<div class='foot'>";
+echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
+echo "</div>";
 }
 
 include_once '../sys/inc/tfoot.php';

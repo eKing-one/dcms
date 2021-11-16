@@ -20,7 +20,7 @@ title();
 aut();
 echo "<div class='foot'>";
 echo '<img src="/style/icons/up_dir.gif" alt="*"> <a href="/obmen/">交换器</a><br />';
-echo "</div>\n";
+echo "</div>";
 $search = NULL;
 if (isset($_SESSION['search'])) $search = $_SESSION['search'];
 if (isset($_POST['search'])) $search = $_POST['search'];
@@ -39,7 +39,7 @@ if (isset($_GET['go']) && $search != NULL) {
     $k_page = k_page($k_post, $set['p_str']);
     $page = page($k_page);
     $start = $set['p_str'] * $page - $set['p_str'];
-    if ($k_post == 0) echo "<div class=\"p_t\">\n没有结果</div>\n";
+    if ($k_post == 0) echo "<div class=\"p_t\">没有结果</div>";
     $q = dbquery("SELECT * FROM `obmennik_files` WHERE `opis` like '%" . mysql_escape_string($q_search) . "%' OR `name` like '%" . mysql_escape_string($q_search) . "%' ORDER BY `time` DESC LIMIT $start, $set[p_str]");
     $i = 0;
     while ($post = dbassoc($q)) {
@@ -59,8 +59,8 @@ if (isset($_GET['go']) && $search != NULL) {
         }
         /*---------------------------*/
         include 'inc/icon48.php';
-        if (is_file(H . 'style/themes/' . $set['set_them'] . '/loads/14/' . $ras . '.png')) echo "<img src='/style/themes/$set[set_them]/loads/14/$ras.png' alt='$ras' /> \n";
-        else echo "<img src='/style/themes/$set[set_them]/loads/14/file.png' alt='file' /> \n";
+        if (is_file(H . 'style/themes/' . $set['set_them'] . '/loads/14/' . $ras . '.png')) echo "<img src='/style/themes/$set[set_them]/loads/14/$ras.png' alt='$ras' /> ";
+        else echo "<img src='/style/themes/$set[set_them]/loads/14/file.png' alt='file' /> ";
         if ($set['echo_rassh'] == 1) $ras = $post['ras'];
         else $ras = NULL;
         echo '<a href="/obmen' . $dir_id['dir'] . $post['id'] . '.' . $post['ras'] . '?showinfo"><b>' . $post['name'] . '.' . $ras . '</b></a> (' . size_file($post['size']) . ')<br />';
@@ -76,12 +76,12 @@ if (isset($_GET['go']) && $search != NULL) {
     echo '<div class="foot">';
 echo '档案搜寻';
 echo '</div>';
-echo "<form method=\"post\" action=\"search.php?go\" class=\"search\">\n";
+echo "<form method=\"post\" action=\"search.php?go\" class=\"search\">";
 $search = stripcslashes(htmlspecialchars($search));
-echo "<input type=\"text\" name=\"search\" maxlength=\"64\" value=\"$search\" /><br />\n";
-echo "<input type=\"submit\" value=\"搜索\" />\n";
-echo "</form>\n";
+echo "<input type=\"text\" name=\"search\" maxlength=\"64\" value=\"$search\" /><br />";
+echo "<input type=\"submit\" value=\"搜索\" />";
+echo "</form>";
 echo "<div class='foot'>";
 echo '<img src="/style/icons/up_dir.gif" alt="*"> <a href="/obmen/">交换器</a><br />';
-echo "</div>\n";
+echo "</div>";
 include_once '../sys/inc/tfoot.php';

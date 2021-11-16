@@ -18,11 +18,11 @@ if (user_access('obmen_dir_edit') && isset($_GET['act']) && $_GET['act']=='set')
 
 
 
-	echo "Название папки:<br />\n";
+	echo "Название папки:<br />";
 
 
 
-	echo "<input type='text' name='name' value='" . htmlspecialchars($dir_id['name']) . "' /><br />\n";
+	echo "<input type='text' name='name' value='" . htmlspecialchars($dir_id['name']) . "' /><br />";
 
 
 
@@ -30,19 +30,19 @@ if ($dir_id['upload']==1)$check=' checked="checked"'; else $check=NULL;
 
 
 
-	echo "<label><input type=\"checkbox\"$check name=\"upload\" value=\"1\" /> Выгрузка</label><br />\n";
+	echo "<label><input type=\"checkbox\"$check name=\"upload\" value=\"1\" /> Выгрузка</label><br />";
 
 
 
-	echo "Расширения через \";\":<br />\n";
+	echo "Расширения через \";\":<br />";
 
 
 
-	echo "<input type='text' name='ras' value='$dir_id[ras]' /><br />\n";
+	echo "<input type='text' name='ras' value='$dir_id[ras]' /><br />";
 
 
 
-	echo "Максимальный размер файлов:<br />\n";
+	echo "Максимальный размер файлов:<br />";
 
 
 

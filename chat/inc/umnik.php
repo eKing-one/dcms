@@ -94,7 +94,7 @@ if ($umnik_last['umnik_st']==3){$add_balls=5;$pods='使用这两种说法';}
 
 
 
-$msg="干得好, [b]$ank[nick][/b].\n你是第一个给出正确答案的人: [b]$umnik_vopros[otvet][/b] $pods.\n[b]$ank[nick][/b] 接收 $add_balls 积分.\n下一个问题通过 $set[umnik_new] sec.";
+$msg="干得好, [b]$ank[nick][/b].你是第一个给出正确答案的人: [b]$umnik_vopros[otvet][/b] $pods.[b]$ank[nick][/b] 接收 $add_balls 积分.下一个问题通过 $set[umnik_new] sec.";
 
 
 
@@ -160,7 +160,7 @@ $umnik_vopros = dbassoc(dbquery("SELECT * FROM `chat_vopros` WHERE `id` = '$umni
 
 
 
-$msg="没有人回答这个问题。\n正确答案: $umnik_vopros[otvet].\n下一个问题通过 $set[umnik_new] sec.";
+$msg="没有人回答这个问题。正确答案: $umnik_vopros[otvet].下一个问题通过 $set[umnik_new] sec.";
 
 
 
@@ -214,7 +214,7 @@ $umnik_vopros = dbassoc(dbquery("SELECT * FROM `chat_vopros` LIMIT ".rand(0,$k_v
 
 
 
-$msg="[b]问题:[/b] \"$umnik_vopros[vopros]\"\n[b]回答:[/b] слово из ".strlen2($umnik_vopros['otvet'])." букв";
+$msg="[b]问题:[/b] \"$umnik_vopros[vopros]\"[b]回答:[/b] слово из ".strlen2($umnik_vopros['otvet'])." букв";
 
 
 
@@ -292,7 +292,7 @@ for ($i=0;$i<strlen2($umnik_vopros['otvet'])-1 ;$i++ ) {
 
 
 
-$msg="[b]问题:[/b] \"$umnik_vopros[vopros]\"\n[b]第一个提示:[/b] $help (".strlen2($umnik_vopros['otvet'])." букв)";
+$msg="[b]问题:[/b] \"$umnik_vopros[vopros]\"[b]第一个提示:[/b] $help (".strlen2($umnik_vopros['otvet'])." букв)";
 
 
 
@@ -370,7 +370,7 @@ for ($i=0;$i<strlen2($umnik_vopros['otvet'])-2 ;$i++ ) {
 
 
 
-$msg="[b]问题:[/b] \"$umnik_vopros[vopros]\"\n[b]第二个提示:[/b] $help (".strlen2($umnik_vopros['otvet'])." букв)";
+$msg="[b]问题:[/b] \"$umnik_vopros[vopros]\"[b]第二个提示:[/b] $help (".strlen2($umnik_vopros['otvet'])." букв)";
 
 
 

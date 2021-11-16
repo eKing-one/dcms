@@ -134,7 +134,7 @@ $q = dbquery("SELECT * FROM `frends_new` WHERE `to` = '$user[id]' ORDER BY time 
 
 
 
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 
 
 
@@ -250,7 +250,7 @@ echo "".status($frend['id'])."";
 
 
 
-echo " ".group($frend['id'])." <a href='/info.php?id=$frend[id]'>$frend[nick]</a>\n";
+echo " ".group($frend['id'])." <a href='/info.php?id=$frend[id]'>$frend[nick]</a>";
 
 
 
@@ -270,7 +270,7 @@ echo "[<img src='/style/icons/delete.gif' alt='*'/> <a href='create.php?no=$fren
 
 
 
-echo "   </div>\n";
+echo "   </div>";
 
 
 
@@ -278,7 +278,7 @@ echo "   </div>\n";
 
 
 
-echo "</table>\n";
+echo "</table>";
 
 
 

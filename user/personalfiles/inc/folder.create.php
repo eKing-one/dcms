@@ -102,7 +102,7 @@ err();
 
 echo "<div class='foot'>";
 
-echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'Файлы':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; '.htmlspecialchars($dir['name']))."\n";
+echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'Файлы':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; '.htmlspecialchars($dir['name']))."";
 
 echo "</div>";
 
@@ -126,13 +126,13 @@ echo '<input type="submit" name="sub" value="Создать"/></form>';
 
 echo "<div class='foot'>";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='?'>Назад</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='?'>Назад</a><br />";
 
 echo "</div>";
 
 echo "<div class='foot'>";
 
-echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'Файлы':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; '.htmlspecialchars($dir['name']))."\n";
+echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'Файлы':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; '.htmlspecialchars($dir['name']))."";
 
 echo "</div>";
 

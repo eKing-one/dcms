@@ -208,7 +208,7 @@ $k_post=dbresult(dbquery("SELECT COUNT(*) FROM `rules_p` WHERE `id_news` = '".in
 $q=dbquery("SELECT * FROM `rules_p` WHERE `id_news` = '".intval($_GET['id'])."' ORDER BY `pos` ASC");
 
 
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 
 
 while ($post2 = dbassoc($q))

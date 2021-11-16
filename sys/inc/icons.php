@@ -26,6 +26,6 @@ $path= "/style/icons/default.png";
 if ($code=='path')
 return $path;
 else
-return "<img src=\"$path\" alt=\"\" />\n";
+return "<img src=\"$path\" alt=\"\" />";
 }
 ?>

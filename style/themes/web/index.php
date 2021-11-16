@@ -56,16 +56,16 @@ echo '<tr>';
 while ($post = dbassoc($q))
 {
 echo '<td style="width:350px; height:70px; vertical-align:top; display:inline-table; margin:2px;">';
-echo "<a href='/news/news.php?id=$post[id]'>".htmlspecialchars($post['title'])."</a>\n";
-echo "(".vremja($post['time']).")<br />\n";
+echo "<a href='/news/news.php?id=$post[id]'>".htmlspecialchars($post['title'])."</a>";
+echo "(".vremja($post['time']).")<br />";
 echo rez_text2(output_text($post['msg']));
-if ($post['link']!=NULL)	echo "<br /><a href='".htmlentities($post['link'], ENT_QUOTES, 'UTF-8')."'>Подробности &rarr;</a><br />\n";
-echo "<img src='/style/icons/bbl4.png' alt='*' /> (".dbresult(dbquery("SELECT COUNT(*) FROM `news_komm` WHERE `id_news` = '$post[id]'"),0).")<br />\n";
+if ($post['link']!=NULL)	echo "<br /><a href='".htmlentities($post['link'], ENT_QUOTES, 'UTF-8')."'>Подробности &rarr;</a><br />";
+echo "<img src='/style/icons/bbl4.png' alt='*' /> (".dbresult(dbquery("SELECT COUNT(*) FROM `news_komm` WHERE `id_news` = '$post[id]'"),0).")<br />";
 echo '</td>';
 }
 echo '</tr>';
 echo '</table>';
-echo "   </div>\n";
+echo "   </div>";
 }
 /* Форум */
 echo "<a href='/forum'><div class='my'>";
@@ -128,18 +128,18 @@ while ($room = dbassoc($q))
 {
 /*-----------зебра-----------*/
 if ($num==0)
-{echo "  <div class='nav1'>\n";
+{echo "  <div class='nav1'>";
 $num=1;
 }elseif ($num==1)
-{echo "  <div class='nav2'>\n";
+{echo "  <div class='nav2'>";
 $num=0;}
 /*---------------------------*/
 
 echo "<img src='/style/themes/$set[set_them]/chat/14/room.png' alt='*' /> ";
 
-echo "<a href='/chat/room/$room[id]/".rand(1000,9999)."/'>$room[name] (".dbresult(dbquery("SELECT COUNT(*) FROM `chat_who` WHERE `room` = '$room[id]'"),0).")</a><br />\n";
+echo "<a href='/chat/room/$room[id]/".rand(1000,9999)."/'>$room[name] (".dbresult(dbquery("SELECT COUNT(*) FROM `chat_who` WHERE `room` = '$room[id]'"),0).")</a><br />";
 
-if ($room['opis']!=NULL)echo esc(trim(br(bbcode(smiles(links(stripcslashes(htmlspecialchars($room['opis']))))))))."<br />\n";
+if ($room['opis']!=NULL)echo esc(trim(br(bbcode(smiles(links(stripcslashes(htmlspecialchars($room['opis']))))))))."<br />";
 echo "</div>";
 }
 echo "</div>";

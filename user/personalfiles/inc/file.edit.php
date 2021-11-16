@@ -48,7 +48,7 @@ if (isset($_GET['edit']))
 	echo '<img src="/style/icons/ok.gif" alt="*"> <input value="Изменить" type="submit" /> <a href="?id_file='.$file_id['id'].'"><img src="/style/icons/delete.gif" alt="*"> Отмена</a><br />';
 	
 	echo "<div class='foot'>";
-	echo "<img src='/style/icons/up_dir.gif' alt='*'> " . ($dir['osn'] == 1 ? '<a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">Файлы</a>' : '') . " " . user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; <a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">' . text($dir['name']) . '</a>')."\n";
+	echo "<img src='/style/icons/up_dir.gif' alt='*'> " . ($dir['osn'] == 1 ? '<a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">Файлы</a>' : '') . " " . user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; <a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">' . text($dir['name']) . '</a>')."";
 	echo "</div>";
 	
 	include_once '../../sys/inc/tfoot.php';

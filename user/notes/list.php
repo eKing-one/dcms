@@ -290,7 +290,7 @@ echo "<div class='mess'>Ложная информация может приве�
 
 
 
-echo "<form class='nav1' method='post' action='?id=$notes[id]&amp;page=".intval($_GET['page'])."&amp;spam=$mess[id]'>\n";
+echo "<form class='nav1' method='post' action='?id=$notes[id]&amp;page=".intval($_GET['page'])."&amp;spam=$mess[id]'>";
 
 
 
@@ -298,7 +298,7 @@ echo "<b>用户:</b> ";
 
 
 
-echo " ".status($spamer['id'])."  ".group($spamer['id'])." <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>\n";
+echo " ".status($spamer['id'])."  ".group($spamer['id'])." <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>";
 
 
 
@@ -310,27 +310,27 @@ echo "<b>违规：</b> <font color='green'>".output_text($mess['msg'])."</font><
 
 
 
-echo "原因：<br />\n<select name='types'>\n";
+echo "原因：<br /><select name='types'>";
 
 
 
-echo "<option value='1' selected='selected'>垃圾邮件/广告</option>\n";
+echo "<option value='1' selected='selected'>垃圾邮件/广告</option>";
 
 
 
-echo "<option value='2' selected='selected'>欺诈行为</option>\n";
+echo "<option value='2' selected='selected'>欺诈行为</option>";
 
 
 
-echo "<option value='3' selected='selected'>进攻</option>\n";
+echo "<option value='3' selected='selected'>进攻</option>";
 
 
 
-echo "<option value='0' selected='selected'>其他</option>\n";
+echo "<option value='0' selected='selected'>其他</option>";
 
 
 
-echo "</select><br />\n";
+echo "</select><br />";
 
 
 
@@ -342,11 +342,11 @@ echo "<textarea name=\"msg\"></textarea><br />";
 
 
 
-echo "<input value=\"发送\" type=\"submit\" />\n";
+echo "<input value=\"发送\" type=\"submit\" />";
 
 
 
-echo "</form>\n";
+echo "</form>";
 
 
 
@@ -366,15 +366,15 @@ echo "<div class='mess'>投诉有关<font color='green'>$spamer[nick]</font> 它
 
 
 
-echo "<div class='foot'>\n";
+echo "<div class='foot'>";
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='?id=$notes[id]&amp;page=".intval($_GET['page'])."'>返回</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='?id=$notes[id]&amp;page=".intval($_GET['page'])."'>返回</a><br />";
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 
@@ -842,15 +842,15 @@ msg('Дневник доступен только для друзей');
 
 
 
-echo "  <div class='foot'>\n";
+echo "  <div class='foot'>";
 
 
 
-echo "<a href='index.php'>返回</a><br />\n";
+echo "<a href='index.php'>返回</a><br />";
 
 
 
-echo "   </div>\n";
+echo "   </div>";
 
 
 
@@ -874,15 +874,15 @@ msg('Пользователь запретил просмотр дневника
 
 
 
-echo "  <div class='foot'>\n";
+echo "  <div class='foot'>";
 
 
 
-echo "<a href='index.php'>返回</a><br />\n";
+echo "<a href='index.php'>返回</a><br />";
 
 
 
-echo "   </div>\n";
+echo "   </div>";
 
 
 
@@ -922,7 +922,7 @@ echo "Вы действительно хотите удалить дневник
 
 
 
-echo "[<a href='delete.php?id=$notes[id]'><img src='/style/icons/ok.gif'> 移走</a>] [<a href='list.php?id=$notes[id]'><img src='/style/icons/delete.gif'> отмена</a>] \n";
+echo "[<a href='delete.php?id=$notes[id]'><img src='/style/icons/ok.gif'> 移走</a>] [<a href='list.php?id=$notes[id]'><img src='/style/icons/delete.gif'> отмена</a>] ";
 
 
 
@@ -1158,11 +1158,11 @@ exit;
 
 
 
-echo "<div class=\"foot\">\n";
+echo "<div class=\"foot\">";
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Дневники</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Дневники</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>";
 
 
 
@@ -1170,7 +1170,7 @@ echo ' | <b>' . output_text($notes['name']) . '</b>';
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 
@@ -1178,15 +1178,15 @@ echo "</div>\n";
 
 
 
-echo "<div class=\"main\">\n";
+echo "<div class=\"main\">";
 
 
 
-echo "Cоздан: (".vremja($notes['time']).")\n";
+echo "Cоздан: (".vremja($notes['time']).")";
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 
@@ -1358,7 +1358,7 @@ echo "Инструменты: ";
 
 
 
-echo " [<a href='edit.php?id=$notes[id]'><img src='/style/icons/edit.gif'> ред</a>] [<a href='?id=$notes[id]&amp;delete'><img src='/style/icons/delete.gif'> удл</a>]\n";
+echo " [<a href='edit.php?id=$notes[id]'><img src='/style/icons/edit.gif'> ред</a>] [<a href='?id=$notes[id]&amp;delete'><img src='/style/icons/delete.gif'> удл</a>]";
 
 
 
@@ -1414,7 +1414,7 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `id_user` = '".$us
 
 
 
-echo "[<img src='/style/icons/like.gif' alt='*' /> <a href='list.php?id=$notes[id]&amp;like=1'>Нравится</a>] [<a href='list.php?id=$notes[id]&amp;like=0'><img src='/style/icons/dlike.gif' alt='*' /></a>]<br />\n";
+echo "[<img src='/style/icons/like.gif' alt='*' /> <a href='list.php?id=$notes[id]&amp;like=1'>Нравится</a>] [<a href='list.php?id=$notes[id]&amp;like=0'><img src='/style/icons/dlike.gif' alt='*' /></a>]<br />";
 
 
 
@@ -1422,7 +1422,7 @@ else
 
 
 
-echo "[<img src='/style/icons/like.gif' alt='*' /> ".dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `like` = '1' AND `id_notes` = '".$notes['id']."' LIMIT 1"),0)."] [<img src='/style/icons/dlike.gif' alt='*' /> ".dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `like` = '0' AND `id_notes` = '".$notes['id']."' LIMIT 1"),0)."]\n";
+echo "[<img src='/style/icons/like.gif' alt='*' /> ".dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `like` = '1' AND `id_notes` = '".$notes['id']."' LIMIT 1"),0)."] [<img src='/style/icons/dlike.gif' alt='*' /> ".dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `like` = '0' AND `id_notes` = '".$notes['id']."' LIMIT 1"),0)."]";
 
 
 
@@ -1438,7 +1438,7 @@ echo "<div class='main'>";
 
 
 
-echo "[<img src='/style/icons/like.gif' alt='*' /> ".dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `like` = '1' AND `id_notes` = '".$notes['id']."' LIMIT 1"),0)."] [<img src='/style/icons/dlike.gif' alt='*' /> ".dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `like` = '0' AND `id_notes` = '".$notes['id']."' LIMIT 1"),0)."]\n";
+echo "[<img src='/style/icons/like.gif' alt='*' /> ".dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `like` = '1' AND `id_notes` = '".$notes['id']."' LIMIT 1"),0)."] [<img src='/style/icons/dlike.gif' alt='*' /> ".dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `like` = '0' AND `id_notes` = '".$notes['id']."' LIMIT 1"),0)."]";
 
 
 
@@ -1482,7 +1482,7 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `mark_notes` WHERE `id_user` = '".$us
 
 
 
-echo "<a href='list.php?id=$notes[id]&amp;fav=1'>添加到书签</a><br />\n";
+echo "<a href='list.php?id=$notes[id]&amp;fav=1'>添加到书签</a><br />";
 
 
 
@@ -1490,7 +1490,7 @@ else
 
 
 
-echo "<a href='list.php?id=$notes[id]&amp;fav=0'>从书签中删除</a><br />\n";
+echo "<a href='list.php?id=$notes[id]&amp;fav=0'>从书签中删除</a><br />";
 
 
 
@@ -1586,7 +1586,7 @@ echo '<div class="foot">';
 
 
 
-echo "Комментарии\n";
+echo "Комментарии";
 
 
 
@@ -1610,7 +1610,7 @@ echo '<div class="mess">';
 
 
 
-echo "Нет сообщений\n";
+echo "Нет сообщений";
 
 
 
@@ -1686,7 +1686,7 @@ $q=dbquery("SELECT * FROM `notes_komm` WHERE `id_notes` = '".intval($_GET['id'])
 
 
 
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 
 
 
@@ -1770,7 +1770,7 @@ echo group($ank['id'])." <a href='/info.php?id=$ank[id]'>$ank[nick]</a> ";
 
 
 
-if (isset($user) && $ank['id'] != $user['id'])echo "<a href='?id=$notes[id]&amp;response=$ank[id]'>[*]</a> \n";
+if (isset($user) && $ank['id'] != $user['id'])echo "<a href='?id=$notes[id]&amp;response=$ank[id]'>[*]</a> ";
 
 
 
@@ -1802,7 +1802,7 @@ if ($postBan == 0) // Блок сообщения
 
 
 
-echo output_text($post['msg'])."<br />\n";
+echo output_text($post['msg'])."<br />";
 
 
 
@@ -1866,7 +1866,7 @@ echo "<a href=\"?id=$notes[id]&amp;page=$page&amp;spam=$post[id]\"><img src='/st
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 
@@ -1874,7 +1874,7 @@ echo "</div>\n";
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 
@@ -1882,7 +1882,7 @@ echo "</div>\n";
 
 
 
-echo "</table>\n";
+echo "</table>";
 
 
 
@@ -1910,15 +1910,15 @@ msg('Комментировать могут только друзья');
 
 
 
-echo "  <div class='foot'>\n";
+echo "  <div class='foot'>";
 
 
 
-echo "<a href='index.php'>返回</a><br />\n";
+echo "<a href='index.php'>返回</a><br />";
 
 
 
-echo "   </div>\n";
+echo "   </div>";
 
 
 
@@ -1946,15 +1946,15 @@ msg('Пользователь запретил комментирование д
 
 
 
-echo "  <div class='foot'>\n";
+echo "  <div class='foot'>";
 
 
 
-echo "<a href='index.php'>返回</a><br />\n";
+echo "<a href='index.php'>返回</a><br />";
 
 
 
-echo "   </div>\n";
+echo "   </div>";
 
 
 
@@ -1982,7 +1982,7 @@ if (isset($user))
 
 
 
-echo "<form method=\"post\" name='message' action=\"?id=".intval($_GET['id'])."&amp;page=$page".$go_otv."\">\n";
+echo "<form method=\"post\" name='message' action=\"?id=".intval($_GET['id'])."&amp;page=$page".$go_otv."\">";
 
 
 
@@ -1998,15 +1998,15 @@ else
 
 
 
-echo "$tPanel<textarea name=\"msg\">$otvet</textarea><br />\n";
+echo "$tPanel<textarea name=\"msg\">$otvet</textarea><br />";
 
 
 
-echo "<input value=\"发送\" type=\"submit\" />\n";
+echo "<input value=\"发送\" type=\"submit\" />";
 
 
 
-echo "</form>\n";
+echo "</form>";
 
 
 
@@ -2018,11 +2018,11 @@ echo "</form>\n";
 
 
 
-echo "<div class=\"foot\">\n";
+echo "<div class=\"foot\">";
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Дневники</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Дневники</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>";
 
 
 
@@ -2030,7 +2030,7 @@ echo ' | <b>' . output_text($notes['name']) . '</b>';
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 

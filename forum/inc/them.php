@@ -5,26 +5,26 @@ ob_clean();
 ob_implicit_flush();
 header('Content-Type: text/plain; charset=utf-8', true);
 header('Content-Disposition: attachment; filename="'.retranslit($them['name']).'.txt";');
-echo "Тема: $them[name] ($forum[name]/$razdel[name])\r\n";
+echo "Тема: $them[name] ($forum[name]/$razdel[name])\r";
 $q=dbquery("SELECT * FROM `forum_p` WHERE `id_them` = '$them[id]' AND `id_forum` = '$forum[id]' AND `id_razdel` = '$razdel[id]' ORDER BY `time` ASC");
-//echo "\r\n";
+//echo "\r";
 while ($post = dbassoc($q))
 {
-echo "\r\n";
+echo "\r";
 $ank=get_user($post['id_user']);
-echo "$ank[nick] (".date("Y m d H:i", $post['time']).")\r\n";
+echo "$ank[nick] (".date("Y m d H:i", $post['time']).")\r";
 if ($post['cit']!=NULL && dbresult(dbquery("SELECT COUNT(*) FROM `forum_p` WHERE `id` = '$post[cit]'"),0)==1)
 {
 $cit=dbassoc(dbquery("SELECT * FROM `forum_p` WHERE `id` = '$post[cit]' LIMIT 1"));
 $ank_c=get_user($cit['id_user']);
-echo "--报价--\r\n";
-echo "$ank_c[nick] (".date("Y m d в H:i", $cit['time'])."):\r\n";
-echo trim(br($cit['msg'],"\r\n"))."\r\n";
-echo "----------\r\n";
+echo "--报价--\r";
+echo "$ank_c[nick] (".date("Y m d в H:i", $cit['time'])."):\r";
+echo trim(br($cit['msg'],"\r"))."\r";
+echo "----------\r";
 }
-echo trim(br($post['msg'],"\r\n"))."\r\n";
+echo trim(br($post['msg'],"\r"))."\r";
 }
-echo "\r\n来源: http://$_SERVER[SERVER_NAME]/forum/$forum[id]/$razdel[id]/$them[id]/\r\n";
+echo "\r来源: http://$_SERVER[SERVER_NAME]/forum/$forum[id]/$razdel[id]/$them[id]/\r";
 exit;
 }
 if (isset($user) && isset($_GET['f_del']) && is_numeric($_GET['f_del']) && isset($_SESSION['file'][$_GET['f_del']]))
@@ -185,27 +185,27 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]
 {
 echo "<div class='mess'>虚假信息会导致昵称被屏蔽。
 如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
-echo "<form class='nav1' method='post' action='/forum/$forum[id]/$razdel[id]/$them[id]/?spam=$mess[id]&amp;page=".intval($_GET['page'])."'>\n";
+echo "<form class='nav1' method='post' action='/forum/$forum[id]/$razdel[id]/$them[id]/?spam=$mess[id]&amp;page=".intval($_GET['page'])."'>";
 echo "<b>用户:</b> ";
-echo " ".avatar($spamer['id'])."  ".group($spamer['id'])." <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>\n";
+echo " ".avatar($spamer['id'])."  ".group($spamer['id'])." <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>";
 echo "".medal($spamer['id'])." ".online($spamer['id'])." (".vremja($mess['time']).")<br />";
 echo "<b>违规：</b> <font color='green'>".output_text($mess['msg'])."</font><br />";
-echo "原因：<br />\n<select name='types'>\n";
-echo "<option value='1' selected='selected'>垃圾邮件/广告</option>\n";
-echo "<option value='2' selected='selected'>欺诈行为</option>\n";
-echo "<option value='3' selected='selected'>进攻</option>\n";
-echo "<option value='0' selected='selected'>其他</option>\n";
-echo "</select><br />\n";
+echo "原因：<br /><select name='types'>";
+echo "<option value='1' selected='selected'>垃圾邮件/广告</option>";
+echo "<option value='2' selected='selected'>欺诈行为</option>";
+echo "<option value='3' selected='selected'>进攻</option>";
+echo "<option value='0' selected='selected'>其他</option>";
+echo "</select><br />";
 echo "评论:";
 echo $tPanel."<textarea name=\"spamus\"></textarea><br />";
-echo "<input value=\"发送\" type=\"submit\" />\n";
-echo "</form>\n";
+echo "<input value=\"发送\" type=\"submit\" />";
+echo "</form>";
 }else{
 echo "<div class='mess'>投诉有关<font color='green'>$spamer[nick]</font> 它将在不久的将来考虑。</div>";
 }
-echo "<div class='foot'>\n";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='?page=".intval($_GET['page'])."'>返回</a><br />\n";
-echo "</div>\n";
+echo "<div class='foot'>";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='?page=".intval($_GET['page'])."'>返回</a><br />";
+echo "</div>";
 include_once '../sys/inc/tfoot.php';
 exit;
 }
@@ -237,7 +237,7 @@ err();
 aut();
 echo "<div class='foot'>";
 echo '<a href="/forum/'.$forum['id'].'/'.$razdel['id'].'/">'.text($razdel['name']).'</a> | <b>'.output_text($them['name']).'</b>';
-echo "</div>\n";
+echo "</div>";
 /*
 ======================================
 Перемещение темы
@@ -245,24 +245,24 @@ echo "</div>\n";
 */
 if (isset($_GET['act']) && $_GET['act']=='mesto' && (user_access('forum_them_edit') || $ank2['id']==$user['id']))
 {
-echo "<form method=\"post\" action=\"/forum/$forum[id]/$razdel[id]/$them[id]/?act=mesto&amp;ok\">\n";
+echo "<form method=\"post\" action=\"/forum/$forum[id]/$razdel[id]/$them[id]/?act=mesto&amp;ok\">";
 echo "<div class='mess'>";
-echo "移动主题 <b>".output_text($them['name'])."</b>\n";
+echo "移动主题 <b>".output_text($them['name'])."</b>";
 echo "</div>";
 echo "<div class='main'>";
-echo "章:<br />\n";
-echo "<select name=\"razdel\">\n";
+echo "章:<br />";
+echo "<select name=\"razdel\">";
 if (user_access('forum_them_edit')){
 $q = dbquery("SELECT * FROM `forum_f` ORDER BY `pos` ASC");
 while ($forums = dbassoc($q))
 {
-echo "<optgroup label='$forums[name]'>\n";
+echo "<optgroup label='$forums[name]'>";
 $q2 = dbquery("SELECT * FROM `forum_r` WHERE `id_forum` = '$forums[id]' ORDER BY `time` DESC");
 while ($razdels = dbassoc($q2))
 {
-echo "<option".($razdel['id']==$razdels['id']?' selected="selected"':null)." value=\"$razdels[id]\">" . text($razdels['name']) . "</option>\n";
+echo "<option".($razdel['id']==$razdels['id']?' selected="selected"':null)." value=\"$razdels[id]\">" . text($razdels['name']) . "</option>";
 }
-echo "</optgroup>\n";
+echo "</optgroup>";
 }
 }
 else
@@ -270,16 +270,16 @@ else
 $q2 = dbquery("SELECT * FROM `forum_r` WHERE `id_forum` = '$forum[id]' ORDER BY `time` DESC");
 while ($razdels = dbassoc($q2))
 {
-echo "<option".($razdel['id']==$razdels['id']?' selected="selected"':null)." value='$razdels[id]'>" . text($razdels['name']) . "</option>\n";
+echo "<option".($razdel['id']==$razdels['id']?' selected="selected"':null)." value='$razdels[id]'>" . text($razdels['name']) . "</option>";
 }
 }
-echo "</select><br />\n";
-echo "<input value=\"Переместить\" type=\"submit\" /> \n";
-echo "<img src='/style/icons/delete.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/'>取消</a><br />\n";
-echo "</form>\n";
+echo "</select><br />";
+echo "<input value=\"Переместить\" type=\"submit\" /> ";
+echo "<img src='/style/icons/delete.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/'>取消</a><br />";
+echo "</form>";
 echo "</div>";
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?'>在主题</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?'>在主题</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
 exit;
@@ -291,29 +291,29 @@ exit;
 */
 if (isset($_GET['act']) && $_GET['act']=='set' && (user_access('forum_them_edit') || $ank2['id']==$user['id']))
 {
-echo "<form method='post' action='/forum/$forum[id]/$razdel[id]/$them[id]/?act=set&amp;ok'>\n";
+echo "<form method='post' action='/forum/$forum[id]/$razdel[id]/$them[id]/?act=set&amp;ok'>";
 echo "<div class='mess'>";
-echo "编辑主题<b>".output_text($them['name'])."</b>\n";
+echo "编辑主题<b>".output_text($them['name'])."</b>";
 echo "</div>";
-echo "<div class=\"main\">\n";
-echo "标题:<br />\n";
-echo "<input name='name' type='text' maxlength='32' value='".text($them['name'])."' /><br />\n";
-echo "消息:$tPanel<textarea name=\"msg\">".text($them['text'])."</textarea><br />\n";
+echo "<div class=\"main\">";
+echo "标题:<br />";
+echo "<input name='name' type='text' maxlength='32' value='".text($them['name'])."' /><br />";
+echo "消息:$tPanel<textarea name=\"msg\">".text($them['text'])."</textarea><br />";
 if ($user['level']>0){
 if ($them['up']==1)$check=' checked="checked"';else $check=NULL;
-echo "<label><input type=\"checkbox\"$check name=\"up\" value=\"1\" /> 总是在楼上</label><br />\n";
+echo "<label><input type=\"checkbox\"$check name=\"up\" value=\"1\" /> 总是在楼上</label><br />";
 }
 if ($them['close']==1)$check=' checked="checked"';else $check=NULL;
-echo "<label><input type=\"checkbox\"$check name=\"close\" value=\"1\" /> 关闭</label><br />\n";
+echo "<label><input type=\"checkbox\"$check name=\"close\" value=\"1\" /> 关闭</label><br />";
 if ($ank2['id']!=$user['id']){
-echo "<label><input type=\"checkbox\" name=\"autor\" value=\"1\" /> 剥夺作者的权利</label><br />\n";
+echo "<label><input type=\"checkbox\" name=\"autor\" value=\"1\" /> 剥夺作者的权利</label><br />";
 }
-echo "<input value=\"Изменить\" type=\"submit\" /> \n";
-echo "<img src='/style/icons/delete.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/'>取消</a><br />\n";
-echo "</form>\n";
+echo "<input value=\"Изменить\" type=\"submit\" /> ";
+echo "<img src='/style/icons/delete.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/'>取消</a><br />";
+echo "</form>";
 echo "</div>";
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?'>在主题</a><br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?'>在主题</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
 exit;
@@ -332,14 +332,14 @@ exit;
 */
 if (isset($_GET['act']) && $_GET['act']=='del' && user_access('forum_them_del') && ($ank2['level']<=$user['level'] || $ank2['id']==$user['id']))
 {
-echo "<div class=\"mess\">\n";
-echo "确认删除主题 <b>".output_text($them['name'])."</b><br />\n";
-echo "</div>\n";
-echo "<div class=\"main\">\n";
-echo "[<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?act=delete&amp;ok\"><img src='/style/icons/ok.gif' alt='*'> 是的</a>] [<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/\"><img src='/style/icons/delete.gif' alt='*'> 取消</a>]<br />\n";
-echo "</div>\n";
+echo "<div class=\"mess\">";
+echo "确认删除主题 <b>".output_text($them['name'])."</b><br />";
+echo "</div>";
+echo "<div class=\"main\">";
+echo "[<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?act=delete&amp;ok\"><img src='/style/icons/ok.gif' alt='*'> 是的</a>] [<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/\"><img src='/style/icons/delete.gif' alt='*'> 取消</a>]<br />";
+echo "</div>";
 echo "<div class='foot'>";
-echo "<img src='/style/icons/fav.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?'>在主题</a><br />\n";
+echo "<img src='/style/icons/fav.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?'>在主题</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
 exit;
@@ -503,7 +503,7 @@ if (dbresult(dbquery("SELECT * FROM `votes_user` WHERE `them` = '".abs(intval($t
 ======================================
 */
 echo "<div class='mess'><img src='/style/icons/blogi.png'> 作者: ".group($them['id_user'])." ";
-echo user::nick($them['id_user'],1,1,1)." <br/>\n";
+echo user::nick($them['id_user'],1,1,1)." <br/>";
 echo "<img src='/style/icons/alarm.png' alt='*' /> 创建: ".vremja($them['time'])." <br/>";
 echo "<img src='/style/icons/kumr.gif'> 标题: <b>".text($them['name'])."</b></div>";
 echo "<div class='nav2'>".output_text($them['text'])." ";
@@ -557,10 +557,10 @@ if (isset($user))
 $markinfo=dbresult(dbquery("SELECT COUNT(`id`) FROM `bookmarks` WHERE `id_object` = '".$them['id']."' AND `type`='forum'"),0);
 echo "<br/><img src='/style/icons/add_fav.gif' alt='*' /> ";
 if (dbresult(dbquery("SELECT COUNT(`id`) FROM `bookmarks` WHERE `id_object` = '$them[id]' AND `id_user` = '$user[id]' AND `type`='forum'"),0)==0)
-echo " <a href=\"?page=$page&amp;zakl=1\" title='添加到书签'>添加到书签</a><br />\n";
+echo " <a href=\"?page=$page&amp;zakl=1\" title='添加到书签'>添加到书签</a><br />";
 else
 {
-echo " <a href=\"?page=$page&amp;zakl=0\" title='从书签中删除'>从书签中删除</a><br />\n";
+echo " <a href=\"?page=$page&amp;zakl=0\" title='从书签中删除'>从书签中删除</a><br />";
 }
 }
 echo "</div>";
@@ -572,10 +572,10 @@ echo "</div>";
 if (isset($user) && (((!isset($_GET['act']) || $_GET['act']!='post_delete') && (user_access('forum_post_ed') || $ank2['id']==$user['id']))
 || ((user_access('forum_them_edit') || $ank2['id']==$user['id']))
 || (user_access('forum_them_del') || $ank2['id']==$user['id']))){
-echo "<div class=\"foot\">\n";
+echo "<div class=\"foot\">";
 if (user_access('forum_them_edit') || $them['id_user']==$user['id']){
-echo "<img src='/style/icons/settings.gif' width='16'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?act=set'><font color='darkred'>编辑</font></a><br/>\n";
-echo "<img src='/style/icons/glavnaya.gif' width='16'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?act=mesto'><font color='darkred'>移动</font></a>\n";
+echo "<img src='/style/icons/settings.gif' width='16'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?act=set'><font color='darkred'>编辑</font></a><br/>";
+echo "<img src='/style/icons/glavnaya.gif' width='16'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?act=mesto'><font color='darkred'>移动</font></a>";
 if($vote_c==0){
 ?><br/><img src="/style/icons/top10.png"> <a href="/forum/<?=$forum['id'];?>/<?=$razdel['id'];?>/<?=$them['id'];?>/?act=vote"> <font color="darkred">添加调查</font></a> <?
 }else{
@@ -583,9 +583,9 @@ echo '<br/><img src="/style/icons/diary.gif"> <a href="?act=vote"><font color="d
 }
 }
 if (user_access('forum_them_del') || $ank2['id']==$user['id']){
-echo "<br/><img src='/style/icons/delete.gif' width='16'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?act=del'><font color='darkred'>删除主题</font></a>\n";
+echo "<br/><img src='/style/icons/delete.gif' width='16'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?act=del'><font color='darkred'>删除主题</font></a>";
 }
-echo "</div>\n";
+echo "</div>";
 }
 echo "<div class='foot'>评论：</div>";
 /*------------сортировка по времени--------------*/
@@ -605,7 +605,7 @@ if ((user_access('forum_post_ed') || isset($user) && $ank2['id']==$user['id']) &
 $q=dbquery("SELECT * FROM `forum_p` WHERE `id_them` = '$them[id]' AND `id_forum` = '$forum[id]' AND `id_razdel` = '$razdel[id]' ORDER BY `time` $sort$lim");
 if (dbrows($q)==0) {
 echo "<div class='mess'>";
-echo "没有留言在主题\n";
+echo "没有留言在主题";
 echo "</div>";
 }
 while ($post = dbassoc($q))
@@ -638,7 +638,7 @@ if (isset($status['id']) && $set['st']==1)
 echo "<div class='st_1'></div>";
 echo "<div class='st_2'>";
 echo "".output_text($status['msg'])."";
-echo "</div>\n";
+echo "</div>";
 }
 /*---------------------------------------*/
 	# Цитирование поста
@@ -669,19 +669,19 @@ echo '<span style="float:right;">';
 if ($them['close']==0) // если тема закрыта, то скрываем кнопки
 {
     	if (user_access('forum_post_ed') && ($ank['level']<=$user['level'] || $ank['level']==$user['level'] &&  $post['id_user']==$user['id'])) 
-    		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit\" title='Изменить пост $ank[nick]'  class='link_s'><img src='/style/icons/edit.gif' alt='*'> </a> \n";
+    		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit\" title='Изменить пост $ank[nick]'  class='link_s'><img src='/style/icons/edit.gif' alt='*'> </a> ";
     	elseif ($user['id']==$post['id_user'] && $post['time']>time()-600) 
-    		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit\" title='Изменить мой пост'  class='link_s'><img src='/style/icons/edit.gif' alt='*'> (".($post['time']+600-time())." sec)</a> \n";
+    		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit\" title='Изменить мой пост'  class='link_s'><img src='/style/icons/edit.gif' alt='*'> (".($post['time']+600-time())." sec)</a> ";
 if ($user['id']!=$ank['id'] && $ank['id']!=0) // Кроме автора поста и системы 
 		{
-	echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?spam=$post[id]&amp;page=$page\" title='Это спам'  class='link_s'><img src='/style/icons/blicon.gif' alt='*' title='这是垃圾邮件'></a>\n";
+	echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?spam=$post[id]&amp;page=$page\" title='Это спам'  class='link_s'><img src='/style/icons/blicon.gif' alt='*' title='这是垃圾邮件'></a>";
     }
 		}
 if (user_access('forum_post_ed')) // удаление поста
 		{
-		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?del=$post[id]&amp;page=$page\" title='Удалить'  class='link_s'><img src='/style/icons/delete.gif' alt='*' title='移走'></a>\n";
+		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?del=$post[id]&amp;page=$page\" title='Удалить'  class='link_s'><img src='/style/icons/delete.gif' alt='*' title='移走'></a>";
 		}
-echo "&nbsp;\n";
+echo "&nbsp;";
 echo '</span><br/>';
 }
 echo ' '.($webbrowser ? null : '<br/>').' </div>';
@@ -696,9 +696,9 @@ if ((user_access('forum_post_ed') || isset($user) && $ank2['id'] == $user['id'])
         echo "</div>";
     }
     if ($user['set_files'] == 1)
-        echo "<form method='post' name='message' enctype='multipart/form-data' action='/forum/$forum[id]/$razdel[id]/$them[id]/new?page=$page&amp;$passgen&amp;" . $go_otv . "'>\n";
+        echo "<form method='post' name='message' enctype='multipart/form-data' action='/forum/$forum[id]/$razdel[id]/$them[id]/new?page=$page&amp;$passgen&amp;" . $go_otv . "'>";
     else
-        echo "<form method='post' name='message' action='/forum/$forum[id]/$razdel[id]/$them[id]/new?page=$page&amp;$passgen&amp;" . $go_otv . "'>\n";
+        echo "<form method='post' name='message' action='/forum/$forum[id]/$razdel[id]/$them[id]/new?page=$page&amp;$passgen&amp;" . $go_otv . "'>";
     if (isset($_POST['msg']) && isset($_POST['file_s']))
         $msg2 = output_text($_POST['msg'], false, true, false, false, false);
     else
@@ -706,22 +706,22 @@ if ((user_access('forum_post_ed') || isset($user) && $ank2['id'] == $user['id'])
     if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
         include H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
     else
-        echo "$tPanel<textarea name=\"msg\">$otvet$msg2</textarea><br />\n";
+        echo "$tPanel<textarea name=\"msg\">$otvet$msg2</textarea><br />";
     if ($user['set_files'] == 1) {
         if (isset($_SESSION['file'])) {
-            echo "附加档案:<br />\n";
+            echo "附加档案:<br />";
             for ($i = 0; $i < count($_SESSION['file']); $i++) {
                 if (isset($_SESSION['file'][$i]) && is_file($_SESSION['file'][$i]['tmp_name'])) {
-                    echo "<img src='/style/themes/$set[set_them]/forum/14/file.png' alt='' />\n";
+                    echo "<img src='/style/themes/$set[set_them]/forum/14/file.png' alt='' />";
                     echo $_SESSION['file'][$i]['name'] . '.' . $_SESSION['file'][$i]['ras'] . ' (';
                     echo size_file($_SESSION['file'][$i]['size']);
-                    echo ") <a href='/forum/$forum[id]/$razdel[id]/$them[id]/d_file$i' title='Удалить из списка'><img src='/style/themes/$set[set_them]/forum/14/del_file.png' alt='' /></a>\n";
-                    echo "<br />\n";
+                    echo ") <a href='/forum/$forum[id]/$razdel[id]/$them[id]/d_file$i' title='Удалить из списка'><img src='/style/themes/$set[set_them]/forum/14/del_file.png' alt='' /></a>";
+                    echo "<br />";
                 }
             }
         }
-        echo "<input name='file_f' type='file' /><br />\n";
-        echo "<input name='file_s' value='附加文件' type='submit' /><br />\n";
+        echo "<input name='file_f' type='file' /><br />";
+        echo "<input name='file_s' value='附加文件' type='submit' /><br />";
     }
     echo '<input name="post" value="发送" type="submit" /><br />
 	 </form>';

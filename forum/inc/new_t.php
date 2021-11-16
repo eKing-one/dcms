@@ -55,20 +55,20 @@ err();
 aut();
 
 echo "<form method=\"post\" name='message' action=\"/forum/$forum[id]/$razdel[id]/?act=new\">";
-echo "主题名称:<br />\n";
-echo "<input name=\"name\" type=\"text\" maxlength='32' value='' /><br />\n";
+echo "主题名称:<br />";
+echo "<input name=\"name\" type=\"text\" maxlength='32' value='' /><br />";
 
 if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php')) {
    include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
 } else {
-   echo "信息:$tPanel<textarea name=\"msg\"></textarea><br />\n";
+   echo "信息:$tPanel<textarea name=\"msg\"></textarea><br />";
 }
 
-echo "<input value=\"要创建\" type=\"submit\" /><br />\n";
-echo "</form>\n";
+echo "<input value=\"要创建\" type=\"submit\" /><br />";
+echo "</form>";
 
-echo "<div class=\"foot\">\n";
-echo "<a href=\"/forum/$forum[id]/$razdel[id]/\" title='Вернуться в раздел'>返回</a><br />\n";
-echo "<a href=\"/forum/$forum[id]/\">" . text($forum['name']) . "</a><br />\n";
-echo "<a href=\"/forum/\">Форум</a><br />\n";
-echo "</div>\n";
+echo "<div class=\"foot\">";
+echo "<a href=\"/forum/$forum[id]/$razdel[id]/\" title='Вернуться в раздел'>返回</a><br />";
+echo "<a href=\"/forum/$forum[id]/\">" . text($forum['name']) . "</a><br />";
+echo "<a href=\"/forum/\">Форум</a><br />";
+echo "</div>";

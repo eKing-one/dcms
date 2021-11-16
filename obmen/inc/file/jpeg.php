@@ -1,7 +1,7 @@
 <?
 if (is_file(H."sys/obmen/screens/128/$file_id[id].$ras"))
 {
-	echo "<img src='/sys/obmen/screens/128/$file_id[id].$ras' alt='Скрин...' /><br />\n";
+	echo "<img src='/sys/obmen/screens/128/$file_id[id].$ras' alt='Скрин...' /><br />";
 }
 elseif (function_exists('imagecreatefromstring'))
 {
@@ -32,22 +32,22 @@ elseif (function_exists('imagecreatefromstring'))
 	$screen=img_copyright($screen); // наложение копирайта
 	imagejpeg($screen,H."sys/obmen/screens/128/$file_id[id].$ras",90);
 	imagedestroy($screen);
-	echo "<img src='/sys/obmen/screens/128/$file_id[id].$ras' alt='Скрин...' /><br />\n";
+	echo "<img src='/sys/obmen/screens/128/$file_id[id].$ras' alt='Скрин...' /><br />";
 }
 
 if ($file_id['opis']!=NULL)
 {
 	echo "Описание: ";
 	echo output_text($file_id['opis']);
-	echo "<br />\n";
+	echo "<br />";
 }
 
 if (function_exists('getimagesize'))
 {
 	$img_size=getimagesize($file);
-	echo "Разрешение: $img_size[0]*$img_size[1] пикс.<br />\n";
+	echo "Разрешение: $img_size[0]*$img_size[1] пикс.<br />";
 }
 
-echo "Добавлен: ".vremja($file_id['time'])."<br />\n";
-echo "Размер: ".size_file($size)."<br />\n";
+echo "Добавлен: ".vremja($file_id['time'])."<br />";
+echo "Размер: ".size_file($size)."<br />";
 ?>

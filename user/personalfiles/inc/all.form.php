@@ -93,7 +93,7 @@ echo "<div class='foot'>";
 
 
 
-echo "<img src='/style/icons/str.gif' alt='*'> <a href='?add'>创建文件夹</a> | <a href='?upload'>添加文件</a><br />\n";
+echo "<img src='/style/icons/str.gif' alt='*'> <a href='?add'>创建文件夹</a> | <a href='?upload'>添加文件</a><br />";
 
 
 

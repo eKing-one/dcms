@@ -33,7 +33,7 @@ $start=$set['p_str']*$page-$set['p_str'];
 
 
 
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 
 
 
@@ -48,7 +48,7 @@ echo "<div class='foot'>";
 
 
 
-echo "评论：\n";
+echo "评论：";
 
 
 
@@ -78,7 +78,7 @@ echo "<div class='mess'>";
 
 
 
-echo "Нет сообщений\n";
+echo "Нет сообщений";
 
 
 
@@ -243,12 +243,12 @@ echo " ".group($ank['id'])." <a href='/info.php?id=$ank[id]'>$ank[nick]</a>";
 
 
 
-if (isset($user) && $user['id'] != $ank['id'])echo " <a href='?showinfo&amp;page=$page&amp;response=$ank[id]'>[*]</a> \n";
+if (isset($user) && $user['id'] != $ank['id'])echo " <a href='?showinfo&amp;page=$page&amp;response=$ank[id]'>[*]</a> ";
 
 
 
 
-echo "".online($ank['id'])." (".vremja($post['time']).")<br />\n";
+echo "".online($ank['id'])." (".vremja($post['time']).")<br />";
 
 
 
@@ -353,7 +353,7 @@ echo '<a href="?showinfo&amp;page='.$page.'&amp;del_post='.$post['id'].'"><img s
 
 
 
-echo "   </div>\n";
+echo "   </div>";
 
 
 
@@ -363,7 +363,7 @@ echo "   </div>\n";
 
 
 
-echo "   </div>\n";
+echo "   </div>";
 
 
 
@@ -378,7 +378,7 @@ echo "   </div>\n";
 
 
 
-echo "</table>\n";
+echo "</table>";
 
 
 
@@ -433,7 +433,7 @@ if (isset($user))
 
 
 
-echo "<form method=\"post\" name='message' action=\"?showinfo&amp;".$go_otv."\">\n";
+echo "<form method=\"post\" name='message' action=\"?showinfo&amp;".$go_otv."\">";
 
 
 
@@ -453,17 +453,17 @@ else
 
 
 
-echo "$tPanel<textarea name=\"msg\">$respons_msg</textarea><br />\n";
+echo "$tPanel<textarea name=\"msg\">$respons_msg</textarea><br />";
 
 
 
 
-echo "<input value=\"发送\" type=\"submit\" />\n";
+echo "<input value=\"发送\" type=\"submit\" />";
 
 
 
 
-echo "</form>\n";
+echo "</form>";
 
 
 

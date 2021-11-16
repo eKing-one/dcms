@@ -8,7 +8,7 @@ if ($set['meta_keywords']!=NULL)
 	function meta_keywords($str)
 	{
 		global $set;
-		return str_replace('</head>', '<meta name="keywords" content="'.$set['meta_keywords'].'" />'."\n</head>", $str);
+		return str_replace('</head>', '<meta name="keywords" content="'.$set['meta_keywords'].'" />'."</head>", $str);
 	}
 	ob_start('meta_keywords');
 }
@@ -19,7 +19,7 @@ if ($set['meta_description']!=NULL)
 	function meta_description($str)
 	{
 		global $set;
-		return str_replace('</head>', '<meta name="description" content="'.$set['meta_description'].'" />'."\n</head>", $str);
+		return str_replace('</head>', '<meta name="description" content="'.$set['meta_description'].'" />'."</head>", $str);
 	}
 	ob_start('meta_description');
 }

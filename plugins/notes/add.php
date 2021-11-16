@@ -99,23 +99,23 @@ err();
 aut();
 
 if (isset($_POST["msg"])) $msg = output_text($_POST["msg"]);
-echo "<form method=\"post\" name=\"message\" action=\"add.php\">\n";
-echo "Название:<br />\n<input name=\"title\" size=\"16\" maxlength=\"32\" value=\"\" type=\"text\" /><br />\n";
+echo "<form method=\"post\" name=\"message\" action=\"add.php\">";
+echo "Название:<br /><input name=\"title\" size=\"16\" maxlength=\"32\" value=\"\" type=\"text\" /><br />";
 if ($set['web'] && is_file(H.'style/themes/'.$set['set_them'].'/altername_post_form.php'))
 include_once H.'style/themes/'.$set['set_them'].'/altername_post_form.php';
 else
-echo "Сообщение:$tPanel<textarea name=\"msg\"></textarea><br />\n";
+echo "Сообщение:$tPanel<textarea name=\"msg\"></textarea><br />";
 
-echo "类别：:<br />\n<select name='id_dir'>\n";
+echo "类别：:<br /><select name='id_dir'>";
 $q=dbquery("SELECT * FROM `notes_dir` ORDER BY `id` DESC");
-echo "<option value='0'".($id_dir==0?" selected='selected'":null)."><b>没有类别</b></option>\n";
+echo "<option value='0'".($id_dir==0?" selected='selected'":null)."><b>没有类别</b></option>";
 
 while ($post = dbassoc($q))
 {
-echo "<option value='$post[id]'".($id_dir == $post['id']?" selected='selected'" : null).">" . text($post['name']) . "</option>\n";
+echo "<option value='$post[id]'".($id_dir == $post['id']?" selected='selected'" : null).">" . text($post['name']) . "</option>";
 }
 
-echo "</select><br />\n";
+echo "</select><br />";
 
 echo "<div class='main'>他们可以看:<br /><input name='private' type='radio' value='0'  selected='selected'/>Все ";
 echo "<input name='private' type='radio'  value='1' />朋友 ";
@@ -126,14 +126,14 @@ echo "<input name='private_komm' type='radio'  value='1' />朋友 ";
 echo "<input name='private_komm' type='radio'  value='2' />只有我</div>";
 
 if ($user['rating'] < 6 || $user['group_access'] < 6)
-echo "<img src='/captcha.php?SESS=$sess' width='100' height='30' alt='核证号码' /><br />\n<input name='chislo' size='5' maxlength='5' value='' type='text' /><br/>\n";
+echo "<img src='/captcha.php?SESS=$sess' width='100' height='30' alt='核证号码' /><br /><input name='chislo' size='5' maxlength='5' value='' type='text' /><br/>";
 	 
-echo "<input value=\"要创建\" type=\"submit\" />\n";
-echo "</form>\n";
+echo "<input value=\"要创建\" type=\"submit\" />";
+echo "</form>";
 
-echo "<div class='foot'>\n";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a><br />\n";
-echo "</div>\n";
+echo "<div class='foot'>";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a><br />";
+echo "</div>";
 
 include_once '../../sys/inc/tfoot.php';
 ?>

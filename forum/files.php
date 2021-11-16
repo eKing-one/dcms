@@ -48,14 +48,14 @@ header("Refresh: 3; url=/index.php");
 header("Content-type: text/html",NULL,404);
 echo "<html>
 <head>
-<title>错误 404</title>\n";
-echo "<link rel=\"stylesheet\" href=\"/style/themes/default/style.css\" type=\"text/css\" />\n";
-echo "</head>\n<body>\n<div class=\"body\"><div class=\"err\">\n";
+<title>错误 404</title>";
+echo "<link rel=\"stylesheet\" href=\"/style/themes/default/style.css\" type=\"text/css\" />";
+echo "</head><body><div class=\"body\"><div class=\"err\">";
 
-echo "没有这样的页面\n";
+echo "没有这样的页面";
 echo "<br />";
 echo "<a href=\"/index.php\">到主页</a>";
-echo "</div>\n</div>\n</body>\n</html>";
+echo "</div></div></body></html>";
 exit;
 }
 
