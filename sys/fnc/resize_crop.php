@@ -18,13 +18,13 @@ function resize($file_input, $file_output, $w_o, $h_o, $percent = false) {
 		list($w_i, $h_i, $type) = getimagesize($file_input);
 
 		if (!$w_i || !$h_i) {
-			echo 'Невозможно получить длину и ширину изображения';
+			echo '无法获取图像的长度和宽度';
 			return;
 	    }
 	    $types = array('','gif','jpeg','png');
 	    $ext = $types[$type];
 	    if ($ext) {    	$func = 'imagecreatefrom'.$ext;
-	    	$img = $func($file_input);    } else {    	echo 'Некорректный формат файла';
+	    	$img = $func($file_input);    } else {    	echo '文件格式不正确';
 			return;    }
 		if ($percent) {		$w_o *= $w_i / 100;
 			$h_o *= $h_i / 100;
@@ -55,7 +55,7 @@ function crop($file_input, $file_output, $crop = 'square',$percent = false) {
 	list($w_i, $h_i, $type) = getimagesize($file_input);
 
 	if (!$w_i || !$h_i) {
-		echo 'Невозможно получить длину и ширину изображения';
+		echo '无法获取图像的长度和宽度';
 		return;
     }
 
@@ -65,7 +65,7 @@ function crop($file_input, $file_output, $crop = 'square',$percent = false) {
     	$func = 'imagecreatefrom'.$ext;
     	$img = $func($file_input);
     } else {
-    	echo 'Некорректный формат файла';
+    	echo '文件格式不正确';
 		return;
     }
 

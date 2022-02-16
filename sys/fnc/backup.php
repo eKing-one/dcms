@@ -71,7 +71,7 @@ if (!isset($hard_process))
 		$body .= "Content-Type: text/plain; charset=\"utf-8\"$EOL";
 		$body .= "Content-Transfer-Encoding: 8bit$EOL";
 		$body .= $EOL;
-		$body .= "Автоматическая отправка BackUp базы данных";
+		$body .= "自动发送备份数据库";
 		$body .= "$EOL--$bound$EOL";
 		$body .= "Content-Type: application/x-gzip; name=\"MySQL.sql.gz\"$EOL";
 		$body .= "Content-Disposition: attachment; filename=\"MySQL.sql.gz\"$EOL";

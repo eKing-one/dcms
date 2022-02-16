@@ -3,14 +3,14 @@
 if(!($db = @mysql_connect($set['mysql_host'], $set['mysql_user'], $set['mysql_pass'])))
 {
 	//echo $set['mysql_host'], $set['mysql_user'],$set['mysql_pass'];
-	echo "Нет соединения с сервером базы<br />*проверьте параметры подключения";
+	echo "没有连接到数据库服务器<br />*检查连接设置";
 	exit;
 }
 
 // подключение к базе
 if (!@mysql_select_db($set['mysql_db_name'],$db))
 {
-	echo 'База даных не найдена<br />*проверьте, существует ли данная база';
+	echo '找不到数据库<br />*检查此数据库是否存在';
 	exit;
 }
 

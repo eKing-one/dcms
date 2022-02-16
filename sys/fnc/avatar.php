@@ -3,7 +3,7 @@ function avatar($ID, $link = false, $dir = '50', $w = '50')
 {
 	/**
 	* 
-	* @var / Аватар, модифицировали функцию с целью облегчения кода
+	* @var / 头像，为了方便代码修改了功能
 	* 
 	*/
 	$avatar = dbarray(dbquery("SELECT id,id_gallery,ras FROM `gallery_foto` WHERE `id_user` = '$ID' AND `avatar` = '1' LIMIT 1"));

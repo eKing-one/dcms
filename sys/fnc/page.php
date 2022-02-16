@@ -42,7 +42,7 @@ function str($link = '?', $k_page = 1,$page = 1)
 	echo '<div class="c2">';
 
 	if ($page != 1)
-		echo '<span class="page"><a href="' . $link . 'page=1" title="Первая страница">&lt;</a></span> ';
+		echo '<span class="page"><a href="' . $link . 'page=1" title="第一页">&lt;</a></span> ';
 
 	if ($page != 1)
 		echo '<span class="page"><a href="' . $link . 'page=1" title="Страница №1">1</a></span>';

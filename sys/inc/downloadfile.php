@@ -3,7 +3,7 @@
 function DownloadFile($filename, $name, $mimetype='application/octet-stream')
 {
 if (!file_exists($filename))
-die('Файл не найден');
+die('未找到文件');
 @ob_end_clean();
 $from=0;
 $size=filesize($filename);

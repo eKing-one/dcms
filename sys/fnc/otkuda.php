@@ -5,31 +5,31 @@ $_SESSION['refer'] = NULL;
 function otkuda($ref)
 {
 	if (preg_match('#^/forum/#', $ref))
-		$mesto = ' сидит в <a href="/forum/">форуме</a> ';
+		$mesto = ' 坐在 <a href="/forum/">论坛</a> ';
 	elseif (preg_match('#^/chat/#', $ref))
-		$mesto = ' сидит в <a href="/chat/">чате</a> ';
+		$mesto = ' 坐在 <a href="/chat/">聊天</a> ';
 	elseif (preg_match('#^/news/#', $ref))
-		$mesto = ' читает <a href="/news/">新闻中心</a> ';
+		$mesto = ' 正在阅读 <a href="/news/">新闻中心</a> ';
 	elseif (preg_match('#^/guest/#', $ref))
-		$mesto = ' пишет в <a href="/guest/">гостевой</a> ';
+		$mesto = ' 写入 <a href="/guest/">客人</a> ';
 	elseif (preg_match('#^/user/users\.php#', $ref))
-		$mesto = ' cмотрит в <a href="/user/users.php">обитателей</a> ';
+		$mesto = ' 往里看 <a href="/user/users.php">居民</a> ';
 	elseif (preg_match('#^/online\.php#', $ref))
-		$mesto = ' cмотрит кто <a href="/online.php">онлайн</a> ';
+		$mesto = ' 谁在看 <a href="/online.php">网上</a> ';
 	elseif (preg_match('#^/online_g\.php#', $ref))
-		$mesto = ' cмотрит кто в <a href="/online_g.php">гостях</a> ';
+		$mesto = ' 看看谁进来了 <a href="/online_g.php">各位嘉宾</a> ';
 	elseif (preg_match('#^/reg\.php#', $ref))
-		$mesto = ' хочет <a href="/reg.php">зарегистрироваться</a> ';
+		$mesto = ' 需要 <a href="/reg.php">登记册</a> ';
 	elseif (preg_match('#^/obmen/#', $ref))
-		$mesto = ' cидит в <a href="/obmen/">зоне обмена</a> ';
+		$mesto = ' 坐在 <a href="/obmen/">交换区</a> ';
 	elseif (preg_match('#^/aut\.php#', $ref))
-		$mesto = ' хочет <a href="/aut.php">авторизоваться</a> ';
+		$mesto = ' 需要 <a href="/aut.php">登入</a> ';
 	elseif (preg_match('#^/index\.php#', $ref))
-		$mesto = ' на <a href="/index.php">главной</a> ';
+		$mesto = ' 上 <a href="/index.php">主要的</a> ';
 	elseif (preg_match('#^/\??$#', $ref))
-		$mesto = ' на <a href="/index.php">главной</a> ';
+		$mesto = ' 上 <a href="/index.php">主要的</a> ';
 	else
-		$mesto = ' где то <a href="/index.php">на сайте</a> ';
+		$mesto = ' 某个地方 <a href="/index.php">在网站上</a> ';
 
 	return $mesto;
 }

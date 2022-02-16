@@ -15,7 +15,7 @@ function online($user = NULL)
 				if ((time() - $ank['date_last']) == 0)
 				$on = 'online';
 				else
-				$on = 'away: ' . (time()-$ank['date_last']) . ' сек';
+				$on = 'away: ' . (time()-$ank['date_last']) . ' sec';
 			}
 			$ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$user' LIMIT 1"));
 

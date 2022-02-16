@@ -29,8 +29,8 @@ class user
 		$icon_medal = null;
 		
 		// Вывод ника 
-		if ($user == 0)$ank = array('id' => '0', 'nick' => 'Cистема', 'pol' => '1', 'rating' => '0', 'browser' => 'wap', 'date_last' => time());
-		elseif (!$ank)$ank = array('id' => '0', 'nick' => '[Удален]', 'pol' => '1', 'rating' => '0', 'browser' => 'wap', 'date_last' => time());
+		if ($user == 0)$ank = array('id' => '0', 'nick' => '系统', 'pol' => '1', 'rating' => '0', 'browser' => 'wap', 'date_last' => time());
+		elseif (!$ank)$ank = array('id' => '0', 'nick' => '[已删除]', 'pol' => '1', 'rating' => '0', 'browser' => 'wap', 'date_last' => time());
 		
 		if ($url == true)
 			$nick = ' <a href="/id' . $user . '">' . text($ank['nick']) . '</a> ';
