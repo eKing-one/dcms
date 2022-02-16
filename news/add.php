@@ -62,7 +62,7 @@ if (isset($_POST['title']) && isset($_POST['msg']) && isset($_POST['link']) && i
 		$q = dbquery("SELECT `ank_mail` FROM `user` WHERE `set_news_to_mail` = '1' AND `ank_mail` <> ''");
 		while ($ank = dbassoc($q))
 		{
-			dbquery("INSERT INTO `mail_to_send` (`mail`, `them`, `msg`) values('$ank[ank_mail]', 'Новости', '".trim(br(bbcode(links(stripcslashes(htmlspecialchars($msg))))))."')");
+			dbquery("INSERT INTO `mail_to_send` (`mail`, `them`, `msg`) values('$ank[ank_mail]', '新闻', '".trim(br(bbcode(links(stripcslashes(htmlspecialchars($msg))))))."')");
 		}
 	}
    	

@@ -88,7 +88,7 @@ if (isset($_POST['view']) && !isset($err))
 }
 
 echo '<form class="mess" method="post" name="message" action="?id=' . $news['id'] . '">';
-echo 'Заголовок новости:<br /><input name="title" size="16" maxlength="32" value="' . text($news['title']) . '" type="text" /><br />';
+echo '新闻标题:<br /><input name="title" size="16" maxlength="32" value="' . text($news['title']) . '" type="text" /><br />';
 
 $insert = text($news['msg']);
 

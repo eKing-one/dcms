@@ -82,7 +82,7 @@ if (isset($_POST['msg']) && isset($user))
 }
 
 
-$set['title'] = 'Новости - ' . text($news['title']);
+$set['title'] = '新闻 - ' . text($news['title']);
 
 include_once '../sys/inc/thead.php';
 title();
@@ -116,7 +116,7 @@ else
 echo '<br />';
 
 // Автор 
-echo 'Опубликовал' . ($author['pol'] == 0 ? 'а' : null) . ': ' 
+echo '出版' . ($author['pol'] == 0 ? 'а' : null) . ': ' 
 . group($author['id'])
 . user::nick($author['id'])
 . medal($author['id']) 
@@ -126,7 +126,7 @@ echo '</div>';
 
 // Кнопки соц сетей
 echo '<div class="nav2" id="news_share">';
-echo 'Поделится:<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+echo '分享:<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
 <span class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,twitter,odnoklassniki,moimir"></span>';
 echo '</div>';
 

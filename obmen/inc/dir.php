@@ -84,7 +84,7 @@ echo '</div>';
 if ($k_post == 0)
 {
 echo '<div class="mess">';
-echo 'Папка пуста';
+echo '文件夹为空';
 echo '</div>';
 }
 

@@ -244,16 +244,6 @@ echo '<a href="#user" rel="facebox"><span class="link_title2"><img src="/style/t
 
 echo '<div id="user" style="display:none;">';
 
-
-echo '<div class="mess">
-
-
-登录通过:<br />' . $tUlogin;
-
-
-echo '</div>';
-
-
 echo "<div class = 'foot'>授权</div>";
 
 

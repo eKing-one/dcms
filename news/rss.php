@@ -142,7 +142,7 @@ echo "<channel>";
 
 
 
-echo "<title>Новости ".$_SERVER['SERVER_NAME']."</title>";
+echo "<title>新闻 ".$_SERVER['SERVER_NAME']."</title>";
 
 
 
@@ -160,7 +160,7 @@ echo "<link>http://".$_SERVER['SERVER_NAME']."</link>";
 
 
 
-echo "<description>Новости ".$_SERVER['SERVER_NAME']."</description>";
+echo "<description>新闻 ".$_SERVER['SERVER_NAME']."</description>";
 
 
 
