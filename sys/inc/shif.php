@@ -1,4 +1,4 @@
-<?
+<?php
 function shif($str)
 {
 	global $set;

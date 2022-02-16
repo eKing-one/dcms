@@ -15,7 +15,7 @@ include_once H.'sys/inc/ipua.php';
 include_once H.'sys/inc/fnc.php';
 include_once H.'sys/inc/user.php';
 
-$set['title'] = 'Список категорий';
+$set['title'] = '类别清单';
 include_once H.'sys/inc/thead.php';
 
 err();
@@ -24,7 +24,7 @@ aut();
 
 ?>
 <div class="foot">
-<img src="/style/icons/str2.gif" alt="*"> <b>Категории</b>
+<img src="/style/icons/str2.gif" alt="*"> <b>类别</b>
 </div>
 <?
 
@@ -37,7 +37,7 @@ $start = $set['p_str'] * $page - $set['p_str'];
 
 if ($k_post == 0) 
 {
-	?><div class="mess">Нет категорий</div><?
+	?><div class="mess">无类别</div><?
 }
 
 $q = dbquery("SELECT * FROM `smile_dir` ORDER BY id ASC");
@@ -61,14 +61,14 @@ if (isset($user) && $user['level'] > 3)
 {
 	?>
 	<div class="foot">
-	<img src="/style/icons/str.gif" alt="*"> <a href="/adm_panel/smiles.php">Админка</a>
+	<img src="/style/icons/str.gif" alt="*"> <a href="/adm_panel/smiles.php">行政</a>
 	</div>
 	<?
 }
 
 ?>
 <div class="foot">
-<img src="/style/icons/str2.gif" alt="*"> <b>Категории</b>
+<img src="/style/icons/str2.gif" alt="*"> <b>类别</b>
 </div>
 <?
 

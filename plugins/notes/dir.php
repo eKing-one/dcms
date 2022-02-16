@@ -40,17 +40,17 @@ $title=my_esc($_POST['title'],1);
 $msg=my_esc($_POST['msg']);
 
 
-if (strlen2($title)>32){$err='Название не может превышать больше 32 символов';}
-if (strlen2($title)<3){$err='Короткое название';}
+if (strlen2($title)>32){$err='标题不能超过 32 个字符';}
+if (strlen2($title)<3){$err='短标题';}
 
-if (strlen2($msg)>10024){$err='Содержание не может превышать больше 10024 символов';}
-if (strlen2($msg)<2){$err='Содержание слишком короткое';}
+if (strlen2($msg)>10024){$err='内容不能超过 10024 个字符';}
+if (strlen2($msg)<2){$err='内容太短';}
 
 if (!isset($err)){
 dbquery("INSERT INTO `notes_dir` (`msg`, `name`) values('$msg', '$title')");
 dbquery("OPTIMIZE TABLE `notes_dir`");
 
-$_SESSION['message']='Категория успешно создана';
+$_SESSION['message']='成功创建类别';
 header("Location: dir.php?".SID);
 exit;
 }

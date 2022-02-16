@@ -1,4 +1,4 @@
-<?
+<?php
 $set = array(); // массив с настройками
 $set_default = array();
 $set_dinamic = array();

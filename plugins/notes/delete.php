@@ -50,10 +50,10 @@ $_SESSION['message']='评论成功删除';
 header("Location: " . htmlspecialchars($_SERVER['HTTP_REFERER']));
 exit;
 }else{
-echo output_text('А как ты сюда попал? .дум.');
+echo output_text('你怎么进来的？.杜姆。');
 }
 }else{
-echo output_text('А как ты сюда попал? .дум.');
+echo output_text('你怎么进来的？.杜姆。');
 }
 if (isset($_GET['dir']) && dbresult(dbquery("SELECT COUNT(*) FROM `notes_dir` WHERE `id` = '".intval($_GET['dir'])."'"),0)==1)
 {
@@ -72,13 +72,13 @@ dbquery("DELETE FROM `notes_komm` WHERE `id_notes` = '$notes[id]'");
 dbquery("DELETE FROM `mark_notes` WHERE `id_list` = '$notes[id]'");
 dbquery("DELETE FROM `notes` WHERE `id_dir` = '$post[id]'");
 dbquery("DELETE FROM `notes_dir` WHERE `id` = '$post[id]'");
-$_SESSION['message']='Категория успешно удалена';
+$_SESSION['message']='类别已成功删除';
 header("Location: " . htmlspecialchars($_SERVER['HTTP_REFERER']));
 exit;
 }else{
-echo output_text('А как ты сюда попал? .дум.');
+echo output_text('你怎么进来的？.杜姆。');
 }
 }else{
-echo output_text('А как ты сюда попал? .дум.');
+echo output_text('你怎么进来的？.杜姆。');
 }
 ?>

@@ -56,19 +56,19 @@ if( !preg_match("#^([A-zА-я0-9\-\_\ ])+$#ui", $_POST['nick']))$err[]='昵称�
 if (preg_match("#[a-z]+#ui", $_POST['nick']) && preg_match("#[а-я]+#ui", $_POST['nick']))$err[]='只允许使用俄文或英文字母字符';
 if (preg_match("#(^\ )|(\ $)#ui", $_POST['nick']))$err[]='禁止在昵称的开头和结尾使用空格';
 else{
-if (strlen2($_POST['nick'])<3)$err[]='Ник короче 3-х символов';
-elseif (strlen2($_POST['nick'])>16)$err[]='Ник длиннее 16-ти символов';
+if (strlen2($_POST['nick'])<3)$err[]='短于 3 个字符的尼克';
+elseif (strlen2($_POST['nick'])>16)$err[]='长于 16 个字符的尼克';
 elseif (mysql_result(mysql_query("SELECT COUNT(*) FROM `user` WHERE `nick` = '".mysql_real_escape_string($_POST['nick'])."' LIMIT 1"),0)!=0)
-$err[]='Выбранный ник уже занят другим пользователем';
+$err[]='所选的尼克已经被另一个用户占用了';
 else $nick=$_POST['nick'];
 }
 // проверка пароля
-if (!isset($_POST['password']) || $_POST['password']==null)$err[]='Введите пароль';
+if (!isset($_POST['password']) || $_POST['password']==null)$err[]='输入密码';
 else{
-if (strlen2($_POST['password'])<6)$err[]='Пароль короче 6-ти символов';
-elseif (strlen2($_POST['password'])>16)$err[]='Пароль длиннее 16-ти символов';
-elseif (!isset($_POST['password_retry']))$err[]='Введите подтверждение пароля';
-elseif ($_POST['password']!==$_POST['password_retry'])$err[]='Пароли не совпадают';
+if (strlen2($_POST['password'])<6)$err[]='密码短于 6 个字符';
+elseif (strlen2($_POST['password'])>16)$err[]='长于 16 个字符的密码';
+elseif (!isset($_POST['password_retry']))$err[]='输入密码确认';
+elseif ($_POST['password']!==$_POST['password_retry'])$err[]='密码不匹配';
 else $password=$_POST['password'];
 }
 
