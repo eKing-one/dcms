@@ -116,7 +116,7 @@ else
 echo '<br />';
 
 // Автор 
-echo '出版' . ($author['pol'] == 0 ? 'а' : null) . ': ' 
+echo '作者' . ($author['pol'] == 0 ? 'а' : null) . ': ' 
 . group($author['id'])
 . user::nick($author['id'])
 . medal($author['id']) 
@@ -126,8 +126,7 @@ echo '</div>';
 
 // Кнопки соц сетей
 echo '<div class="nav2" id="news_share">';
-echo '分享:<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-<span class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,twitter,odnoklassniki,moimir"></span>';
+echo '分享:
 echo '</div>';
 
 
@@ -145,13 +144,13 @@ $listr = dbassoc(dbquery("SELECT * FROM `news` WHERE `id` < '$news[id]' ORDER BY
 $list = dbassoc(dbquery("SELECT * FROM `news` WHERE `id` > '$news[id]' ORDER BY `id`  ASC LIMIT 1"));
 
 echo '<div class="c2" style="text-align: center;">';
-if (isset($list['id'])) echo '<span class="page">' . ($list['id'] ? '<a href="?id=' . $list['id'].'">&laquo; 以前.</a> ':'&laquo; 以前. ') . '</span>';
+if (isset($list['id'])) echo '<span class="page">' . ($list['id'] ? '<a href="?id=' . $list['id'].'">&laquo; 上一页</a> ':'&laquo; 上一页 ') . '</span>';
 
 $k_1 = dbresult(dbquery("SELECT COUNT(*) FROM `news` WHERE `id` > '$news[id]'"),0)+1;
 $k_2 = dbresult(dbquery("SELECT COUNT(*) FROM `news`"),0);
 echo ' (' . $k_1 . ' из ' . $k_2 . ') ';
 
-if (isset($list['id'])) echo '<span class="page">' . ($listr['id'] ? '<a href="?id=' . $listr['id'] . '">追踪. &raquo;</a>' : ' 追踪. &raquo;') . '</span>';
+if (isset($list['id'])) echo '<span class="page">' . ($listr['id'] ? '<a href="?id=' . $listr['id'] . '">下一页 &raquo;</a>' : ' 下一页 &raquo;') . '</span>';
 echo '</div>';
 /*----------------------alex-borisi---------------*/
 

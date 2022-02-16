@@ -1,4 +1,4 @@
-<?
+<?php
 if (!isset($user) && !isset($_GET['id_user'])){ header("Location: /foto/?".SID);exit; }
 if (isset($user))$ank['id'] = $user['id'];
 if (isset($_GET['id_user']))$ank['id'] = intval($_GET['id_user']);
@@ -41,7 +41,7 @@ err();
 include 'inc/gallery_show_form.php';
 
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">Альбомы</a> | <b>' . text($gallery['name']) . '</b></div>';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">相册</a> | <b>' . text($gallery['name']) . '</b></div>';
 
 
 // Подключаем приватность стр. 

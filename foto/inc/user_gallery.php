@@ -65,7 +65,7 @@ while ($post = dbassoc($q))
 	
 	echo '<img src="/style/themes/' . $set['set_them'] . '/loads/14/' . ($post['pass'] != null || $post['privat'] != 0 ? 'lock.gif' : 'dir.png') . '" alt="*" /> ';
 	
-	echo '<a href="/foto/' . $ank['id'] . '/' . $post['id'] . '/">' . text($post['name']) . '</a> (' . $count . ' фото) ';
+	echo '<a href="/foto/' . $ank['id'] . '/' . $post['id'] . '/">' . text($post['name']) . '</a> (' . $count . ' 照片) ';
 
 	if (isset($user) && (user_access('foto_alb_del') || $user['id'] == $ank['id']))
 	{

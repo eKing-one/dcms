@@ -16,7 +16,7 @@ err();
 aut();
 if(!isset($_GET['step'])){
  echo '<div class="mess">';
- echo '<br/>你可以阅读更新列表<a href="http://dcms-social.ru/plugins/download/file.php?id=141">在发布出版物中</a><br/>';
+ echo '<br/>你可以阅读更新列表<a href="http://dcms-social.ru/plugins/download/file.php?id=141">在发布作者物中</a><br/>';
  echo '你已经用文件替换解压缩了存档。只剩下垃圾了 Tables.</div>';
  echo '<div class="mess"><a href="?step=one">开始向 1.9.9</a></div>';
  }elseif(isset($_GET['step']) && $_GET['step']=='one'){

@@ -98,7 +98,7 @@ if ($dir_id['maxfilesize']>=1048576)$sel=' selected="selected"';else $sel=NULL;
 
 
 
-	echo '*服务器设置不允许卸载超过: '.size_file($upload_max_filesize).'<br />';
+	echo '*服务器设置不允许上传超过: '.size_file($upload_max_filesize).'<br />';
 
 
 
@@ -210,7 +210,7 @@ if (user_access('obmen_dir_create') && isset($_GET['act']) && $_GET['act']=='mkd
 
 
 
-	echo '*服务器设置不允许卸载超过: '.size_file($upload_max_filesize).'<br />';
+	echo '*服务器设置不允许上传超过: '.size_file($upload_max_filesize).'<br />';
 
 
 

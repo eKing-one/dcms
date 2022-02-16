@@ -6,9 +6,9 @@ if ($user['level'] > $ank['level'] || $user['id'] == $ank['id'])
 		?>
 		<div class="foot">
 		<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'])?> | 
-		<a href="/foto/<?=$ank['id']?>/">Альбомы</a> | 
+		<a href="/foto/<?=$ank['id']?>/">相册</a> | 
 		<a href="/foto/<?=$ank['id']?>/<?=$gallery['id']?>/"><?=text($gallery['name'])?></a> | 
-		<b>Редактирование</b>
+		<b>编辑</b>
 		</div>
 		
 		<form action="?edit=rename&amp;ok" method="post">
@@ -88,7 +88,7 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_GET['act']) && $_GET['a
 	
 	<label><input type="checkbox" name="metka" value="1" /> 标签 <font color="red">18+</font></label><br />
 	
-	<input class="submit" type="submit" value="卸载" /> 
+	<input class="submit" type="submit" value="sa" /> 
 	</form>
 	
 	<div class="nav1">

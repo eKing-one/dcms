@@ -68,7 +68,7 @@ echo "<input value=\"要创建\" type=\"submit\" /><br />";
 echo "</form>";
 
 echo "<div class=\"foot\">";
-echo "<a href=\"/forum/$forum[id]/$razdel[id]/\" title='Вернуться в раздел'>返回</a><br />";
+echo "<a href=\"/forum/$forum[id]/$razdel[id]/\" title='返回分区'>返回</a><br />";
 echo "<a href=\"/forum/$forum[id]/\">" . text($forum['name']) . "</a><br />";
-echo "<a href=\"/forum/\">Форум</a><br />";
+echo "<a href=\"/forum/\">论坛</a><br />";
 echo "</div>";

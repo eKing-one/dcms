@@ -367,13 +367,13 @@ $listr = dbassoc(dbquery("SELECT * FROM `obmennik_files` WHERE `id_dir` = '$dir_
 $list = dbassoc(dbquery("SELECT * FROM `obmennik_files` WHERE `id_dir` = '$dir_id[id]' AND `id` > '$file_id[id]' ORDER BY `id`  ASC LIMIT 1"));
 echo '<div class="c2" style="text-align: center;">'; 
 
-if (isset($list['id'])) echo '<span class="page">'.($list['id']?'<a href="/obmen'.$dir_id['dir'] . $list['id'].'.'.$list['ras'].'?showinfo">&laquo; 以前.</a> ':'&laquo; 以前. ').'</span>';
+if (isset($list['id'])) echo '<span class="page">'.($list['id']?'<a href="/obmen'.$dir_id['dir'] . $list['id'].'.'.$list['ras'].'?showinfo">&laquo; 上一页</a> ':'&laquo; 上一页 ').'</span>';
 
 $k_1=dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_files` WHERE `id` > '$file_id[id]' AND `id_dir` = '$id_dir'"),0)+1;
 $k_2=dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_files` WHERE `id_dir` = '$id_dir'"),0);
 echo ' ('.$k_1.' из '.$k_2.') '; 
 
-if (isset($listr['id'])) echo '<span class="page">'.($listr['id']?'<a href="/obmen'.$dir_id['dir'] . $listr['id'].'.'.$listr['ras'].'?showinfo">追踪. &raquo;</a>':' 追踪. &raquo;').'</span>';
+if (isset($listr['id'])) echo '<span class="page">'.($listr['id']?'<a href="/obmen'.$dir_id['dir'] . $listr['id'].'.'.$listr['ras'].'?showinfo">下一页 &raquo;</a>':' 下一页 &raquo;').'</span>';
 echo '</div>'; 
 //----------------------plugins---------------// 
 

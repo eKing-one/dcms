@@ -423,7 +423,7 @@ echo "<form method=\"post\" action=\"?\">\n";
 
 
 
-	echo '打赌: <select name="stav">
+	echo '投币: <select name="stav">
 
 
 

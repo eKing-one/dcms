@@ -36,9 +36,9 @@ $name = $_POST['name'];
 if ($name == null)
 $name = esc(stripcslashes(htmlspecialchars(preg_replace('#\.[^\.]*$#i', NULL, $_FILES['file']['name'])))); 
    
-if (!preg_match("#^([A-zА-я0-9\-\_\ ])+$#ui",$name))$err = '照片标题中包含禁止的字符';
-if (strlen2($name) < 3)$err = '短标题';
-if (strlen2($name) > 32)$err = '标题不得超过 32 个字符';
+if (!preg_match("#^([A-z0-9\-\_\ ])+$#ui",$name))$err = '照片标题中包含禁止的字符，只能英文字母或数字！';
+if (strlen2($name) < 3)$err = '标题太短了！要大于3个字符！';
+if (strlen2($name) > 32)$err = '标题不得超过 32 个字符！';
 
 $name = my_esc($name);
 

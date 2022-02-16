@@ -318,7 +318,7 @@ if (!isset($block_foto))
 			$rate = dbassoc(query("SELECT * FROM `gallery_rating` WHERE `id_foto` = $foto[id] AND `id_user` = '$user[id]' LIMIT 1"));
 			
 			if (isset($user) && $user['id'] != $ank['id'])
-			echo 'Ваша оценка <img src="/style/icons/' . $rate['like'] . '.png" alt=""/></a>';
+			echo '你的成绩。 <img src="/style/icons/' . $rate['like'] . '.png" alt=""/></a>';
 			}
 			echo '</div>';
 		}
@@ -344,11 +344,11 @@ if (!isset($block_foto))
 	$listr = dbassoc(query("SELECT * FROM `gallery_foto` WHERE `id_gallery` = '$gallery[id]' AND `id` < '$foto[id]' ORDER BY `id` DESC LIMIT 1"));
 	$list = dbassoc(query("SELECT * FROM `gallery_foto` WHERE `id_gallery` = '$gallery[id]' AND `id` > '$foto[id]' ORDER BY `id`  ASC LIMIT 1"));
 	echo '<div class="c2" style="text-align: center;">';
-if (isset($list['id']))	echo '<span class="page">' . ($list['id'] ? "<a href='/foto/$ank[id]/$gallery[id]/$list[id]/'>&laquo; 以前.</a>" : "&laquo; 以前.") . '</span>';
+if (isset($list['id']))	echo '<span class="page">' . ($list['id'] ? "<a href='/foto/$ank[id]/$gallery[id]/$list[id]/'>&laquo; 上一页</a>" : "&laquo; 上一页") . '</span>';
 	$k_1 = dbresult(query("SELECT COUNT(*) FROM `gallery_foto` WHERE `id` > '$foto[id]' AND `id_gallery` = '$gallery[id]'"),0) + 1;
 	$k_2 = dbresult(query("SELECT COUNT(*) FROM `gallery_foto` WHERE `id_gallery` = '$gallery[id]'"),0);
 	echo ' (' . $k_1 . ' из ' . $k_2 . ') ';
-if (isset($listr['id']))	echo '<span class="page">' . ($listr['id'] ? "<a href='/foto/$ank[id]/$gallery[id]/$listr[id]/'>追踪. &raquo;</a>" : "追踪. &raquo;") . '</span>';
+if (isset($listr['id']))	echo '<span class="page">' . ($listr['id'] ? "<a href='/foto/$ank[id]/$gallery[id]/$listr[id]/'>下一页 &raquo;</a>" : "下一页 &raquo;") . '</span>';
 	echo '</div>';
 	/*----------------------alex-borisi---------------*/
 

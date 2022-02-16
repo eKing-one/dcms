@@ -1298,7 +1298,7 @@ echo '<div class="c2" style="text-align: center;">';
 
 
 
-echo '<span class="page">'.($list['id']?'<a href="list.php?id='.$list['id'].'">&laquo; 以前.</a> ':'&laquo; 以前. ').'</span>';
+echo '<span class="page">'.($list['id']?'<a href="list.php?id='.$list['id'].'">&laquo; 上一页</a> ':'&laquo; 上一页 ').'</span>';
 
 
 
@@ -1322,7 +1322,7 @@ echo ' ('.$k_1.' из '.$k_2.') ';
 
 
 
-echo '<span class="page">' . ($listr['id'] ? '<a href="list.php?id=' . $listr['id'] . '">追踪. &raquo;</a>' : ' 追踪. &raquo;') . '</span>';
+echo '<span class="page">' . ($listr['id'] ? '<a href="list.php?id=' . $listr['id'] . '">下一页 &raquo;</a>' : ' 下一页 &raquo;') . '</span>';
 
 
 
@@ -1522,14 +1522,7 @@ echo "<div class='main'>";
 
 
 
-echo '将分享:<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-
-
-
-<span class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,twitter,odnoklassniki,moimir"></span>';
-
-
-
+echo '将分享:';
 echo "</div>";
 
 
