@@ -1,4 +1,4 @@
-<?
+<?php
 $set['title']='MySQL 选项';
 include_once 'inc/head.php'; // 设计主题的顶部
 
@@ -117,11 +117,11 @@ echo "用户:<br />";
 echo "<input name=\"user\" value=\"$set[mysql_user]\" type=\"text\" /><br />";
 echo "密码:<br />";
 echo "<input name=\"pass\" value=\"$set[mysql_pass]\" type=\"text\" /><br />";
-echo "基地名称:<br />";
+echo "网站名称:<br />";
 echo "<input name=\"db\" value=\"$set[mysql_db_name]\" type=\"text\" /><br />";
 if (isset($db_not_null))
 echo "<label><input type='checkbox' checked='checked' name='rename' value='1' /> 重命名现有表<br /></label>";
-echo "<br /><input value=\"Далее\" type=\"submit\" />";
+echo "<br /><input value=\"保存\" type=\"submit\" />";
 echo "</form>";
 }
 
