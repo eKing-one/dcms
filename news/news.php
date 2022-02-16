@@ -126,7 +126,7 @@ echo '</div>';
 
 // Кнопки соц сетей
 echo '<div class="nav2" id="news_share">';
-echo '分享:
+echo '分享:';
 echo '</div>';
 
 
