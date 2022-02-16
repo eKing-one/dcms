@@ -208,7 +208,7 @@ echo "</div>";
 if (isset($_SESSION['obmen_dir']))
 {
 	echo '<div class="mess">';
-	echo '该文件将被上传到该文件夹 <b>' . text($dir_id['name']) . '</b> 交换区 ';
+	echo '该文件将被上传到该文件夹 <b>' . text($dir_id['name']) . '</b> 下载中心 ';
 	echo '</div>';		
 }
 

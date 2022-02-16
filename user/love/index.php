@@ -68,7 +68,7 @@ echo "<div class='webmenu last'>";
 echo "<a href='?orders=woman' class='$_SESSION[nav2]'>女孩</a>";
 echo "</div>";
 echo "<div class='webmenu last'>";
-echo "<a href='?orders=man' class='$_SESSION[nav1]'>男孩子们</a>";
+echo "<a href='?orders=man' class='$_SESSION[nav1]'></a>";
 echo "</div>";
 echo "</div>";
 /*==============================================这个脚本输出1个随机的”领导者”和一个链接到他们的整个列表。(с) DCMS-Social==============================================*/

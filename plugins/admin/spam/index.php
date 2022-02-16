@@ -403,7 +403,7 @@ if (user_access('adm_panel_show')) {
 
 
 
-			echo "<font color='red'>交换区</font> | ";
+			echo "<font color='red'>下载中心</font> | ";
 
 
 

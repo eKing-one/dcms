@@ -21,13 +21,13 @@ function otkuda($ref)
 	elseif (preg_match('#^/reg\.php#', $ref))
 		$mesto = ' 需要 <a href="/reg.php">登记册</a> ';
 	elseif (preg_match('#^/obmen/#', $ref))
-		$mesto = ' 坐在 <a href="/obmen/">交换区</a> ';
+		$mesto = ' 坐在 <a href="/obmen/">下载中心</a> ';
 	elseif (preg_match('#^/aut\.php#', $ref))
 		$mesto = ' 需要 <a href="/aut.php">登入</a> ';
 	elseif (preg_match('#^/index\.php#', $ref))
-		$mesto = ' 访问 <a href="/index.php">主要的</a> ';
+		$mesto = ' 访问 <a href="/index.php">网站主页</a> ';
 	elseif (preg_match('#^/\??$#', $ref))
-		$mesto = ' 访问 <a href="/index.php">主要的</a> ';
+		$mesto = ' 访问 <a href="/index.php">网站主页</a> ';
 	else
 		$mesto = ' 某个地方 <a href="/index.php">在网站上</a> ';
 
