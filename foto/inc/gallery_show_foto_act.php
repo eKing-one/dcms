@@ -26,7 +26,7 @@ if (isset($_GET['act']) && $_GET['act']=='avatar')
 			dbquery("UPDATE `gallery_foto` SET `avatar` = '0' WHERE `id_user` = '$user[id]'");
 			dbquery("UPDATE `gallery_foto` SET `avatar` = '1' WHERE `id` = '$foto[id]' LIMIT 1");
 			dbquery("INSERT INTO `stena` (`id_user`,`id_stena`,`time`,`info`,`info_1`,`type`) values('".$user['id']."','".$user['id']."','".$time."','новый аватар','".$foto['id']."','foto')");
-			$_SESSION['message'] = 'Фотография успешно установлена на главной!';
+			$_SESSION['message'] = '照片已成功安装在主照片上！';
 		}
 		
 		header("Location: ?");
@@ -41,7 +41,7 @@ if (isset($_GET['act']) && $_GET['act']=='avatar')
 if (isset($_GET['act']) && $_GET['act'] == 'delete' && isset($_GET['ok']))
 {
 	if ($user['id'] != $ank['id'])
-	admin_log('Фотогалерея','Фотографии',"Удаление фото пользователя '[url=/id$ank[id]]" . user::nick($ank['id'], 0) . "[/url]'");
+	admin_log('图片集锦','照片',"删除用户的照片 '[url=/id$ank[id]]" . user::nick($ank['id'], 0) . "[/url]'");
 	@unlink(H."sys/gallery/48/$foto[id].jpg");
 	@unlink(H."sys/gallery/128/$foto[id].jpg");
 	@unlink(H."sys/gallery/640/$foto[id].jpg");
@@ -49,7 +49,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'delete' && isset($_GET['ok']))
 
 	dbquery("DELETE FROM `gallery_foto` WHERE `id` = '$foto[id]' LIMIT 1");
 
-	$_SESSION['message'] = 'Фотография успешно удалена';
+	$_SESSION['message'] = '照片已成功删除';
 	header("Location: /foto/$ank[id]/$gallery[id]/");
 	exit;
 }
@@ -61,14 +61,14 @@ if (isset($_GET['act']) && $_GET['act'] == 'delete' && isset($_GET['ok']))
 if (isset($_GET['act']) && $_GET['act']=='rename' && isset($_GET['ok']) && isset($_POST['name']) && isset($_POST['opis']))
 {
 	$name = esc(stripcslashes(htmlspecialchars($_POST['name'])),1);
-	if (!preg_match("#^([A-zА-я0-9\-\_\(\)\,\.\ ])+$#ui",$name))$err = 'В названии темы присутствуют запрещенные символы';
-	if (strlen2($name) < 3 )$err = 'Короткое название';
-	if (strlen2($name) > 32 )$err = 'Название не должно быть длиннее 32-х символов';
+	if (!preg_match("#^([A-zА-я0-9\-\_\(\)\,\.\ ])+$#ui",$name))$err = '主题标题中存在禁止的字符';
+	if (strlen2($name) < 3 )$err = '短标题';
+	if (strlen2($name) > 32 )$err = '标题不得超过 32 个字符';
 	$name = my_esc($name);
 
 	$msg = $_POST['opis'];
 	
-	if (strlen2($msg) > 1024)$err = 'Длина описания превышает предел в 1024 символа';
+	if (strlen2($msg) > 1024)$err = '描述长度超过 1024 个字符的限制';
 	$msg = my_esc($msg);
 
 	if (isset($_POST['metka']) && $_POST['metka'] == 1) $metka = 1;
@@ -77,10 +77,10 @@ if (isset($_GET['act']) && $_GET['act']=='rename' && isset($_GET['ok']) && isset
 	if (!isset($err))
 	{
 		if ($user['id'] != $ank['id'])
-		admin_log('Фотогалерея','Фотографии',"Переименование фото пользователя '[url=/id$ank[id]]" . user::nick($ank['id'], 0) . "[/url]'");
+		admin_log('图片集锦','照片',"重命名用户照片 '[url=/id$ank[id]]" . user::nick($ank['id'], 0) . "[/url]'");
 		dbquery("UPDATE `gallery_foto` SET `name` = '$name', `metka` = '$metka', `opis` = '$msg' WHERE `id` = '$foto[id]' LIMIT 1");
 		$foto=dbassoc(dbquery("SELECT * FROM `gallery_foto` WHERE `id` = '$foto[id]'  LIMIT 1"));
-		$_SESSION['message'] = 'Фотография успешно переименована';
+		$_SESSION['message'] = '照片已成功重命名';
 		header("Location: ?");
 		exit;
 	}

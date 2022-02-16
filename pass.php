@@ -232,7 +232,7 @@ if (
         已经注册？ <br/>
 
 
-        <a href='/aut.php'>授权书</a><br/>
+        <a href='/aut.php'>登录账号</a><br/>
 
 
     </div>

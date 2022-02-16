@@ -17,9 +17,9 @@ if ((user_access('foto_alb_del') || isset($user) && $user['id']==$ank['id']) && 
 	}
 	
 	if ($user['id'] != $ank['id'])
-	admin_log('Фотогалерея','相片册',"Удаление альбома " . text($gallery['name']) . " (фотографий: ".dbrows($q).")");
+	admin_log('图片集锦','相片册',"删除相册 " . text($gallery['name']) . " (照片: ".dbrows($q).")");
 	dbquery("DELETE FROM `gallery` WHERE `id` = '$gallery[id]' LIMIT 1");
-	$_SESSION['message'] = 'Фотоальбом успешно удален';
+	$_SESSION['message'] = '已成功删除相册';
 	header("Location: /foto/$ank[id]/");
 	exit;
 }
@@ -36,9 +36,9 @@ $name = $_POST['name'];
 if ($name == null)
 $name = esc(stripcslashes(htmlspecialchars(preg_replace('#\.[^\.]*$#i', NULL, $_FILES['file']['name'])))); 
    
-if (!preg_match("#^([A-zА-я0-9\-\_\ ])+$#ui",$name))$err = 'В названии фото присутствуют запрещенные символы';
-if (strlen2($name) < 3)$err = 'Короткое название';
-if (strlen2($name) > 32)$err = 'Название не должно быть длиннее 32-х символов';
+if (!preg_match("#^([A-zА-я0-9\-\_\ ])+$#ui",$name))$err = '照片标题中包含禁止的字符';
+if (strlen2($name) < 3)$err = '短标题';
+if (strlen2($name) > 32)$err = '标题不得超过 32 个字符';
 
 $name = my_esc($name);
 
@@ -51,12 +51,12 @@ else
 
 $msg = $_POST['opis'];
 
-if (strlen2($msg) > 1024)$err = 'Длина описания превышает предел в 1024 символов';
+if (strlen2($msg) > 1024)$err = '描述长度超过 1024 个字符的限制';
 $msg = my_esc($msg);
 $img_x = imagesx($imgc);
 $img_y = imagesy($imgc);
 if ($img_x > $set['max_upload_foto_x'] || $img_y>$set['max_upload_foto_y'])
-   $err = 'Размер изображения превышает ограничения в '.$set['max_upload_foto_x'].'*'.$set['max_upload_foto_y'];
+   $err = '图像大小超过 '.$set['max_upload_foto_x'].'*'.$set['max_upload_foto_y'];
 
 if (!isset($err))
 {
@@ -224,18 +224,18 @@ resize(H."sys/gallery/50/$id_foto.tmp.jpg", H."sys/gallery/50/$id_foto.jpg", 50,
 
 if (isset($_GET['avatar']))
 {
-	$_SESSION['message'] = 'Фото успешно установлено';
+	$_SESSION['message'] = '照片已成功安装';
 	header("Location: /info.php");
 	exit;
 }
 
-$_SESSION['message'] = 'Фото успешно загружено';
+$_SESSION['message'] = '照片已成功上传';
 header("Location: /foto/$ank[id]/$gallery[id]/$id_foto/");
 exit;
 }
 }
 else 
-$err = 'Выбранный Вами формат изображения не поддерживается';
+$err = '不支持您选择的图像格式';
 
 }
 
@@ -248,21 +248,21 @@ if (isset($_GET['edit']) && $_GET['edit'] == 'rename' && isset($_GET['ok']) && (
 	$privat = intval($_POST['privat']);
   $privat_komm=intval($_POST['privat_komm']);
 
-	if (strlen2($name) < 3)$err = 'Короткое название';
-	if (strlen2($name) > 32)$err = 'Название не должно быть длиннее 32-х символов';
+	if (strlen2($name) < 3)$err = '短标题';
+	if (strlen2($name) > 32)$err = '标题不得超过 32 个字符';
 	$name = my_esc($name);
 	$pass = my_esc($pass);
 	$msg = $_POST['opis'];
 
-	if (strlen2($msg) > 1024)$err = 'Длина описания превышает предел в 1024 символа';
+	if (strlen2($msg) > 1024)$err = '描述长度超过 1024 个字符的限制';
 	$msg = my_esc($msg);
 
 	if (!isset($err))
 	{
 		if ($user['id']!=$ank['id'])
-		admin_log('Фотогалерея','Фотографии',"Переименование альбома пользователя '[url=/id$ank[id]]" . user::nick($ank['id'], 0) . "[/url]'");
+		admin_log('图片集锦','照片',"重命名用户相册 '[url=/id$ank[id]]" . user::nick($ank['id'], 0) . "[/url]'");
 		dbquery("UPDATE `gallery` SET `name` = '$name', `privat` = '$privat', `privat_komm` = '$privat_komm', `pass` = '$pass', `opis` = '$msg' WHERE `id` = '$gallery[id]' LIMIT 1");
-		$_SESSION['message'] = 'Изменения успешно приняты';
+		$_SESSION['message'] = '已成功接受更改';
 		header("Location: /foto/$ank[id]/?");
 		exit;
 	}

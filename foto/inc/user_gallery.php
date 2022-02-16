@@ -30,9 +30,9 @@ err();
 include 'inc/gallery_form.php'; 
 
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <b>Альбомы</b></div>';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <b>相册</b></div>';
 if ($ank['id'] == $user['id'])
-echo '<div class="mess"><a href="/foto/' . $ank['id'] . '/?act=create"><img src="/style/icons/apply14.png"> Новый альбом</a></div>';
+echo '<div class="mess"><a href="/foto/' . $ank['id'] . '/?act=create"><img src="/style/icons/apply14.png"> 新专辑</a></div>';
 
 
 // Подключаем приватность стр. 
@@ -48,7 +48,7 @@ echo '<table class="post">';
 if ($k_post == 0)
 {
 	echo '<div class="mess">';
-	echo 'Фотоальбомов нет';
+	echo '无相册';
 	echo '</div>';
 }
 
@@ -69,17 +69,17 @@ while ($post = dbassoc($q))
 
 	if (isset($user) && (user_access('foto_alb_del') || $user['id'] == $ank['id']))
 	{
-		echo '[<a href="/foto/' . $ank['id'] . '/' . $post['id'] . '/?edit=rename"><img src="/style/icons/edit.gif" alt="*" /> ред</a>] ';
-		echo '[<a href="/foto/' . $ank['id'] . '/' . $post['id'] . '/?act=delete"><img src="/style/icons/delete.gif" alt="*" /> удл</a>]';
+		echo '[<a href="/foto/' . $ank['id'] . '/' . $post['id'] . '/?edit=rename"><img src="/style/icons/edit.gif" alt="*" /> 编辑</a>] ';
+		echo '[<a href="/foto/' . $ank['id'] . '/' . $post['id'] . '/?act=delete"><img src="/style/icons/delete.gif" alt="*" /> 删除</a>]';
 	}
 	
 	echo '<br />';
 	
 	if ($post['opis'] == null)
-		echo 'Без описания<br />';
+		echo '没有描述<br />';
 	else 
 		echo '<div class="text">' . output_text($post['opis']) . '</div>';
-	echo 'Создан: ' . vremja($post['time_create']);
+	echo '生成的: ' . vremja($post['time_create']);
 	
 	echo '</div>';
 }
@@ -90,7 +90,7 @@ echo '</table>';
 if ($k_page > 1)str('?', $k_page, $page); 
 
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <b>Альбомы</b>';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <b>专辑</b>';
 echo '</div>';
 
 include_once '../sys/inc/tfoot.php';

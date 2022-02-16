@@ -76,19 +76,19 @@ if ($size == '48')
 {
 	if (is_file(H.'sys/gallery/48/'.$if_foto.'.png'))
 	{
-		DownloadFile(H.'sys/gallery/48/'.$if_foto.'.png', 'Фото.png', ras_to_mime('png'));
+		DownloadFile(H.'sys/gallery/48/'.$if_foto.'.png', '相片.png', ras_to_mime('png'));
 		exit;
 	}
 	
 	if (is_file(H.'sys/gallery/48/'.$if_foto.'.gif'))
 	{
-		DownloadFile(H.'sys/gallery/48/'.$if_foto.'.gif', 'Фото.gif', ras_to_mime('gif'));
+		DownloadFile(H.'sys/gallery/48/'.$if_foto.'.gif', '相片.gif', ras_to_mime('gif'));
 		exit;
 	}
 	
 	if (is_file(H.'sys/gallery/48/'.$if_foto.'.jpg'))
 	{
-		DownloadFile(H.'sys/gallery/48/'.$if_foto.'.jpg', 'Фото.jpg', ras_to_mime('jpg'));
+		DownloadFile(H.'sys/gallery/48/'.$if_foto.'.jpg', '相片.jpg', ras_to_mime('jpg'));
 		exit;
 	}
 }
@@ -98,7 +98,7 @@ if ($size == '128')
 {
 	if (is_file(H.'sys/gallery/128/'.$if_foto.'.jpg'))
 	{
-		DownloadFile(H.'sys/gallery/128/'.$if_foto.'.jpg', 'Фото.jpg', ras_to_mime('jpg'));
+		DownloadFile(H.'sys/gallery/128/'.$if_foto.'.jpg', '相片.jpg', ras_to_mime('jpg'));
 		exit;
 	}
 }
@@ -107,7 +107,7 @@ if ($size == '50')
 {
 	if (is_file(H.'sys/gallery/50/'.$if_foto.'.jpg'))
 	{
-		DownloadFile(H.'sys/gallery/50/'.$if_foto.'.jpg', 'Фото.jpg', ras_to_mime('jpg'));
+		DownloadFile(H.'sys/gallery/50/'.$if_foto.'.jpg', '相片.jpg', ras_to_mime('jpg'));
 		exit;
 	}
 }
@@ -116,7 +116,7 @@ if ($size == '640')
 {
 	if (is_file(H.'sys/gallery/640/'.$if_foto.'.jpg'))
 	{
-		DownloadFile(H.'sys/gallery/640/'.$if_foto.'.jpg', 'Фото.jpg', ras_to_mime('jpg'));
+		DownloadFile(H.'sys/gallery/640/'.$if_foto.'.jpg', '相片.jpg', ras_to_mime('jpg'));
 		exit;
 	}
 }

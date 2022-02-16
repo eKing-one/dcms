@@ -44,7 +44,7 @@ if (isset($_GET['fav']) && $_GET['fav'] == 1)
 	if (dbresult(dbquery("SELECT COUNT(`id`) FROM `bookmarks` WHERE `id_user` = '" . $user['id'] . "' AND `id_object` = '" . $foto['id'] . "' AND `type`='foto' LIMIT 1"),0) == 0)
 	{
 		dbquery("INSERT INTO `bookmarks` (`type`,`id_object`, `id_user`, `time`) VALUES ('foto','$foto[id]', '$user[id]', '$time')");
-		$_SESSION['message'] = 'Фото добавлено в закладки'; 
+		$_SESSION['message'] = '添加到书签的照片'; 
 		header("Location: /foto/$ank[id]/$gallery[id]/$foto[id]/?page=" . intval($_GET['page']));
 		exit;
 	}
@@ -56,7 +56,7 @@ if (isset($_GET['fav']) && $_GET['fav'] == 0)
 	if (dbresult(dbquery("SELECT COUNT(`id`) FROM `bookmarks` WHERE `id_user` = '" . $user['id'] . "' AND `id_object` = '" . $foto['id'] . "' `type`='foto' LIMIT 1"),0) == 1)
 	{
 		dbquery("DELETE FROM `bookmarks` WHERE `id_user` = '$user[id]' AND  `id_object` = '$foto[id]' AND `type`='foto'");
-		$_SESSION['message'] = 'Фото удалено из закладок'; 
+		$_SESSION['message'] = '从书签中删除的照片'; 
 		header("Location: /foto/$ank[id]/$gallery[id]/$foto[id]/?page=" . intval($_GET['page']));
 		exit;
 	}
@@ -93,14 +93,14 @@ if (isset($user) && $user['id'] != $ank['id'] && dbresult(query("SELECT COUNT(*)
 		
 		if ($c == 0 && $_GET['rating'] == 6)
 		{
-			$_SESSION['message'] = 'Необходимо активировать услугу';
+			$_SESSION['message'] = '您需要激活服务';
 			header("Location: /user/money/plus5.php");
 			exit;
 		}
 	
 		query("INSERT INTO `gallery_rating` (`id_user`, `id_foto`, `like`, `time`, `avtor`) values('$user[id]', '$foto[id]', '" . intval($_GET['rating']) . "', '$time', $foto[id_user])",$db);
 		query("UPDATE `gallery_foto` SET `rating` = '" . ($foto['rating'] + intval($_GET['rating'])) . "' WHERE `id` = '$foto[id]' LIMIT 1",$db);
-		$_SESSION['message'] = 'Ваша оценка принята';
+		$_SESSION['message'] = '你的评估被接受';
 		header("Location: ?");
 		exit;
 	}
@@ -116,12 +116,12 @@ if (isset($_POST['msg']) && isset($user))
 {
 	$msg = $_POST['msg'];
 
-	if ($mat)$err[] = 'В тексте сообщения обнаружен мат: '.$mat;
-	if (strlen2($msg) > 1024 ){$err = 'Сообщение слишком длинное';}
-	elseif (strlen2($msg) < 2 ){$err = 'Короткое сообщение';}
+	if ($mat)$err[] = '在消息的文本中发现了一个将死者: '.$mat;
+	if (strlen2($msg) > 1024 ){$err = '信息太长了';}
+	elseif (strlen2($msg) < 2 ){$err = '短消息';}
 	elseif (dbresult(query("SELECT COUNT(*) FROM `gallery_komm` WHERE `id_foto` = '$foto[id]' AND `id_user` = '$user[id]' AND `msg` = '".mysql_real_escape_string($msg)."' LIMIT 1"),0)!=0)
 	{
-		$err = 'Ваше сообщение повторяет предыдущее';
+		$err = '您的消息重复前一个';
 	}
 	elseif(!isset($err))
 	{		
@@ -191,7 +191,7 @@ if (isset($_POST['msg']) && isset($user))
 		
 		query("INSERT INTO `gallery_komm` (`id_foto`, `id_user`, `time`, `msg`) values('$foto[id]', '$user[id]', '$time', '".my_esc($msg)."')");
 
-		$_SESSION['message'] = 'Сообщение успешно добавлено';
+		$_SESSION['message'] = '消息已成功添加';
 		header("Location: ?page=".intval($_GET['page']));
 		exit;
 	}
@@ -201,8 +201,8 @@ if (isset($_POST['msg']) && isset($user))
 if ((user_access('foto_komm_del') || $ank['id'] == $user['id']) && isset($_GET['delete']) && dbresult(query("SELECT COUNT(*) FROM `gallery_komm` WHERE `id`='".intval($_GET['delete'])."' AND `id_foto`='$foto[id]' LIMIT 1"),0)!=0)
 {
 	query("DELETE FROM `gallery_komm` WHERE `id`='".intval($_GET['delete'])."' LIMIT 1");
-	admin_log('Фотогалерея','Фотографии', "Удаление комментария к фото [url=/id$ank[id]]" . user::nick($ank['id'], 0) . "[/url]");
-	$_SESSION['message'] = 'Комментарий успешно удален';
+	admin_log('照片廊','照片', "删除照片上的评论 [url=/id$ank[id]]" . user::nick($ank['id'], 0) . "[/url]");
+	$_SESSION['message'] = '评论成功删除';
 	header("Location: ?page=".intval($_GET['page']));
 	exit;
 }
@@ -215,7 +215,7 @@ aut();
 
 
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">Альбомы</a> | ';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">专辑</a> | ';
 echo '<a href="/foto/' . $ank['id'] . '/' . $gallery['id'] . '/">' . text($gallery['name']) . '</a> | ';
 echo '<b>' . text($foto['name']) . '</b>';
 if ($foto['metka'] == 1)echo ' <font color=red>(18+)</font>';
@@ -230,7 +230,7 @@ include H.'sys/add/user.privace.php';
 if ($gallery['privat'] == 1 && ($frend != 2 || !isset($user)) && $user['level'] <= $ank['level'] && $user['id'] != $ank['id'])
 {
 	echo '<div class="mess">';
-	echo 'Просматривать альбом пользователя могут только его друзья!';
+	echo '只有用户的朋友才能查看相册！';
 	echo '</div>';
 
 	$block_foto = true;
@@ -238,7 +238,7 @@ if ($gallery['privat'] == 1 && ($frend != 2 || !isset($user)) && $user['level'] 
 elseif ($gallery['privat'] == 2 && $user['id'] != $ank['id'] && $user['level'] <= $ank['level'])
 {
 	echo '<div class="mess">';
-	echo 'Пользователь запретил просмотр этого альбома!';
+	echo '用户已禁止观看此专辑！';
 	echo '</div>';
 	
 	$block_foto = true;
@@ -253,7 +253,7 @@ if ($user['id'] != $ank['id'] && $gallery['pass'] != NULL)
 		
 		if ($_SESSION['pass'] != $gallery['pass'])
 		{
-			$_SESSION['message'] = 'Неверный пароль'; 
+			$_SESSION['message'] = '密码无效'; 
 			$_SESSION['pass'] = NULL;
 		}
 		header("Location: ?");
@@ -261,11 +261,11 @@ if ($user['id'] != $ank['id'] && $gallery['pass'] != NULL)
 
 	if (!isset($_SESSION['pass']) || $_SESSION['pass'] != $gallery['pass'])
 	{
-		echo '<form action="?" method="POST">Пароль:<br /><input type="pass" name="password" value="" /><br />		
+		echo '<form action="?" method="POST">密码:<br /><input type="pass" name="password" value="" /><br />		
 		<input type="submit" value="登录"/></form>';
 		
 		echo '<div class="foot">';
-		echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">Альбомы</a> | <b>' . text($gallery['name']) . '</b>';
+		echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">专辑</a> | <b>' . text($gallery['name']) . '</b>';
 		echo '</div>';
 
 		include_once '../sys/inc/tfoot.php';
@@ -285,12 +285,12 @@ if (!isset($block_foto))
 
 		if ($webbrowser == 'web' && $w > 128)
 		{
-			echo "<a href='/foto/foto0/$foto[id].$foto[ras]' title='Скачать оригинал'><img style='max-width:90%' src='/foto/foto640/$foto[id].$foto[ras]'/></a>";
+			echo "<a href='/foto/foto0/$foto[id].$foto[ras]' title='下载原文'><img style='max-width:90%' src='/foto/foto640/$foto[id].$foto[ras]'/></a>";
 			if ( $rat > 0 )echo "<div style='display:inline;margin-left:-45px;vertical-align:top;'><img style='padding-top:15px;' src='/style/icons/5_plus.png'/></div>";
 		}
 		else
 		{
-			echo "<a href='/foto/foto0/$foto[id].$foto[ras]' title='Скачать оригинал'><img src='/foto/foto128/$foto[id].$foto[ras]'/></a>";
+			echo "<a href='/foto/foto0/$foto[id].$foto[ras]' title='下载原文'><img src='/foto/foto128/$foto[id].$foto[ras]'/></a>";
 			if ( $rat > 0 )echo "<div style='display:inline;margin-left:-25px;vertical-align:top;'><img style='padding-top:10px;' src='/style/icons/6.png'/></div>";
 		}
 		echo '</div>';
@@ -326,17 +326,17 @@ if (!isset($block_foto))
 	elseif (!isset($user))
 	{
 		echo '<div class="mess">';
-		echo '<img src="/style/icons/small_adult.gif" alt="*"><br /> Данный файл содержит изображения эротического характера. Только зарегистрированные пользователи старше 18 лет могут просматривать такие файлы. <br />';
-		echo '<a href="/aut.php">Вход</a> | <a href="/reg.php">Регистрация</a>';
+		echo '<img src="/style/icons/small_adult.gif" alt="*"><br /> 此文件包含色情性质的图像。 只有18岁以上的注册用户才能查看此类文件。 <br />';
+		echo '<a href="/aut.php">入口处</a> | <a href="/reg.php">登记注册</a>';
 		echo '</div>';
 	}
 	else
 	{
 		echo '<div class="mess">';
 		echo '<img src="/style/icons/small_adult.gif" alt="*"><br /> 
-		Данный файл содержит изображения эротического характера. 
-		Если Вас это не смущает и Вам 18 или более лет, то можете <a href="?sess_abuld=1">продолжить просмотр</a>. 
-		Или Вы можете отключить предупреждения в <a href="/user/info/settings.php">настройках</a>.';
+		此文件包含色情性质的图像。 
+		如果这不会打扰你，你是18岁或以上，那么你可以 <a href="?sess_abuld=1">继续浏览</a>. 
+		或者您可以在 <a href="/user/info/settings.php">设置</a>.';
 		echo '</div>';
 	}
 
@@ -344,11 +344,11 @@ if (!isset($block_foto))
 	$listr = dbassoc(query("SELECT * FROM `gallery_foto` WHERE `id_gallery` = '$gallery[id]' AND `id` < '$foto[id]' ORDER BY `id` DESC LIMIT 1"));
 	$list = dbassoc(query("SELECT * FROM `gallery_foto` WHERE `id_gallery` = '$gallery[id]' AND `id` > '$foto[id]' ORDER BY `id`  ASC LIMIT 1"));
 	echo '<div class="c2" style="text-align: center;">';
-if (isset($list['id']))	echo '<span class="page">' . ($list['id'] ? "<a href='/foto/$ank[id]/$gallery[id]/$list[id]/'>&laquo; Пред.</a>" : "&laquo; Пред.") . '</span>';
+if (isset($list['id']))	echo '<span class="page">' . ($list['id'] ? "<a href='/foto/$ank[id]/$gallery[id]/$list[id]/'>&laquo; 以前.</a>" : "&laquo; 以前.") . '</span>';
 	$k_1 = dbresult(query("SELECT COUNT(*) FROM `gallery_foto` WHERE `id` > '$foto[id]' AND `id_gallery` = '$gallery[id]'"),0) + 1;
 	$k_2 = dbresult(query("SELECT COUNT(*) FROM `gallery_foto` WHERE `id_gallery` = '$gallery[id]'"),0);
 	echo ' (' . $k_1 . ' из ' . $k_2 . ') ';
-if (isset($listr['id']))	echo '<span class="page">' . ($listr['id'] ? "<a href='/foto/$ank[id]/$gallery[id]/$listr[id]/'>След. &raquo;</a>" : "След. &raquo;") . '</span>';
+if (isset($listr['id']))	echo '<span class="page">' . ($listr['id'] ? "<a href='/foto/$ank[id]/$gallery[id]/$listr[id]/'>追踪. &raquo;</a>" : "追踪. &raquo;") . '</span>';
 	echo '</div>';
 	/*----------------------alex-borisi---------------*/
 
@@ -363,18 +363,18 @@ if (isset($listr['id']))	echo '<span class="page">' . ($listr['id'] ? "<a href='
 			echo '<a href="?fav=1&amp;page=' . $pageEnd . '">添加到书签</a><br />';
 			else
 			echo '<a href="?fav=0&amp;page=' . $pageEnd . '">从书签中删除</a><br />';
-			echo 'В закладках у (' . dbresult(query("SELECT COUNT(*) FROM `bookmarks` WHERE `id_user` = '" . $user['id'] . "' AND `id_object` = '" . $foto['id'] . "' AND `type`='foto' LIMIT 1"),0) . ') чел.';
+			echo '在书签中 (' . dbresult(query("SELECT COUNT(*) FROM `bookmarks` WHERE `id_user` = '" . $user['id'] . "' AND `id_object` = '" . $foto['id'] . "' AND `type`='foto' LIMIT 1"),0) . ') 伙计.';
 			echo '</div>';
 		}
 
 		echo '<div class="main">';
-		echo 'Тип: <b>' . $foto['ras'] . '</b>, ' . $w . 'x' . $h . ' <br />';
+		echo '类型: <b>' . $foto['ras'] . '</b>, ' . $w . 'x' . $h . ' <br />';
 
 		if ($foto['opis'] != null)
 		echo output_text($foto['opis']) . '<br />';
 
-		echo '<img src="/style/icons/d.gif" alt="*"> <a href="/foto/foto0/' . $foto['id'] . '.' . $foto['ras'] . '" title="Скачать оригинал">';
-		echo 'Скачать';
+		echo '<img src="/style/icons/d.gif" alt="*"> <a href="/foto/foto0/' . $foto['id'] . '.' . $foto['ras'] . '" title="下载原文">';
+		echo '下载';
 		echo ' (' . size_file(filesize(H.'sys/gallery/foto/'.$foto['id'].'.jpg')) . ')';
 		echo '</a><br />';
 		echo '</div>';
@@ -453,7 +453,7 @@ if (isset($listr['id']))	echo '<span class="page">' . ($listr['id'] ? "<a href='
 		{
 			echo '<div class="right">';
 			if (user_access('foto_komm_del') || $ank['id'] == $user['id']) 
-			echo '<a rel="delete" href="?delete=' . $post['id'] . '&amp;page=' . $page . '" title="Удалить комментарий"><img src="/style/icons/delete.gif" alt="*"></a>';
+			echo '<a rel="delete" href="?delete=' . $post['id'] . '&amp;page=' . $page . '" title="删除注释"><img src="/style/icons/delete.gif" alt="*"></a>';
 			echo '</div>';
 		}
 		echo '</div>';
@@ -477,7 +477,7 @@ if (isset($listr['id']))	echo '<span class="page">' . ($listr['id'] ? "<a href='
 
 
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">Альбомы</a> | ';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">专辑</a> | ';
 echo '<a href="/foto/' . $ank['id'] . '/' . $gallery['id'] . '/">' . text($gallery['name']) . '</a> | ';
 echo '<b>' . text($foto['name']) . '</b>';
 if ($foto['metka'] == 1)echo ' <font color=red>(18+)</font>';

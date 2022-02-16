@@ -1,4 +1,4 @@
-<?
+<?php
 //include_once 'sys/inc/mp3.php';
 //include_once 'sys/inc/zip.php';
 include_once 'sys/inc/start.php';
@@ -10,15 +10,17 @@ include_once 'sys/inc/db_connect.php';
 include_once 'sys/inc/ipua.php';
 include_once 'sys/inc/fnc.php';
 include_once 'sys/inc/shif.php';
-$show_all = true; // показ для всех
+$show_all = true; // 给大家看
 include_once 'sys/inc/user.php';
 only_unreg();
-$set['title'] = 'Регистрация';
+$set['title']='注册账号';
 include_once 'sys/inc/thead.php';
 title();
+aut();
 
-
-if ($set['guest_select'] == '1') msg("只有授权用户才能访问该网站");
+if ($set['guest_select'] == '1') {
+	msg("只有授权用户才能访问该网站");
+}
 if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL)
 	&& isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != NULL &&
 	!preg_match('#mail\.php#', $_SERVER['HTTP_REFERER'])
@@ -28,7 +30,7 @@ if ($set['reg_select'] == 'close') {
 	$err = '暂停登记';
 	err();
 
-	echo "<a href='/aut.php'>授权书</a><br />";
+	echo "<a href='/aut.php'>登录账号</a><br />";
 	include_once 'sys/inc/tfoot.php';
 } elseif ($set['reg_select'] == 'open_mail' && isset($_GET['id']) && isset($_GET['activation']) && $_GET['activation'] != NULL) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '" . intval($_GET['id']) . "' AND `activation` = '" . my_esc($_GET['activation']) . "'"), 0) == 1) {
@@ -46,10 +48,10 @@ if ($set['reg_select'] == 'close') {
 if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '" . $_SESSION['reg_nick'] . "'"), 0) == 0 && isset($_POST['pass1']) && $_POST['pass1'] != NULL && $_POST['pass2'] && $_POST['pass2'] != NULL) {
 
 	if ($set['reg_select'] == 'open_mail') {
-		if (!isset($_POST['ank_mail']) || $_POST['ank_mail'] == NULL) $err[] = 'Неоходимо ввести Email';
-		elseif (!preg_match('#^[A-z0-9-\._]+@[A-z0-9]{2,}\.[A-z]{2,4}$#ui', $_POST['ank_mail'])) $err[] = 'Неверный формат Email';
+		if (!isset($_POST['ank_mail']) || $_POST['ank_mail'] == NULL) $err[] = '必须输入电子邮件';
+		elseif (!preg_match('#^[A-z0-9-\._]+@[A-z0-9]{2,}\.[A-z]{2,4}$#ui', $_POST['ank_mail'])) $err[] = '无效的电子邮件格式';
 		elseif (dbresult(dbquery("SELECT COUNT(*) FROM `reg_mail` WHERE `mail` = '" . my_esc($_POST['ank_mail']) . "'"), 0) != 0) {
-			$err[] = "Пользователь с этим E-mail уже зарегистрирован";
+			$err[] = "使用此电子邮件的用户已注册";
 		}
 	}
 	if (strlen2($_POST['pass1']) < 6) $err[] = '出于安全原因，密码不能短于6个字符';
@@ -158,11 +160,11 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1) {
 } else {
 	echo "<form class='mess' method='post' action='/reg.php?$passgen'>";
 	echo "选择昵称 [A-zА-я0-9 -_]:<br /><input type='text' name='nick' maxlength='32' /><br />";
-	echo "通过注册，您自动同意 <a href='/rules.php'>规则</a> 网站<br />";
+	echo "通过注册，您自动同意 <a href='/rules.php'>网站规则</a> <br />";
 	echo "<input type='submit' value='继续' />";
 	echo "</form><br />";
 }
 
-echo "<div class = 'foot'>已经注册？<br />&raquo;<a href='/aut.php'>授权书</a></div>
+echo "<div class = 'foot'>已经注册？<br />&raquo;<a href='/aut.php'>登录账号</a></div>
 <div class = 'foot'>不记得密码？<br />&raquo;<a href='/pass.php'>恢复密码</a></div>";
 include_once 'sys/inc/tfoot.php';

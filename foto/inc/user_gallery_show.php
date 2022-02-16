@@ -53,7 +53,7 @@ include H.'sys/add/user.privace.php';
 if ($gallery['privat'] == 1 && ($frend != 2 || !isset($user)) && $user['level'] <= $ank['level'] && $user['id'] != $ank['id'])
 {
 	echo '<div class="mess">';
-	echo 'Просматривать альбом пользователя могут только его друзья!';
+	echo '只有他们的朋友才能查看用户的相册！';
 	echo '</div>';
 
 	$block_foto = true;
@@ -61,7 +61,7 @@ if ($gallery['privat'] == 1 && ($frend != 2 || !isset($user)) && $user['level'] 
 elseif ($gallery['privat'] == 2 && $user['id'] != $ank['id'] && $user['level'] <= $ank['level'])
 {
 	echo '<div class="mess">';
-	echo 'Пользователь запретил просмотр этого альбома!';
+	echo '用户已禁止查看此相册！';
 	echo '</div>';
 	
 	$block_foto = true;
@@ -76,7 +76,7 @@ if ($user['id'] != $ank['id'] && $gallery['pass'] != NULL)
 		
 		if ($_SESSION['pass'] != $gallery['pass'])
 		{
-			$_SESSION['message'] = 'Неверный пароль'; 
+			$_SESSION['message'] = '密码不正确'; 
 			$_SESSION['pass'] = NULL;
 		}
 		header("Location: ?");
@@ -84,11 +84,11 @@ if ($user['id'] != $ank['id'] && $gallery['pass'] != NULL)
 
 	if (!isset($_SESSION['pass']) || $_SESSION['pass'] != $gallery['pass'])
 	{
-		echo '<form action="?" method="POST">Пароль:<br /><input type="pass" name="password" value="" /><br />		
+		echo '<form action="?" method="POST">密码:<br /><input type="pass" name="password" value="" /><br />		
 		<input type="submit" value="登录"/></form>';
 		
 		echo '<div class="foot">';
-		echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">Альбомы</a> | <b>' . text($gallery['name']) . '</b>';
+		echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">相册</a> | <b>' . text($gallery['name']) . '</b>';
 		echo '</div>';
 
 		include_once '../sys/inc/tfoot.php';
@@ -109,7 +109,7 @@ if (!isset($block_foto))
 	if ($k_post == 0)
 	{
 		echo '<div class="mess">';
-		echo 'Фотографий нет';
+		echo '无照片';
 		echo '</div>';
 	}
 
@@ -129,7 +129,7 @@ if (!isset($block_foto))
 		echo '<br /><img src="/foto/foto128/' . $post['id'] . '.' . $post['ras'] . '" alt="Photo Screen" /></a><br />';
 		
 		if ($post['opis'] == null)
-			echo 'Без описания<br />';
+			echo '无描述<br />';
 		else 
 			echo '<div class="text">' . output_text($post['opis']) . '</div>';
 		
@@ -146,12 +146,12 @@ if (!isset($block_foto))
 }
 if(isset($user) && (user_access('foto_alb_del') || $ank['id']==$user['id'])){
 echo '<div class="mess">';
-echo '<img src="/style/icons/apply14.png" width="16"> <a href="?act=upload">Загрузить фотку</a><br/>';
-echo '<img src="/style/icons/edit.gif" width="16"> <a href="/foto/' . $ank['id'] . '/' . $gallery['id'] . '/?edit=rename">Редактировать альбом</a><br/>';
-echo '<img src="/style/icons/delete.gif" width="16"> <a href="/foto/' . $ank['id'] . '/' . $gallery['id'] . '/?act=delete"">Удалить альбом</a></div>';
+echo '<img src="/style/icons/apply14.png" width="16"> <a href="?act=upload">上传照片</a><br/>';
+echo '<img src="/style/icons/edit.gif" width="16"> <a href="/foto/' . $ank['id'] . '/' . $gallery['id'] . '/?edit=rename">编辑相册</a><br/>';
+echo '<img src="/style/icons/delete.gif" width="16"> <a href="/foto/' . $ank['id'] . '/' . $gallery['id'] . '/?act=delete"">删除相册</a></div>';
 }
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">Альбомы</a> | <b>' . text($gallery['name']) . '</b>';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">相册</a> | <b>' . text($gallery['name']) . '</b>';
 echo '</div>';
 
 include_once '../sys/inc/tfoot.php';

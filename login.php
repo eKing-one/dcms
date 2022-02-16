@@ -8,7 +8,7 @@ include_once 'sys/inc/db_connect.php';
 include_once 'sys/inc/ipua.php';
 include_once 'sys/inc/fnc.php';
 include_once 'sys/inc/shif.php';
-$show_all=true; // показ для всех
+$show_all=true; // 给大家看
 $input_page=true;
 include_once 'sys/inc/user.php';
 only_unreg();

@@ -23,7 +23,7 @@ echo '<table class="post">';
 if ($k_post == 0)
 {
 	echo '<div class="mess">';
-	echo 'Нет фотоальбомов';
+	echo '无相册';
 	echo '</div>';
 }
 
@@ -42,13 +42,13 @@ while ($post = dbassoc($q))
 	echo '<a href="/foto/' . $ank['id'] . '/' . $post['id'] . '/">' . text($post['name']) . '</a> (' . dbresult(dbquery("SELECT COUNT(*) FROM `gallery_foto` WHERE `id_gallery` = '$post[id]'"),0) . ' фото)<br />';
 
 	if ($post['opis'] == null)
-	echo 'Без описания<br />';
+	echo '无描述<br />';
 	else 
 	echo output_text($post['opis']) . '<br />';
 
-	echo 'Создан: ' . vremja($post['time_create']) . '<br />';
+	echo '已创建: ' . vremja($post['time_create']) . '<br />';
 
-	echo 'Автор: ';
+	echo '作者: ';
 	echo user::avatar($ank['id'], 2) . user::nick($ank['id'], 1, 1, 1);
 
 	echo '</div>';
@@ -61,7 +61,7 @@ if ($k_page>1)str('?',$k_page,$page); // Вывод страниц
 if (isset($user))
 {
 	echo '<div class="foot">';
-	echo '<img src="/style/icons/str.gif" alt="*"> <a href="/foto/' . $user['id'] . '/">Мои альбомы</a><br />';
+	echo '<img src="/style/icons/str.gif" alt="*"> <a href="/foto/' . $user['id'] . '/">我的相册</a><br />';
 	echo '</div>';
 }
 

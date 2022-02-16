@@ -6,39 +6,39 @@ if (isset($user) && $user['id'] == $ank['id'])
 		?>
 		<div class="foot">
 		<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'])?> | 
-		<a href="/foto/<?=$ank['id']?>/">Альбомы</a> | 
-		<b>Создать</b>
+		<a href="/foto/<?=$ank['id']?>/">相册</a> | 
+		<b>创建</b>
 		</div>
 		
 		<form action="?act=create&amp;ok" method="post">
-		<div class="nav2">Название альбома:<br />
+		<div class="nav2">专辑名称：<br />
 		
 		<input type="text" name="name" value="" /><br />
-		Описание:<?=$tPanel?>
+		描述:<?=$tPanel?>
 		<textarea name="opis"></textarea><br />
 		
-		Пароль:<br />
+		密码:<br />
 		<input type="text" name="pass" value="" /></div>
 
 		<div class="nav1">
-		Могут смотреть:<br />
-		<input name="privat" type="radio" checked="checked" value="0" />Все 
-		<input name="privat" type="radio" value="1" />Друзья 
-		<input name="privat" type="radio" value="2" />Только я</div>
+		可以观看:<br />
+		<input name="privat" type="radio" checked="checked" value="0" />全部 
+		<input name="privat" type="radio" value="1" />朋友 
+		<input name="privat" type="radio" value="2" />只有我</div>
 
 		<div class="nav2">
-		Могут комментировать:<br />
-		<input name="privat_komm" type="radio" checked="checked" value="0" />Все 
-		<input name="privat_komm" type="radio" value="1" />Друзья 
-		<input name="privat_komm" type="radio" value="2" />Только я</div>
+		可以评论:<br />
+		<input name="privat_komm" type="radio" checked="checked" value="0" />全部 
+		<input name="privat_komm" type="radio" value="1" />朋友 
+		<input name="privat_komm" type="radio" value="2" />只有我</div>
 		
-		<input class="submit" type="submit" value="Создать" />
+		<input class="submit" type="submit" value="创建" />
 		</form>
 
 		<div class="foot">
 		<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'])?> | 
-		<a href="/foto/<?=$ank['id']?>/">Альбомы</a> | 
-		<b>Создать</b>
+		<a href="/foto/<?=$ank['id']?>/">相册</a> | 
+		<b>创建</b>
 		</div>
 		<?
 
