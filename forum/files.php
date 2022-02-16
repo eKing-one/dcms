@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../sys/inc/start.php';
 //include_once '../sys/inc/compress.php'; // если раскомментировать то файл будет качаться некорректно
 include_once '../sys/inc/sess.php';
