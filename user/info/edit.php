@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
@@ -619,13 +619,13 @@ dbquery("UPDATE `user` SET `ank_avto_n` = '0' WHERE `id` = '$user[id]' LIMIT 1")
 if (isset($_POST['ank_avto']) && strlen2($_POST['ank_avto'])<=215)
 {
 
-if (preg_match('#[^A-zА-я0-9 _\-\=\+\(\)\*\!\?\.,]#ui',$_POST['ank_avto']))$err[]='В поле "Название\Марка авто" используются запрещенные символы';
+if (preg_match('#[^A-zА-я0-9 _\-\=\+\(\)\*\!\?\.,]#ui',$_POST['ank_avto']))$err[]='在”名称”字段\汽车品牌”禁止使用字符';
 else {
 $user['ank_avto']=$_POST['ank_avto'];
 dbquery("UPDATE `user` SET `ank_avto` = '".my_esc($user['ank_avto'])."' WHERE `id` = '$user[id]' LIMIT 1");
 }
 }
-else $err[]='О вашем авто нужно писать меньше :)';
+else $err[]='你需要少写你的车 :)';
 
 }
 
@@ -655,7 +655,7 @@ dbquery("UPDATE `user` SET `ank_alko_n` = '0' WHERE `id` = '$user[id]' LIMIT 1")
 if (isset($_POST['ank_alko']) && strlen2($_POST['ank_alko'])<=215)
 {
 
-if (preg_match('#[^A-zА-я0-9 _\-\=\+\(\)\*\!\?\.,]#ui',$_POST['ank_alko']))$err[]='В поле "Нанпиток" используются запрещенные символы';
+if (preg_match('#[^A-zА-я0-9 _\-\=\+\(\)\*\!\?\.,]#ui',$_POST['ank_alko']))$err[]='禁止字符在“Nanpitok”字段中使用';
 else {
 $user['ank_alko']=$_POST['ank_alko'];
 dbquery("UPDATE `user` SET `ank_alko` = '".my_esc($user['ank_alko'])."' WHERE `id` = '$user[id]' LIMIT 1");
@@ -672,7 +672,7 @@ if (isset($_GET['set']) && $_GET['set']=='osebe'){
 if (isset($_POST['ank_o_sebe']) && strlen2($_POST['ank_o_sebe'])<=512)
 {
 
-if (preg_match('#[^A-zА-я0-9 _\-\=\+\(\)\*\!\?\.,]#ui',$_POST['ank_o_sebe']))$err[]='В поле "О себе" используются запрещенные символы';
+if (preg_match('#[^A-zА-я0-9 _\-\=\+\(\)\*\!\?\.,]#ui',$_POST['ank_o_sebe']))$err[]='禁止字符用于”关于我”字段';
 else {
 $user['ank_o_sebe']=$_POST['ank_o_sebe'];
 dbquery("UPDATE `user` SET `ank_o_sebe` = '".my_esc($user['ank_o_sebe'])."' WHERE `id` = '$user[id]' LIMIT 1");
@@ -686,7 +686,7 @@ if (isset($_GET['set']) && $_GET['set']=='opar'){
 if (isset($_POST['ank_o_par']) && strlen2($_POST['ank_o_par'])<=215)
 {
 
-if (preg_match('#[^A-zА-я0-9 _\-\=\+\(\)\*\!\?\.,]#ui',$_POST['ank_o_par']))$err[]='В поле "О партнере" используются запрещенные символы';
+if (preg_match('#[^A-zА-я0-9 _\-\=\+\(\)\*\!\?\.,]#ui',$_POST['ank_o_par']))$err[]='禁止字符用于”关于合作伙伴”字段';
 else {
 $user['ank_o_par']=$_POST['ank_o_par'];
 dbquery("UPDATE `user` SET `ank_o_par` = '".my_esc($user['ank_o_par'])."' WHERE `id` = '$user[id]' LIMIT 1");
@@ -764,7 +764,7 @@ err();
 
 	echo "<form method='post' action='?".$get2."set=$get'>";
 	if (isset($_GET['set']) && $_GET['set']=='nick' && $user['set_nick'] == 1)
-	echo "<div class='mess'>Внимание! Изменить свой ник вы можете только один раз!</div> Nick Name:<br /><input type='text' name='nick' value='".htmlspecialchars($user['nick'],false)."' maxlength='32' /><br />";
+	echo "<div class='mess'>注意！您只能更改一次昵称！</div> Nick Name:<br /><input type='text' name='nick' value='".htmlspecialchars($user['nick'],false)."' maxlength='32' /><br />";
 	
 	
 	if (isset($_GET['set']) && $_GET['set']=='name')
@@ -778,7 +778,7 @@ err();
 	
 	
 	if (isset($_GET['set']) && $_GET['set']=='date'){
-	echo 'Дата рождения:<br />
+	echo '出生日期:<br />
 	<select name="ank_d_r">
 	<option selected="'.$user['ank_d_r'].'" value="'.$user['ank_d_r'].'" >'.$user['ank_d_r'].'<option>
 	<option value="1">1</option>

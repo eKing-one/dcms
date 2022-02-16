@@ -12,7 +12,7 @@ include_once '../sys/inc/user.php';
 user_access('adm_themes',null,'index.php?'.SID);
 adm_check();
 include_once '../sys/inc/zip.php';
-$set['title']='Установка тем';
+$set['title']='安装主题';
 include_once '../sys/inc/thead.php';
 title();
 if (isset($_FILES['file']) && filesize($_FILES['file']['tmp_name'])!=0)
@@ -21,17 +21,17 @@ $file=esc(stripcslashes(htmlspecialchars($_FILES['file']['name'])));
 $file=preg_replace('#(|\?)#', NULL, $file);
 $name=esc(trim(retranslit(preg_replace('#\.[^\.]*$#', NULL, $file)))); // имя файла без расширения
 $ras=strtolower(preg_replace('#^.*\.#i', NULL, $file));
-if ($ras!='zip')$err='Тема должна находиться в ZIP архиве';
+if ($ras!='zip')$err='主题必须在ZIP存档中';
 if (!isset($err))
 {
 $zip=new PclZip($_FILES['file']['tmp_name']);
 $them_default=new PclZip(H.'sys/add/them.zip');
 $content = $zip->extract(PCLZIP_OPT_BY_NAME, 'them.name' ,PCLZIP_OPT_EXTRACT_AS_STRING);
 $them_name=trim(esc(@$content[0]['content']));
-if (strlen2($them_name)==null)$err='Файл "them.name" пуст или не найден';
+if (strlen2($them_name)==null)$err='them.name 空或未找到';
 $content = $zip->extract(PCLZIP_OPT_BY_NAME, 'style.css' ,PCLZIP_OPT_EXTRACT_AS_STRING);
 $css=trim(esc(@$content[0]['content']));
-if (strlen2($them_name)==null)$err='Файл "style.css" пуст или не найден';
+if (strlen2($them_name)==null)$err='style.css文件为空或未找到';
 @mkdir(H.'style/themes/'.$name, 0777);
 @chmod(H.'style/themes/'.$name, 0777);
 if ($name!=NULL)
@@ -56,21 +56,21 @@ $them_default->extract(PCLZIP_OPT_PATH, H.'style/themes/'.$name, PCLZIP_OPT_SET_
 @chmod(H.'style/themes/'.$name.'/graph/', 0777);
 }
 else $err='无法创建带有主题的文件夹';
-if (!isset($err))msg('Тема "'.$name.' ('.$them_name.')" успешно установлена');
+if (!isset($err))msg('题目 "'.$name.' ('.$them_name.')" 成功安装');
 }
 err();
 aut();
 echo "<form class='foot' enctype=\"multipart/form-data\" action='?' method=\"post\">";
-echo "Выгрузить:<br />";
+echo "上载:<br />";
 echo "<input name='file' type='file' accept='application/zip' /><br />";
-echo "<label><input type=\"checkbox\" name=\"add_of_default\" value=\"1\" /> Добавить недостающие файлы</label><br />";
-echo "<input class=\"submit\" type=\"submit\" value=\"Далее\" /><br />";
-echo "Тема должна находится в zip архиве без папки<br />";
-echo "Присутствие файлов them.name и style.css обязательно<br />";
-echo "Название папки темы будет взято из названия архива<br />";
+echo "<label><input type=\"checkbox\" name=\"add_of_default\" value=\"1\" /> 添加丢失的文件</label><br />";
+echo "<input class=\"submit\" type=\"submit\" value=\"进一步\" /><br />";
+echo "主题应该在没有文件夹的zip存档中<br />";
+echo "文件的存在them.name 和style.css是必需的<br />";
+echo "主题文件夹的名称将取自存档名称<br />";
 echo "</form>";
 echo "<div class='foot'>";
-echo "&laquo;<a href='themes.php'>Темы оформления</a><br />";
+echo "&laquo;<a href='themes.php'>设计主题</a><br />";
 if (user_access('adm_panel_show'))
 echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
 echo "</div>";

@@ -28,7 +28,7 @@ if (isset($_POST['rating']) && isset($user) && isset($_POST['msg']) && $user['id
 	$msg=mysql_real_escape_string($_POST['msg']);
 	if (strlen($msg)<3)$err='Короткий Отзыв';
 	if (strlen($msg)>1024)$err='Длиный Отзыв';
-	elseif (dbresult(dbquery("SELECT COUNT(*) FROM `user_voice2` WHERE `id_user` = '$user[id]' AND `msg` = '".my_esc($msg)."' LIMIT 1"),0)!=0){$err='Ваш отзыв повторяется';}
+	elseif (dbresult(dbquery("SELECT COUNT(*) FROM `user_voice2` WHERE `id_user` = '$user[id]' AND `msg` = '".my_esc($msg)."' LIMIT 1"),0)!=0){$err='您的评论重复';}
 	if (!isset($err))
 	{
 		$new_r=min(max(@intval($_POST['rating']),-2),2);
@@ -49,14 +49,14 @@ if (isset($_POST['rating']) && isset($user) && isset($_POST['msg']) && $user['id
 		}
 
 		if ($new_r>0)
-		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] оставил о Вас [url=/user/info/who_rating.php]положительный отзыв[/url]', '$time')");
+		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] оставил о Вас [url=/user/info/who_rating.php]积极的反馈[/url]', '$time')");
 		if ($new_r<0)
 		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] оставил о Вас [url=/user/info/who_rating.php]негативный отзыв[/url]', '$time')");
 		if ($new_r==0)
 		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] оставил о Вас [url=/user/info/who_rating.php]нейтральный отзыв[/url]', '$time')");
 		dbquery("UPDATE `user` SET `rating_tmp` = '".($user['rating_tmp']+1)."' WHERE `id` = '$user[id]' LIMIT 1");
 
-		$_SESSION['message'] = 'Ваше мнение о пользователе успешно изменено';
+		$_SESSION['message'] = '您对用户的看法已成功更改';
 	}
 }
 
@@ -80,13 +80,13 @@ if (isset($user) && $user['id']!=$ank['id'] && $user['rating']>=2 && dbresult(db
 	$my_r=intval(@dbresult(dbquery("SELECT `rating` FROM `user_voice2` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"),0));
 	echo "<form method='post' action='?id=$ank[id]&amp;$passgen'>";
 	echo "<select name='rating'>";
-	echo "<option value='2' ".($my_r==2?'selected="selected"':null).">Замечательное</option>";
-	echo "<option value='1' ".($my_r==1?'selected="selected"':null).">Положительное</option>";
-	echo "<option value='0' ".($my_r==0?'selected="selected"':null).">Нейтральное</option>";
-	echo "<option value='-1' ".($my_r==-1?'selected="selected"':null).">Не очень...</option>";
-	echo "<option value='-2' ".($my_r==-2?'selected="selected"':null).">Негативное</option>";
+	echo "<option value='2' ".($my_r==2?'selected="selected"':null).">很赞</option>";
+	echo "<option value='1' ".($my_r==1?'selected="selected"':null).">正常</option>";
+	echo "<option value='0' ".($my_r==0?'selected="selected"':null).">中立</option>";
+	echo "<option value='-1' ".($my_r==-1?'selected="selected"':null).">不是很好...</option>";
+	echo "<option value='-2' ".($my_r==-2?'selected="selected"':null).">否定</option>";
 	echo "</select><br />";
-	echo "Текст: <br />";
+	echo "文本: <br />";
 	echo "<textarea name=\"msg\"></textarea><br />";
 	echo "<input type='submit' value='GO' />";
 	echo "</form>";
@@ -95,7 +95,7 @@ if (isset($user) && $user['id']!=$ank['id'] && $user['rating']>=2 && dbresult(db
 elseif (isset($user) && $user['id'] != $ank['id'])
 {
 	echo "<div class='mess'>";
-	echo 'Чтобы оставить отзыв, вам необходимо набрать 2 или более % рейтинга.';
+	echo '要留下评论，您需要获得评级的2％或更多％。';
 	echo "</div>";
 }
 
@@ -111,7 +111,7 @@ echo "<table class='post'>";
 if ($k_post==0)
 {
 	echo '<div class="mess">';
-	echo "Нет положительных отзывов";
+	echo "没有正面评价";
 	echo '</div>';
 }
 
@@ -142,11 +142,11 @@ while ($post = dbassoc($q))
 
 	switch ($post['rating'])
 	{
-		case 2:echo "Замечательный<br />";	break;
-		case 1:echo "Положительный<br />";	break;
-		case 0:echo "Нейтральный<br />";	break;
-		case -1:echo "Не очень...<br />";	break;
-		case -2:echo "Негативный<br />";	break;
+		case 2:echo "很赞<br />";	break;
+		case 1:echo "正常<br />";	break;
+		case 0:echo "中立<br />";	break;
+		case -1:echo "不是很...<br />";	break;
+		case -2:echo "否定<br />";	break;
 	}
 
 	$msg=stripcslashes(htmlspecialchars($post['msg']));

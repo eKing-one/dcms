@@ -15,17 +15,17 @@ exit;
 }
 if(isset($_GET['id']))$ank=get_user(intval($_GET['id']));
 else $ank=get_user($user['id']);
-$set['title']='Темы и комментарии '.$ank['nick'];
+$set['title']='主题及意见 '.$ank['nick'];
 include_once '../../sys/inc/thead.php';
 title();
 aut();
-echo "<div class='nav1'>Автор: ";
+echo "<div class='nav1'>作者: ";
 echo group($ank['id']);
 echo " ".user::nick($ank['id'],1,1,1)."</div>";
 /* Sort (Thems OR Komments) */
 echo "<div class='nav1'>";
-if(isset($_GET['komm']))echo "<a href='?id=".$ank['id']."'>Темы</a> | <b>Комментарии</b>";
-else echo "<b>Темы</b> | <a href='?id=".$ank['id']."&komm'>Комментарии</a>";
+if(isset($_GET['komm']))echo "<a href='?id=".$ank['id']."'>Темы</a> | <b>评论</b>";
+else echo "<b>Темы</b> | <a href='?id=".$ank['id']."&komm'>评论</a>";
 echo "</div>";
 
 //Если коммы смотрим

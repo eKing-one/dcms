@@ -11,7 +11,7 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('adm_mysql',null,'index.php?'.SID);
 adm_check();
-$set['title']='Залитие таблиц';
+$set['title']='填表';
 include_once '../sys/inc/thead.php';
 title();
 if (isset($_FILES['file'])){
@@ -64,16 +64,16 @@ msg("Таблицы успешно залиты!");
 err();
 aut();
 	echo "<form method='post' enctype='multipart/form-data' action='?$passgen'>
-	Выгрузить:<br />
-	<input name='file' type='file' accept='sql' /><br /><input value='Залить!' type='submit' />
+	上载:<br />
+	<input name='file' type='file' accept='sql' /><br /><input value='执行!' type='submit' />
 	</form>
-	<br /> Внимание! После загрузки файла и выполнения запроса, он будет автоматически удален!";
+	<br /> 注意！下载文件并执行请求后，它将被自动删除！";
 	echo "<div class='foot'>
-	Если файл с таблицами уже в папке, то переходите по ссылке ниже.<br /> 
-	&raquo;<a href='?update'>Залить из папки</a>
+	如果包含表格的文件已经在文件夹中，请按照下面的链接操作。<br /> 
+	&raquo;<a href='?update'>从文件夹上传</a>
 	</div>";
 echo "<div class='foot'>";
-echo "&laquo;<a href='mysql.php'>MySQL запросы</a><br />";
+echo "&laquo;<a href='mysql.php'>MySQL查询</a><br />";
 if (user_access('adm_panel_show'))
 echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
 echo "</div>";

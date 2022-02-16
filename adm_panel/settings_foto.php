@@ -12,7 +12,7 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('adm_set_foto',null,'index.php?'.SID);
 adm_check();
-$set['title']='Настройки фотогалереи';
+$set['title']='照片库设置';
 include_once '../sys/inc/thead.php';
 title();
 if (isset($_POST['save']))
@@ -22,17 +22,17 @@ $temp_set['max_upload_foto_y']=intval($_POST['max_upload_foto_y']);
 if (save_settings($temp_set))
 {
 admin_log('Настройки','Фотогалерея','Изменение настроек фотогалереи');
-msg('Настройки успешно приняты');
+msg('设置已成功接受');
 }
 else
-$err='Нет прав для изменения файла настроек';
+$err='没有更改设置文件的权限';
 }
 err();
 aut();
 echo "<form method=\"post\" action=\"?\">";
-echo "Ширина фото (max):<br /><input type='text' name='max_upload_foto_x' value='$temp_set[max_upload_foto_x]' /><br />";
-echo "Высота фото (max):<br /><input type='text' name='max_upload_foto_y' value='$temp_set[max_upload_foto_y]' /><br />";
-echo "<input value=\"Изменить\" name='save' type=\"submit\" />";
+echo "照片宽度 (max):<br /><input type='text' name='max_upload_foto_x' value='$temp_set[max_upload_foto_x]' /><br />";
+echo "照片高度 (max):<br /><input type='text' name='max_upload_foto_y' value='$temp_set[max_upload_foto_y]' /><br />";
+echo "<input value=\"要改变\" name='save' type=\"submit\" />";
 echo "</form>";
 if (user_access('adm_panel_show')){
 echo "<div class='foot'>";

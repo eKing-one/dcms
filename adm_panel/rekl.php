@@ -14,7 +14,7 @@ adm_check();
 if (isset($_GET['sel']) && is_numeric($_GET['sel']) && $_GET['sel']>0 && $_GET['sel']<=4)
 {
 $sel=intval($_GET['sel']);
-$set['title']='Реклама';
+$set['title']='广告';
 include_once '../sys/inc/thead.php';
 title();
 
@@ -34,7 +34,7 @@ $img=stripcslashes(htmlspecialchars($_POST['img']));
 
 dbquery("INSERT INTO `rekl` (`time_last`, `name`, `img`, `link`, `sel`, `dop_str`) VALUES ('$time_last', '$name', '$img', '$link', '$sel', '$dop_str')");
 
-msg('Рекламная ссылка добавлена');
+msg('添加广告链接');
 
 
 }
@@ -56,7 +56,7 @@ $img=stripcslashes(htmlspecialchars($_POST['img']));
 if (isset($_POST['dop_str']) && $_POST['dop_str']==1)
 $dop_str=1;else $dop_str=0;
 dbquery("UPDATE `rekl` SET `time_last` = '$time_last', `name` = '$name', `link` = '$link', `img` = '$img', `dop_str` = '$dop_str' WHERE `id` = '".intval($_GET['set'])."'");
-msg('Рекламная ссылка изменена');
+msg('广告链接已更改');
 
 
 }
@@ -64,7 +64,7 @@ elseif (isset($_GET['del']) && dbresult(dbquery("SELECT COUNT(*) FROM `rekl` WHE
 {
 
 dbquery("DELETE FROM `rekl` WHERE `id` = '".intval($_GET['del'])."' LIMIT 1");
-msg('Рекламная ссылка удалена');
+msg('广告链接已被删除');
 
 
 }
@@ -81,7 +81,7 @@ if ($k_post==0)
 {
 echo "   <tr>";
 echo "  <td class='p_t'>";
-echo "Нет рекламы";
+echo "没有广告";
 echo "  </td>";
 echo "   </tr>";
 }
@@ -90,45 +90,45 @@ while ($post = dbassoc($q))
 {
 echo "   <tr>";
 echo "  <td class='p_t'>";
-if ($post['img']==NULL)echo "$post[name]<br />"; else echo "<a href='$post[img]'>[картинка]</a><br />";
+if ($post['img']==NULL)echo "$post[name]<br />"; else echo "<a href='$post[img]'>[图片]</a><br />";
 if ($post['time_last']>time()) echo "(до ".vremja($post['time_last']).")";
-else echo "(срок показа истек)";
+else echo "(显示期限已过期)";
 echo "  </td>";
 echo "   </tr>";
 echo "   <tr>";
 echo "  <td class='p_m'>";
-echo "Ссылка: $post[link]<br />";
+echo "连结: $post[link]<br />";
 if ($post['img']!=NULL)
-echo "Картинка: $post[img]<br />";
+echo "图片: $post[img]<br />";
 if ($post['dop_str']==1)
-echo "Переходов: $post[count]<br />";
+echo "过渡时期: $post[count]<br />";
 echo "<a href='rekl.php?sel=$sel&amp;del=$post[id]&amp;page=$page'>移走</a><br />";
 
 
 if (isset($_GET['set']) && $_GET['set']==$post['id'])
 {
 echo "<form method='post' action='rekl.php?sel=$sel&amp;set=$post[id]&amp;page=$page'>";
-echo "Ссылка:<br /><input type=\"text\" name=\"link\" value=\"$post[link]\" /><br />";
-echo "Название:<br /><input type=\"text\" name=\"name\" value=\"$post[name]\" /><br />";
-echo "Картинка:<br /><input type=\"text\" name=\"img\" value=\"$post[img]\" /><br />";
+echo "连结:<br /><input type=\"text\" name=\"link\" value=\"$post[link]\" /><br />";
+echo "标题:<br /><input type=\"text\" name=\"name\" value=\"$post[name]\" /><br />";
+echo "图片:<br /><input type=\"text\" name=\"img\" value=\"$post[img]\" /><br />";
 
-if ($post['time_last']>time())echo "Продлить на:<br />";
-else echo "Продлить до:<br />";
+if ($post['time_last']>time())echo "延伸通过:<br />";
+else echo "延伸至:<br />";
 
 echo "<input type=\"text\" name=\"ch\" size='3' value=\"0\" />";
 echo "<select name=\"mn\">";
-echo "  <option value=\"1\" selected='selected'>Дней</option>";
-echo "  <option value=\"7\">Недель</option>";
-echo "  <option value=\"31\">Месяцев</option>";
+echo "  <option value=\"1\" selected='selected'>天数</option>";
+echo "  <option value=\"7\">星期</option>";
+echo "  <option value=\"31\">个月</option>";
 echo "</select><br />";
 if ($post['dop_str']==1)$dop=" checked='checked'";else $dop=NULL;
-echo "<label><input type=\"checkbox\"$dop name=\"dop_str\" value=\"1\" /> Доп. страница</label><br />";
-echo "<input value=\"Применить\" type=\"submit\" />";
+echo "<label><input type=\"checkbox\"$dop name=\"dop_str\" value=\"1\" /> 附加页</label><br />";
+echo "<input value=\"申请\" type=\"submit\" />";
 echo "</form>";
-echo "<a href='rekl.php?sel=$sel&amp;page=$page'>Отмена</a><br />";
+echo "<a href='rekl.php?sel=$sel&amp;page=$page'>取消</a><br />";
 }
 else
-echo "<a href='rekl.php?sel=$sel&amp;set=$post[id]&amp;page=$page'>Изменить</a><br />";
+echo "<a href='rekl.php?sel=$sel&amp;set=$post[id]&amp;page=$page'>要改变</a><br />";
 echo "  </td>";
 echo "   </tr>";
 }
@@ -139,27 +139,27 @@ if ($k_page>1)str("rekl.php?sel=$sel&amp;",$k_page,$page); // Вывод стр�
 
 
 echo "<form class='foot' method='post' action='rekl.php?sel=$sel&amp;add'>";
-echo "Название:<br /><input type=\"text\" name=\"name\" value=\"\" /><br />";
-echo "Ссылка:<br /><input type=\"text\" name=\"link\" value=\"\" /><br />";
+echo "标题:<br /><input type=\"text\" name=\"name\" value=\"\" /><br />";
+echo "连结:<br /><input type=\"text\" name=\"link\" value=\"\" /><br />";
 
-echo "Картинка:<br /><input type=\"text\" name=\"img\" value=\"\" /><br />";
+echo "图片:<br /><input type=\"text\" name=\"img\" value=\"\" /><br />";
 
-echo "Срок действия:<br />";
+echo "有效期限:<br />";
 
 echo "<input type=\"text\" name=\"ch\" size='3' value=\"1\" />";
 echo "<select name=\"mn\">";
-echo "  <option value=\"1\">Дней</option>";
-echo "  <option value=\"7\" selected='selected'>Недель</option>";
-echo "  <option value=\"31\">Месяцев</option>";
+echo "  <option value=\"1\">天数</option>";
+echo "  <option value=\"7\" selected='selected'>星期</option>";
+echo "  <option value=\"31\">个月</option>";
 echo "</select><br />";
 
-echo "<label><input type=\"checkbox\" checked='checked' name=\"dop_str\" value=\"1\" /> Доп. страница</label><br />";
-echo "<input value=\"Добавить\" type=\"submit\" />";
+echo "<label><input type=\"checkbox\" checked='checked' name=\"dop_str\" value=\"1\" /> 附加页</label><br />";
+echo "<input value=\"添加\" type=\"submit\" />";
 echo "</form>";
 
 
 echo "<div class='foot'>";
-echo "<a href='rekl.php'>Список рекламы</a><br />";
+echo "<a href='rekl.php'>广告一览表</a><br />";
 if (user_access('adm_panel_show'))
 echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
 echo "</div>";
@@ -167,7 +167,7 @@ echo "</div>";
 
 include_once '../sys/inc/tfoot.php';
 }
-$set['title']='Реклама';
+$set['title']='广告';
 include_once '../sys/inc/thead.php';
 title();
 
@@ -175,8 +175,8 @@ err();
 aut();
 
 echo "<div class='menu'>";
-echo "<a href='rekl.php?sel=3'>Низ сайта (главная)</a><br />";
-echo "<a href='rekl.php?sel=4'>Низ сайта (остальные)</a><br />";
+echo "<a href='rekl.php?sel=3'>网站底部(home)</a><br />";
+echo "<a href='rekl.php?sel=4'>网站的底部（其它）</a><br />";
 echo "</div>";
 
 

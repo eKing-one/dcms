@@ -12,7 +12,7 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('adm_set_sys',null,'index.php?'.SID);
 adm_check();
-$set['title']='Настройки BBcode';
+$set['title']='BBCode设置';
 include_once '../sys/inc/thead.php';
 title();
 if (isset($_POST['save']))
@@ -35,36 +35,36 @@ if (isset($_POST['bb_img']) && $_POST['bb_img']==1)$temp_set['bb_img']=1; else $
 if (save_settings($temp_set))
 {
 admin_log('Настройки','Система','Изменение параметров BBcode');
-msg('Настройки успешно приняты');
+msg('设置已成功接受');
 }
 else
-$err='Нет прав для изменения файла настроек';
+$err='没有更改设置文件的权限';
 }
 err();
 aut();
 echo "<form method='post' action='?$passgen'>";
-echo "<label><input type='checkbox'".($temp_set['bb_i']?" checked='checked'":null)." name='bb_i' value='1' /> Куксив [i]*</label><br />";
-echo "<label><input type='checkbox'".($temp_set['bb_u']?" checked='checked'":null)." name='bb_u' value='1' /> Подчеркнутый [u]*</label><br />";
-echo "<label><input type='checkbox'".($temp_set['bb_b']?" checked='checked'":null)." name='bb_b' value='1' /> Жирный [b]*</label><br />";
-echo "<label><input type='checkbox'".($temp_set['bb_big']?" checked='checked'":null)." name='bb_big' value='1' /> Большой [big]*</label><br />";
-echo "<label><input type='checkbox'".($temp_set['bb_small']?" checked='checked'":null)." name='bb_small' value='1' /> Маленький [small]*</label><br />";
-echo "<label><input type='checkbox'".($temp_set['bb_code']?" checked='checked'":null)." name='bb_code' value='1' /> Подсветка PHP-кода [code]*</label><br />";
-echo "<label><input type='checkbox'".($temp_set['bb_red']?" checked='checked'":null)." name='bb_red' value='1' /> Красный текст [red]*</label><br />";
-echo "<label><input type='checkbox'".($temp_set['bb_yellow']?" checked='checked'":null)." name='bb_yellow' value='1' /> Желтый текст [yellow]*</label><br />";
-echo "<label><input type='checkbox'".($temp_set['bb_green']?" checked='checked'":null)." name='bb_green' value='1' /> Зеленый текст [green]*</label><br />";
-echo "<label><input type='checkbox'".($temp_set['bb_blue']?" checked='checked'":null)." name='bb_blue' value='1' /> Синий текст [blue]*</label><br />";
-echo "<label><input type='checkbox'".($temp_set['bb_white']?" checked='checked'":null)." name='bb_white' value='1' /> Белый текст [white]*</label><br />";
-echo "<label><input type='checkbox'".($temp_set['bb_size']?" checked='checked'":null)." name='bb_size' value='1' /> Размер шрифта</label><br />";
-echo "[size=размер шрифта]текст[/size]<br />";
-echo "<label><input type='checkbox'".($temp_set['bb_http']?" checked='checked'":null)." name='bb_http' value='1' /> Выделение ссылок</label><br />";
+echo "<label><input type='checkbox'".($temp_set['bb_i']?" checked='checked'":null)." name='bb_i' value='1' /> 库西夫 [i]*</label><br />";
+echo "<label><input type='checkbox'".($temp_set['bb_u']?" checked='checked'":null)." name='bb_u' value='1' /> 下划线 [u]*</label><br />";
+echo "<label><input type='checkbox'".($temp_set['bb_b']?" checked='checked'":null)." name='bb_b' value='1' /> 脂肪 [b]*</label><br />";
+echo "<label><input type='checkbox'".($temp_set['bb_big']?" checked='checked'":null)." name='bb_big' value='1' /> 大 [big]*</label><br />";
+echo "<label><input type='checkbox'".($temp_set['bb_small']?" checked='checked'":null)." name='bb_small' value='1' /> 小 [small]*</label><br />";
+echo "<label><input type='checkbox'".($temp_set['bb_code']?" checked='checked'":null)." name='bb_code' value='1' /> 突出显示PHP代码 [code]*</label><br />";
+echo "<label><input type='checkbox'".($temp_set['bb_red']?" checked='checked'":null)." name='bb_red' value='1' /> 红色文字 [red]*</label><br />";
+echo "<label><input type='checkbox'".($temp_set['bb_yellow']?" checked='checked'":null)." name='bb_yellow' value='1' /> 红色文字 [yellow]*</label><br />";
+echo "<label><input type='checkbox'".($temp_set['bb_green']?" checked='checked'":null)." name='bb_green' value='1' /> 绿色文字 [green]*</label><br />";
+echo "<label><input type='checkbox'".($temp_set['bb_blue']?" checked='checked'":null)." name='bb_blue' value='1' /> 蓝色文字 [blue]*</label><br />";
+echo "<label><input type='checkbox'".($temp_set['bb_white']?" checked='checked'":null)." name='bb_white' value='1' /> 白色文字 [white]*</label><br />";
+echo "<label><input type='checkbox'".($temp_set['bb_size']?" checked='checked'":null)." name='bb_size' value='1' /> 字体大小</label><br />";
+echo "[size=字体大小]текст[/size]<br />";
+echo "<label><input type='checkbox'".($temp_set['bb_http']?" checked='checked'":null)." name='bb_http' value='1' /> 突出显示链接</label><br />";
 echo "http://...<br />";
-echo "<label><input type='checkbox'".($temp_set['bb_url']?" checked='checked'":null)." name='bb_url' value='1' /> Вставка ссылок</label><br />";
-echo "[url=адрес ссылки]Название ссылки[/url]<br />";
-echo "<label><input type='checkbox'".($temp_set['bb_img']?" checked='checked'":null)." name='bb_img' value='1' /> Вставка изображений</label><br />";
-echo "[img]URL изображения[/img]<br />";
+echo "<label><input type='checkbox'".($temp_set['bb_url']?" checked='checked'":null)." name='bb_url' value='1' /> 插入链接</label><br />";
+echo "[url=连结地址]链接名称[/url]<br />";
+echo "<label><input type='checkbox'".($temp_set['bb_img']?" checked='checked'":null)." name='bb_img' value='1' /> 插入图像</label><br />";
+echo "[img]图片URL[/img]<br />";
 echo "<br />";
-echo "* Необходим закрывающий тег<br />";
-echo "<input value='Применить' name='save' type='submit' />";
+echo "* 需要一个结束标签<br />";
+echo "<input value='申请' name='save' type='submit' />";
 echo "</form>";
 if (user_access('adm_panel_show')){
 echo "<div class='foot'>";

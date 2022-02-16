@@ -12,7 +12,7 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('adm_themes',null,'index.php?'.SID);
 adm_check();
-$set['title']='Темы оформления';
+$set['title']='设计主题';
 include_once '../sys/inc/thead.php';
 title();
 $opendirthem=opendir(H.'style/themes');
@@ -27,7 +27,7 @@ if (isset($_GET['delete']) && in_array("$_GET[delete]", $themes3) && isset($_GET
 {
 $del_them=$_GET['delete'];
 if ($del_them==$temp_set['set_them2'] || $del_them==$temp_set['set_them'])
-$err='Тема используется по умолчанию';
+$err='主题默认使用';
 else
 {
 if (@delete_dir(H.'style/themes/'.$del_them))
@@ -44,7 +44,7 @@ closedir($opendirthem);
 msg("Тема успешно удалена");
 }
 else
-$err="Невозможно удалить тему";
+$err="无法删除主题";
 }
 }
 err();
@@ -73,19 +73,19 @@ echo "  </td>";
 echo "   </tr>";
 echo "   <tr>";
 echo "  <td class='p_m'>";
-echo "Папка с темой: <span title='/style/themes/$themes/'>$themes</span><br />";
+echo "主题文件夹: <span title='/style/themes/$themes/'>$themes</span><br />";
 // размер файла таблиц стилей
 echo (is_file(H.'style/themes/'.$themes.'/style.css'))?"<a href='/style/themes/$themes/style.css'>style.css</a>: ".size_file(filesize(H.'style/themes/'.$themes.'/style.css'))."<br />":"Нет style.css<br />";
 if ($themes==$temp_set['set_them'])
 {
-echo "По умолчанию для WAP<br />";
+echo "默认情况下，WAP<br />";
 }
 if ($themes==$temp_set['set_them2'])
 {
-echo "По умолчанию для WEB<br />";
+echo "默认情况下为WEB<br />";
 }
-echo 'Стоит у '.dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `set_them` = '$themes' OR `set_them2` = '$themes'"),0)." чел.<br />";
-echo "<a href='?delete=$themes&amp;page=$page'>Удалить</a><br />";
+echo '站在'.dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `set_them` = '$themes' OR `set_them2` = '$themes'"),0)." 伙计.<br />";
+echo "<a href='?delete=$themes&amp;page=$page'>移走</a><br />";
 echo "  </td>";
 echo "   </tr>";
 }
@@ -95,17 +95,17 @@ if (isset($_GET['delete']) && in_array("$_GET[delete]", $themes3))
 $del_them=$_GET['delete'];
 echo "<div class='err'>";
 if ($del_them==$temp_set['set_them2'] || $del_them==$temp_set['set_them'])
-echo "Тема ".(($name=@file_get_contents(H.'style/themes/'.$del_them.'/them.name'))?$name:$del_them)." установлена по умолчанию<br /><a href='?page=$page'>Отмена</a><br />";
+echo "Тема ".(($name=@file_get_contents(H.'style/themes/'.$del_them.'/them.name'))?$name:$del_them)." 默认安装<br /><a href='?page=$page'>取消</a><br />";
 else
 {
-echo "Подтвердите удаление (".(($name=@file_get_contents(H.'style/themes/'.$del_them.'/them.name'))?$name:$del_them)."):<br />";
-echo "<a href='?delete=$del_them&amp;page=$page&amp;ok'>Удалить</a> | <a href='?page=$page'>Отмена</a><br />";
+echo "确认删除 (".(($name=@file_get_contents(H.'style/themes/'.$del_them.'/them.name'))?$name:$del_them)."):<br />";
+echo "<a href='?delete=$del_them&amp;page=$page&amp;ok'>移走</a> | <a href='?page=$page'>取消</a><br />";
 }
 echo "</div>";
 }
 if ($k_page>1)str('?',$k_page,$page); // Вывод страниц
 echo "<div class='foot'>";
-echo "&raquo;<a href='them_installer.php'>Установка тем</a><br />";
+echo "&raquo;<a href='them_installer.php'>安装主题</a><br />";
 if (user_access('adm_panel_show'))
 echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
 echo "</div>";

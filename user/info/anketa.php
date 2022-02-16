@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../../sys//inc/start.php';
 include_once '../../sys//inc/compress.php';
 include_once '../../sys//inc/sess.php';
@@ -13,7 +13,7 @@ if (isset($user))$ank['id']=$user['id'];
 if (isset($_GET['id']))$ank['id']=intval($_GET['id']);if ($ank['id']==0)
 {
 $ank=get_user($ank['id']);
-$set['title']=$ank['nick'].' - анкета '; //网页标题
+$set['title']=$ank['nick'].' - 问卷调查 '; //网页标题
 include_once '../../sys/inc/thead.php';
 title();
 aut();/*
@@ -48,7 +48,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0)
 	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей
 	{
 		echo '<div class="mess">';
-		echo 'Просматривать страничку пользователя могут только его друзья!';
+		echo '只有他的朋友才能查看用户的页面！';
 		echo '</div>';
 		
 		// В друзья
@@ -56,11 +56,11 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0)
 		{
 			echo '<div class="nav1">';
 			if ($frend_new == 0 && $frend==0){
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=".$ank['id']."'>Добавить в друзья</a><br />";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=".$ank['id']."'>添加到朋友</a><br />";
 			}elseif ($frend_new == 1){
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$ank[id]'>Отклонить заявку</a><br />";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$ank[id]'>拒绝申请</a><br />";
 			}elseif ($frend == 2){
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>Удалить из друзей</a><br />";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>从朋友中删除</a><br />";
 			}
 			echo "</div>";
 		}
@@ -71,7 +71,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0)
 	if ($uSet['privat_str'] == 0) // Если закрыта
 	{
 		echo '<div class="mess">';
-		echo 'Пользователь запретил просматривать его страничку!';
+		echo '用户已禁止查看他的页面！';
 		echo '</div>';
 		
 	include_once '../../sys/inc/tfoot.php';
@@ -238,7 +238,7 @@ $a = "</font>";
 }
 if ($ank['group_access']>1)echo "<div class='err'>$ank[group_name]</div>";
 echo "<div class='nav2'>";
-echo "<span class=\"ank_n\">Посл. посещение:</span> <span class=\"ank_d\">".vremja($ank['date_last'])."</span><br />";
+echo "<span class=\"ank_n\">参观后:</span> <span class=\"ank_d\">".vremja($ank['date_last'])."</span><br />";
 echo "</div>";
 
 echo "<div class='nav1'>";
@@ -311,7 +311,7 @@ echo "<div style='background-color: #73a8c7; width: 200px; height: 17px;'>
 
 if (isset($user) && $user['id']!=$ank['id']){
 echo "<div class='nav2'>";
-echo "<img src='/style/icons/pochta.gif' alt='*' /> <a href=\"/mail.php?id=$ank[id]\"><b>Написать в приват</b></a>";
+echo "<img src='/style/icons/pochta.gif' alt='*' /> <a href=\"/mail.php?id=$ank[id]\"><b>私下写</b></a>";
 echo "</div>";
 }
 
@@ -322,7 +322,7 @@ echo "</div>";
 //-----------------инфо----------------//
 echo "<div class='nav2'>";
 echo "<b>ID: $ank[id]</b><br /> ";
-echo "Баллы (";
+echo "分数 (";
 echo "<font color='green'>$ank[balls]</font>)<br /> ";echo $sMonet[2] . ' (' . $ank['money'] . ')<br />';
 echo "<img src='/style/icons/time.png' alt='*' width='14'/> ($displaystring)<br />  ";
 echo "</div>";
@@ -332,77 +332,77 @@ echo "</div>";
 //------------------основное-------------------//
 echo "<div class='nav1'>";
 if ($ank['ank_name']!=NULL)
-echo "$name<span class=\"ank_n\">Имя:</span>$a <span class=\"ank_d\">$ank[ank_name]</span><br />";
+echo "$name<span class=\"ank_n\">姓名:</span>$a <span class=\"ank_d\">$ank[ank_name]</span><br />";
 else
-echo "$name<span class=\"ank_n\">Имя:</span>$a<br />";
+echo "$name<span class=\"ank_n\">姓名:</span>$a<br />";
 
-echo "$pol<span class=\"ank_n\">Пол:</span>$a <span class=\"ank_d\">".(($ank['pol']==1)?'Мужской':'Женский')."</span><br />";
+echo "$pol<span class=\"ank_n\">性别:</span>$a <span class=\"ank_d\">".(($ank['pol']==1)?'男':'女')."</span><br />";
 
 if ($ank['ank_city']!=NULL)
-echo "$gorod<span class=\"ank_n\">Город:</span>$a <span class=\"ank_d\">".output_text($ank['ank_city'])."</span><br />";
+echo "$gorod<span class=\"ank_n\">城市:</span>$a <span class=\"ank_d\">".output_text($ank['ank_city'])."</span><br />";
 else
-echo "$gorod<span class=\"ank_n\">Город:</span>$a<br />";
+echo "$gorod<span class=\"ank_n\">城市:</span>$a<br />";
 
 if ($ank['ank_d_r']!=NULL && $ank['ank_m_r']!=NULL && $ank['ank_g_r']!=NULL){
-if ($ank['ank_m_r']==1)$ank['mes']='Января';
-elseif ($ank['ank_m_r']==2)$ank['mes']='Февраля';
-elseif ($ank['ank_m_r']==3)$ank['mes']='Марта';
-elseif ($ank['ank_m_r']==4)$ank['mes']='Апреля';
-elseif ($ank['ank_m_r']==5)$ank['mes']='Мая';
-elseif ($ank['ank_m_r']==6)$ank['mes']='Июня';
-elseif ($ank['ank_m_r']==7)$ank['mes']='Июля';
-elseif ($ank['ank_m_r']==8)$ank['mes']='Августа';
-elseif ($ank['ank_m_r']==9)$ank['mes']='Сентября';
-elseif ($ank['ank_m_r']==10)$ank['mes']='Октября';
-elseif ($ank['ank_m_r']==11)$ank['mes']='Ноября';
-else $ank['mes']='Декабря';
-echo "$date<span class=\"ank_n\">Дата рождения:</span>$a $ank[ank_d_r] $ank[mes] $ank[ank_g_r]г. <br />";
+if ($ank['ank_m_r']==1)$ank['mes']='一月';
+elseif ($ank['ank_m_r']==2)$ank['mes']='二月';
+elseif ($ank['ank_m_r']==3)$ank['mes']='三月';
+elseif ($ank['ank_m_r']==4)$ank['mes']='四月';
+elseif ($ank['ank_m_r']==5)$ank['mes']='五月';
+elseif ($ank['ank_m_r']==6)$ank['mes']='六月';
+elseif ($ank['ank_m_r']==7)$ank['mes']='七月';
+elseif ($ank['ank_m_r']==8)$ank['mes']='八月';
+elseif ($ank['ank_m_r']==9)$ank['mes']='九月';
+elseif ($ank['ank_m_r']==10)$ank['mes']='十月';
+elseif ($ank['ank_m_r']==11)$ank['mes']='十一月';
+else $ank['mes']='十二月';
+echo "$date<span class=\"ank_n\">出生日期:</span>$a $ank[ank_d_r] $ank[mes] $ank[ank_g_r]г. <br />";
 $ank['ank_age']=date("Y")-$ank['ank_g_r'];
 if (date("n")<$ank['ank_m_r'])$ank['ank_age']=$ank['ank_age']-1;
 elseif (date("n")==$ank['ank_m_r']&& date("j")<$ank['ank_d_r'])$ank['ank_age']=$ank['ank_age']-1;
-echo "<span class=\"ank_n\">Возраст:</span> $ank[ank_age] ";
+echo "<span class=\"ank_n\">年龄:</span> $ank[ank_age] ";
 }
 elseif($ank['ank_d_r']!=NULL && $ank['ank_m_r']!=NULL)
 {
-if ($ank['ank_m_r']==1)$ank['mes']='Января';
-elseif ($ank['ank_m_r']==2)$ank['mes']='Февраля';
-elseif ($ank['ank_m_r']==3)$ank['mes']='Марта';
-elseif ($ank['ank_m_r']==4)$ank['mes']='Апреля';
-elseif ($ank['ank_m_r']==5)$ank['mes']='Мая';
-elseif ($ank['ank_m_r']==6)$ank['mes']='Июня';
-elseif ($ank['ank_m_r']==7)$ank['mes']='Июля';
-elseif ($ank['ank_m_r']==8)$ank['mes']='Августа';
-elseif ($ank['ank_m_r']==9)$ank['mes']='Сентября';
-elseif ($ank['ank_m_r']==10)$ank['mes']='Октября';
-elseif ($ank['ank_m_r']==11)$ank['mes']='Ноября';
-else $ank['mes']='Декабря';
-echo "$date<span class=\"ank_n\">День рождения:</span>$a $ank[ank_d_r] $ank[mes] ";
-}else{echo "$date<span class=\"ank_n\">Дата рождения:</span>$a";}
+	if ($ank['ank_m_r']==1)$ank['mes']='一月';
+	elseif ($ank['ank_m_r']==2)$ank['mes']='二月';
+	elseif ($ank['ank_m_r']==3)$ank['mes']='三月';
+	elseif ($ank['ank_m_r']==4)$ank['mes']='四月';
+	elseif ($ank['ank_m_r']==5)$ank['mes']='五月';
+	elseif ($ank['ank_m_r']==6)$ank['mes']='六月';
+	elseif ($ank['ank_m_r']==7)$ank['mes']='七月';
+	elseif ($ank['ank_m_r']==8)$ank['mes']='八月';
+	elseif ($ank['ank_m_r']==9)$ank['mes']='九月';
+	elseif ($ank['ank_m_r']==10)$ank['mes']='十月';
+	elseif ($ank['ank_m_r']==11)$ank['mes']='十一月';
+	else $ank['mes']='十二月';
+echo "$date<span class=\"ank_n\">生日:</span>$a $ank[ank_d_r] $ank[mes] ";
+}else{echo "$date<span class=\"ank_n\">出生日期:</span>$a";}
 
-if ($ank['ank_d_r']>=19 && $ank['ank_m_r']==1){echo "| Водолей<br />";}
-elseif ($ank['ank_d_r']<=19 && $ank['ank_m_r']==2){echo "| Водолей<br />";}
-elseif ($ank['ank_d_r']>=18 && $ank['ank_m_r']==2){echo "| Рыбы<br />";}
-elseif ($ank['ank_d_r']<=21 && $ank['ank_m_r']==3){echo "| Рыбы<br />";}
-elseif ($ank['ank_d_r']>=20 && $ank['ank_m_r']==3){echo "| Овен<br />";}
-elseif ($ank['ank_d_r']<=21 && $ank['ank_m_r']==4){echo "| Овен<br />";}
-elseif ($ank['ank_d_r']>=20 && $ank['ank_m_r']==4){echo "| Телец<br />";}
-elseif ($ank['ank_d_r']<=21 && $ank['ank_m_r']==5){echo "| Телец<br />";}
-elseif ($ank['ank_d_r']>=20 && $ank['ank_m_r']==5){echo "| Близнецы<br />";}
-elseif ($ank['ank_d_r']<=22 && $ank['ank_m_r']==6){echo "| Близнецы<br />";}
-elseif ($ank['ank_d_r']>=21 && $ank['ank_m_r']==6){echo "| Рак<br />";}
-elseif ($ank['ank_d_r']<=22 && $ank['ank_m_r']==7){echo "| Рак<br />";}
-elseif ($ank['ank_d_r']>=23 && $ank['ank_m_r']==7){echo "| Лев<br />";}
-elseif ($ank['ank_d_r']<=22 && $ank['ank_m_r']==8){echo "| Лев<br />";}
-elseif ($ank['ank_d_r']>=22 && $ank['ank_m_r']==8){echo "| Дева<br />";}
-elseif ($ank['ank_d_r']<=23 && $ank['ank_m_r']==9){echo "| Дева<br />";}
-elseif ($ank['ank_d_r']>=22 && $ank['ank_m_r']==9){echo "| Весы<br />";}
-elseif ($ank['ank_d_r']<=23 && $ank['ank_m_r']==10){echo "| Весы<br />";}
-elseif ($ank['ank_d_r']>=22 && $ank['ank_m_r']==10){echo "| Скорпион<br />";}
-elseif ($ank['ank_d_r']<=22 && $ank['ank_m_r']==11){echo "| Скорпион<br />";}
-elseif ($ank['ank_d_r']>=21 && $ank['ank_m_r']==11){echo "| Стрелец<br />";}
-elseif ($ank['ank_d_r']<=22 && $ank['ank_m_r']==12){echo "| Стрелец<br />";}
-elseif ($ank['ank_d_r']>=21 && $ank['ank_m_r']==12){echo "| Козерог<br />";}
-elseif ($ank['ank_d_r']<=20 && $ank['ank_m_r']==1){echo "| Козерог<br />";}
+if ($ank['ank_d_r']>=19 && $ank['ank_m_r']==1){echo "| 水瓶座<br />";}
+elseif ($ank['ank_d_r']<=19 && $ank['ank_m_r']==2){echo "| 水瓶座<br />";}
+elseif ($ank['ank_d_r']>=18 && $ank['ank_m_r']==2){echo "| 双鱼座<br />";}
+elseif ($ank['ank_d_r']<=21 && $ank['ank_m_r']==3){echo "| 双鱼座<br />";}
+elseif ($ank['ank_d_r']>=20 && $ank['ank_m_r']==3){echo "| 白羊座<br />";}
+elseif ($ank['ank_d_r']<=21 && $ank['ank_m_r']==4){echo "| 白羊座<br />";}
+elseif ($ank['ank_d_r']>=20 && $ank['ank_m_r']==4){echo "| 金牛座<br />";}
+elseif ($ank['ank_d_r']<=21 && $ank['ank_m_r']==5){echo "| 金牛座<br />";}
+elseif ($ank['ank_d_r']>=20 && $ank['ank_m_r']==5){echo "| 双子胎<br />";}
+elseif ($ank['ank_d_r']<=22 && $ank['ank_m_r']==6){echo "| 双子胎<br />";}
+elseif ($ank['ank_d_r']>=21 && $ank['ank_m_r']==6){echo "| 巨蟹座<br />";}
+elseif ($ank['ank_d_r']<=22 && $ank['ank_m_r']==7){echo "| 巨蟹座<br />";}
+elseif ($ank['ank_d_r']>=23 && $ank['ank_m_r']==7){echo "| 狮子座<br />";}
+elseif ($ank['ank_d_r']<=22 && $ank['ank_m_r']==8){echo "| 狮子座<br />";}
+elseif ($ank['ank_d_r']>=22 && $ank['ank_m_r']==8){echo "| 处女座<br />";}
+elseif ($ank['ank_d_r']<=23 && $ank['ank_m_r']==9){echo "| 处女座<br />";}
+elseif ($ank['ank_d_r']>=22 && $ank['ank_m_r']==9){echo "| 天秤座<br />";}
+elseif ($ank['ank_d_r']<=23 && $ank['ank_m_r']==10){echo "| 天秤座<br />";}
+elseif ($ank['ank_d_r']>=22 && $ank['ank_m_r']==10){echo "| 天蝎座<br />";}
+elseif ($ank['ank_d_r']<=22 && $ank['ank_m_r']==11){echo "| 天蝎座<br />";}
+elseif ($ank['ank_d_r']>=21 && $ank['ank_m_r']==11){echo "| 射手座<br />";}
+elseif ($ank['ank_d_r']<=22 && $ank['ank_m_r']==12){echo "| 射手座<br />";}
+elseif ($ank['ank_d_r']>=21 && $ank['ank_m_r']==12){echo "| 摩羯座<br />";}
+elseif ($ank['ank_d_r']<=20 && $ank['ank_m_r']==1){echo "| 摩羯座<br />";}
 
 echo "</div>";
 //--------------------------------------------------//
@@ -411,36 +411,36 @@ echo "</div>";
 //--------------внешность---------------//
 echo "<div class='nav2'>";
 if ($ank['ank_rost']!=NULL)
-echo "$rost<span class=\"ank_n\">Рост:</span>$a <span class=\"ank_d\">$ank[ank_rost]</span><br />";
+echo "$rost<span class=\"ank_n\">身高:</span>$a <span class=\"ank_d\">$ank[ank_rost]</span><br />";
 else
-echo "$rost<span class=\"ank_n\">Рост:</span>$a<br />";if ($ank['ank_ves']!=NULL)
-echo "$ves<span class=\"ank_n\">Вес:</span>$a <span class=\"ank_d\">$ank[ank_ves]</span><br />";
+echo "$rost<span class=\"ank_n\">身高:</span>$a<br />";if ($ank['ank_ves']!=NULL)
+echo "$ves<span class=\"ank_n\">重量:</span>$a <span class=\"ank_d\">$ank[ank_ves]</span><br />";
 else
-echo "$ves<span class=\"ank_n\">Вес:</span>$a<br />";
+echo "$ves<span class=\"ank_n\">重量:</span>$a<br />";
 
 if ($ank['ank_cvet_glas']!=NULL)
-echo "$glaza<span class=\"ank_n\">Цвет глаз:</span>$a <span class=\"ank_d\">$ank[ank_cvet_glas]</span><br />";
+echo "$glaza<span class=\"ank_n\">眼睛颜色:</span>$a <span class=\"ank_d\">$ank[ank_cvet_glas]</span><br />";
 else
-echo "$glaza<span class=\"ank_n\">Цвет глаз:</span>$a<br />";if ($ank['ank_volos']!=NULL)
-echo "$volos<span class=\"ank_n\">Волосы:</span>$a <span class=\"ank_d\">$ank[ank_volos]</span><br />";
+echo "$glaza<span class=\"ank_n\">眼睛颜色:</span>$a<br />";if ($ank['ank_volos']!=NULL)
+echo "$volos<span class=\"ank_n\">头发:</span>$a <span class=\"ank_d\">$ank[ank_volos]</span><br />";
 else
-echo "$volos<span class=\"ank_n\">Волосы:</span>$a<br />";
+echo "$volos<span class=\"ank_n\">头发:</span>$a<br />";
 
-echo "$telo<span class=\"ank_n\">Телосложение:</span>$a";
+echo "$telo<span class=\"ank_n\">身体类型:</span>$a";
 if ($ank['ank_telosl']==1)
-echo " <span class=\"ank_d\">Нет ответа</span><br />";
+echo " <span class=\"ank_d\">没有人回答</span><br />";
 if ($ank['ank_telosl']==2)
-echo " <span class=\"ank_d\">Худощавое</span><br />";
+echo " <span class=\"ank_d\">瘦骨嶙峋</span><br />";
 if ($ank['ank_telosl']==3)
-echo " <span class=\"ank_d\">Обычное</span><br />";
+echo " <span class=\"ank_d\">平常的</span><br />";
 if ($ank['ank_telosl']==4)
-echo " <span class=\"ank_d\">Спортивное</span><br />";
+echo " <span class=\"ank_d\">运动项目</span><br />";
 if ($ank['ank_telosl']==5)
-echo " <span class=\"ank_d\">Мускулистое</span><br />";
+echo " <span class=\"ank_d\">肌肉发达</span><br />";
 if ($ank['ank_telosl']==6)
-echo " <span class=\"ank_d\">Плотное</span><br />";
+echo " <span class=\"ank_d\">密密麻麻</span><br />";
 if ($ank['ank_telosl']==7)
-echo " <span class=\"ank_d\">Полное</span><br />";
+echo " <span class=\"ank_d\">全</span><br />";
 if ($ank['ank_telosl']==0)
 echo "<br />";
 echo "</div>";
@@ -450,19 +450,19 @@ echo "</div>";
 //--------------Знакомства---------------//
 echo "<div class='nav1'>";
 
-echo "$orien<span class=\"ank_n\">Ориентация:</span>$a";
+echo "$orien<span class=\"ank_n\">方向感:</span>$a";
 if ($ank['ank_orien']==0)
 echo "<br />";
 if ($ank['ank_orien']==1)
-echo " <span class=\"ank_d\">Гетеро</span><br />";
+echo " <span class=\"ank_d\">杂种</span><br />";
 if ($ank['ank_orien']==2)
-echo " <span class=\"ank_d\">Би</span><br />";
+echo " <span class=\"ank_d\">毕</span><br />";
 if ($ank['ank_orien']==3)
-echo " <span class=\"ank_d\">Гей/Лесби</span><br />";
+echo " <span class=\"ank_d\">同性恋/女同性恋</span><br />";
 
-echo "$loves<span class=\"ank_n\">Цели знакомства:</span>$a<br />";
+echo "$loves<span class=\"ank_n\">约会目标:</span>$a<br />";
 
-if ($ank['ank_lov_1']==1)echo "<img src='/style/icons/str.gif' alt='*' />  Дружба и общение<br />";
+if ($ank['ank_lov_1']==1)echo "<img src='/style/icons/str.gif' alt='*' />  友谊与沟通<br />";
 if ($ank['ank_lov_2']==1)echo "<img src='/style/icons/str.gif' alt='*' />  Переписка<br />";
 if ($ank['ank_lov_3']==1)echo "<img src='/style/icons/str.gif' alt='*' />  Любовь, отношения<br />";
 if ($ank['ank_lov_4']==1)echo "<img src='/style/icons/str.gif' alt='*' />  Регулярный секс вдвоем<br />";

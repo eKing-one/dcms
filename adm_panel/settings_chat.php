@@ -30,26 +30,26 @@ $temp_set['chat_umnik']=$_POST['chat_umnik'];
 if (save_settings($temp_set))
 {
 admin_log('Настройки','Система','Изменение параметров чата');
-msg('Настройки успешно приняты');
+msg('设置已成功接受');
 }
 else
-$err='Нет прав для изменения файла настроек';
+$err='没有更改设置文件的权限';
 }
 err();
 aut();
 echo "<form method=\"post\" action=\"?\">";
-echo "Автообновление в чате:<br /><input type='text' name='time_chat' value='$temp_set[time_chat]' maxlength='3' /><br />";
-echo "Таймаут между вопросами (умник в чате):<br /><input type='text' name='umnik_new' value='$temp_set[umnik_new]' maxlength='3' /><br />";
-echo "Таймаут между подсказками (умник в чате):<br /><input type='text' name='umnik_help' value='$temp_set[umnik_help]' maxlength='3' /><br />";
-echo "Общее время ожидание ответа (умник в чате):<br /><input type='text' name='umnik_time' value='$temp_set[umnik_time]' maxlength='3' /><br />";
-echo "Таймаут между шутками (шутник в чате):<br /><input type='text' name='shutnik_new' value='$temp_set[shutnik_new]' maxlength='3' /><br />";
-echo "Ник шутника:<br /><input type='text' name='chat_shutnik' value='$temp_set[chat_shutnik]' /><br />";
-echo "Ник умника:<br /><input type='text' name='chat_umnik' value='$temp_set[chat_umnik]' /><br />";
-echo "<input value=\"Изменить\" name='save' type=\"submit\" />";
+echo "聊天中自动更新:<br /><input type='text' name='time_chat' value='$temp_set[time_chat]' maxlength='3' /><br />";
+echo "问题之间超时（聊天中的聪明人）:<br /><input type='text' name='umnik_new' value='$temp_set[umnik_new]' maxlength='3' /><br />";
+echo "提示之间超时（聊天中的聪明人）:<br /><input type='text' name='umnik_help' value='$temp_set[umnik_help]' maxlength='3' /><br />";
+echo "响应的总等待时间（聊天中的聪明人）:<br /><input type='text' name='umnik_time' value='$temp_set[umnik_time]' maxlength='3' /><br />";
+echo "笑话之间的超时（聊天中的小丑）:<br /><input type='text' name='shutnik_new' value='$temp_set[shutnik_new]' maxlength='3' /><br />";
+echo "小丑的昵称:<br /><input type='text' name='chat_shutnik' value='$temp_set[chat_shutnik]' /><br />";
+echo "聪明人的昵称:<br /><input type='text' name='chat_umnik' value='$temp_set[chat_umnik]' /><br />";
+echo "<input value=\"要改变\" name='save' type=\"submit\" />";
 echo "</form>";
 echo "<div class='foot'>";
-echo "&raquo;<a href='/adm_panel/chat_shut.php'>Шутки</a><br />";
-echo "&raquo;<a href='/adm_panel/chat_vopr.php'>Вопросы викторины</a><br />";
+echo "&raquo;<a href='/adm_panel/chat_shut.php'>笑话</a><br />";
+echo "&raquo;<a href='/adm_panel/chat_vopr.php'>问答题</a><br />";
 if (user_access('adm_panel_show'))
 echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
 echo "</div>";

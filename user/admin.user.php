@@ -8,7 +8,7 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
-$set['title'] = 'Администрация'; //网页标题
+$set['title'] = '行政工作'; //网页标题
 include_once '../sys/inc/thead.php';
 title();
 aut();

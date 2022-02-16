@@ -13,7 +13,7 @@ include_once '../sys/inc/user.php';
 user_access('adm_set_sys',null,'index.php?'.SID);
 adm_check();
 
-$set['title']='Настройки системы';
+$set['title']='系统设置';
 include_once '../sys/inc/thead.php';
 title();
 if (isset($_POST['save']))
@@ -59,7 +59,7 @@ $temp_set['meta_description']=esc(stripcslashes(htmlspecialchars($_POST['meta_de
 if (save_settings($temp_set))
 {
 admin_log('Настройки','Система','Изменение системных настроек');
-msg('Настройки успешно приняты');
+msg('设置已成功接受');
 }
 
 else
@@ -72,12 +72,12 @@ aut();
 
 echo "<form method=\"post\" action=\"?\">";
 
-echo "Название сайта:<br /><input name=\"title\" value=\"$temp_set[title]\" type=\"text\" /><br />";
-echo "Пунктов на страницу:<br /><input name=\"p_str\" value=\"$temp_set[p_str]\" type=\"text\" /><br />";
+echo "网站名称:<br /><input name=\"title\" value=\"$temp_set[title]\" type=\"text\" /><br />";
+echo "每页积分:<br /><input name=\"p_str\" value=\"$temp_set[p_str]\" type=\"text\" /><br />";
 
 
 
-echo "Тема (WAP):<br /><select name='set_them'>";
+echo "主题(WAP):<br /><select name='set_them'>";
 $opendirthem=opendir(H.'style/themes');
 while ($themes=readdir($opendirthem)){
 // пропускаем корневые папки и файлы
@@ -89,7 +89,7 @@ echo "<option value='$themes'".($temp_set['set_them']==$themes?" selected='selec
 closedir($opendirthem);
 echo "</select><br />";
 
-echo "Тема (WEB):<br /><select name='set_them2'>";
+echo "主题(WEB):<br /><select name='set_them2'>";
 $opendirthem=opendir(H.'style/themes');
 
 while ($themes=readdir($opendirthem)){
@@ -101,28 +101,28 @@ echo "<option value='$themes'".($temp_set['set_them2']==$themes?" selected='sele
 }
 closedir($opendirthem);
 echo "</select><br />";
-echo "Ключевые слова (META):<br />";
+echo "关键词(META):<br />";
 echo "<textarea name='meta_keywords'>$temp_set[meta_keywords]</textarea><br />";
-echo "Описание (META):<br />";
+echo "资料描述(META):<br />";
 echo "<textarea name='meta_description'>$temp_set[meta_description]</textarea><br />";
 
 
-echo "<label><input type='checkbox'".($temp_set['antidos']?" checked='checked'":null)." name='antidos' value='1' /> Анти-Dos*</label><br />";
-echo "<label><input type='checkbox'".($temp_set['antimat']?" checked='checked'":null)." name='antimat' value='1' /> Анти-Мат</label><br />";
+echo "<label><input type='checkbox'".($temp_set['antidos']?" checked='checked'":null)." name='antidos' value='1' />反Dos*</label><br />";
+echo "<label><input type='checkbox'".($temp_set['antimat']?" checked='checked'":null)." name='antimat' value='1' /> 反CC</label><br />";
 
-echo "Ошибки интерпретатора:<br /><select name=\"show_err_php\">";
-echo "<option value='0'".($temp_set['show_err_php']==0?" selected='selected'":null).">Скрывать</option>";
-echo "<option value='1'".($temp_set['show_err_php']==1?" selected='selected'":null).">Показывать администрации</option>";
+echo "解释器错误:<br /><select name=\"show_err_php\">";
+echo "<option value='0'".($temp_set['show_err_php']==0?" selected='selected'":null).">藏起来</option>";
+echo "<option value='1'".($temp_set['show_err_php']==1?" selected='selected'":null).">节目管理</option>";
 echo "</select><br />";
 
 
 
 
-echo "E-mail для BackUp:<br /><input type='text' name='mail_backup' value='$temp_set[mail_backup]'  /><br />";
+echo "电子邮件备份:<br /><input type='text' name='mail_backup' value='$temp_set[mail_backup]'  /><br />";
 
 echo "<br />";
-echo "* Анти-Dos - защита от частых запросов с одного IP-адреса<br />";
-echo "<input value=\"Изменить\" name='save' type=\"submit\" />";
+echo "* 反Dos-防止来自单个IP地址的频繁请求<br />";
+echo "<input value=\"要改变\" name='save' type=\"submit\" />";
 echo "</form>";
 
 if (user_access('adm_panel_show')){

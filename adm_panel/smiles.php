@@ -89,7 +89,7 @@ if(isset($_GET['delete']))
 	
 	dbquery("DELETE FROM `smile_dir` WHERE `id` = '" . intval($_GET['delete']) . "'");
 	
-	$_SESSION['message'] = 'Категория успешно удалена';
+	$_SESSION['message'] = '类别已成功删除';
 	header("Location: ?");
 	exit;
 }
@@ -117,17 +117,17 @@ if (isset($_GET['id']))
 		
 		?>
 		<form enctype="multipart/form-data" action="?id=<?=intval($_GET['id'])?>&amp;act=add_smile&amp;ok" method="post">
-		Количество файлов:<br />
+		档案数目:<br />
 		<input type="text" name="forms" value="<?=$forms?>"/><br />
 		<input class="submit" type="submit" value="Показать формы" /><br />
 		<?
 		for ($i=0; $i < $forms; $i++)
 		{
-			echo ($i+1) . ') Файл: <input name="file_' . $i . '" type="file" /><br />';
-			echo ($i+1) . ') Смайл(например :-) или :-D .....)<br /><input type="text" name="smile_' . $i . '" maxlength="32" /><br />';
+			echo ($i+1) . ') 档案: <input name="file_' . $i . '" type="file" /><br />';
+			echo ($i+1) . ') 一个微笑（例如：-）或：-D....)<br /><input type="text" name="smile_' . $i . '" maxlength="32" /><br />';
 		}
 		?>
-		<input type="submit" value="Добавить" />
+		<input type="submit" value="添加" />
 		<br /><a href="?id=<?=intval($_GET['id'])?>">返回</a><br />
 		</form>
 		<?
@@ -185,7 +185,7 @@ if (isset($_GET['id']))
 				if (!isset($err))
 				{
 					dbquery("UPDATE `smile` SET `smile` = '$smile' WHERE `id` = '$post[id]'");
-					$_SESSION['message'] = 'Изменения приняты';
+					$_SESSION['message'] = '接受的更改';
 					header("Location: ?id=$post[dir]&page=$page");
 					exit;
 				}
@@ -193,9 +193,9 @@ if (isset($_GET['id']))
 			?>
 			<form method="post" action="?id=<?=$post['dir']?>&amp;edit=<?=$post['id']?>&amp;page=<?=$page?>">
 			<?=(isset($err) ? '<font color="red">' . $err . '</font><br />' : null)?>
-			Смайл (например :-) ..)<br />
+			一个微笑（例如 :-) ..)<br />
 			<input type="text" name="smile" maxlength="32" value="<?=text($post['smile'])?>"/><br />
-			<input type="submit" name="sav" value="Изменить" />
+			<input type="submit" name="sav" value="要改变" />
 			</form>
 			<?
 		}
@@ -209,11 +209,11 @@ if (isset($_GET['id']))
 
 	?>
 	<div class="foot">
-	<img src="/style/icons/str.gif" alt="*" /> <a href="?id=<?=intval($_GET['id'])?>&amp;act=add_smile">Добавить смайл</a>
+	<img src="/style/icons/str.gif" alt="*" /> <a href="?id=<?=intval($_GET['id'])?>&amp;act=add_smile">添加一个微笑</a>
 	</div>
 
 	<div class="foot">
-	<img src="/style/icons/str.gif" alt="*" /> <a href="smiles.php">Категории смайлов</a>
+	<img src="/style/icons/str.gif" alt="*" /> <a href="smiles.php">表情符号的类别</a>
 	</div>
 	<?
 	include_once H.'sys/inc/tfoot.php';
@@ -233,13 +233,13 @@ if(isset($_GET['act']) && $_GET['act'] == 'add_kat')
 		$name = mysql_real_escape_string($_POST['name']);
 
 		if(strlen2($name) < 1)
-		$err = 'Слишком короткое название';
+		$err = '名字太短了';
 		
 		if(!isset($err))
 		{
 			dbquery("INSERT INTO `smile_dir` (`name` ) VALUES ('$name')");
 			
-			$_SESSION['message'] = 'Категория успешно создана';
+			$_SESSION['message'] = '该类别已成功创建';
 			header("Location: ?act=add_kat");
 			exit;
 		}
@@ -249,10 +249,10 @@ if(isset($_GET['act']) && $_GET['act'] == 'add_kat')
 	
 	?>
 	<form method="post" action="?act=add_kat">
-	Название<br />
+	标题<br />
 	<input type="text" name="name" maxlength="32" /><br />
 
-	<input type="submit" name="save" value="Добавить" />
+	<input type="submit" name="save" value="添加" />
 	</form>
 	<?
 }
@@ -303,12 +303,12 @@ while($post = dbarray($q))
 			$name = my_esc($_POST['name']);
 		
 			if(strlen2($name) < 1)
-			$err = 'Название не менее 1 символа';
+			$err = '至少1个字符的名称';
 			
 			if (!isset($err))
 			{
 				dbquery("UPDATE `smile_dir` SET `name` = '" . $name . "' WHERE `id` = '" . intval($_GET['edit']) . "'");
-				$_SESSION['message'] = 'Категория успешно переименована';
+				$_SESSION['message'] = '该类别已成功重命名';
 				header("Location: ?");
 				exit;
 			}
@@ -317,9 +317,9 @@ while($post = dbarray($q))
 		?>
 		<form method="post" action="?edit=<?=$post['id']?>">
 		<?=(isset($err) ? '<font color="red">' . $err . '</font><br />' : null)?>
-		Название:<br />
+		标题:<br />
 		<input type="text" name="name" maxlength="32" value="<?=text($post['name'])?>"/><br />
-		<input type="submit" name="sav" value="Изменить" />
+		<input type="submit" name="sav" value="要改变" />
 		</form>
 		<?
 	}

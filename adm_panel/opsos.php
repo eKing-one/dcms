@@ -31,7 +31,7 @@ if (isset($_GET['delmin'])  && isset($_GET['delmax']) &&
 {
 dbquery("DELETE FROM `opsos` WHERE `min` = '".$_GET['delmin']."' AND `max` = '".$_GET['delmax']."' LIMIT 1");
 dbquery("OPTIMIZE TABLE `opsos`");
-msg('Диапазон успешно удален');
+msg('范围成功删除');
 }
 err();
 aut();
@@ -44,7 +44,7 @@ if ($k_post==0)
 {
 echo "   <tr>";
 echo "  <td class='p_t'>";
-echo "Нет операторов";
+echo "没有运营商";
 echo "  </td>";
 echo "   </tr>";
 }
@@ -59,17 +59,17 @@ echo "   </tr>";
 echo "   <tr>";
 echo "  <td class='p_m'>";
 echo "$post[opsos]<br />";
-echo "<a href=\"?page=$page&amp;delmin=$post[min]&amp;delmax=$post[max]\">Удалить</a><br />";
+echo "<a href=\"?page=$page&amp;delmin=$post[min]&amp;delmax=$post[max]\">移走</a><br />";
 echo "  </td>";
 echo "   </tr>";
 }
 echo "</table>";
 if ($k_page>1)str('?',$k_page,$page); // Вывод страниц
 echo "<form method=\"post\" action=\"\">";
-echo "Начальный IP адрес:<br /><input name=\"min\" size=\"16\"  value=\"\" type=\"text\" /><br />";
-echo "Завершающий IP:<br /><input name=\"max\" size=\"16\" value=\"\" type=\"text\" /><br />";
-echo "Оператор:<br /><input name=\"opsos\" size=\"16\" value=\"$opsos\" type=\"text\" /><br />";
-echo "<input value=\"Добавить\" type=\"submit\" />";
+echo "初始IP地址:<br /><input name=\"min\" size=\"16\"  value=\"\" type=\"text\" /><br />";
+echo "最终IP:<br /><input name=\"max\" size=\"16\" value=\"\" type=\"text\" /><br />";
+echo "操作员:<br /><input name=\"opsos\" size=\"16\" value=\"$opsos\" type=\"text\" /><br />";
+echo "<input value=\"添加\" type=\"submit\" />";
 echo "</form>";
 if (user_access('adm_panel_show')){
 echo "<div class='foot'>";

@@ -12,7 +12,7 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('adm_set_er',null,'index.php?'.SID);
 adm_check();
-$set['title']='Пользовательские настройки';
+$set['title']='用户设置';
 include_once '../sys/inc/thead.php';
 title();
 if (isset($_POST['save']))
@@ -37,50 +37,50 @@ $temp_set['reg_select']=esc($_POST['reg_select']);
 if (save_settings($temp_set))
 {
 admin_log('Настройки','Пользователи',"Изменение пользовательских настроек");
-msg('Настройки успешно приняты');
+msg('设置已成功接受');
 }
 else
-$err='Нет прав для изменения файла настроек';
+$err='没有更改配置文件的权限';
 }
 err();
 aut();
 echo "<form method=\"post\" action=\"?\">";
-echo "Режим регистрации:<br /><select name=\"reg_select\">";
-echo "<option value=\"close\">Закрыта</option>";
+echo "注册模式:<br /><select name=\"reg_select\">";
+echo "<option value=\"close\">已关闭</option>";
 if ($temp_set['reg_select']=='open')$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"open\"$sel>Открыта</option>";
+echo "<option value=\"open\"$sel>打开</option>";
 if ($temp_set['reg_select']=='open_mail')$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"open_mail\"$sel>Открыта + E-mail</option>";
+echo "<option value=\"open_mail\"$sel>打开 + E-mail</option>";
 echo "</select><br />";
-echo "Режим гостя:<br /><select name=\"guest_select\">";
+echo "访客模式:<br /><select name=\"guest_select\">";
 echo "<option value=\"0\">Открыто все</option>";
 if ($temp_set['guest_select']=='1')$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"1\"$sel>Закрыто все *</option>";
+echo "<option value=\"1\"$sel>一切都关闭了 *</option>";
 echo "</select><br />";
-echo " * остаются открытыми регистрация и авторизация<br />";
-echo "Показ away:<br /><select name=\"show_away\">";
+echo " * 注册和授权仍然开放<br />";
+echo "炫耀:<br /><select name=\"show_away\">";
 if ($temp_set['show_away']==1)$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"1\"$sel>Показывать</option>";
+echo "<option value=\"1\"$sel>展览</option>";
 if ($temp_set['show_away']==0)$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"0\"$sel>Скрывать</option>";
+echo "<option value=\"0\"$sel>藏起来</option>";
 echo "</select><br />";
-echo "Пишут в гостевой:<br /><select name=\"write_guest\">";
+echo "他们写在客人:<br /><select name=\"write_guest\">";
 if ($temp_set['write_guest']==1)$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"1\"$sel>Все</option>";
+echo "<option value=\"1\"$sel>全部</option>";
 if ($temp_set['write_guest']==0)$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"0\"$sel>Авторизованые</option>";
+echo "<option value=\"0\"$sel>获授权</option>";
 echo "</select><br />";
-echo "Показ статусов в прочих модулях:<br /><select name=\"st\">";
+echo "在其他模块中显示状态:<br /><select name=\"st\">";
 if ($temp_set['st']==1)$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"1\"$sel>Показывать</option>";
+echo "<option value=\"1\"$sel>展览</option>";
 if ($temp_set['st']==0)$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"0\"$sel>Скрывать</option>";
+echo "<option value=\"0\"$sel>藏起来</option>";
 echo "</select><br />";
-echo "<input value=\"Изменить\" name='save' type=\"submit\" />";
+echo "<input value=\"要改变\" name='save' type=\"submit\" />";
 echo "</form>";
 if (user_access('user_mass_delete')){
 echo "<div class='foot'>";
-echo "&raquo;<a href='/adm_panel/delete_users.php'>Удаление пользователей</a><br />";
+echo "&raquo;<a href='/adm_panel/delete_users.php'>删除用户</a><br />";
 echo "</div>";
 }
 if (user_access('adm_panel_show')){

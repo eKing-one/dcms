@@ -12,7 +12,7 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('adm_set_loads',null,'index.php?'.SID);
 adm_check();
-$set['title']='Настройки загрузок';
+$set['title']='下载设置';
 include_once '../sys/inc/thead.php';
 title();
 if (isset($_POST['save']))
@@ -31,34 +31,34 @@ $temp_set['copy_path']=$_POST['copy_path'];
 if (save_settings($temp_set))
 {
 admin_log('Настройки','Загрузки','Изменение настроек загруз-центра');
-msg('Настройки успешно приняты');
+msg('设置已成功接受');
 }
 else
-$err='Нет прав для изменения файла настроек';
+$err='没有更改设置文件的权限';
 }
 err();
 aut();
 echo "<form method=\"post\" action=\"?\">";
-echo "Режим скачивания:<br /><select name=\"downloads_select\">";
-echo "<option value=\"0\">Разрешено всем</option>";
+echo "下载模式:<br /><select name=\"downloads_select\">";
+echo "<option value=\"0\">允许所有人</option>";
 if ($temp_set['downloads_select']=='1')$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"1\"$sel>Только авторизованым</option>";
+echo "<option value=\"1\"$sel>仅授权</option>";
 if ($temp_set['downloads_select']=='2')$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"2\"$sel>Авторизованым + 100 баллов</option>";
+echo "<option value=\"2\"$sel>授权+100积分</option>";
 echo "</select><br />";
-echo "Показ расширений файлов:<br /><select name=\"echo_rassh\">";
+echo "显示文件扩展名:<br /><select name=\"echo_rassh\">";
 if ($temp_set['echo_rassh']==1)$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"1\"$sel>Показывать</option>";
+echo "<option value=\"1\"$sel>展览</option>";
 if ($temp_set['echo_rassh']==0)$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"0\"$sel>Скрывать</option>";
+echo "<option value=\"0\"$sel>藏起来</option>";
 echo "</select><br />";
-echo "Время, в течении которого файл считается новым (часы):<br /><input type='text' name='loads_new_file_hour' value='$temp_set[loads_new_file_hour]' /><br />";
-echo "Файл копирайта (на картинки):<br /><input type='text' name='copy_path' value='$temp_set[copy_path]' /><br />";
-echo "Обменник (ограничение в баллах на выгрузку файлов):<br /><input name=\"obmen_limit_up\" value=\"$temp_set[obmen_limit_up]\" type=\"text\" /><br />";
-echo "<input value=\"Изменить\" name='save' type=\"submit\" />";
+echo "文件被视为新文件的时间（小时）:<br /><input type='text' name='loads_new_file_hour' value='$temp_set[loads_new_file_hour]' /><br />";
+echo "版权档案(图片):<br /><input type='text' name='copy_path' value='$temp_set[copy_path]' /><br />";
+echo "交换器(上载档案的点数限制):<br /><input name=\"obmen_limit_up\" value=\"$temp_set[obmen_limit_up]\" type=\"text\" /><br />";
+echo "<input value=\"要改变\" name='save' type=\"submit\" />";
 echo "</form>";
 echo "<div class='foot'>";
-echo "&raquo;<a href='loads_recount.php'>Пересчет файлов в з-ц</a><br />";
+echo "&raquo;<a href='loads_recount.php'>将文件重新计算为z-z</a><br />";
 echo "</div>";
 if (user_access('adm_panel_show'))
 {
