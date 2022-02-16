@@ -111,13 +111,13 @@ echo "<div class='err'>$value</div>";
 }
 }
 echo "<form method=\"post\" action=\"index.php?$passgen\">";
-echo "主机:<br />";
+echo "数据库地址:<br />";
 echo "<input name=\"host\" value=\"$set[mysql_host]\" type=\"text\" /><br />";
-echo "用户:<br />";
+echo "数据库用户:<br />";
 echo "<input name=\"user\" value=\"$set[mysql_user]\" type=\"text\" /><br />";
-echo "密码:<br />";
+echo "数据库密码:<br />";
 echo "<input name=\"pass\" value=\"$set[mysql_pass]\" type=\"text\" /><br />";
-echo "网站名称:<br />";
+echo "数据库名称:<br />";
 echo "<input name=\"db\" value=\"$set[mysql_db_name]\" type=\"text\" /><br />";
 if (isset($db_not_null))
 echo "<label><input type='checkbox' checked='checked' name='rename' value='1' /> 重命名现有表<br /></label>";

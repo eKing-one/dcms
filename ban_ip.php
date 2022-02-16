@@ -1,4 +1,4 @@
-<?
+<?php
 include_once 'sys/inc/start.php';
 
 include_once 'sys/inc/compress.php';
@@ -31,8 +31,7 @@ err();
 
 //aut();
 
-?>
-<h2>可能的原因:</h2>
+echo '<h2>可能的原因:</h2>
 
 1）从同一个IP地址频繁访问服务器<br />
 
@@ -45,5 +44,7 @@ err();
 
 2）在静态IP地址的情况下，您可以使用代理服务器
 
-<br />
-<?include_once 'sys/inc/tfoot.php';?>
+<br />';
+
+include_once 'sys/inc/tfoot.php';
+?>

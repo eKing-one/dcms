@@ -1,4 +1,4 @@
-<?
+<?php
 include_once 'sys/inc/home.php'; 
 include_once H.'sys/inc/start.php';
 include_once H.'sys/inc/compress.php';

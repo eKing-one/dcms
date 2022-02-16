@@ -1,4 +1,4 @@
-<?
+<?php
 $set['title']='注册管理员';
 include_once 'inc/head.php'; // 设计主题的顶部
 
