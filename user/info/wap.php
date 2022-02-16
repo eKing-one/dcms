@@ -326,7 +326,7 @@ if (isset($user) && $ank['id'] != $user['id']) {
 
 	echo '<img src="/style/icons/fav.gif" alt="*" /> ';
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `mark_people` WHERE `id_user` = '" . $user['id'] . "' AND `id_people` = '" . $ank['id'] . "' LIMIT 1"), 0) == 0)
-		echo '<a href="?id=' . $ank['id'] . '&amp;fav=1">В закладки</a><br />';
+		echo '<a href="?id=' . $ank['id'] . '&amp;fav=1">书签</a><br />';
 	else
 		echo '<a href="?id=' . $ank['id'] . '&amp;fav=0">从书签中删除</a><br />';
 	echo "</div>";
@@ -337,14 +337,14 @@ if (isset($user) && $ank['id'] != $user['id']) {
 Монеты перевод
 ========================================
 */
-	echo "<img src='/style/icons/uslugi.gif' alt='*' /> <a href=\"/user/money/translate.php?id=$ank[id]\">翻译；翻译 $sMonet[0]</a><br />";
+	echo "<img src='/style/icons/uslugi.gif' alt='*' /> <a href=\"/user/money/translate.php?id=$ank[id]\">兑换 $sMonet[0]</a><br />";
 
 	/*
 ========================================
 Сделать подарок
 ========================================
 */
-	echo "<img src='/style/icons/present.gif' alt='*' /> <a href=\"/user/gift/categories.php?id=$ank[id]\">造造臓赠</a><br />";
+	echo "<img src='/style/icons/present.gif' alt='*' /> <a href=\"/user/gift/categories.php?id=$ank[id]\">送礼物</a><br />";
 	echo "</div>";
 }
 

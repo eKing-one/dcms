@@ -9,7 +9,7 @@ include_once 'sys/inc/ipua.php';
 include_once 'sys/inc/fnc.php';
 include_once 'sys/inc/user.php';
 only_reg();
-$set['title'] = 'Новые сообщения';
+$set['title'] = '新邮件';
 include_once 'sys/inc/thead.php';
 title();
 aut();

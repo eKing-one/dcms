@@ -235,7 +235,7 @@ echo "<option value=\"1\"$sel>展示</option>";
 if ($ank['set_show_icon']==0)$sel=' selected="selected"';else $sel=NULL;
 echo "<option value=\"0\"$sel>藏起来</option>";
 echo "</select><br />";
-echo "音译,音译:<br /><select name=\"set_translit\">";
+echo "音译:<br /><select name=\"set_translit\">";
 if ($ank['set_translit']==1)$sel=' selected="selected"';else $sel=NULL;
 echo "<option value=\"1\"$sel>由选择</option>";
 if ($ank['set_translit']==0)$sel=' selected="selected"';else $sel=NULL;

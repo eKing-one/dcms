@@ -74,7 +74,7 @@ exit;
 
 }
 
-$set['title']='翻译 '.$sMonet[0]; // заголовок страницы
+$set['title']='兑换 '.$sMonet[0]; // заголовок страницы
 
 include_once '../../sys/inc/thead.php';
 
@@ -86,7 +86,7 @@ err();
 
 echo "<div class='foot'>";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | 翻译<br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | 兑换<br />";
 
 echo "</div>";
 
@@ -108,7 +108,7 @@ echo '<div class="mess">';
 
 	}
 
-		echo "但要翻译 $sMonet[2] 其他居民需要获得最低 <b>2</b> $sMonet[2]<br/>У вас <b>$user[money] </b>$sMonet[0]";
+		echo "兑换 $sMonet[2] 其他居民需要获得最低 <b>2</b> $sMonet[2]<br/>你的 <b>$user[money] </b>$sMonet[0]";
 
 echo '</div>';
 
@@ -132,7 +132,7 @@ echo "数量 $sMonet[0]:<br />";
 
 echo "<input type='text' name='money' value='1' /><br />";
 
-echo "<input class='submit' type='submit' value='翻译' /><br />";
+echo "<input class='submit' type='submit' value='兑换' /><br />";
 
 echo "</form>";
 
@@ -146,7 +146,7 @@ echo "</form>";
 
 echo "<div class='foot'>";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | Перевод<br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | 兑换<br />";
 
 echo "</div>";
 

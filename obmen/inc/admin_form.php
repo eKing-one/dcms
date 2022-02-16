@@ -34,7 +34,7 @@ if ($dir_id['upload']==1)$check=' checked="checked"'; else $check=NULL;
 
 
 
-	echo "通过扩展 \";\":<br />";
+	echo "扩展通过 \";\"分隔:<br />";
 
 
 

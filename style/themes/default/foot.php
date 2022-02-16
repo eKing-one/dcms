@@ -34,7 +34,7 @@ ob_end_flush();
 rekl(3);
 ?>
 <center>
-PGen: <?=round(($sec + $msec) - $conf['headtime'], 3)?>秒
+页面执行时间: <?=round(($sec + $msec) - $conf['headtime'], 3)?>秒
 </center>
 </div>
 

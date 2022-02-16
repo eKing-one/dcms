@@ -18,7 +18,7 @@ if (isset($_GET['admin']) && user_access('user_collisions'))
 	$_SESSION['admin'] = true;
 }
 
-$set['title'] = 'Сейчас на сайте'; //网页标题
+$set['title'] = '现在在网站上'; //网页标题
 include_once 'sys/inc/thead.php';
 title();
 aut();

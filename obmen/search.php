@@ -14,7 +14,7 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'files' AND `i
     header('Location: /ban.php?' . SID);
     exit;
 }
-$set['title'] = 'Поиск файлов'; // заголовок страницы
+$set['title'] = '文件搜索'; // заголовок страницы
 include_once '../sys/inc/thead.php';
 title();
 aut();

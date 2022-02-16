@@ -169,7 +169,7 @@ echo "<label><input type=\"checkbox\" name=\"privat\" value=\"$ank[id]\" /> 私�
 
 
 
-if ($user['set_translit']==1)echo "<label><input type=\"checkbox\" name=\"translit\" value=\"1\" /> 音译,音译</label><br />";
+if ($user['set_translit']==1)echo "<label><input type=\"checkbox\" name=\"translit\" value=\"1\" /> 音译</label><br />";
 
 
 
@@ -194,7 +194,7 @@ echo " <img src='/style/icons/str2.gif' alt='*'><a href=\"/chat/room/$room[id]/"
 
 
 
-echo " <img src='/style/icons/str2.gif' alt='*'><a href=\"/chat/\">走廊</a><br />";
+echo " <img src='/style/icons/str2.gif' alt='*'><a href=\"/chat/\">大厅</a><br />";
 
 
 
@@ -264,7 +264,7 @@ echo "<div class=\"foot\">";
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/chat/\">走廊</a><br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/chat/\">大厅</a><br />";
 
 
 
@@ -284,7 +284,7 @@ include_once '../sys/inc/tfoot.php';
 
 
 
-$set['title']='聊天室-走廊'; // заголовок страницы
+$set['title']='聊天室-大厅'; // заголовок страницы
 
 
 

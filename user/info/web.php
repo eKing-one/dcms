@@ -208,7 +208,7 @@ if ($ank['group_access'] > 1) {
 ========================================
 */
 				echo "<div class='main2'>";
-				echo "<img src='/style/icons/many.gif' alt='*' /> <a href=\"/user/money/translate.php?id=$ank[id]\">翻译 $sMonet[0]</a> ";
+				echo "<img src='/style/icons/many.gif' alt='*' /> <a href=\"/user/money/translate.php?id=$ank[id]\">兑换 $sMonet[0]</a> ";
 				echo "</div>";
 
 				/*

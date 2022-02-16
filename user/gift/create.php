@@ -614,7 +614,7 @@ if (!$category)
 
 
 
-	$set['title'] = 'Добавление подарка';
+	$set['title'] = '附加礼物';
 
 
 
@@ -642,7 +642,7 @@ if (!$category)
 
 
 
-	echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?">Категории</a> |  <a href="?category=' . $category['id'] . '">' . htmlspecialchars($category['name']) . '</a> | <b>Добавление подарка</b><br />';	
+	echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?">类别</a> |  <a href="?category=' . $category['id'] . '">' . htmlspecialchars($category['name']) . '</a> | <b>附加礼物</b><br />';	
 
 
 
@@ -666,19 +666,19 @@ if (!$category)
 
 
 
-	echo 'Название:<br /><input type="text" name="name" value="" /><br />';
+	echo '标题:<br /><input type="text" name="name" value="" /><br />';
 
 
 
-	echo 'Цена:<br /><input type="text" name="money" value="" style="width:30px;"/><br />';
+	echo '价格:<br /><input type="text" name="money" value="" style="width:30px;"/><br />';
 
 
 
-	echo 'Подарок:<br /><input name="gift" accept="image/*,image/png" type="file" /><br />';
+	echo '礼物:<br /><input name="gift" accept="image/*,image/png" type="file" /><br />';
 
 
 
-	echo '<input value="Добавить" type="submit" />';
+	echo '<input value="增加" type="submit" />';
 
 
 
@@ -694,7 +694,7 @@ if (!$category)
 
 
 
-	echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?">Категории</a> |  <a href="?category=' . $category['id'] . '">' . htmlspecialchars($category['name']) . '</a> | <b>Добавление подарка</b><br />';	
+	echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?">类别</a> |  <a href="?category=' . $category['id'] . '">' . htmlspecialchars($category['name']) . '</a> | <b>附加礼物</b><br />';	
 
 
 
@@ -770,7 +770,7 @@ if (!$category)
 
 
 
-	$_SESSION['message'] = 'Нет такой категории';
+	$_SESSION['message'] = '没有这样的类别';
 
 
 
@@ -794,7 +794,7 @@ if (!$category)
 
 
 
-	$set['title'] = 'Список подарков';
+	$set['title'] = '礼物清单';
 
 
 
@@ -822,7 +822,7 @@ echo '<div class="foot">';
 
 
 
-echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?">Категории</a> | <b>' . htmlspecialchars($category['name']) . '</b><br />';	
+echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?">类别</a> | <b>' . htmlspecialchars($category['name']) . '</b><br />';	
 
 
 
@@ -866,7 +866,7 @@ if ($k_post == 0)
 
 
 
-	echo 'Нет подарков';
+	echo '无赠品';
 
 
 
@@ -966,11 +966,11 @@ echo '<img src="/sys/gift/' . $post['id'] . '.png" style="max-width:' . $width .
 
 
 
-echo 'Название: ' . htmlspecialchars($post['name']) . '<br /> ';
+echo '标题: ' . htmlspecialchars($post['name']) . '<br /> ';
 
 
 
-echo 'Стоимость: ' . $post['money'] . ' ' . $sMonet[0];
+echo '成本: ' . $post['money'] . ' ' . $sMonet[0];
 
 
 
@@ -1014,7 +1014,7 @@ echo '<div class="foot">';
 
 
 
-echo '<img src="/style/icons/ok.gif" alt="*" />  <a href="?category=' . $category['id'] . '&amp;add_gift">Добавить подарок</a><br />';	
+echo '<img src="/style/icons/ok.gif" alt="*" />  <a href="?category=' . $category['id'] . '&amp;add_gift">加个礼物</a><br />';	
 
 
 
@@ -1030,7 +1030,7 @@ echo '<div class="foot">';
 
 
 
-echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?">Категории</a> | <b>' . htmlspecialchars($category['name']) . '</b><br />';	
+echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?">类别</a> | <b>' . htmlspecialchars($category['name']) . '</b><br />';	
 
 
 
@@ -1106,11 +1106,11 @@ if (isset($_GET['add_category']))
 
 
 
-		if (strlen2($name) < 2)$err='Короткое название';
+		if (strlen2($name) < 2)$err='短标题';
 
 
 
-		if (strlen2($name) > 128)$err='Длина названия превышает предел в 128 символов';
+		if (strlen2($name) > 128)$err='标题长度超过 128 字符限制';
 
 
 
@@ -1134,7 +1134,7 @@ if (isset($_GET['add_category']))
 
 
 
-			$_SESSION['message'] = 'Категория успешно добавлена';
+			$_SESSION['message'] = '类别已成功添加';
 
 
 
@@ -1158,7 +1158,7 @@ if (isset($_GET['add_category']))
 
 
 
-	$set['title'] = 'Создание категорий';
+	$set['title'] = '创建类别';
 
 
 
@@ -1194,7 +1194,7 @@ if (isset($_GET['add_category']))
 
 
 
-	echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?">Категории</a><br />';	
+	echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?">类别</a><br />';	
 
 
 
@@ -1214,11 +1214,11 @@ if (isset($_GET['add_category']))
 
 
 
-	echo 'Название:<br /><input type="text" name="name" value="" /><br />';
+	echo '标题:<br /><input type="text" name="name" value="" /><br />';
 
 
 
-	echo '<input value="Добавить" type="submit" />';
+	echo '<input value="增加" type="submit" />';
 
 
 
@@ -1234,7 +1234,7 @@ if (isset($_GET['add_category']))
 
 
 
-	echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?">Категории</a><br />';	
+	echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?">类别</a><br />';	
 
 
 
@@ -1306,7 +1306,7 @@ if (!$category)
 
 
 
-	$_SESSION['message'] = 'Нет такой категории';
+	$_SESSION['message'] = '没有这样的类别';
 
 
 
@@ -1346,11 +1346,11 @@ if (!$category)
 
 
 
-		if (strlen2($name) < 2)$err='Короткое название';
+		if (strlen2($name) < 2)$err='短标题';
 
 
 
-		if (strlen2($name) > 128)$err='Длина названия превышает предел в 128 символов';
+		if (strlen2($name) > 128)$err='标题长度超过 128 字符限制';
 
 
 
@@ -1374,7 +1374,7 @@ if (!$category)
 
 
 
-			$_SESSION['message'] = 'Категория успешно переименована';
+			$_SESSION['message'] = '类别已成功重命名';
 
 
 
@@ -1462,7 +1462,7 @@ if (!$category)
 
 
 
-		$_SESSION['message'] = 'Категория успешно удалена';
+		$_SESSION['message'] = '类别已成功删除';
 
 
 
@@ -1490,7 +1490,7 @@ if (!$category)
 
 
 
-	$set['title'] = 'Редактирование категории';
+	$set['title'] = '编辑类别';
 
 
 
@@ -1526,11 +1526,11 @@ if (!$category)
 
 
 
-	echo 'Название:<br /><input type="text" name="name" value="' . htmlspecialchars($category['name']) . '" /><br />';
+	echo '标题:<br /><input type="text" name="name" value="' . htmlspecialchars($category['name']) . '" /><br />';
 
 
 
-	echo '<input value="Добавить" type="submit" />';
+	echo '<input value="增加" type="submit" />';
 
 
 
@@ -1598,7 +1598,7 @@ else
 
 
 
-	$set['title'] = 'Список категорий';
+	$set['title'] = '类别清单';
 
 
 
@@ -1658,7 +1658,7 @@ if ($k_post == 0)
 
 
 
-	echo 'Нет категорий';
+	echo '无类别';
 
 
 
@@ -1778,7 +1778,7 @@ echo '<div class="foot">';
 
 
 
-echo '<img src="/style/icons/ok.gif" alt="*" />  <a href="?add_category">Создать категорию</a><br />';	
+echo '<img src="/style/icons/ok.gif" alt="*" />  <a href="?add_category">创建类别</a><br />';	
 
 
 
