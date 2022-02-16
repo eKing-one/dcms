@@ -160,13 +160,13 @@ dbquery("INSERT INTO `chat_rooms` (`name`, `opis`, `pos`, `umnik`, `shutnik`) va
 
 
 
-admin_log('Чат','Параметры комнат',"Добавлена комната '$name', описание: $opis");
+admin_log('聊天','房间参数',"增加房间 '$name', 资料描述: $opis");
 
 
 
 
 
-msg('Комната успешно добавлена');
+msg('房间添加成功');
 
 
 
@@ -214,13 +214,13 @@ dbquery("DELETE FROM `chat_post` WHERE `room` = '$room[id]'");
 
 
 
-admin_log('Чат','Параметры комнат',"Удалена комната '$room[name]'");
+admin_log('聊天','房间参数',"删除房间 '$room[name]'");
 
 
 
 
 
-msg('Комната успешно удалена');
+msg('房间被成功删除');
 
 
 
@@ -250,7 +250,7 @@ if (user_access('chat_clear') && isset($_GET['act']) && $_GET['act']=='clear2')
 
 
 
-admin_log('Чат','Очистка',"Очистка комнат от сообщений");
+admin_log('聊天','结算',"信息清理室");
 
 
 
@@ -262,7 +262,7 @@ dbquery("TRUNCATE `chat_post`");
 
 
 
-msg('Все комнаты очищены');
+msg('所有房间都被清理干净');
 
 
 

@@ -334,7 +334,7 @@ echo "  <div class='mess'>";
 
 
 
-echo "Нет комнат";
+echo "没有房间";
 
 
 
