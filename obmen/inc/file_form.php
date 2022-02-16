@@ -46,7 +46,7 @@ if (isset($_GET['act']) && $_GET['act']=='edit' && $l!='/')
 
 
 
-	echo '<img src="/style/icons/ok.gif" alt="*"> <input value="Изменить" type="submit" /> <a href="?showinfo"><img src="/style/icons/delete.gif" alt="*"> Отмена</a><br />';
+	echo '<img src="/style/icons/ok.gif" alt="*"> <input value="修改" type="submit" /> <a href="?showinfo"><img src="/style/icons/delete.gif" alt="*"> Отмена</a><br />';
 
 
 

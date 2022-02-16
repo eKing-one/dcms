@@ -1,4 +1,4 @@
-<?
+<?php
 include_once 'sys/inc/start.php';
 include_once 'sys/inc/compress.php';
 include_once 'sys/inc/sess.php';
@@ -9,26 +9,26 @@ include_once 'sys/inc/ipua.php';
 include_once 'sys/inc/fnc.php';
 include_once 'sys/inc/user.php';
 user_access('adm_panel_show',null,'/index.php?'.SID);
-$set['title']='Обновление версии до 1.9.9';
+$set['title']='版本升级至 1.9.9';
 include_once 'sys/inc/thead.php';
 title();
 err();
 aut();
 if(!isset($_GET['step'])){
  echo '<div class="mess">';
- echo '<br/>Список обновлений можете прочитать <a href="http://dcms-social.ru/plugins/download/file.php?id=141">в публикации релиза</a><br/>';
- echo 'Вы уже распаковали архив с заменой файлов. Остался лишь Dump Tables.</div>';
- echo '<div class="mess"><a href="?step=one">Приступить к переходу на 1.9.9</a></div>';
+ echo '<br/>你可以阅读更新列表<a href="http://dcms-social.ru/plugins/download/file.php?id=141">在发布出版物中</a><br/>';
+ echo '你已经用文件替换解压缩了存档。只剩下垃圾了 Tables.</div>';
+ echo '<div class="mess"><a href="?step=one">开始向 1.9.9</a></div>';
  }elseif(isset($_GET['step']) && $_GET['step']=='one'){
  echo '<div class="mess">';
- echo '<div class="nav2">Давайте-ка выберем таблицы, которые необходимо залить</div>';
+ echo '<div class="nav2">让我们选择需要填充的表格</div>';
  echo '<form method="post" action="/update_1.9.9.php?step=two">';
- echo '<input type="checkbox" name="votes" value="1"> Опросы форума<br/>';
- echo '<input type="checkbox" name="stena_komm" value="1"> Комментирование записи стены<br/>';
- echo '<input type="checkbox" name="notes_share" value="1"> "Поделиться" для дневников <br/>';
- echo '<input type="checkbox" name="bookmarks" value="1"> Закладки нового типа<br/>';
- echo '<input type="checkbox" name="opis_r" value="1"> Описание раздела форума<br/>';
- echo '<input type="submit" name="dump" value="Залить">';
+ echo '<input type="checkbox" name="votes" value="1"> 论坛调查<br/>';
+ echo '<input type="checkbox" name="stena_komm" value="1">记述墙<br/>';
+ echo '<input type="checkbox" name="notes_share" value="1"> "为日记分享“ <br/>';
+ echo '<input type="checkbox" name="bookmarks" value="1"> 新书签<br/>';
+ echo '<input type="checkbox" name="opis_r" value="1"> 论坛部分说明<br/>';
+ echo '<input type="submit" name="dump" value="注入">';
  echo '</form></div>';
  }elseif(isset($_GET['step']) && $_GET['step']=='two'){
  if(isset($_POST['dump'])){
@@ -82,8 +82,8 @@ dbquery("CREATE TABLE `votes_user` (
  dbquery("alter table `forum_r` add `opis` varchar(256) default NULL");
  }
  }
- echo '<div class="msg">Все указанные таблицы залиты. УДАЛИТЕ ФАЙЛ update_1.9.9.php!!! <br/>
- <a href="?step=three">Закончить</a></div>';
+ echo '<div class="msg">所有指定的表都已填充。删除文件update_1.9.9.php!!! <br/>
+ <a href="?step=three">完成</a></div>';
  }elseif(isset($_GET['step']) && $_GET['step']=='three'){
  @unlink('/update_1.9.9.php');
  header('Location: /index.php');

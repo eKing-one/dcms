@@ -70,7 +70,7 @@ dbquery("UPDATE `chat_rooms` SET `name` = '$name', `opis` = '$opis', `pos` = '$p
 
 
 
-admin_log('聊天','房间参数',"改变房间 $name");
+admin_log('聊天','房间参数',"修改房间 $name");
 
 
 

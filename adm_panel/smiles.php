@@ -195,7 +195,7 @@ if (isset($_GET['id']))
 			<?=(isset($err) ? '<font color="red">' . $err . '</font><br />' : null)?>
 			微笑 (例如 :-) ..)<br />
 			<input type="text" name="smile" maxlength="32" value="<?=text($post['smile'])?>"/><br />
-			<input type="submit" name="sav" value="要改变" />
+			<input type="submit" name="sav" value="修改" />
 			</form>
 			<?
 		}
@@ -319,7 +319,7 @@ while($post = dbarray($q))
 		<?=(isset($err) ? '<font color="red">' . $err . '</font><br />' : null)?>
 		标题:<br />
 		<input type="text" name="name" maxlength="32" value="<?=text($post['name'])?>"/><br />
-		<input type="submit" name="sav" value="要改变" />
+		<input type="submit" name="sav" value="修改" />
 		</form>
 		<?
 	}

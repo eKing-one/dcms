@@ -76,7 +76,7 @@ echo "<option value=\"1\"$sel>展览</option>";
 if ($temp_set['st']==0)$sel=' selected="selected"';else $sel=NULL;
 echo "<option value=\"0\"$sel>藏起来</option>";
 echo "</select><br />";
-echo "<input value=\"要改变\" name='save' type=\"submit\" />";
+echo "<input value=\"修改\" name='save' type=\"submit\" />";
 echo "</form>";
 if (user_access('user_mass_delete')){
 echo "<div class='foot'>";

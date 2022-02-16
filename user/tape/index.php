@@ -175,7 +175,7 @@ while ($post = dbassoc($q))
 
 	/*
 	===============================
-	Помечаем сообщение прочитанным
+	将消息标记为已读
 	===============================
 	*/	
 
@@ -198,12 +198,12 @@ if ($k_page>1)str('?',$k_page,$page);
 
 
 echo '<div class="foot">';
-echo '<a href="?page=' . $page . '&amp;delete=all"><img src="/style/icons/delete.gif"> 清除饲料</a>';
+echo '<a href="?page=' . $page . '&amp;delete=all"><img src="/style/icons/delete.gif"> 清除所有</a>';
 echo '</div>'; 
 	
 echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" alt="*"> <a href="/info.php?id=' . $user['id'] . '">' . $user['nick'] . '</a> | ';
-echo '<b>Лента</b>';
+echo '<b>消息</b>';
 echo '</div>';
 
 include_once '../../sys/inc/tfoot.php';

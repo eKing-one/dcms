@@ -117,7 +117,7 @@ header("Content-type: text/html");
                                         </div>  
 
                                         <div id="loading" style="display: none">  
-                                            Идет загрузка...  
+                                        正在加载...
                                         </div>
                                     </div><?
                                 endif;

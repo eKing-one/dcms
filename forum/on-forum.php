@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -10,7 +10,7 @@ include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
 /* Бан пользователя */
  if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'forum' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0)!=0){header('Location: /ban.php?'.SID);exit;}
-$set['title']='Кто на форуме?'; //网页标题
+$set['title']='谁在论坛上？'; //网页标题
 include_once '../sys/inc/thead.php';
 title();
 aut();
@@ -24,7 +24,7 @@ if ($k_post==0)
 {
 echo "   <tr>";
 echo "  <td class='p_t'>";
-echo "Нет никого";
+echo "没有人。";
 echo "  </td>";
 echo "   </tr>";
 }
@@ -40,7 +40,7 @@ while ($forum = dbarray($q))
 echo "</table>";
 if ($k_page>1)str("?",$k_page,$page); // Вывод страниц
 echo "<div class='foot'>
-	  &laquo;<a href='/forum/'>Назад в форум</a><br />
+	  &laquo;<a href='/forum/'>回到论坛</a><br />
 	  </div>";
 include_once '../sys/inc/tfoot.php';
 ?>

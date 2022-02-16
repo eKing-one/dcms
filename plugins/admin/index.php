@@ -58,7 +58,7 @@ include_once '../../sys/inc/user.php';
 
 
 
-$set['title']='Раздел администрации'; //网页标题
+$set['title']='网站管理'; //网页标题
 
 
 

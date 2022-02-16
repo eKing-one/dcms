@@ -148,7 +148,7 @@ $displaystring = "" .
 	$sMinsText . " ";
 if ($timediff < 0) $displaystring = '日期已经到了';
 
-$set['title'] = $ank['nick'] . ' - 调查表 '; //网页标题
+$set['title'] = $ank['nick'] . ' - 个人资料 '; //网页标题
 include_once '../../sys/inc/thead.php';
 title();
 
@@ -756,7 +756,7 @@ if ($user['level'] > $ank['level']) {
 }
 
 if (user_access('adm_log_read') && $ank['level'] != 0 && ($ank['id'] == $user['id'] || $ank['level'] < $user['level']))
-	echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/adm_log.php?id=$ank[id]'>行政报告</a><br />";
+	echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/adm_log.php?id=$ank[id]'>管理报告</a><br />";
 
 echo "</div>";
 include_once '../../sys//inc/tfoot.php';

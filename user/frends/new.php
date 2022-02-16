@@ -83,7 +83,7 @@ echo '<div class="mb4">
 <nav class="acsw rnav_w"><ul class="rnav js-rnav  " style="padding-right: 45px;">';
 echo '<li class="rnav_i"><a href="index.php?id='.$ank['id'].'" class="ai aslnk"><span class="wlnk"><span class="slnk">所有朋友</span></span> 
 <i><font color="#999">'.$f.'</font></i></a></li>';
-echo '<li class="rnav_i"><a href="online.php?id='.$ank['id'].'" class="ai alnk"><span class="wlnk"><span class="lnk">网上
+echo '<li class="rnav_i"><a href="online.php?id='.$ank['id'].'" class="ai alnk"><span class="wlnk"><span class="lnk">在线
 <i><font color="#999">'.$on_f.'</font></i></a></span></span></li> ';
 if($ank['id']==$user['id']){ 
 echo '<li class="rnav_i"><a href="new.php" class="ai alnk"><span class="wlnk"><span class="lnk">申请表格
@@ -97,7 +97,7 @@ echo "<a href='index.php?id=$ank[id]'>全部 (".dbresult(dbquery("SELECT COUNT(*
 echo "</div>"; 
 
 echo "<div class='webmenu last'>";
-echo "<a href='online.php?id=$ank[id]'>网上 (".dbresult(dbquery("SELECT COUNT(*) FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'".(time()-600)."'"), 0).")</a>";
+echo "<a href='online.php?id=$ank[id]'>在线 (".dbresult(dbquery("SELECT COUNT(*) FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'".(time()-600)."'"), 0).")</a>";
 echo "</div>"; 
 
 if ($ank['id'] == $user['id'])

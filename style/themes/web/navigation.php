@@ -66,14 +66,14 @@ $k_new_fav=dbresult(dbquery("SELECT COUNT(`mail`.`id`) FROM `mail`
 
 
 echo "<a href='/new_mess.php'><span class='link_title'><img src='/style/themes/web/images/mail.png' alt=''/>  <b class='count'>+$k_new</b>
-<br/> 邮局 </span></a>";
+<br/> 邮件 </span></a>";
 
 
 }else{
 
 
 echo "<a href='/konts.php'><span class='link_title'><img src='/style/themes/web/images/mail.png' alt=''/>
-<br/>邮局</span></a>";
+<br/>邮件</span></a>";
 
 
 }
@@ -102,7 +102,7 @@ $k_l = $lenta;
 
 
 if($k_l>0)echo " <b class='count'>+$k_l</b>";
-echo "<br/>胶带";
+echo "<br/>消息";
 
 
 

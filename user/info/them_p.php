@@ -24,8 +24,8 @@ echo group($ank['id']);
 echo " ".user::nick($ank['id'],1,1,1)."</div>";
 /* Sort (Thems OR Komments) */
 echo "<div class='nav1'>";
-if(isset($_GET['komm']))echo "<a href='?id=".$ank['id']."'>Темы</a> | <b>评论</b>";
-else echo "<b>Темы</b> | <a href='?id=".$ank['id']."&komm'>评论</a>";
+if(isset($_GET['komm']))echo "<a href='?id=".$ank['id']."'>主题</a> | <b>评论</b>";
+else echo "<b>主题</b> | <a href='?id=".$ank['id']."&komm'>评论</a>";
 echo "</div>";
 
 //Если коммы смотрим

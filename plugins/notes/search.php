@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -13,7 +13,7 @@ if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` 
 {
 header('Location: /ban.php?'.SID);exit;
 }
-$set['title']='Дневники';
+$set['title']='日记';
 include_once '../../sys/inc/thead.php';
 
 title();
@@ -23,15 +23,15 @@ aut(); // форма авторизации
 echo "<div id='comments' class='menus'>";
 
 echo "<div class='webmenu'>";
-echo "<a href='index.php' >Дневники</a>";
+echo "<a href='index.php' >日记</a>";
 echo "</div>"; 
 
 echo "<div class='webmenu last'>";
-echo "<a href='dir.php'>Категории</a>";
+echo "<a href='dir.php'>类别</a>";
 echo "</div>"; 
         
 echo "<div class='webmenu'>";
-echo "<a href='search.php' class='activ'>Поиск</a>";
+echo "<a href='search.php' class='activ'>搜索</a>";
 echo "</div>"; 
 
 echo "</div>";
@@ -47,10 +47,10 @@ else
 $_SESSION['usearch']=$usearch;
 $usearch=preg_replace("#( ){1,}#","",$usearch);
 
-$order='order by `time` desc';echo "<form method=\"post\" action=\"search.php?go\">Поиск по дневникам<br />";
+$order='order by `time` desc';echo "<form method=\"post\" action=\"search.php?go\">日记搜索<br />";
 $usearch=stripcslashes(htmlspecialchars($usearch));
 echo "<input type=\"text\" name=\"usearch\" maxlength=\"16\" value=\"$usearch\" /><br />";
-echo "<input type=\"submit\" value=\"Искать\" />";
+echo "<input type=\"submit\" value=\"寻找\" />";
 echo "</form>";
 
 
@@ -65,7 +65,7 @@ echo "<table class='post'>";
 if ($k_post==0)
 {
 echo "<div class='mess'>";
-echo "Нет записей";
+echo "没有记录。";
 echo "</div>";
 }
 $num=0;

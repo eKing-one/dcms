@@ -134,7 +134,7 @@ if ($set['time_chat']!=0)header("Refresh: $set[time_chat]; url=/chat/room/$room[
 
 
 
-$set['title']='Чат - '.$room['name'].' ('.dbresult(dbquery("SELECT COUNT(*) FROM `chat_who` WHERE `room` = '$room[id]'"),0).')'; // заголовок страницы
+$set['title']='聊天室 - '.$room['name'].' ('.dbresult(dbquery("SELECT COUNT(*) FROM `chat_who` WHERE `room` = '$room[id]'"),0).')'; // заголовок страницы
 
 
 
@@ -239,7 +239,7 @@ if ($set['time_chat']!=0)header("Refresh: $set[time_chat]; url=/chat/room/$room[
 
 
 
-$set['title']='Чат - '.$room['name'].' ('.dbresult(dbquery("SELECT COUNT(*) FROM `chat_who` WHERE `room` = '$room[id]'"),0).')'; // заголовок страницы
+$set['title']='聊天室 - '.$room['name'].' ('.dbresult(dbquery("SELECT COUNT(*) FROM `chat_who` WHERE `room` = '$room[id]'"),0).')'; // заголовок страницы
 
 
 
@@ -284,7 +284,7 @@ include_once '../sys/inc/tfoot.php';
 
 
 
-$set['title']='聊天-走廊'; // заголовок страницы
+$set['title']='聊天室-走廊'; // заголовок страницы
 
 
 

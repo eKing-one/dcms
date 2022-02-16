@@ -146,7 +146,7 @@ echo "<a href='index.php?id=$ank[id]' class='activ'>全部 (".dbresult(dbquery("
 echo "</div>"; 
 
 echo "<div class='webmenu last'>";
-echo "<a href='online.php?id=$ank[id]'>网上 (".dbresult(dbquery("SELECT COUNT(*) FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'".(time()-600)."'"), 0).")</a>";
+echo "<a href='online.php?id=$ank[id]'>在线 (".dbresult(dbquery("SELECT COUNT(*) FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'".(time()-600)."'"), 0).")</a>";
 echo "</div>"; 
 
 if ($ank['id'] == $user['id'])

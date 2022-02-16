@@ -12,7 +12,7 @@ include_once '../sys/inc/user.php';
 user_access('adm_ip_edit',null,'index.php?'.SID);
 adm_check();
 $opsos=NULL;
-$set['title']='添加运算符';
+$set['title']='编辑运营商';
 include_once '../sys/inc/thead.php';
 title();
 if (isset($_POST['min']) && isset($_POST['max']) && isset($_POST['opsos']))
@@ -59,7 +59,7 @@ echo "   </tr>";
 echo "   <tr>";
 echo "  <td class='p_m'>";
 echo "$post[opsos]<br />";
-echo "<a href=\"?page=$page&amp;delmin=$post[min]&amp;delmax=$post[max]\">Удалить</a><br />";
+echo "<a href=\"?page=$page&amp;delmin=$post[min]&amp;delmax=$post[max]\">删除</a><br />";
 echo "  </td>";
 echo "   </tr>";
 }
@@ -67,7 +67,7 @@ echo "</table>";
 if ($k_page>1)str('?',$k_page,$page); // Вывод страниц
 echo "<form method=\"post\" action=\"\">";
 echo "初始IP地址:<br /><input name=\"min\" size=\"16\"  value=\"\" type=\"text\" /><br />";
-echo "决赛 IP:<br /><input name=\"max\" size=\"16\" value=\"\" type=\"text\" /><br />";
+echo "结束IP:<br /><input name=\"max\" size=\"16\" value=\"\" type=\"text\" /><br />";
 echo "操作员:<br /><input name=\"opsos\" size=\"16\" value=\"$opsos\" type=\"text\" /><br />";
 echo "<input value=\"添加\" type=\"submit\" />";
 echo "</form>";

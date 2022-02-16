@@ -61,7 +61,7 @@ if (isset($user) && $user['level'] > 3)
 {
 	?>
 	<div class="foot">
-	<img src="/style/icons/str.gif" alt="*"> <a href="/adm_panel/smiles.php">行政</a>
+	<img src="/style/icons/str.gif" alt="*"> <a href="/adm_panel/smiles.php">管理</a>
 	</div>
 	<?
 }

@@ -12,7 +12,7 @@ include_once '../sys/inc/user.php';
 include_once '../sys/inc/icons.php'; // Иконки главного меню
 user_access('adm_menu',null,'index.php?'.SID);
 adm_check();
-$set['title']='主菜单';
+$set['title']='主页设置';
 include_once '../sys/inc/thead.php';
 title();
 $opendiricon=opendir(H.'style/icons');
@@ -116,7 +116,7 @@ echo "</select><br />";
 }
 else
 echo "<input type='hidden' name='icon' value='$post[icon]' />";
-echo "<input class=\"submit\" name=\"change\" type=\"submit\" value=\"要改变\" /><br />";
+echo "<input class=\"submit\" name=\"change\" type=\"submit\" value=\"修改\" /><br />";
 echo "</form>";
 echo "<a href='?'>取消</a><br />";
 }
@@ -136,8 +136,8 @@ if (isset($_GET['add'])){
 echo "<form action='?add=$passgen' method=\"post\">";
 echo "类型:<br />";
 echo "<select name='type'>";
-echo "<option value='link'>连结 (1)</option>";
-echo "<option value='razd'>章 (2)</option>";
+echo "<option value='link'>链接 (1)</option>";
+echo "<option value='razd'>类型 (2)</option>";
 echo "</select><br />";
 echo "标题 (1,2):<br />";
 echo "<input type=\"text\" name=\"name\" value=\"\"/><br />";

@@ -5,7 +5,7 @@
 if ($type=='avatar' && $post['avtor'] != $user['id']) // аватар
 {
 	if ($post['avatar'])
-	$name = '改变了' . ($avtor['pol'] == 1 ? null : "а") . ' 主页上的照片';
+	$name = '修改了' . ($avtor['pol'] == 1 ? null : "а") . ' 主页上的照片';
 	else
 	$name = '已安装' . ($avtor['pol'] == 1 ? null : "а") . ' 主页上的照片';	
 }

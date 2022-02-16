@@ -240,7 +240,7 @@ echo '<a href="/forum/'.$forum['id'].'/'.$razdel['id'].'/">'.text($razdel['name'
 echo "</div>";
 /*
 ======================================
-Перемещение темы
+主题移动
 ======================================
 */
 if (isset($_GET['act']) && $_GET['act']=='mesto' && (user_access('forum_them_edit') || $ank2['id']==$user['id']))
@@ -250,7 +250,7 @@ echo "<div class='mess'>";
 echo "移动主题 <b>".output_text($them['name'])."</b>";
 echo "</div>";
 echo "<div class='main'>";
-echo "章:<br />";
+echo "分类:<br />";
 echo "<select name=\"razdel\">";
 if (user_access('forum_them_edit')){
 $q = dbquery("SELECT * FROM `forum_f` ORDER BY `pos` ASC");
@@ -274,7 +274,7 @@ echo "<option".($razdel['id']==$razdels['id']?' selected="selected"':null)." val
 }
 }
 echo "</select><br />";
-echo "<input value=\"Переместить\" type=\"submit\" /> ";
+echo "<input value=\"移动\" type=\"submit\" /> ";
 echo "<img src='/style/icons/delete.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/'>取消</a><br />";
 echo "</form>";
 echo "</div>";
@@ -308,7 +308,7 @@ echo "<label><input type=\"checkbox\"$check name=\"close\" value=\"1\" /> 关闭
 if ($ank2['id']!=$user['id']){
 echo "<label><input type=\"checkbox\" name=\"autor\" value=\"1\" /> 剥夺作者的权利</label><br />";
 }
-echo "<input value=\"Изменить\" type=\"submit\" /> ";
+echo "<input value=\"修改\" type=\"submit\" /> ";
 echo "<img src='/style/icons/delete.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/'>取消</a><br />";
 echo "</form>";
 echo "</div>";
@@ -541,7 +541,7 @@ echo "</div>";
 */
 if(!empty($them['id_edit'])){
 echo "<div class='nav2'>";
-echo "<span style='color:#666;'><img src='/style/icons/edit.gif'> 改变了 ".user::nick($them['id_edit'])." ".vremja($them['time_edit'])."</span></div>";
+echo "<span style='color:#666;'><img src='/style/icons/edit.gif'> 修改了 ".user::nick($them['id_edit'])." ".vremja($them['time_edit'])."</span></div>";
 }elseif(!empty($them['id_close'])){
 echo "<div class='nav2'>";
 echo "<span style='color:#666;'><img src='/style/icons/topic_locked.gif'> 主题已关闭 ".user::nick($them['id_edit'])." ".vremja($them['time_edit'])."</span></div>";
@@ -669,9 +669,9 @@ echo '<span style="float:right;">';
 if ($them['close']==0) // если тема закрыта, то скрываем кнопки
 {
     	if (user_access('forum_post_ed') && ($ank['level']<=$user['level'] || $ank['level']==$user['level'] &&  $post['id_user']==$user['id'])) 
-    		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit\" title='Изменить пост $ank[nick]'  class='link_s'><img src='/style/icons/edit.gif' alt='*'> </a> ";
+    		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit\" title='修改 пост $ank[nick]'  class='link_s'><img src='/style/icons/edit.gif' alt='*'> </a> ";
     	elseif ($user['id']==$post['id_user'] && $post['time']>time()-600) 
-    		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit\" title='Изменить мой пост'  class='link_s'><img src='/style/icons/edit.gif' alt='*'> (".($post['time']+600-time())." sec)</a> ";
+    		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit\" title='修改 мой пост'  class='link_s'><img src='/style/icons/edit.gif' alt='*'> (".($post['time']+600-time())." sec)</a> ";
 if ($user['id']!=$ank['id'] && $ank['id']!=0) // Кроме автора поста и системы 
 		{
 	echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?spam=$post[id]&amp;page=$page\" title='Это спам'  class='link_s'><img src='/style/icons/blicon.gif' alt='*' title='这是垃圾邮件'></a>";

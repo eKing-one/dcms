@@ -11,7 +11,7 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('adm_statistic',null,'index.php?'.SID);
 adm_check();
-$set['title']='地盘统计数字';
+$set['title']='网站统计';
 include_once '../sys/inc/thead.php';
 title();
 err();
@@ -49,7 +49,7 @@ echo "</tr>\n";
 }
 echo "</table><br />\n";
 unset($stat);
-echo "Последний месяц:<br />\n"; 
+echo "最后一个月：<br />\n"; 
 $k_day=dbresult(dbquery("SELECT COUNT(*) FROM `visit_everyday`"),0);
 $q=dbquery("SELECT * FROM `visit_everyday` ORDER BY `time` ASC LIMIT ".max($k_day-30,0).", 30");
 while ($result=dbassoc($q)) {

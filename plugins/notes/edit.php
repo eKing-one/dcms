@@ -18,7 +18,7 @@ header('Location: /ban.php?'.SID);exit;
 
 only_reg();
 
-$set['title']='Дневники';
+$set['title']='日记';
 include_once '../../sys/inc/thead.php';
 title();
 aut();

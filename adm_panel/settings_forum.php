@@ -59,7 +59,7 @@ if ($temp_set['echo_rassh_forum']==0)$sel=' selected="selected"';else $sel=NULL;
 echo "<option value=\"0\"$sel>藏起来 *</option>";
 echo "</select><br />";
 echo "* 只有当有一个合适的图标时，它才会被隐藏<br />";
-echo "<input value=\"要改变\" name='save' type=\"submit\" />";
+echo "<input value=\"修改\" name='save' type=\"submit\" />";
 echo "</form>";
 if (user_access('adm_panel_show')){
 echo "<div class='foot'>";

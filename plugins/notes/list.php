@@ -71,7 +71,7 @@ exit;
 }
 }
 }
-$set['title']='Дневник ' . text($notes['name']) . '';
+$set['title']='日记 ' . text($notes['name']) . '';
 
 include_once '../../sys/inc/thead.php';
 title();
@@ -126,7 +126,7 @@ dbquery("UPDATE `discussions` SET `count` = '0' WHERE `id_user` = '$user[id]' AN
 }
 /*---------------------------------------------------------*/
 
-$set['title']='Дневник - ' . text($notes['name']) . '';
+$set['title']='日记 - ' . text($notes['name']) . '';
 $set['meta_description'] = text($notes['msg']);
 
 include_once '../../sys/inc/thead.php';
@@ -134,9 +134,9 @@ if (isset($_POST['msg']) && isset($user))
 {
 $msg=$_POST['msg'];
 
-if (strlen2($msg)>1024){$err='Сообщение слишком длинное';}
+if (strlen2($msg)>1024){$err='消息过长';}
 
-elseif (strlen2($msg)<2){$err='Короткое сообщение';}
+elseif (strlen2($msg)<2){$err='短消息';}
 
 elseif (dbresult(dbquery("SELECT COUNT(*) FROM `notes_komm` WHERE `id_notes` = '".intval($_GET['id'])."' AND `id_user` = '$user[id]' AND `msg` = '".my_esc($msg)."' LIMIT 1"),0)!=0){$err='Ваше сообщение повторяет предыдущее';}
 
@@ -198,7 +198,7 @@ dbquery("UPDATE `discussions` SET `count` = '".($disc['count']+1)."', `time` = '
 }
 dbquery("INSERT INTO `notes_komm` (`id_user`, `time`, `msg`, `id_notes`) values('$user[id]', '$time', '".my_esc($msg)."', '".intval($_GET['id'])."')");
 dbquery("UPDATE `user` SET `balls` = '".($user['balls']+1)."' WHERE `id` = '$user[id]' LIMIT 1");
-$_SESSION['message'] = 'Сообщение успешно отправлено';
+$_SESSION['message'] = '消息已成功发送';
 header("Location: list.php?id=$notes[id]&page=".intval($_GET['page'])."");
 exit;
 }
@@ -214,7 +214,7 @@ err();
 
 if ($notes['private']==1 && $user['id']!=$avtor['id'] && $frend!=2  && !user_access('notes_delete'))
 {
-	msg('Дневник доступен только для друзей');
+	msg('日记只提供给朋友');
 	echo "  <div class='foot'>";
 	echo "<a href='index.php'>返回</a><br />";
 	echo "   </div>";
@@ -224,7 +224,7 @@ if ($notes['private']==1 && $user['id']!=$avtor['id'] && $frend!=2  && !user_acc
 
 if ($notes['private']==2 && $user['id']!=$avtor['id']  && !user_access('notes_delete'))
 {
-	msg('Пользователь запретил просмотр дневника');
+	msg('用户已禁止查看日记');
 	echo "  <div class='foot'>";
 	echo "<a href='index.php'>返回</a><br />";
 	echo "   </div>";
@@ -235,7 +235,7 @@ if ($notes['private']==2 && $user['id']!=$avtor['id']  && !user_access('notes_de
 if (isset($_GET['delete']) && ($user['id']==$avtor['id'] || user_access('notes_delete')))
 {
 	echo "<center>";
-	echo "Вы действительно хотите удалить дневник " . output_text($notes['name']) . "?<br />";
+	echo "你真的想删除日记吗 " . output_text($notes['name']) . "?<br />";
 	echo "[<a href='delete.php?id=$notes[id]'><img src='/style/icons/ok.gif'> 移走</a>] [<a href='list.php?id=$notes[id]'><img src='/style/icons/delete.gif'> отмена</a>] ";
 	echo "</center>";
 	include_once '../../sys/inc/tfoot.php';
@@ -250,7 +250,7 @@ if (isset($user))
 		{
 			dbquery("INSERT INTO `notes_like` (`id_notes`, `id_user`, `like`) VALUES ('$notes[id]', '$user[id]', '1')");
 			dbquery("UPDATE `notes` SET `count` = '".($notes['count']+1)."' WHERE `id` = '$notes[id]' LIMIT 1");
-			$_SESSION['message'] = 'Ваш голос засчитан';
+			$_SESSION['message'] = '你的选票被计算在内了';
 			header("Location: list.php?id=$notes[id]&page=".intval($_GET['page'])."");
 			exit;
 		}
@@ -263,7 +263,7 @@ if (isset($user))
 		{
 			dbquery("INSERT INTO `notes_like` (`id_notes`, `id_user`, `like`) VALUES ('$notes[id]', '$user[id]', '0')");
 			dbquery("UPDATE `notes` SET `count` = '".($notes['count']-1)."' WHERE `id` = '$notes[id]' LIMIT 1");
-			$_SESSION['message'] = 'Ваш голос засчитан';
+			$_SESSION['message'] = '你的票被计算在内了';
 			header("Location: list.php?id=$notes[id]&page=".intval($_GET['page'])."");
 			exit;
 		}
@@ -275,7 +275,7 @@ if (isset($user))
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `bookmarks` WHERE `id_user` = '".$user['id']."' AND `id_object` = '".$notes['id']."' AND `type`='notes' LIMIT 1"),0)==0)
 		{
 			dbquery("INSERT INTO `bookmarks` (`type`,`id_object`, `id_user`, `time`) VALUES ('notes','$notes[id]', '$user[id]', '$time')");
-			$_SESSION['message'] = 'Дневник добавлен в закладки';
+			$_SESSION['message'] = '日记被添加到书签中';
 			header("Location: list.php?id=$notes[id]&page=".intval($_GET['page'])."");
 			exit;
 		}
@@ -287,7 +287,7 @@ if (isset($user))
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `bookmarks` WHERE `id_user` = '".$user['id']."' AND `id_object` = '".$notes['id']."' AND `type`='notes' LIMIT 1"),0)==1)
 		{
 			dbquery("DELETE FROM `bookmarks` WHERE `id_user` = '$user[id]' AND  `id_object` = '$notes[id]' AND `type`='notes' ");
-			$_SESSION['message'] = 'Дневник удален из закладок';
+			$_SESSION['message'] = '从书签中删除的日记';
 			header("Location: list.php?id=$notes[id]&page=".intval($_GET['page'])."");
 			exit;
 		}
@@ -296,16 +296,16 @@ if (isset($user))
 }
 
 echo "<div class=\"foot\">";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Дневники</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>";
 echo ' | <b>' . output_text($notes['name']) . '</b>';
 echo "</div>";
 echo "<div class='main'>";
 echo "<table style='width:110%;'><td style='width:4%;'>".avatar($avtor['id'])."</td>";
-echo "<td style='width:96%;'> Автор: ";
+echo "<td style='width:96%;'> 作者: ";
 echo group($avtor['id']);
 echo " ".user::nick($avtor['id'],1,1,1)." ";
 echo "(<img src='/style/icons/them_00.png'>  ".vremja($notes['time']).")<br/>";
-echo "<img src='/style/icons/eye.png'> Просмотров: ".$notes['count']."</td></table></div>";
+echo "<img src='/style/icons/eye.png'> 预览: ".$notes['count']."</td></table></div>";
 $stat1 = $notes['msg'];
 
 if (!$set['web'])$mn=20;else $mn=90; // количество слов выводится в зависимости от браузера
@@ -332,23 +332,23 @@ if ($k_page>1)str("?id=$notes[id]&amp;",$k_page,$page); // Вывод стран
 $listr = dbassoc(dbquery("SELECT * FROM `notes` WHERE `id` < '$notes[id]' ORDER BY `id` DESC LIMIT 1"));
 $list = dbassoc(dbquery("SELECT * FROM `notes` WHERE `id` > '$notes[id]' ORDER BY `id`  ASC LIMIT 1"));
 echo '<div class="c2" style="text-align: center;">';
-if (isset($list['id'])) echo '<span class="page">'.($list['id']?'<a href="list.php?id='.$list['id'].'">&laquo; Пред.</a> ':'&laquo; Пред. ').'</span>';
+if (isset($list['id'])) echo '<span class="page">'.($list['id']?'<a href="list.php?id='.$list['id'].'">&laquo; 上一页.</a> ':'&laquo; 上一页. ').'</span>';
 
 $k_1=dbresult(dbquery("SELECT COUNT(*) FROM `notes` WHERE `id` > '$notes[id]'"),0)+1;
 $k_2=dbresult(dbquery("SELECT COUNT(*) FROM `notes`"),0);
 echo ' ('.$k_1.' из '.$k_2.') ';
 
-if (isset($listr['id'])) echo '<span class="page">' . ($listr['id'] ? '<a href="list.php?id=' . $listr['id'] . '">След. &raquo;</a>' : ' След. &raquo;') . '</span>';
+if (isset($listr['id'])) echo '<span class="page">' . ($listr['id'] ? '<a href="list.php?id=' . $listr['id'] . '">下一页. &raquo;</a>' : ' 下一页. &raquo;') . '</span>';
 echo '</div>';
 /*----------------------plugins---------------*/
 echo "<div class='main2'>";
 $share=dbresult(dbquery("SELECT COUNT(*)FROM `notes` WHERE `share_id`='".$notes['id']."' AND `share_type`='notes'"),0);
 if(dbresult(dbquery("SELECT COUNT(*)FROM `notes` WHERE `id_user`='".$user['id']."' AND `share_type`='notes' AND `share_id`='".$notes['id']."' LIMIT 1"),0)==0 && isset($user) && $user['id']!=$notes['id_user']) {
-echo " <a href='share.php?id=".$notes['id']."'><img src='/style/icons/action_share_color.gif'> Поделиться: (".$share.")</a>"; 
+echo " <a href='share.php?id=".$notes['id']."'><img src='/style/icons/action_share_color.gif'> 分享: (".$share.")</a>"; 
 }else{ 
-echo "<img src='/style/icons/action_share_color.gif'> Поделились:  (".$share.")"; }
+echo "<img src='/style/icons/action_share_color.gif'> 分享:  (".$share.")"; }
 if (isset($user) && (user_access('notes_delete') || $user['id']==$avtor['id'])){
-echo "<br/><a href='edit.php?id=$notes[id]'><img src='/style/icons/edit.gif'> Изменить</a> <a href='?id=$notes[id]&amp;delete'><img src='/style/icons/delete.gif'> 移走</a>";
+echo "<br/><a href='edit.php?id=$notes[id]'><img src='/style/icons/edit.gif'> 修改</a> <a href='?id=$notes[id]&amp;delete'><img src='/style/icons/delete.gif'> 移走</a>";
 }
 echo "</div><div class='main'>";
 $l1=dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `like` = '0' AND `id_notes` = '".$notes['id']."' LIMIT 1"),0);
@@ -365,16 +365,16 @@ echo " <img src='/style/icons/thumbu.png' alt='*' />  (".($l2-$l1).") <img src='
 if (isset($user)){
 echo "".($webbrowser ? "&bull;" : null)." <img src='/style/icons/add_fav.gif' alt='*' /> ";
 if (dbresult(dbquery("SELECT COUNT(*) FROM `bookmarks` WHERE `id_user` = '".$user['id']."' AND `id_object` = '".$notes['id']."' AND `type`='notes' LIMIT 1"),0)==0)
-echo "<a href='list.php?id=$notes[id]&amp;fav=1'>B закладки</a><br />";
+echo "<a href='list.php?id=$notes[id]&amp;fav=1'>添加书签</a><br />";
 else
-echo "<a href='list.php?id=$notes[id]&amp;fav=0'>Из закладок</a><br />";
+echo "<a href='list.php?id=$notes[id]&amp;fav=0'>移除书签</a><br />";
 
-echo "<img src='/style/icons/add_fav.gif' alt='*' />  <a href='fav.php?id=".$notes['id']."'>Кто добавил? </a> (".$markinfo.")";
+echo "<img src='/style/icons/add_fav.gif' alt='*' />  <a href='fav.php?id=".$notes['id']."'>谁加的？ </a> (".$markinfo.")";
 } echo '</div>';
 //-------------------------------------------------------------//
 
 echo "<div class='main'>";
-echo 'В соц. сети: ';
+echo '在社交网络：';
 echo '<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
 <span class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,twitter,odnoklassniki,moimir"></span>';
 echo "</div>";
@@ -391,7 +391,7 @@ $page=page($k_page);
 $start=$set['p_str']*$page-$set['p_str'];
 
 echo '<div class="foot">';
-echo "<b>Комментарии</b>: (".dbresult(dbquery("SELECT COUNT(`id`)FROM `notes_komm` WHERE `id_notes`='".$notes['id']."'"),0).")";
+echo "<b>意见</b>: (".dbresult(dbquery("SELECT COUNT(`id`)FROM `notes_komm` WHERE `id_notes`='".$notes['id']."'"),0).")";
 echo '</div>';
 
 if ($k_post==0)
@@ -464,7 +464,7 @@ echo "</div>";
 echo "</table>";if ($k_page>1)str("list.php?id=".intval($_GET['id']).'&amp;',$k_page,$page); // Вывод страниц
 
 if ($notes['private_komm']==1 && $user['id']!=$avtor['id'] && $frend!=2  && !user_access('notes_delete')){
-msg('Комментировать могут только друзья');
+msg('只有朋友才能评论');
 echo "  <div class='foot'>";
 echo "<a href='index.php'>返回</a><br />";
 echo "   </div>";
@@ -473,7 +473,7 @@ exit;
 }
 
 if ($notes['private_komm']==2 && $user['id']!=$avtor['id'] && !user_access('notes_delete')){
-msg('Пользователь запретил комментирование дневника');
+msg('用户禁止评论日记');
 echo "  <div class='foot'>";
 echo "<a href='index.php'>返回</a><br />";
 echo "   </div>";
@@ -493,7 +493,7 @@ echo "</form>";
 }
 
 echo "<div class=\"foot\">";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Дневники</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>";
 echo ' | <b>' . output_text($notes['name']) . '</b>';
 echo "</div>";
 

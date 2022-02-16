@@ -41,7 +41,7 @@ echo "<form method='post' action='?$passgen'>";
 echo "Старый пароль:<br /><input type='text' name='pass' value='' /><br />";
 echo "Новый пароль:<br /><input type='password' name='pass1' value='' /><br />";
 echo "Подтверждение:<br /><input type='password' name='pass2' value='' /><br />";
-echo "<input type='submit' name='save' value='要改变' />";
+echo "<input type='submit' name='save' value='修改' />";
 echo "</form>";
 include_once 'sys/inc/tfoot.php';
 ?>

@@ -33,7 +33,7 @@ aut();
 echo "<form method=\"post\" action=\"?\">";
 echo "照片宽度 (max):<br /><input type='text' name='max_upload_foto_x' value='$temp_set[max_upload_foto_x]' /><br />";
 echo "照片高度 (max):<br /><input type='text' name='max_upload_foto_y' value='$temp_set[max_upload_foto_y]' /><br />";
-echo "<input value=\"要改变\" name='save' type=\"submit\" />";
+echo "<input value=\"修改\" name='save' type=\"submit\" />";
 echo "</form>";
 if (user_access('adm_panel_show')){
 echo "<div class='foot'>";

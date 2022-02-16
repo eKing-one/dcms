@@ -19,15 +19,15 @@ if (isset($user) && dbresult(dbquery("SELECT COUNT(`id`) FROM `ban` WHERE `razde
 header('Location: /ban.php?'.SID);exit;
 }
 
-$set['title']='Поделиться';
+$set['title']='分享';
 include_once '../../sys/inc/thead.php';
 title();
 aut(); only_reg();
 $not=dbquery("SELECT * FROM `notes` WHERE `id`='".intval($_GET['id'])."' LIMIT 1");
 if(dbrows($not)==0){
-echo "<div class='err'>Такой записи не существует</div>";
+echo "<div class='err'>没有这样的记录</div>";
 }elseif(dbresult(dbquery("SELECT COUNT(`share_id_user`)FROM `notes` WHERE `id_user`='".$user['id']."' AND `share_id`='".intval($_GET['id'])."' AND `share_type`='notes' LIMIT 1"),0)==1){
-echo "<div class='error'>Вы уже поделились данной записью</div>";
+echo "<div class='error'>你已经共享了此条目</div>";
 }else{
 $notes=dbassoc($not);
 if($notes['id_user']!=$user['id']){
@@ -47,10 +47,10 @@ exit;
 echo "<form method='post' action='share.php?id=".intval($_GET['id'])."'>";
 echo $tPanel;
 echo "<textarea name='share_text'></textarea>";
-echo "<input type='submit' name='ok' value='Поделиться'>";
+echo "<input type='submit' name='ok' value='分享'>";
 echo "</form></div>";
 }else{
-echo "<div class='err'>Нельзя репостить свои записи</div>";
+echo "<div class='err'>你不能转发你的笔记</div>";
 }
 }
 include_once '../../sys/inc/tfoot.php';

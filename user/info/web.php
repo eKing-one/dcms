@@ -104,9 +104,9 @@ if ($ank['group_access'] > 1) {
 			echo "<div class='main'>";
 			echo "<b>ID 编号: $ank[id]</b>";
 			echo "</div>";
-			/*---------------调查表-------------------*/
+			/*---------------个人资料-------------------*/
 			echo "<div class='main2'>";
-			echo "<img src='/style/icons/anketa.gif' alt='*' /> <a href='/user/info/anketa.php?id=$ank[id]'>调查表</a> ";
+			echo "<img src='/style/icons/anketa.gif' alt='*' /> <a href='/user/info/anketa.php?id=$ank[id]'>个人资料</a> ";
 			if (isset($user) && $user['id'] == $ank['id']) {
 				echo "[<img src='/style/icons/edit.gif' alt='*' /> <a href='/user/info/edit.php'>编辑</a>]";
 			}
@@ -171,7 +171,7 @@ if ($ank['group_access'] > 1) {
 					$color = null;
 					$color2 = null;
 				}
-				echo "<img src='/style/icons/lenta.gif' alt='*' /> <a href='/user/tape/'>" . $color . "胶带" . $color2 . "</a> ";
+				echo "<img src='/style/icons/lenta.gif' alt='*' /> <a href='/user/tape/'>" . $color . "消息" . $color2 . "</a> ";
 				if ($k_l != 0) echo "<font color=\"red\">+$k_l</font>";
 				echo "</div>";
 			}
@@ -234,7 +234,7 @@ if ($ank['group_access'] > 1) {
 
 
 
-			/*--------------------------网上好友----------------------*/
+			/*--------------------------在线好友----------------------*/
 			$set['p_str'] = 20;
 			$k_post = dbresult(dbquery("SELECT COUNT(*) FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'" . (time() - 600) . "'"), 0);
 			$k_page = k_page($k_post, $set['p_str']);
@@ -242,7 +242,7 @@ if ($ank['group_access'] > 1) {
 			$start = $set['p_str'] * $page - $set['p_str'];
 			$q = dbquery("SELECT * FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'" . (time() - 600) . "' ORDER BY `user`.`date_last` DESC LIMIT $start, $set[p_str]");
 			if ($k_post > 0) {
-				echo "<div class='foot'>网上好友 ($k_post)</div>";
+				echo "<div class='foot'>在线好友 ($k_post)</div>";
 			}
 			while ($post3 = dbassoc($q)) {
 				$ank3 = get_user($post3['frend']);

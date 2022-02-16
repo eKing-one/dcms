@@ -330,7 +330,7 @@ echo "确认密码:<br /><input type='password' name='pass2' value='' /><br />";
 
 
 
-echo "<input type='submit' name='save' value='要改变' />";
+echo "<input type='submit' name='save' value='修改' />";
 
 
 

@@ -498,7 +498,7 @@ else
 $rt=time()-600;
 if($ank['date_last']<$rt){
 echo "<div class='plug'>";
-echo "用户 ".$ank['nick']." 不在网上。留下你的信息，他会稍后阅读。";
+echo "用户 ".$ank['nick']." 不在在线。留下你的信息，他会稍后阅读。";
 echo "</div>";
 }
 

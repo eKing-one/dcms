@@ -1,4 +1,5 @@
-<?//到管理面板
+<?php
+//到管理面板
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -11,7 +12,7 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('adm_mysql',null,'index.php?'.SID);
 adm_check();
-$set['title']='填表';
+$set['title']='导入SQL';
 include_once '../sys/inc/thead.php';
 title();
 if (isset($_FILES['file'])){
@@ -59,13 +60,13 @@ $save_settings=true;
 }
 closedir($opdirtables);
 @unlink(H."sys/update/".$_FILES['file']['name']."");
-msg("表格已成功填写！");
+msg("SQL文件已成功导入！");
 }
 err();
 aut();
 	echo "<form method='post' enctype='multipart/form-data' action='?$passgen'>
 	上载:<br />
-	<input name='file' type='file' accept='sql' /><br /><input value='Залить!' type='submit' />
+	<input name='file' type='file' accept='sql' /><br /><input value='导入!' type='submit' />
 	</form>
 	<br /> 注意！ 下载文件并执行请求后，它将被自动删除！";
 	echo "<div class='foot'>

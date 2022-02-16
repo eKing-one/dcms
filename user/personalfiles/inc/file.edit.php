@@ -45,7 +45,7 @@ if (isset($_GET['edit']))
 	<textarea name="opis">' . text($file_id['opis']) . '</textarea><br />';
 	echo "<label><input type='checkbox' name='metka' value='1' ".($file_id['metka'] == 1?"checked='checked'":"")."/> 马克 <font color=red>18+</font></label><br />";
 
-	echo '<img src="/style/icons/ok.gif" alt="*"> <input value="要改变" type="submit" /> <a href="?id_file='.$file_id['id'].'"><img src="/style/icons/delete.gif" alt="*"> 取消</a><br />';
+	echo '<img src="/style/icons/ok.gif" alt="*"> <input value="修改" type="submit" /> <a href="?id_file='.$file_id['id'].'"><img src="/style/icons/delete.gif" alt="*"> 取消</a><br />';
 	
 	echo "<div class='foot'>";
 	echo "<img src='/style/icons/up_dir.gif' alt='*'> " . ($dir['osn'] == 1 ? '<a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">档案</a>' : '') . " " . user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; <a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">' . text($dir['name']) . '</a>')."";

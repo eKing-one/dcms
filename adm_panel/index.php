@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -27,11 +27,11 @@ echo "<div class='mess'>";
 echo "<center><b>DCMS-Social v.$set[dcms_version]</b></center>";echo "</div>";
 if (user_access('adm_info'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a target='_blank' href='http://dcms-social.ru'>支持论坛</a></div>";
 if (user_access('adm_info'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='info.php'>一般资料</a></div>";
-if (user_access('adm_statistic'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='statistic.php'>地盘统计数字</a></div>";
-if (user_access('adm_show_adm'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='administration.php'>行政工作</a></div>";
-if (user_access('adm_log_read'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='adm_log.php'>行政当局的行动</a></div>";
-if (user_access('adm_menu'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='menu.php'>主菜单</a></div>";
-if (user_access('adm_rekl'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='rekl.php'>广告</a></div>";
+if (user_access('adm_statistic'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='statistic.php'>网站统计</a></div>";
+if (user_access('adm_show_adm'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='administration.php'>管理工作</a></div>";
+if (user_access('adm_log_read'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='adm_log.php'>网站日志</a></div>";
+if (user_access('adm_menu'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='menu.php'>主页设置</a></div>";
+if (user_access('adm_rekl'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='rekl.php'>网站广告</a></div>";
 if (user_access('adm_news'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='/news/add.php'>新闻中心</a></div>";
 if (user_access('adm_set_sys'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_sys.php'>系统设置</a></div>";
 if (user_access('adm_set_sys'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_bbcode.php'>BBCode设置</a></div>";
@@ -52,14 +52,14 @@ if (user_access('adm_ip_edit'))echo "<div class='main'><img src='/style/icons/st
 if (user_access('adm_ban_ip'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='ban_ip.php'>禁止IP地址(范围)</a></div>";
 
 if (user_access('adm_mysql'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='mysql.php'>MySQL查询</a></div>";
-if (user_access('adm_mysql'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='tables.php'>填表</a></div>";
+if (user_access('adm_mysql'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='tables.php'>导入SQL</a></div>";
 if (user_access('adm_themes'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='themes.php'>设计主题</a></div>";
 
 $opdirbase=@opendir(H.'sys/add/admin');
 while ($filebase=@readdir($opdirbase))
 if (preg_match('#\.php$#i',$filebase))
 include_once(H.'sys/add/admin/'.$filebase);
-closedir($opdirbase);
+@closedir($opdirbase);
 
 }
 else

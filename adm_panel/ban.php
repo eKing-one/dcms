@@ -117,7 +117,7 @@ while ($post = dbassoc($q)) {
         echo " до " . vremja($post['time']) . "<br />";
     }
     echo '<b>原因：</b> ' . $pBan[$post['pochemu']] . '<br />';
-    echo '<b>章:</b> ' . $rBan[$post['razdel']] . '<br />';
+    echo '<b>说明:</b> ' . $rBan[$post['razdel']] . '<br />';
     echo '<b>评论:</b> ' . esc(trim(br(bbcode(smiles(links(stripcslashes(htmlspecialchars($post['prich'])))))))) . "<br />";
     if ($post['time'] > $time && user_access('user_ban_unset'))
         echo "<font color=red><b>活动中</b></font> | <a href='?id=$ank[id]&amp;unset=$post[id]'>Снять бан</a><br />";
@@ -128,7 +128,7 @@ echo "</table>";
 if ($k_page > 1) str('?id=' . $ank['id'] . '&amp;', $k_page, $page); // Вывод страниц
 if (user_access('user_ban_set') || user_access('user_ban_set_h')) {
     echo "<form action=\"ban.php?id=$ank[id]&amp;$passgen\" method=\"post\">";
-    echo "<div class='nav1'>章:</div>";
+    echo "<div class='nav1'>说明:</div>";
     if ($user['group_access'] == 12 || $user['level'] > 1) echo "<input name='razdel' type='radio' value='guest'  checked='checked'/>客人 <br />";
     if ($user['group_access'] == 11 || $user['level'] > 1) echo "<input name='razdel' type='radio' value='notes'  checked='checked'/>日记 <br />";
     if ($user['group_access'] == 3 || $user['level'] > 1) echo "<input name='razdel' type='radio' value='forum'  checked='checked'/>论坛<br />";

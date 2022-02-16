@@ -46,7 +46,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'edit')
 		echo '<form action="?id=' . $post['id'] . '&amp;act=edit" method="post">';	
 		echo '编辑帖子:<br />';
 		echo '<textarea name="name">' . text($post['msg']) . '</textarea><br />';	
-		echo '<input class="submit" name="change" type="submit" value="要改变" /><br />';
+		echo '<input class="submit" name="change" type="submit" value="修改" /><br />';
 		echo '</form>';
 	}
 }
@@ -84,7 +84,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'edits')
 		echo '项目名称:<br /><input name="title" size="16" value="' . text($post['title']) . '" type="text" /><br />';	
 		echo '文本编辑:<br />';
 		echo '<textarea name="msg">' . text($post['msg']) . '</textarea><br />';	
-		echo '<input class="submit" name="change" type="submit" value="要改变" /><br />';
+		echo '<input class="submit" name="change" type="submit" value="修改" /><br />';
 		echo '</form>';
 	}
 }

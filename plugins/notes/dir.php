@@ -29,7 +29,7 @@ if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` 
 {
 header('Location: /ban.php?'.SID);exit;
 }
-$set['title']='Категории';
+$set['title']='类别';
 include_once '../../sys/inc/thead.php';
 title();
 

@@ -58,7 +58,7 @@ include_once '../../../sys/inc/user.php';
 
 
 
-$set['title']='Жалобы'; //网页标题
+$set['title'] = 'Жалобы'; //网页标题
 
 
 
@@ -98,272 +98,277 @@ aut(); // форма авторизации
 
 
 
-if (user_access('adm_panel_show')){
+if (user_access('adm_panel_show')) {
 
 
 
 
-if ($user['group_access']==2)
+	if ($user['group_access'] == 2) {
 
 
 
 
-{
+		$types = " where `types` = 'chat' ";
+	} elseif ($user['group_access'] == 3) {
 
 
 
 
-$types = " where `types` = 'chat' ";
+		$types = " where `types` = 'forum' ";
+	} elseif ($user['group_access'] == 4) {
 
 
 
 
-}
+		$types = " where (`types` = 'obmen_komm' OR `types` = 'files_komm') ";
+	} elseif ($user['group_access'] == 5) {
 
 
 
 
-elseif ($user['group_access']==3)
+		$types = " where `types` = 'lib_komm' ";
+	} elseif ($user['group_access'] == 6) {
 
 
 
 
-{
+		$types = " where `types` = 'foto_komm' ";
+	} elseif ($user['group_access'] == 11) {
 
 
 
 
-$types =" where `types` = 'forum' ";
+		$types = " where `types` = 'notes_komm' ";
+	} elseif ($user['group_access'] == 12) {
 
 
 
 
-}
+		$types = " where `types` = 'guest' ";
+	} elseif (($user['group_access'] > 6 && $user['group_access'] < 10) || $user['group_access'] == 15) {
 
 
 
 
-elseif ($user['group_access']==4)
+		$types = null;
+	}
 
 
 
 
-{
 
 
 
 
-$types = " where (`types` = 'obmen_komm' OR `types` = 'files_komm') ";
 
 
 
 
-}
 
 
+	$k_post = dbresult(dbquery("SELECT COUNT(*) FROM `spamus` $types"), 0);
 
 
-elseif ($user['group_access']==5)
 
 
+	$k_page = k_page($k_post, $set['p_str']);
 
 
-{
 
 
+	$page = page($k_page);
 
 
-$types = " where `types` = 'lib_komm' ";
 
 
+	$start = $set['p_str'] * $page - $set['p_str'];
 
 
-}
 
 
 
 
-elseif ($user['group_access']==6)
 
 
 
+	echo "<table class='post'>";
 
-{
 
 
 
+	if ($k_post == 0) {
 
-$types = " where `types` = 'foto_komm' ";
 
 
 
+		echo "<div class='mess'>";
 
-}
 
 
 
+		echo "没有新的投诉";
 
-elseif ($user['group_access']==11)
 
 
 
+		echo "</div>";
+	} else {
 
-{
 
 
 
+		echo "<div class='mess'>";
 
-$types = " where `types` = 'notes_komm' ";
 
 
 
+		echo "注意！审查投诉后，不要忘记删除它！";
 
 
 
 
+		echo "</div>";
+	}
 
 
-}
 
 
 
 
-elseif ($user['group_access']==12)
 
 
 
+	$q = dbquery("SELECT * FROM `spamus` $types ORDER BY id DESC LIMIT $start, $set[p_str]");
 
-{
 
 
 
 
-$types = " where `types` = 'guest' ";
 
 
 
 
-}
+	while ($post = dbassoc($q)) {
 
 
 
 
-elseif (($user['group_access']>6 && $user['group_access']<10) || $user['group_access']==15)
 
 
 
 
-{
 
+		/*-----------зебра-----------*/
 
 
 
-$types = null;
 
+		if ($num == 0) {
+			echo "  <div class='nav1'>";
 
 
 
-}
 
+			$num = 1;
+		} elseif ($num == 1) {
+			echo "  <div class='nav2'>";
 
 
 
 
+			$num = 0;
+		}
 
 
 
 
+		/*---------------------------*/
 
 
 
 
 
-$k_post=dbresult(dbquery("SELECT COUNT(*) FROM `spamus` $types"),0);
 
 
 
 
-$k_page=k_page($k_post,$set['p_str']);
 
 
 
 
-$page=page($k_page);
 
+		$ank = get_user($post['id_user']);
 
 
 
-$start=$set['p_str']*$page-$set['p_str'];
 
+		$spamer = get_user($post['id_spam']);
 
 
 
 
+		echo "<b>分类:</b> ";
 
 
 
 
-echo "<table class='post'>";
 
 
 
 
-if ($k_post==0)
 
+		if ($post['razdel'] == 'mail') echo "<font color='red'>邮件</font><br />";
 
 
 
-{
 
 
 
 
-echo "<div class='mess'>";
 
 
+		if ($post['razdel'] == 'guest') echo "<a href='/guest/'><font color='red'>客人</font></a><br />";
 
 
-echo "没有新的投诉";
 
 
 
 
-echo "</div>";
 
 
 
+		if ($post['razdel'] == 'files_komm') {  // Файлы юзеров
 
-}else{
 
 
 
 
-echo "<div class='mess'>";
 
 
 
 
-echo "注意！审查投诉后，不要忘记删除它！";
+			$file_id = dbassoc(dbquery("SELECT * FROM `obmennik_files` WHERE `id` = '$post[id_object]' LIMIT 1"));
 
 
 
 
-echo "</div>";
+			$dir = dbassoc(dbquery("SELECT * FROM `user_files` WHERE `id` = '$file_id[my_dir]' LIMIT 1"));
 
 
 
 
-}
+			echo "<font color='red'>个人档案</font> | ";
 
 
 
 
+			echo " <a href='/user/personalfiles/$file_id[id_user]/$dir[id]/?id_file=$file_id[id]'>" . htmlspecialchars($file_id['name']) . "</a><br />";
+		}
 
 
 
 
 
-$q=dbquery("SELECT * FROM `spamus` $types ORDER BY id DESC LIMIT $start, $set[p_str]");
 
 
 
@@ -373,82 +378,81 @@ $q=dbquery("SELECT * FROM `spamus` $types ORDER BY id DESC LIMIT $start, $set[p_
 
 
 
-while ($post = dbassoc($q))
+		if ($post['razdel'] == 'obmen_komm') {  // Обменник
 
 
 
 
-{
 
 
 
 
 
+			$file_id = dbassoc(dbquery("SELECT * FROM `obmennik_files` WHERE `id` = '$post[id_object]' LIMIT 1"));
 
 
 
 
-/*-----------зебра-----------*/
+			$dir_id = dbassoc(dbquery("SELECT * FROM `obmennik_dir` WHERE `id` = '$file_id[id_dir]' LIMIT 1"));
 
 
 
 
-if ($num==0)
 
 
 
 
-{echo "  <div class='nav1'>";
 
+			echo "<font color='red'>交换区</font> | ";
 
 
 
-$num=1;
 
+			echo " <a href='/obmen$dir_id[dir]$file_id[id].$file_id[ras]?showinfo'>" . htmlspecialchars($file_id['name']) . "</a><br />";
+		}
 
 
 
-}elseif ($num==1)
 
 
 
 
-{echo "  <div class='nav2'>";
 
 
+		if ($post['razdel'] == 'notes_komm') {  // Дневники
 
 
-$num=0;}
 
 
 
 
-/*---------------------------*/
 
 
 
+			$notes = dbassoc(dbquery("SELECT * FROM `notes` WHERE `id` = '$post[id_object]' LIMIT 1"));
 
 
 
 
+			echo "<font color='red'>日记</font> | ";
 
 
 
 
+			echo " <a href='/plugins/notes/list.php?id=$notes[id]'>" . htmlspecialchars($notes['name']) . "</a><br />";
+		}
 
 
 
-$ank=get_user($post['id_user']);
 
 
 
 
-$spamer = get_user($post['id_spam']);
 
 
+		if ($post['razdel'] == 'forum') {  // Тема форума
 
 
-echo "<b>章:</b> ";
 
 
 
@@ -456,64 +460,66 @@ echo "<b>章:</b> ";
 
 
 
+			$them = dbassoc(dbquery("SELECT * FROM `forum_t` WHERE `id` = '$post[id_object]' LIMIT 1"));
 
 
-if ($post['razdel'] == 'mail')echo "<font color='red'>邮件</font><br />";
 
 
+			echo "<font color='red'>论坛</font> | ";
 
 
 
 
+			echo " <a href='/forum/$them[id_forum]/$them[id_razdel]/$them[id]/'>" . htmlspecialchars($them['name']) . "</a><br />";
+		}
 
 
 
-if ($post['razdel'] == 'guest')echo "<a href='/guest/'><font color='red'>客人</font></a><br />";
 
 
 
 
 
 
+		if ($post['razdel'] == 'loads_komm') {  // Загрузки
 
 
 
-if ($post['razdel'] == 'files_komm'){  // Файлы юзеров
 
 
 
 
 
 
+			$komm = dbassoc(dbquery("SELECT * FROM `loads_komm` WHERE `id` = '$post[id_object]' LIMIT 1"));
 
 
 
-	$file_id = dbassoc(dbquery("SELECT * FROM `obmennik_files` WHERE `id` = '$post[id_object]' LIMIT 1"));
 
+			$file = dbassoc(dbquery("SELECT * FROM `loads_list` WHERE `name` = '$komm[file]' LIMIT 1"));
 
 
 
-	$dir = dbassoc(dbquery("SELECT * FROM `user_files` WHERE `id` = '$file_id[my_dir]' LIMIT 1"));
 
+			echo "<font color='red'>装料</font> | ";
 
 
 
-	echo "<font color='red'>个人档案</font> | ";
 
+			echo " <a href='/loads/?komm&d=$file[path]&f=$file[name]'>" . htmlspecialchars($file['name']) . "</a><br />";
+		}
 
 
 
-	echo " <a href='/user/personalfiles/$file_id[id_user]/$dir[id]/?id_file=$file_id[id]'>".htmlspecialchars($file_id['name'])."</a><br />";
 
 
 
 
-	
 
 
+		if ($post['razdel'] == 'foto_komm') {  // Фотографии
 
 
-} 
 
 
 
@@ -521,15 +527,18 @@ if ($post['razdel'] == 'files_komm'){  // Файлы юзеров
 
 
 
+			$foto = dbassoc(dbquery("SELECT * FROM `gallery_foto` WHERE `id` = '$post[id_object]' LIMIT 1"));
 
 
 
 
+			echo "<font color='red'>照片</font> | ";
 
 
 
-if ($post['razdel'] == 'obmen_komm'){  // Обменник
 
+			echo " <a href='/foto/$foto[id_user]/$foto[id_gallery]/$foto[id]/'>" . htmlspecialchars($foto['name']) . "</a><br />";
+		}
 
 
 
@@ -538,77 +547,79 @@ if ($post['razdel'] == 'obmen_komm'){  // Обменник
 
 
 
-	$file_id=dbassoc(dbquery("SELECT * FROM `obmennik_files` WHERE `id` = '$post[id_object]' LIMIT 1"));
 
+		if ($post['razdel'] == 'stena') // Стена юзера
 
 
 
-	$dir_id=dbassoc(dbquery("SELECT * FROM `obmennik_dir` WHERE `id` = '$file_id[id_dir]' LIMIT 1"));
 
+		{
 
 
 
-	
 
+			echo "<font color='red'>墙</font> | ";
 
 
 
-	echo "<font color='red'>Зона обмена</font> | ";
 
+			$anketa = get_user($post['id_object']);
 
 
 
-	echo " <a href='/obmen$dir_id[dir]$file_id[id].$file_id[ras]?showinfo'>".htmlspecialchars($file_id['name'])."</a><br />";
 
+			echo " <a href='/info.php?id=$anketa[id]'>$anketa[nick]</a>";
 
 
 
-	
 
+			echo " " . medal($anketa['id']) . " " . online($anketa['id']) . "<br />";
+		}
 
 
 
-} 
 
 
 
 
 
 
+		if ($post['razdel'] == 'status_komm')	// Статус
 
 
 
-if ($post['razdel'] == 'notes_komm'){  // Дневники
 
+		{
 
 
 
 
+			$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '$post[id_object]' LIMIT 1"));
 
 
 
 
-	$notes=dbassoc(dbquery("SELECT * FROM `notes` WHERE `id` = '$post[id_object]' LIMIT 1"));
+			echo "<a href='/user/status/komm.php?id=$status[id]'><font color='red'>现状</font></a> | ";
 
 
 
 
-	echo "<font color='red'>Дневники</font> | ";
+			$anketa = get_user($status['id_user']);
 
 
 
 
-	echo " <a href='/plugins/notes/list.php?id=$notes[id]'>".htmlspecialchars($notes['name'])."</a><br />";
+			echo " <a href='/info.php?id=$anketa[id]'>$anketa[nick]</a>";
 
 
 
 
-	
+			echo " " . medal($anketa['id']) . " " . online($anketa['id']) . "<br />";
+		}
 
 
 
 
-}
 
 
 
@@ -618,48 +629,48 @@ if ($post['razdel'] == 'notes_komm'){  // Дневники
 
 
 
-if ($post['razdel'] == 'forum'){  // Тема форума
 
+		echo "<b>申诉:</b> <a href='/info.php?id=$ank[id]'>$ank[nick]</a>";
 
 
 
 
+		echo " " . medal($ank['id']) . " " . online($ank['id']) . " (" . vremja($post['time']) . ")<br />";
 
 
 
 
-	$them=dbassoc(dbquery("SELECT * FROM `forum_t` WHERE `id` = '$post[id_object]' LIMIT 1"));
 
 
 
 
-	echo "<font color='red'>Форум</font> | ";
 
+		if ($post['razdel'] == 'mail' || $post['razdel'] == 'guest' || $post['razdel'] == 'forum' || $post['razdel'] == 'stena')
 
 
 
-	echo " <a href='/forum/$them[id_forum]/$them[id_razdel]/$them[id]/'>".htmlspecialchars($them['name'])."</a><br />";
 
+			echo "<b>通信:</b> <font color='red' style='border-bottom: 1px solid green;'>" . output_text($post['spam']) . "<br /></font>";
 
 
 
-	
 
+		echo "<b>评论:</b> " . output_text($post['msg']) . "<br />";
 
 
 
-}
 
 
 
 
 
 
+		echo "<b>违法者:</b>  <a href='/info.php?id=$spamer[id]'>$spamer[nick]</a>";
 
 
 
-if ($post['razdel'] == 'loads_komm'){  // Загрузки
 
+		echo "" . medal($spamer['id']) . " " . online($spamer['id']) . "<br />";
 
 
 
@@ -668,267 +679,51 @@ if ($post['razdel'] == 'loads_komm'){  // Загрузки
 
 
 
-	$komm=dbassoc(dbquery("SELECT * FROM `loads_komm` WHERE `id` = '$post[id_object]' LIMIT 1"));
 
+		echo "   </div>";
 
 
 
-	$file=dbassoc(dbquery("SELECT * FROM `loads_list` WHERE `name` = '$komm[file]' LIMIT 1"));
 
+		if (($user['id'] != $spamer['id'] && $user['group_access'] >= $spamer['group_access']) || ($user['id'] == 1)) {
 
 
 
-	echo "<font color='red'>Загрузки</font> | ";
 
-
-
-
-	echo " <a href='/loads/?komm&d=$file[path]&f=$file[name]'>".htmlspecialchars($file['name'])."</a><br />";
-
-
-
-
-	
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-if ($post['razdel'] == 'foto_komm'){  // Фотографии
-
-
-
-
-
-
-
-
-
-	$foto=dbassoc(dbquery("SELECT * FROM `gallery_foto` WHERE `id` = '$post[id_object]' LIMIT 1"));
-
-
-
-
-	echo "<font color='red'>Фото</font> | ";
-
-
-
-
-	echo " <a href='/foto/$foto[id_user]/$foto[id_gallery]/$foto[id]/'>".htmlspecialchars($foto['name'])."</a><br />";
-
-
-
-
-	
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-if ($post['razdel'] == 'stena') // Стена юзера
-
-
-
-
-{
-
-
-
-
-	echo "<font color='red'>Стена</font> | ";
-
-
-
-
-	$anketa = get_user($post['id_object']);
-
-
-
-
-	echo " <a href='/info.php?id=$anketa[id]'>$anketa[nick]</a>";
-
-
-
-
-	echo " ".medal($anketa['id'])." ".online($anketa['id'])."<br />";
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-if ($post['razdel'] == 'status_komm')	// Статус
-
-
-
-
-{ 
-
-
-
-
-	$status=dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '$post[id_object]' LIMIT 1"));
-
-
-
-
-	echo "<a href='/user/status/komm.php?id=$status[id]'><font color='red'>Статус</font></a> | "; 
-
-
-
-
-	$anketa = get_user($status['id_user']);
-
-
-
-
-	echo " <a href='/info.php?id=$anketa[id]'>$anketa[nick]</a>";
-
-
-
-
-	echo " ".medal($anketa['id'])." ".online($anketa['id'])."<br />";
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-echo "<b>Жалоба от:</b> <a href='/info.php?id=$ank[id]'>$ank[nick]</a>";
-
-
-
-
-echo " ".medal($ank['id'])." ".online($ank['id'])." (".vremja($post['time']).")<br />";
-
-
-
-
-
-
-
-
-
-if ($post['razdel']=='mail' || $post['razdel']=='guest' || $post['razdel']=='forum' || $post['razdel']=='stena')
-
-
-
-
-echo "<b>На сообщение:</b> <font color='red' style='border-bottom: 1px solid green;'>".output_text($post['spam'])."<br /></font>";
-
-
-
-
-echo "<b>评论:</b> ".output_text($post['msg'])."<br />";
-
-
-
-
-
-
-
-
-
-echo "<b>Нарушитель:</b>  <a href='/info.php?id=$spamer[id]'>$spamer[nick]</a>";
-
-
-
-
-echo "".medal($spamer['id'])." ".online($spamer['id'])."<br />";
-
-
-
-
-
-
-
-
-
-echo "   </div>";
-
-
-
-
-if (($user['id']!=$spamer['id'] && $user['group_access']>=$spamer['group_access']) || ($user['id']==1))
-
-
-
-
-{
-
-
-
-
-echo "<div class='mess'>[<a href='/adm_panel/ban.php?id=$spamer[id]'><img src='/style/icons/blicon.gif' alt='*'> бан</a>] 
+			echo "<div class='mess'>[<a href='/adm_panel/ban.php?id=$spamer[id]'><img src='/style/icons/blicon.gif' alt='*'> бан</a>] 
 
 
 
 
 [<a href='delete.php?id=$post[id]&amp;otkl'><img src='/style/icons/delete.gif' alt='*'> отклонить</a>] [<a href='delete.php?id=$post[id]'><img src='/style/icons/ok.gif' alt='*'> рассмотрена</a>] </div>";
+		} else if ($user['id'] == $spamer['id']) {
+			echo "<div class='mess'>На вас поступила жалоба от <font color='green'>$ank[nick]</font> 
 
 
 
 
-}else if ($user['id']==$spamer['id']){echo "<div class='mess'>На вас поступила жалоба от <font color='green'>$ank[nick]</font> 
+пожалуста дождитесь администратора для выяснения обстоятельств.</div>";
+		} else {
+			echo "<div class='mess'>У вас не достаточно полномочий, для рассмотрения этой жалобы.</div>";
+		}
 
 
 
 
-пожалуста дождитесь администратора для выяснения обстоятельств.</div>";}
+		echo "</table>";
+	}
 
 
 
 
-else{echo "<div class='mess'>У вас не достаточно полномочий, для рассмотрения этой жалобы.</div>";}
 
 
 
 
-echo "</table>";
 
 
 
 
-}
 
 
 
@@ -936,6 +731,7 @@ echo "</table>";
 
 
 
+	if ($k_page > 1) str('?', $k_page, $page); // Вывод страниц
 
 
 
@@ -948,48 +744,22 @@ echo "</table>";
 
 
 
-if ($k_page>1)str('?',$k_page,$page); // Вывод страниц
 
 
+	echo "<div class='foot'>";
 
 
 
 
+	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/plugins/admin/'>Админ раздел</a><br />";
 
 
 
 
-
-
-
-
-echo "<div class='foot'>";
-
-
-
-
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/plugins/admin/'>Админ раздел</a><br />";
-
-
-
-
-echo "</div>";
-
-
-
-
+	echo "</div>";
 }
 
 
 
 
 include_once '../../../sys/inc/tfoot.php';
-
-
-
-
-?>
-
-
-
-

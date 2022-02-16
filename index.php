@@ -18,7 +18,7 @@ if (!$set['web'])
 	<div class="title">
 	<center>
 	<a href="/online.php" title="在线" style="color:#cdcecf; text-decoration: none">
-	<font color="#fee300" size="2">网上 </font>
+	<font color="#fee300" size="2">在线 </font>
 	<font color="#ffffff"><?=dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `date_last` > ".(time()-600).""), 0)?></font>
 	</a>
 	<font color="#fee300" size="2"> (</font>

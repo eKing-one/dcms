@@ -11,7 +11,7 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('adm_show_adm',null,'index.php?'.SID);
 adm_check();
-$set['title']='行政工作'; // заголовок страницы
+$set['title']='管理工作'; // заголовок страницы
 include_once '../sys/inc/thead.php';
 title();
 aut();

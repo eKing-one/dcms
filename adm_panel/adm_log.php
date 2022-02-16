@@ -11,7 +11,7 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('adm_log_read',null,'index.php?'.SID);
 adm_check();
-$set['title']='行政当局的行动';
+$set['title']='网站日志';
 include_once '../sys/inc/thead.php';
 title();
 err();
@@ -79,11 +79,11 @@ echo "   </tr>";
 }
 echo "</table>";
 if ($k_page>1)str('?id_mod='.$mod['id'].'&amp;id_act='.$act['id'].'&amp;',$k_page,$page); // Вывод страниц
-echo "&laquo;<a href='?id_mod=$mod[id]".($ank?"&amp;id=$ank[id]":null)."'>Список действий</a><br />";
+echo "&laquo;<a href='?id_mod=$mod[id]".($ank?"&amp;id=$ank[id]":null)."'>行动清单</a><br />";
 echo "&laquo;<a href='?$passgen".($ank?"&amp;id=$ank[id]":null)."'>模块列表</a><br />";
 }elseif (isset($_GET['id_mod']) && dbresult(dbquery("SELECT COUNT(*) FROM `admin_log` WHERE `mod` = '".intval($_GET['id_mod'])."'".($ank?" AND `id_user` = '$ank[id]'":null)),0)!=0)
 {
-// действия в модуле
+// 模块中的操作
 $mod=dbassoc(dbquery("SELECT * FROM `admin_log_mod` WHERE `id` = '".intval($_GET['id_mod'])."' LIMIT 1"));
 $q=dbquery("SELECT `admin_log_act`.`name`, `admin_log_act`.`id`, COUNT(`admin_log`.`id`) AS `count` FROM `admin_log` LEFT JOIN `admin_log_act` ON `admin_log`.`act` = `admin_log_act`.`id` WHERE `admin_log`.`mod` = '$mod[id]'".($ank?" AND `admin_log`.`id_user` = '$ank[id]'":null)." GROUP BY `admin_log`.`act`");
 echo "<div class='menu'>";
@@ -93,7 +93,7 @@ echo "<a href='?id_mod=$mod[id]&amp;id_act=$act[id]".($ank?"&amp;id=$ank[id]":nu
 echo "</div>";
 echo "&laquo;<a href='?$passgen".($ank?"&amp;id=$ank[id]":null)."'>模块列表</a><br />";
 }else{
-// действия по модулям
+// 模块操作
 $q=dbquery("SELECT `admin_log_mod`.`name`, `admin_log_mod`.`id`, COUNT(`admin_log`.`id`) AS `count` FROM `admin_log` LEFT JOIN `admin_log_mod` ON `admin_log`.`mod` = `admin_log_mod`.`id`".($ank?" WHERE `admin_log`.`id_user` = '$ank[id]'":null)." GROUP BY `admin_log`.`mod`");
 echo "<div class='menu'>";
 if (dbrows($q)==0)echo "模块中没有操作";
@@ -103,7 +103,7 @@ echo "</div>";
 }
 if (user_access('adm_panel_show')){
 echo "<div class='foot'>";
-if (user_access('adm_show_adm'))echo "&raquo;<a href='administration.php'>行政工作</a><br />";
+if (user_access('adm_show_adm'))echo "&raquo;<a href='administration.php'>管理工作</a><br />";
 echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
 echo "</div>";
 }

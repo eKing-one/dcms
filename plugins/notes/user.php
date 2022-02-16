@@ -36,11 +36,11 @@ $ank=get_user($ank['id']);
 if ($ank['id']==0)
 {
 $ank=get_user($ank['id']);
-echo "<span class=\"status\">Доступ запрещен!</span><br />";
+echo "<span class=\"status\">禁止访问！</span><br />";
 exit;
 }
 
-$set['title']='Дневники ' . $ank['nick'] . '';
+$set['title']='日记 ' . $ank['nick'] . '';
 include_once '../../sys/inc/thead.php';
 title();
 aut(); // форма авторизации
@@ -53,22 +53,22 @@ else $order='order by `time` desc';
 if(isset($user) && $user['id']==$ank['id'])
 {
 echo'<div class="foot">';
-echo "<a href=\"add.php\">Создать дневник</a>";
+echo "<a href=\"add.php\">创建日记</a>";
 echo '</div>';
 }
 
 
 if (isset($_GET['sort']) && $_GET['sort'] =='t'){
 echo'<div class="foot">';
-echo"<b>Новые</b> | <a href='?id=$ank[id]&amp;sort=c'>Популярные</a>";
+echo"<b>新</b> | <a href='?id=$ank[id]&amp;sort=c'>流行的</a>";
 echo '</div>';
 }elseif (isset($_GET['sort']) && $_GET['sort'] =='c'){
 echo'<div class="foot">';
-echo"<a href='?id=$ank[id]&amp;sort=t'>Новые</a> | <b>Популярные</b>";
+echo"<a href='?id=$ank[id]&amp;sort=t'>新</a> | <b>流行的</b>";
 echo '</div>';
 }else{
 echo'<div class="foot">';
-echo"<b>Новые</b> | <a href='?id=$ank[id]&amp;sort=c'>Популярные</a>";
+echo"<b>新</b> | <a href='?id=$ank[id]&amp;sort=c'>流行的</a>";
 echo '</div>';
 }
 $k_post=dbresult(dbquery("SELECT COUNT(*) FROM `notes` WHERE `id_user` = '$ank[id]' "),0);
@@ -80,7 +80,7 @@ echo "<table class='post'>";
 if ($k_post==0)
 {
 echo "  <div class='mess'>";
-echo "Нет записей";
+echo "没有记录。";
 echo "  </div>";
 }
 $num=0;

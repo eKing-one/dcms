@@ -8,7 +8,7 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
-$set['title'] = '行政工作'; //网页标题
+$set['title'] = '管理工作'; //网页标题
 include_once '../sys/inc/thead.php';
 title();
 aut();
@@ -62,7 +62,7 @@ if (!isset($_GET['adm']) && !isset($_GET['mod']) && !isset($_GET['zone']) && !is
 }
 if ($s == 1) {
 	echo "<div class = 'foot'>";
-	echo "网上行政";
+	echo "在线管理";
 	echo "</div>";
 }
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE $gr"), 0);

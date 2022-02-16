@@ -10,7 +10,7 @@ include_once 'sys/inc/fnc.php';
 $banpage=true;
 include_once 'sys/inc/user.php';
 only_reg();
-$set['title']='БАН';
+$set['title']='禁止';
 include_once 'sys/inc/thead.php';
 title();
 err();

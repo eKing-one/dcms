@@ -136,7 +136,7 @@ else
 
 echo "Сообщение:<br /><textarea name=\"msg\">".$msg2."</textarea><br />";
 
-echo "<input name='post' value='Изменить' type='submit' /><br />";
+echo "<input name='post' value='修改' type='submit' /><br />";
 
 echo "</form></div>";
 

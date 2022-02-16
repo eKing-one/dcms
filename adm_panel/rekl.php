@@ -14,7 +14,7 @@ adm_check();
 if (isset($_GET['sel']) && is_numeric($_GET['sel']) && $_GET['sel']>0 && $_GET['sel']<=4)
 {
 $sel=intval($_GET['sel']);
-$set['title']='广告';
+$set['title']='网站广告';
 include_once '../sys/inc/thead.php';
 title();
 
@@ -128,7 +128,7 @@ echo "</form>";
 echo "<a href='rekl.php?sel=$sel&amp;page=$page'>取消</a><br />";
 }
 else
-echo "<a href='rekl.php?sel=$sel&amp;set=$post[id]&amp;page=$page'>要改变</a><br />";
+echo "<a href='rekl.php?sel=$sel&amp;set=$post[id]&amp;page=$page'>修改</a><br />";
 echo "  </td>";
 echo "   </tr>";
 }
@@ -167,7 +167,7 @@ echo "</div>";
 
 include_once '../sys/inc/tfoot.php';
 }
-$set['title']='广告';
+$set['title']='网站广告';
 include_once '../sys/inc/thead.php';
 title();
 
