@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -28,13 +28,13 @@ if (isset($_POST['msg']) && isset($user))
 {
 	$msg = $_POST['msg'];
 	$mat = antimat($msg);
-	if ($mat)$err[] = 'В тексте сообщения обнаружен мат: ' . $mat;
+	if ($mat)$err[] = '在消息文本中检测到MAT：' . $mat;
 
-	if (strlen2($msg) > 1024){ $err[] = 'Сообщение слишком длинное'; }
-	elseif (strlen2($msg) < 2){ $err[] = 'Короткое сообщение'; }
+	if (strlen2($msg) > 1024){ $err[] = '消息太长了'; }
+	elseif (strlen2($msg) < 2){ $err[] = '短信息'; }
 	elseif (dbresult(dbquery("SELECT COUNT(*) FROM `guest` WHERE `id_user` = '$user[id]' AND `msg` = '".my_esc($msg)."' LIMIT 1"),0) != 0)
 	{
-		$err = 'Ваше сообщение повторяет предыдущее';
+		$err = '您的信息重复上一个';
 	}
 	elseif(!isset($err))
 	{
@@ -56,7 +56,7 @@ if (isset($_POST['msg']) && isset($user))
 		}
 
 		dbquery("INSERT INTO `guest` (id_user, time, msg) values('$user[id]', '$time', '" . my_esc($msg) . "')");
-		$_SESSION['message'] = 'Сообщение успешно добавлено';
+		$_SESSION['message'] = '消息已成功添加';
 		header ("Location: index.php" . SID);
 		exit;
 	}
@@ -66,30 +66,30 @@ if (isset($_POST['msg']) && isset($user))
     $mat = antimat($msg);
     
     if ($mat) { 
-        $err[] = 'В тексте сообщения обнаружен мат: '.$mat;
+        $err[] = '在消息正文中检测到一个垫子: '.$mat;
     }
 
     if (strlen2($msg) > 1024) {
-        $err = 'Сообщение слишком длинное';
+        $err = '消息太长';
     } elseif ($_SESSION['captcha'] != $_POST['chislo']) {
-        $err = 'Неверное проверочное число';
+        $err = '验证数字不正确';
     } elseif (isset($_SESSION['antiflood']) && $_SESSION['antiflood'] > $time - 300) { 
-        $err = 'Для того чтобы чаще писать нужно авторизоваться';
+        $err = '为了更频繁地写作，您需要授权';
     } elseif (strlen2($msg) < 2) {
-        $err = 'Короткое сообщение';
+        $err = '短消息';
     } elseif (dbresult(dbquery("SELECT COUNT(*) FROM `guest` WHERE `id_user` = '0' AND `msg` = '".my_esc($msg)."' LIMIT 1"),0) != 0) {
-        $err = 'Ваше сообщение повторяет предыдущее';
+        $err = '您的消息重复上一条消息';
     } elseif(!isset($err)) {
         $_SESSION['antiflood'] = $time;
         dbquery("INSERT INTO `guest` (id_user, time, msg) values('0', '$time', '".my_esc($msg)."')");
-		$_SESSION['message'] = 'Сообщение успешно добавлено';
+		$_SESSION['message'] = '消息已成功添加';
 		header ("Location: index.php" . SID);
 		exit;
     }
 }
 
 //网页标题
-$set['title'] = 'Гостевая книга'; 
+$set['title'] = '网站游客'; 
 include_once '../sys/inc/thead.php';
 title();
 aut();
@@ -113,14 +113,14 @@ if (isset($user) || (isset($set['write_guest']) && $set['write_guest'] == 1 && (
     
     if (!isset($user) && isset($set['write_guest']) && $set['write_guest'] == 1) {
         ?>
-        <img src="/captcha.php?SESS=<?= $sess?>" width="100" height="30" alt="Captcha" /> <input name="chislo" size="7" maxlength="5" value="" type="text" placeholder="Цифры.."/><br />
+        <img src="/captcha.php?SESS=<?= $sess?>" width="100" height="30" alt="Captcha" /> <input name="chislo" size="7" maxlength="5" value="" type="text" placeholder="验证码.."/><br />
         <?
     }
     
 	echo '<input value="发送" type="submit" />';
 	echo '</form>';
 } elseif (!isset($user) && isset($set['write_guest']) && $set['write_guest'] == 1) {
-    ?><div class="mess">Вы сможете писать через <span class="on"><?= abs($time - $_SESSION['antiflood'] - 300)?> сек.</span></div><?
+    ?><div class="mess">您将能够通过 <span class="on"><?= abs($time - $_SESSION['antiflood'] - 300)?> сек.</span></div><?
 }
 
 echo '<table class="post">';
@@ -164,7 +164,7 @@ echo '</table>';
 if ($k_page > 1)str('index.php?', $k_page, $page); // Вывод страниц
 
 echo '<div class="foot">';
-echo '<img src="/style/icons/str.gif" alt="*"> <a href="who.php">В гостевой (' . dbresult(dbquery("SELECT COUNT(id) FROM `user` WHERE `date_last` > '".(time()-100)."' AND `url` like '/guest/%'"), 0) . ' чел.)</a><br />';
+echo '<img src="/style/icons/str.gif" alt="*"> <a href="who.php">在客人中 (' . dbresult(dbquery("SELECT COUNT(id) FROM `user` WHERE `date_last` > '".(time()-100)."' AND `url` like '/guest/%'"), 0) . ' 人.)</a><br />';
 echo '</div>';
 
 // Форма очистки комментов

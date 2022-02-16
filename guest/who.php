@@ -16,7 +16,7 @@ if (isset($user) && dbresult(dbquery("SELECT COUNT(id) FROM `ban` WHERE `razdel`
 	exit;
 }
 
-$set['title'] = 'Гостевая - Кто здесь?'; //网页标题
+$set['title'] = '客人 - 谁在这里？'; //网页标题
 include_once '../sys/inc/thead.php';
 title();
 aut();
@@ -27,7 +27,7 @@ $page = page($k_page);
 $start = $set['p_str']*$page-$set['p_str'];
  
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" /> <a href="index.php">Гостевая</a> | <b>Кто в гостевой?</b>';
+echo '<img src="/style/icons/str2.gif" /> <a href="index.php">客人</a> | <b>谁是客人？</b>';
 echo '</div>';
 
 echo '<table class="post">';
@@ -35,7 +35,7 @@ echo '<table class="post">';
 if ($k_post == 0)
 {
 	echo '<div class="mess" id="no_object">';
-	echo 'Здесь никого нет';
+	echo '这里没人';
 	echo '</div>';
 }
 
@@ -55,7 +55,7 @@ while ($ank = dbassoc($q))
 echo '</table>';
 
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" /> <a href="index.php">Гостевая</a> | <b>Кто в гостевой?</b>';
+echo '<img src="/style/icons/str2.gif" /> <a href="index.php">客人</a> | <b>谁是客人？</b>';
 echo '</div>';
 
 if ($k_page > 1)str('who.php?', $k_page, $page); // Вывод страниц

@@ -18,14 +18,14 @@ if (isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `guest` WHERE `
 		$ank['id'] = 0;
 		$ank['pol'] = 'guest';
 		$ank['level'] = 0;
-		$ank['nick'] = 'Гость';
+		$ank['nick'] = '客人';
 	}
 	else
 	$ank = get_user($post['id_user']);
 	
 	if (user_access('guest_delete'))
 	{
-		admin_log('Гостевая', 'Удаление сообщения', 'Удаление сообщения от ' . $ank['nick']);
+		admin_log('客人', '删除邮件', '从中删除消息 ' . $ank['nick']);
 		dbquery("DELETE FROM `guest` WHERE `id` = '$post[id]'");
 	}
 }
