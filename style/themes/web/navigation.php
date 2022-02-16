@@ -1,4 +1,4 @@
-<?
+<?php
 
 
 if (isset($user)){
@@ -20,7 +20,7 @@ if (isset($user)){
 
 
 echo '<a href="/info.php?"><span class="link_title"><img src="/style/themes/web/images/user.png" alt=""/>
-<br/>Моя стр</span></a>';
+<br/>我的页</span></a>';
 
 
 /*
@@ -66,14 +66,14 @@ $k_new_fav=dbresult(dbquery("SELECT COUNT(`mail`.`id`) FROM `mail`
 
 
 echo "<a href='/new_mess.php'><span class='link_title'><img src='/style/themes/web/images/mail.png' alt=''/>  <b class='count'>+$k_new</b>
-<br/> Почта </span></a>";
+<br/> 邮局 </span></a>";
 
 
 }else{
 
 
 echo "<a href='/konts.php'><span class='link_title'><img src='/style/themes/web/images/mail.png' alt=''/>
-<br/>Почта</span></a>";
+<br/>邮局</span></a>";
 
 
 }
@@ -102,7 +102,7 @@ $k_l = $lenta;
 
 
 if($k_l>0)echo " <b class='count'>+$k_l</b>";
-echo "<br/>Лента";
+echo "<br/>胶带";
 
 
 
@@ -137,7 +137,7 @@ $k_l = $discuss;
 
 echo "<a href='/user/discussions/index.php'><span class='link_title'><img src='/style/themes/web/images/disc.png' alt=''/>";
 if($k_l>0)echo " <b class='count'>+$k_l</b>";
-echo "<br/>Обсуждения";
+echo "<br/>讨论情况";
 
 
 
@@ -161,7 +161,7 @@ echo "</span></a>";
 */
 
 
-$k_notif = dbresult(dbquery("SELECT COUNT(`read`) FROM `notification` WHERE `id_user` = '$user[id]' AND `read` = '0'"), 0); // Уведомления
+$k_notif = dbresult(dbquery("SELECT COUNT(`read`) FROM `notification` WHERE `id_user` = '$user[id]' AND `read` = '0'"), 0); // 通知
 
 
 $k_l = $k_notif;
@@ -171,7 +171,7 @@ if($k_l>0){
 
 
 	echo "<a href='/user/notification/index.php'><span class='link_title'><img src='/style/themes/web/images/notif2.png' alt=''/><b class='count'>+$k_l</b>
-<br/>Уведомления";
+<br/>通知";
 
 
 
@@ -208,14 +208,14 @@ if ($k_f>0)
 
 
 echo "<a href='/user/frends/new.php'><span class='link_title'><img src='/style/themes/web/images/frend.png' alt=''/><b class='count'>+$k_f</b>
-<br/>Друзья </span></a>";
+<br/>朋友 </span></a>";
 
 
 else 
 
 
 echo '<a href="/user/frends/?id='.$user['id'].'"><span class="link_title"><img src="/style/themes/web/images/frend.png" alt=""/>
-<br/>Друзья</span></a>';
+<br/>朋友</span></a>';
 
 
 /*
@@ -224,7 +224,7 @@ echo '<a href="/user/frends/?id='.$user['id'].'"><span class="link_title"><img s
 =================================
 
 
-Обновить
+更新
 
 
 =================================
@@ -234,34 +234,12 @@ echo '<a href="/user/frends/?id='.$user['id'].'"><span class="link_title"><img s
 
 
 echo '<a href="'.htmlspecialchars($_SERVER['REQUEST_URI']).'"><span class="link_title"><img src="/style/themes/web/images/refresh.png"/>
-<br/>Обновить</span></a>';
+<br/>更新</span></a>';
 
 
 }elseif ($_SERVER['PHP_SELF'] != '/aut.php' && $_SERVER['PHP_SELF'] != '/reg.php'){
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-echo '<script src="//ulogin.ru/js/ulogin.js"></script>';
-
-
-$tUlogin = '<div id="uLogin" data-ulogin="display=panel;fields=first_name,last_name,city,sex,photo,photo_big;providers=vkontakte,odnoklassniki,mailru,facebook,yandex;hidden;redirect_uri=http%3A%2F%2F'.$_SERVER['HTTP_HOST'].'/user/connect/loginAPI.php"></div>';
-
-
-
-
-
-echo '<a href="#user" rel="facebox"><span class="link_title2"><img src="/style/themes/web/images/key.png" alt=""/><br />Авторизация/Регистрация</span></a>';
+echo '<a href="#user" rel="facebox"><span class="link_title2"><img src="/style/themes/web/images/key.png" alt=""/><br />授权/登记</span></a>';
 
 
 echo '<div id="user" style="display:none;">';
@@ -270,46 +248,46 @@ echo '<div id="user" style="display:none;">';
 echo '<div class="mess">
 
 
-登录 через:<br />' . $tUlogin;
+登录通过:<br />' . $tUlogin;
 
 
 echo '</div>';
 
 
-echo "<div class = 'foot'>Авторизация</div>";
+echo "<div class = 'foot'>授权</div>";
 
 
 	echo "<form class='mess' method='post' action='/login.php'>
 
 
-		Логин:<br /><input type='text' name='nick' maxlength='32' /><br />
+	登录:<br /><input type='text' name='nick' maxlength='32' /><br />
 
 
-		Пароль:<br /><input type='password' name='pass' maxlength='32' /><br />
+		密码:<br /><input type='password' name='pass' maxlength='32' /><br />
 
 
-		<label><input type='checkbox' name='aut_save' value='1' /> Запомнить меня</label><br />
+		<label><input type='checkbox' name='aut_save' value='1' /> 记住我。</label><br />
 
 
-		<input type='submit' value='登录' /> <a href='/pass.php'>Забыли пароль?</a> <br />
+		<input type='submit' value='登录' /> <a href='/pass.php'>忘了密码？</a> <br />
 
 
 		</form><br />";
 
 
-echo "<div class = 'foot'>Регистрация</div>";
+echo "<div class = 'foot'>登记</div>";
 
 
 echo "<form class='mess' method='post' action='/reg.php?$passgen'>";
 
 
-echo "Выберите ник [A-z0-9 -_]:<br /><input type='text' name='nick' maxlength='32' /><br />";
+echo "选择 Nick [A-z0-9 -_]:<br /><input type='text' name='nick' maxlength='32' /><br />";
 
 
-echo "Регистрируясь, Вы автоматически соглашаетесь с <a href='/rules.php'>правилами</a> сайта<br />";
+echo "注册时，你自动同意<a href='/rules.php'>规则</a> 网站<br />";
 
 
-echo "<input type='submit' value='Продолжить' />";
+echo "<input type='submit' value='继续' />";
 
 
 echo "</form><br />";
