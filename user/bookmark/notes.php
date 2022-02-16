@@ -102,7 +102,7 @@ dbquery("DELETE FROM `bookmarks` WHERE `id` = '" . intval($_GET['delete']) . "' 
 
 
 
-	$_SESSION['message'] = 'Закладка удалена';
+	$_SESSION['message'] = '删除书签';
 
 
 
@@ -126,7 +126,7 @@ if( !$ank ){ header("Location: /index.php?".SID); exit; }
 
 
 
-$set['title']='Закладки - Дневники - '. $ank['nick'] .''; //网页标题
+$set['title']='书签 - 日记 - '. $ank['nick'] .''; //网页标题
 
 
 
@@ -170,7 +170,7 @@ echo '<div class="foot">';
 
 
 
-echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/user/bookmark/index.php?id=' . $ank['id'] . '">Закладки</a> | <b>Дневники</b>';
+echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/user/bookmark/index.php?id=' . $ank['id'] . '">书签</a> | <b>日记</b>';
 
 
 
@@ -226,7 +226,7 @@ if ($k_post == 0)
 
 
 
-	echo 'Нет дневников в закладках';
+	echo '书签中没有日记';
 
 
 
@@ -368,7 +368,7 @@ echo '<div class="foot">';
 
 
 
-echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/user/bookmark/index.php?id=' . $ank['id'] . '">Закладки</a> | <b>Дневники</b>';
+echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/user/bookmark/index.php?id=' . $ank['id'] . '">书签</a> | <b>日记</b>';
 
 
 

@@ -5,11 +5,11 @@
 
 if ($type == 'foto' && $post['avtor'] != $user['id'])
 {
-	$name = __('Фотография друга');
+	$name = __('朋友的照片');
 }
 else if ($type == 'foto' && $post['avtor'] == $user['id'])
 {
-	$name = __('Ваша фотография');
+	$name = __('你的照片');
 }
  
 /*
@@ -45,7 +45,7 @@ if ($type == 'foto')
 	{
 		?>
 		<div class="mess">
-		<?= __('Фотография уже удалена =(')?>
+		<?= __('照片已被删除 =(')?>
 		<span class="time"><?= $s1 . vremja($post['time']) . $s2?></span>
 		</div>
 		<?

@@ -49,7 +49,7 @@ if (isset($_GET['go']) && dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_files
 	if (isset($_GET['ok']) && isset($_GET['ok']) && $ank['id'] == $user['id'])
 	{
 		dbquery("UPDATE `obmennik_files` SET `my_dir` = '$dir[id]' WHERE `id` = '$file_go[id]' LIMIT 1");
-		$_SESSION['message'] = 'Файл успешно перемещен';
+		$_SESSION['message'] = '文件已成功移动';
 		header("Location: ?");
 		exit;
 	}
@@ -62,16 +62,16 @@ if (isset($_POST['password']))
 {
 $_SESSION['pass']=my_esc($_POST['password']);
 if ($_SESSION['pass']!=$dir['pass'])
-{$_SESSION['message'] = 'Неверный пароль'; $_SESSION['pass']=NULL;}
+{$_SESSION['message'] = '密码无效'; $_SESSION['pass']=NULL;}
 header("Location: ?");
 }
 
 if (!user_access('obmen_dir_edit') && ($user['id']!=$ank['id'] && $_SESSION['pass']!=$dir['pass']))
 {
-echo '<form action="?" method="POST">Пароль: <br />		<input type="pass" name="password" value="" /><br />		
+echo '<form action="?" method="POST">密码: <br />		<input type="pass" name="password" value="" /><br />		
 <input type="submit" value="登录"/></form>';
 echo "<div class='foot'>";
-echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'Файлы':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; '.text($dir['name']))."";
+echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'档案':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; '.text($dir['name']))."";
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';
 exit;
@@ -82,10 +82,10 @@ exit;
 if (isset($_GET['go']))
 {
 	echo '<div class="foot">';
-	echo "<img src='/style/icons/ok.gif' alt='*'> <a href='/user/personalfiles/$ank[id]/$dir[id]/?go=$file_go[id]&amp;ok'>Переместить сю是的</a>";
+	echo "<img src='/style/icons/ok.gif' alt='*'> <a href='/user/personalfiles/$ank[id]/$dir[id]/?go=$file_go[id]&amp;ok'>移动苏是的</a>";
 	echo "</div>";
 	echo '<div class="mess">';
-	echo "Выбирете папку для файла";
+	echo "选择文件的文件夹";
 	echo "</div>";
 }
 
@@ -97,7 +97,7 @@ if (isset($_SESSION['obmen_dir']) || isset($_GET['obmen_dir']))
 	if (isset($_SESSION['obmen_dir']))
 	{
 		echo '<div class="mess">';
-		echo "Выбирете папку для загрузки файла";
+		echo "选择要下载文件的文件夹";
 		echo "</div>";		
 	}
 
@@ -114,7 +114,7 @@ echo "<table class='post'>";
 if ($k_post==0)
 {
 echo '<div class="mess">';
-echo "Папка пуста";
+echo "文件夹为空";
 echo "  </div>";
 }
 
@@ -202,14 +202,14 @@ if ($set['echo_rassh']==1)$ras=$post['ras'];else $ras=NULL;
 
 echo '<a href="?id_file='.$post['id'].'&amp;page='.$page.'"><b>'.text($post['name']).'.'.$ras.'</b></a> ('.size_file($post['size']).') ';
 if ($post['metka'] == 1)echo ' <font color=red>(18+)</font>';
-if ($user['id']==$post['id_user'] && $dir_id['my']==1)echo '<a href="/obmen/?trans='.$post['id'].'"><img src="/style/icons/z.gif" alt="*"> в зону</a> ';
+if ($user['id']==$post['id_user'] && $dir_id['my']==1)echo '<a href="/obmen/?trans='.$post['id'].'"><img src="/style/icons/z.gif" alt="*"> 到区域</a> ';
 if (user_access('obmen_file_edit') || $user['id']==$post['id_user'])echo '<a href="?id_file='.$post['id'].'&amp;edit"><img src="/style/icons/edit.gif" alt="*"></a> ';
 if (user_access('obmen_file_delete') || $user['id']==$post['id_user'])echo '<a href="?id_file='.$post['id'].'&amp;delete&amp;page='.$page.'"><img src="/style/icons/delete.gif" alt="*"></a> ';
 echo '<br />';
 	if ($post['opis']){
 	echo rez_text(text($post['opis'])).'<br />';
 	}
-echo '<a href="?id_file='.$post['id'].'&amp;page='.$page.'&amp;komm">Комментарии</a> ('.$k_p.')<br />';
+echo '<a href="?id_file='.$post['id'].'&amp;page='.$page.'&amp;komm">评论</a> ('.$k_p.')<br />';
 echo '</div>';
 }
 

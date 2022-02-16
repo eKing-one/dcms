@@ -102,7 +102,7 @@ dbquery("DELETE FROM `bookmarks` WHERE `id` = '" . intval($_GET['delete']) . "' 
 
 
 
-	$_SESSION['message'] = 'Закладка удалена';
+	$_SESSION['message'] = '删除书签';
 
 
 
@@ -126,7 +126,7 @@ if( !$ank ){ header("Location: /index.php?".SID); exit; }
 
 
 
-$set['title']='Закладки - Фото - ' . $ank['nick']; //网页标题
+$set['title']='书签 - 照片 - ' . $ank['nick']; //网页标题
 
 
 
@@ -166,7 +166,7 @@ echo '<div class="foot">';
 
 
 
-echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/user/bookmark/index.php?id=' . $ank['id'] . '">Закладки</a> | <b>Фото</b>';
+echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/user/bookmark/index.php?id=' . $ank['id'] . '">书签</a> | <b>照片</b>';
 
 
 
@@ -222,7 +222,7 @@ if ($k_post == 0)
 
 
 
-	echo 'Нет Фотографий в закладках';
+	echo '书签中没有照片';
 
 
 
@@ -322,7 +322,7 @@ $ank_p=get_user($gallery['id_user']);
 
 
 
-echo '<a href="/foto/' . $ank_p['id'] . '/' . $gallery['id'] . '/' . $foto['id'] . '/" title="Перейти к фото"><img style=" padding: 2px; height: 45px; width: 45px;" src="/foto/foto48/' . $foto['id'] . '.' . $foto['ras'] . '" alt="*" /> ' . htmlspecialchars($foto['name']) . '</a>  (' . vremja($post['time']) . ')';
+echo '<a href="/foto/' . $ank_p['id'] . '/' . $gallery['id'] . '/' . $foto['id'] . '/" title="转到照片"><img style=" padding: 2px; height: 45px; width: 45px;" src="/foto/foto48/' . $foto['id'] . '.' . $foto['ras'] . '" alt="*" /> ' . htmlspecialchars($foto['name']) . '</a>  (' . vremja($post['time']) . ')';
 
 
 

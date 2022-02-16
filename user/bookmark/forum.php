@@ -24,19 +24,19 @@ if (isset($user) && isset($_GET['delete']) && $user['id'] == $ank['id'])
 {
 dbquery("DELETE FROM `bookmarks` WHERE `id_object` = '" . intval($_GET['delete']) . "' AND `id_user` = '$user[id]' AND `type`='forum' LIMIT 1");
 	
-	$_SESSION['message'] = 'Закладка удалена';
+	$_SESSION['message'] = '删除书签';
 	header("Location: ?page=" . intval($_GET['page']) . "" . SID);exit;
 	exit;
 }
 
 if( !$ank ){ header("Location: /index.php?".SID); exit; }
-$set['title'] = 'Закладки - 论坛';
+$set['title'] = '书签 - 论坛';
 include_once '../../sys/inc/thead.php';
 title();
 aut(); // форма авторизации
 
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/user/bookmark/index.php?id=' . $ank['id'] . '">Закладки</a> | <b>Форум</b>';
+echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/user/bookmark/index.php?id=' . $ank['id'] . '">书签</a> | <b>论坛</b>';
 echo '</div>';
 
 $k_post=dbresult(dbquery("SELECT COUNT(*) FROM `bookmarks` WHERE `id_user` = '$ank[id]' AND `type`='forum' "),0);
@@ -48,7 +48,7 @@ echo '<table class="post">';
 if ($k_post == 0)
 {
 	echo '<div class="mess">';
-	echo 'Нет тем в закладках';
+	echo '书签中没有主题';
 	echo '</div>';
 }
 
@@ -89,19 +89,19 @@ while ($zakl = dbassoc($q))
 	
 	// Автор темы
 	$ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $them[id_user] LIMIT 1"));
-	echo 'Автор: <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> (' . vremja($them['time_create']) . ')<br />';
+	echo '作者: <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> (' . vremja($them['time_create']) . ')<br />';
 
 	// Последний пост 
 	$post = dbarray(dbquery("SELECT * FROM `forum_p` WHERE `id_them` = '$them[id]' AND `id_razdel` = '$razdel[id]' AND `id_forum` = '$forum[id]' ORDER BY `time` DESC LIMIT 1"));
 	
 	// Автор последнего поста
 	$ank2 = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
-	if ($ank2['id'])echo 'Посл.: <a href="/info.php?id=' . $ank2['id'] . '">' . $ank2['nick'] . '</a> (' . vremja($post['time']) . ')<br />';
+	if ($ank2['id'])echo '大使.: <a href="/info.php?id=' . $ank2['id'] . '">' . $ank2['nick'] . '</a> (' . vremja($post['time']) . ')<br />';
 	
 	
 	echo '</div>';
 }
 echo '</table>';echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/user/bookmark/index.php?id=' . $ank['id'] . '">Закладки</a> | <b>Форум</b>';
+echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/user/bookmark/index.php?id=' . $ank['id'] . '">书签</a> | <b>论坛</b>';
 echo '</div>';include_once '../../sys/inc/tfoot.php';
 ?>

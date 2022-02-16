@@ -5,9 +5,9 @@
 if ($type=='avatar' && $post['avtor'] != $user['id']) // аватар
 {
 	if ($post['avatar'])
-	$name = 'сменил' . ($avtor['pol'] == 1 ? null : "а") . ' фото на главной';
+	$name = '改变了' . ($avtor['pol'] == 1 ? null : "а") . ' 主页上的照片';
 	else
-	$name = 'установил' . ($avtor['pol'] == 1 ? null : "а") . ' фото на главной';	
+	$name = '已安装' . ($avtor['pol'] == 1 ? null : "а") . ' 主页上的照片';	
 }
 
 /*

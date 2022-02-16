@@ -1,15 +1,15 @@
 <?
 /*
-* Заголовок обсуждения
+* 讨论题目
 */
 
 if ($type == 'obmen' && $post['avtor'] != $user['id']) // обмен
 {
-	$name = __('Файлы | Файл друга');
+	$name = __('档案 | 朋友档案');
 }
 else if ($type == 'obmen' && $post['avtor'] == $user['id'])
 {
-	$name = __('Файлы | Ваш файл');
+	$name = __('档案 | 你的档案');
 }
  
 /*
@@ -46,7 +46,7 @@ if ($type == 'obmen')
 	{
 		?>
 		<div class="mess">
-		<?= __('Файл уже удален =(')?>
+		<?= __('该文件已被删除 =(')?>
 		<span class="time"><?= $s1 . vremja($post['time']) . $s2?></span>
 		</div>
 		<?

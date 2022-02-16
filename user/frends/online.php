@@ -37,7 +37,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0)
 	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей
 	{
 		echo '<div class="mess">';
-		echo 'Просматривать друзей пользователя могут только его друзья!';
+		echo '只有用户的好友才能查看用户的好友！';
 		echo '</div>';
 		// В друзья
 		if (isset($user))
@@ -46,12 +46,12 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0)
 
 			echo '<div class="nav1">';
 			if ($frend_new == 0 && $frend==0){
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=".$ank['id']."'>Добавить в друзья</a><br />";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=".$ank['id']."'>添加到朋友</a><br />";
 			}elseif ($frend_new == 1){
 
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$ank[id]'>Отклонить заявку</a><br />";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$ank[id]'>拒绝申请</a><br />";
 			}elseif ($frend == 2){
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>Удалить из друзей</a><br />";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>从朋友中删除</a><br />";
 			}
 			echo "</div>";}
 	include_once '../sys/inc/tfoot.php';
@@ -60,14 +60,14 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0)
 	if ($uSet['privat_str'] == 0) // Если закрыта
 	{
 		echo '<div class="mess">';
-		echo 'Пользователь запретил просматривать его друзей!';
+		echo '用户已禁止查看他的朋友！';
 		echo '</div>';
 	include_once '../sys/inc/tfoot.php';
 	exit;
 	}
 }
 
-$set['title']="Друзья онлайн $ank[nick]"; //网页标题
+$set['title']="网上朋友 $ank[nick]"; //网页标题
 include_once '../../sys/inc/thead.php';
 title();
 aut();
@@ -78,34 +78,34 @@ $f=dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' AND
 $add=dbresult(dbquery("SELECT COUNT(id) FROM `frends_new` WHERE `to` = '$ank[id]' LIMIT 1"), 0);
 echo '<div style="background:white;"><div class="pnl2H">';
 echo '<div class="linecd"><span style="margin:9px;">';
-echo ''.($ank['id']==$user['id'] ? 'Мои друзья' : ' Друзья '.group($ank['id']).' '.user::nick($ank['id'],1,1,1).'').''; 
+echo ''.($ank['id']==$user['id'] ? '我的朋友们' : ' 朋友 '.group($ank['id']).' '.user::nick($ank['id'],1,1,1).'').''; 
 echo '</span> </div></div>';
 if ($set['web']==true) {
 echo '<div class="mb4">
 <nav class="acsw rnav_w"><ul class="rnav js-rnav  " style="padding-right: 45px;">';
-echo '<li class="rnav_i"><a href="index.php?id='.$ank['id'].'" class="ai aslnk"><span class="wlnk"><span class="slnk">Все друзья</span></span> 
+echo '<li class="rnav_i"><a href="index.php?id='.$ank['id'].'" class="ai aslnk"><span class="wlnk"><span class="slnk">所有朋友</span></span> 
 <i><font color="#999">'.$f.'</font></i></a></li>';
-echo '<li class="rnav_i"><a href="online.php?id='.$ank['id'].'" class="ai alnk"><span class="wlnk"><span class="lnk">Онлайн
+echo '<li class="rnav_i"><a href="online.php?id='.$ank['id'].'" class="ai alnk"><span class="wlnk"><span class="lnk">网上
 <i><font color="#999">'.$on_f.'</font></i></a></span></span></li> ';
 if($ank['id']==$user['id']){ 
-echo '<li class="rnav_i"><a href="new.php" class="ai alnk"><span class="wlnk"><span class="lnk">Заявки
+echo '<li class="rnav_i"><a href="new.php" class="ai alnk"><span class="wlnk"><span class="lnk">申请表格
 <i><font color="#999">'.$add.'</font></i></a></span></span> </li>'; 
 }
 echo '</ul></nav></div></div>'; }
 else{
 echo "<div id='comments' class='menus'>";
 echo "<div class='webmenu'>";
-echo "<a href='index.php?id=$ank[id]' >Все (".dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' AND `i` = '1'"), 0).")</a>";
+echo "<a href='index.php?id=$ank[id]' >全部 (".dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' AND `i` = '1'"), 0).")</a>";
 echo "</div>"; 
 
 echo "<div class='webmenu last'>";
-echo "<a href='online.php?id=$ank[id]' class='activ'>Онлайн (".dbresult(dbquery("SELECT COUNT(*) FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'".(time()-600)."'"), 0).")</a>";
+echo "<a href='online.php?id=$ank[id]' class='activ'>网上 (".dbresult(dbquery("SELECT COUNT(*) FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'".(time()-600)."'"), 0).")</a>";
 echo "</div>"; 
 
 if ($ank['id'] == $user['id'])
 {
     echo "<div class='webmenu last'>";
-    echo "<a href='new.php'>Заявки (".dbresult(dbquery("SELECT COUNT(id) FROM `frends_new` WHERE `to` = '$ank[id]' LIMIT 1"), 0).")</a>";
+    echo "<a href='new.php'>申请表格 (".dbresult(dbquery("SELECT COUNT(id) FROM `frends_new` WHERE `to` = '$ank[id]' LIMIT 1"), 0).")</a>";
     echo "</div>"; 
 }
 echo "</div>";
@@ -118,7 +118,7 @@ $start=$set['p_str']*$page-$set['p_str'];
 $q = dbquery("SELECT * FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'".(time()-600)."' ORDER BY `user`.`date_last` DESC LIMIT $start, $set[p_str]");
 if ($k_post==0){
 echo '<div class="mess">';
-echo 'У вас нет друзей которые в сети';
+echo '你没有在线的朋友';
 echo '</div>';
 }
 while ($frend = dbassoc($q))
@@ -144,7 +144,7 @@ echo '</td><td style="width:80%;">';
 if (isset($user) && $user['id']==$ank['id'])echo " <input type='checkbox' name='post_$frend[id]' value='1' /> ";
 echo " ".group($frend['id'])." ";
 echo user::nick($frend['id'],1,1,1);
-echo '<br/><img src="/style/icons/alarm.png"> '.($webbrowser ? 'Посл. активность:' : null ).' '.vremja($frend['date_last']).' </td><td style="width:18px;">';
+echo '<br/><img src="/style/icons/alarm.png"> '.($webbrowser ? '邮政活动:' : null ).' '.vremja($frend['date_last']).' </td><td style="width:18px;">';
 if (isset($user)){	echo "<a href=\"/mail.php?id=$frend[id]\"><img src='/style/icons/pochta.gif' alt='*' /></a><br/>";	
 		if ($ank['id']==$user['id'])			echo "<a href='create.php?del=$frend[id]'><img src='/style/icons/delete.gif' alt='*' /></a>";
 }

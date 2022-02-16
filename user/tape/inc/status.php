@@ -4,15 +4,15 @@
 */
 if ($type == 'status_like' && $post['avtor'] != $user['id']) // статус like
 {
-	$name = 'считает классным статус';
+	$name = '认为状态很酷';
 }
 else if ($type=='status_like' && $post['avtor'] == $user['id'])
 {
-	$name = 'считает классным ваш статус';
+	$name = '认为你的状态很酷';
 }
 else if ($type=='status' && $post['avtor'] != $user['id'])
 {
-	$name = 'установил' . ($avtor['pol'] == 1 ? null : "а") . ' новый статус';
+	$name = '已安装' . ($avtor['pol'] == 1 ? null : "а") . ' 新状态';
 }
 
 
@@ -65,10 +65,10 @@ if ($type == 'status_like' || $type == 'status')
 		if (isset($user) && $user['id'] != $avtor['id'])
 		{
 			if ($user['id']!=$avtor['id'] && dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"),0)==0){
-				echo ' <a href="?likestatus=' . $status['id'] . '&amp;page=$page"><img src="/style/icons/like.gif" alt=""/>Класс!</a> &bull; ';
+				echo ' <a href="?likestatus=' . $status['id'] . '&amp;page=$page"><img src="/style/icons/like.gif" alt=""/>班级!</a> &bull; ';
 				$like = $l;
 			}else{
-				echo ' <img src="/style/icons/like.gif" alt=""/> Вы и ';
+				echo ' <img src="/style/icons/like.gif" alt=""/> 你和 ';
 				$like = $l - 1;
 			}
 		}
@@ -78,7 +78,7 @@ if ($type == 'status_like' || $type == 'status')
 			$like = $l;
 		}
 		
-		echo '<a href="/user/status/like.php?id=' . $status['id'] . '">' . $like . ' чел.</a>';
+		echo '<a href="/user/status/like.php?id=' . $status['id'] . '">' . $like . ' 伙计.</a>';
 
 	}
 	else
@@ -86,7 +86,7 @@ if ($type == 'status_like' || $type == 'status')
 		echo '<div class="nav1">';
 		echo avatar($avtor['id']) . group($avtor['id']) . user::nick($avtor['id']);
 		echo medal($avtor['id']) . online($avtor['id']) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a><br />';
-		echo 'Статус уже удален =(';
+		echo '状态已被删除 =(';
 
 	}
 }

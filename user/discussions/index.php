@@ -1,16 +1,16 @@
 <?
 /*
 =======================================
-Обсуждения для Dcms-Social
-Автор: Искатель
+讨论Dcms-社会
+作者：探索者
 ---------------------------------------
-Этот скрипт распостроняется по лицензии
-движка Dcms-Social. 
-При использовании указывать ссылку на
-оф. сайт http://dcms-social.ru
+此脚本在许可证下分发
+的Dcms-社会引擎。 
+使用时，指定指向
+官方网站http://dcms-social.ru
 ---------------------------------------
-Контакты
-ICQ: 587863132
+联络人
+ICQ：587863132
 http://dcms-social.ru
 =======================================
 */
@@ -35,7 +35,7 @@ if (isset($_GET['read']) && $_GET['read'] == 'all')
 	if (isset($user))
 	{
 		dbquery("UPDATE `discussions` SET `count` = '0' WHERE `id_user` = '$user[id]'");
-		$_SESSION['message'] = __('Список непрочитанных очищен');
+		$_SESSION['message'] = __('未读列表已清除');
 		header("Location: ?");
 		exit;
 	}
@@ -46,7 +46,7 @@ if (isset($_GET['delete']) && $_GET['delete']=='all')
 	if (isset($user))
 	{
 		dbquery("DELETE FROM `discussions` WHERE `id_user` = '$user[id]'");
-		$_SESSION['message'] = __('Список обсуждений очищен');
+		$_SESSION['message'] = __('讨论名单已清零');
 		header("Location: ?");
 		exit;
 	}
@@ -87,7 +87,7 @@ $count_f = " <img src='/style/icons/tochka.png' alt='*'/>";
 else
 $count_f = null;
 
-$set['title'] = __('Обсуждения');
+$set['title'] = __('讨论');
 include_once '../../sys/inc/thead.php';
 title();
 err();
@@ -134,21 +134,21 @@ else $lenta = null;
 ?>
 <div id="comments" class="menus">
 <div class="webmenu">
-<a href="/user/tape/"><?= __('Лента')?> <?= $lenta?></a>
+<a href="/user/tape/"><?= __('录音带')?> <?= $lenta?></a>
 </div>
 <div class="webmenu">
-<a href="/user/discussions/" class="activ"><?= __('Обсуждения')?> <?= $discuss?></a>
+<a href="/user/discussions/" class="activ"><?= __('讨论')?> <?= $discuss?></a>
 </div>
 <div class="webmenu">
-<a href="/user/notification/"><?= __('Уведомления')?> <?= $k_notif?></a>
+<a href="/user/notification/"><?= __('通知书')?> <?= $k_notif?></a>
 </div>
 </div>
 
 <div class="foot">
-<?= __('Сортировать')?>: 
-<a href="?"> <?= __('Все')?> </a>  | 
-<a href="?order=my"> <?= __('Мои')?><?= $count_my?> </a>  | 
-<a href="?order=frends"> <?= __('Друзья')?><?= $count_f?> </a> 
+<?= __('排序')?>: 
+<a href="?"> <?= __('全部')?> </a>  | 
+<a href="?order=my"> <?= __('我的')?><?= $count_my?> </a>  | 
+<a href="?order=frends"> <?= __('朋友')?><?= $count_f?> </a> 
 </div>
 <?
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `discussions`  WHERE `id_user` = '$user[id]' $order"),0);
@@ -162,7 +162,7 @@ if ($k_post == 0)
 {
 	?>
 	<div class="mess">
-	<?= __('Нет новых обсуждений')?>
+	<?= __('没有新的讨论')?>
 	</div>
 	<?
 }
@@ -200,10 +200,10 @@ if ($k_page > 1)str('?' . $sort, $k_page, $page);
 
 ?>
 <div class='foot'>
-<a href='?read=all'><img src='/style/icons/ok.gif'> Отметить всё как прочитанное</a>
+<a href='?read=all'><img src='/style/icons/ok.gif'> 将所有内容标记为已读</a>
 </div>
 <div class='foot'>
-<a href='?delete=all'><img src='/style/icons/delete.gif'> Удалить все обсуждения</a> | <a href='settings.php'>Настройки</a>
+<a href='?delete=all'><img src='/style/icons/delete.gif'> 删除所有讨论</a> | <a href='settings.php'>设置</a>
 </div>
 <?
 include_once '../../sys/inc/tfoot.php';

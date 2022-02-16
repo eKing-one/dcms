@@ -67,7 +67,7 @@ if (isset($_GET['likestatus']))
 }
 
 
-$set['title']='Лента';
+$set['title']='录音带';
 include_once '../../sys/inc/thead.php';
 
 /*
@@ -80,7 +80,7 @@ if (isset($_GET['read']) && $_GET['read']=='all')
 	if (isset($user))
 	{
 		dbquery("UPDATE `tape` SET `read` = '1' WHERE `id_user` = '$user[id]'");
-		$_SESSION['message'] = 'Список непрочитанных очищен';
+		$_SESSION['message'] = '未读列表已清除';
 		header("Location: ?page=".intval($_GET['page'])."");
 		exit;
 	}
@@ -97,7 +97,7 @@ if (isset($_GET['delete']) && $_GET['delete']=='all')
 	if (isset($user))
 	{
 		dbquery("DELETE FROM `tape` WHERE `id_user` = '$user[id]'");
-		$_SESSION['message'] = 'Лента успешно очищена';
+		$_SESSION['message'] = '磁带已成功清洁';
 		header("Location: ?");
 		exit;
 	}
@@ -123,13 +123,13 @@ else $lenta = null;
 
 echo "<div id='comments' class='menus'>";
 echo "<div class='webmenu'>";
-echo "<a href='/user/tape/' class='activ'>Лента $lenta</a>";
+echo "<a href='/user/tape/' class='activ'>录音带 $lenta</a>";
 echo "</div>"; 
 echo "<div class='webmenu'>";
-echo "<a href='/user/discussions/' >Обсуждения  $discuss</a>";
+echo "<a href='/user/discussions/' >讨论  $discuss</a>";
 echo "</div>"; 
 echo "<div class='webmenu'>";
-echo "<a href='/user/notification/'>Уведомления $k_notif</a>";
+echo "<a href='/user/notification/'>通知书 $k_notif</a>";
 echo "</div>"; 
 echo "</div>";	
 
@@ -142,7 +142,7 @@ $start = $set['p_str'] * $page-$set['p_str'];
 
 
 echo '<div class="foot">';
-echo '<a href="?page=' . $page . '&amp;read=all"><img src="/style/icons/ok.gif"> Отметить всё как прочитанное</a>';
+echo '<a href="?page=' . $page . '&amp;read=all"><img src="/style/icons/ok.gif"> 将所有内容标记为已读</a>';
 echo '</div>'; 
 
 
@@ -151,7 +151,7 @@ $q = dbquery("SELECT * FROM `tape` WHERE `id_user` = '$user[id]' ORDER BY `time`
 if ($k_post == 0)
 {
 	echo "  <div class='mess'>";
-	echo "Нет новых событий";
+	echo "没有新活动";
 	echo "  </div>";
 }
 
@@ -198,7 +198,7 @@ if ($k_page>1)str('?',$k_page,$page);
 
 
 echo '<div class="foot">';
-echo '<a href="?page=' . $page . '&amp;delete=all"><img src="/style/icons/delete.gif"> Очистить ленту</a>';
+echo '<a href="?page=' . $page . '&amp;delete=all"><img src="/style/icons/delete.gif"> 清除饲料</a>';
 echo '</div>'; 
 	
 echo '<div class="foot">';

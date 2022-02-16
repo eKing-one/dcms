@@ -28,8 +28,8 @@ if ($dir_id['upload']==1){
 
 if (isset($_GET['upload']) && $_GET['upload']=='enter')
 {
-if (!isset($_FILES['file']))$err[]='Ошибка при выгрузке файла';
-elseif (!isset($_FILES['file']['tmp_name']) || filesize($_FILES['file']['tmp_name'])>$dir_id['maxfilesize'])$err[]='Размер файла превышает установленные ограничения';
+if (!isset($_FILES['file']))$err[]='上传文件时出错';
+elseif (!isset($_FILES['file']['tmp_name']) || filesize($_FILES['file']['tmp_name'])>$dir_id['maxfilesize'])$err[]='文件大小超过设定的限制';
 else
 {
 
@@ -48,7 +48,7 @@ for($i=0;$i<count($rasss);$i++)
 if ($rasss[$i]!=NULL && $ras==$rasss[$i])$ras_ok=true;
 }
 
-if (!$ras_ok)$err='Неверное расширение файла';
+if (!$ras_ok)$err='无效的文件扩展名';
 }
 
 if (isset($_POST['metka']) && ($_POST['metka'] == '0' || $_POST['metka'] == '1'))$metka = $_POST['metka'];
@@ -103,7 +103,7 @@ if ($f['lenta_obmen']==1 && $lentaSet['lenta_files']==1) /* Фильтр рас�
 if (!@copy($_FILES['file']['tmp_name'], H."sys/obmen/files/$id_file.dat"))
 {
 dbquery("DELETE FROM `obmennik_files` WHERE `id` = '$id_file' LIMIT 1");
-$err[]='Ошибка при выгрузке';
+$err[]='上传时出错';
 }
 }
 
@@ -181,7 +181,7 @@ imagedestroy($screen);
 }
 
 $_SESSION['obmen_dir'] = null;
-$_SESSION['message'] = 'Файл успешно выгружен';
+$_SESSION['message'] = '文件已成功上传';
 header('Location: ?');
 exit;
 }
@@ -194,7 +194,7 @@ if ($dir_id['upload']==1 && isset($user))
 {
 
 
-$set['title'] = 'Загрузка файла';
+$set['title'] = '档案下载';
 include_once '../../sys/inc/thead.php';
 title();
 aut();
@@ -202,20 +202,20 @@ err();
 
 
 echo "<div class='foot'>";
-echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'<a href="/user/personalfiles/'.$ank['id'].'/'.$dir['id'].'/">Файлы</a>':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; <a href="/user/personalfiles/'.$ank['id'].'/'.$dir['id'].'/">'.text($dir['name']).'</a>')."";
+echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'<a href="/user/personalfiles/'.$ank['id'].'/'.$dir['id'].'/">档案</a>':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; <a href="/user/personalfiles/'.$ank['id'].'/'.$dir['id'].'/">'.text($dir['name']).'</a>')."";
 echo "</div>";
 
 if (isset($_SESSION['obmen_dir']))
 {
 	echo '<div class="mess">';
-	echo 'Файл будет загружен в папку <b>' . text($dir_id['name']) . '</b> зоны обмена ';
+	echo '该文件将被上传到该文件夹 <b>' . text($dir_id['name']) . '</b> 交换区 ';
 	echo '</div>';		
 }
 
 echo "<form class='foot' enctype=\"multipart/form-data\" name='message' action='?upload=enter&wap' method=\"post\">
-	 Файл: (<".size_file($dir_id['maxfilesize']).")<br />
+档案: (<".size_file($dir_id['maxfilesize']).")<br />
 	 <input name='file' type='file' maxlength='$dir_id[maxfilesize]' /><br />
-	 Скриншот:<br />
+	 截图:<br />
 	 <input name='screen' type='file' accept='image/*' /><br />";	 	
 		 
 	if ($set['web'] && is_file(H.'style/themes/'.$set['set_them'].'/altername_post_form.php'))		
@@ -225,19 +225,19 @@ echo "<form class='foot' enctype=\"multipart/form-data\" name='message' action='
 		echo $tPanel . '<textarea name="msg"></textarea><br />';	
 	}	
 	 
-	echo "<label><input type='checkbox' name='metka' value='1' /> Метка <font color=red>18+</font></label><br />";
+	echo "<label><input type='checkbox' name='metka' value='1' /> 马克 <font color=red>18+</font></label><br />";
 
-	 echo "<input class=\"submit\" type=\"submit\" value=\"Выгрузить\" /> [<img src='/style/icons/delete.gif' alt='*'> <a href='?'>Отмена</a>]<br />
-	 <div class='main'>*Разрешается выгружать файлы форматов: ";
+	 echo "<input class=\"submit\" type=\"submit\" value=\"上载\" /> [<img src='/style/icons/delete.gif' alt='*'> <a href='?'>取消</a>]<br />
+	 <div class='main'>*允许上传以下格式的文件: ";
 	 
 $i5=explode(';', $dir_id['ras']);
 for ($i = 0; $i < count($i5); $i++) 
 {
 echo $i5[$i].', ';
 }
-echo "если нехватает какого то формата, просьба сообщить об этом администрации проекта!</div></form>";
+echo "如果缺少某种格式，请告知项目管理！</div></form>";
 echo "<div class='foot'>";
-echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'<a href="/user/personalfiles/'.$ank['id'].'/'.$dir['id'].'/">Файлы</a>':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; <a href="/user/personalfiles/'.$ank['id'].'/'.$dir['id'].'/">'.text($dir['name']).'</a>')."";
+echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'<a href="/user/personalfiles/'.$ank['id'].'/'.$dir['id'].'/">档案</a>':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; <a href="/user/personalfiles/'.$ank['id'].'/'.$dir['id'].'/">'.text($dir['name']).'</a>')."";
 echo "</div>";
 
 

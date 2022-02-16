@@ -22,7 +22,7 @@ if (isset($_GET['delete']) && $_GET['delete']=='all')
 if (isset($user))
 {
 	dbquery("DELETE FROM `notification` WHERE `id_user` = '$user[id]'");
-	$_SESSION['message'] = 'Уведомления очищены';
+	$_SESSION['message'] = '清除通知';
 	header("Location: ?");
 	exit;
 }
@@ -35,13 +35,13 @@ if (isset($user))
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `notification`  WHERE `id_user` = '$user[id]' AND `id` = '".intval($_GET['del'])."'"),0)==1)
 	{
 	dbquery("DELETE FROM `notification` WHERE `id_user` = '$user[id]' AND `id` = '".intval($_GET['del'])."' LIMIT 1");
-	$_SESSION['message'] = 'Уведомление удалено';
+	$_SESSION['message'] = '删除通知';
 	header("Location: ?komm&".intval($_GET['page'])."");
 	exit;
 	}
 }
 }
-$set['title']='Уведомления';
+$set['title']='通知书';
 include_once '../../sys/inc/thead.php';
 title();
 err();
@@ -65,13 +65,13 @@ else $lenta = null;
 
 echo "<div id='comments' class='menus'>";
 echo "<div class='webmenu'>";
-echo "<a href='/user/tape/'>Лента $lenta</a>";
+echo "<a href='/user/tape/'>录音带 $lenta</a>";
 echo "</div>"; 
 echo "<div class='webmenu'>";
-echo "<a href='/user/discussions/' >Обсуждения $discuss</a>";
+echo "<a href='/user/discussions/' >讨论 $discuss</a>";
 echo "</div>"; 
 echo "<div class='webmenu'>";
-echo "<a href='/user/notification/' class='activ'>Уведомления $k_notif</a>";
+echo "<a href='/user/notification/' class='activ'>通知书 $k_notif</a>";
 echo "</div>"; 
 echo "</div>";
 
@@ -89,7 +89,7 @@ echo "</div>";
 if ($k_post==0) //Если нет уведомлений, то...
 {
 	echo "  <div class='mess'>";
-		echo "Нет новых уведомлений";
+		echo "没有新通知";
 	echo "  </div>";
 }
 //Если есть, то...
@@ -123,73 +123,73 @@ if ($num==0){
 */
 if ($type == 'ok_gift') // Принимаем подарок
 {	
-	$name = 'принял'.($avtor['pol'] == 1 ? "" : "а") . ' ваш подарок ';
+	$name = '已接受'.($avtor['pol'] == 1 ? "" : "а") . ' 你的礼物 ';
 }
 elseif ($type == 'no_gift') // Отказ от подарка
 {	
-	$name = 'отклонил'.($avtor['pol'] == 1 ? "" : "а") . ' ваш подарок ';
+	$name = '被拒绝'.($avtor['pol'] == 1 ? "" : "а") . ' 你的礼物 ';
 }
 elseif ($type == 'new_gift') // Подарки новые
 {	
-	$name = 'сделал'.($avtor['pol'] == 1 ? "" : "а") . ' вам подарок ';
+	$name = '有'.($avtor['pol'] == 1 ? "" : "а") . ' 给你的礼物 ';
 }
 elseif ($type == 'files_komm' || $type == 'obmen_komm') // Файлы
 {	
-	$name = 'ответил'.($avtor['pol'] == 1 ? "" : "а") . ' вам в комментариях к файлу ';
+	$name = '回答说'.($avtor['pol'] == 1 ? "" : "а") . ' 在文件的注释中给你 ';
 }
 
 elseif ($type == 'news_komm') // Новости 
 {	
-	$name = 'ответил'.($avtor['pol'] == 1 ? "" : "а") . ' вам в комментариях к новости ';
+	$name = '回答说'.($avtor['pol'] == 1 ? "" : "а") . ' 在对新闻的评论中给你 ';
 }
 elseif ($type == 'status_komm') // Статусы
 {	
 
 	$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '".$post['id_object']."' LIMIT 1"));
-	$name = 'ответил'.($avtor['pol'] == 1 ? "" : "а") . ' вам в комментариях этого ';
+	$name = '回答说'.($avtor['pol'] == 1 ? "" : "а") . ' 给你在这个评论 ';
 }
 elseif ($type == 'foto_komm') // Фото 
 {	
-	$name = 'ответил'.($avtor['pol'] == 1 ? "" : "а") . ' вам в комментариях к фотографии ';
+	$name = '回答说'.($avtor['pol'] == 1 ? "" : "а") . ' 在照片的评论中给你 ';
 }
 elseif ($type == 'notes_komm') // Дневники
 {	
-	$name = 'ответил'.($avtor['pol'] == 1 ? "" : "а") . ' вам в комментариях к дневнику ';
+	$name = '回答说'.($avtor['pol'] == 1 ? "" : "а") . ' 在日记的评论中给你 ';
 }
 elseif ($type == 'them_komm') // форум
 {	
-	$name = 'ответил' . ($avtor['pol'] == 1 ? "" : "а") . ' вам в теме ';
+	$name = '回答说' . ($avtor['pol'] == 1 ? "" : "а") . ' 你在主题 ';
 }
 elseif ($type == 'stena_komm') // Стена
 {	
 	$stena = get_user($post['id_object']);
-	if ($stena['id'] == $user['id']) $sT = 'вашей';
-	elseif ($stena['id'] == $avtor['id']) $sT = 'своей';
+	if ($stena['id'] == $user['id']) $sT = '你的';
+	elseif ($stena['id'] == $avtor['id']) $sT = '我的';
 	else{ $sT = null; }
-	$name = 'ответил' . ($avtor['pol'] == 1 ? "" : "а") . ' вам на '.$sT;
+	$name = '回答说' . ($avtor['pol'] == 1 ? "" : "а") . ' 你在 '.$sT;
 }
 elseif ($type == 'guest' || $type == 'adm_komm') // Гостевая, админ чат
 {	
-	$name = 'ответил' . ($avtor['pol'] == 1 ? "" : "а").' вам в ';
+	$name = '回答说' . ($avtor['pol'] == 1 ? "" : "а").' 你在 ';
 }
 elseif ($type == 'del_frend') // Уведомления о удаленных друзьях
 {	
-	$name = ' к сожалению удалил' . ($avtor['pol'] == 1 ? "" : "а").' вас из списка друзей';
+	$name = ' 不幸的是我删除了它' . ($avtor['pol'] == 1 ? "" : "а").' 你来自朋友名单';
 }
 elseif ($type == 'no_frend') // Уведомления о отклоненных заявках в друзья
 {	
-	$name = ' к сожалению отказал' . ($avtor['pol'] == 1 ? "" : "а").' вам в дружбе';
+	$name = ' 不幸的是我拒绝了' . ($avtor['pol'] == 1 ? "" : "а").' 在友谊中献给你';
 }
 
 elseif ($type == 'ok_frend') // Уведомления о принятых заявках в друзья
 {	
-	$name = ' стал' . ($avtor['pol'] == 1 ? "" : "а").' вашим другом';
+	$name = ' 已成为' . ($avtor['pol'] == 1 ? "" : "а").' 你的朋友';
 }
 elseif ($type == 'otm_frend') // Уведомления о отмененных заявках в друзья
 {	
-	$name = ' отменил' . ($avtor['pol'] == 1 ? "" : "а").' свою заявку на добавление вас в друзья';
+	$name = ' 取消' . ($avtor['pol'] == 1 ? "" : "а").' 您的应用程序将您添加为好友';
 }elseif($type=='stena_komm2'){
-$name=' написал '.($avtor['pol']==1 ? ' ' : 'a').' у Вас <a href="/user/komm.php?id='.$post['id_object'].'">в записи на стене</a>';
+$name=' 写道 '.($avtor['pol']==1 ? ' ' : 'a').' 在你 <a href="/user/komm.php?id='.$post['id_object'].'">在墙上的入口</a>';
 }
 /*
 ===============================
@@ -227,7 +227,7 @@ if ($avtor['id']){
 	echo "  " . medal($avtor['id']) . " " . online($avtor['id']) . " $name ";
 	echo "  $s1 ".vremja($post['time'])." $s2";
 } else {
-	echo " Этот друг уже удален с сайта =)  $s1 ".vremja($post['time'])." $s2";
+	echo " 这个朋友已经从网站上删除了=）  $s1 ".vremja($post['time'])." $s2";
 }
 	echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
@@ -247,7 +247,7 @@ if ($notes['id']){
 	echo '<a href="/plugins/notes/list.php?id='.$notes['id'].'&amp;page='.$pageEnd.'"><b>'.htmlspecialchars($notes['name']).'</b></a> ';
 	echo "  $s1 ".vremja($post['time'])." $s2";
 } else {
-	echo " Этот дневник уже удален =(  $s1 ".vremja($post['time'])." $s2";
+	echo " 这本日记已经被删除了=(  $s1 ".vremja($post['time'])." $s2";
 }
 	echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 }
@@ -267,7 +267,7 @@ if ($file['id'] && $avtor['id']){
 	echo '<a href="/user/personalfiles/'.$file['id_user'].'/'.$dir['id'].'/?id_file='.$file['id'].'&amp;page='.$pageEnd.'"><b>'.htmlspecialchars($file['name']).'.'.$ras.'</b></a> ';
 	echo "  $s1 ".vremja($post['time'])." $s2";
 } else {
-	echo " Этот " . (!$file['id'] ? "файл" : "пользователь" ) . " уже удален =(  $s1 ".vremja($post['time'])." $s2";
+	echo " 这 " . (!$file['id'] ? "档案" : "用户" ) . " 已删除=(  $s1 ".vremja($post['time'])." $s2";
 }
 	echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 }
@@ -286,7 +286,7 @@ if ($foto['id']){
 	echo " <a href='/foto/$foto[id_user]/$foto[id_gallery]/$foto[id]/?page=$pageEnd'>" . htmlspecialchars($foto['name']) . "</a> ";
 	echo "  $s1 ".vremja($post['time'])." $s2";
 } else {
-	echo " Эта фотография уже удалена =(  $s1 ".vremja($post['time'])." $s2";
+	echo " 这张照片已经被删除了 =(  $s1 ".vremja($post['time'])." $s2";
 }
 	echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
@@ -304,7 +304,7 @@ if ($them['id']){
 	echo "<img src='/style/themes/$set[set_them]/forum/14/them_$them[up]$them[close].png' alt='*' /> ";
 	echo " <a href='/forum/$them[id_forum]/$them[id_razdel]/$them[id]/?page=$pageEnd'>" . htmlspecialchars($them['name']) . "</a>  $s1 ".vremja($post['time'])." $s2";
 } else {
-	echo " Эта тема уже удалена =(  $s1 ".vremja($post['time'])." $s2";
+	echo " 此主题已被删除 =(  $s1 ".vremja($post['time'])." $s2";
 }
 	echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 }
@@ -316,7 +316,7 @@ if ($them['id']){
 if ($type == 'stena_komm') 
 {	if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 	echo status($avtor['id']) .  group($avtor['id']) . " <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>  " . medal($avtor['id']) . " " . online($avtor['id']) . " $name ";
-	echo "<img src='/style/icons/stena.gif' alt='*'> <a href='/info.php?id=$stena[id]&amp;page=$pageEnd'>стене</a> " . ($sT == null ? "$stena[nick]" : "") . "  $s1 ".vremja($post['time'])." $s2";
+	echo "<img src='/style/icons/stena.gif' alt='*'> <a href='/info.php?id=$stena[id]&amp;page=$pageEnd'>墙</a> " . ($sT == null ? "$stena[nick]" : "") . "  $s1 ".vremja($post['time'])." $s2";
 	echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
 	if($type=='stena_komm2'){
@@ -328,7 +328,7 @@ if ($type == 'stena_komm')
 	if($type=='stena'){
 	if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 	echo status($avtor['id']) . group($avtor['id']). ' ';
-	echo user::nick($avtor['id'],1,1,1).' написал'.($avtor['pol']==0 ? 'a' : null).' у Вас на стене';
+	echo user::nick($avtor['id'],1,1,1).' 写道'.($avtor['pol']==0 ? 'a' : null).' 在你的墙上';
 	echo ''.$s1. vremja($post['time']). $s2.' ';
 	echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>"; }
 /*
@@ -341,9 +341,9 @@ if ($type == 'status_komm')
 	if ($status['id']){
 	$ankS = get_user($status['id_user']);
 	echo status($avtor['id']) .  group($avtor['id']) . " <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>  " . medal($avtor['id']) . " " . online($avtor['id']) . " $name ";
-	echo "<img src='/style/icons/comment.png' alt='*'> <a href='/user/status/komm.php?id=$status[id]&amp;page=$pageEnd'>статуса</a>  $s1 ".vremja($post['time'])." $s2";
+	echo "<img src='/style/icons/comment.png' alt='*'> <a href='/user/status/komm.php?id=$status[id]&amp;page=$pageEnd'>状况</a>  $s1 ".vremja($post['time'])." $s2";
 	}else{
-	echo 'Статус уже удален =(';
+	echo '状态已被删除 =(';
 	}
 	echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 }
@@ -369,9 +369,9 @@ if ($type == 'guest')
 	if ($avtor['id'])
 	{
 	echo status($avtor['id']) .  group($avtor['id']) . " <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>  " . medal($avtor['id']) . " " . online($avtor['id']) . " $name ";
-	echo "<img src='/style/icons/guest.png' alt='*'> <a href='/guest/?page=$pageEnd'>гостевой</a>  $s1 ".vremja($post['time'])." $s2";
+	echo "<img src='/style/icons/guest.png' alt='*'> <a href='/guest/?page=$pageEnd'>客人</a>  $s1 ".vremja($post['time'])." $s2";
 	} else {
-	echo 'Этот пользователь пользователь уже удален =(';
+	echo '此用户用户已被删除 =(';
 	}
 	echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 }
@@ -383,7 +383,7 @@ if ($type == 'guest')
 if ($type == 'adm_komm') 
 {	if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 	echo status($avtor['id']) .  group($avtor['id']) . " <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>  " . medal($avtor['id']) . " " . online($avtor['id']) . " $name ";
-	echo "<img src='/style/icons/chat.gif' alt='S' /> <a href='/plugins/admin/chat/?page=$pageEnd'>админ чате</a>  $s1 ".vremja($post['time'])." $s2";
+	echo "<img src='/style/icons/chat.gif' alt='S' /> <a href='/plugins/admin/chat/?page=$pageEnd'>管理员聊天</a>  $s1 ".vremja($post['time'])." $s2";
 	echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 }
 	echo "</div>";
@@ -391,10 +391,10 @@ if ($type == 'adm_komm')
 
 
 if ($k_page>1)str('?',$k_page,$page); // Вывод страниц
-echo '<div class="mess"><img src="/style/icons/delete.gif"> <a href="?delete=all">Удалить все уведомления</a></div>';
+echo '<div class="mess"><img src="/style/icons/delete.gif"> <a href="?delete=all">删除所有通知</a></div>';
 echo "<div class=\"foot\">";
 echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$user[id]'>$user[nick]</a> | ";
-echo '<b>Уведомления</b> | <a href="settings.php">Настройки</a>';
+echo '<b>通知书</b> | <a href="settings.php">设置</a>';
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';
 ?>

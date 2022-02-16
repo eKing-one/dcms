@@ -46,7 +46,7 @@ include_once '../../sys/inc/user.php';
 
 
 
-$set['title'] = 'Лидеры';
+$set['title'] = '领导者';
 
 
 
@@ -306,7 +306,7 @@ dbquery("UPDATE `user` SET `money` = '".($user['money']-$st)."' WHERE `id` = '$u
 
 
 
-$_SESSION['message'] = 'Вы успешно стали лидером';
+$_SESSION['message'] = '你已经成功地成为一个领导者';
 
 
 
@@ -326,7 +326,7 @@ exit;
 
 
 
-$err='У вас не достаточно средств';
+$err='你没有足够的资金';
 
 
 
@@ -338,7 +338,7 @@ $err='У вас не достаточно средств';
 
 
 
-$err='Поле сообщения не может быть пустым';
+$err='消息字段不能为空';
 
 
 
@@ -358,7 +358,7 @@ echo '<div class="foot">';
 
 
 
-echo '<img src="/style/icons/str2.gif" alt="S"/> <a href="/user/money/">Дополнительные услуги</a> | <b>Стать лидером</b>';
+echo '<img src="/style/icons/str2.gif" alt="S"/> <a href="/user/money/">额外服务</a> | <b>成为领导者</b>';
 
 
 
@@ -374,15 +374,15 @@ echo '<div class="mess">';
 
 
 
-echo 'Для того, чтобы попасть в Лидеры необходимо минимум <b style="color:red;">1</b> <b style="color:green;">' . $sMonet[1] . '</b>, эта услуга в течение 1 дня обеспечит 
+echo '为了进入领导者，你至少需要 <b style="color:red;">1</b> <b style="color:green;">' . $sMonet[1] . '</b>, 这项服务将提供1天 
 
 
 
-Ваше пребывание в данном ТОП\'е. Ваше положение в ТОП\'е зависит от кол-ва ' . $sMonet[0] . ' (общем времени пребывания)! 
+你在这上面的位置取决于数字 ' . $sMonet[0] . ' （总停留时间）！ 
 
 
 
-Помимо этого, Ваша анкета будет ротироваться на страницах Знакомств и Поиска!';
+此外，您的个人资料将在约会和搜索页面上旋转！';
 
 
 
@@ -438,7 +438,7 @@ echo '<form class="main" method="post" action="?">';
 
 
 
-echo 'Подпись (215 символов)<textarea name="msg"></textarea><br />';
+echo '签名(215个字符)<textarea name="msg"></textarea><br />';
 
 
 
@@ -446,7 +446,7 @@ echo 'Подпись (215 символов)<textarea name="msg"></textarea><br /
 
 
 
-echo '<input value="Стать лидером" type="submit" />';
+echo '<input value="成为领导者" type="submit" />';
 
 
 
@@ -470,7 +470,7 @@ echo '<div class="foot">';
 
 
 
-echo '<img src="/style/icons/str2.gif" alt="S"/> <a href="/user/money/">Дополнительные услуги</a> | <b>Стать лидером</b>';
+echo '<img src="/style/icons/str2.gif" alt="S"/> <a href="/user/money/">额外服务</a> | <b>成为领导者</b>';
 
 
 

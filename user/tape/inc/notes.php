@@ -4,7 +4,7 @@
 */
 if ($type == 'notes' && $post['avtor'] != $user['id']) // дневники
 {
-	$name = 'создал' . ($avtor['pol'] == 1 ? null : "а") . ' новый дневник';
+	$name = '创建' . ($avtor['pol'] == 1 ? null : "а") . ' 新日记';
 }
 
 /*
@@ -35,7 +35,7 @@ if ($type  ==  'notes')
 		echo medal($avtor['id']) . online($avtor['id']) . "";
 		echo "</div>";
 		echo '<div class="nav2">';
-		echo "Дневник уже удален =( $s1 " . vremja($post['time']) . " $s2";
+		echo "日记已被删除 =( $s1 " . vremja($post['time']) . " $s2";
 	}
 }
 ?>

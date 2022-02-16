@@ -4,7 +4,7 @@
 */
 if ($type == 'obmen' && $post['avtor'] != $user['id'])
 {
-	$name = 'новые файлы в папке';
+	$name = '文件夹中的新文件';
 }
 
 /*
@@ -50,9 +50,9 @@ if ($type == 'obmen')
 		{
 			echo avatar($avtor['id']) . group($avtor['id']) . user::nick($avtor['id']) . '  <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>';
 			echo medal($avtor['id']) . online($avtor['id']) . '<br />';
-			echo 'Файл уже удален =(<br />';
+			echo '该文件已被删除 =(<br />';
 		}
 	}
-	if (isset($kol2))echo 'и еще ' . $kol2 . ' файлов';
+	if (isset($kol2))echo '和更多 ' . $kol2 . ' 档案';
 }
 ?>

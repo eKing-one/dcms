@@ -118,12 +118,12 @@ echo "<div class='mess'><center>";
 
 
 
-echo "Вы действительно желаете удалить <b>".htmlspecialchars($folder['name'])."</b><br />";
+echo "你真的想删除吗 <b>".htmlspecialchars($folder['name'])."</b><br />";
 
 
 
 
-echo "[<a href='?delete_folder=$folder[id]&amp;ok'><img src='/style/icons/ok.gif' alt='*'> Да</a>] [<a href='?'><img src='/style/icons/delete.gif' alt='*'> 取消</a>] ";
+echo "[<a href='?delete_folder=$folder[id]&amp;ok'><img src='/style/icons/ok.gif' alt='*'> 是的</a>] [<a href='?'><img src='/style/icons/delete.gif' alt='*'> 取消</a>] ";
 
 
 
@@ -438,7 +438,7 @@ echo $post['name'].'<br />';
 
 
 
-$_SESSION['message']="Удалено \"папок $a \" и \"файлов $b\"";
+$_SESSION['message']="已删除 \"文件夹 $a \" и \"档案 $b\"";
 
 
 

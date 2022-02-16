@@ -98,7 +98,7 @@ $file_id=dbassoc(dbquery("SELECT * FROM `obmennik_files` WHERE `id`='".intval($_
 
 
 
-if ($file_id['id_user']!=$ank['id']){echo 'Ошибка!';exit;}
+if ($file_id['id_user']!=$ank['id']){echo '错误!';exit;}
 
 
 
@@ -243,12 +243,12 @@ $msg=mysql_real_escape_string($_POST['msg']);
 
 
 
-if (strlen2($msg)<3)$err='Укажите подробнее причину жалобы';
+if (strlen2($msg)<3)$err='更详细地说明投诉的原因';
 
 
 
 
-if (strlen2($msg)>1512)$err='Длина текста превышает предел в 512 символов';
+if (strlen2($msg)>1512)$err='文本的长度超过512个字符的限制';
 
 
 
@@ -283,7 +283,7 @@ dbquery("INSERT INTO `spamus` (`id_object`, `id_user`, `msg`, `id_spam`, `time`,
 
 
 
-$_SESSION['message'] = 'Заявка на рассмотрение отправлена'; 
+$_SESSION['message'] = '考虑申请已发出'; 
 
 
 
@@ -318,7 +318,7 @@ exit;
 
 
 
-$set['title']= 'Жалоба'; // заголовок страницы
+$set['title']= '申索'; // заголовок страницы
 
 
 
@@ -358,12 +358,12 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]
 
 
 
-echo "<div class='mess'>Ложная информация может привести к блокировке ника. 
+echo "<div class='mess'>虚假信息会导致昵称被屏蔽。 
 
 
 
 
-Если вас постоянно достает один человек - пишет всякие гадости, вы можете добавить его в черный список.</div>";
+如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
 
 
 

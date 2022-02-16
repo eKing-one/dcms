@@ -4,7 +4,7 @@
 */
 if ($type == 'album' && $post['avtor'] != $user['id'])
 {
-	$name = 'новые фото в альбоме';
+	$name = '相册中的新照片';
 }
 
 /*
@@ -40,12 +40,12 @@ if ($type  ==  'album')
 			echo '<a href="/foto/' . $gallery['id_user'] . '/' . $gallery['id'] . '/' . $xx['id'] . '/"><img style=" margin: 2px;" src="/foto/foto50/' . $xx['id'] . '.' . $xx['ras'] . '" alt="*"/></a>';
 		}
 		
-		if (isset($kol2))echo 'и еще ' . $kol2 . ' фото';
+		if (isset($kol2))echo '和更多' . $kol2 . ' 照片';
 	}
 	else
 	{
 		echo '<div class="nav1">';
-		echo "Альбом удален =(";
+		echo "删除相册 =(";
 	}
 }
 ?>

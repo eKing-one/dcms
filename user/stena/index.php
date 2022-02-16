@@ -413,7 +413,7 @@ echo '<a href="/user/komm.php?id='.$post['id'].'"><img src="/style/icons/uv.png"
 
 
 
-if (isset($user) && $ank_stena['id']!=$user['id'])echo "<a href=\"/info.php?id=$ank[id]&amp;page=$page&amp;spam=$post[id]\"><img src='/style/icons/blicon.gif' alt='*' title='Это спам'></a>"; 
+if (isset($user) && $ank_stena['id']!=$user['id'])echo "<a href=\"/info.php?id=$ank[id]&amp;page=$page&amp;spam=$post[id]\"><img src='/style/icons/blicon.gif' alt='*' title='这是垃圾邮件'></a>"; 
 
 
 
@@ -433,7 +433,7 @@ if (user_access('guest_delete') || $ank['id']==$user['id'])
 
 
 
-echo "<a href='?id=$ank[id]&amp;delete_post=$post[id]'><img src='/style/icons/delete.gif' alt='удалить' /></a>";
+echo "<a href='?id=$ank[id]&amp;delete_post=$post[id]'><img src='/style/icons/delete.gif' alt='删除' /></a>";
 
 
 

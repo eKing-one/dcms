@@ -5,11 +5,11 @@
 
 if ($type == 'them' && $post['avtor'] != $user['id'])
 {
-	$name = __('论坛| Тема форума');
+	$name = __('论坛| 论坛主题');
 }
 else if ($type == 'them' && $post['avtor'] == $user['id'])
 {
-	$name = __('论坛| Ваша тема');
+	$name = __('论坛| 你的主题');
 }
  
 /*
@@ -45,7 +45,7 @@ if ($type == 'them')
 	{
 		?>
 		<div class="mess">
-		<?= __('Тема форума уже удалена =(')?>
+		<?= __('论坛主题已被删除 =(')?>
 		<span class="time"><?= $s1 . vremja($post['time']) . $s2?></span>
 		</div>
 		<?

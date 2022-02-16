@@ -183,7 +183,7 @@ if (!isset($_GET['page']))$_GET['page'] = 1;
 
 
 
-	$_SESSION['message']='Файл успешно удален';
+	$_SESSION['message']='该文件已成功删除';
 
 
 
@@ -223,7 +223,7 @@ if (!isset($_GET['page']))$_GET['page'] = 1;
 
 
 
-	echo 'Удалить файл '.htmlspecialchars($file_id['name']).'?<br />';
+	echo '删除文件 '.htmlspecialchars($file_id['name']).'?<br />';
 
 
 
@@ -243,7 +243,7 @@ if (!isset($_GET['page']))$_GET['page'] = 1;
 
 
 
-	echo '[<a href="?page='.intval($_GET['page']).'&amp;id_file='.$file_id['id'].'&amp;delete&amp;ok"><img src="/style/icons/ok.gif" alt="*"> Да</a>] ';
+	echo '[<a href="?page='.intval($_GET['page']).'&amp;id_file='.$file_id['id'].'&amp;delete&amp;ok"><img src="/style/icons/ok.gif" alt="*"> 是的</a>] ';
 
 
 

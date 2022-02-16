@@ -234,7 +234,7 @@ only_reg();
 
 
 
-		$_SESSION['message'] = 'Подарок от ' . $anketa['nick'] . ' принят';
+		$_SESSION['message'] = '来自 ' . $anketa['nick'] . ' 通过';
 
 
 
@@ -306,7 +306,7 @@ only_reg();
 
 
 
-		$_SESSION['message'] = 'Подарок от ' . $anketa['nick'] . ' отклонен';
+		$_SESSION['message'] = '来自 ' . $anketa['nick'] . ' 被拒绝';
 
 
 
@@ -358,7 +358,7 @@ only_reg();
 
 
 
-		$_SESSION['message'] = 'Подарок от ' . $anketa['nick'] . ' удален';
+		$_SESSION['message'] = '来自 ' . $anketa['nick'] . ' 已删除';
 
 
 
@@ -386,7 +386,7 @@ only_reg();
 
 
 
-	$set['title'] = 'Подарок ' . $ank['nick'] . ' ' . htmlspecialchars($gift['name']);
+	$set['title'] = '礼物 ' . $ank['nick'] . ' ' . htmlspecialchars($gift['name']);
 
 
 
@@ -450,7 +450,7 @@ only_reg();
 
 
 
-	echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> | <a href="/user/gift/index.php?id=' . $ank['id'] . '">Подарки</a> | <b>' . htmlspecialchars($gift['name']) . '</b>';
+	echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> | <a href="/user/gift/index.php?id=' . $ank['id'] . '">礼物</a> | <b>' . htmlspecialchars($gift['name']) . '</b>';
 
 
 
@@ -546,11 +546,11 @@ if ($post['status'] == 0)
 
 
 
-	echo '<center><img src="/style/icons/ok.gif" alt="*" /> <a href="?id=' . $post['id'] . '&amp;ok">Принять</a> ';
+	echo '<center><img src="/style/icons/ok.gif" alt="*" /> <a href="?id=' . $post['id'] . '&amp;ok">接受</a> ';
 
 
 
-	echo '<img src="/style/icons/delete.gif" alt="*" /> <a href="?id=' . $post['id'] . '&amp;no">Отказаться</a></center>';
+	echo '<img src="/style/icons/delete.gif" alt="*" /> <a href="?id=' . $post['id'] . '&amp;no">拒绝</a></center>';
 
 
 
@@ -566,7 +566,7 @@ if ($post['status'] == 0)
 
 
 
-	echo '<img src="/style/icons/delete.gif" alt="*" /> <a href="/user/gift/gift.php?id=' . $post['id'] . '&amp;delete">Удалить</a>';
+	echo '<img src="/style/icons/delete.gif" alt="*" /> <a href="/user/gift/gift.php?id=' . $post['id'] . '&amp;delete">移走</a>';
 
 
 

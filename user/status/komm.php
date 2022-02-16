@@ -102,7 +102,7 @@ include_once '../../sys/inc/user.php';
 
 
 
-$set['title']='Статус - комментарии';
+$set['title']='状态-评论';
 
 
 
@@ -282,7 +282,7 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0)
 
 
 
-		echo 'Комментировать статус пользователя могут только его друзья!';
+		echo '只有他的朋友可以评论用户的状态！';
 
 
 
@@ -314,7 +314,7 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0)
 
 
 
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=".$anketa['id']."'>Добавить в друзья</a><br />";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=".$anketa['id']."'>添加到好友</a><br />";
 
 
 
@@ -322,7 +322,7 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0)
 
 
 
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$anketa[id]'>Отклонить заявку</a><br />";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$anketa[id]'>拒绝申请</a><br />";
 
 
 
@@ -330,7 +330,7 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0)
 
 
 
-			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$anketa[id]'>Удалить из друзей</a><br />";
+			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$anketa[id]'>从朋友中删除</a><br />";
 
 
 
@@ -374,7 +374,7 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0)
 
 
 
-		echo 'Пользователь запретил комментировать его статусы!';
+		echo '用户禁止评论他的状态!';
 
 
 
@@ -486,11 +486,11 @@ $msg=mysql_real_escape_string($_POST['msg']);
 
 
 
-if (strlen2($msg)<3)$err='Укажите подробнее причину жалобы';
+if (strlen2($msg)<3)$err='更详细地说明投诉的原因';
 
 
 
-if (strlen2($msg)>1512)$err='Длина текста превышает предел в 512 символов';
+if (strlen2($msg)>1512)$err='文本的长度超过512个字符的限制';
 
 
 
@@ -518,7 +518,7 @@ dbquery("INSERT INTO `spamus` (`id_object`, `id_user`, `msg`, `id_spam`, `time`,
 
 
 
-$_SESSION['message'] = 'Заявка на рассмотрение отправлена'; 
+$_SESSION['message'] = '考虑申请已送交'; 
 
 
 
@@ -570,11 +570,11 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]
 
 
 
-echo "<div class='mess'>Ложная информация может привести к блокировке ника. 
+echo "<div class='mess'>虚假信息会导致昵称被屏蔽。 
 
 
 
-Если вас постоянно достает один человек - пишет всякие гадости, вы можете добавить его в черный список.</div>";
+如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
 
 
 
@@ -766,7 +766,7 @@ $mat=antimat($msg);
 
 
 
-if ($mat)$err[]='В тексте сообщения обнаружен мат: '.$mat;
+if ($mat)$err[]='在消息的文本中发现了一个将死者: '.$mat;
 
 
 
@@ -774,15 +774,15 @@ if ($mat)$err[]='В тексте сообщения обнаружен мат: '
 
 
 
-if (strlen2($msg)>1024){$err='Сообщение слишком длинное';}
+if (strlen2($msg)>1024){$err='消息太长了';}
 
 
 
-elseif (strlen2($msg)<2){$err='Короткое сообщение';}
+elseif (strlen2($msg)<2){$err='短消息';}
 
 
 
-elseif (dbresult(dbquery("SELECT COUNT(*) FROM `status_komm` WHERE `id_status` = '".intval($_GET['id'])."' AND `id_user` = '$user[id]' AND `msg` = '".my_esc($msg)."' LIMIT 1"),0)!=0){$err='Ваше сообщение повторяет предыдущее';}
+elseif (dbresult(dbquery("SELECT COUNT(*) FROM `status_komm` WHERE `id_status` = '".intval($_GET['id'])."' AND `id_user` = '$user[id]' AND `msg` = '".my_esc($msg)."' LIMIT 1"),0)!=0){$err='您的消息重复前一个';}
 
 
 
@@ -1050,7 +1050,7 @@ dbquery("UPDATE `user` SET `balls` = '".($user['balls']+1)."' WHERE `id` = '$use
 
 
 
-$_SESSION['message'] = 'Сообщение упешно отправлено';
+$_SESSION['message'] = '消息被匆忙发送';
 
 
 
@@ -1090,7 +1090,7 @@ echo "<div class='foot'>";
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <a href='index.php?id=".$status['id_user']."'>Статусы</a> | <b>Комментарии</b>";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <a href='index.php?id=".$status['id_user']."'>状态</a> | <b>评论</b>";
 
 
 
@@ -1214,7 +1214,7 @@ echo "<div class='mess'>";
 
 
 
-echo "Нет сообщений";
+echo "没有留言";
 
 
 
@@ -1350,7 +1350,7 @@ echo "<div style='text-align:right;'>";
 
 
 
-if ($ank['id']!=$user['id'])echo "<a href=\"?id=$status[id]&amp;spam=$post[id]&amp;page=$page\"><img src='/style/icons/blicon.gif' alt='*' title='Это спам'></a> "; 
+if ($ank['id']!=$user['id'])echo "<a href=\"?id=$status[id]&amp;spam=$post[id]&amp;page=$page\"><img src='/style/icons/blicon.gif' alt='*' title='这是垃圾邮件'></a> "; 
 
 
 
@@ -1454,7 +1454,7 @@ echo "<div class='foot'>";
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <a href='index.php?id=".$status['id_user']."'>Статусы</a> | <b>Комментарии</b>";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <a href='index.php?id=".$status['id_user']."'>状态</a> | <b>评论</b>";
 
 
 

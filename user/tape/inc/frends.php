@@ -4,7 +4,7 @@
 */
 if ($type == 'frends' && $post['avtor'] != $user['id']) // дневники
 {
-	$name = 'добавил' . ($avtor['pol'] == 1 ? null : "а") . ' в друзья';
+	$name = '补充道' . ($avtor['pol'] == 1 ? null : "а") . ' в друзья';
 }
 
 /*
@@ -30,7 +30,7 @@ if ($type == 'frends')
 		
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `gallery_foto` WHERE `id_user` = '$frend[id]'"),0)>0)
 		{
-			echo 'Последние добавленные фото ' . user::nick($frend['id'], 0) . '<br />';
+			echo '最后添加的照片 ' . user::nick($frend['id'], 0) . '<br />';
 			
 			$g = dbquery("SELECT * FROM `gallery_foto` WHERE `id_user` = '$frend[id]' ORDER BY `id` DESC LIMIT 4");
 			
@@ -42,13 +42,13 @@ if ($type == 'frends')
 		}
 		else
 		{
-			echo 'У ' . user::nick($frend['id'], 0) . ' еще нет загруженных фотографий =(';
+			echo 'У ' . user::nick($frend['id'], 0) . ' 还没有上传照片=(';
 		}
 	}
 	else
 	{
 		echo '<div class="nav1">';
-		echo 'Запись уничтожена =(';
+		echo '录赂帽拢潞 =(';
 
 	}
 }

@@ -186,11 +186,11 @@ $msg=mysql_real_escape_string($_POST['msg']);
 
 
 
-if (strlen2($msg)<3)$err='Укажите подробнее причину жалобы';
+if (strlen2($msg)<3)$err='更详细地说明投诉的原因';
 
 
 
-if (strlen2($msg)>1512)$err='Длина текста превышает предел в 512 символов';
+if (strlen2($msg)>1512)$err='文本的长度超过512个字符的限制';
 
 
 
@@ -218,7 +218,7 @@ dbquery("INSERT INTO `spamus` (`id_object`, `id_user`, `msg`, `id_spam`, `time`,
 
 
 
-$_SESSION['message'] = 'Заявка на рассмотрение отправлена'; 
+$_SESSION['message'] = '考虑申请已发出'; 
 
 
 
@@ -246,7 +246,7 @@ exit;
 
 
 
-$set['title']='Дневник ' . htmlspecialchars($notes['name']) . '';
+$set['title']='日记 ' . htmlspecialchars($notes['name']) . '';
 
 
 
@@ -282,11 +282,11 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]
 
 
 
-echo "<div class='mess'>Ложная информация может привести к блокировке ника. 
+echo "<div class='mess'>虚假信息会导致昵称被屏蔽。 
 
 
 
-Если вас постоянно достает один человек - пишет всякие гадости, вы можете добавить его в черный список.</div>";
+如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
 
 
 
@@ -502,7 +502,7 @@ $msg=$_POST['msg'];
 
 
 
-if (strlen2($msg)>1024){$err='Сообщение слишком длинное';}
+if (strlen2($msg)>1024){$err='信息太长了';}
 
 
 
@@ -510,7 +510,7 @@ if (strlen2($msg)>1024){$err='Сообщение слишком длинное';
 
 
 
-elseif (strlen2($msg)<2){$err='Короткое сообщение';}
+elseif (strlen2($msg)<2){$err='短消息';}
 
 
 
@@ -782,7 +782,7 @@ dbquery("UPDATE `user` SET `balls` = '".($user['balls']+1)."' WHERE `id` = '$use
 
 
 
-$_SESSION['message'] = 'Сообщение успешно отправлено';
+$_SESSION['message'] = '消息发送成功';
 
 
 
@@ -838,7 +838,7 @@ if ($notes['private']==1 && $user['id']!=$avtor['id'] && $frend!=2  && !user_acc
 
 
 
-msg('Дневник доступен только для друзей');
+msg('日记只提供给朋友');
 
 
 
@@ -870,7 +870,7 @@ if ($notes['private']==2 && $user['id']!=$avtor['id']  && !user_access('notes_de
 
 
 
-msg('Пользователь запретил просмотр дневника');
+msg('用户已禁止查看日记');
 
 
 
@@ -918,11 +918,11 @@ echo "<center>";
 
 
 
-echo "Вы действительно хотите удалить дневник " . output_text($notes['name']) . "?<br />";
+echo "你真的想删除日记吗 " . output_text($notes['name']) . "?<br />";
 
 
 
-echo "[<a href='delete.php?id=$notes[id]'><img src='/style/icons/ok.gif'> 移走</a>] [<a href='list.php?id=$notes[id]'><img src='/style/icons/delete.gif'> отмена</a>] ";
+echo "[<a href='delete.php?id=$notes[id]'><img src='/style/icons/ok.gif'> 移走</a>] [<a href='list.php?id=$notes[id]'><img src='/style/icons/delete.gif'> 取消预约</a>] ";
 
 
 
@@ -978,7 +978,7 @@ dbquery("UPDATE `notes` SET `count` = '".($notes['count']+1)."' WHERE `id` = '$n
 
 
 
-$_SESSION['message'] = 'Ваш голос засчитан';
+$_SESSION['message'] = '你的投票被计算在内';
 
 
 
@@ -1030,7 +1030,7 @@ dbquery("UPDATE `notes` SET `count` = '".($notes['count']-1)."' WHERE `id` = '$n
 
 
 
-$_SESSION['message'] = 'Ваш голос засчитан';
+$_SESSION['message'] = '你的投票被计算在内';
 
 
 
@@ -1082,7 +1082,7 @@ dbquery("INSERT INTO `mark_notes` (`id_list`, `id_user`, `time`) VALUES ('$notes
 
 
 
-$_SESSION['message'] = 'Дневник добавлен в закладки';
+$_SESSION['message'] = '日记已添加到书签';
 
 
 
@@ -1126,7 +1126,7 @@ dbquery("DELETE FROM `mark_notes` WHERE `id_user` = '$user[id]' AND  `id_list` =
 
 
 
-$_SESSION['message'] = 'Дневник удален из закладок';
+$_SESSION['message'] = '从书签中删除的日记';
 
 
 
@@ -1182,7 +1182,7 @@ echo "<div class=\"main\">";
 
 
 
-echo "Cоздан: (".vremja($notes['time']).")";
+echo "生成的: (".vremja($notes['time']).")";
 
 
 
@@ -1298,7 +1298,7 @@ echo '<div class="c2" style="text-align: center;">';
 
 
 
-echo '<span class="page">'.($list['id']?'<a href="list.php?id='.$list['id'].'">&laquo; Пред.</a> ':'&laquo; Пред. ').'</span>';
+echo '<span class="page">'.($list['id']?'<a href="list.php?id='.$list['id'].'">&laquo; 以前.</a> ':'&laquo; 以前. ').'</span>';
 
 
 
@@ -1322,7 +1322,7 @@ echo ' ('.$k_1.' из '.$k_2.') ';
 
 
 
-echo '<span class="page">' . ($listr['id'] ? '<a href="list.php?id=' . $listr['id'] . '">След. &raquo;</a>' : ' След. &raquo;') . '</span>';
+echo '<span class="page">' . ($listr['id'] ? '<a href="list.php?id=' . $listr['id'] . '">追踪. &raquo;</a>' : ' 追踪. &raquo;') . '</span>';
 
 
 
@@ -1354,11 +1354,11 @@ echo "<div class='main2'>";
 
 
 
-echo "Инструменты: ";
+echo "工具: ";
 
 
 
-echo " [<a href='edit.php?id=$notes[id]'><img src='/style/icons/edit.gif'> ред</a>] [<a href='?id=$notes[id]&amp;delete'><img src='/style/icons/delete.gif'> удл</a>]";
+echo " [<a href='edit.php?id=$notes[id]'><img src='/style/icons/edit.gif'> 编辑</a>] [<a href='?id=$notes[id]&amp;delete'><img src='/style/icons/delete.gif'> 删除</a>]";
 
 
 
@@ -1386,7 +1386,7 @@ echo "<div class='main'>";
 
 
 
-echo "<b>Рейтинг: $notes[count]</b><br />";
+echo "<b>评级: $notes[count]</b><br />";
 
 
 
@@ -1414,7 +1414,7 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `id_user` = '".$us
 
 
 
-echo "[<img src='/style/icons/like.gif' alt='*' /> <a href='list.php?id=$notes[id]&amp;like=1'>Нравится</a>] [<a href='list.php?id=$notes[id]&amp;like=0'><img src='/style/icons/dlike.gif' alt='*' /></a>]<br />";
+echo "[<img src='/style/icons/like.gif' alt='*' /> <a href='list.php?id=$notes[id]&amp;like=1'>像</a>] [<a href='list.php?id=$notes[id]&amp;like=0'><img src='/style/icons/dlike.gif' alt='*' /></a>]<br />";
 
 
 
@@ -1494,7 +1494,7 @@ echo "<a href='list.php?id=$notes[id]&amp;fav=0'>从书签中删除</a><br />";
 
 
 
-echo "В закладках у <a href='list.php?id=$notes[id]&amp;markinfo'>$markinfo</a> чел.";
+echo "在书签中 <a href='list.php?id=$notes[id]&amp;markinfo'>$markinfo</a> 伙计.";
 
 
 
@@ -1522,7 +1522,7 @@ echo "<div class='main'>";
 
 
 
-echo 'Поделится:<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+echo '将分享:<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
 
 
 
@@ -1586,7 +1586,7 @@ echo '<div class="foot">';
 
 
 
-echo "Комментарии";
+echo "评论";
 
 
 
@@ -1610,7 +1610,7 @@ echo '<div class="mess">';
 
 
 
-echo "Нет сообщений";
+echo "没有留言";
 
 
 
@@ -1906,7 +1906,7 @@ if ($notes['private_komm']==1 && $user['id']!=$avtor['id'] && $frend!=2  && !use
 
 
 
-msg('Комментировать могут только друзья');
+msg('只有朋友可以评论');
 
 
 
@@ -1942,7 +1942,7 @@ if ($notes['private_komm']==2 && $user['id']!=$avtor['id'] && !user_access('note
 
 
 
-msg('Пользователь запретил комментирование дневника');
+msg('用户已禁止评论日记');
 
 
 
@@ -2022,7 +2022,7 @@ echo "<div class=\"foot\">";
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Дневники</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>";
 
 
 

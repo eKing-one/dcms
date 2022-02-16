@@ -66,12 +66,12 @@ if (isset($_POST['save']))
 		dbquery("UPDATE `frends` SET `disc_forum` = '" . $disc . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
 	}
 
-	$_SESSION['message'] = __('Изменения успешно приняты');
+	$_SESSION['message'] = '更改已成功接受';
 	header('Location: index.php');
 	exit;
 }
 
-$set['title'] = __('Настройка ленты для ') . $ank['nick'];
+$set['title'] = '设置供稿 ' . $ank['nick'];
 include_once '../../sys/inc/thead.php';
 title();
 err();
@@ -81,10 +81,10 @@ aut();
 
 <div id="comments" class="menus">
 <div class="webmenu">
-<a href="index.php"><?= __('Обсуждения')?></a>
+<a href="index.php">讨论</a>
 </div> 
 <div class="webmenu">
-<a href="settings.php"><?= __('Настройки')?></a>
+<a href="settings.php">设置</a>
 </div> 
 </div>
 
@@ -92,52 +92,52 @@ aut();
 <form action="?id=<?= $ank['id']?>" method="post">
 
 	<div class="mess">
-	<?= __('Уведомления о обсуждениях в дневниках')?> <?= $ank['nick']?>.
+	关于日记讨论的通知 <?= $ank['nick']?>.
 	</div>
 
 	<div class="nav1">
-	<input name="disc_notes" type="radio" <?= ($frend['disc_notes'] == 1 ? ' checked="checked"' : null)?> value="1" /> <?= __('Да')?> 
-	<input name="disc_notes" type="radio" <?= ($frend['disc_notes'] == 0 ? ' checked="checked"' : null)?> value="0" /> <?= __('Нет')?> 
+	<input name="disc_notes" type="radio" <?= ($frend['disc_notes'] == 1 ? ' checked="checked"' : null)?> value="1" /> 是的 
+	<input name="disc_notes" type="radio" <?= ($frend['disc_notes'] == 0 ? ' checked="checked"' : null)?> value="0" /> 非也。 
 	</div>
 
 	<div class="mess">
-	<?= __('Уведомления о обсуждениях в темах')?> <?= $ank['nick']?> <?= __('в форуме')?>.
+	关于主题讨论的通知 <?= $ank['nick']?> 在论坛.
 	</div>
 
 	<div class="nav1">
-	<input name="disc_forum" type="radio" <?= ($frend['disc_forum'] == 1 ? ' checked="checked"' : null)?> value="1" /> <?= __('Да')?> 
-	<input name="disc_forum" type="radio" <?= ($frend['disc_forum'] == 0 ? ' checked="checked"' : null)?> value="0" /> <?= __('Нет')?> 
+	<input name="disc_forum" type="radio" <?= ($frend['disc_forum'] == 1 ? ' checked="checked"' : null)?> value="1" /> 是的 
+	<input name="disc_forum" type="radio" <?= ($frend['disc_forum'] == 0 ? ' checked="checked"' : null)?> value="0" /> 非也。 
 	</div>
 
 	<div class="mess">
-	<?= __('Уведомления о обсуждениях в фото')?> <?= $ank['nick']?>.
+	关于照片中讨论的通知 <?= $ank['nick']?>.
 	</div>
 
 	<div class="nav1">
-	<input name="disc_foto" type="radio" <?= ($frend['disc_foto'] == 1 ? ' checked="checked"' : null)?> value="1" /> <?= __('Да')?> 
-	<input name="disc_foto" type="radio" <?= ($frend['disc_foto'] == 0 ? ' checked="checked"' : null)?> value="0" /> <?= __('Нет')?> 
+	<input name="disc_foto" type="radio" <?= ($frend['disc_foto'] == 1 ? ' checked="checked"' : null)?> value="1" /> 是的 
+	<input name="disc_foto" type="radio" <?= ($frend['disc_foto'] == 0 ? ' checked="checked"' : null)?> value="0" /> 非也。 
 	</div>
 
 	<div class="mess">
-	<?= __('Уведомления о обсуждениях в файлах')?> <?= $ank['nick']?>.
+	关于文件中讨论的通知 <?= $ank['nick']?>.
 	</div>
 
 	<div class="nav1">
-	<input name="disc_obmen" type="radio" <?= ($frend['disc_obmen'] == 1 ? ' checked="checked"' : null)?> value="1" /> <?= __('Да')?> 
-	<input name="disc_obmen" type="radio" <?= ($frend['disc_obmen'] == 0 ? ' checked="checked"' : null)?> value="0" /> <?= __('Нет')?> 
+	<input name="disc_obmen" type="radio" <?= ($frend['disc_obmen'] == 1 ? ' checked="checked"' : null)?> value="1" /> 是的 
+	<input name="disc_obmen" type="radio" <?= ($frend['disc_obmen'] == 0 ? ' checked="checked"' : null)?> value="0" /> 非也。 
 	</div>
 
 	<div class="mess">
-	<?= __('Уведомления о обсуждениях в статусах')?> <?= $ank['nick']?>.
+	关于状态讨论的通知 <?= $ank['nick']?>.
 	</div>
 
 	<div class="nav1">
-	<input name="disc_status" type="radio" <?= ($frend['disc_status'] == 1 ? ' checked="checked"' : null)?> value="1" /> <?= __('Да')?> 
-	<input name="disc_status" type="radio" <?= ($frend['disc_status'] == 0 ? ' checked="checked"' : null)?> value="0" /> <?= __('Нет')?> 
+	<input name="disc_status" type="radio" <?= ($frend['disc_status'] == 1 ? ' checked="checked"' : null)?> value="1" /> 是的 
+	<input name="disc_status" type="radio" <?= ($frend['disc_status'] == 0 ? ' checked="checked"' : null)?> value="0" /> 非也。 
 	</div>
 
 	<div class="main">
-	<input type="submit" name="save" value="<?= __('Сохранить')?>" />
+	<input type="submit" name="save" value="储蓄" />
 	</div>
 
 </form>

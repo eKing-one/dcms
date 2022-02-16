@@ -42,7 +42,7 @@ if (isset($_GET['act']) && $_POST['money'])
 
 $money=abs(intval($_POST['money']));
 
-if ($user['money'] < $money)$err = 'У вас не достаточно средств для перевода';
+if ($user['money'] < $money)$err = '你没有足够的资金转帐';
 
 
 
@@ -56,7 +56,7 @@ dbquery("UPDATE `user` SET `money` = '" . ($user['money'] - $money) . "' WHERE `
 
 
 
-$msg = "Пользователь [b]".$user['nick']."[/b] перевeл вам средства в колличестве [b] $money [/b] $sMonet[0]! [br]НЕ ЗАБУДЬТЕ СКАЗАТЬ СПАСИБО!";
+$msg = "用户 [b]".$user['nick']."[/b] 我把钱转给你了 [b] $money [/b] $sMonet[0]! [br]别忘了说谢谢！";
 
 
 
@@ -64,7 +64,7 @@ dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$
 
 
 
-$_SESSION['message'] = 'Перевод успешно выполнен';
+$_SESSION['message'] = '转让成功完成';
 
 header("Location: /info.php?id=$ank[id]");
 
@@ -74,7 +74,7 @@ exit;
 
 }
 
-$set['title']='Перевод '.$sMonet[0]; // заголовок страницы
+$set['title']='翻译 '.$sMonet[0]; // заголовок страницы
 
 include_once '../../sys/inc/thead.php';
 
@@ -86,7 +86,7 @@ err();
 
 echo "<div class='foot'>";
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | Перевод<br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | 翻译<br />";
 
 echo "</div>";
 
@@ -100,15 +100,15 @@ echo '<div class="mess">';
 
 	if ($user['pol']==0){
 
-		echo "Извини <b>красавица,</b> ";
+		echo "不好意思。。。 <b>美女,</b> ";
 
 	} else {
 
-		echo "<b>Извини братан,</b> ";
+		echo "<b>不好意思。。。 兄弟,</b> ";
 
 	}
 
-		echo "но чтобы переводить $sMonet[2] другим обитателям необходимо набрать минимум <b>2</b> $sMonet[2]<br/>У вас <b>$user[money] </b>$sMonet[0]";
+		echo "但要翻译 $sMonet[2] 其他居民需要获得最低 <b>2</b> $sMonet[2]<br/>У вас <b>$user[money] </b>$sMonet[0]";
 
 echo '</div>';
 
@@ -120,7 +120,7 @@ else
 
 echo '<div class="mess">';
 
-echo "Ваши $sMonet[2]: <b>$user[money]</b><br />";
+echo "你的 $sMonet[2]: <b>$user[money]</b><br />";
 
 echo '</div>';
 
@@ -128,11 +128,11 @@ echo '</div>';
 
 echo "<form class='main' action=\"?id=$ank[id]&amp;act\" method=\"post\">";
 
-echo "Количество $sMonet[0]:<br />";
+echo "数量 $sMonet[0]:<br />";
 
 echo "<input type='text' name='money' value='1' /><br />";
 
-echo "<input class='submit' type='submit' value='Перевести' /><br />";
+echo "<input class='submit' type='submit' value='翻译' /><br />";
 
 echo "</form>";
 

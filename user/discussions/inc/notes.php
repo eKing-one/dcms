@@ -5,11 +5,11 @@
 
 if ($type == 'notes' && $post['avtor'] != $user['id'])
 {
-	$name = __('Дневник друга');
+	$name = __('朋友的日记');
 }
 else if ($type == 'notes' && $post['avtor'] == $user['id'])
 {
-	$name = __('Ваш дневник');
+	$name = __('你的日记');
 }
  
 /*
@@ -45,7 +45,7 @@ if ($type == 'notes')
 	{
 		?>
 		<div class="mess">
-		<?= __('Тема форума уже удалена =(')?>
+		<?= __('论坛主题已被删除 =(')?>
 		<span class="time"><?= $s1 . vremja($post['time']) . $s2?></span>
 		</div>
 		<?

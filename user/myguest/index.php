@@ -14,11 +14,11 @@ only_reg();
 if (isset($_GET['truncate']))
 {
 	dbquery("DELETE FROM `my_guests` WHERE `id_ank` = '$user[id]'");
-	$_SESSION['message'] = 'Список гостей очищен';
+	$_SESSION['message'] = '清除客人名单';
 }
 
 //网页标题
-$set['title'] = 'Гости';
+$set['title'] = '各位嘉宾';
 
 include_once '../../sys/inc/thead.php';
 
@@ -27,7 +27,7 @@ aut();
 
 echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" alt="*"> <a href="/info.php?id=' . $user['id'] . '">' . $user['nick'] . '</a> | ';
-echo '<b>Гости</b>';
+echo '<b>各位嘉宾</b>';
 echo '</div>';
 
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `my_guests` WHERE `id_ank` = '$user[id]'"),0);
@@ -38,7 +38,7 @@ $start = $set['p_str'] * $page - $set['p_str'];
 if ($k_post == 0)
 {	
 	echo '<div class="mess">';		
-	echo 'Вашу страничку еще не посещали';		
+	echo '您的页面尚未被访问';		
 	echo '</div>';	
 }
 
@@ -67,7 +67,7 @@ while ($post = dbarray($q))
 	else 
 	echo ' <span>' . vremja($post['time']) . '</span><br />';	
 	
-	echo '<a href="/mail.php?id=' . $ank['id'] . '"><img src="/style/icons/pochta.gif" alt="*" /> Сообщение</a> ';
+	echo '<a href="/mail.php?id=' . $ank['id'] . '"><img src="/style/icons/pochta.gif" alt="*" /> 信息</a> ';
 	
 	echo '</div>';
 	
@@ -80,12 +80,12 @@ echo '</table>';
 if ($k_page>1)str("?",$k_page,$page);
 
 echo '<div class="foot">';
-echo '<img src="/style/icons/delete.gif" alt="*"> <a href="?truncate">Очистить список гостей</a><br />';
+echo '<img src="/style/icons/delete.gif" alt="*"> <a href="?truncate">清除客人名单</a><br />';
 echo '</div>';
 
 echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" alt="*"> <a href="/info.php?id=' . $user['id'] . '">' . $user['nick'] . '</a> | ';
-echo '<b>Гости</b>';
+echo '<b>各位嘉宾</b>';
 echo '</div>';
 
 include_once '../../sys/inc/tfoot.php';

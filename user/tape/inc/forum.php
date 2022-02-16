@@ -4,7 +4,7 @@
 */
 if ($type == 'them' && $post['avtor'] != $user['id'])
 {
-	$name = 'создал' . ($avtor['pol'] == 1 ? null : "а") . ' в форуме тему ';
+	$name = '创建' . ($avtor['pol'] == 1 ? null : "а") . ' 在论坛主题 ';
 }
 
 /*
@@ -34,7 +34,7 @@ if ($type == 'them')
 		echo '</div>';
 		
 		echo '<div class="nav2">';
-		echo 'Тема уже удалена =( ' . $s1 . vremja($post['time']) . $s2;
+		echo '该主题已被删除 =( ' . $s1 . vremja($post['time']) . $s2;
 	}
 }
 ?>
