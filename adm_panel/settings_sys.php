@@ -58,12 +58,12 @@ $temp_set['meta_description']=esc(stripcslashes(htmlspecialchars($_POST['meta_de
 
 if (save_settings($temp_set))
 {
-admin_log('Настройки','Система','Изменение системных настроек');
+admin_log('设置','系统','更改系统设置');
 msg('设置已成功接受');
 }
 
 else
-$err='Нет прав для изменения файла настроек';
+$err='没有更改设置文件的权限';
 }
 err();
 aut();
@@ -77,7 +77,7 @@ echo "每页积分:<br /><input name=\"p_str\" value=\"$temp_set[p_str]\" type=\
 
 
 
-echo "主题(WAP):<br /><select name='set_them'>";
+echo "题目 (WAP):<br /><select name='set_them'>";
 $opendirthem=opendir(H.'style/themes');
 while ($themes=readdir($opendirthem)){
 // пропускаем корневые папки и файлы
@@ -89,7 +89,7 @@ echo "<option value='$themes'".($temp_set['set_them']==$themes?" selected='selec
 closedir($opendirthem);
 echo "</select><br />";
 
-echo "主题(WEB):<br /><select name='set_them2'>";
+echo "题目 (WEB):<br /><select name='set_them2'>";
 $opendirthem=opendir(H.'style/themes');
 
 while ($themes=readdir($opendirthem)){
@@ -101,13 +101,13 @@ echo "<option value='$themes'".($temp_set['set_them2']==$themes?" selected='sele
 }
 closedir($opendirthem);
 echo "</select><br />";
-echo "关键词(META):<br />";
+echo "关键词 (META):<br />";
 echo "<textarea name='meta_keywords'>$temp_set[meta_keywords]</textarea><br />";
-echo "资料描述(META):<br />";
+echo "资料描述 (META):<br />";
 echo "<textarea name='meta_description'>$temp_set[meta_description]</textarea><br />";
 
 
-echo "<label><input type='checkbox'".($temp_set['antidos']?" checked='checked'":null)." name='antidos' value='1' />反Dos*</label><br />";
+echo "<label><input type='checkbox'".($temp_set['antidos']?" checked='checked'":null)." name='antidos' value='1' /> 反Dos*</label><br />";
 echo "<label><input type='checkbox'".($temp_set['antimat']?" checked='checked'":null)." name='antimat' value='1' /> 反CC</label><br />";
 
 echo "解释器错误:<br /><select name=\"show_err_php\">";
@@ -118,11 +118,11 @@ echo "</select><br />";
 
 
 
-echo "电子邮件备份:<br /><input type='text' name='mail_backup' value='$temp_set[mail_backup]'  /><br />";
+echo "E-mail для BackUp:<br /><input type='text' name='mail_backup' value='$temp_set[mail_backup]'  /><br />";
 
 echo "<br />";
 echo "* 反Dos-防止来自单个IP地址的频繁请求<br />";
-echo "<input value=\"要改变\" name='save' type=\"submit\" />";
+echo "<input value=\"保存\" name='save' type=\"submit\" />";
 echo "</form>";
 
 if (user_access('adm_panel_show')){

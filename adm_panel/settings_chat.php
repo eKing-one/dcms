@@ -1,4 +1,4 @@
-<?到管理面板
+<?//到管理面板
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -12,7 +12,7 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('adm_set_chat',null,'index.php?'.SID);
 adm_check();
-$set['title']='Настройки чата';
+$set['title']='聊天设置';
 include_once '../sys/inc/thead.php';
 title();
 if (isset($_POST['save']))
@@ -29,7 +29,7 @@ if(preg_match("#^([A-zА-я0-9\-\_\ ])+$#ui", $_POST['chat_umnik']) && strlen2($
 $temp_set['chat_umnik']=$_POST['chat_umnik'];
 if (save_settings($temp_set))
 {
-admin_log('Настройки','Система','Изменение параметров чата');
+admin_log('设置','系统','更改聊天设置');
 msg('设置已成功接受');
 }
 else
@@ -45,7 +45,7 @@ echo "响应的总等待时间（聊天中的聪明人）:<br /><input type='tex
 echo "笑话之间的超时（聊天中的小丑）:<br /><input type='text' name='shutnik_new' value='$temp_set[shutnik_new]' maxlength='3' /><br />";
 echo "小丑的昵称:<br /><input type='text' name='chat_shutnik' value='$temp_set[chat_shutnik]' /><br />";
 echo "聪明人的昵称:<br /><input type='text' name='chat_umnik' value='$temp_set[chat_umnik]' /><br />";
-echo "<input value=\"要改变\" name='save' type=\"submit\" />";
+echo "<input value=\"Изменить\" name='save' type=\"submit\" />";
 echo "</form>";
 echo "<div class='foot'>";
 echo "&raquo;<a href='/adm_panel/chat_shut.php'>笑话</a><br />";

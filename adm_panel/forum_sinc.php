@@ -52,7 +52,7 @@ $d_p++;
 msg("已删除的部分: $d_r, 那个: $d_t, 职位: $d_p");
 }
 echo "<form method=\"post\" action=\"?ok\">";
-echo "<input value=\"Начать\" name='accept' type=\"submit\" />";
+echo "<input value=\"开始\" name='accept' type=\"submit\" />";
 echo "</form>";
 echo "* 根据消息和主题的数量，此操作可能需要很长时间。<br />";
 echo "** 建议仅在论坛计数器与真实数据不一致的情况下使用它<br />";

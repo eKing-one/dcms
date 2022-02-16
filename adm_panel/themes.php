@@ -41,7 +41,7 @@ if ($themes2=='.' || $themes2=='..')continue;
 $themes3[]=$themes2;
 }
 closedir($opendirthem);
-msg("Тема успешно удалена");
+msg("主题已成功删除");
 }
 else
 $err="无法删除主题";
@@ -64,7 +64,7 @@ echo "  <td class='icon48' rowspan='2'>";
 if (is_file(H.'style/themes/'.$themes.'/screen_48.png'))
 echo "<img src='".H."style/themes/".$themes."/screen_48.png' alt='' /><br />";
 else
-echo "Нет";
+echo "非也。";
 echo "  </td>";
 }
 echo "  <td class='p_t'>";
@@ -75,16 +75,16 @@ echo "   <tr>";
 echo "  <td class='p_m'>";
 echo "主题文件夹: <span title='/style/themes/$themes/'>$themes</span><br />";
 // размер файла таблиц стилей
-echo (is_file(H.'style/themes/'.$themes.'/style.css'))?"<a href='/style/themes/$themes/style.css'>style.css</a>: ".size_file(filesize(H.'style/themes/'.$themes.'/style.css'))."<br />":"Нет style.css<br />";
+echo (is_file(H.'style/themes/'.$themes.'/style.css'))?"<a href='/style/themes/$themes/style.css'>style.css</a>: ".size_file(filesize(H.'style/themes/'.$themes.'/style.css'))."<br />":"非也。 style.css<br />";
 if ($themes==$temp_set['set_them'])
 {
 echo "默认情况下，WAP<br />";
 }
 if ($themes==$temp_set['set_them2'])
 {
-echo "默认情况下为WEB<br />";
+echo "默认情况下,WEB<br />";
 }
-echo '站在'.dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `set_them` = '$themes' OR `set_them2` = '$themes'"),0)." 伙计.<br />";
+echo '站在 '.dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `set_them` = '$themes' OR `set_them2` = '$themes'"),0)." 伙计.<br />";
 echo "<a href='?delete=$themes&amp;page=$page'>移走</a><br />";
 echo "  </td>";
 echo "   </tr>";
@@ -95,7 +95,7 @@ if (isset($_GET['delete']) && in_array("$_GET[delete]", $themes3))
 $del_them=$_GET['delete'];
 echo "<div class='err'>";
 if ($del_them==$temp_set['set_them2'] || $del_them==$temp_set['set_them'])
-echo "Тема ".(($name=@file_get_contents(H.'style/themes/'.$del_them.'/them.name'))?$name:$del_them)." 默认安装<br /><a href='?page=$page'>取消</a><br />";
+echo "题目 ".(($name=@file_get_contents(H.'style/themes/'.$del_them.'/them.name'))?$name:$del_them)." 默认安装<br /><a href='?page=$page'>取消</a><br />";
 else
 {
 echo "确认删除 (".(($name=@file_get_contents(H.'style/themes/'.$del_them.'/them.name'))?$name:$del_them)."):<br />";

@@ -24,7 +24,7 @@ if ($k_post==0)
 {
 echo "   <tr>";
 echo "  <td class='p_t'>";
-echo "Нет рефералов";
+echo "没有转介";
 echo "  </td>";
 echo "   </tr>";
 }

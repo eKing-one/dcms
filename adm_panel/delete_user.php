@@ -114,7 +114,7 @@ msg('所有用户数据已被删除');
 else 
 {
 admin_log('用户','移走',"移走用户 '$ank[nick]' (id#$ank[id])");
-msg("Все данные о пользователе $ank[nick] удалены");
+msg("所有用户数据 $ank[nick] 已删除");
 }
 $tab=mysql_list_tables($set['mysql_db_name']);
 for($i=0;$i<dbrows($tab);$i++)
@@ -139,7 +139,7 @@ $chat_post_coll+=dbresult(dbquery("SELECT COUNT(*) FROM `chat_post` WHERE `id_us
 if ($chat_post_coll!=0)
 $chat_post="$chat_post +$chat_post_coll*";
 }
-echo "<span class=\"ank_n\">Сообщений в чате:</span> <span class=\"ank_d\">$chat_post</span><br />";
+echo "<span class=\"ank_n\">聊天信息:</span> <span class=\"ank_d\">$chat_post</span><br />";
 $k_them=dbresult(dbquery("SELECT COUNT(*) FROM `forum_t` WHERE `id_user` = '$ank[id]'"),0);
 if (count($collisions)>1 && isset($_GET['all']))
 {

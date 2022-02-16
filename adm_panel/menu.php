@@ -12,7 +12,7 @@ include_once '../sys/inc/user.php';
 include_once '../sys/inc/icons.php'; // Иконки главного меню
 user_access('adm_menu',null,'index.php?'.SID);
 adm_check();
-$set['title']='Главное меню';
+$set['title']='主菜单';
 include_once '../sys/inc/thead.php';
 title();
 $opendiricon=opendir(H.'style/icons');
@@ -97,7 +97,7 @@ echo "类型: ".($post['type']=='link'?'连结':'分离器')."<br />";
 echo "标题:<br />";
 echo "<input type='text' name='name' value=\"$post[name]\" /><br />";
 if ($post['type']=='link'){
-echo "Ссылка:<br />";
+echo "连结:<br />";
 echo "<input type='text' name='url' value='$post[url]' /><br />";
 }
 else
@@ -122,7 +122,7 @@ echo "<a href='?'>取消</a><br />";
 }
 else
 {
-echo "Счетчик: ".($post['counter']==null?'отсутствует':$post['counter'])."<br />";
+echo "柜台: ".($post['counter']==null?'缺席':$post['counter'])."<br />";
 echo "<a href='?id=$post[id]&amp;act=up&amp;$passgen'>更高</a> | ";
 echo "<a href='?id=$post[id]&amp;act=down&amp;$passgen'>下面</a> | ";
 echo "<a href='?id=$post[id]&amp;act=del&amp;$passgen'>移走 </a><br />";
@@ -134,7 +134,7 @@ echo "   </tr>";
 echo "</table>";
 if (isset($_GET['add'])){
 echo "<form action='?add=$passgen' method=\"post\">";
-echo "Тип:<br />";
+echo "类型:<br />";
 echo "<select name='type'>";
 echo "<option value='link'>连结 (1)</option>";
 echo "<option value='razd'>章 (2)</option>";

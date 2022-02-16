@@ -18,13 +18,13 @@ title();
 if (isset($_POST['min']) && isset($_POST['max']) && isset($_POST['opsos']))
 {
 if (!preg_match("#^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$#",$_POST['min']))$err='无效的IP格式';
-if (!preg_match("#^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$#",$_POST['max']))$err='Неверный формат IP';
-if ($_POST['opsos']==NULL)$err='Введите название оператора';
+if (!preg_match("#^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$#",$_POST['max']))$err='无效的IP格式';
+if ($_POST['opsos']==NULL)$err='输入操作员的名称';
 $min=ip2long($_POST['min']);
 $max=ip2long($_POST['max']);
 $opsos=my_esc(stripcslashes(htmlspecialchars($_POST['opsos'])));
 dbquery("INSERT INTO `opsos` (`min`, `max`, `opsos`) values('$min', '$max', '$opsos')",$db);
-msg ('Диапазон успешно добавлен');
+msg ('范围成功添加');
 }
 if (isset($_GET['delmin'])  && isset($_GET['delmax']) &&
  dbresult(dbquery("SELECT COUNT(*) FROM `opsos` WHERE `min` = '".$_GET['delmin']."' AND `max` = '".$_GET['delmax']."' LIMIT 1",$db), 0)!=0)
@@ -59,7 +59,7 @@ echo "   </tr>";
 echo "   <tr>";
 echo "  <td class='p_m'>";
 echo "$post[opsos]<br />";
-echo "<a href=\"?page=$page&amp;delmin=$post[min]&amp;delmax=$post[max]\">移走</a><br />";
+echo "<a href=\"?page=$page&amp;delmin=$post[min]&amp;delmax=$post[max]\">Удалить</a><br />";
 echo "  </td>";
 echo "   </tr>";
 }
@@ -67,7 +67,7 @@ echo "</table>";
 if ($k_page>1)str('?',$k_page,$page); // Вывод страниц
 echo "<form method=\"post\" action=\"\">";
 echo "初始IP地址:<br /><input name=\"min\" size=\"16\"  value=\"\" type=\"text\" /><br />";
-echo "最终IP:<br /><input name=\"max\" size=\"16\" value=\"\" type=\"text\" /><br />";
+echo "决赛 IP:<br /><input name=\"max\" size=\"16\" value=\"\" type=\"text\" /><br />";
 echo "操作员:<br /><input name=\"opsos\" size=\"16\" value=\"$opsos\" type=\"text\" /><br />";
 echo "<input value=\"添加\" type=\"submit\" />";
 echo "</form>";

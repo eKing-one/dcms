@@ -11,7 +11,7 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('adm_mysql',null,'index.php?'.SID);
 adm_check();
-$set['title']='MySQL запрос';
+$set['title']='MySQL 请求';
 include_once '../sys/inc/thead.php';
 title();
 if (isset($_GET['set']) && $_GET['set']=='set' && isset($_POST['query']))
@@ -20,7 +20,7 @@ $sql=trim($_POST['query']);
 if ($conf['phpversion']==5)
 {
 include_once H.'sys/inc/sql_parser.php';
-$sql=SQLParser::getQueries($sql); // при помощи парсера запросы разбиваются точнее, но работает это только в php5
+$sql=SQLParser::getQueries($sql); // 在解析器的帮助下，查询被更准确地分解，但这只适用于php5
 }
 else
 {

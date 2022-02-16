@@ -40,7 +40,7 @@ if (isset($_GET['delete']) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE
         header("Location: ?id=$ank[id]");
         exit;
     } else
-        $err[] = 'Нет прав';
+        $err[] = '无权限';
 }
 if (isset($_GET['unset']) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$ank[id]' AND `id` = '" . intval($_GET['unset']) . "'"), 0) && user_access('user_ban_unset')) {
     $ban_info = dbassoc(dbquery("SELECT * FROM `ban` WHERE `id_user` = '$ank[id]' AND `id` = '" . intval($_GET['unset']) . "'"));
@@ -52,7 +52,7 @@ if (isset($_GET['unset']) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE 
         header("Location: ?id=$ank[id]");
         exit;
     } else
-        $err[] = 'Нет прав';
+        $err[] = '无权限';
 }
 if (isset($_POST['ban_pr']) && isset($_POST['time']) && isset($_POST['vremja']) && (user_access('user_ban_set') || user_access('user_ban_set_h'))) {
     $timeban = $time;
@@ -60,7 +60,7 @@ if (isset($_POST['ban_pr']) && isset($_POST['time']) && isset($_POST['vremja']) 
     if ($_POST['vremja'] == 'chas') $timeban += intval($_POST['time']) * 60 * 60;
     if ($_POST['vremja'] == 'sut') $timeban += intval($_POST['time']) * 60 * 60 * 24;
     if ($_POST['vremja'] == 'mes') $timeban += intval($_POST['time']) * 60 * 60 * 24 * 30;
-    if ($timeban < $time) $err[] = 'Ошибка времени бана';
+    if ($timeban < $time) $err[] = '洗澡时间错误';
     if (!user_access('user_ban_set')) $timeban = min($timeban, $time + 3600 * 24);
     $pochemu = $_POST['pochemu'];
     $razdel = $_POST['razdel'];
@@ -112,7 +112,7 @@ while ($post = dbassoc($q)) {
     }
     echo "<a href='/info.php?id=$ank2[id]'>$ank2[nick]</a> " . online($ank2['id']) . ": ";
     if ($post['navsegda'] == 1) {
-        echo " бан <font color=red><b>навсег是的</b></font><br />";
+        echo " 浴池 <font color=red><b>所有是的</b></font><br />";
     } else {
         echo " до " . vremja($post['time']) . "<br />";
     }

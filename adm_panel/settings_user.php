@@ -36,11 +36,11 @@ $temp_set['st']=intval($_POST['st']);
 $temp_set['reg_select']=esc($_POST['reg_select']);
 if (save_settings($temp_set))
 {
-admin_log('Настройки','Пользователи',"Изменение пользовательских настроек");
+admin_log('设置','用户',"更改用户设置");
 msg('设置已成功接受');
 }
 else
-$err='没有更改配置文件的权限';
+$err='没有更改设置文件的权限';
 }
 err();
 aut();
@@ -53,7 +53,7 @@ if ($temp_set['reg_select']=='open_mail')$sel=' selected="selected"';else $sel=N
 echo "<option value=\"open_mail\"$sel>打开 + E-mail</option>";
 echo "</select><br />";
 echo "访客模式:<br /><select name=\"guest_select\">";
-echo "<option value=\"0\">Открыто все</option>";
+echo "<option value=\"0\">一切都是开放的</option>";
 if ($temp_set['guest_select']=='1')$sel=' selected="selected"';else $sel=NULL;
 echo "<option value=\"1\"$sel>一切都关闭了 *</option>";
 echo "</select><br />";

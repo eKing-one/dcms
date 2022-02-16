@@ -11,7 +11,7 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('adm_ban_ip',null,'index.php?'.SID);
 $opsos=NULL;
-$set['title']='Бан по IP';
+$set['title']='IP 浴池';
 include_once '../sys/inc/thead.php';
 title();
 if (isset($_POST['min']) && isset($_POST['max']))

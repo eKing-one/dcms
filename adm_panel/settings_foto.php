@@ -21,7 +21,7 @@ $temp_set['max_upload_foto_x']=intval($_POST['max_upload_foto_x']);
 $temp_set['max_upload_foto_y']=intval($_POST['max_upload_foto_y']);
 if (save_settings($temp_set))
 {
-admin_log('Настройки','Фотогалерея','Изменение настроек фотогалереи');
+admin_log('设置','照片廊','更改照片库设置');
 msg('设置已成功接受');
 }
 else

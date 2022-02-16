@@ -31,7 +31,7 @@ $temp_set['forum_counter']=intval($_POST['forum_counter']);
 }
 if (save_settings($temp_set))
 {
-admin_log('Настройки','Форум','Изменение настроек форума');
+admin_log('设置','论坛','更改论坛设置');
 msg('设置已成功接受');
 }
 else

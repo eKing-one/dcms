@@ -32,7 +32,7 @@ if(isset($_GET['id']))
 		@unlink(H.'style/smiles/' . $del['id'] . '.gif');
 		dbquery("DELETE FROM `smile` WHERE `id` = '".intval($_GET['del'])."'");
 		
-		$_SESSION['message'] = 'Смайл успешно удален';
+		$_SESSION['message'] = '微笑被成功删除';
 		header('Location: ?id=' . intval($_GET['id']) . '&page=' . intval($_GET['page']));
 		exit;
 	}
@@ -61,12 +61,12 @@ if(isset($_GET['id']))
 				{
 					@chmod(H.'style/smiles/' . $ID . '.gif', 0777);
 					
-					$_SESSION['message'] = 'Выгрузка прошла успешно';
+					$_SESSION['message'] = '上传成功';
 				}
 			}
 			else
 			{
-				$err = 'Файл (' . $i . ') не выгружен';
+				$err = '档案 (' . $i . ') 未卸载';
 			}
 		}
 	}
@@ -94,7 +94,7 @@ if(isset($_GET['delete']))
 	exit;
 }
 
-$set['title'] = 'Управление смайлами';
+$set['title'] = '管理表情符号';
 include_once H.'sys/inc/thead.php';
 
 err();
@@ -119,12 +119,12 @@ if (isset($_GET['id']))
 		<form enctype="multipart/form-data" action="?id=<?=intval($_GET['id'])?>&amp;act=add_smile&amp;ok" method="post">
 		档案数目:<br />
 		<input type="text" name="forms" value="<?=$forms?>"/><br />
-		<input class="submit" type="submit" value="Показать формы" /><br />
+		<input class="submit" type="submit" value="展示表格" /><br />
 		<?
 		for ($i=0; $i < $forms; $i++)
 		{
 			echo ($i+1) . ') 档案: <input name="file_' . $i . '" type="file" /><br />';
-			echo ($i+1) . ') 一个微笑（例如：-）或：-D....)<br /><input type="text" name="smile_' . $i . '" maxlength="32" /><br />';
+			echo ($i+1) . ') 一个微笑(例如:)或:D....)<br /><input type="text" name="smile_' . $i . '" maxlength="32" /><br />';
 		}
 		?>
 		<input type="submit" value="添加" />
@@ -147,7 +147,7 @@ if (isset($_GET['id']))
 
 	if ($k_post == 0) 
 	{
-		?><div class="mess">Список смайлов пуст</div><?
+		?><div class="mess">表情符号列表为空</div><?
 	}
 
 	$q = dbquery("SELECT * FROM `smile` WHERE `dir`='" . intval($_GET['id']) . "' ORDER BY id DESC LIMIT $start, $set[p_str]");
@@ -180,12 +180,12 @@ if (isset($_GET['id']))
 				$smile = my_esc($_POST['smile']);
 
 				if(strlen2($smile) < 1)
-				$err = 'Названее не менее 1 символа'; 
+				$err = '至少1个字符的名称'; 
 
 				if (!isset($err))
 				{
 					dbquery("UPDATE `smile` SET `smile` = '$smile' WHERE `id` = '$post[id]'");
-					$_SESSION['message'] = '接受的更改';
+					$_SESSION['message'] = '接受更改';
 					header("Location: ?id=$post[dir]&page=$page");
 					exit;
 				}
@@ -193,7 +193,7 @@ if (isset($_GET['id']))
 			?>
 			<form method="post" action="?id=<?=$post['dir']?>&amp;edit=<?=$post['id']?>&amp;page=<?=$page?>">
 			<?=(isset($err) ? '<font color="red">' . $err . '</font><br />' : null)?>
-			一个微笑（例如 :-) ..)<br />
+			微笑 (例如 :-) ..)<br />
 			<input type="text" name="smile" maxlength="32" value="<?=text($post['smile'])?>"/><br />
 			<input type="submit" name="sav" value="要改变" />
 			</form>
@@ -270,7 +270,7 @@ $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `smile_dir`"),0);
 
 if ($k_post == 0) 
 {
-	?><div class="mess">Нет категорий</div><?
+	?><div class="mess">没有分类</div><?
 }
 
 $q = dbquery("SELECT * FROM `smile_dir`");
@@ -330,7 +330,7 @@ while($post = dbarray($q))
 
 ?>
 <div class="foot">
-<img src="/style/icons/str.gif" alt="*"> <a href="?act=add_kat">Добавить категорию</a><br />
+<img src="/style/icons/str.gif" alt="*"> <a href="?act=add_kat">添加类别</a><br />
 </div>
 <?
 include_once H.'sys/inc/tfoot.php';

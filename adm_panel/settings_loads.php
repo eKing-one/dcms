@@ -30,7 +30,7 @@ $temp_set['copy_path']=$_POST['copy_path'];
 }
 if (save_settings($temp_set))
 {
-admin_log('Настройки','Загрузки','Изменение настроек загруз-центра');
+admin_log('设置','下载','更改加载中心设置');
 msg('设置已成功接受');
 }
 else
@@ -42,7 +42,7 @@ echo "<form method=\"post\" action=\"?\">";
 echo "下载模式:<br /><select name=\"downloads_select\">";
 echo "<option value=\"0\">允许所有人</option>";
 if ($temp_set['downloads_select']=='1')$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"1\"$sel>仅授权</option>";
+echo "<option value=\"1\"$sel>只获授权</option>";
 if ($temp_set['downloads_select']=='2')$sel=' selected="selected"';else $sel=NULL;
 echo "<option value=\"2\"$sel>授权+100积分</option>";
 echo "</select><br />";

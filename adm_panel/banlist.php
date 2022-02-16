@@ -52,10 +52,10 @@ echo "   </tr>";
 echo "   <tr>";
 if ($set['set_show_icon']==1)echo "  <td class='p_m' colspan='2'>"; else echo "  <td class='p_m'>";
 $user_ban=get_user($ban['id_ban']);
-echo "<span class=\"ank_n\">Забанен до ".vremja($ban['time']).":</span><br />";
+echo "<span class=\"ank_n\">禁止，直到 ".vremja($ban['time']).":</span><br />";
 echo "<span class=\"ank_d\">".output_text($ban['prich'])."</span>($user_ban[nick])<br />";
 if ((isset($access['ban_set']) || isset($access['ban_unset'])) && ($ank['level']<$user['level'] || $user['level']==4))
-echo "<a href='/adm_panel/ban.php?id=$ank[id]'>Подробно</a><br />";
+echo "<a href='/adm_panel/ban.php?id=$ank[id]'>详细介绍</a><br />";
 echo "  </td>";
 echo "   </tr>";
 }

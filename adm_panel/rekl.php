@@ -112,7 +112,7 @@ echo "连结:<br /><input type=\"text\" name=\"link\" value=\"$post[link]\" /><b
 echo "标题:<br /><input type=\"text\" name=\"name\" value=\"$post[name]\" /><br />";
 echo "图片:<br /><input type=\"text\" name=\"img\" value=\"$post[img]\" /><br />";
 
-if ($post['time_last']>time())echo "延伸通过:<br />";
+if ($post['time_last']>time())echo "Продлить на:<br />";
 else echo "延伸至:<br />";
 
 echo "<input type=\"text\" name=\"ch\" size='3' value=\"0\" />";
@@ -176,7 +176,7 @@ aut();
 
 echo "<div class='menu'>";
 echo "<a href='rekl.php?sel=3'>网站底部(home)</a><br />";
-echo "<a href='rekl.php?sel=4'>网站的底部（其它）</a><br />";
+echo "<a href='rekl.php?sel=4'>网站的底部（其余）</a><br />";
 echo "</div>";
 
 
