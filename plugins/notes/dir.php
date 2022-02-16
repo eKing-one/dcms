@@ -61,16 +61,16 @@ aut();
 echo "<div id='comments' class='menus'>";
 
 echo "<div class='webmenu'>";
-echo "<a href='index.php'>Дневники</a>";
+echo "<a href='index.php'>日记</a>";
 echo "</div>"; 
 
         
 echo "<div class='webmenu last'>";
-echo "<a href='dir.php' class='activ'>Категории</a>";
+echo "<a href='dir.php' class='activ'>类别</a>";
 echo "</div>"; 
         
 echo "<div class='webmenu last'>";
-echo "<a href='search.php'>Поиск</a>";
+echo "<a href='search.php'>搜索</a>";
 echo "</div>"; 
 
 echo "</div>";
@@ -94,21 +94,21 @@ else $order='order by `time` desc';
 if(isset($user))
 {
 echo'<div class="foot">';
-echo "<a href=\"user.php\">Мои дневники</a> | ";
-echo "<a href=\"add.php?id_dir=$id_dir\">Создать дневник</a>";
+echo "<a href=\"user.php\">我的日记。</a> | ";
+echo "<a href=\"add.php?id_dir=$id_dir\">创建日记</a>";
 echo '</div>';
 }
 if (isset($_GET['sort']) && $_GET['sort'] =='t'){
 echo'<div class="foot">';
-echo"<b>Новые</b> | <a href='?id=$id_dir&amp;sort=c'>Популярные</a>";
+echo"<b>Новые</b> | <a href='?id=$id_dir&amp;sort=c'>流行的</a>";
 echo '</div>';
 }elseif (isset($_GET['sort']) && $_GET['sort'] =='c'){
 echo'<div class="foot">';
-echo"<a href='?id=$id_dir&amp;sort=t'>Новые</a> | <b>Популярные</b>";
+echo"<a href='?id=$id_dir&amp;sort=t'>新</a> | <b>流行的</b>";
 echo '</div>';
 }else{
 echo'<div class="foot">';
-echo"<b>Новые</b> | <a href='?id=$id_dir&amp;sort=c'>Популярные</a>";
+echo"<b>新</b> | <a href='?id=$id_dir&amp;sort=c'>流行的</a>";
 echo '</div>';
 }
 $k_post=dbresult(dbquery("SELECT COUNT(*) FROM `notes`  WHERE `id_dir` = '$id_dir'"),0);
@@ -121,7 +121,7 @@ if ($k_post==0)
 {
 
 echo "  <div class='mess'>";
-echo "Нет записей";
+echo "没有记录。";
 echo "  </div>";
 
 }
@@ -171,7 +171,7 @@ echo "<table class='post'>";
 if ($k_post==0)
 {
 echo "  <div class='mess'>";
-echo "Нет категорий";
+echo "无类别";
 echo "  </div>";
 }
 $num=0;
@@ -211,20 +211,20 @@ echo "</table>";
 if (isset($user) && user_access('notes_edit')){
 if (isset($_GET['create'])){
 echo "<form method=\"post\" action=\"dir.php\">";
-echo "Название:<br /><input name=\"title\" size=\"16\" maxlength=\"32\" value=\"\" type=\"text\" /><br />";
-echo "Описание:<br /><textarea name=\"msg\" ></textarea><br />";
+echo "标题:<br /><input name=\"title\" size=\"16\" maxlength=\"32\" value=\"\" type=\"text\" /><br />";
+echo "说明:<br /><textarea name=\"msg\" ></textarea><br />";
 
-echo "<input value=\"Создать\" type=\"submit\" />";
+echo "<input value=\"创造\" type=\"submit\" />";
 echo "</form>";
 }else{
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='dir.php?create'>Добавить категорию</a><br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='dir.php?create'>添加类别</a><br />";
 echo "</div>";
 }
 }
 
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>Все дневники</a><br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>所有日记</a><br />";
 echo "</div>";
 
 include_once '../../sys/inc/tfoot.php';

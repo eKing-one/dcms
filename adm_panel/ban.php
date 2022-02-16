@@ -146,8 +146,8 @@ if (user_access('user_ban_set') || user_access('user_ban_set_h')) {
     echo "<input name='pochemu' type='radio' value='6' />洪水泛滥<br />";
     echo "<input name='pochemu' type='radio' value='7' />火焰<br />";
     echo "<input name='pochemu' type='radio' value='0' />其他<br />";
-    echo "<div class='nav1'>Сообщения:</div>";
-    echo "<input name='post' type='radio' value='0' checked='checked'/>展览 <br />";
+    echo "<div class='nav1'>来文:</div>";
+    echo "<input name='post' type='radio' value='0' checked='checked'/>展示 <br />";
     echo "<input name='post' type='radio' value='1' />藏起来<br />";
     echo "<div class='nav1'>评论:</div>";
     echo "<textarea name=\"ban_pr\"></textarea><br />";

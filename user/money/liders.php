@@ -398,7 +398,7 @@ echo '<form class="main" method="post" action="?">';
 
 
 
-	echo 'Ставка: <select name="stav">
+	echo '花费: <select name="stav">
 
 
 

@@ -1,11 +1,11 @@
-<?
+<?php
 if (isset($_GET['act']) && $_GET['act']=='txt')
 {
 ob_clean();
 ob_implicit_flush();
 header('Content-Type: text/plain; charset=utf-8', true);
 header('Content-Disposition: attachment; filename="'.retranslit($them['name']).'.txt";');
-echo "Тема: $them[name] ($forum[name]/$razdel[name])\r";
+echo "主题: $them[name] ($forum[name]/$razdel[name])\r";
 $q=dbquery("SELECT * FROM `forum_p` WHERE `id_them` = '$them[id]' AND `id_forum` = '$forum[id]' AND `id_razdel` = '$razdel[id]' ORDER BY `time` ASC");
 //echo "\r";
 while ($post = dbassoc($q))
@@ -210,7 +210,7 @@ include_once '../sys/inc/tfoot.php';
 exit;
 }
 if ($them['close']==1)
-	$err = 'Тема закрыта для обсуждения';
+	$err = '主题不开放供讨论';
 if (isset($user) &&  $user['balls']>=50 && $user['rating']>=0 && isset($_GET['id_file'])
 &&
 dbresult(dbquery("SELECT COUNT(*) FROM `forum_files` WHERE `id` = '".intval($_GET['id_file'])."'"), 0)==1

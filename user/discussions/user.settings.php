@@ -97,7 +97,7 @@ aut();
 
 	<div class="nav1">
 	<input name="disc_notes" type="radio" <?= ($frend['disc_notes'] == 1 ? ' checked="checked"' : null)?> value="1" /> 是的 
-	<input name="disc_notes" type="radio" <?= ($frend['disc_notes'] == 0 ? ' checked="checked"' : null)?> value="0" /> 非也。 
+	<input name="disc_notes" type="radio" <?= ($frend['disc_notes'] == 0 ? ' checked="checked"' : null)?> value="0" /> 否定 
 	</div>
 
 	<div class="mess">
@@ -106,7 +106,7 @@ aut();
 
 	<div class="nav1">
 	<input name="disc_forum" type="radio" <?= ($frend['disc_forum'] == 1 ? ' checked="checked"' : null)?> value="1" /> 是的 
-	<input name="disc_forum" type="radio" <?= ($frend['disc_forum'] == 0 ? ' checked="checked"' : null)?> value="0" /> 非也。 
+	<input name="disc_forum" type="radio" <?= ($frend['disc_forum'] == 0 ? ' checked="checked"' : null)?> value="0" /> 否定 
 	</div>
 
 	<div class="mess">
@@ -115,7 +115,7 @@ aut();
 
 	<div class="nav1">
 	<input name="disc_foto" type="radio" <?= ($frend['disc_foto'] == 1 ? ' checked="checked"' : null)?> value="1" /> 是的 
-	<input name="disc_foto" type="radio" <?= ($frend['disc_foto'] == 0 ? ' checked="checked"' : null)?> value="0" /> 非也。 
+	<input name="disc_foto" type="radio" <?= ($frend['disc_foto'] == 0 ? ' checked="checked"' : null)?> value="0" /> 否定 
 	</div>
 
 	<div class="mess">
@@ -124,7 +124,7 @@ aut();
 
 	<div class="nav1">
 	<input name="disc_obmen" type="radio" <?= ($frend['disc_obmen'] == 1 ? ' checked="checked"' : null)?> value="1" /> 是的 
-	<input name="disc_obmen" type="radio" <?= ($frend['disc_obmen'] == 0 ? ' checked="checked"' : null)?> value="0" /> 非也。 
+	<input name="disc_obmen" type="radio" <?= ($frend['disc_obmen'] == 0 ? ' checked="checked"' : null)?> value="0" /> 否定 
 	</div>
 
 	<div class="mess">
@@ -133,11 +133,11 @@ aut();
 
 	<div class="nav1">
 	<input name="disc_status" type="radio" <?= ($frend['disc_status'] == 1 ? ' checked="checked"' : null)?> value="1" /> 是的 
-	<input name="disc_status" type="radio" <?= ($frend['disc_status'] == 0 ? ' checked="checked"' : null)?> value="0" /> 非也。 
+	<input name="disc_status" type="radio" <?= ($frend['disc_status'] == 0 ? ' checked="checked"' : null)?> value="0" /> 否定 
 	</div>
 
 	<div class="main">
-	<input type="submit" name="save" value="储蓄" />
+	<input type="submit" name="save" value="保存" />
 	</div>
 
 </form>

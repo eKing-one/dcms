@@ -366,7 +366,7 @@ if (!$category || !$gift)
 
 
 
-	echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?">类别：</a> |  <a href="?category=' . $category['id'] . '">' . htmlspecialchars($category['name']) . '</a> | <b>添加礼物</b><br />';	
+	echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?">类别</a> |  <a href="?category=' . $category['id'] . '">' . htmlspecialchars($category['name']) . '</a> | <b>添加礼物</b><br />';	
 
 
 
@@ -402,7 +402,7 @@ if (!$category || !$gift)
 
 
 
-	echo '<input value="储蓄" type="submit" />';
+	echo '<input value="保存" type="submit" />';
 
 
 
@@ -418,7 +418,7 @@ if (!$category || !$gift)
 
 
 
-	echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?">类别：</a> |  <a href="?category=' . $category['id'] . '">' . htmlspecialchars($category['name']) . '</a> | <b>添加礼物</b><br />';	
+	echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?">类别</a> |  <a href="?category=' . $category['id'] . '">' . htmlspecialchars($category['name']) . '</a> | <b>添加礼物</b><br />';	
 
 
 

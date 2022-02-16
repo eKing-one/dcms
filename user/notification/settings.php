@@ -330,7 +330,7 @@ echo "<input name='komm' type='radio' ".($notSet['komm']==1?' checked="checked"'
 
 
 
-echo "<input name='komm' type='radio' ".($notSet['komm']==0?' checked="checked"':null)." value='0' /> 非也。 ";
+echo "<input name='komm' type='radio' ".($notSet['komm']==0?' checked="checked"':null)." value='0' /> 否定 ";
 
 
 
@@ -350,7 +350,7 @@ echo "<div class='main'>";
 
 
 
-echo "<input type='submit' name='save' value='储蓄' />";
+echo "<input type='submit' name='save' value='保存' />";
 
 
 

@@ -558,7 +558,7 @@ echo "<input name='lenta_frends' type='radio' ".($frend['lenta_frends']==1?' che
 
 
 
-echo "<input name='lenta_frends' type='radio' ".($frend['lenta_frends']==0?' checked="checked"':null)." value='0' /> 非也。 ";
+echo "<input name='lenta_frends' type='radio' ".($frend['lenta_frends']==0?' checked="checked"':null)." value='0' /> 否定 ";
 
 
 
@@ -608,7 +608,7 @@ echo "<input name='lenta_notes' type='radio' ".($frend['lenta_notes']==1?' check
 
 
 
-echo "<input name='lenta_notes' type='radio' ".($frend['lenta_notes']==0?' checked="checked"':null)." value='0' /> 非也。 ";
+echo "<input name='lenta_notes' type='radio' ".($frend['lenta_notes']==0?' checked="checked"':null)." value='0' /> 否定 ";
 
 
 
@@ -658,7 +658,7 @@ echo "<input name='lenta_forum' type='radio' ".($frend['lenta_forum']==1?' check
 
 
 
-echo "<input name='lenta_forum' type='radio' ".($frend['lenta_forum']==0?' checked="checked"':null)." value='0' /> 非也。 ";
+echo "<input name='lenta_forum' type='radio' ".($frend['lenta_forum']==0?' checked="checked"':null)." value='0' /> 否定 ";
 
 
 
@@ -708,7 +708,7 @@ echo "<input name='lenta_foto' type='radio' ".($frend['lenta_foto']==1?' checked
 
 
 
-echo "<input name='lenta_foto' type='radio' ".($frend['lenta_foto']==0?' checked="checked"':null)." value='0' /> 非也。 ";
+echo "<input name='lenta_foto' type='radio' ".($frend['lenta_foto']==0?' checked="checked"':null)." value='0' /> 否定 ";
 
 
 
@@ -753,7 +753,7 @@ echo "<input name='lenta_avatar' type='radio' ".($frend['lenta_avatar']==1?' che
 
 
 
-echo "<input name='lenta_avatar' type='radio' ".($frend['lenta_avatar']==0?' checked="checked"':null)." value='0' /> 非也。 ";
+echo "<input name='lenta_avatar' type='radio' ".($frend['lenta_avatar']==0?' checked="checked"':null)." value='0' /> 否定 ";
 
 
 
@@ -798,7 +798,7 @@ echo "<input name='lenta_obmen' type='radio' ".($frend['lenta_obmen']==1?' check
 
 
 
-echo "<input name='lenta_obmen' type='radio' ".($frend['lenta_obmen']==0?' checked="checked"':null)." value='0' /> 非也。 ";
+echo "<input name='lenta_obmen' type='radio' ".($frend['lenta_obmen']==0?' checked="checked"':null)." value='0' /> 否定 ";
 
 
 
@@ -848,7 +848,7 @@ echo "<input name='lenta_status' type='radio' ".($frend['lenta_status']==1?' che
 
 
 
-echo "<input name='lenta_status' type='radio' ".($frend['lenta_status']==0?' checked="checked"':null)." value='0' /> 非也。 ";
+echo "<input name='lenta_status' type='radio' ".($frend['lenta_status']==0?' checked="checked"':null)." value='0' /> 否定 ";
 
 
 
@@ -898,7 +898,7 @@ echo "<input name='lenta_status_like' type='radio' ".($frend['lenta_status_like'
 
 
 
-echo "<input name='lenta_status_like' type='radio' ".($frend['lenta_status_like']==0?' checked="checked"':null)." value='0' /> 非也。 ";
+echo "<input name='lenta_status_like' type='radio' ".($frend['lenta_status_like']==0?' checked="checked"':null)." value='0' /> 否定 ";
 
 
 
@@ -918,7 +918,7 @@ echo "<div class='main'>";
 
 
 
-echo "<input type='submit' name='save' value='储蓄' />";
+echo "<input type='submit' name='save' value='保存' />";
 
 
 

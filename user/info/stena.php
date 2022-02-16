@@ -179,7 +179,7 @@ echo "<form method='post' action='?$passgen'>";
 
 echo "<label><input type='checkbox' name='stena_foto'".($user['stena_foto']==0?' checked="checked"':null)." value='0' /> 照片</label><br />
 
-	<input type='submit' name='save' value='储蓄' />
+	<input type='submit' name='save' value='保存' />
 
 
 

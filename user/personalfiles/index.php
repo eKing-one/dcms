@@ -39,7 +39,7 @@ if (isset($_GET['id']))$ank['id']=intval($_GET['id']);
 
 if ($ank['id']==0)
 {
-echo "Ошибка! Это папка системы!";
+echo "错误！这是系统文件夹！";
 exit;
 }
  // Определяем id автора папки
@@ -51,7 +51,7 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `user_files` WHERE `id_user` = '$ank[
 {
 
 
-	$t = dbquery("INSERT INTO `user_files` (`id_user`, `name`,  `osn`) values('$ank[id]', 'Файлы', '1')");
+	$t = dbquery("INSERT INTO `user_files` (`id_user`, `name`,  `osn`) values('$ank[id]', '文件', '1')");
 
 	$dir = dbassoc(dbquery("SELECT * FROM `user_files`  WHERE `id_user` = '$ank[id]' AND `osn` = '1'"));
 	header("Location: /user/personalfiles/$ank[id]/$dir[id]/".SID);
@@ -67,7 +67,7 @@ $dir = dbassoc(dbquery("SELECT * FROM `user_files` WHERE `id_user` = '$ank[id]' 
  // Блокируем в случае отсутствия папки
 if ($dir['id_user']!=$ank['id'])
 {
-echo "Ошибка! Возможно папка была удалена, проверьте правильность адреса!";
+echo "错误！文件夹可能已被删除，请检查地址是否正确！";
 exit;
 }
 

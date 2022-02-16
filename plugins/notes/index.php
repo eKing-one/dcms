@@ -1,4 +1,4 @@
-<?
+<?php
 
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
@@ -32,7 +32,7 @@ echo "<div class='webmenu'>";
 echo "<a href='index.php' class='activ'>日记</a>";
 echo "</div>"; 
 echo "<div class='webmenu last'>";
-echo "<a href='dir.php'>类别：</a>";
+echo "<a href='dir.php'>类别</a>";
 echo "</div>"; 
         if(isset($user)){
 echo "<div class='webmenu last'>";
@@ -51,7 +51,7 @@ echo"<div class='foot'><b>新的</b> | <a href='?sort=c'>流行的</a></div>";
 break;
 case 'c':
 $order='order by `count` desc';
-echo"<div class='foot'><a href='?sort=t'>新的</a> | <b>Популярные</b></div>";
+echo"<div class='foot'><a href='?sort=t'>新的</a> | <b>流行的</b></div>";
 /* Сортировка популярных дневников по времени */
 echo "<div class='nav2'>";
 if(isset($_GET['new']) && $_GET['new']=='t'){

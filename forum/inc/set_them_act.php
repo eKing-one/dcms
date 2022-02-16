@@ -52,8 +52,8 @@ if ((user_access('forum_them_del') || $ank2['id']==$user['id']) &&  isset($_GET[
 dbquery("DELETE FROM `forum_t` WHERE `id` = '$them[id]'");
 dbquery("DELETE FROM `forum_p` WHERE `id_them` = '$them[id]'");
 
-if ($ank2['id']!=$user['id'])admin_log('论坛','Удаление темы',"Удаление темы '$them[name]' (作者 '[url=/info.php?id=$ank2[id]]$ank2[nick][/url]')");
-$_SESSION['message'] = 'Тема успешно удалена';
+if ($ank2['id']!=$user['id'])admin_log('论坛','删除主题',"删除主题 '$them[name]' (作者 '[url=/info.php?id=$ank2[id]]$ank2[nick][/url]')");
+$_SESSION['message'] = '主题已成功删除';
 header("Location: /forum/$forum[id]/$razdel[id]/$them[id]/");
 exit;
 }

@@ -137,7 +137,7 @@ aut();
 	</div>
 
 	<div class="main">
-	<input type="submit" name="save" value="储蓄" />
+	<input type="submit" name="save" value="保存" />
 	</div>
 
 </form>

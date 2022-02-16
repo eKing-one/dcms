@@ -64,7 +64,7 @@ echo "  <td class='icon48' rowspan='2'>";
 if (is_file(H.'style/themes/'.$themes.'/screen_48.png'))
 echo "<img src='".H."style/themes/".$themes."/screen_48.png' alt='' /><br />";
 else
-echo "非也。";
+echo "否定";
 echo "  </td>";
 }
 echo "  <td class='p_t'>";
@@ -75,7 +75,7 @@ echo "   <tr>";
 echo "  <td class='p_m'>";
 echo "主题文件夹: <span title='/style/themes/$themes/'>$themes</span><br />";
 // размер файла таблиц стилей
-echo (is_file(H.'style/themes/'.$themes.'/style.css'))?"<a href='/style/themes/$themes/style.css'>style.css</a>: ".size_file(filesize(H.'style/themes/'.$themes.'/style.css'))."<br />":"非也。 style.css<br />";
+echo (is_file(H.'style/themes/'.$themes.'/style.css'))?"<a href='/style/themes/$themes/style.css'>style.css</a>: ".size_file(filesize(H.'style/themes/'.$themes.'/style.css'))."<br />":"否定 style.css<br />";
 if ($themes==$temp_set['set_them'])
 {
 echo "默认情况下，WAP<br />";

@@ -231,7 +231,7 @@ echo "聊天中自动更新:<br /><input type='text' name='set_time_chat' value=
 echo "每页积分:<br /><input type='text' name='set_p_str' value='$ank[set_p_str]' maxlength='3' /><br />";
 echo "图标:<br /><select name=\"set_show_icon\">";
 if ($ank['set_show_icon']==1)$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"1\"$sel>展览</option>";
+echo "<option value=\"1\"$sel>展示</option>";
 if ($ank['set_show_icon']==0)$sel=' selected="selected"';else $sel=NULL;
 echo "<option value=\"0\"$sel>藏起来</option>";
 echo "</select><br />";
@@ -245,7 +245,7 @@ echo "上传文件:<br /><select name=\"set_files\">";
 if ($ank['set_files']==1)$sel=' selected="selected"';else $sel=NULL;
 echo "<option value=\"1\"$sel>展场</option>";
 if ($ank['set_files']==0)$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"0\"$sel>不要使用上传</option>";
+echo "<option value=\"0\"$sel>否定使用上传</option>";
 echo "</select><br />";
 if ($user['level']<3)$dis=' disabled="disabled"';else $dis=NULL;
 echo "分数:<br /><input type='text'$dis name='balls' value='$ank[balls]' /><br />";
@@ -257,7 +257,7 @@ echo "<option value='$post[id]'".($post['level']>=$user['level']?" disabled='dis
 }
 echo "</select><br />";
 echo "新密码:<br /><input type='text' name='new_pass' value='' /><br />";
-echo "<input type='submit' name='save' value='储蓄' />";
+echo "<input type='submit' name='save' value='保存' />";
 echo "</form>";
 echo "<div class='foot'>";
 echo "&raquo;<a href=\"/mail.php?id=$ank[id]\">写一封信</a><br />";

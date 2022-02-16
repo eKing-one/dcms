@@ -100,11 +100,11 @@ aut();
 
 if (isset($_POST["msg"])) $msg = output_text($_POST["msg"]);
 echo "<form method=\"post\" name=\"message\" action=\"add.php\">";
-echo "Название:<br /><input name=\"title\" size=\"16\" maxlength=\"32\" value=\"\" type=\"text\" /><br />";
+echo "标题:<br /><input name=\"title\" size=\"16\" maxlength=\"32\" value=\"\" type=\"text\" /><br />";
 if ($set['web'] && is_file(H.'style/themes/'.$set['set_them'].'/altername_post_form.php'))
 include_once H.'style/themes/'.$set['set_them'].'/altername_post_form.php';
 else
-echo "Сообщение:$tPanel<textarea name=\"msg\"></textarea><br />";
+echo "通信:$tPanel<textarea name=\"msg\"></textarea><br />";
 
 echo "类别：:<br /><select name='id_dir'>";
 $q=dbquery("SELECT * FROM `notes_dir` ORDER BY `id` DESC");

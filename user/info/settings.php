@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -116,7 +116,7 @@ echo "<form method='post' action='?$passgen'>";
 echo "聊天中自动更新:<br /><input type='text' name='set_time_chat' value='$set[time_chat]' maxlength='3' /><br />";
 echo "每页积分:<br /><input type='text' name='set_p_str' value='$set[p_str]' maxlength='3' /><br />";
 
-echo "Тема (".($webbrowser?'WEB':'WAP')."):<br /><select name='set_them".($webbrowser?'2':null)."'>";
+echo "主题 (".($webbrowser?'WEB':'WAP')."):<br /><select name='set_them".($webbrowser?'2':null)."'>";
 $opendirthem=opendir(H.'style/themes');
 while ($themes=readdir($opendirthem)){
 // пропускаем корневые папки и файлы
@@ -129,11 +129,11 @@ echo "<option value='$themes'".($user['set_them'.($webbrowser?'2':null)]==$theme
 closedir($opendirthem);
 echo "</select><br />";echo "上传文件:<br /><select name='set_files'>";
 echo "<option value='1'".($user['set_files']==1?" selected='selected'":null).">展场</option>";
-echo "<option value='0'".($user['set_files']==0?" selected='selected'":null).">不要使用上传</option>";
+echo "<option value='0'".($user['set_files']==0?" selected='selected'":null).">否定使用上传</option>";
 echo "</select><br />";
 
 echo "地点:<br /><select name='show_url'>";
-echo "<option value='1'".($user['show_url']==1?" selected='selected'":null).">展览</option>";
+echo "<option value='1'".($user['show_url']==1?" selected='selected'":null).">展示</option>";
 echo "<option value='0'".($user['show_url']==0?" selected='selected'":null).">藏起来</option>";
 echo "</select><br />";
 
@@ -154,7 +154,7 @@ echo "显示色情材料没有警告:<br />";
 echo "<input name='metka'".($user['abuld']==0?" checked='checked'":null)."  type='radio' value='0' />开 ";
 echo "<input name='metka'".($user['abuld']==1?" checked='checked'":null)."  type='radio' value='1' />关<br />";
 
-echo "<input type='submit' name='save' value='储蓄' />";
+echo "<input type='submit' name='save' value='保存' />";
 echo "</form>";
 
 echo "<div class=\"foot\">";

@@ -48,7 +48,7 @@ echo "<option value=\"2\"$sel>授权+100积分</option>";
 echo "</select><br />";
 echo "显示文件扩展名:<br /><select name=\"echo_rassh\">";
 if ($temp_set['echo_rassh']==1)$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"1\"$sel>展览</option>";
+echo "<option value=\"1\"$sel>展示</option>";
 if ($temp_set['echo_rassh']==0)$sel=' selected="selected"';else $sel=NULL;
 echo "<option value=\"0\"$sel>藏起来</option>";
 echo "</select><br />";

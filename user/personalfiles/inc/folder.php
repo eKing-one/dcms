@@ -38,7 +38,7 @@ if (isset($user) && (user_access('obmen_file_edit') || $ank['id']==$user['id']))
 
  // Вывод обратной навигации
 echo "<div class='foot'>";
-echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'Файлы':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; '.text($dir['name']))."";
+echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'文件':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; '.text($dir['name']))."";
 echo "</div>";
 
 
@@ -214,12 +214,12 @@ echo '</div>';
 }
 
 }
-//echo "<input value=\"Задание\" type=\"submit\" name=\"job\" />";
+//echo "<input value=\"任务\" type=\"submit\" name=\"job\" />";
 //echo "</form>";
 echo "</table>";
 
 if ($k_page>1)str('?',$k_page,$page); // Вывод страниц
 echo "<div class='foot'>";
-echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'Файлы':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; '.text($dir['name']))."";
+echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'文件':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; '.text($dir['name']))."";
 echo "</div>";
 ?>

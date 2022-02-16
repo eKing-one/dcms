@@ -133,7 +133,7 @@ elseif ($type == 'new_gift') // Подарки новые
 {	
 	$name = '有'.($avtor['pol'] == 1 ? "" : "а") . ' 给你的礼物 ';
 }
-elseif ($type == 'files_komm' || $type == 'obmen_komm') // Файлы
+elseif ($type == 'files_komm' || $type == 'obmen_komm') // 文件
 {	
 	$name = '回答说'.($avtor['pol'] == 1 ? "" : "а") . ' 在文件的注释中给你 ';
 }

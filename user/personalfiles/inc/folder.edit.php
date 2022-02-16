@@ -57,7 +57,7 @@ if (isset($_GET['edit_folder']))
 	echo '标题:<br/><input type="text" name="name" maxlength="55" value="' . text($folder['name']) . '" /><br />';
 	echo '资料描述:<br /><textarea name="msg">' . text($folder['msg']) . '</textarea><br />'; 
 	echo '密码:<br/><input type="pass" name="pass" maxlength="12" value="' . text($folder['pass']) . '" /><br />';
-	echo '<input type="submit" name="sub" value="储蓄"/></form>';
+	echo '<input type="submit" name="sub" value="保存"/></form>';
 
 	echo "<div class='foot'>";
 	echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn'] == 1 ? '<a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">档案</a>' : '')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; <a href="/user/personalfiles/'.$ank['id'].'/'.$dir['id'].'/">' . text($dir['name']) . '</a>')."";

@@ -1,4 +1,4 @@
-<?
+<?php
 
 
 
@@ -18,7 +18,7 @@ if (user_access('obmen_dir_edit') && isset($_GET['act']) && $_GET['act']=='set')
 
 
 
-	echo "Название папки:<br />";
+	echo "文件夹名称:<br />";
 
 
 
@@ -30,11 +30,11 @@ if ($dir_id['upload']==1)$check=' checked="checked"'; else $check=NULL;
 
 
 
-	echo "<label><input type=\"checkbox\"$check name=\"upload\" value=\"1\" /> Выгрузка</label><br />";
+	echo "<label><input type=\"checkbox\"$check name=\"upload\" value=\"1\" /> 卸货</label><br />";
 
 
 
-	echo "Расширения через \";\":<br />";
+	echo "通过扩展 \";\":<br />";
 
 
 
@@ -42,7 +42,7 @@ if ($dir_id['upload']==1)$check=' checked="checked"'; else $check=NULL;
 
 
 
-	echo "Максимальный размер файлов:<br />";
+	echo "最大文件大小：<br />";
 
 
 
@@ -98,15 +98,15 @@ if ($dir_id['maxfilesize']>=1048576)$sel=' selected="selected"';else $sel=NULL;
 
 
 
-	echo '*настройки сервера не позволяют выгружать файлы объемом более: '.size_file($upload_max_filesize).'<br />';
+	echo '*服务器设置不允许卸载超过: '.size_file($upload_max_filesize).'<br />';
 
 
 
-	echo '<img src="/style/icons/ok.gif" alt="*"> <input class="submit" type="submit" value="Принять изменения" /> ';
+	echo '<img src="/style/icons/ok.gif" alt="*"> <input class="submit" type="submit" value="接受改变" /> ';
 
 
 
-	echo '[<img src="/style/icons/delete.gif" alt="*"> <a href="?">Отмена</a>]<br />';
+	echo '[<img src="/style/icons/delete.gif" alt="*"> <a href="?">取消</a>]<br />';
 
 
 
@@ -162,7 +162,7 @@ if (user_access('obmen_dir_create') && isset($_GET['act']) && $_GET['act']=='mkd
 
 
 
-	echo 'Название папки:<br />';
+	echo '文件夹名称:<br />';
 
 
 
@@ -170,11 +170,11 @@ if (user_access('obmen_dir_create') && isset($_GET['act']) && $_GET['act']=='mkd
 
 
 
-	echo '<label><input type="checkbox" name="upload" value="1" /> Выгрузка</label><br />';
+	echo '<label><input type="checkbox" name="upload" value="1" /> 卸货</label><br />';
 
 
 
-	echo 'Расширения через ";":<br />';
+	echo '通过扩展 ";":<br />';
 
 
 
@@ -182,7 +182,7 @@ if (user_access('obmen_dir_create') && isset($_GET['act']) && $_GET['act']=='mkd
 
 
 
-	echo 'Максимальный размер файлов:<br />';
+	echo '最大文件大小:<br />';
 
 
 
@@ -210,11 +210,11 @@ if (user_access('obmen_dir_create') && isset($_GET['act']) && $_GET['act']=='mkd
 
 
 
-	echo '*настройки сервера не позволяют выгружать файлы объемом более: '.size_file($upload_max_filesize).'<br />';
+	echo '*服务器设置不允许卸载超过: '.size_file($upload_max_filesize).'<br />';
 
 
 
-	echo '<img src="/style/icons/ok.gif" alt="*"> <input class="submit" type="submit" value="创建文件夹" /> ';	echo '[<img src="/style/icons/delete.gif" alt="*"> <a href="?">Отмена</a>]<br />';
+	echo '<img src="/style/icons/ok.gif" alt="*"> <input class="submit" type="submit" value="创建文件夹" /> ';	echo '[<img src="/style/icons/delete.gif" alt="*"> <a href="?">取消</a>]<br />';
 
 
 
@@ -242,11 +242,11 @@ if (user_access('obmen_dir_edit') && isset($_GET['act']) && $_GET['act']=='renam
 
 
 
-	echo 'Название папки:<br />';
+	echo '文件夹名称:<br />';
 
 
 
-	echo '<input type="text" name="name" value="'.$dir_id['name'].'"/><br />';	echo '<img src="/style/icons/ok.gif" alt="*"> <input class="submit" type="submit" value="Переименовать" /> ';	echo '[<img src="/style/icons/delete.gif" alt="*"> <a href="?">Отмена</a>]<br />';
+	echo '<input type="text" name="name" value="'.$dir_id['name'].'"/><br />';	echo '<img src="/style/icons/ok.gif" alt="*"> <input class="submit" type="submit" value="改名" /> ';	echo '[<img src="/style/icons/delete.gif" alt="*"> <a href="?">取消</a>]<br />';
 
 
 
@@ -278,7 +278,7 @@ if (user_access('obmen_dir_edit') && isset($_GET['act']) && $_GET['act']=='mesto
 
 
 
-	echo 'Новый путь:<br />';
+	echo '新的道路:<br />';
 
 
 
@@ -286,7 +286,7 @@ if (user_access('obmen_dir_edit') && isset($_GET['act']) && $_GET['act']=='mesto
 
 
 
-	echo '<option value="/">[в корень]</option>';
+	echo '<option value="/">[彻底地]</option>';
 
 
 
@@ -322,7 +322,7 @@ while ($post = dbassoc($q))
 
 
 
-	echo '<img src="/style/icons/ok.gif" alt="*"> <input class="submit" type="submit" value="Переместить" />';	echo '[<img src="/style/icons/delete.gif" alt="*"> <a href="?">Отмена</a>]<br />';
+	echo '<img src="/style/icons/ok.gif" alt="*"> <input class="submit" type="submit" value="移动" />';	echo '[<img src="/style/icons/delete.gif" alt="*"> <a href="?">Отмена</a>]<br />';
 
 
 
@@ -354,7 +354,7 @@ if (user_access('obmen_dir_delete') && isset($_GET['act']) && $_GET['act']=='del
 
 
 
-	echo 'Удалить текущую папку ('.$dir_id['name'].')?<br />';
+	echo '删除当前文件夹 ('.$dir_id['name'].')?<br />';
 
 
 
@@ -422,15 +422,15 @@ if (user_access('obmen_dir_edit')){
 
 
 
-	echo '<img src="/style/icons/str.gif" alt="*"> <a href="?act=rename&amp;page='.$page.'">Переименовать папку</a><br />';
+	echo '<img src="/style/icons/str.gif" alt="*"> <a href="?act=rename&amp;page='.$page.'">重命名文件夹</a><br />';
 
 
 
-	echo '<img src="/style/icons/str.gif" alt="*"> <a href="?act=set&amp;page='.$page.'">Параметры папки</a><br />';
+	echo '<img src="/style/icons/str.gif" alt="*"> <a href="?act=set&amp;page='.$page.'">文件夹设置</a><br />';
 
 
 
-	echo '<img src="/style/icons/str.gif" alt="*"> <a href="?act=mesto&amp;page='.$page.'">Переместить папку</a><br />';
+	echo '<img src="/style/icons/str.gif" alt="*"> <a href="?act=mesto&amp;page='.$page.'">移动文件夹</a><br />';
 
 
 
@@ -446,7 +446,7 @@ if (user_access('obmen_dir_delete') && $dir_id['my'] == 0)
 
 
 
-	echo '<img src="/style/icons/str.gif" alt="*"> <a href="?act=delete&amp;page='.$page.'">Удалить папку</a><br />';
+	echo '<img src="/style/icons/str.gif" alt="*"> <a href="?act=delete&amp;page='.$page.'">删除文件夹</a><br />';
 
 
 

@@ -98,7 +98,7 @@ echo "<input name='privat_mail' type='radio' ".($userSet['privat_mail'] == 2 ? '
 echo "<input name='privat_mail' type='radio' ".($userSet['privat_mail'] == 0 ? ' checked="checked"' : null)." value='0' /> 只有我 ";
 echo "</div>";
 echo "<div class='main'>";
-echo "<input type='submit' name='save' value='储蓄' />";
+echo "<input type='submit' name='save' value='保存' />";
 echo "</div>";
 
 echo "</form>";

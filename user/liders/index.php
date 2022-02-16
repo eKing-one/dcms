@@ -44,7 +44,7 @@ $ank=get_user($post['id_user']);
 echo status($ank['id']); // Аватарка
 echo group($ank['id']) , ' <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> ';
 echo medal($ank['id']) , online($ank['id']) . ' (' . vremja($post['time']) . ')<br />';
-echo 'Ставка: <b style="color:red;">' . $post['stav'] . '</b> <b style="color:green;">' . $sMonet[0] . '</b><br />';
+echo '花费: <b style="color:red;">' . $post['stav'] . '</b> <b style="color:green;">' . $sMonet[0] . '</b><br />';
 echo output_text($post['msg']) . '<br />';
 if (isset($user) && $user['level'] > 2)
 echo '<div style="text-align:right;"><a href="delete.php?id=' . $post['id_user'] . '"><img src="/style/icons/delete.gif" alt="*"/></a></div>';

@@ -222,7 +222,7 @@ if (user_access('adm_panel_show')) {
 
 
 
-		echo "注意！审查投诉后，不要忘记删除它！";
+		echo "注意！审查投诉后，否定忘记删除它！";
 
 
 

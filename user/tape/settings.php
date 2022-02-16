@@ -470,7 +470,7 @@ echo "<input name='lenta_frends' type='radio' ".($lentaSet['lenta_frends']==1?' 
 
 
 
-echo "<input name='lenta_frends' type='radio' ".($lentaSet['lenta_frends']==0?' checked="checked"':null)." value='0' /> 非也。 ";
+echo "<input name='lenta_frends' type='radio' ".($lentaSet['lenta_frends']==0?' checked="checked"':null)." value='0' /> 否定 ";
 
 
 
@@ -506,7 +506,7 @@ echo "<input name='lenta_notes' type='radio' ".($lentaSet['lenta_notes']==1?' ch
 
 
 
-echo "<input name='lenta_notes' type='radio' ".($lentaSet['lenta_notes']==0?' checked="checked"':null)." value='0' /> 非也。 ";
+echo "<input name='lenta_notes' type='radio' ".($lentaSet['lenta_notes']==0?' checked="checked"':null)." value='0' /> 否定 ";
 
 
 
@@ -546,7 +546,7 @@ echo "<input name='lenta_forum' type='radio' ".($lentaSet['lenta_forum']==1?' ch
 
 
 
-echo "<input name='lenta_forum' type='radio' ".($lentaSet['lenta_forum']==0?' checked="checked"':null)." value='0' /> 非也。 ";
+echo "<input name='lenta_forum' type='radio' ".($lentaSet['lenta_forum']==0?' checked="checked"':null)." value='0' /> 否定 ";
 
 
 
@@ -586,7 +586,7 @@ echo "<input name='lenta_foto' type='radio' ".($lentaSet['lenta_foto']==1?' chec
 
 
 
-echo "<input name='lenta_foto' type='radio' ".($lentaSet['lenta_foto']==0?' checked="checked"':null)." value='0' /> 非也。 ";
+echo "<input name='lenta_foto' type='radio' ".($lentaSet['lenta_foto']==0?' checked="checked"':null)." value='0' /> 否定 ";
 
 
 
@@ -622,7 +622,7 @@ echo "<input name='lenta_avatar' type='radio' ".($lentaSet['lenta_avatar']==1?' 
 
 
 
-echo "<input name='lenta_avatar' type='radio' ".($lentaSet['lenta_avatar']==0?' checked="checked"':null)." value='0' /> 非也。 ";
+echo "<input name='lenta_avatar' type='radio' ".($lentaSet['lenta_avatar']==0?' checked="checked"':null)." value='0' /> 否定 ";
 
 
 
@@ -658,7 +658,7 @@ echo "<input name='lenta_files' type='radio' ".($lentaSet['lenta_files']==1?' ch
 
 
 
-echo "<input name='lenta_files' type='radio' ".($lentaSet['lenta_files']==0?' checked="checked"':null)." value='0' /> 非也。 ";
+echo "<input name='lenta_files' type='radio' ".($lentaSet['lenta_files']==0?' checked="checked"':null)." value='0' /> 否定 ";
 
 
 
@@ -698,7 +698,7 @@ echo "<input name='lenta_status' type='radio' ".($lentaSet['lenta_status']==1?' 
 
 
 
-echo "<input name='lenta_status' type='radio' ".($lentaSet['lenta_status']==0?' checked="checked"':null)." value='0' /> 非也。 ";
+echo "<input name='lenta_status' type='radio' ".($lentaSet['lenta_status']==0?' checked="checked"':null)." value='0' /> 否定 ";
 
 
 
@@ -738,7 +738,7 @@ echo "<input name='lenta_status_like' type='radio' ".($lentaSet['lenta_status_li
 
 
 
-echo "<input name='lenta_status_like' type='radio' ".($lentaSet['lenta_status_like']==0?' checked="checked"':null)." value='0' /> 非也。 ";
+echo "<input name='lenta_status_like' type='radio' ".($lentaSet['lenta_status_like']==0?' checked="checked"':null)." value='0' /> 否定 ";
 
 
 
@@ -754,7 +754,7 @@ echo "<div class='main'>";
 
 
 
-echo "<input type='submit' name='save' value='储蓄' />";
+echo "<input type='submit' name='save' value='保存' />";
 
 
 
