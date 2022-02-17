@@ -86,7 +86,7 @@ aut();
 echo "<form method='post' action='?gen=$passgen&amp;".(isset($_GET['go'])?"go=$_GET[go]":null)."'>";
 
 echo "<img src='/captcha.php?$passgen&amp;SESS=$sess' width='100' height='30' alt='核证号码' /><br />从图片中输入数字:<br //><input name='chislo' size='5' maxlength='5' value='' type='text' /><br/>";
-echo "<input type='submit' value='进一步' />";
+echo "<input type='submit' value='下一步' />";
 echo "</form>";
 }
 

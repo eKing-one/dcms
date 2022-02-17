@@ -104,7 +104,7 @@ if ($k_p > 0) {
 ========================================
 */
 echo "<div class='nav1'>";
-echo "<img src='/style/icons/anketa.gif' alt='*' /> <a href='/user/info/anketa.php?id=$ank[id]'>问卷调查</a> ";
+echo "<img src='/style/icons/anketa.gif' alt='*' /> <a href='/user/info/anketa.php?id=$ank[id]'>个人资料</a> ";
 if (isset($user) && $user['id'] == $ank['id']) {
 	echo "[<img src='/style/icons/edit.gif' alt='*' /> <a href='/user/info/edit.php'>编辑</a>]";
 }
@@ -265,7 +265,7 @@ echo "</div>";
 ========================================
 */
 echo "<div class='nav2'><img src='/style/icons/blogi.png' alt='*' width='16'/> ";
-echo "<a href='/user/info/them_p.php?id=" . $ank['id'] . "'>主题及意见</a> ";
+echo "<a href='/user/info/them_p.php?id=" . $ank['id'] . "'>帖子与评论</a> ";
 
 echo "</div>";
 /*
@@ -337,7 +337,7 @@ if (isset($user) && $ank['id'] != $user['id']) {
 Монеты перевод
 ========================================
 */
-	echo "<img src='/style/icons/uslugi.gif' alt='*' /> <a href=\"/user/money/translate.php?id=$ank[id]\">兑换 $sMonet[0]</a><br />";
+	echo "<img src='/style/icons/uslugi.gif' alt='*' /> <a href=\"/user/money/translate.php?id=$ank[id]\">赠送$sMonet[0]</a><br />";
 
 	/*
 ========================================

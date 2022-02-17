@@ -124,7 +124,7 @@ echo '文件夹名称:<br/><input type="text" name="name" maxlength="30" value="
 
 echo '密码:<br/><input type="pass" name="pass" maxlength="12" value="" /><br />';
 
-echo '<input type="submit" name="sub" value="要创建"/></form>';
+echo '<input type="submit" name="sub" value="创建"/></form>';
 
 
 

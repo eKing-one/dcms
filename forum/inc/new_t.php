@@ -64,7 +64,7 @@ if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_
    echo "信息:$tPanel<textarea name=\"msg\"></textarea><br />";
 }
 
-echo "<input value=\"要创建\" type=\"submit\" /><br />";
+echo "<input value=\"创建\" type=\"submit\" /><br />";
 echo "</form>";
 
 echo "<div class=\"foot\">";

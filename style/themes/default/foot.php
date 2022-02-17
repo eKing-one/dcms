@@ -5,7 +5,7 @@ if ($_SERVER['PHP_SELF'] != '/index.php')
 {
 ?>
 	<div class="foot">
-	<img src="/style/icons/icon_glavnaya.gif" alt="*" /> <a href="/index.php">到主页</a>
+	<img src="/style/icons/icon_glavnaya.gif" alt="*" /> <a href="/index.php">返回首页</a>
 	</div>
 <?
 }

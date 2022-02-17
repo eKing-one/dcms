@@ -46,7 +46,7 @@ elseif ($err=='500')echo "内部服务器错误";
 elseif ($err=='502')echo "服务器收到来自另一个服务器的无效响应";
 else echo "未知错误";
 echo "<br />";
-echo "<a href=\"/index.php\">到主页</a>";
+echo "<a href=\"/index.php\">返回首页</a>";
 echo "</div></div></body></html>";
 exit;
 }

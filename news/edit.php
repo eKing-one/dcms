@@ -101,7 +101,7 @@ if (is_file(H.'style/themes/'.$set['set_them'].'/altername_post_form.php'))
 
 echo '链接:<br /><input name="link" size="16" maxlength="64" value="' . text($news['link']) . '" type="text" /><br />';
 
-echo '显示在主页上:<br />';
+echo '在主页显示时间:<br />';
 echo '<input type="text" name="ch" size="3" value="' . (isset($_POST['ch']) ? intval($_POST['ch']) : "1") . '" />';
 echo '<select name="mn">';
 echo '  <option value="0" '.(isset($_POST['mn']) && $_POST['mn'] == 0 ? "selected='selected'" : null).'>   </option>';

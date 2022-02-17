@@ -20,13 +20,13 @@ header("Location: /index.php?" . SID);exit;
 }
 $ank = get_user($ank['id']);
 if( !$ank ){ header("Location: /index.php?" . SID); exit; }
-$set['title'] = '书签 ' . $ank['nick']; //网页标题
+$set['title'] =  $ank['nick']. '的书签'; //网页标题
 include_once '../../sys/inc/thead.php';
 title();
 err();
 aut(); // форма авторизации
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> | <b>Закладки</b>';
+echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> | <b>书签</b>';
 echo '</div>';
 if (isset($user) && $ank['id'] == $user['id']){
 echo '<div class="mess">';
@@ -78,27 +78,27 @@ echo "<div class='nav1'>";
 if($post['type']=='forum'){
 $them=dbassoc(dbquery("SELECT * FROM `forum_t` WHERE `id`='$post[id_object]' LIMIT 1"));
 echo "<a href='/forum/".$them['id_forum']."/".$them['id_razdel']."/".$them['id']."/'><img src='/style/icons/Forum.gif'> ".htmlspecialchars($them['name'])."</a><br/>";
-echo substr(htmlspecialchars($them['text']),0,40)." (补充道 ".vremja($post['time']).")";
+echo substr(htmlspecialchars($them['text']),0,40)." (添加时间 ".vremja($post['time']).")";
 }elseif($post['type']=='notes'){
 $notes=dbassoc(dbquery("SELECT * FROM `notes` WHERE `id`='$post[id_object]' LIMIT 1"));
 echo "<a href='/plugins/notes/list.php?id=".$notes['id']."'><img src='/style/icons/diary.gif'> ".htmlspecialchars($notes['name'])."</a><br/>";
-echo substr(htmlspecialchars($notes['msg']),0,40)."[...] (补充道 ".vremja($post['time']).")";
+echo substr(htmlspecialchars($notes['msg']),0,40)."[...] (添加时间 ".vremja($post['time']).")";
 }elseif($post['type']=='people'){
 $people=get_user($post['id_object']);
 echo "<img src='/style/icons/icon_readers.gif'> ";
 echo group($people['id'])." ";
 echo user::nick($people['id'],1,1,1)." <br/>";
-echo " (补充道 ".vremja($post['time']).")";
+echo " (添加时间 ".vremja($post['time']).")";
 }elseif($post['type']=='foto'){
 $foto=dbassoc(dbquery("SELECT * FROM `gallery_foto` WHERE `id`='$post[id_object]' LIMIT 1"));
 echo "<a href='/foto/".$foto['id_user']."/".$foto['id_gallery']."/".$foto['id']."/'><img src='/style/icons/PhotoIcon.gif'> ".htmlspecialchars($foto['name'])."</a><br/>";
 echo "<img style='height:60px;' src='/foto/foto0/".$foto['id'].".".$foto['ras']."'>";
-echo substr(htmlspecialchars($foto['opis']),0,40)."[...] (补充道 ".vremja($post['time']).")";
+echo substr(htmlspecialchars($foto['opis']),0,40)."[...] (添加时间 ".vremja($post['time']).")";
 }elseif($post['type']=='file'){
 $file_id = dbassoc(dbquery("SELECT id_dir,id,name,ras  FROM `obmennik_files` WHERE `id` = '" . $post['id_object'] . "'  LIMIT 1"));
 $dir = dbarray(dbquery("SELECT `dir` FROM `obmennik_dir` WHERE `id` = '$file_id[id_dir]' LIMIT 1"));
 echo '<img src="/style/icons/film.gif"> <a href="/obmen' . $dir['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '?showinfo">' . htmlspecialchars($file_id['name']) . '.' . $file_id['ras'] . '</a>';
-echo" (补充道 ".vremja($post['time']).")";
+echo" (添加时间 ".vremja($post['time']).")";
 }
 echo "</div>";
 }

@@ -39,7 +39,7 @@ if (isset($_GET['login']) && isset($_GET['pass']))
 </div>
 
 <div class="main" id="umenu">
-<img src='/style/my_menu/ank.png' alt='' /> <a href='/user/info/anketa.php'>问卷调查</a> [<a href='user/info/edit.php'>编辑.</a>]<br />
+<img src='/style/my_menu/ank.png' alt='' /> <a href='/user/info/anketa.php'>个人资料</a> [<a href='user/info/edit.php'>编辑.</a>]<br />
 </div>
 
 <div class="main" id="umenu">

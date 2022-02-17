@@ -28,7 +28,7 @@ if (strlen2($vopr)<10 || strlen2($otv)<2)continue;
 dbquery("INSERT INTO `chat_vopros` (`vopros`, `otvet`) VALUES ('".my_esc($vopr)."', '".my_esc($otv)."')");
 $k_add++;
 }
-admin_log('聊天','增编',"补充道 $k_add 问题：");
+admin_log('聊天','增编',"添加 $k_add 问题：");
 msg("成功添加 $k_add 从 $i 问题：");
 }
 err();

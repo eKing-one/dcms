@@ -48,7 +48,7 @@ err();
 aut();
 echo "<form method=\"post\" action=\"mysql.php?set=set\">";
 echo "<textarea name=\"query\" ></textarea><br />";
-echo "<input value=\"要执行\" type=\"submit\" />";
+echo "<input value=\"执行\" type=\"submit\" />";
 echo "</form>";
 if (user_access('adm_panel_show')){
 echo "<div class='foot'>";

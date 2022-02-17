@@ -386,7 +386,7 @@ echo '<div class="foot">';
 
 
 
-echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/user/bookmark/index.php?id=' . $ank['id'] . '">Закладки</a> | <b>Фото</b>';
+echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/user/bookmark/index.php?id=' . $ank['id'] . '">书签</a> | <b>照片</b>';
 
 
 

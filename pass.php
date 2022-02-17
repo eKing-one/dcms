@@ -198,7 +198,7 @@ if (
     echo "<input type=\"text\" name=\"mail\" title=\"E-mail\" value=\"\" maxlength=\"32\" size=\"16\" /><br />";
 
 
-    echo "<input type=\"submit\" value=\"进一步\" title=\"进一步\" />";
+    echo "<input type=\"submit\" value=\"下一步\" title=\"下一步\" />";
 
 
     echo "</form>";

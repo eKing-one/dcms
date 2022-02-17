@@ -64,7 +64,7 @@ echo "<form class='foot' enctype=\"multipart/form-data\" action='?' method=\"pos
 echo "上载:<br />";
 echo "<input name='file' type='file' accept='application/zip' /><br />";
 echo "<label><input type=\"checkbox\" name=\"add_of_default\" value=\"1\" /> 添加丢失的文件</label><br />";
-echo "<input class=\"submit\" type=\"submit\" value=\"进一步\" /><br />";
+echo "<input class=\"submit\" type=\"submit\" value=\"下一步\" /><br />";
 echo "主题应该在没有文件夹的zip存档中<br />";
 echo "文件的存在them.name 和 style.css 必然<br />";
 echo "主题文件夹的名称将取自存档名称<br />";

@@ -15,7 +15,7 @@ exit;
 }
 if(isset($_GET['id']))$ank=get_user(intval($_GET['id']));
 else $ank=get_user($user['id']);
-$set['title']='主题及意见 '.$ank['nick'];
+$set['title']='帖子与评论 '.$ank['nick'];
 include_once '../../sys/inc/thead.php';
 title();
 aut();

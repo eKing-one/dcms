@@ -27,7 +27,7 @@ if (strlen2($shut)<10)continue;
 dbquery("INSERT INTO `chat_shutnik` (`anek`) VALUES ('".my_esc($shut)."')");
 $k_add++;
 }
-admin_log('聊天','增编',"补充道 $k_add 笑话");
+admin_log('聊天','增编',"添加 $k_add 笑话");
 msg("成功添加 $k_add 从 $i 笑话");
 }
 err();

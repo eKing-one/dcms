@@ -54,7 +54,7 @@ echo "</head><body><div class=\"body\"><div class=\"err\">";
 
 echo "没有这样的页面";
 echo "<br />";
-echo "<a href=\"/index.php\">到主页</a>";
+echo "<a href=\"/index.php\">返回首页</a>";
 echo "</div></div></body></html>";
 exit;
 }

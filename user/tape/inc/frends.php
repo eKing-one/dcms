@@ -4,7 +4,7 @@
 */
 if ($type == 'frends' && $post['avtor'] != $user['id']) // дневники
 {
-	$name = '补充道' . ($avtor['pol'] == 1 ? null : "а") . ' в друзья';
+	$name = '添加' . ($avtor['pol'] == 1 ? null : "а") . ' 作为朋友';
 }
 
 /*
