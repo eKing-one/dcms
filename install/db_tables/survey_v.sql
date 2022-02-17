@@ -4,4 +4,4 @@ CREATE TABLE `survey_v` (
   `id_user` int(11) NOT NULL,
   `time` int(11) NOT NULL,
   KEY `id_s` (`id_s`,`id_r`,`id_user`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;

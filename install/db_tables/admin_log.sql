@@ -8,4 +8,4 @@ CREATE TABLE `admin_log` (
   PRIMARY KEY  (`id`),
   KEY `mod` (`mod`),
   KEY `act` (`act`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci;

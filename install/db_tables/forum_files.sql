@@ -9,4 +9,4 @@ CREATE TABLE `forum_files` (
   `rating` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `id_post` (`id_post`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci;

@@ -3,7 +3,7 @@ CREATE TABLE `chat_vopros` (
   `vopros` varchar(1024) NOT NULL,
   `otvet` varchar(32) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;
 INSERT INTO `chat_vopros` VALUES (2, 'Сильная жара.', 'зной'),
 (3, 'Пояс, территория с какими-либо общими признаками.', 'зона'),
 (4, 'Медицинский инструмент для исследования внутренностей организма.', 'зонд'),

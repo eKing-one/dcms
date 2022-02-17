@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS `users_konts` (
   UNIQUE KEY `id_user` (`id_user`,`id_kont`),
   KEY `type` (`type`),
   KEY `time` (`time`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;

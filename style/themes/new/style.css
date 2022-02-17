@@ -1,0 +1,574 @@
+body {
+	margin: auto;
+	font-family: tahoma, Comic Sans MS,  verdana, sans-serif, Lucida Sans;
+	font-size: 14px;
+	background-color:#ffffff;
+	border: 3px #d0d0d0 solid;
+	word-break: normal;
+	max-width: 600px;
+	border: 3px #d0d0d0 solid;
+	-o-border-radius: 7px;
+	border-radius: 7px;
+	-moz-border-radius: 7px;
+}
+
+
+
+.rating1 {
+background-color: #E7FFF7;
+width: 100%; 
+height: 25px;
+border-radius:4px;
+}
+.rating2 {
+background-color: #10FFB8;
+box-shadow: 0 0 3px 1px #9EFFE2;
+height:25px;
+border-radius:4px;
+}
+.rating3 {
+position:relative;
+top:-21px;
+left:45%; right:57%;
+}
+a:link, a:visited {
+	color: #007bff;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #0056b3;
+	text-decoration: none;
+}
+
+.post, table {
+	width: 100%;
+}
+
+
+img {
+	vertical-align: middle;
+	border: 0px;
+	margin: 1px;
+	padding: 1px;
+}
+form {
+	padding:3px;
+}
+form label {
+	display: inline-block;
+	padding-right: 5px;
+	margin: 1px 0px 1px 0px;
+}
+
+/* кнопки */
+input[type="submit"] {
+	color: #ffffff;
+	background: #4C82F6;
+	border-radius: 4px;
+	margin-top: 1px;
+	padding: 8px;
+}
+input[type="submit"]:hover {
+	color: #fff;
+	background-color: #85ABFF;
+	border-radius: 4px;
+}
+
+/* текстовое поле */
+textarea {
+	width: 98%;
+	height: 6pc;
+	border:1px solid #CFD4DA;
+	border-radius: 4px;
+	color:#495058;
+}
+
+
+input, select{
+	border:1px solid #CFD4DA;
+	border-radius: 4px;
+	background-color: #fff;
+	margin: 2px;
+	padding: 8px;
+	color:#495058;
+}
+
+
+/* логотип на главной */
+.logo {
+	margin: 0px;
+	padding: 2px;
+	text-align: center;
+	background: #3b5998;
+}
+
+/* верняя панель */
+.auts {
+	font-weight: bold;
+	overflow: hidden;
+	padding: 5px;
+	vertical-align: top;
+	width: 19%;
+	white-space: nowrap;
+	background: #4C82F6;
+	border: 1px solid #3b5998;
+}
+.auts:hover {
+	background-color: #85ABFF;
+}
+
+/* титл страницы */
+.title {
+	margin: 0px;
+	padding: 5px;
+	text-align: center;
+	background-color: #357FFA;
+	font-weight: bold;
+	color: #fee800;
+}
+.title a {
+	color: #29447e;
+}
+.title a:hover {
+	color: #FFFFFF;
+}
+
+/* ссылка на главную */
+.titles {
+	margin: 5px;
+	padding: 5px;
+	text-align: center;
+	background-color: #357FFA;	
+	border-bottom: 1px #0e9ece solid;
+	margin-bottom: 0px;
+	color: #fee800;
+	width:20px;
+	border-right: 1px solid #29447e;
+}
+.titles a {
+	color: #29447e;
+}
+.titles a:hover {
+	color: #FFFFFF;
+}
+
+
+/* Ошибка */
+.err {
+	text-align: center;
+	font-weight: bold;
+	background-color: #FEF0F5;
+	border: 1px solid #EE5E8A;
+	border-radius: 4px;
+	color: #EE5E8A;
+	padding: 7px;
+	margin: 2px;
+}
+
+/* Уведомление зелёным */
+.msg {
+	text-align: center;
+	font-weight: bold;
+	background-color: #E5F8F6;
+	border: 1px solid #01AFA7;
+	border-radius: 4px;
+	color: #01AFA7;
+	padding: 7px;
+	margin: 2px;
+}
+
+/* уведомление в жолтой рамке */
+.mess {
+	padding: 7px;
+	background: #fff;
+	margin: 2px;
+	border: 1px solid #ffd339;
+	border-radius: 4px;
+}
+
+/* Цытата */
+.cit {
+    margin-bottom: 6px;
+    border: 1px solid #c1c1c1;
+    border-left: 7px solid #c1c1c1;
+    padding: 3px 10px;
+    color: #878787;
+	font-size: 12px;	
+}
+
+
+/* Шапка статуса */
+.st_1 {
+	margin-left: 20px;
+	margin-bottom: 0;
+	border-style: solid;
+	border-color: transparent  transparent #FDE1A1  transparent;
+	border-width: 0px 0px 10px 10px;
+	height: 0px;
+	width: 0px;
+}
+
+
+/* Тело статуса */
+.st_2 {
+	margin: 3px;
+	margin-top: 0;
+	border: #FDE1A1 2px solid;
+	padding: 7px;
+	color: #EB8B1A;
+	background-color: #FFF5E1;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	word-wrap: normal;
+}
+
+/* блок постраничной навигации */
+.c2 {
+	color: #1D222C;
+	background: #f5f5f5;
+	border: 1px solid #f0f0f0;
+	border-radius: 4px;
+	margin: 2px;
+	padding: 10px;
+}
+
+/* активная страница */
+.str {
+	border: 1px solid #4C82F6;
+	border-radius: 4px;
+	margin-top: 2px;
+	padding: 6px 8px 6px 8px;
+	color: #000;
+}
+
+/* кнопки пагинации */
+.page a {
+	background: #4C82F6;
+	border-radius: 4px;
+	margin-top: 2px;
+	padding: 6px 8px 6px 8px;
+	color: #fff;
+}
+.page a:hover {
+	background: #85ABFF;
+}
+
+/* блок панели у textarea */
+.tpanel {
+	display: table;
+	border: 0;
+	margin-left: 5px;
+	margin-bottom: -1px;
+	color: #fff;
+}
+
+/* кнопки панели у textarea */
+.tmenu {
+	float: left;
+	display: inline;
+}
+.tmenu a {
+	margin-left: 4px;
+	display: block;
+	min-width: 50px;
+	padding: 6px 8px 6px 8px;
+	text-decoration: none;
+	text-align: center;
+	color: #fff;
+	background: #4C82F6;
+	border-radius: 4px 4px 0px 0px;
+	-moz-border-radius: 4px 4px 0px 0px;
+}
+.tmenu a:hover {
+	background: #85ABFF;
+}
+
+
+/* блок кнопок в настройках, дневниках и тд */
+.menus {
+	display: table;
+	width: 99%;
+	background-color: #E6EDFA;
+	border: 1px #E6EBF9 solid;
+}
+/* кнопки блока */
+.webmenu {
+	float: left;
+	display: inline;
+	padding-left: 0px;
+	margin: 0 auto;
+}
+.webmenu last {
+	float: none;
+	padding-left: 0px;
+	margin: 0 auto;
+	padding-top: 60px;
+}
+.webmenu a {
+	display: block;
+	margin:2px;
+	padding: 8px 14px 8px 14px;
+	text-decoration: none;
+	text-align: center;
+}
+.webmenu a:hover{
+	background-color: #85ABFF;
+	color:#f5f5f5;
+	text-decoration: none;
+	margin:2px;
+	border-radius: 5px;
+}
+a.activ {
+	background-color: #4C82F6;
+	font-weight: bold;
+	margin:2px;
+	border-radius: 5px;
+	color:#fff;
+}
+
+/* лесенка 1 */
+.nav1 {
+	background-color: #f5f5f5;
+	padding: 7px;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+/* лесенка 2 */
+.nav2 { background-color: #FFFFFF;
+	padding: 7px;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+
+/* ссылки главного меню */
+.main_menu, .main2 {
+	color: #000;
+	background: #fff;
+	padding: 7px;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+/* Раздел главного меню  */
+.menu_razd {
+	padding: 6px;
+	background-color: #85ABFF;
+	border:1px solid #4C82F6;
+	color: #fff;
+	font-weight: bold;
+}
+
+/* Меню в почте и профили внизу, реклама */
+.main, .rekl {
+	color: #1D222C;
+	background: #E6EDFA;
+	border: 1px #E6EBF9 solid;
+	border-radius: 4px;
+	margin: 2px;
+	padding: 8px;
+}
+
+/* шапка в списке гостей */
+.p_t {
+	border-top: 0px #D6E6F2 solid;
+	background-color: #E3EFFF;
+	padding: 5px;
+	margin: 0px;
+	width: 100%;
+}
+/* тело в списке гостей */
+.p_m {
+	border-bottom: 1px #e5fdfd solid;
+	background-color: #f2ffff;
+	padding: 5px;
+	margin: 0px;
+	width: 100%;
+}
+
+/* выделение пункта в анкете */
+.ank_n {
+	font-weight: bold;
+	color: #555;
+}
+
+/* вариант в анкете */
+.ank_d {
+	margin: 5px;
+}
+
+/* копирайт внизу сайта */
+.copy {
+	padding: 7px;
+	text-align: center;
+	background-color: #85ABFF;
+	border:1px solid #4C82F6;
+	color: #f5f5f5;
+}
+.copy a {
+	color: #fff;
+}
+
+/* самый низ меню */
+.foot_page {
+	margin-top: 1px;
+	border-top: 1px #A8C1CE solid;
+	padding: 5px;
+	background-color: #9ee1f2;
+}
+
+/* низ сайта */
+.foot {
+	margin: 1px;
+	border: 1px #BFECDC solid;
+	padding: 7px;
+	background: #D0F2E7;
+}
+
+/* кнопки на форуме */
+.link_s {
+	background: #FFF5E1;
+	font-size:12px;
+	border: 1px solid #FDE1A1;
+	margin: 3px;
+	padding: 2px 3px 2px 3px;
+	color: #fff;
+	-o-border-radius: 4px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+}
+
+
+.aut {
+	border-bottom: 1px #0e9ece solid;
+	color: #ffffff;
+	text-align: left;
+	background-color: #0e9ece;
+	padding: 5px;
+}
+
+.t_s {
+	border-bottom: 1px #e5fdfd solid;
+	background-color: #f2ffff;
+	padding: 3px;
+	margin: 0px;
+	border-radius: 3px;
+	width: 100%;
+}
+
+.icon14 {
+	background-color: #E3EFFF;
+	padding: 1px;
+	margin: 0px;
+}
+
+
+.pager {
+	border: 0;
+	margin: 0 auto;
+	padding: 1px 3px 2px 0;
+	text-align: left;
+	color: #ffffff;
+}
+
+.pages{
+	border: 1px #238be4 solid;
+	border-radius: 4px;
+	background-color: #FFF;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	margin-bottom: 1px;
+	margin-top: 1px;
+	border-radius: 1px;
+	font-size: 12px;
+}
+
+
+.pnl2H {
+	padding: 6px;
+	border-bottom: 1px solid #ccc;
+	background: white;
+}
+.pnl2H {
+	color: #666;
+}
+.rnav_w {
+	display: block;
+	border-radius: 0;
+}
+
+.rnav {
+	position: relative;
+	margin: 0;
+	list-style: none;
+}
+.js-rnav {
+	overflow: hidden;
+	max-height: 1.9em;
+}
+.rnav_i {
+	margin-bottom: .4em;
+}
+.rnav_i {
+	display: inline-block;
+}
+.rnav_i a.aslnk {
+	color: #fff;
+}
+.rnav_i a.aslnk {
+	color: #fff;
+}
+.acsw .aslnk {
+	padding: 6px;
+	border-bottom: 1px inset blue;
+	background-color: #8FCFFC;
+}
+.acsw {
+	padding-top: 5px;
+}
+.acsw .alnk, .acsw .aslnk {
+	margin-right: .3em;
+}
+.aslnk:hover {
+	border-bottom: 1px inset red;
+	background: #0FCFFC;
+}
+.wln, .lnk {
+	background-color: #eaeef4;
+	padding: 6px;
+	border-bottom: 1px solid #dedcdc;
+}
+.wln:hover, .lnk:hover {
+	border-bottom: 1px solid red;
+}
+.rnav_i .ai {
+	line-height: 1.7;
+	vertical-align: top;
+}
+img.friends {
+	border: 3px inset orange;
+	border-radius: 0% 100% 100%;
+}
+.mb4т{
+	padding-bottom: 5px;
+	border-bottom: 2px solid #ccc;
+}
+img.stenkaт{
+	border: 2px dashed #8FCFFC;
+	border-radius: 100%/20%;
+}
+img.stenka:hover {
+	border: 2px dashed red;
+	border-radius: 100%/20%;
+}
+.body {
+	border: 1px #29447e solid;
+	-o-border-radius: 5px;
+	border-radius: 3px;
+	-moz-border-radius: 5px;
+}
+
+.on {color: #1c9044;}
+.off {color: #FF0000;}

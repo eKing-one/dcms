@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS `opsos` (
   `max` bigint(11) default NULL,
   `opsos` varchar(64) character set utf8 collate utf8_unicode_ci default NULL,
   KEY `min` (`min`,`max`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;
 INSERT INTO `opsos` (`min`, `max`, `opsos`) VALUES
 (3274702592, 3274702847, 'Kcel'),
 (1333559296, 1333575679, 'life:)'),

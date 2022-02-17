@@ -6,7 +6,6 @@
 
 
 
-返回<
 
 if (user_access('guest_clear'))
 
@@ -38,7 +37,7 @@ echo "<form method=\"post\" class='foot' action=\"?\">";
 
 
 
-echo "Будут удалены посты, написаные ... тому назад<br />";
+echo "将删除以前写的帖子。<br />";
 
 
 
@@ -58,12 +57,12 @@ echo "<option value=\"\">       </option>";
 
 
 
-echo "<option value=\"mes\">Месяцев</option>";
+echo "<option value=\"mes\">月</option>";
 
 
 
 
-echo "<option value=\"sut\">Суток</option>";
+echo "<option value=\"sut\">昼夜</option>";
 
 
 
@@ -73,12 +72,12 @@ echo "</select><br />";
 
 
 
-echo "<img src='/style/icons/ok.gif' alt='*' /> <input value=\"Очистить\" type=\"submit\" /> ";
+echo "<img src='/style/icons/ok.gif' alt='*' /> <input value=\"清除\" type=\"submit\" /> ";
 
 
 
 
-echo "<img src='/style/icons/delete.gif' alt='*' /> <a href=\"?\">Отмена</a><br />";
+echo "<img src='/style/icons/delete.gif' alt='*' /> <a href=\"?\">取消</a><br />";
 
 
 
@@ -113,7 +112,7 @@ echo "<div class=\"foot\">";
 
 
 
-echo "<img src='/style/icons/str.gif' alt='*' /> <a href=\"?act=create\">Очистить чат</a><br />";
+echo "<img src='/style/icons/str.gif' alt='*' /> <a href=\"?act=create\">清空聊天室</a><br />";
 
 
 

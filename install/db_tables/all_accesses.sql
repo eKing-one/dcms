@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS `all_accesses` (
   `type` varchar(32) NOT NULL,
   `name` varchar(64) NOT NULL,
   KEY `type` (`type`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci;
 
 INSERT INTO `all_accesses` (`type`, `name`) VALUES
 ('adm_panel_show', '管理面板-访问管理面板部分'),

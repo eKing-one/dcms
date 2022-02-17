@@ -6,4 +6,4 @@ CREATE TABLE `guests` (
   `url` varchar(64) NOT NULL,
   `pereh` int(11) NOT NULL default '0',
   KEY `ip_2` (`ip`,`ua`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci;

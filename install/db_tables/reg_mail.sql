@@ -5,4 +5,4 @@ CREATE TABLE `reg_mail` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `mail` (`mail`),
   KEY `id_user` (`id_user`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci;

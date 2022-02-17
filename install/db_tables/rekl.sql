@@ -1,7 +1,7 @@
 
 CREATE TABLE IF NOT EXISTS `rekl` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(32) NOT NULL,
+  `name` varchar(32)  CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci NOT NULL,
   `img` varchar(64) NOT NULL,
   `link` varchar(64) NOT NULL,
   `time_last` int(11) NOT NULL,
@@ -11,5 +11,5 @@ CREATE TABLE IF NOT EXISTS `rekl` (
   PRIMARY KEY (`id`),
   KEY `sel` (`sel`),
   KEY `time_last` (`time_last`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci AUTO_INCREMENT=3 ;
 

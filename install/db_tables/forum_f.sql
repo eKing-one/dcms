@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `forum_f` (
   `adm` set('0','1') NOT NULL DEFAULT '0',
   `icon` varchar(30) DEFAULT 'default',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci AUTO_INCREMENT=13 ;
 
 INSERT INTO `forum_f` (`id`, `name`, `pos`, `opis`, `adm`, `icon`) VALUES
 (1, '论坛新闻', 1, '竞赛、促销、活动、新闻', '0', 'f_news.gif'),

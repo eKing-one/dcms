@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS user_ref (
   PRIMARY KEY  (id),
   KEY `time` (`time`,id_user),
   KEY type_input (type_input)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;

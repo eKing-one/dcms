@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `user_group` (
   `name` varchar(32) NOT NULL,
   `level` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=MyISAM  DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci AUTO_INCREMENT=16 ;
 
 INSERT INTO `user_group` (`id`, `name`, `level`) VALUES
 (1, '用户', 0),

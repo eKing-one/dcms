@@ -1,5 +1,5 @@
 <?
-if (is_file(H."sys/obmen/screens/128/$file_id[id].gif"))
+if (test_file(H."sys/obmen/screens/128/$file_id[id].gif"))
 {
 	echo "<img src='/sys/obmen/screens/128/$file_id[id].gif' alt='Скрин...' /><br />";
 }

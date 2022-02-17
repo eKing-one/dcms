@@ -25,7 +25,8 @@ while ($filetables = readdir($opdirtables)) {
 
 
 
-            include_once H . 'sys/inc/sql_parser.php';
+
+include_once check_replace(H.'sys/inc/sql_parser.php');
 
             $sql = SQLParser::getQueriesFromFile(H . 'install/db_tables/' . $filetables);
 

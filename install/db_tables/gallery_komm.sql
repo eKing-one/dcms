@@ -6,4 +6,4 @@ CREATE TABLE `gallery_komm` (
   `msg` varchar(1024) DEFAULT NULL,
   PRIMARY KEY  (`id`),
   KEY `id_foto` (`id_foto`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci;

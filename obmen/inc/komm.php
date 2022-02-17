@@ -438,7 +438,7 @@ echo "<form method=\"post\" name='message' action=\"?showinfo&amp;".$go_otv."\">
 
 
 
-if ($set['web'] && is_file(H.'style/themes/'.$set['set_them'].'/altername_post_form.php'))
+if ($set['web'] && test_file(H.'style/themes/'.$set['set_them'].'/altername_post_form.php'))
 
 
 

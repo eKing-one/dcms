@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS `gallery_rating` (
   `time` int(11) NOT NULL DEFAULT '0',
   `read` int(1) DEFAULT '1',
   KEY `id_foto` (`id_foto`,`id_user`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci;

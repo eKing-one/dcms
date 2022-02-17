@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS `visit_everyday` (
   KEY `host` (`host`),
   KEY `hit` (`hit`),
   KEY `host_ip_ua` (`host_ip_ua`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;

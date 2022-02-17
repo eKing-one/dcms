@@ -8,4 +8,4 @@ CREATE TABLE `media_info` (
   `wh` varchar(32) DEFAULT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `file` (`file`,`size`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci;

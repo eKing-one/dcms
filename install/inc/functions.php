@@ -86,7 +86,7 @@ function passgen($k_simb = 8, $types = 3)
 
     $numbers = "1234567890";
 
-    mt_srand((float)microtime() * 1000000);
+mt_srand((double)microtime()*1000000); 
 
     for ($i = 0; $i < $k_simb; $i++) {
 

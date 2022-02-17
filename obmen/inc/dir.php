@@ -147,8 +147,8 @@ elseif ($num==1){
 echo '<div class="nav2">';
 $num=0;}
 /*---------------------------*/
-include 'inc/icon48.php';if (is_file(H.'style/themes/'.$set['set_them'].'/loads/14/'.$ras.'.png'))
-echo "<img src='/style/themes/$set[set_them]/loads/14/$ras.png' alt='$ras' /> ";
+include 'inc/icon48.php';if (test_file(H.'style/themes/'.$set['set_them'].'/loads/14/'.$ras.'.png'))
+echo "<img src='/style/themes/$set[set_them]/loads/14/$ras.png' alt='$ras' /> \n";
 else 
 echo "<img src='/style/themes/$set[set_them]/loads/14/file.png' alt='file' /> ";
 

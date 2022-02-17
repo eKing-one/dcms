@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `tape` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`,`avtor`),
   KEY `read` (`read`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET utf8mb4 COLLATE  utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `tape_set` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

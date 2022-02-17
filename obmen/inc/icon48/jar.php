@@ -8,12 +8,12 @@
 
 
 
-if (is_file(H."sys/loads/screens/48/$size.$name.$ras.png"))
+if (test_file(H."sys/loads/screens/48/$size.$name.$ras.png"))
 
 
 
 
-echo "<img src='/sys/loads/screens/48/$si.$name.$ras.png' alt='$ras' /><br />";
+echo "<img src='/sys/loads/screens/48/$size.$name.$ras.png' alt='$ras' /><br />\n";
 
 
 
@@ -68,17 +68,17 @@ $icon=false;
 
 
 
-if(@preg_match("#MIDlet-Icon:[^(|\r)]*(|\r)#i", $content[0]['content'], $jad))
+if(@preg_match("#MIDlet-Icon:[^(\n|\r)]*(\n|\r)#i", $content[0]['content'], $jad))
 
 
 
 
-$icon=preg_replace("#(MIDlet-Icon:( )*)|(|\r)#i", NULL, $jad[0]);
+$icon=preg_replace("#(MIDlet-Icon:( )*)|(\n|\r)#i", NULL, $jad[0]);
 
 
 
 
-elseif (@preg_match("#MIDlet-1:[^(|\r)]*(|\r)#i", $content[0]['content'], $jad))
+elseif (@preg_match("#MIDlet-1:[^(\n|\r)]*(\n|\r)#i", $content[0]['content'], $jad))
 
 
 
@@ -88,7 +88,7 @@ elseif (@preg_match("#MIDlet-1:[^(|\r)]*(|\r)#i", $content[0]['content'], $jad))
 
 
 
-$icon=preg_replace("#(MIDlet-1:( )*)|(|\r)#i", NULL, $jad[0]);
+$icon=preg_replace("#(MIDlet-1:( )*)|(\n|\r)#i", NULL, $jad[0]);
 
 
 
@@ -363,7 +363,7 @@ unlink(H."sys/tmp/$sess.png");
 
 
 
-elseif (is_file(H."style/themes/default/loads/48/$ras.png"))
+elseif (test_file(H."style/themes/default/loads/48/$ras.png"))
 
 
 
@@ -383,7 +383,7 @@ elseif (is_file(H."style/themes/default/loads/48/$ras.png"))
 
 
 
-echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br />";
+echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br />\n";
 
 
 
@@ -408,7 +408,7 @@ else
 
 
 
-echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br />";
+echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br />\n";
 
 
 
@@ -428,7 +428,7 @@ echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br
 
 
 
-elseif (is_file(H."style/themes/default/loads/48/$ras.png"))
+elseif (test_file(H."style/themes/default/loads/48/$ras.png"))
 
 
 
@@ -448,7 +448,7 @@ elseif (is_file(H."style/themes/default/loads/48/$ras.png"))
 
 
 
-echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br />";
+echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br />\n";
 
 
 
@@ -473,7 +473,7 @@ else
 
 
 
-echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br />";
+echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br />\n";
 
 
 

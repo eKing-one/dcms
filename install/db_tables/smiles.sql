@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `smile` (
   `smile` varchar(64) NOT NULL,
   `dir` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1187 ;
+) ENGINE=MyISAM  DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci AUTO_INCREMENT=1187 ;
 
 
 INSERT INTO `smile` (`id`, `smile`, `dir`) VALUES
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `smile_dir` (
   `name` varchar(32) NOT NULL,
   `opis` varchar(320) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
+) ENGINE=MyISAM  DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci AUTO_INCREMENT=27 ;
 
 
 INSERT INTO `smile_dir` (`id`, `name`, `opis`) VALUES

@@ -5,7 +5,7 @@ CREATE TABLE `votes_forum` (
   `num` varchar(32) default NULL,
   PRIMARY KEY  (`id`),
   KEY `id_forum` (`them`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE `votes_user` (
   `id` int(11) NOT NULL auto_increment,
@@ -14,4 +14,4 @@ CREATE TABLE `votes_user` (
   `id_user` int(11) NOT NULL,
   `time` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET utf8mb4 COLLATE  utf8mb4_unicode_ci;

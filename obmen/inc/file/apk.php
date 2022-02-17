@@ -1,5 +1,5 @@
 <?
-if (!is_file(H."sys/obmen/screens/128/$file_id[id].png"))
+if (!test_file(H."sys/obmen/screens/128/$file_id[id].png"))
 {
 	$_SESSION['file_icon']=null;
 	include_once H.'sys/inc/zip.php';

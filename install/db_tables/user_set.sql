@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS `user_set` (
   `privat_mail` int(11) DEFAULT '1',
   `ocenka` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+) ENGINE=MyISAM  DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci AUTO_INCREMENT=1;

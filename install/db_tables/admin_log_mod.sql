@@ -3,4 +3,4 @@ CREATE TABLE `admin_log_mod` (
   `name` varchar(64) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci;

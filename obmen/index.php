@@ -8,7 +8,7 @@ include_once '../sys/inc/settings.php';
 include_once '../sys/inc/db_connect.php'; 
 include_once '../sys/inc/ipua.php'; 
 include_once '../sys/inc/fnc.php'; 
-include_once '../sys/inc/obmen.php'; 
+include_once check_replace('../sys/inc/obmen.php');
 include_once '../sys/inc/user.php'; 
 
 /* Бан пользователя */  
@@ -65,7 +65,7 @@ $size=$file_id['size'];
 
 $file_id['name'] = str_replace('_', ' _', $file_id['name']); 
 
-if (!isset($_GET['showinfo']) && !isset($_GET['komm']) && is_file(H.'sys/obmen/files/'.$file_id['id'].'.dat'))
+if (!isset($_GET['showinfo']) && !isset($_GET['komm']) && test_file(H.'sys/obmen/files/'.$file_id['id'].'.dat'))
 { 
 
     if ($ras == 'jar' && strtolower(preg_replace('#^.*.#', NULL, $f)) == 'jad') 
@@ -87,10 +87,10 @@ if (!isset($_GET['showinfo']) && !isset($_GET['komm']) && is_file(H.'sys/obmen/f
 
     $avtor = get_user($file_id['id_user']); 
     if (isset($user) && $_SESSION['file_'.$file['id'].''] == 0) 
-    @dbquery("UPDATE `user` SET `rating_tmp` = '".($avtor['rating_tmp']+1)."' WHERE `id` = '$file_id[id_user]' LIMIT 1");
+    dbquery("UPDATE `user` SET `rating_tmp` = '".($avtor['rating_tmp']+1)."' WHERE `id` = '$file_id[id_user]' LIMIT 1");
 
     $_SESSION['file_'.$file['id'].'']=1; 
-    @dbquery("UPDATE `obmennik_files` SET `k_loads` = '".($file_id['k_loads']+1)."' WHERE `id` = '$file_id[id]' LIMIT 1");
+    dbquery("UPDATE `obmennik_files` SET `k_loads` = '".($file_id['k_loads']+1)."' WHERE `id` = '$file_id[id]' LIMIT 1");
 
     include_once '../sys/inc/downloadfile.php'; 
     DownloadFile(H.'sys/obmen/files/'.$file_id['id'].'.dat', retranslit($file_id['name']).'_'.$_SERVER['HTTP_HOST'].'.'.$ras, ras_to_mime($ras));
@@ -340,7 +340,7 @@ if (($user['abuld']  ==  1 || $file_id['metka']  ==  0 || $file_id['id_user']  =
 { 
 
 echo '<div class="main">'; 
-if(is_file("inc/file/$ras.php"))include "inc/file/$ras.php"; 
+if(test_file("inc/file/$ras.php"))include "inc/file/$ras.php";
 else 
 include_once 'inc/file.php'; 
 echo '</div>'; 

@@ -8,11 +8,11 @@ $set['shif']=$_SESSION['shif'];
 
 $db=mysql_connect($_SESSION['host'], $_SESSION['user'],$_SESSION['pass']);
 mysql_select_db($_SESSION['db'],$db);
-mysql_query('set charset utf8');
-mysql_query('SET names utf8');
-mysql_query('set character_set_client="utf8"');
-mysql_query('set character_set_connection="utf8"');
-mysql_query('set character_set_result="utf8"');
+mysql_query('set charset utf8mb4');
+mysql_query('SET names utf8mb4');
+mysql_query('set character_set_client="utf8mb4"');
+mysql_query('set character_set_connection="utf8mb4"');
+//mysql_query('set character_set_result="utf8mb4"');
 
 
 

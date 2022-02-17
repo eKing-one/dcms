@@ -5,4 +5,4 @@ CREATE TABLE `news_komm` (
   `time` int(11) DEFAULT NULL,
   `id_news` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci;

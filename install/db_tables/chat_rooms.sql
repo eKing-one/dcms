@@ -7,4 +7,4 @@ CREATE TABLE `chat_rooms` (
   `opis` varchar(256) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `pos` (`pos`,`umnik`,`shutnik`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci;
