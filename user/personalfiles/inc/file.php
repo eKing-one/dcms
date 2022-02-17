@@ -92,13 +92,12 @@ $file_id=dbassoc(dbquery("SELECT * FROM `obmennik_files` WHERE `id`='".intval($_
 
 
 
+if (empty($file_id['id_user']) or empty($user['id'])  or  $file_id['id_user']!=$ank['id'])
+{
+  header("Location: /?".SID);
+  exit;
+}
 
-
-
-
-
-
-if ($file_id['id_user']!=$ank['id']){echo '错误!';exit;}
 
 
 
@@ -1528,7 +1527,7 @@ echo '<div class="main">';
 
 
 
-if(is_file(H."obmen/inc/file/$ras.php"))include H."obmen/inc/file/$ras.php";
+if(test_file(H."obmen/inc/file/$ras.php"))include H."obmen/inc/file/$ras.php";
 
 
 

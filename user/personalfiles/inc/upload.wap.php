@@ -14,6 +14,7 @@ ICQ: 587863132
 http://dcms-social.ru
 =======================================
 */
+if (!defined("USER")) die('No access');
 
 if (isset($_SESSION['obmen_dir']))
 {
@@ -218,16 +219,16 @@ echo "<form class='foot' enctype=\"multipart/form-data\" name='message' action='
 	 截图:<br />
 	 <input name='screen' type='file' accept='image/*' /><br />";	 	
 		 
-	if ($set['web'] && is_file(H.'style/themes/'.$set['set_them'].'/altername_post_form.php'))		
+	if ($set['web'] && test_file(H.'style/themes/'.$set['set_them'].'/altername_post_form.php'))
 	include_once H.'style/themes/'.$set['set_them'].'/altername_post_form.php';	
 	else
 	{
 		echo $tPanel . '<textarea name="msg"></textarea><br />';	
 	}	
 	 
-	echo "<label><input type='checkbox' name='metka' value='1' /> 马克 <font color=red>18+</font></label><br />";
+	echo "<label><input type='checkbox' name='metka' value='1' /> 标记 <font color=red>18+</font></label><br />";
 
-	 echo "<input class=\"submit\" type=\"submit\" value=\"上载\" /> [<img src='/style/icons/delete.gif' alt='*'> <a href='?'>取消</a>]<br />
+	 echo "<input class=\"submit\" type=\"submit\" value=\"上传\" /> [<img src='/style/icons/delete.gif' alt='*'> <a href='?'>取消</a>]<br />
 	 <div class='main'>*允许上传以下格式的文件: ";
 	 
 $i5=explode(';', $dir_id['ras']);
