@@ -11,7 +11,7 @@ if ($file_id['opis']!=NULL)
 	echo "<br />";
 }
 
-echo "补充道: ".vremja($file_id['time'])."<br />";
+echo "上传时间: ".vremja($file_id['time'])."<br />";
 
 if (class_exists('ffmpeg_movie'))
 {
@@ -25,7 +25,7 @@ if (class_exists('ffmpeg_movie'))
 	echo '时间: '.intval($media->getDuration())." сек<br />";
 	echo "比特率: ".ceil(($media->getBitRate())/1024)." KBPS<br />";
 	if($media->getAudioChannels()==1)echo "类型: Mono<br />";else echo "类型: Stereo<br />";
-	echo '抽样调查: '.$media->getAudioSampleRate()." Гц<br />";
+	echo '抽样调查: '.$media->getAudioSampleRate()." 赫兹<br />";
 	if(($media->getArtist())<>"")
 	{
 		if (function_exists('iconv'))

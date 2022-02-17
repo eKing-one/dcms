@@ -54,6 +54,6 @@ if (class_exists('ffmpeg_movie'))
 	else
 	echo '时间: '.intval($media->getDuration())." сек<br />";
 }
-echo "补充道: ".vremja($file_id['time'])."<br />";
+echo "上传时间: ".vremja($file_id['time'])."<br />";
 echo "大小: ".size_file($size)."<br />";
 ?>

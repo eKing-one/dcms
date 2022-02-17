@@ -48,6 +48,6 @@ if (function_exists('getimagesize'))
 	echo "许可: $img_size[0]*$img_size[1] пикс.<br />";
 }
 
-echo "补充道: ".vremja($file_id['time'])."<br />";
+echo "上传时间: ".vremja($file_id['time'])."<br />";
 echo "大小: ".size_file($size)."<br />";
 ?>

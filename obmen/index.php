@@ -431,11 +431,11 @@ echo '</div>';
 } 
 
 echo '<div class="main">'; 
-echo '补充道: '; 
+echo '上传人: '; 
 echo group($avtor['id']).' ';
 echo user::nick($avtor['id'],1,1,1);
 echo ' <span style="color:#666;">'.vremja($file_id['time']).'</span><br/>'; 
-echo '到文件夹: <a href="/user/personalfiles/'.$avtor['id'].'/'.$my_dir['id'].'/">'.text($my_dir['name']).'</a>';
+echo '返回文件夹: <a href="/user/personalfiles/'.$avtor['id'].'/'.$my_dir['id'].'/">'.text($my_dir['name']).'</a>';
 echo '</div>'; 
 
 /*-------------------Моя музыка---------------------*/ 

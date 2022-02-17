@@ -673,7 +673,7 @@ if (isset($user) && isset($_GET['play']) && ($_GET['play']==1 || $_GET['play']==
 
 
 
-	$_SESSION['message']='Трек добавлен в плейлист';
+	$_SESSION['message']='已添加到播放列表中的曲目';
 
 
 
@@ -708,7 +708,7 @@ if (isset($user) && isset($_GET['play']) && ($_GET['play']==1 || $_GET['play']==
 
 
 
-	$_SESSION['message']='Трек удален из плейлиста';
+	$_SESSION['message']='从播放列表中删除的曲目';
 
 
 
@@ -778,7 +778,7 @@ dbquery("DELETE FROM `obmennik_komm` WHERE `id` = '".intval($_GET['del_post'])."
 
 
 
-$_SESSION['message']='Комментарий успешно удален';
+$_SESSION['message']='评论成功删除';
 
 
 
@@ -843,7 +843,7 @@ $mat=antimat($msg);
 
 
 
-if ($mat)$err[]='В тексте сообщения обнаружен мат: '.$mat;
+if ($mat)$err[]='在邮件文本中检测到 MAT： '.$mat;
 
 
 
@@ -853,17 +853,17 @@ if ($mat)$err[]='В тексте сообщения обнаружен мат: '
 
 
 
-if (strlen2($msg)>1024){$err[]='Сообщение слишком длинное';}
+if (strlen2($msg)>1024){$err[]='消息过长';}
 
 
 
 
-elseif (strlen2($msg)<2){$err[]='Короткое сообщение';}
+elseif (strlen2($msg)<2){$err[]='短消息';}
 
 
 
 
-elseif (dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_komm` WHERE `id_file` = '$file_id[id]' AND `id_user` = '$user[id]' AND `msg` = '".mysql_escape_string($msg)."' LIMIT 1"),0)!=0){$err='Ваше сообщение повторяет предыдущее';}
+elseif (dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_komm` WHERE `id_file` = '$file_id[id]' AND `id_user` = '$user[id]' AND `msg` = '".mysql_escape_string($msg)."' LIMIT 1"),0)!=0){$err='你的留言重复了前面的';}
 
 
 
@@ -1183,7 +1183,7 @@ dbquery("UPDATE `user` SET `balls` = '".($user['balls']+1)."', `rating_tmp` = '"
 
 
 
-$_SESSION['message']='Сообщение успешно добавлено';
+$_SESSION['message']='消息已成功添加';
 
 
 
@@ -1298,7 +1298,7 @@ if ($_SESSION['pass']!=$dir['pass'])
 
 
 
-{$_SESSION['message'] = 'Неверный пароль'; $_SESSION['pass']=NULL;}
+{$_SESSION['message'] = '密码不正确'; $_SESSION['pass']=NULL;}
 
 
 
@@ -1328,7 +1328,7 @@ if (!user_access('obmen_dir_edit') && ($user['id']!=$ank['id'] && $_SESSION['pas
 
 
 
-echo '<form action="?id_file='.$file_id['id'].'" method="POST">Пароль: <br />		<input type="pass" name="password" value="" /><br />		
+echo '<form action="?id_file='.$file_id['id'].'" method="POST">密码: <br />		<input type="pass" name="password" value="" /><br />		
 
 
 
@@ -1453,7 +1453,7 @@ if ($user['id']==$file_id['id_user'])
 
 
 
-echo '<img src="/style/icons/z.gif" alt="*"> Зона обмена: <a href="/obmen'.$dir_id['dir'].'">'.$dir_id['name'].'</a> <a href="/obmen/?trans='.$file_id['id'].'"><img src="/style/icons/edit.gif" alt="*"></a><br />';
+echo '<img src="/style/icons/z.gif" alt="*"> 交换区: <a href="/obmen'.$dir_id['dir'].'">'.$dir_id['name'].'</a> <a href="/obmen/?trans='.$file_id['id'].'"><img src="/style/icons/edit.gif" alt="*"></a><br />';
 
 
 
@@ -1463,7 +1463,7 @@ else
 
 
 
-echo '<img src="/style/icons/z.gif" alt="*"> Зона обмена: <a href="/obmen'.$dir_id['dir'].'">'.$dir_id['name'].'</a><br /> ';
+echo '<img src="/style/icons/z.gif" alt="*"> 交换区： <a href="/obmen'.$dir_id['dir'].'">'.$dir_id['name'].'</a><br /> ';
 
 
 
@@ -1558,12 +1558,12 @@ echo '<div class="mess">';
 
 
 
-echo '<img src="/style/icons/small_adult.gif" alt="*"><br /> Данный файл содержит изображения эротического характера. Только зарегистрированные пользователи старше 18 лет могут просматривать такие файлы. <br />';
+echo '<img src="/style/icons/small_adult.gif" alt="*"><br /> 该文件包含色情图像。只有 18 岁以上的注册用户才能查看此类文件。 <br />';
 
 
 
 
-echo '<a href="/aut.php">Вход</a> | <a href="/reg.php">Регистрация</a>';
+echo '<a href="/aut.php">登录</a> | <a href="/reg.php">注册</a>';
 
 
 
@@ -1588,17 +1588,17 @@ echo '<img src="/style/icons/small_adult.gif" alt="*"><br />
 
 
 
-	Данный файл содержит изображения эротического характера. 
+该文件包含色情图像。
 
 
 
 
-	Если Вас это не смущает и Вам 18 или более лет, то можете <a href="?id_file='.$file_id['id'].'&amp;sess_abuld=1">продолжить просмотр</a>. 
+	如果你不介意，而且你已经 18 岁或 18 岁以上了，你可以 <a href="?id_file='.$file_id['id'].'&amp;sess_abuld=1">继续查看</a>. 
 
 
 
 
-	Или Вы можете отключить предупреждения в <a href="/user/info/settings.php">настройках</a>.';
+	或者你可以在以下内容中禁用警告 <a href="/user/info/settings.php">设置</a>.';
 
 
 
@@ -1643,7 +1643,7 @@ echo '<div class="c2" style="text-align: center;">';
 
 
 
-if (isset($list['id'])) echo '<span class="page">'.($list['id']?'<a href="?id_file='.$list['id'].'">&laquo; Пред.</a> ':'&laquo; Пред. ').'</span>';
+if (isset($list['id'])) echo '<span class="page">'.($list['id']?'<a href="?id_file='.$list['id'].'">&laquo; 上一页</a> ':'&laquo; 上一页 ').'</span>';
 
 
 
@@ -1673,7 +1673,7 @@ echo ' ('.$k_1.' из '.$k_2.') ';
 
 
 
-if (isset($listr['id'])) echo '<span class="page">'.($listr['id']?'<a href="?id_file='.$listr['id'].'">След. &raquo;</a>':' След. &raquo;').'</span>';
+if (isset($listr['id'])) echo '<span class="page">'.($listr['id']?'<a href="?id_file='.$listr['id'].'">下一页 &raquo;</a>':' 下一页 &raquo;').'</span>';
 
 
 
@@ -1733,17 +1733,17 @@ if (user_access('obmen_file_edit') || $user['id']==$file_id['id_user'])
 
 
 
-		if ($user['id']==$file_id['id_user'] && $dir_id['my']==1)echo '[<a href="/obmen/?trans='.$file_id['id'].'"><img src="/style/icons/z.gif" alt="*"> в зону</a>]';
+		if ($user['id']==$file_id['id_user'] && $dir_id['my']==1)echo '[<a href="/obmen/?trans='.$file_id['id'].'"><img src="/style/icons/z.gif" alt="*"> 进入区域</a>]';
 
 
 
 
-	echo ' [<img src="/style/icons/edit.gif" alt="*"> <a href="?id_file='.$file_id['id'].'&amp;edit">ред.</a>]';
+	echo ' [<img src="/style/icons/edit.gif" alt="*"> <a href="?id_file='.$file_id['id'].'&amp;edit">编辑</a>]';
 
 
 
 
-	echo ' [<img src="/style/icons/delete.gif" alt="*"> <a href="?id_file='.$file_id['id'].'&amp;delete">удл.</a>]';
+	echo ' [<img src="/style/icons/delete.gif" alt="*"> <a href="?id_file='.$file_id['id'].'&amp;delete">删除.</a>]';
 
 
 
@@ -1788,7 +1788,7 @@ if (isset($user) && $ank['id'] != $user['id'] && dbresult(dbquery("SELECT COUNT(
 
 
 
-echo '[<img src="/style/icons/like.gif" alt="*"> <a href="?id_file='.$file_id['id'].'&amp;like=1">Мне нравится</a>] ';
+echo '[<img src="/style/icons/like.gif" alt="*"> <a href="?id_file='.$file_id['id'].'&amp;like=1">我喜欢</a>] ';
 
 
 
@@ -1853,7 +1853,7 @@ if ($file_id['ras']=='jar')
 
 
 
-echo '<img src="/style/icons/d.gif" alt="*"> <a href="/obmen'.$dir_id['dir'].$file_id['id'].'.'.$file_id['ras'].'">Скачать JAR ('.size_file($size).')</a> <a href="/obmen'.$dir_id['dir'].$file_id['id'].'.jad">JAD</a> <br />';
+echo '<img src="/style/icons/d.gif" alt="*"> <a href="/obmen'.$dir_id['dir'].$file_id['id'].'.'.$file_id['ras'].'">下载 JAR ('.size_file($size).')</a> <a href="/obmen'.$dir_id['dir'].$file_id['id'].'.jad">JAD</a> <br />';
 
 
 
@@ -1863,12 +1863,12 @@ else
 
 
 
-echo '<img src="/style/icons/d.gif" alt="*"> <a href="/obmen'.$dir_id['dir'].$file_id['id'].'.'.$file_id['ras'].'">Скачать ('.size_file($size).')</a><br />';
+echo '<img src="/style/icons/d.gif" alt="*"> <a href="/obmen'.$dir_id['dir'].$file_id['id'].'.'.$file_id['ras'].'">下载 ('.size_file($size).')</a><br />';
 
 
 
 
-echo 'Скачан ('.$file_id['k_loads'].')';
+echo '下载 ('.$file_id['k_loads'].')';
 
 
 

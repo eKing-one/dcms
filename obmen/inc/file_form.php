@@ -22,7 +22,7 @@ if (isset($_GET['act']) && $_GET['act']=='edit' && $l!='/')
 
 
 
-	Название файла:<br />是的<
+	文件名称:<br />
 
 
 
@@ -30,7 +30,7 @@ if (isset($_GET['act']) && $_GET['act']=='edit' && $l!='/')
 
 
 
-	Описание:'.$tPanel.'
+	说明:'.$tPanel.'
 
 
 
@@ -38,7 +38,7 @@ if (isset($_GET['act']) && $_GET['act']=='edit' && $l!='/')
 
 
 
-	echo "<label><input type='checkbox' name='metka' value='1' ".($file_id['metka'] == 1?"checked='checked'":"")."/> Метка <font color=red>18+</font></label><br />";
+	echo "<label><input type='checkbox' name='metka' value='1' ".($file_id['metka'] == 1?"checked='checked'":"")."/> 标记 <font color=red>18+</font></label><br />";
 
 
 
@@ -46,7 +46,7 @@ if (isset($_GET['act']) && $_GET['act']=='edit' && $l!='/')
 
 
 
-	echo '<img src="/style/icons/ok.gif" alt="*"> <input value="修改" type="submit" /> <a href="?showinfo"><img src="/style/icons/delete.gif" alt="*"> Отмена</a><br />';
+	echo '<img src="/style/icons/ok.gif" alt="*"> <input value="修改" type="submit" /> <a href="?showinfo"><img src="/style/icons/delete.gif" alt="*"> 取消</a><br />';
 
 
 
@@ -90,11 +90,11 @@ if (isset($_GET['act']) && $_GET['act']=='delete' && $l!='/')
 
 
 
-	echo 'Удалить файл '.htmlspecialchars($file_id['name']).'?<br />';
+	echo '删除文件 '.htmlspecialchars($file_id['name']).'?<br />';
 
 
 
-	echo '<a href="?showinfo&amp;act=delete&amp;ok"><img src="/style/icons/ok.gif" alt="*"> Да</a> ';
+	echo '<a href="?showinfo&amp;act=delete&amp;ok"><img src="/style/icons/ok.gif" alt="*"> 是</a> ';
 
 
 

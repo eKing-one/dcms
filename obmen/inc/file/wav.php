@@ -11,7 +11,7 @@ if ($file_id['opis']!=NULL)
 	echo "<br />";
 }
 
-echo "补充道: ".vremja($file_id['time'])."<br />";
+echo "上传时间: ".vremja($file_id['time'])."<br />";
 
 if (class_exists('ffmpeg_movie'))
 {

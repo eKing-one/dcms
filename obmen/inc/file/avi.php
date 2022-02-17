@@ -56,6 +56,6 @@ if (class_exists('ffmpeg_movie'))
 	echo "比特率: ".ceil(($media->getBitRate())/1024)." KBPS<br />";
 }
 
-echo "补充道: ".vremja($file_id['time'])."<br />";
+echo "上传时间: ".vremja($file_id['time'])."<br />";
 echo "大小: ".size_file($size)."<br />";
 ?>
