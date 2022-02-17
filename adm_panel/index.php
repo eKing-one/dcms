@@ -66,6 +66,7 @@ if (user_access('adm_ban_ip'))echo "<div class='main'><img src='/style/icons/str
 if (user_access('adm_mysql'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='mysql.php'>MySQL查询</a></div>";
 if (user_access('adm_mysql'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='tables.php'>导入SQL</a></div>";
 if (user_access('adm_themes'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='themes.php'>设计主题</a></div>";
+if (user_access('adm_themes'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='themes.php'>编辑当前CSS</a></div>";
 
 $opdirbase=@opendir(H.'sys/add/admin');
 while ($filebase=@readdir($opdirbase))
