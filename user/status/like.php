@@ -170,7 +170,7 @@ echo "<div class='foot'>";
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <a href='index.php?id=".$anketa['id']."'>状态</a> | <b>评估</b>";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <a href='index.php?id=".$anketa['id']."'>状态</a> | <b>评分</b>";
 
 
 
@@ -366,7 +366,7 @@ echo "<div class='foot'>";
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <a href='index.php?id=".$anketa['id']."'>状态</a> | <b>评估</b>";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <a href='index.php?id=".$anketa['id']."'>状态</a> | <b>评分</b>";
 
 
 

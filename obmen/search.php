@@ -19,7 +19,7 @@ include_once '../sys/inc/thead.php';
 title();
 aut();
 echo "<div class='foot'>";
-echo '<img src="/style/icons/up_dir.gif" alt="*"> <a href="/obmen/">交换器</a><br />';
+echo '<img src="/style/icons/up_dir.gif" alt="*"> <a href="/obmen/">下载中心</a><br />';
 echo "</div>";
 $search = NULL;
 if (isset($_SESSION['search'])) $search = $_SESSION['search'];
@@ -82,6 +82,6 @@ echo "<input type=\"text\" name=\"search\" maxlength=\"64\" value=\"$search\" />
 echo "<input type=\"submit\" value=\"搜索\" />";
 echo "</form>";
 echo "<div class='foot'>";
-echo '<img src="/style/icons/up_dir.gif" alt="*"> <a href="/obmen/">交换器</a><br />';
+echo '<img src="/style/icons/up_dir.gif" alt="*"> <a href="/obmen/">下载中心</a><br />';
 echo "</div>";
 include_once '../sys/inc/tfoot.php';

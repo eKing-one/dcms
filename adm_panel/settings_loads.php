@@ -54,7 +54,7 @@ echo "<option value=\"0\"$sel>藏起来</option>";
 echo "</select><br />";
 echo "文件被视为新文件的时间（小时）:<br /><input type='text' name='loads_new_file_hour' value='$temp_set[loads_new_file_hour]' /><br />";
 echo "版权档案(图片):<br /><input type='text' name='copy_path' value='$temp_set[copy_path]' /><br />";
-echo "交换器(上载档案的点数限制):<br /><input name=\"obmen_limit_up\" value=\"$temp_set[obmen_limit_up]\" type=\"text\" /><br />";
+echo "下载中心(上载档案的点数限制):<br /><input name=\"obmen_limit_up\" value=\"$temp_set[obmen_limit_up]\" type=\"text\" /><br />";
 echo "<input value=\"修改\" name='save' type=\"submit\" />";
 echo "</form>";
 echo "<div class='foot'>";

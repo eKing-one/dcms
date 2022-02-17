@@ -259,7 +259,7 @@ $obmennik_coll+=dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_files` WHERE `i
 if ($obmennik_coll!=0)
 $obmennik="$obmennik +$obmennik_coll*";
 }
-echo "<span class=\"ank_n\">交换器中的文件:</span> <span class=\"ank_d\">$obmennik</span><br />";
+echo "<span class=\"ank_n\">下载中心中的文件:</span> <span class=\"ank_d\">$obmennik</span><br />";
 $opdirbase=@opendir(H.'sys/add/delete_user_info');
 while ($filebase=@readdir($opdirbase))
 if (preg_match('#\.php$#i',$filebase))

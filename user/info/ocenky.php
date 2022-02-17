@@ -53,7 +53,7 @@ only_reg();
 
 
 
-$set['title']='评估';
+$set['title']='评分';
 
 
 
@@ -118,7 +118,7 @@ echo "<div class='foot'>";
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 评估<br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 评分<br />";
 
 
 
@@ -463,7 +463,7 @@ echo "<div class='foot'>";
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 评估<br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 评分<br />";
 
 
 

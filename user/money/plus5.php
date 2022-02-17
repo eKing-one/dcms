@@ -58,7 +58,7 @@ include_once '../../sys/inc/user.php';
 
 
 
-$set['title']='评估 5+';
+$set['title']='评分 5+';
 
 
 
@@ -373,7 +373,7 @@ echo "<div class='foot'>\n";
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 服务 \"评估 5+\"<br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 服务 \"评分 5+\"<br />\n";
 
 
 
@@ -538,7 +538,7 @@ echo "<div class='foot'>\n";
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 服务 \"评估 5+\"<br />\n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 服务 \"评分 5+\"<br />\n";
 
 
 

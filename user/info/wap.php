@@ -132,9 +132,9 @@ if (isset($user) && $user['id'] == $ank['id']) {
 	$ocenky = dbresult(dbquery("SELECT COUNT(*) FROM `gallery_rating` WHERE `avtor` = '$ank[id]'  AND `read`='1'"), 0);
 
 	if ($ocenky != 0) {
-		echo "<a href='/user/info/ocenky.php'><font color='red'>评估 +$ocenky</font></a> ";
+		echo "<a href='/user/info/ocenky.php'><font color='red'>评分 +$ocenky</font></a> ";
 	} else {
-		echo "<a href='/user/info/ocenky.php'>评估</a> ";
+		echo "<a href='/user/info/ocenky.php'>评分</a> ";
 	}
 	echo "</div>";
 }

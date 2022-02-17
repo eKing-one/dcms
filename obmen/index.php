@@ -149,7 +149,7 @@ dbquery("UPDATE `user` SET `balls` = '".($avtor['balls']+1)."', `rating_tmp` = '
 } 
 /*------------------------------------------------------------*/ 
 
-$set['title']='交换器 - ' . text(str_replace('_', ' _', $file_id['name'])); //网页标题
+$set['title']='下载中心 - ' . text(str_replace('_', ' _', $file_id['name'])); //网页标题
 include_once '../sys/inc/thead.php'; 
 title(); 
 

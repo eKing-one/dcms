@@ -1,8 +1,8 @@
 <?
 $list=null;
 if ($l=='/')
-$set['title']='文件交换器'; //网页标题
-else $set['title']='交换器 - '.$dir_id['name']; //网页标题
+$set['title']='文件下载中心'; //网页标题
+else $set['title']='下载中心 - '.$dir_id['name']; //网页标题
 $_SESSION['page']=1;
 include_once '../sys/inc/thead.php';
 title();
@@ -23,7 +23,7 @@ aut(); // форма авторизации
 if ($l!='/')
 {
 	echo '<div class="foot">';
-	echo '<img src="/style/icons/up_dir.gif" alt="*"> <a href="/obmen/">交换器</a> &gt; '.obmen_path($l).'<br />';
+	echo '<img src="/style/icons/up_dir.gif" alt="*"> <a href="/obmen/">下载中心</a> &gt; '.obmen_path($l).'<br />';
 	echo '</div>';
 }
 if (!isset($_GET['act']) && !isset($_GET['trans']))
@@ -170,7 +170,7 @@ if ($k_page>1 && !isset($_GET['trans']))str('?',$k_page,$page); // Вывод с
 
 if ($l!='/'){
 echo '<div class="foot">';
-echo '<img src="/style/icons/up_dir.gif" alt="*"> <a href="/obmen/">交换器</a> &gt; '.obmen_path($l).'<br />';
+echo '<img src="/style/icons/up_dir.gif" alt="*"> <a href="/obmen/">下载中心</a> &gt; '.obmen_path($l).'<br />';
 echo '</div>';
 }
 include 'inc/admin_form.php';?>
