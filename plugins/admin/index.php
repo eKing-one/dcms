@@ -112,7 +112,7 @@ if (user_access('adm_panel_show')){
 
 
   if (status_version() >= 0)
-    echo "<center> <font color='green'>实际版本 </font>		</center>	";
+    echo "<center> <font color='green'>最新版本</font>		</center>	";
 
   else    echo "<center>	 <font color='red'>有个新版本 - ".version_stable()."! <a href='/adm_panel/update.php'>Подробнее</a></font>		</center>	";
 

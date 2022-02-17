@@ -31,7 +31,7 @@ echo "<center><span style='font-size:16px;'><strong>DCMS-Social v.$set[dcms_vers
 
 
     if (status_version() >= 0)
-  echo "<center> <font color='green'>实际版本 </font>		</center>	";
+  echo "<center> <font color='green'>最新版本</font>		</center>	";
 
   else    echo "<center>	 <font color='red'>Есть новая версия - ".version_stable()."! <a href='/adm_panel/update.php'>更详细</a></font>		</center>	";
 
