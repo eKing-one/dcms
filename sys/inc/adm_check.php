@@ -9,7 +9,7 @@ function adm_check()
 
 	if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth']>$time)
 	{
-		$_SESSION['adm_auth'] = $time + 600;
+		$_SESSION['adm_auth'] = $time + setget("timeadmin",1000);
 	}
 }
 ?>

@@ -66,11 +66,11 @@ function query($query)
 }
  
 
-query('set charset utf8',$db);
-query('SET names utf8',$db);
-query('set character_set_client="utf8"',$db);
-query('set character_set_connection="utf8"',$db);
-query('set character_set_result="utf8"',$db);
+query('set charset utf8mb4',$db);
+query('SET names utf8mb4',$db);
+query('set character_set_client="utf8mb4"',$db);
+query('set character_set_connection="utf8mb4"',$db);
+//query('set character_set_result="utf8mb4"',$db);
 
 
 // оптимизация всех таблиц

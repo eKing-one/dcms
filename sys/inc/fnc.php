@@ -24,7 +24,7 @@ if (!function_exists('file_put_contents')) {
 if ($set['antidos']) { // Защита от частых запросов с одного IP
 	$antidos[] = array('time' => $time);
 	$k_loads = 0;
-	if (is_file(H . 'sys/tmp/antidos_' . $iplong . '.dat')) {
+	if (test_file(H . 'sys/tmp/antidos_' . $iplong . '.dat')) {
 		$antidos_dat = unserialize(file_get_contents(H . 'sys/tmp/antidos_' . $iplong . '.dat'));
 		for ($i = 0; $i < 150 && $i < sizeof($antidos_dat); $i++) {
 			if ($antidos_dat[$i]['time'] > $time - 5) {
@@ -156,35 +156,39 @@ function esc($text, $br = NULL)
 // получаем данные пользователя и уровень прав (+ кеширование)
 function get_user($user_id = 0)
 {
-	if ($user_id == 0) {
-		// бот
-		$ank2['id'] = 0;
-		$ank2['nick'] = '系统';
-		$ank2['level'] = 999;
-		$ank2['pol'] = 1;
-		$ank2['group_name'] = '系统机器人';
-		$ank2['ank_o_sebe'] = '为通知创建';
-		return $ank2;
-	} else {
-		static $users; // 调用函数后不会删除该变量
-		$user_id = intval($user_id);
-		$users[0] = false;
-		if (!isset($users[$user_id])) {
-			if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '$user_id'"), 0) == 1) {
-				$users[$user_id] = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$user_id' LIMIT 1"));
-				$tmp_us = dbassoc(dbquery("SELECT `level`,`name` AS `group_name` FROM `user_group` WHERE `id` = '" . $users[$user_id]['group_access'] . "' LIMIT 1"));
+  static $users; // переменная не удаляется после вызова функции
+  if ($user_id == 0) {
+// бот
+    $ank2['id'] = 0;
+    $ank2['nick'] = '系统';
+    $ank2['level'] = 999;
+    $ank2['pol'] = 1;
+    $ank2['group_name'] = '系统机器人';
+    $ank2['ank_o_sebe'] = '为通知创建';
+    return $ank2;
+  } else {
 
-				if ($tmp_us['group_name'] == null) {
-					$users[$user_id]['level'] = 0;
-					$users[$user_id]['group_name'] = '用户';
-				} else {
-					$users[$user_id]['level'] = $tmp_us['level'];
-					$users[$user_id]['group_name'] = $tmp_us['group_name'];
-				}
-			} else $users[$user_id] = false;
-		}
-		return $users[$user_id];
-	}
+    $user_id = intval($user_id);
+    $users[0] = FALSE;
+    if (!isset($users[$user_id])) {
+      $users[$user_id] = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$user_id' LIMIT 1"));
+
+      if ($users[$user_id]['id'] != 0) {
+
+
+        $tmp_us = dbassoc(dbquery("SELECT `level`,`name` AS `group_name` FROM `user_group` WHERE `id` = '" . $users[$user_id]['group_access'] . "' LIMIT 1"));
+
+        if (!isset($tmp_us) or empty($tmp_us['group_name'])) {
+          $users[$user_id]['level'] = 0;
+          $users[$user_id]['group_name'] = '用户';
+        } else {
+          $users[$user_id]['level'] = $tmp_us['level'];
+          $users[$user_id]['group_name'] = $tmp_us['group_name'];
+        }
+      } else $users[$user_id] = FALSE;
+    }
+    return $users[$user_id];
+  }
 }
 
 // определение оператора
@@ -311,6 +315,13 @@ function msg($msg)
 {
 	echo "<div class='msg'>$msg</div>\n";
 } // вывод сообщений
+function msg2($msg)
+{
+  $_SESSION['message'] = $msg;
+
+} // вывод сообщений
+
+
 
 // отправка запланированных писем
 $q = dbquery("SELECT * FROM `mail_to_send` LIMIT 1");
@@ -325,14 +336,14 @@ if (dbrows($q) != 0) {
 // сохранение настроек системы
 function save_settings($set)
 {
-	unset($set['web']);
-	if ($fopen = @fopen(H . 'sys/dat/settings_6.2.dat', 'w')) {
-		@fputs($fopen, serialize($set));
-		@fclose($fopen);
-		@chmod(H . 'sys/dat/settings_6.2.dat', 0777);
-		return true;
-	} else
-		return false;
+  unset($set['web']);
+  if ($fopen = @fopen(H . 'sys/dat/settings_6.2.dat', 'w')) {
+    @fputs($fopen, serialize($set));
+    @fclose($fopen);
+    @chmod(H . 'sys/dat/settings_6.2.dat', 0755);
+    return TRUE;
+  } else
+    return FALSE;
 }
 
 // запись действий администрации
@@ -373,3 +384,219 @@ while ($filebase = readdir($opdirbase)) {
 
 // запись о посещении
 dbquery("INSERT INTO `visit_today` (`ip` , `ua`, `time`) VALUES ('$iplong', '" . @my_esc($_SERVER['HTTP_USER_AGENT']) . "', '$time')");
+
+function csrf_token_new()
+{
+  setcookie('token', random_bytes(), time() + 60 * 10);
+
+
+}
+
+function ages($age)
+{
+  $str = '';
+  $num = $age > 100 ? substr($age, -2) : $age;
+  if ($num >= 5 && $num <= 14) $str = "лет";
+  else {
+    $num = substr($age, -1);
+    if ($num == 0 || ($num >= 5 && $num <= 9)) $str = 'лет';
+    if ($num == 1) $str = 'год';
+    if ($num >= 2 && $num <= 4) $str = 'года';
+  }
+  return $age . ' ' . $str;
+}
+
+
+function t_toolbar_css ()
+{
+  ?>
+  <style>
+
+
+      .toolbar {
+          position: fixed;
+          text-align: center;
+          vertical-align: middle;
+
+          color: #e07dc0;
+          top: 0;
+          left: 0;
+          right: 0;
+          margin-bottom: 50px;
+
+          z-index: 9999;
+          border-bottom: 1px solid #656969;
+          width: 100%;
+
+          background: rgb(15, 15, 15);
+          height: 40px;
+
+      }
+      .toolbar_inner
+      {
+          display: inline-block;
+
+          vertical-align: middle;
+
+          text-align: center;
+      }
+
+      html {
+
+          padding-top: 40px;
+      }
+  </style>
+  <?php
+}
+
+function version_stable ()
+{
+    $content = file_get_contents("https://dcms-social.ru/launcher/social.json");
+    $data = json_decode($content, TRUE);
+    return $data['stable']['version'];
+
+}
+function t_toolbar_html()
+{
+    global $set;
+
+  ?>
+  <div class="toolbar">
+    <div class="toolbar_inner">
+      <span style="color: white">Admin Tool</span> ::
+      <a href="/">Главная</a>  |
+      <a href="/plugins/admin/">行政科</a> |
+      <a href="/adm_panel/">控制面板</a> |
+      <a target="_blank" href="https://dcms-social.ru">DCMS-Social.ru</a>
+       v. <?=$set['dcms_version']?>
+        <?
+        if (status_version() < 0)   echo "<center>	 <font color='red'>Есть новая версия - ".version_stable()."! <a href='/adm_panel/update.php'>Подробнее</a></font>		</center>	";
+?>
+
+    </div>
+  </div>
+  <?php
+}
+
+
+function new_token ()
+{
+    $token = rand(10000,100000);
+    return bin2hex($token); // ffa7a910ca2dfce501b0d548605aaf
+
+}
+
+function token_p($token)
+{
+    if ($token===$_SESSION['token']) return true;
+    else
+    {
+        header("/");
+        exit("error token");
+
+    }
+}
+
+
+function set_token ()
+{
+
+    if (empty($_SESSION['token']))  $_SESSION['token'] = new_token();
+
+
+
+}
+function reset_token ()
+{
+
+    $_SESSION['token'] = new_token();
+
+
+}
+
+
+function check_token()
+{
+
+    add_header(token_js());
+
+    if (isset($_POST)&&!empty($_POST))
+    {
+        if (isset($_POST['token'])) token_p ($_POST['token']);
+        else
+        {
+            header("/");
+            exit("error token");
+        }
+    }
+
+}
+
+function add_header ($value)
+{
+    static $add;
+    return $add[]=$value;
+    header_html($add);
+
+}
+function header_html($add=null)
+{
+    static $header;
+    if ($add==null)
+    {
+     //   var_dump($header);
+        echo "".$header;
+    }
+    else $header = $add;
+}
+
+function token()
+{
+    return $_SESSION['token'];
+}
+function token_js()
+{
+    ob_start()
+?>
+
+  <script>
+
+
+      window.onload = function() {
+          form = document.querySelector('form');
+          var x = document.createElement("input");
+          x.setAttribute("type", "text");
+          x.setAttribute("value", "<?=token()?>");
+          x.setAttribute("name", "token");
+          form.appendChild(x);
+      }
+
+    </script>
+
+
+
+    <?php
+    $page = ob_get_contents();
+    ob_end_clean();
+
+
+return $page;
+
+}
+function token_form()
+{
+    echo '<input type="text" name="token" value="'.$_SESSION['token'].'">';
+
+}
+
+function status_version ()
+{
+    global $set;
+    $content = file_get_contents("https://dcms-social.ru/launcher/social.json");
+    $data = json_decode($content, TRUE);
+
+
+    return version_compare($set['dcms_version'], $data['stable']['version']);
+}
+
+

@@ -38,7 +38,8 @@ if (isset($_GET['act']) && $_GET['act']=='avatar')
 * Удаление фотографии
 */
 
-if (isset($_GET['act']) && $_GET['act'] == 'delete' && isset($_GET['ok']))
+if ((user_access('foto_foto_edit') || isset($user) && $user['id']==$ank['id']) && isset($_GET['act']) && $_GET['act']=='delete' && isset($_GET['ok']))
+
 {
 	if ($user['id'] != $ank['id'])
 	admin_log('图片集锦','照片',"删除用户的照片 '[url=/id$ank[id]]" . user::nick($ank['id'], 0) . "[/url]'");
@@ -58,7 +59,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'delete' && isset($_GET['ok']))
 * Редактирование фотографии
 */
 
-if (isset($_GET['act']) && $_GET['act']=='rename' && isset($_GET['ok']) && isset($_POST['name']) && isset($_POST['opis']))
+if ((user_access('foto_foto_edit') || isset($user) && $user['id']==$ank['id']) && isset($_GET['act']) && $_GET['act']=='rename' && isset($_GET['ok']) && isset($_POST['name']) && isset($_POST['opis']))
 {
 	$name = esc(stripcslashes(htmlspecialchars($_POST['name'])),1);
 	if (!preg_match("#^([A-zА-я0-9\-\_\(\)\,\.\ ])+$#ui",$name))$err = '主题标题中存在禁止的字符';

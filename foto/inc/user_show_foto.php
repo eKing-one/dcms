@@ -327,7 +327,7 @@ if (!isset($block_foto))
 	{
 		echo '<div class="mess">';
 		echo '<img src="/style/icons/small_adult.gif" alt="*"><br /> 此文件包含色情性质的图像。 只有18岁以上的注册用户才能查看此类文件。 <br />';
-		echo '<a href="/aut.php">入口处</a> | <a href="/reg.php">登记注册</a>';
+		echo '<a href="/aut.php">登录</a> | <a href="/reg.php">注册</a>';
 		echo '</div>';
 	}
 	else
@@ -380,7 +380,7 @@ if (isset($listr['id']))	echo '<span class="page">' . ($listr['id'] ? "<a href='
 		echo '</div>';
 
 		if (user_access('foto_foto_edit') && $ank['level'] < $user['level'] || isset($user) && $ank['id'] == $user['id'])
-		include 'inc/gallery_show_foto_form.php';
+      include_once check_replace( 'inc/gallery_show_foto_form.php');
 
 	}
 
@@ -465,8 +465,8 @@ if (isset($listr['id']))	echo '<span class="page">' . ($listr['id'] ? "<a href='
 	if (isset($user))
 	{
 		echo '<form method="post" name="message" action="?page=' . $pageEnd . '&amp;' . REPLY . '">';
-		if (is_file(H.'style/themes/'.$set['set_them'].'/altername_post_form.php'))
-		include_once H.'style/themes/'.$set['set_them'].'/altername_post_form.php';
+		if (test_file(H.'style/themes/'.$set['set_them'].'/altername_post_form.php'))
+      include_once check_replace(H.'style/themes/'.$set['set_them'].'/altername_post_form.php');
 		else
 		echo $tPanel . '<textarea name="msg">' . $insert . '</textarea><br />';
 		echo '<input value="发送" type="submit" />';

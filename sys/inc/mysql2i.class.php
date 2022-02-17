@@ -84,7 +84,7 @@ class mysql2i
 
   public static function mysql_connect($host = '', $username = '', $passwd = '', $new_link = FALSE, $client_flags = 0)
   {
-
+    mysqli_report(MYSQLI_REPORT_ERROR);
     $link = mysqli_connect($host, $username, $passwd);
     self::$currObj = $link;
 
@@ -199,8 +199,8 @@ class mysql2i
 
   public static function mysql_fetch_assoc($result)
   {
-
-    return mysqli_fetch_assoc($result);
+if ($result==null) return null;
+else return mysqli_fetch_assoc($result);
 
   }
 

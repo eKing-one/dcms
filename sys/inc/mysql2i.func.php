@@ -5,9 +5,17 @@ member of mysql2i.class.php ver 1.5
 */
 
 //predifined fetch constants
-//define('MYSQL_BOTH', MYSQLI_BOTH);
-//define('MYSQL_NUM', MYSQLI_NUM);
-//define('MYSQL_ASSOC', MYSQLI_ASSOC);
+define('MYSQL_BOTH', MYSQLI_BOTH);
+define('MYSQL_NUM', MYSQLI_NUM);
+define('MYSQL_ASSOC', MYSQLI_ASSOC);
+define('MYSQL_CLIENT_COMPRESS',MYSQLI_CLIENT_COMPRESS);
+define('MYSQL_CLIENT_IGNORE_SPACE',MYSQLI_CLIENT_IGNORE_SPACE);
+define('MYSQL_CLIENT_INTERACTIVE',MYSQLI_CLIENT_INTERACTIVE);
+define('MYSQL_CLIENT_SSL',MYSQLI_CLIENT_SSL);
+
+
+
+
 
 function mysql_affected_rows($link = NULL)
 {

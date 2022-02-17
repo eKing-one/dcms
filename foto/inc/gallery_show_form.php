@@ -88,7 +88,7 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_GET['act']) && $_GET['a
 	
 	<label><input type="checkbox" name="metka" value="1" /> 标签 <font color="red">18+</font></label><br />
 	
-	<input class="submit" type="submit" value="sa" /> 
+	<input class="submit" type="submit" value="上传" /> 
 	</form>
 	
 	<div class="nav1">
