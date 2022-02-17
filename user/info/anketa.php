@@ -596,18 +596,7 @@ if ($ank['ank_alko_n'] == 3)
 	echo " <span class=\"ank_d\">不，我绝对不能接受</span><br />";
 if ($ank['ank_alko_n'] == 0)
 	echo "<br />";
-if ($ank['ank_alko'] && $ank['ank_alko_n'] != 3 && $ank['ank_alko_n'] != 0) echo "<img src='/style/icons/str.gif' alt='*' />  <span class=\"ank_d\">" . output_text($ank['ank_alko']) . "</span><br />";
-echo "$nark<span class=\"ank_n\">毒品:</span>$a";
-if ($ank['ank_nark'] == 1)
-	echo " <span class=\"ank_d\">是的，抽大麻</span><br />";
-if ($ank['ank_nark'] == 2)
-	echo " <span class=\"ank_d\">是的，喜欢任何种类的麻醉药品</span><br />";
-if ($ank['ank_nark'] == 3)
-	echo " <span class=\"ank_d\">退学，去戒毒所</span><br />";
-if ($ank['ank_nark'] == 4)
-	echo " <span class=\"ank_d\">不，我绝对不能接受</span><br />";
-if ($ank['ank_nark'] == 0)
-	echo "<br />";
+if ($ank['ank_alko'] && $ank['ank_alko_n'] != 3 && $ank['ank_alko_n'] != 0) echo "<img src='/style/icons/str.gif' alt='*' />  <span class=\"ank_d\">" . output_text($ank['ank_alko']) . "</span>";
 echo "</div>";
 //----------------------------------------------------------//
 

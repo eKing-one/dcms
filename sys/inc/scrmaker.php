@@ -1,41 +1,52 @@
 <?php
-$pre_w = 120; // ширина превью изображения
+$pre_w = 120; // 预览图像的宽度
 $dir = array('tmp'=>H.'sys/tmp/', 'scr'=>'scr/'); // папки для временных файлов и скринов
 
 
-function make_pre($dir_loads2,$file2){
+function make_pre($dir_loads2,$file2)
+{
 	global $dir, $pre_w;
 	$filename = $dir_loads2.'/'.$file2;
 	$now = time();
 	$xml = NULL;
 	$scr_name = '';
-	if(test_file2($filename))	{
+	if(test_file2($filename))
+	{
 		$file = $filename;
 		$archive = new Archive_Tar($filename);
 		$xml = $archive -> extractInString('Theme.xml');
-		if($xml === NULL)		{
+		if($xml === NULL)
+		{
 			$list = $archive -> listContent();
-			if(is_array($list))			{
-				if(preg_match('/\.xml$/i', $list[$i]['filename']))				{
+			if(is_array($list))
+			{
+				if(preg_match('/\.xml$/i', $list[$i]['filename']))
+				{
 					$xml = $archive -> extractInString($list[$i]['filename']);
 					break;
 				}
 			}
 		}
-		if($xml !== NULL)		{
+		if($xml !== NULL)
+		{
 			if((preg_match('#<Standby_image Source="(.*?)"/>#si', $xml, $res) or preg_match('#<Desktop_image Source="(.*?)"/>#si', $xml, $res)) and !empty($res[1])) $scr_name=$res[1];
 			unset($res);
-			if(!empty($scr_name) and preg_match('/[a-z0-9]{3,4}$/i', $scr_name, $res))			{
+			if(!empty($scr_name) and preg_match('/[a-z0-9]{3,4}$/i', $scr_name, $res))
+			{
 				$scr_ext = strtolower($res[0]);
 				$filename = $dir['tmp'].$now.rand(1,999) . '.' . $scr_ext;
 				$fp = fopen($filename, 'wb');
 				fputs($fp, $archive -> extractInString($scr_name));
 				fclose($fp);
 				@chmod($filename, 0666);
-				$scr_stat = getimagesize($filename);				
-				if($scr_stat !== false)				{
-					if($scr_stat[0] > $pre_w)					{
-						switch($scr_stat[2])						{
+				$scr_stat = getimagesize($filename);
+				
+				if($scr_stat !== false)
+				{
+					if($scr_stat[0] > $pre_w)
+					{
+						switch($scr_stat[2])
+						{
 							case 1: //gif
 							$i_scr = imagecreatefromgif($filename);
 							break;
@@ -48,7 +59,9 @@ function make_pre($dir_loads2,$file2){
 							default:
 							$i_scr = '';
 						}
-												if(!empty($i_scr))						{
+						
+						if(!empty($i_scr))
+						{
 							$ratio = $scr_stat[0] / $pre_w;
 							$pre_h = round($scr_stat[1] / $ratio);
 							$i_pre = imagecreatetruecolor($pre_w, $pre_h);
@@ -69,22 +82,33 @@ function make_pre($dir_loads2,$file2){
 							$var = $data[(sizeof($data) - 1)];
 							$var = preg_replace('/[a-z]{3,4}$/i', 'thm.JPG', $var);
 							//header('Content-type: image/jpeg');
-							$var = $dir['scr'] . $var;
+							$var = $dir['scr'] . $var;
+
+
+
+
 							@chmod($var, 0777);
 							//imagejpeg($i_pre, $var);
-							$i_pre = img_copyright($i_pre); // копирайт
+							$i_pre = img_copyright($i_pre); // копирайт
+
 							imagejpeg($i_pre, $dir_loads2 . '/' . $file2 . '.JPG', 100);
 							imagedestroy($i_pre);
 							imagedestroy($i_scr);
 							unlink($filename);
 							return $var;
-						}						//else echo "<img src=\"../style/swf.jpg\" alt=\"SWF!\" /><br />\n";
-					}					else echo'ненадо преобразований<br />';
-				}				else echo'не изображение<br/>';
+						}
+						//else echo "<img src=\"../style/swf.jpg\" alt=\"SWF!\" /><br />\n";
+					}
+					else echo'ненадо преобразований<br />';
+				}
+				else echo'не изображение<br/>';
 				unlink($filename);
-			}			else echo'не найдены изображения для создания скрина<br/>';
-		}		//else echo "<img src=\"../style/xml.jpg\" alt=\"XML не найден!\" /><br />\n";
-	}	else echo'файл не найден<br />';
+			}
+			else echo'не найдены изображения для создания скрина<br/>';
+		}
+		//else echo "<img src=\"../style/xml.jpg\" alt=\"XML не найден!\" /><br />\n";
+	}
+	else echo'файл не найден<br />';
 	clearstatcache();
 	return false;
 }

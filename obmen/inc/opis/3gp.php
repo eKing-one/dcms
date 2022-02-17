@@ -7,7 +7,7 @@
 
 
 
-echo 'Размер: '.size_file($size)."<br />\n";
+echo '大小: '.size_file($size)."<br />\n";
 
 
 
@@ -79,7 +79,7 @@ if ($media!=NULL)
 
 
 
-echo 'Разрешение: '.$media['wh']."пикс<br />\n";
+echo '许可: '.$media['wh']."pix<br />\n";
 
 
 
@@ -97,7 +97,7 @@ echo 'Разрешение: '.$media['wh']."пикс<br />\n";
 
 
 
-echo 'Время: '.$media['lenght']."<br />\n";
+echo '时间: '.$media['lenght']."<br />\n";
 
 
 
@@ -160,7 +160,7 @@ $media = new ffmpeg_movie($file);
 
 
 
-echo 'Разрешение: '. $media->GetFrameWidth().'x'.$media->GetFrameHeight()."пикс<br />\n";
+echo '许可: '. $media->GetFrameWidth().'x'.$media->GetFrameHeight()."pix<br />\n";
 
 
 
@@ -196,7 +196,7 @@ if (intval($media->getDuration())>3599)
 
 
 
-echo 'Время: '.intval($media->getDuration()/3600).":".date('s',fmod($media->getDuration()/60,60)).":".date('s',fmod($media->getDuration(),3600))."<br />\n";
+echo '时间: '.intval($media->getDuration()/3600).":".date('s',fmod($media->getDuration()/60,60)).":".date('s',fmod($media->getDuration(),3600))."<br />\n";
 
 
 
@@ -214,7 +214,7 @@ elseif (intval($media->getDuration())>59)
 
 
 
-echo 'Время: '.intval($media->getDuration()/60).":".date('s',fmod($media->getDuration(),60))."<br />\n";
+echo '时间: '.intval($media->getDuration()/60).":".date('s',fmod($media->getDuration(),60))."<br />\n";
 
 
 
@@ -232,7 +232,7 @@ else
 
 
 
-echo 'Время: '.intval($media->getDuration())." сек<br />\n";
+echo '时间: '.intval($media->getDuration())." сек<br />\n";
 
 
 
@@ -313,7 +313,7 @@ dbquery("INSERT INTO `media_info` (`file`, `size`, `lenght`, `bit`, `codec`, `wh
 
 
 
-else echo 'Загружен: '.vremja($post['time'])."<br />\n";
+else echo '上膛了: '.vremja($post['time'])."<br />\n";
 
 
 

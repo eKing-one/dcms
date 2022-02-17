@@ -34,20 +34,20 @@ $err=intval($_GET['err']);
 header("Content-type: text/html",NULL,$err);
 echo "<html>
 <head>
-<title>Ошибка $err</title>\n";
-echo "<link rel=\"stylesheet\" href=\"/style/themes/default/style.css\" type=\"text/css\" />\n";
-echo "</head>\n<body>\n<div class=\"body\"><div class=\"err\">\n";
-if ($err=='400')echo "Обнаруженная ошибка в запросе\n";
-elseif ($err=='401')echo "Нет прав для выдачи документа\n";
-elseif ($err=='402')echo "Не реализованный код запроса\n";
-elseif ($err=='403')echo "Доступ запрещен\n";
-elseif ($err=='404')echo "Нет такой страницы\n";
-elseif ($err=='500')echo "Внутренняя ошибка сервера\n";
-elseif ($err=='502')echo "Сервер получил недопустимые ответы другого сервера\n";
-else echo "Неизвестная ошибка\n";
+<title>错误 $err</title>";
+echo "<link rel=\"stylesheet\" href=\"/style/themes/default/style.css\" type=\"text/css\" />";
+echo "</head><body><div class=\"body\"><div class=\"err\">";
+if ($err=='400')echo "检测到请求中的错误";
+elseif ($err=='401')echo "无权签发文件";
+elseif ($err=='402')echo "未实现的请求代码";
+elseif ($err=='403')echo "拒绝进入";
+elseif ($err=='404')echo "没有这样的页面";
+elseif ($err=='500')echo "内部服务器错误";
+elseif ($err=='502')echo "服务器收到来自另一个服务器的无效响应";
+else echo "未知错误";
 echo "<br />";
-echo "<a href=\"/index.php\">На главную</a>";
-echo "</div>\n</div>\n</body>\n</html>";
+echo "<a href=\"/index.php\">到主页</a>";
+echo "</div></div></body></html>";
 exit;
 }
 else

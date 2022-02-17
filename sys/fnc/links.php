@@ -42,7 +42,7 @@ function links_preg2($arr)
 	if (preg_match('#^https://' . preg_quote($_SERVER['HTTP_HOST']) . '#',$arr[2]))
 	return $arr[1] . '<a href="' . $arr[2] . '">' . $arr[2] . '</a>' . $arr[4];
 	else
-	return $arr[1] . '<a' . ($set['web'] ? ' target="_blank"' : null) . ' href="http://' . $_SERVER['HTTP_HOST'] . '/go.php?go=' . base64_encode(html_entity_decode($arr[2])) . '">Ссылка</a>' . $arr[4];
+	return $arr[1] . '<a' . ($set['web'] ? ' target="_blank"' : null) . ' href="http://' . $_SERVER['HTTP_HOST'] . '/go.php?go=' . base64_encode(html_entity_decode($arr[2])) . '">链接</a>' . $arr[4];
 }
 
 function links($msg)

@@ -109,7 +109,7 @@ if (isset($user) && isset($_GET['play']) && ($_GET['play'] == 1 || $_GET['play']
     { 
     dbquery("INSERT INTO `user_music` (`id_user`, `id_file`, `dir`) VALUES ('$user[id]', '$file_id[id]', 'obmen')");
     dbquery("UPDATE `user` SET `balls` = '".($avtor['balls']+1)."', `rating_tmp` = '".($avtor['rating_tmp']+1)."' WHERE `id` = '$avtor[id]' LIMIT 1");
-    $_SESSION['message']='Трек добавлен в плейлист'; 
+    $_SESSION['message']='添加到播放列表的曲目'; 
     } 
      
     if ($_GET['play'] == 0 && $music == 1) // Удаляем из плейлиста 
@@ -414,7 +414,7 @@ if (isset($user)){
     echo "<a href='?showinfo&fav=1'>添加到书签</a>"; 
     else 
     echo "<a href='?showinfo&fav=0'>从书签中删除</a>"; 
-    echo "<br/><img src='/style/icons/add_fav.gif' alt='*' /'> В закладках у <a href='?showinfo&markinfo'>$markinfo</a> чел."; 
+    echo "<br/><img src='/style/icons/add_fav.gif' alt='*' /'> 在书签中 <a href='?showinfo&markinfo'>$markinfo</a> 伙计."; 
     echo "</div>"; 
 } 
 
@@ -425,7 +425,7 @@ echo '<img src="/style/icons/d.gif" alt="*"> <a href="/obmen'.$dir_id['dir'].$fi
 else 
 echo '<img src="/style/icons/d.gif" alt="*"> <a href="/obmen'.$dir_id['dir'].$file_id['id'].'.'.$file_id['ras'].'">下载 ('.size_file($size).')</a> 
 '; 
-echo '<br/>Скачан ('.$file_id['k_loads'].')'; 
+echo '<br/>已下载 ('.$file_id['k_loads'].')'; 
 echo '</div>'; 
 
 } 

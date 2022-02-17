@@ -1,7 +1,7 @@
 <?
 if (test_file(H."sys/obmen/screens/128/$file_id[id].$ras"))
 {
-	echo "<img src='/sys/obmen/screens/128/$file_id[id].$ras' alt='Скрин...' /><br />";
+	echo "<img src='/sys/obmen/screens/128/$file_id[id].$ras' alt='屏幕...' /><br />";
 }
 elseif (function_exists('imagecreatefromstring'))
 {
@@ -40,7 +40,7 @@ elseif (function_exists('imagecreatefromstring'))
 
 if ($file_id['opis'] != NULL)
 {
-	echo "Описание: ";
+	echo "资料描述: ";
 	echo output_text($file_id['opis']);
 	echo "<br />";
 }
@@ -48,9 +48,9 @@ if ($file_id['opis'] != NULL)
 if (function_exists('getimagesize'))
 {
 	$img_size = getimagesize($file);
-	echo "Разрешение: $img_size[0]*$img_size[1] пикс.<br />";
+	echo "许可: $img_size[0]*$img_size[1] пикс.<br />";
 }
 
-echo "Добавлен: ".vremja($file_id['time'])."<br />";
-echo "Размер: ".size_file($size)."<br />";
+echo "补充道: ".vremja($file_id['time'])."<br />";
+echo "大小: ".size_file($size)."<br />";
 ?>

@@ -80,7 +80,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'edits')
 	{	
 		echo '<form action="?id=' . $post['id'] . '&amp;act=edits" method="post">';	
 		echo '链接名称:<br /><input name="name_url" size="16" value="' . text($post['name_url']) . '" type="text" /><br />';
-		echo '连结地址:<br /><input name="url" size="16" value="' . text($post['url']) . '" type="text" /><br />';	
+		echo '链接地址:<br /><input name="url" size="16" value="' . text($post['url']) . '" type="text" /><br />';	
 		echo '项目名称:<br /><input name="title" size="16" value="' . text($post['title']) . '" type="text" /><br />';	
 		echo '文本编辑:<br />';
 		echo '<textarea name="msg">' . text($post['msg']) . '</textarea><br />';	

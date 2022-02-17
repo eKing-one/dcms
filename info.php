@@ -24,7 +24,7 @@ if ($ank['id'] == 0) {
 	title();
 	aut();
 	echo "<span class=\"status\">$ank[group_name]</span><br />";
-	if ($ank['ank_o_sebe'] != NULL) echo "<span class=\"ank_n\">О себе:</span> <span class=\"ank_d\">$ank[ank_o_sebe]</span><br />";
+	if ($ank['ank_o_sebe'] != NULL) echo "<span class=\"ank_n\">关于我:</span> <span class=\"ank_d\">$ank[ank_o_sebe]</span><br />";
 	if (isset($_SESSION['refer']) && $_SESSION['refer'] != NULL && otkuda($_SESSION['refer']))
 		echo "<div class='foot'>&laquo;<a href='$_SESSION[refer]'>" . otkuda($_SESSION['refer']) . "</a><br /></div>";
 	include_once 'sys/inc/tfoot.php';

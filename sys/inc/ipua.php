@@ -24,10 +24,10 @@ if (isset($_SERVER['HTTP_USER_AGENT']))
 {
 	$ua = $_SERVER['HTTP_USER_AGENT'];
 	$ua = strtok($ua, '/');
-	$ua = strtok($ua, '('); // оставляем только то, что до скобки
-	$ua = preg_replace('#[^a-z_\./ 0-9\-]#iu', null, $ua); // вырезаем все "левые" символы
+	$ua = strtok($ua, '('); // 我们只留下括号前的内容
+	$ua = preg_replace('#[^a-z_\./ 0-9\-]#iu', null, $ua); // 我们剪掉了所有的"左"字符
 
-	// Опера мини тоже посылает данные о телефоне :)
+	// Opera mini还会发送有关手机的数据 :)
 	if (isset($_SERVER['HTTP_X_OPERAMINI_PHONE_UA']) && preg_match('#Opera#i',$ua))
 	{
 		$ua_om = $_SERVER['HTTP_X_OPERAMINI_PHONE_UA'];
@@ -38,5 +38,5 @@ if (isset($_SERVER['HTTP_USER_AGENT']))
 	}
 
 }
-else $ua = 'Нет данных';
+else $ua = '没有可用的数据';
 ?>

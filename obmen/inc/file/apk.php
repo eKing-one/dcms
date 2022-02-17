@@ -56,7 +56,7 @@ echo "<img src='/sys/obmen/screens/128/$file_id[id].png' alt='*' /><br />";
 
 if ($file_id['opis']!=NULL)
 {
-	echo "Описание: ";
+	echo "资料描述: ";
 	echo output_text($file_id['opis']);
 	echo "<br />";
 }

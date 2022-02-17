@@ -1,5 +1,5 @@
 <?php
-/***** Определяем тип репостнутой записи *****/
+/***** 我们确定转贴记录的类型 *****/
 function notes_sh($id=NULL){
 $sql=dbquery("SELECT * FROM `notes` WHERE `id`='".(int)$id."' LIMIT 1");
 if(dbrows($sql)==1){

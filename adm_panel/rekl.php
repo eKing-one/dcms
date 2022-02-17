@@ -97,18 +97,18 @@ echo "  </td>";
 echo "   </tr>";
 echo "   <tr>";
 echo "  <td class='p_m'>";
-echo "连结: $post[link]<br />";
+echo "链接: $post[link]<br />";
 if ($post['img']!=NULL)
 echo "图片: $post[img]<br />";
 if ($post['dop_str']==1)
-echo "过渡时期: $post[count]<br />";
+echo "访问时间: $post[count]<br />";
 echo "<a href='rekl.php?sel=$sel&amp;del=$post[id]&amp;page=$page'>移走</a><br />";
 
 
 if (isset($_GET['set']) && $_GET['set']==$post['id'])
 {
 echo "<form method='post' action='rekl.php?sel=$sel&amp;set=$post[id]&amp;page=$page'>";
-echo "连结:<br /><input type=\"text\" name=\"link\" value=\"$post[link]\" /><br />";
+echo "链接:<br /><input type=\"text\" name=\"link\" value=\"$post[link]\" /><br />";
 echo "标题:<br /><input type=\"text\" name=\"name\" value=\"$post[name]\" /><br />";
 echo "图片:<br /><input type=\"text\" name=\"img\" value=\"$post[img]\" /><br />";
 
@@ -140,7 +140,7 @@ if ($k_page>1)str("rekl.php?sel=$sel&amp;",$k_page,$page); // Вывод стр�
 
 echo "<form class='foot' method='post' action='rekl.php?sel=$sel&amp;add'>";
 echo "标题:<br /><input type=\"text\" name=\"name\" value=\"\" /><br />";
-echo "连结:<br /><input type=\"text\" name=\"link\" value=\"\" /><br />";
+echo "链接:<br /><input type=\"text\" name=\"link\" value=\"\" /><br />";
 
 echo "图片:<br /><input type=\"text\" name=\"img\" value=\"\" /><br />";
 

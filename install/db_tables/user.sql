@@ -78,7 +78,6 @@ CREATE TABLE IF NOT EXISTS `user` (
   `ank_avto_n` int(11) DEFAULT NULL,
   `ank_alko` varchar(215) DEFAULT NULL,
   `ank_alko_n` int(11) DEFAULT '0',
-  `ank_nark` int(11) DEFAULT '0',
   `rating_tmp` int(11) DEFAULT '0',
   `sort` int(1) DEFAULT '0',
   `news_read` int(1) DEFAULT '0',

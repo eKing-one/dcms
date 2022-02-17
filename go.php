@@ -30,8 +30,8 @@ if (isset($_SESSION['adm_auth']))unset($_SESSION['adm_auth']);
 header("Refresh: 2; url=$rekl[link]");
 echo "对于广告资源的内容<br />";
 echo "地盘管理 ".strtoupper($_SERVER['HTTP_HOST'])." 不承担责任。<br />";
-echo "<b><a href=\"$rekl[link]\">过渡期</a></b><br />";
-echo "过渡时期: $rekl[count]<br />";
+echo "<b><a href=\"$rekl[link]\">访问时间</a></b><br />";
+echo "访问时间: $rekl[count]<br />";
 }
 include_once 'sys/inc/tfoot.php';
 ?>

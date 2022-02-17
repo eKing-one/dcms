@@ -126,7 +126,7 @@ echo "<div class='foot'>";
 
 
 
-echo '连结:<br />';
+echo '链接:<br />';
 
 
 
@@ -134,7 +134,7 @@ echo "</div>";
 
 
 
-echo "<input type='text' value='[url=http://网站]标题[/url]' /></a><br /><a href='bb-code.php'>连结</a><br />";
+echo "<input type='text' value='[url=http://网站]标题[/url]' /></a><br /><a href='bb-code.php'>链接</a><br />";
 
 
 

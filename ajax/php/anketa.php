@@ -1,5 +1,5 @@
-<?
- if (isset($_GET['id'])) {
+<?php
+if (isset($_GET['id'])) {
     include_once '../../sys/inc/start.php';
     include_once '../../sys/inc/compress.php';
     include_once '../../sys/inc/sess.php';
@@ -64,167 +64,169 @@
         echo $rost . '<span class="ank_n">身高:</span>' . $a . '<br />';
     }
     if ($ank['ank_ves'] != NULL) {
-        echo $ves . '<span class="ank_n">Вес:</span>' . $a . ' <span class="ank_d">' . $ank['ank_ves'] . '</span><br />';
+        echo $ves . '<span class="ank_n">重量:</span>' . $a . ' <span class="ank_d">' . $ank['ank_ves'] . '</span><br />';
     } else {
-        echo $ves . '<span class="ank_n">Вес:</span>' . $a . '<br />';
+        echo $ves . '<span class="ank_n">重量:</span>' . $a . '<br />';
     }
     if ($ank['ank_cvet_glas'] != NULL) {
-        echo $glaza . '<span class="ank_n">Цвет глаз:</span>' . $a . ' <span class="ank_d">' . $ank['ank_cvet_glas'] . '</span><br />';
+        echo $glaza . '<span class="ank_n">眼睛颜色:</span>' . $a . ' <span class="ank_d">' . $ank['ank_cvet_glas'] . '</span><br />';
     } else {
-        echo $glaza . '<span class="ank_n">Цвет глаз:</span>' . $a . '<br />';
+        echo $glaza . '<span class="ank_n">眼睛颜色:</span>' . $a . '<br />';
     }
     if ($ank['ank_volos'] != NULL) {
-        echo $volos . '<span class="ank_n">Волосы:</span>' . $a . ' <span class="ank_d">' . $ank['ank_volos'] . '</span><br />';
+        echo $volos . '<span class="ank_n">头发:</span>' . $a . ' <span class="ank_d">' . $ank['ank_volos'] . '</span><br />';
     } else {
-        echo $volos . '<span class="ank_n">Волосы:</span>' . $a . '<br />';
+        echo $volos . '<span class="ank_n">头发:</span>' . $a . '<br />';
     }
-    echo $telo . '<span class="ank_n">Телосложение:</span>' . $a . '';
+    echo $telo . '<span class="ank_n">身体类型:</span>' . $a . '';
     if ($ank['ank_telosl'] == 1) {
-        echo ' <span class="ank_d">Нет ответа</span><br />';
+        echo ' <span class="ank_d">没有人回答</span><br />';
     }
     if ($ank['ank_telosl'] == 2) {
-        echo ' <span class="ank_d">Худощавое</span><br />';
+        echo ' <span class="ank_d">瘦骨嶙峋</span><br />';
     }
     if ($ank['ank_telosl'] == 3) {
-        echo ' <span class="ank_d">Обычное</span><br />';
+        echo ' <span class="ank_d">平常的</span><br />';
     }
     if ($ank['ank_telosl'] == 4) {
-        echo ' <span class="ank_d">Спортивное</span><br />';
+        echo ' <span class="ank_d">运动项目</span><br />';
     }
     if ($ank['ank_telosl'] == 5) {
-        echo ' <span class="ank_d">Мускулистое</span><br />';
+        echo ' <span class="ank_d">肌肉发达</span><br />';
     }
     if ($ank['ank_telosl'] == 6) {
-        echo ' <span class="ank_d">Плотное</span><br />';
+        echo ' <span class="ank_d">密密麻麻</span><br />';
     }
     if ($ank['ank_telosl'] == 7) {
-        echo ' <span class="ank_d">Полное</span><br />';
+        echo ' <span class="ank_d">全</span><br />';
     }
     if ($ank['ank_telosl'] == 0) {
         echo '<br />';
     }
-    echo '</div>';/*=====================================Для знакомств=====================================*/
+    echo '</div>';
+    /*=====================================约会用=====================================*/
     echo "<div class='nav1'>";
-    echo "$orien<span class=\"ank_n\">Ориентация:</span>$a";
+    echo "$orien<span class=\"ank_n\">方向感:</span>$a";
     if ($ank['ank_orien'] == 0) {
         echo "<br />";
     }
     if ($ank['ank_orien'] == 1) {
-        echo " <span class=\"ank_d\">Гетеро</span><br />";
+        echo " <span class=\"ank_d\">杂种</span><br />";
     }
     if ($ank['ank_orien'] == 2) {
-        echo " <span class=\"ank_d\">Би</span><br />";
+        echo " <span class=\"ank_d\">毕</span><br />";
     }
     if ($ank['ank_orien'] == 3) {
-        echo " <span class=\"ank_d\">Гей/Лесби</span><br />";
+        echo " <span class=\"ank_d\">同性恋</span><br />";
     }
-    echo "$loves<span class=\"ank_n\">Цели знакомства:</span>$a<br />";
+    echo "$loves<span class=\"ank_n\">约会目标:</span>$a<br />";
     if ($ank['ank_lov_1'] == 1) {
-        echo "&raquo; Дружба и общение<br />";
+        echo "&raquo; 友谊与沟通<br />";
     }
     if ($ank['ank_lov_2'] == 1) {
-        echo "&raquo; Переписка<br />";
+        echo "&raquo; 通信;通信<br />";
     }
     if ($ank['ank_lov_3'] == 1) {
-        echo "&raquo; Любовь, отношения<br />";
+        echo "&raquo; 爱情，关系<br />";
     }
     if ($ank['ank_lov_4'] == 1) {
-        echo "&raquo; Регулярный секс вдвоем<br />";
+        echo "&raquo; 经常性在一起<br />";
     }
     if ($ank['ank_lov_5'] == 1) {
-        echo "&raquo; Секс на один-два раза<br />";
+        echo "&raquo; 性一两次<br />";
     }
     if ($ank['ank_lov_6'] == 1) {
-        echo "&raquo; Групповой секс<br />";
+        echo "&raquo; 团体性<br />";
     }
     if ($ank['ank_lov_7'] == 1) {
-        echo "&raquo; Виртуальный секс<br />";
+        echo "&raquo; 虚拟性<br />";
     }
     if ($ank['ank_lov_8'] == 1) {
-        echo "&raquo; Предлагаю интим за деньги<br />";
+        echo "&raquo; 我为钱提供性<br />";
     }
     if ($ank['ank_lov_9'] == 1) {
-        echo "&raquo; Ищу интим за деньги<br />";
+        echo "&raquo; 寻找性别为了钱<br />";
     }
     if ($ank['ank_lov_10'] == 1) {
-        echo "&raquo; Брак, создание семьи<br />";
+        echo "&raquo; 婚姻、家庭创造<br />";
     }
     if ($ank['ank_lov_11'] == 1) {
-        echo "&raquo; Рождение, воспитание ребенка<br />";
+        echo "&raquo; 出生，抚养孩子<br />";
     }
     if ($ank['ank_lov_12'] == 1) {
-        echo "&raquo; Брак для ви是的<br />";
+        echo "&raquo; 为vi结婚是的<br />";
     }
     if ($ank['ank_lov_13'] == 1) {
-        echo "&raquo; Совместная аренда жилья<br />";
+        echo "&raquo; 联合出租房屋<br />";
     }
     if ($ank['ank_lov_14'] == 1) {
-        echo "&raquo; Занятия спортом<br />";
+        echo "&raquo; 体育活动<br />";
     }
     if ($ank['ank_o_par'] != NULL) {
-        echo "$opar<span class=\"ank_n\">О партнере:</span>$a <span class=\"ank_d\">" . output_text($ank['ank_o_par']) . "</span><br />";
+        echo "$opar<span class=\"ank_n\">关于合作伙伴:</span>$a <span class=\"ank_d\">" . output_text($ank['ank_o_par']) . "</span><br />";
     } else {
-        echo "$opar<span class=\"ank_n\">О партнере:</span>$a<br />";
+        echo "$opar<span class=\"ank_n\">关于合作伙伴:</span>$a<br />";
     }
     if ($ank['ank_o_sebe'] != NULL) {
-        echo "$osebe<span class=\"ank_n\">О себе:</span>$a <span class=\"ank_d\">" . output_text($ank['ank_o_sebe']) . "</span><br />";
+        echo "$osebe<span class=\"ank_n\">关于我:</span>$a <span class=\"ank_d\">" . output_text($ank['ank_o_sebe']) . "</span><br />";
     } else {
-        echo "$osebe<span class=\"ank_n\">О себе:</span>$a<br />";
+        echo "$osebe<span class=\"ank_n\">关于我:</span>$a<br />";
     }
-    echo "</div>";/*=====================================О себе=====================================*/
+    echo "</div>";
+    /*=====================================关于我=====================================*/
     echo "<div class='nav2'>";
     if ($ank['ank_zan'] != NULL) {
-        echo "$zan<span class=\"ank_n\">Чем занимаюсь:</span>$a <span class=\"ank_d\">" . output_text($ank['ank_zan']) . "</span><br />";
+        echo "$zan<span class=\"ank_n\">我的工作:</span>$a <span class=\"ank_d\">" . output_text($ank['ank_zan']) . "</span><br />";
     } else {
-        echo "$zan<span class=\"ank_n\">Чем занимаюсь:</span>$a<br />";
+        echo "$zan<span class=\"ank_n\">我的工作:</span>$a<br />";
     }
-    echo "$smok<span class=\"ank_n\">Курение:</span>$a";
+    echo "$smok<span class=\"ank_n\">吸烟:</span>$a";
     if ($ank['ank_smok'] == 1) {
-        echo " <span class=\"ank_d\">Не курю</span><br />";
+        echo " <span class=\"ank_d\">我不抽烟</span><br />";
     }
     if ($ank['ank_smok'] == 2) {
-        echo " <span class=\"ank_d\">Курю</span><br />";
+        echo " <span class=\"ank_d\">我抽烟</span><br />";
     }
     if ($ank['ank_smok'] == 3) {
-        echo " <span class=\"ank_d\">Редко</span><br />";
+        echo " <span class=\"ank_d\">很少</span><br />";
     }
     if ($ank['ank_smok'] == 4) {
-        echo " <span class=\"ank_d\">Бросаю</span><br />";
+        echo " <span class=\"ank_d\">我不干了</span><br />";
     }
     if ($ank['ank_smok'] == 5) {
-        echo " <span class=\"ank_d\">Успешно бросил</span><br />";
+        echo " <span class=\"ank_d\">成功退出</span><br />";
     }
     if ($ank['ank_smok'] == 0) {
         echo "<br />";
     }
-    echo "$mat_pol<span class=\"ank_n\">Материальное положение:</span>$a";
+    echo "$mat_pol<span class=\"ank_n\">财务状况:</span>$a";
     if ($ank['ank_mat_pol'] == 1) {
-        echo " <span class=\"ank_d\">Непостоянные заработки</span><br />";
+        echo " <span class=\"ank_d\">非永久性收入</span><br />";
     }
     if ($ank['ank_mat_pol'] == 2) {
-        echo " <span class=\"ank_d\">Постоянный небольшой доход</span><br />";
+        echo " <span class=\"ank_d\">永久小额收入</span><br />";
     }
     if ($ank['ank_mat_pol'] == 3) {
-        echo " <span class=\"ank_d\">Стабильный средний доход</span><br />";
+        echo " <span class=\"ank_d\">稳定的平均收入</span><br />";
     }
     if ($ank['ank_mat_pol'] == 4) {
-        echo " <span class=\"ank_d\">Хорошо зарабатываю / обеспечен</span><br />";
+        echo " <span class=\"ank_d\">我挣得很好/我有条件</span><br />";
     }
     if ($ank['ank_mat_pol'] == 5) {
-        echo " <span class=\"ank_d\">Не зарабатываю</span><br />";
+        echo " <span class=\"ank_d\">我不赚钱</span><br />";
     }
     if ($ank['ank_mat_pol'] == 0) {
         echo "<br />";
     }
-    echo "$avto<span class=\"ank_n\">Наличие автомобиля:</span>$a";
+    echo "$avto<span class=\"ank_n\">汽车的可用性:</span>$a";
     if ($ank['ank_avto_n'] == 1) {
-        echo " <span class=\"ank_d\">Есть</span><br />";
+        echo " <span class=\"ank_d\">有</span><br />";
     }
     if ($ank['ank_avto_n'] == 2) {
         echo " <span class=\"ank_d\">取消</span><br />";
     }
     if ($ank['ank_avto_n'] == 3) {
-        echo " <span class=\"ank_d\">Хочу купить</span><br />";
+        echo " <span class=\"ank_d\">我要买了。</span><br />";
     }
     if ($ank['ank_avto_n'] == 0) {
         echo "<br />";
@@ -232,40 +234,40 @@
     if ($ank['ank_avto'] && $ank['ank_avto_n'] != 2 && $ank['ank_avto_n'] != 0) {
         echo "&raquo; <span class=\"ank_d\">" . output_text($ank['ank_avto']) . "</span><br />";
     }
-    echo "$proj<span class=\"ank_n\">Проживание:</span>$a";
+    echo "$proj<span class=\"ank_n\">住宿设施:</span>$a";
     if ($ank['ank_proj'] == 1) {
-        echo " <span class=\"ank_d\">Отдельная квартира (снимаю или своя)</span><br />";
+        echo " <span class=\"ank_d\">独立公寓（出租或拥有）</span><br />";
     }
     if ($ank['ank_proj'] == 2) {
-        echo " <span class=\"ank_d\">Комната в общежитии, коммуналка</span><br />";
+        echo " <span class=\"ank_d\">宿舍、公共公寓</span><br />";
     }
     if ($ank['ank_proj'] == 3) {
-        echo " <span class=\"ank_d\">Живу с родителями</span><br />";
+        echo " <span class=\"ank_d\">我和父母住在一起</span><br />";
     }
     if ($ank['ank_proj'] == 4) {
-        echo " <span class=\"ank_d\">Живу с приятелем / с подругой</span><br />";
+        echo " <span class=\"ank_d\">我和朋友住在一起/和朋友住在一起</span><br />";
     }
     if ($ank['ank_proj'] == 5) {
-        echo " <span class=\"ank_d\">Живу с партнером или супругом (-ой)</span><br />";
+        echo " <span class=\"ank_d\">我和伴侣或配偶住在一起</span><br />";
     }
     if ($ank['ank_proj'] == 6) {
-        echo " <span class=\"ank_d\">Нет постоянного жилья</span><br />";
+        echo " <span class=\"ank_d\">没有永久住房</span><br />";
     }
     if ($ank['ank_proj'] == 0) {
         echo "<br />";
     }
-    echo "$baby<span class=\"ank_n\">Есть ли дети:</span>$a";
+    echo "$baby<span class=\"ank_n\">有没有孩子:</span>$a";
     if ($ank['ank_baby'] == 1) {
         echo " <span class=\"ank_d\">取消</span><br />";
     }
     if ($ank['ank_baby'] == 2) {
-        echo " <span class=\"ank_d\">Нет, но хотелось бы</span><br />";
+        echo " <span class=\"ank_d\">不，但我想</span><br />";
     }
     if ($ank['ank_baby'] == 3) {
-        echo " <span class=\"ank_d\">Есть, живем вместе</span><br />";
+        echo " <span class=\"ank_d\">是的，我们住在一起</span><br />";
     }
     if ($ank['ank_baby'] == 4) {
-        echo " <span class=\"ank_d\">Есть, живем порознь</span><br />";
+        echo " <span class=\"ank_d\">是的，我们分开住</span><br />";
     }
     if ($ank['ank_proj'] == 0) {
         echo "<br />";
@@ -274,21 +276,17 @@
     if (isset($user) && $ank['id'] == $user['id']) {
         $alko = "<a href='/user/info/edit.php?act=ank_web&amp;set=alko'>";
         $nark = "<a href='/user/info/edit.php?act=ank_web&amp;set=nark'>";
-    }/*=====================================Дополнительно=====================================*/
+    }
+    /*=====================================此外=====================================*/
     echo "<div class='nav1'>";
     echo "$alko<span class=\"ank_n\">酒精:</span>$a";
-    if ($ank['ank_alko_n'] == 1) echo " <span class=\"ank_d\">Да, выпиваю</span><br />";
-    if ($ank['ank_alko_n'] == 2) echo " <span class=\"ank_d\">Редко, по праздникам</span><br />";
-    if ($ank['ank_alko_n'] == 3) echo " <span class=\"ank_d\">Нет, категорически не приемлю</span><br />";
+    if ($ank['ank_alko_n'] == 1) echo " <span class=\"ank_d\">是的，我喝酒</span><br />";
+    if ($ank['ank_alko_n'] == 2) echo " <span class=\"ank_d\">很少，在假期</span><br />";
+    if ($ank['ank_alko_n'] == 3) echo " <span class=\"ank_d\">不，我断然不接受</span><br />";
     if ($ank['ank_alko_n'] == 0) echo "<br />";
     if ($ank['ank_alko'] && $ank['ank_alko_n'] != 3 && $ank['ank_alko_n'] != 0) echo "&raquo; <span class=\"ank_d\">" . output_text($ank['ank_alko']) . "</span><br />";
-    echo "$nark<span class=\"ank_n\">药物:</span>$a";
-    if ($ank['ank_nark'] == 1) echo " <span class=\"ank_d\">Да, курю травку</span><br />";
-    if ($ank['ank_nark'] == 2) echo " <span class=\"ank_d\">Да, люблю любой вид наркотических средств</span><br />";
-    if ($ank['ank_nark'] == 3) echo " <span class=\"ank_d\">Бросаю, прохожу реабилитацию</span><br />";
-    if ($ank['ank_nark'] == 4) echo " <span class=\"ank_d\">Нет, категорически не приемлю</span><br />";
-    if ($ank['ank_nark'] == 0) echo "<br />";
-    echo "</div>";/*=====================================Контакты=====================================*/
+    echo "</div>";
+    /*=====================================联络人=====================================*/
     echo "<div class='nav2'>";
     if ($ank['ank_icq'] != NULL && $ank['ank_icq'] != 0) {
         echo "$icq<span class=\"ank_n\">ICQ:</span>$a <span class=\"ank_d\">$ank[ank_icq]</span><br />";
@@ -303,9 +301,9 @@
             $hide_mail = NULL;
         }
         if (preg_match("#(@mail\.ru$)|(@bk\.ru$)|(@inbox\.ru$)|(@list\.ru$)#", $ank['ank_mail'])) {
-            echo " <a href=\"mailto:$ank[ank_mail]\" title=\"Написать письмо\" class=\"ank_d\">$ank[ank_mail]</a>$hide_mail<br />";
+            echo " <a href=\"mailto:$ank[ank_mail]\" title=\"写一封信\" class=\"ank_d\">$ank[ank_mail]</a>$hide_mail<br />";
         } else {
-            echo " <a href=\"mailto:$ank[ank_mail]\" title=\"Написать письмо\" class=\"ank_d\">$ank[ank_mail]</a>$hide_mail<br />";
+            echo " <a href=\"mailto:$ank[ank_mail]\" title=\"写一封信\" class=\"ank_d\">$ank[ank_mail]</a>$hide_mail<br />";
         }
     } else {
         echo "<br />";

@@ -11,7 +11,7 @@ include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 
 only_reg();
-$set['title']='编辑问卷';
+$set['title']='编辑配置文件';
 include_once '../../sys/inc/thead.php';
 title();
 aut();
@@ -35,13 +35,13 @@ if (isset($_GET['set']) && $_GET['set']=='nick' && $user['set_nick'] == 1){
 if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '".my_esc($_POST['nick'])."'"),0)==0)
 {
 $nick=my_esc($_POST['nick']);
-if( !preg_match("#^([A-zА-я0-9\-\_\ ])+$#ui", $_POST['nick']))$err[]='尼克有被禁止的符号。';
-if (preg_match("#[a-z]+#ui", $_POST['nick']) && preg_match("#[а-я]+#ui", $_POST['nick']))$err[]='只允许使用英文字符。';
-if (preg_match("#(^\ )|(\ $)#ui", $_POST['nick']))$err[]='禁止在尼克的开头和结尾使用空格';
-if (strlen2($nick)<3)$err[]='短尼克';
-if (strlen2($nick)>32)$err[]='尼克长度超过 32 个字符';
+if( !preg_match("#^([A-zА-я0-9\-\_\ ])+$#ui", $_POST['nick']))$err[]='输入的有禁止的符号。';
+if (preg_match("#[a-z]+#ui", $_POST['nick']) && preg_match("#[а-я]+#ui", $_POST['nick']))$err[]='只能使用英语字母。';
+if (preg_match("#(^\ )|(\ $)#ui", $_POST['nick']))$err[]='禁止使用昵称开头和结尾的空白';
+if (strlen2($nick)<3)$err[]='短昵';
+if (strlen2($nick)>32)$err[]='昵称超过32字';
 }
-else $err[]='Ник "'.stripcslashes(htmlspecialchars($_POST['nick'])).'" 已登记';
+else $err[]='Ник "'.stripcslashes(htmlspecialchars($_POST['nick'])).'" 已登记。';
 
 if (isset($_POST['nick']) && !isset($err))
 {
@@ -59,7 +59,7 @@ if (isset($_POST['ank_name']) && preg_match('#^([A-zА-я \-]*)$#ui', $_POST['an
 $user['ank_name']=$_POST['ank_name'];
 dbquery("UPDATE `user` SET `ank_name` = '".my_esc($user['ank_name'])."' WHERE `id` = '$user[id]' LIMIT 1");
 }
-else $err[]='Неверный формат имени';
+else $err[]='无效的命名';
 }
 
 
@@ -70,7 +70,7 @@ if (isset($_POST['ank_cvet_glas']) && preg_match('#^([A-zА-я \-]*)$#ui', $_POS
 $user['ank_cvet_glas']=$_POST['ank_cvet_glas'];
 dbquery("UPDATE `user` SET `ank_cvet_glas` = '".my_esc($user['ank_cvet_glas'])."' WHERE `id` = '$user[id]' LIMIT 1");
 }
-else $err[]='Неверный формат цвет глаз';
+else $err[]='颜色格式不正确';
 }
 
 
@@ -81,7 +81,7 @@ if (isset($_POST['ank_volos']) && preg_match('#^([A-zА-я \-]*)$#ui', $_POST['a
 $user['ank_volos']=$_POST['ank_volos'];
 dbquery("UPDATE `user` SET `ank_volos` = '".my_esc($user['ank_volos'])."' WHERE `id` = '$user[id]' LIMIT 1");
 }
-else $err[]='Неверный формат цвет глаз';
+else $err[]='颜色格式不正确';
 }
 
 
@@ -94,7 +94,7 @@ if ($user['ank_d_r']==null)$user['ank_d_r']='null';
 dbquery("UPDATE `user` SET `ank_d_r` = $user[ank_d_r] WHERE `id` = '$user[id]' LIMIT 1");
 if ($user['ank_d_r']=='null')$user['ank_d_r']=NULL;
 }
-else $err[]='Неверный формат дня рождения';
+else $err[]='无效的生日格式';
 
 if (isset($_POST['ank_m_r']) && (is_numeric($_POST['ank_m_r']) && $_POST['ank_m_r']>0 && $_POST['ank_m_r']<=12 || $_POST['ank_m_r']==NULL))
 {
@@ -103,7 +103,7 @@ if ($user['ank_m_r']==null)$user['ank_m_r']='null';
 dbquery("UPDATE `user` SET `ank_m_r` = $user[ank_m_r] WHERE `id` = '$user[id]' LIMIT 1");
 if ($user['ank_m_r']=='null')$user['ank_m_r']=NULL;
 }
-else $err[]='Неверный формат месяца рождения';
+else $err[]='出生月份格式无效';
 
 if (isset($_POST['ank_g_r']) && (is_numeric($_POST['ank_g_r']) && $_POST['ank_g_r']>0 && $_POST['ank_g_r']<=date('Y') || $_POST['ank_g_r']==NULL))
 {
@@ -112,7 +112,7 @@ if ($user['ank_g_r']==null)$user['ank_g_r']='null';
 dbquery("UPDATE `user` SET `ank_g_r` = $user[ank_g_r] WHERE `id` = '$user[id]' LIMIT 1");
 if ($user['ank_g_r']=='null')$user['ank_g_r']=NULL;
 }
-else $err[]='Неверный формат года рождения';
+else $err[]='出生年份格式无效';
 }
 
 
@@ -124,7 +124,7 @@ if (isset($_POST['ank_city']) && preg_match('#^([A-zА-я \-]*)$#ui', $_POST['an
 $user['ank_city']=$_POST['ank_city'];
 dbquery("UPDATE `user` SET `ank_city` = '".my_esc($user['ank_city'])."' WHERE `id` = '$user[id]' LIMIT 1");
 }
-else $err[]='Неверный формат названия города';
+else $err[]='城市名称格式不正确';
 }
 
 //--------------icq----------------//
@@ -136,7 +136,7 @@ if ($user['ank_icq']==null)$user['ank_icq']='null';
 dbquery("UPDATE `user` SET `ank_icq` = $user[ank_icq] WHERE `id` = '$user[id]' LIMIT 1");
 if ($user['ank_icq']=='null')$user['ank_icq']=NULL;
 }
-else $err[]='Неверный формат ICQ';
+else $err[]='无效的ICQ格式';
 }
 
 
@@ -150,7 +150,7 @@ dbquery("UPDATE `user` SET `ank_ves` = $user[ank_ves] WHERE `id` = '$user[id]' L
 
 if ($user['ank_ves']=='null')$user['ank_ves']=NULL;
 }
-else $err[]='Неверный формат веса';
+else $err[]='重量格式不正确';
 }
 
 
@@ -164,7 +164,7 @@ dbquery("UPDATE `user` SET `ank_rost` = $user[ank_rost] WHERE `id` = '$user[id]'
 
 if ($user['ank_rost']=='null')$user['ank_rost']=NULL;
 }
-else $err[]='Неверный формат роста';
+else $err[]='生长格式不正确';
 }
 
 
@@ -175,7 +175,7 @@ if (isset($_POST['ank_skype']) && preg_match('#^([A-z0-9 \-]*)$#ui', $_POST['ank
 $user['ank_skype']=$_POST['ank_skype'];
 dbquery("UPDATE `user` SET `ank_skype` = '".my_esc($user['ank_skype'])."' WHERE `id` = '$user[id]' LIMIT 1");
 }
-else $err[]='Неверный логин Skype';
+else $err[]='无效的Skype登录';
 }
 
 //----------------email------------------//
@@ -196,7 +196,7 @@ if (isset($_POST['ank_mail']) && ($_POST['ank_mail']==null || preg_match('#^[A-z
 $user['ank_mail']=$_POST['ank_mail'];
 dbquery("UPDATE `user` SET `ank_mail` = '$user[ank_mail]' WHERE `id` = '$user[id]' LIMIT 1");
 }
-else $err[]='Неверный E-mail';
+else $err[]='无效的电子邮件';
 }
 
 
@@ -619,7 +619,7 @@ dbquery("UPDATE `user` SET `ank_avto_n` = '0' WHERE `id` = '$user[id]' LIMIT 1")
 if (isset($_POST['ank_avto']) && strlen2($_POST['ank_avto'])<=215)
 {
 
-if (preg_match('#[^A-zА-я0-9 _\-\=\+\(\)\*\!\?\.,]#ui',$_POST['ank_avto']))$err[]='在”名称”字段\汽车品牌”禁止使用字符';
+if (preg_match('#[^A-zА-я0-9 _\-\=\+\(\)\*\!\?\.,]#ui',$_POST['ank_avto']))$err[]='在”汽车名称”字段禁止使用字符';
 else {
 $user['ank_avto']=$_POST['ank_avto'];
 dbquery("UPDATE `user` SET `ank_avto` = '".my_esc($user['ank_avto'])."' WHERE `id` = '$user[id]' LIMIT 1");
@@ -692,36 +692,7 @@ $user['ank_o_par']=$_POST['ank_o_par'];
 dbquery("UPDATE `user` SET `ank_o_par` = '".my_esc($user['ank_o_par'])."' WHERE `id` = '$user[id]' LIMIT 1");
 }
 }
-else $err[]='О партнере нужно писать меньше :)';
-}
-//-----------------наркотики-----------------//
-if (isset($_GET['set']) && $_GET['set']=='nark'){
-if (isset($_POST['ank_nark']) && $_POST['ank_nark']==4)
-{
-$user['ank_nark']=4;
-dbquery("UPDATE `user` SET `ank_nark` = '4' WHERE `id` = '$user[id]' LIMIT 1");
-}
-if (isset($_POST['ank_nark']) && $_POST['ank_nark']==3)
-{
-$user['ank_nark']=3;
-dbquery("UPDATE `user` SET `ank_nark` = '3' WHERE `id` = '$user[id]' LIMIT 1");
-}
-if (isset($_POST['ank_nark']) && $_POST['ank_nark']==2)
-{
-$user['ank_nark']=2;
-dbquery("UPDATE `user` SET `ank_nark` = '2' WHERE `id` = '$user[id]' LIMIT 1");
-}
-if (isset($_POST['ank_nark']) && $_POST['ank_nark']==1)
-{
-$user['ank_nark']=1;
-dbquery("UPDATE `user` SET `ank_nark` = '1' WHERE `id` = '$user[id]' LIMIT 1");
-}
-if (isset($_POST['ank_nark']) && $_POST['ank_nark']==0)
-{
-$user['ank_nark']=0;
-dbquery("UPDATE `user` SET `ank_nark` = '0' WHERE `id` = '$user[id]' LIMIT 1");
-}
-
+else $err[]='你需要少写你的伴侣 :)';
 }
 
 
@@ -729,19 +700,19 @@ dbquery("UPDATE `user` SET `ank_nark` = '0' WHERE `id` = '$user[id]' LIMIT 1");
 if (isset($_GET['set']) && $_GET['set']=='zan'){
 if (isset($_POST['ank_zan']) && strlen2($_POST['ank_zan'])<=215)
 {
-if (preg_match('#[^A-zА-я0-9 _\-\=\+\(\)\*\!\?\.,]#ui',$_POST['ank_zan']))$err[]='В поле "Чем занимаюсь" используются запрещенные символы';
+if (preg_match('#[^A-zА-я0-9 _\-\=\+\(\)\*\!\?\.,]#ui',$_POST['ank_zan']))$err[]='禁止字符用于"我做什么"字段';
 else {
 $user['ank_zan']=$_POST['ank_zan'];
 dbquery("UPDATE `user` SET `ank_zan` = '".my_esc($user['ank_zan'])."' WHERE `id` = '$user[id]' LIMIT 1");
 }
 }
-else $err[]='Слишком большой текст';
+else $err[]='文字太大';
 }
 
 
 if (!isset($err))
 {
-$_SESSION['message'] = 'Изменения успешно приняты';
+$_SESSION['message'] = '更改已成功接受';
 
 	dbquery("UPDATE `user` SET `rating_tmp` = '".($user['rating_tmp']+1)."' WHERE `id` = '$user[id]' LIMIT 1");
 		
@@ -844,40 +815,33 @@ for( $i = date("Y")-16; $i >= 1940; $i--) {
 	}
 		
 	if (isset($_GET['set']) && $_GET['set']=='pol'){
-	echo "Пол:<br /> <input name='pol' type='radio' ".($user['pol']==1?' checked="checked"':null)." value='1' />Муж.<br />
-	<input name='pol' type='radio' ".($user['pol']==0?' checked="checked"':null)." value='0' />Жен.<br />";
+	echo "Пол:<br /> <input name='pol' type='radio' ".($user['pol']==1?' checked="checked"':null)." value='1' />丈夫<br />
+	<input name='pol' type='radio' ".($user['pol']==0?' checked="checked"':null)." value='0' />妻子<br />";
 	}
 		
 	if (isset($_GET['set']) && $_GET['set']=='telo'){
-	echo "Телосложение:<br /> 
-	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==1?' checked="checked"':null)." value='1' />Нет ответа<br />
-	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==2?' checked="checked"':null)." value='2' />Худощавое<br />
-	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==3?' checked="checked"':null)." value='3' />Обычное<br />
-	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==4?' checked="checked"':null)." value='4' />Спортивное<br />
-	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==5?' checked="checked"':null)." value='5' />Мускулистое<br />
-	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==6?' checked="checked"':null)." value='6' />Плотное<br />
-	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==7?' checked="checked"':null)." value='7' />Полное<br />
-	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==0?' checked="checked"':null)." value='0' />Не указано<br />";
+	echo "身体类型:<br /> 
+	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==1?' checked="checked"':null)." value='1' />没有人回答<br />
+	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==2?' checked="checked"':null)." value='2' />瘦骨嶙峋<br />
+	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==3?' checked="checked"':null)." value='3' />平常的<br />
+	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==4?' checked="checked"':null)." value='4' />运动项目<br />
+	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==5?' checked="checked"':null)." value='5' />肌肉发达<br />
+	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==6?' checked="checked"':null)." value='6' />密密麻麻<br />
+	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==7?' checked="checked"':null)." value='7' />全<br />
+	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==0?' checked="checked"':null)." value='0' />未指定<br />";
 	}
 		
 	if (isset($_GET['set']) && $_GET['set']=='avto'){
-	echo "Наличие автомобиля:<br /> 
-	<input name='ank_avto_n' type='radio' ".($user['ank_avto_n']==0?' checked="checked"':null)." value='0' />Не указано<br />
-	<input name='ank_avto_n' type='radio' ".($user['ank_avto_n']==1?' checked="checked"':null)." value='1' />Есть<br />
-	<input name='ank_avto_n' type='radio' ".($user['ank_avto_n']==2?' checked="checked"':null)." value='2' />取消<br />
-	<input name='ank_avto_n' type='radio' ".($user['ank_avto_n']==3?' checked="checked"':null)." value='3' />Хочу купить<br />";
-	echo "Название\Марка авто:<br /><input type='text' name='ank_avto' value='".htmlspecialchars($user['ank_avto'],false)."' maxlength='215' /><br />";
+	echo "汽车的可用性:<br /> 
+	<input name='ank_avto_n' type='radio' ".($user['ank_avto_n']==0?' checked="checked"':null)." value='0' />未指定<br />
+	<input name='ank_avto_n' type='radio' ".($user['ank_avto_n']==1?' checked="checked"':null)." value='1' />有<br />
+	<input name='ank_avto_n' type='radio' ".($user['ank_avto_n']==2?' checked="checked"':null)." value='2' />没有<br />
+	<input name='ank_avto_n' type='radio' ".($user['ank_avto_n']==3?' checked="checked"':null)." value='3' />我要买了。<br />";
+	echo "标题\汽车品牌:<br /><input type='text' name='ank_avto' value='".htmlspecialchars($user['ank_avto'],false)."' maxlength='215' /><br />";
 	}
-	if (isset($_GET['set']) && $_GET['set']=='nark'){
-	echo "Наркотики:<br /> 
-	<input name='ank_nark' type='radio' ".($user['ank_nark']==0?' checked="checked"':null)." value='0' />Не указано<br />
-	<input name='ank_nark' type='radio' ".($user['ank_nark']==1?' checked="checked"':null)." value='1' />Да, курю травку<br />
-	<input name='ank_nark' type='radio' ".($user['ank_nark']==2?' checked="checked"':null)." value='2' />Да, люблю любой вид наркотических средств<br />
-	<input name='ank_nark' type='radio' ".($user['ank_nark']==3?' checked="checked"':null)." value='3' />Бросаю, прохожу реабилитацию<br />
-	<input name='ank_nark' type='radio' ".($user['ank_nark']==4?' checked="checked"':null)." value='4' />Нет, категорически не приемлю<br />";
-	}
+	
 	if (isset($_GET['set']) && $_GET['set']=='alko'){
-	echo "Алкоголь:<br /> 
+	echo "酒精:<br /> 
 	<input name='ank_alko_n' type='radio' ".($user['ank_alko_n']==0?' checked="checked"':null)." value='0' />Не указано<br />
 	<input name='ank_alko_n' type='radio' ".($user['ank_alko_n']==1?' checked="checked"':null)." value='1' />Да, выпиваю<br />
 	<input name='ank_alko_n' type='radio' ".($user['ank_alko_n']==2?' checked="checked"':null)." value='2' />Редко, по праздникам<br />
@@ -885,14 +849,14 @@ for( $i = date("Y")-16; $i >= 1940; $i--) {
 	echo "Напиток:<br /><input type='text' name='ank_alko' value='".htmlspecialchars($user['ank_alko'],false)."' maxlength='215' /><br />";
 	}
 	if (isset($_GET['set']) && $_GET['set']=='orien'){
-	echo "Ориентация:<br /> 
+	echo "方向感:<br /> 
 	<input name='ank_orien' type='radio' ".($user['ank_orien']==0?' checked="checked"':null)." value='0' />Не указано<br />
 	<input name='ank_orien' type='radio' ".($user['ank_orien']==1?' checked="checked"':null)." value='1' />Гетеро<br />
 	<input name='ank_orien' type='radio' ".($user['ank_orien']==2?' checked="checked"':null)." value='2' />Би<br />
 	<input name='ank_orien' type='radio' ".($user['ank_orien']==3?' checked="checked"':null)." value='3' />Гей/Лесби<br />";
 	}
 	if (isset($_GET['set']) && $_GET['set']=='mat_pol'){
-	echo "Материальное положение:<br /> 
+	echo "财务状况:<br /> 
 	<input name='ank_mat_pol' type='radio' ".($user['ank_mat_pol']==0?' checked="checked"':null)." value='0' />Не указано<br />
 	<input name='ank_mat_pol' type='radio' ".($user['ank_mat_pol']==1?' checked="checked"':null)." value='1' />Непостоянные заработки<br />
 	<input name='ank_mat_pol' type='radio' ".($user['ank_mat_pol']==2?' checked="checked"':null)." value='2' />Постоянный небольшой доход<br />
@@ -901,7 +865,7 @@ for( $i = date("Y")-16; $i >= 1940; $i--) {
 	<input name='ank_mat_pol' type='radio' ".($user['ank_mat_pol']==5?' checked="checked"':null)." value='5' />Не зарабатываю<br />";
 	}
 	if (isset($_GET['set']) && $_GET['set']=='smok'){
-	echo "Курение:<br /> 
+	echo "吸烟:<br /> 
 	<input name='ank_smok' type='radio' ".($user['ank_smok']==0?' checked="checked"':null)." value='0' />Не указано<br />
 	<input name='ank_smok' type='radio' ".($user['ank_smok']==1?' checked="checked"':null)." value='1' />Не курю<br />
 	<input name='ank_smok' type='radio' ".($user['ank_smok']==2?' checked="checked"':null)." value='2' />Курю<br />
@@ -911,7 +875,7 @@ for( $i = date("Y")-16; $i >= 1940; $i--) {
 	}
 	
 	if (isset($_GET['set']) && $_GET['set']=='proj'){
-	echo "Проживание:<br /> 
+	echo "住宿设施:<br /> 
 	<input name='ank_proj' type='radio' ".($user['ank_proj']==0?' checked="checked"':null)." value='0' />Не указано<br />
 	<input name='ank_proj' type='radio' ".($user['ank_proj']==1?' checked="checked"':null)." value='1' />Отдельная квартира (снимаю или своя)<br />
 	<input name='ank_proj' type='radio' ".($user['ank_proj']==2?' checked="checked"':null)." value='2' />Комната в общежитии, коммуналка<br />
@@ -923,7 +887,7 @@ for( $i = date("Y")-16; $i >= 1940; $i--) {
 	
 	
 	if (isset($_GET['set']) && $_GET['set']=='baby'){
-	echo "Есть ли дети:<br /> 
+	echo "有没有孩子:<br /> 
 	<input name='ank_baby' type='radio' ".($user['ank_baby']==0?' checked="checked"':null)." value='0' />Не указано<br />
 	<input name='ank_baby' type='radio' ".($user['ank_baby']==1?' checked="checked"':null)." value='1' />取消<br />
 	<input name='ank_baby' type='radio' ".($user['ank_baby']==2?' checked="checked"':null)." value='2' />Нет, но хотелось бы<br />
@@ -932,66 +896,66 @@ for( $i = date("Y")-16; $i >= 1940; $i--) {
 	}
 	
 	if (isset($_GET['set']) && $_GET['set']=='zan')
-	echo "Чем занимаюсь:<br /><input type='text' name='ank_zan' value='$user[ank_zan]' maxlength='215' /><br />";
+	echo "我的工作:<br /><input type='text' name='ank_zan' value='$user[ank_zan]' maxlength='215' /><br />";
 	
 	if (isset($_GET['set']) && $_GET['set']=='gorod')
-	echo "Город:<br /><input type='text' name='ank_city' value='$user[ank_city]' maxlength='32' /><br />";
+	echo "城市:<br /><input type='text' name='ank_city' value='$user[ank_city]' maxlength='32' /><br />";
 	
 	if (isset($_GET['set']) && $_GET['set']=='rost')
-	echo "Рост:<br /><input type='text' name='ank_rost' value='$user[ank_rost]' maxlength='3' /><br />";
+	echo "身高:<br /><input type='text' name='ank_rost' value='$user[ank_rost]' maxlength='3' /><br />";
 	
 	if (isset($_GET['set']) && $_GET['set']=='ves')
-	echo "Вес:<br /><input type='text' name='ank_ves' value='$user[ank_ves]' maxlength='3' /><br />";
+	echo "重量:<br /><input type='text' name='ank_ves' value='$user[ank_ves]' maxlength='3' /><br />";
 	
 	if (isset($_GET['set']) && $_GET['set']=='icq')
 	echo "ICQ:<br /><input type='text' name='ank_icq' value='$user[ank_icq]' maxlength='9' /><br />";
 	
 	if (isset($_GET['set']) && $_GET['set']=='skype')
-	echo "Skype логин<br /><input type='text' name='ank_skype' value='$user[ank_skype]' maxlength='16' /><br />";
+	echo "Skype登录<br /><input type='text' name='ank_skype' value='$user[ank_skype]' maxlength='16' /><br />";
 	
 	
 	if (isset($_GET['set']) && $_GET['set']=='mail'){
 	echo "E-mail:<br />
 		<input type='text' name='ank_mail' value='$user[ank_mail]' maxlength='32' /><br />
-		<label><input type='checkbox' name='set_show_mail'".($user['set_show_mail']==1?' checked="checked"':null)." value='1' /> Показывать E-mail в анкете</label><br />";
+		<label><input type='checkbox' name='set_show_mail'".($user['set_show_mail']==1?' checked="checked"':null)." value='1' /> 在问卷中显示电子邮件</label><br />";
 	}
 	
 	
 	if (isset($_GET['set']) && $_GET['set']=='loves'){
-	echo "Цели знакомства:<br />
-		<label><input type='checkbox' name='ank_lov_1'".($user['ank_lov_1']==1?' checked="checked"':null)." value='1' /> Дружба и общение</label><br />
-		<label><input type='checkbox' name='ank_lov_2'".($user['ank_lov_2']==1?' checked="checked"':null)." value='1' /> Переписка</label><br />
-		<label><input type='checkbox' name='ank_lov_3'".($user['ank_lov_3']==1?' checked="checked"':null)." value='1' /> Любовь, отношения</label><br />
-		<label><input type='checkbox' name='ank_lov_4'".($user['ank_lov_4']==1?' checked="checked"':null)." value='1' /> Регулярный секс вдвоем</label><br />
-		<label><input type='checkbox' name='ank_lov_5'".($user['ank_lov_5']==1?' checked="checked"':null)." value='1' /> Секс на один-два раза</label><br />
-		<label><input type='checkbox' name='ank_lov_6'".($user['ank_lov_6']==1?' checked="checked"':null)." value='1' /> Групповой секс</label><br />
-		<label><input type='checkbox' name='ank_lov_7'".($user['ank_lov_7']==1?' checked="checked"':null)." value='1' /> Виртуальный секс</label><br />
-		<label><input type='checkbox' name='ank_lov_8'".($user['ank_lov_8']==1?' checked="checked"':null)." value='1' /> Предлагаю интим за деньги</label><br />
-		<label><input type='checkbox' name='ank_lov_9'".($user['ank_lov_9']==1?' checked="checked"':null)." value='1' /> Ищу интим за деньги</label><br />
-		<label><input type='checkbox' name='ank_lov_10'".($user['ank_lov_10']==1?' checked="checked"':null)." value='1' /> Брак, создание семьи</label><br />
-		<label><input type='checkbox' name='ank_lov_11'".($user['ank_lov_11']==1?' checked="checked"':null)." value='1' /> Рождение, воспитание ребенка</label><br />
-		<label><input type='checkbox' name='ank_lov_12'".($user['ank_lov_12']==1?' checked="checked"':null)." value='1' /> Брак для ви是的</label><br />
-		<label><input type='checkbox' name='ank_lov_13'".($user['ank_lov_13']==1?' checked="checked"':null)." value='1' /> Совместная аренда жилья</label><br />
-		<label><input type='checkbox' name='ank_lov_14'".($user['ank_lov_14']==1?' checked="checked"':null)." value='1' /> Занятия спортом</label><br />
+	echo "约会目标:<br />
+		<label><input type='checkbox' name='ank_lov_1'".($user['ank_lov_1']==1?' checked="checked"':null)." value='1' /> 友谊与沟通</label><br />
+		<label><input type='checkbox' name='ank_lov_2'".($user['ank_lov_2']==1?' checked="checked"':null)." value='1' /> 通信</label><br />
+		<label><input type='checkbox' name='ank_lov_3'".($user['ank_lov_3']==1?' checked="checked"':null)." value='1' /> 爱情，关系</label><br />
+		<label><input type='checkbox' name='ank_lov_4'".($user['ank_lov_4']==1?' checked="checked"':null)." value='1' /> 经常性在一起</label><br />
+		<label><input type='checkbox' name='ank_lov_5'".($user['ank_lov_5']==1?' checked="checked"':null)." value='1' /> 性一两次</label><br />
+		<label><input type='checkbox' name='ank_lov_6'".($user['ank_lov_6']==1?' checked="checked"':null)." value='1' /> 团体性</label><br />
+		<label><input type='checkbox' name='ank_lov_7'".($user['ank_lov_7']==1?' checked="checked"':null)." value='1' /> 虚拟性</label><br />
+		<label><input type='checkbox' name='ank_lov_8'".($user['ank_lov_8']==1?' checked="checked"':null)." value='1' /> 我为钱提供性</label><br />
+		<label><input type='checkbox' name='ank_lov_9'".($user['ank_lov_9']==1?' checked="checked"':null)." value='1' /> 寻找性别为了钱</label><br />
+		<label><input type='checkbox' name='ank_lov_10'".($user['ank_lov_10']==1?' checked="checked"':null)." value='1' /> 婚姻、家庭创造</label><br />
+		<label><input type='checkbox' name='ank_lov_11'".($user['ank_lov_11']==1?' checked="checked"':null)." value='1' /> 出生，抚养孩子</label><br />
+		<label><input type='checkbox' name='ank_lov_12'".($user['ank_lov_12']==1?' checked="checked"':null)." value='1' /> 为vi结婚是的</label><br />
+		<label><input type='checkbox' name='ank_lov_13'".($user['ank_lov_13']==1?' checked="checked"':null)." value='1' /> 联合出租房屋</label><br />
+		<label><input type='checkbox' name='ank_lov_14'".($user['ank_lov_14']==1?' checked="checked"':null)." value='1' /> 体育活动</label><br />
 		
 		<br />";
 	}
 	
 	if (isset($_GET['set']) && $_GET['set']=='mobile')
-	echo "Номер телефона:<br /><input type='text' name='ank_n_tel' value='$user[ank_n_tel]' maxlength='11' /><br />";
+	echo "电话号码:<br /><input type='text' name='ank_n_tel' value='$user[ank_n_tel]' maxlength='11' /><br />";
 	
 	if (isset($_GET['set']) && $_GET['set']=='osebe')
-	echo "О себе:<br /><input type='text' name='ank_o_sebe' value='$user[ank_o_sebe]' maxlength='512' /><br />";
+	echo "关于我:<br /><input type='text' name='ank_o_sebe' value='$user[ank_o_sebe]' maxlength='512' /><br />";
 	
 	if (isset($_GET['set']) && $_GET['set']=='opar')
-	echo "О партнере:<br /><input type='text' name='ank_o_par' value='$user[ank_o_par]' maxlength='215' /><br />";
+	echo "关于合作伙伴:<br /><input type='text' name='ank_o_par' value='$user[ank_o_par]' maxlength='215' /><br />";
 	
 	
-	echo "<input type='submit' name='save' value='Сохранить' /></form>";
+	echo "<input type='submit' name='save' value='储蓄' /></form>";
 }else{
 
 echo "<div class='nav2'>";
-echo "Основное";
+echo "基本";
 echo "</div>";
 
 echo "<div class='nav1'>";
@@ -1003,14 +967,14 @@ echo " &#62; $user[nick]<br />";
 else
 echo "<br />";
 }
-echo "<a href='?set=name'> <img src='/style/icons/str.gif' alt='*'>  Имя</a>";
+echo "<a href='?set=name'> <img src='/style/icons/str.gif' alt='*'>  姓名</a>";
 if ($user['ank_name']!=NULL)
 echo " &#62; $user[ank_name]<br />";
 else
 echo "<br />";
 
-echo "<a href='?set=pol'> <img src='/style/icons/str.gif' alt='*'>  Пол</a> &#62; ".(($user['pol']==1)?'Мужской':'Женский')."<br />";
-echo "<a href='?set=gorod'> <img src='/style/icons/str.gif' alt='*'>  Город</a>";
+echo "<a href='?set=pol'> <img src='/style/icons/str.gif' alt='*'>  性别</a> &#62; ".(($user['pol']==1)?'男':'女')."<br />";
+echo "<a href='?set=gorod'> <img src='/style/icons/str.gif' alt='*'>  城市</a>";
 if ($user['ank_city']!=NULL)
 echo " &#62; $user[ank_city]<br />";
 else
@@ -1019,7 +983,7 @@ echo "<br />";
 
 
 
-echo "<a href='?set=date'> <img src='/style/icons/str.gif' alt='*'>  Дата рождения</a> ";
+echo "<a href='?set=date'> <img src='/style/icons/str.gif' alt='*'>  出生日期</a> ";
 if($user['ank_d_r']!=NULL && $user['ank_m_r']!=NULL && $user['ank_g_r']!=NULL)
 echo " &#62; $user[ank_d_r].$user[ank_m_r].$user[ank_g_r] г. <br />";
 elseif($user['ank_d_r']!=NULL && $user['ank_m_r']!=NULL)
@@ -1027,95 +991,95 @@ echo " &#62; $user[ank_d_r].$user[ank_m_r]<br />";
 echo "</div>";
 
 echo "<div class='nav2'>";
-echo "Типаж";
+echo "类型";
 echo "</div>";
 
 echo "<div class='nav1'>";
-echo "<a href='?set=rost'> <img src='/style/icons/str.gif' alt='*'>  Рост</a>";
+echo "<a href='?set=rost'> <img src='/style/icons/str.gif' alt='*'>  身高</a>";
 if ($user['ank_rost']!=NULL)
 echo " &#62; $user[ank_rost]<br />";
 else
 echo "<br />";
 
 
-echo "<a href='?set=ves'> <img src='/style/icons/str.gif' alt='*'>  Вес</a>";
+echo "<a href='?set=ves'> <img src='/style/icons/str.gif' alt='*'>  重量</a>";
 if ($user['ank_ves']!=NULL)
 echo " &#62; $user[ank_ves]<br />";
 else
 echo "<br />";
 
 
-echo "<a href='?set=glaza'> <img src='/style/icons/str.gif' alt='*'>  Глаза</a>";
+echo "<a href='?set=glaza'> <img src='/style/icons/str.gif' alt='*'>  眼睛</a>";
 if ($user['ank_cvet_glas']!=NULL)
 echo " &#62; $user[ank_cvet_glas]<br />";
 else
 echo "<br />";
 
 
-echo "<a href='?set=volos'> <img src='/style/icons/str.gif' alt='*'>  Волосы</a>";
+echo "<a href='?set=volos'> <img src='/style/icons/str.gif' alt='*'>  头发</a>";
 if ($user['ank_volos']!=NULL)
 echo " &#62; $user[ank_volos]<br />";
 else
 echo "<br />";
 
-echo "<a href='?set=telo'> <img src='/style/icons/str.gif' alt='*'>  Телосложение</a> ";
+echo "<a href='?set=telo'> <img src='/style/icons/str.gif' alt='*'>  身体类型</a> ";
 if ($user['ank_telosl']==1)
-echo " &#62; Нет ответа<br />";
+echo " &#62; 没有人回答<br />";
 if ($user['ank_telosl']==2)
-echo " &#62; Худощавое<br />";
+echo " &#62; 瘦骨嶙峋<br />";
 if ($user['ank_telosl']==3)
-echo " &#62; Обычное<br />";
+echo " &#62; 平常的<br />";
 if ($user['ank_telosl']==4)
-echo " &#62; Спортивное<br />";
+echo " &#62; 运动项目<br />";
 if ($user['ank_telosl']==5)
-echo " &#62; Мускулистое<br />";
+echo " &#62; 肌肉发达<br />";
 if ($user['ank_telosl']==6)
-echo " &#62; Плотное<br />";
+echo " &#62; 密密麻麻<br />";
 if ($user['ank_telosl']==7)
-echo " &#62; Полное<br />";
+echo " &#62; 全<br />";
 if ($user['ank_telosl']==0)
 echo "<br />";
 echo "</div>";
 
 echo "<div class='nav2'>";
-echo "Для знакомства";
+echo "约会用";
 echo "</div>";
 
 echo "<div class='nav1'>";
-echo "<a href='?set=orien'> <img src='/style/icons/str.gif' alt='*'>  Ориентация</a> ";
+echo "<a href='?set=orien'> <img src='/style/icons/str.gif' alt='*'>  方向感</a> ";
 if ($user['ank_orien']==0)
 echo "<br />";
 if ($user['ank_orien']==1)
-echo " &#62;  Гетеро<br />";
+echo " &#62;  杂种<br />";
 if ($user['ank_orien']==2)
-echo " &#62;  Би<br />";
+echo " &#62;  毕<br />";
 if ($user['ank_orien']==3)
-echo " &#62;  Гей/Лесби<br />";
+echo " &#62;  同性恋<br />";
 
 
-echo "<a href='?set=loves'> <img src='/style/icons/str.gif' alt='*'>  Цели знакомства</a><br />";
-if ($user['ank_lov_1']==1)echo " &#62; Дружба и общение<br />";
-if ($user['ank_lov_2']==1)echo " &#62; Переписка<br />";
-if ($user['ank_lov_3']==1)echo " &#62; Любовь, отношения<br />";
-if ($user['ank_lov_4']==1)echo " &#62; Регулярный секс вдвоем<br />";
-if ($user['ank_lov_5']==1)echo " &#62; Секс на один-два раза<br />";
-if ($user['ank_lov_6']==1)echo " &#62; Групповой секс<br />";
-if ($user['ank_lov_7']==1)echo " &#62; Виртуальный секс<br />";
-if ($user['ank_lov_8']==1)echo "&#62; Предлагаю интим за деньги<br />";
-if ($user['ank_lov_9']==1)echo " &#62; Ищу интим за деньги<br />";
-if ($user['ank_lov_10']==1)echo " &#62; Брак, создание семьи<br />";
-if ($user['ank_lov_11']==1)echo " &#62; Рождение, воспитание ребенка<br />";
-if ($user['ank_lov_12']==1)echo " &#62; Брак для ви是的<br />";
-if ($user['ank_lov_13']==1)echo " &#62; Совместная аренда жилья<br />";
-if ($user['ank_lov_14']==1)echo " &#62; Занятия спортом<br />";
+echo "<a href='?set=loves'> <img src='/style/icons/str.gif' alt='*'>  约会目标</a><br />";
+if ($user['ank_lov_1']==1)echo " &#62; 友谊与沟通<br />";
+if ($user['ank_lov_2']==1)echo " &#62; 通信<br />";
+if ($user['ank_lov_3']==1)echo " &#62; 爱情，关系<br />";
+if ($user['ank_lov_4']==1)echo " &#62; 经常性在一起<br />";
+if ($user['ank_lov_5']==1)echo " &#62; 性一两次<br />";
+if ($user['ank_lov_6']==1)echo " &#62; 团体性<br />";
+if ($user['ank_lov_7']==1)echo " &#62; 虚拟性<br />";
+if ($user['ank_lov_8']==1)echo "&#62; 我为钱提供性<br />";
+if ($user['ank_lov_9']==1)echo " &#62; 寻找性别为了钱<br />";
+if ($user['ank_lov_10']==1)echo " &#62; 婚姻、家庭创造<br />";
+if ($user['ank_lov_11']==1)echo " &#62; 出生，抚养孩子<br />";
+if ($user['ank_lov_12']==1)echo " &#62; 为vi结婚是的<br />";
+if ($user['ank_lov_13']==1)echo " &#62; 联合出租房屋<br />";
+if ($user['ank_lov_14']==1)echo " &#62; 体育活动<br />";
 
 
-echo "<a href='?set=opar'> <img src='/style/icons/str.gif' alt='*'>  О партнере</a>";
+echo "<a href='?set=opar'> <img src='/style/icons/str.gif' alt='*'>  关于合作伙伴</a>";
 if ($user['ank_o_par']!=NULL)
 echo " &#62; ".htmlspecialchars($user['ank_o_par'])."<br />";
 else
 echo "<br />";
-echo "<a href='?set=osebe'> <img src='/style/icons/str.gif' alt='*'>  О себе</a>";
+echo "<a href='?set=osebe'> <img src='/style/icons/str.gif' alt='*'>  关于我</a>";
 if ($user['ank_o_sebe']!=NULL)
 echo " &#62; ".htmlspecialchars($user['ank_o_sebe'])."<br />";
 else
@@ -1123,37 +1087,37 @@ echo "<br />";
 echo "</div>";
 
 echo "<div class='nav2'>";
-echo "Общее положение";
+echo "一般情况";
 echo "</div>";
 
 echo "<div class='nav1'>";
-echo "<a href='?set=zan'> <img src='/style/icons/str.gif' alt='*'>  Чем занимаюсь</a> ";
+echo "<a href='?set=zan'> <img src='/style/icons/str.gif' alt='*'>  我的工作</a> ";
 if ($user['ank_zan']!=NULL)
 echo " &#62; ".htmlspecialchars($user['ank_zan']);echo '<br />';
 
 
 
-echo "<a href='?set=mat_pol'> <img src='/style/icons/str.gif' alt='*'>  Материальное положение</a>";
+echo "<a href='?set=mat_pol'> <img src='/style/icons/str.gif' alt='*'>  财务状况</a>";
 if ($user['ank_mat_pol']==1)
-echo " &#62; Непостоянные заработки<br />";
+echo " &#62; 非永久性收入<br />";
 if ($user['ank_mat_pol']==2)
-echo " &#62; Постоянный небольшой доход<br />";
+echo " &#62; 永久小额收入<br />";
 if ($user['ank_mat_pol']==3)
-echo " &#62; Стабильный средний доход<br />";
+echo " &#62; 稳定的平均收入<br />";
 if ($user['ank_mat_pol']==4)
-echo " &#62; Хорошо зарабатываю / обеспечен<br />";
+echo " &#62; 我挣得很好/我有条件<br />";
 if ($user['ank_mat_pol']==5)
-echo " &#62; Не зарабатываю<br />";
+echo " &#62; 我不赚钱<br />";
 if ($user['ank_mat_pol']==0)
 echo "<br />";
 
-echo "<a href='?set=avto'> <img src='/style/icons/str.gif' alt='*'>  Наличие автомобиля</a>";
+echo "<a href='?set=avto'> <img src='/style/icons/str.gif' alt='*'>  汽车的可用性</a>";
 if ($user['ank_avto_n']==1)
-echo " &#62; Есть<br />";
+echo " &#62; 有<br />";
 if ($user['ank_avto_n']==2)
 echo " &#62; 取消<br />";
 if ($user['ank_avto_n']==3)
-echo " &#62; Хочу купить<br />";
+echo " &#62; 我要买了<br />";
 if ($user['ank_avto_n']==0)
 echo "<br />";
 if ($user['ank_avto'] && $user['ank_avto_n']!=2 && $user['ank_avto_n']!=0)
@@ -1162,87 +1126,74 @@ echo "<img src='/style/icons/str.gif' alt='*'>  ".htmlspecialchars($user['ank_av
 
 
 
-echo "<a href='?set=proj'> <img src='/style/icons/str.gif' alt='*'>  Проживание</a> ";
+echo "<a href='?set=proj'> <img src='/style/icons/str.gif' alt='*'>  住宿设施</a> ";
 if ($user['ank_proj']==1)
-echo " &#62; Отдельная квартира (снимаю или своя)<br />";
+echo " &#62; 独立公寓（出租或拥有）<br />";
 if ($user['ank_proj']==2)
-echo " &#62; Комната в общежитии, коммуналка<br />";
+echo " &#62; 宿舍、公共公寓<br />";
 if ($user['ank_proj']==3)
-echo " &#62; Живу с родителями<br />";
+echo " &#62; 我和父母住在一起<br />";
 if ($user['ank_proj']==4)
-echo " &#62; Живу с приятелем / с подругой<br />";
+echo " &#62; 我和朋友住在一起/和朋友住在一起<br />";
 if ($user['ank_proj']==5)
-echo " &#62; Живу с партнером или супругом (-ой)<br />";
+echo " &#62; 我和伴侣或配偶住在一起<br />";
 if ($user['ank_proj']==6)
-echo " &#62; Нет постоянного жилья<br />";
+echo " &#62; 没有永久住房<br />";
 if ($user['ank_proj']==0)
 echo "<br />";
 
 
-echo "<a href='?set=baby'> <img src='/style/icons/str.gif' alt='*'>  Есть ли дети</a> ";
+echo "<a href='?set=baby'> <img src='/style/icons/str.gif' alt='*'>  有没有孩子</a> ";
 if ($user['ank_baby']==1)
 echo " &#62; 取消<br />";
 if ($user['ank_baby']==2)
-echo " &#62; Нет, но хотелось бы<br />";
+echo " &#62; 不，但我想<br />";
 if ($user['ank_baby']==3)
-echo " &#62; Есть, живем вместе<br />";
+echo " &#62; 是的，我们住在一起<br />";
 if ($user['ank_baby']==4)
-echo " &#62; Есть, живем порознь<br />";
+echo " &#62; 是的，我们分开住<br />";
 if ($user['ank_baby']==0)
 echo "<br />";
 echo "</div>";
 
 echo "<div class='nav2'>";
-echo "Привычки";
+echo "习惯";
 echo "</div>";
 
 echo "<div class='nav1'>";
-echo "<a href='?set=smok'> <img src='/style/icons/str.gif' alt='*'>  Курение</a>";
+echo "<a href='?set=smok'> <img src='/style/icons/str.gif' alt='*'>  吸烟</a>";
 if ($user['ank_smok']==1)
-echo " &#62; Не курю<br />";
+echo " &#62; 我不抽烟<br />";
 if ($user['ank_smok']==2)
-echo " &#62; Курю<br />";
+echo " &#62; 我抽烟<br />";
 if ($user['ank_smok']==3)
-echo " &#62; Редко<br />";
+echo " &#62; 很少<br />";
 if ($user['ank_smok']==4)
-echo " &#62; Бросаю<br />";
+echo " &#62; 我不干了<br />";
 if ($user['ank_smok']==5)
-echo " &#62; Успешно бросил<br />";
+echo " &#62; 成功退出<br />";
 if ($user['ank_smok']==0)
 echo "<br />";
 
-echo "<a href='?set=alko'> <img src='/style/icons/str.gif' alt='*'>  Алкоголь</a> ";
+echo "<a href='?set=alko'> <img src='/style/icons/str.gif' alt='*'>  酒精</a> ";
 if ($user['ank_alko_n']==1)
-echo "&#62; Да, выпиваю<br />";
+echo "&#62; 是的，我喝酒<br />";
 if ($user['ank_alko_n']==2)
-echo "&#62; Редко, по праздникам<br />";
+echo "&#62; 很少，在假期<br />";
 if ($user['ank_alko_n']==3)
-echo "&#62; Нет, категорически не приемлю<br />";
+echo "&#62; 不，我断然不接受<br />";
 if ($user['ank_alko_n']==0)
 echo "<br />";
+
 if ($user['ank_alko'] && $user['ank_alko_n']!=3 && $user['ank_alko_n']!=0)
 echo "<img src='/style/icons/str.gif' alt='*'>  ".htmlspecialchars($user['ank_alko'])."<br />";
 
-
-echo "<a href='?set=nark'> <img src='/style/icons/str.gif' alt='*'>  Наркотики</a> ";
-if ($user['ank_nark']==1)
-echo " Да, курю травку<br />";
-if ($user['ank_nark']==2)
-echo "&#62; Да, люблю любой вид наркотических средств<br />";
-if ($user['ank_nark']==3)
-echo "&#62; Бросаю, прохожу реабилитацию<br />";
-if ($user['ank_nark']==4)
-echo "&#62; Нет, категорически не приемлю<br />";
-if ($user['ank_nark']==0)
-echo "<br />";
-
-echo "</div>";
 echo "<div class='nav2'>";
-echo "Контакты";
+echo "联络人";
 echo "</div>";
 
 echo "<div class='nav1'>";
-echo "<a href='?set=mobile'> <img src='/style/icons/str.gif' alt='*'>  Мобильный</a> ";
+echo "<a href='?set=mobile'> <img src='/style/icons/str.gif' alt='*'>  流动电话</a> ";
 if ($user['ank_n_tel'])echo "&#62; $user[ank_n_tel]<br />";
 else
 echo "<br />";
@@ -1262,7 +1213,7 @@ echo "</div>";
 }
 
 
-echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'> <a href='anketa.php'>Посмотреть анкету</a><br />";
+echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'> <a href='anketa.php'>查看问卷</a><br />";
 
 if(isset($_SESSION['refer']) && $_SESSION['refer']!=NULL && otkuda($_SESSION['refer']))
 echo "<img src='/style/icons/str2.gif' alt='*'> <a href='$_SESSION[refer]'>".otkuda($_SESSION['refer'])."</a><br />";

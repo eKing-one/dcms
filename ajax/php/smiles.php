@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -20,7 +20,7 @@ else
 
 if (!isset($_SESSION['category']) || dbresult(dbquery("SELECT COUNT(*) FROM `smile_dir` WHERE `id`='".intval($_SESSION['category'])."'"),0) == 0)
 {	
-	// Находим id категории если ранее не смотрели
+	// 如果您以前没有看过，请查找类别id
 
 	$category = dbassoc(dbquery("SELECT * FROM `smile_dir` LIMIT 1"));
 	$_SESSION['category'] = $category['id'];

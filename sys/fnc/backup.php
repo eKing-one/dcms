@@ -1,4 +1,4 @@
-<?
+<?php
 if (!isset($hard_process))
 {
 	$q = dbquery("SELECT * FROM `cron` WHERE `id` = 'backup_mysql'");
@@ -14,7 +14,7 @@ if (!isset($hard_process))
 		$hard_process = true;
 
 		if (function_exists('set_time_limit'))
-		@set_time_limit(600); // Ставим ограничение на 10 минут
+		@set_time_limit(600); // 我们设定了10分钟的限制
 
 		@unlink(H."sys/tmp/MySQL.sql.gz");
 		$list_tables = NULL;

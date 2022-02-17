@@ -353,7 +353,7 @@ else
 if (isset($user) && isset($_GET['news_read']))
 {
 	dbquery("update `user` set `news_read` = '1' where `id` = '$user[id]' limit 1");
-	$_SESSION['message'] = "Новость успешно скрыта"; // Оповещаем
+	$_SESSION['message'] = "该消息已成功隐藏"; // Оповещаем
 	header("Location: /?");
 	exit;
 }
@@ -445,5 +445,5 @@ if ($_SERVER["REQUEST_URI"] == "/" or $_SERVER["REQUEST_URI"] == "/index.php") {
 if (empty(setget('job',1)))
 {
   if (((isset($user) and $user['level']<5) or (!isset($user) ))  and  $_SERVER["PHP_SELF"] != "/aut.php" and $_SERVER["PHP_SELF"] != "/login.php" and  $_SERVER["PHP_SELF"] != "/exit.php" and  $_SERVER["PHP_SELF"] != "/pass.php")
-    exit("Идут технические работы");
+    exit("技术工作正在进行中");
 }

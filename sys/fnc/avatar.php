@@ -1,4 +1,4 @@
-<?
+<?php
 function avatar($ID, $link = false, $dir = '50', $w = '50')
 {
 	/**

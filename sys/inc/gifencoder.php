@@ -47,7 +47,7 @@ Class GIFEncoder {
 	::	GIFEncoder...
 	::
 	*/
-	function GIFEncoder	(
+	function __construct (
 							$GIF_src, $GIF_dly, $GIF_lop, $GIF_dis,
 							$GIF_red, $GIF_grn, $GIF_blu, $GIF_mod
 						) {

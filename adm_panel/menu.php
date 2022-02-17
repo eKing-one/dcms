@@ -93,11 +93,11 @@ echo "  <td class='p_m'>";
 if (isset($_GET['id']) && $_GET['id']==$post['id'] && isset($_GET['act']) && $_GET['act']=='edit')
 {
 echo "<form action=\"?id=$post[id]\" method=\"post\">";
-echo "类型: ".($post['type']=='link'?'连结':'分离器')."<br />";
+echo "类型: ".($post['type']=='link'?'链接':'分离器')."<br />";
 echo "标题:<br />";
 echo "<input type='text' name='name' value=\"$post[name]\" /><br />";
 if ($post['type']=='link'){
-echo "连结:<br />";
+echo "链接:<br />";
 echo "<input type='text' name='url' value='$post[url]' /><br />";
 }
 else
@@ -141,7 +141,7 @@ echo "<option value='razd'>类型 (2)</option>";
 echo "</select><br />";
 echo "标题 (1,2):<br />";
 echo "<input type=\"text\" name=\"name\" value=\"\"/><br />";
-echo "连结(1):<br />";
+echo "链接(1):<br />";
 echo "<input type=\"text\" name=\"url\" value=\"\"/><br />";
 echo "柜台 (1,2):<br />";
 echo "<input type=\"text\" name=\"counter\" value=\"\"/><br />";

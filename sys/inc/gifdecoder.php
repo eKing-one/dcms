@@ -38,7 +38,7 @@ Class GIFDecoder {
 	::	GIFDecoder ( $GIF_pointer )
 	::
 	*/
-	function GIFDecoder ( $GIF_pointer ) {
+	function __construct ( $GIF_pointer ) {
 		$this->GIF_stream = $GIF_pointer;
 
 		GIFDecoder::GIFGetByte ( 6 );	// GIF89a

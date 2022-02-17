@@ -118,10 +118,10 @@ while ($guest = dbassoc($q)) {
     echo "  <td class='p_m'>";
 
 
-    echo "<span class=\"ank_n\">参观后:</span> <span class=\"ank_d\">" . vremja($guest['date_last']) . "</span><br />";
+    echo "<span class=\"ank_n\">最后访问:</span> <span class=\"ank_d\">" . vremja($guest['date_last']) . "</span><br />";
 
 
-    echo "<span class=\"ank_n\">过渡时期:</span> <span class=\"ank_d\">$guest[pereh]</span><br />";
+    echo "<span class=\"ank_n\">访问次数:</span> <span class=\"ank_d\">$guest[pereh]</span><br />";
 
 
     if ($guest['ua'] != NULL) echo "<span class=\"ank_n\">UA:</span> <span class=\"ank_d\">$guest[ua]</span><br />";

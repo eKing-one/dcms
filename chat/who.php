@@ -1,4 +1,5 @@
-<?//网页标题
+<?php
+//网页标题
 
 
 
@@ -48,7 +49,8 @@ include_once '../sys/inc/user.php';
 
 
 
-/* Бан пользователя */ if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'chat' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0)!=0){header('Location: /ban.php?'.SID);exit;}
+/* Бан пользователя */ 
+if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'chat' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0)!=0){header('Location: /ban.php?'.SID);exit;}
 
 
 
@@ -314,8 +316,3 @@ if ($k_page>1)str("?",$k_page,$page); // Вывод страниц
 
 
 include_once '../sys/inc/tfoot.php';
-
-
-
-
-?>

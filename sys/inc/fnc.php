@@ -41,7 +41,7 @@ if ($set['antidos']) { // Защита от частых запросов с о�
 	@chmod(H . 'sys/tmp/antidos_' . $iplong . '.dat', 0777);
 }
 
-// антимат сделает автоматическое предупреждение, а затем бан
+// 禁止文字antimat会自动发出警告，然后禁止
 function antimat($str)
 {
 	global $user, $time, $set;
@@ -51,9 +51,9 @@ function antimat($str)
 		$censure = censure($str);
 		if ($censure) {
 			$antimat[$censure] = $time;
-			if (count($antimat) > 3 && isset($user) && $user['level']) // если сделано больше 3-х предупреждений
+			if (count($antimat) > 3 && isset($user) && $user['level']) // 如果发出超过3次警告
 			{
-				$prich = "检测到配偶: $censure";
+				$prich = "检测到禁止文字: $censure";
 				$timeban = $time + 60 * 60; // бан на час
 				dbquery("INSERT INTO `ban` (`id_user`, `id_ban`, `prich`, `time`) VALUES ('$user[id]', '0', '$prich', '$timeban')");
 				admin_log('用户', '禁令', "用户禁令 '[url=/amd_panel/ban.php?id=$user[id]]$user[nick][/url]' (id#$user[id]) 以前 " . vremja($timeban) . " 这是有原因的 '$prich'");
@@ -464,13 +464,13 @@ function t_toolbar_html()
   <div class="toolbar">
     <div class="toolbar_inner">
       <span style="color: white">Admin Tool</span> ::
-      <a href="/">主页</a>  |
-      <a href="/plugins/admin/">管理员</a> |
+      <a href="/">网站主页</a>  |
+      <a href="/plugins/admin/">行政科</a> |
       <a href="/adm_panel/">控制面板</a> |
       <a target="_blank" href="https://dcms-social.ru">DCMS-Social.ru</a>
        v. <?=$set['dcms_version']?>
         <?
-        if (status_version() < 0)   echo "<center>	 <font color='red'>有个新版本 - ".version_stable()."! <a href='/adm_panel/update.php'>Подробнее</a></font>		</center>	";
+        if (status_version() < 0)   echo "<center>	 <font color='red'>有一个新版本 - ".version_stable()."! <a href='/adm_panel/update.php'>更详细</a></font>		</center>	";
 ?>
 
     </div>

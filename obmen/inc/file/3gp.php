@@ -36,7 +36,7 @@ elseif (class_exists('ffmpeg_movie'))
 
 if ($file_id['opis']!=NULL)
 {
-	echo "Описание: ";
+	echo "资料描述: ";
 	echo output_text($file_id['opis']);
 	echo "<br />";
 }
@@ -45,19 +45,19 @@ if (class_exists('ffmpeg_movie'))
 {
 	$media = new ffmpeg_movie($file);
 
-	echo 'Разрешение: '. $media->GetFrameWidth().'x'.$media->GetFrameHeight()."пикс<br />";
-	echo 'Частота кадров: '.$media->getFrameRate()."<br />";
-	echo 'Кодек (видео): '.$media->getVideoCodec()."<br />";
+	echo '许可: '. $media->GetFrameWidth().'x'.$media->GetFrameHeight()."pix<br />";
+	echo '帧速率: '.$media->getFrameRate()."<br />";
+	echo '编解码器(视频): '.$media->getVideoCodec()."<br />";
 
 	if (intval($media->getDuration())>3599)
-	echo 'Время: '.intval($media->getDuration()/3600).":".date('s',fmod($media->getDuration()/60,60)).":".date('s',fmod($media->getDuration(),3600))."<br />";
+	echo '时间: '.intval($media->getDuration()/3600).":".date('s',fmod($media->getDuration()/60,60)).":".date('s',fmod($media->getDuration(),3600))."<br />";
 	elseif (intval($media->getDuration())>59)
-	echo 'Время: '.intval($media->getDuration()/60).":".date('s',fmod($media->getDuration(),60))."<br />";
+	echo '时间: '.intval($media->getDuration()/60).":".date('s',fmod($media->getDuration(),60))."<br />";
 	else
-	echo 'Время: '.intval($media->getDuration())." сек<br />";
-	echo "Битрейт: ".ceil(($media->getBitRate())/1024)." KBPS<br />";
+	echo '时间: '.intval($media->getDuration())." sec<br />";
+	echo "比特率: ".ceil(($media->getBitRate())/1024)." KBPS<br />";
 }
 
-echo "Добавлен: ".vremja($file_id['time'])."<br />";
-echo "Размер: ".size_file($size)."<br />";
+echo "补充道: ".vremja($file_id['time'])."<br />";
+echo "大小: ".size_file($size)."<br />";
 ?>

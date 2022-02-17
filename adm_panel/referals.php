@@ -38,7 +38,7 @@ echo "  </td>";
 echo "   </tr>";
 echo "   <tr>";
 echo "  <td class='p_m'>";
-echo "过渡时期: $ref[count]<br />";
+echo "访问时间: $ref[count]<br />";
 echo "最后一次: ".vremja($ref['time'])."<br />";
 echo "  </td>";
 echo "   </tr>";

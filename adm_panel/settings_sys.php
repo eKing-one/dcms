@@ -88,19 +88,19 @@ echo "<form method=\"post\" action=\"?\">";
 echo "网站名称:<br /><input name=\"title\" value=\"$temp_set[title]\" type=\"text\" /><br />";
 echo "每页积分:<br /><input name=\"p_str\" value=\"$temp_set[p_str]\" type=\"text\" /><br />";
 
-echo "主页:<br />\n<input name=\"main\" value=\"".setget('main',"")."\" type=\"text\" /><br />\n";
+echo "主页:<br /><input name=\"main\" value=\"".setget('main',"")."\" type=\"text\" /><br />";
 
-echo "Admin Toolbar:<br />\n
+echo "Admin Toolbar:<br />
 
 <select name='toolbar'>
-  <option ".(setget('toolbar',1)==1? " selected ":null)." value='1'>显示</option>
-  <option ".(setget('toolbar',1)==0? " selected ":null)." value='0'>关闭</option>
+  <option ".(setget('toolbar',1)==1? " selected ":null)." value='1'>是</option>
+  <option ".(setget('toolbar',1)==0? " selected ":null)." value='0'>没有</option>
 </select>
-<br />\n";
+<br />";
 
 
 
-echo "寿命管理会话:<br />\n<input name=\"timeadmin\" value='".setget('timeadmin',1000)."' type=\"text\" /><br />\n";
+echo "寿命管理会话:<br /><input name=\"timeadmin\" value='".setget('timeadmin',1000)."' type=\"text\" /><br />";
 
 
 /*
@@ -115,13 +115,13 @@ echo 'Фон сайта:<br />
 */
 
 
-echo "网站开关:<br />\n
+echo "网站开关:<br />
 
 <select name='job'>
   <option ".(setget('job',1)==1? " selected ":null)." value='1'>包括</option>
   <option ".(setget('job',1)==0? " selected ":null)." value='0'>断开</option>
 </select>
-<br />\n";
+<br />";
 
 
 echo "确认退出:<br />
@@ -131,7 +131,7 @@ echo "确认退出:<br />
   <option ".(setget('exit',1)==0? " selected ":null)." value='0'>没有</option>
 </select>
 
-<br />\n";
+<br />";
 
 echo "网站帽:<br />
 
@@ -140,30 +140,30 @@ echo "网站帽:<br />
   <option ".(setget('header',"all")=="all"? " selected ":null)." value='all'>在所有的页面上</option>
 </select>
 
-<br />\n";
+<br />";
 
 /*
-echo "  Установка плагинов через папку /Replace/:<br />\n
+echo "  Установка плагинов через папку /Replace/:<br />
 
 <select name='replace'>
   <option ".(setget('replace',1)==1? " selected ":null)." value='1'>Включено</option>
   <option ".(setget('replace',1)==0? " selected ":null)." value='0'>Отключено</option>
 </select>
 
-<br />\n";
+<br />";
 
 */
 
 
 
-echo "主题 (WAP):<br />\n<select name='set_them'>\n";
+echo "主题 (WAP):<br /><select name='set_them'>";
 $opendirthem=opendir(H.'style/themes');
 while ($themes=readdir($opendirthem)){
 // пропускаем корневые папки и файлы
 if ($themes=='.' || $themes=='..' || !is_dir(H."style/themes/$themes"))continue;
 // пропускаем темы для web браузеров
 if (test_file2(H."style/themes/$themes/.only_for_web"))continue;
-echo "<option value='$themes'".($temp_set['set_them']==$themes?" selected='selected'":null).">".trim(file_get_contents(H.'style/themes/'.$themes.'/them.name'))."</option>\n";
+echo "<option value='$themes'".($temp_set['set_them']==$themes?" selected='selected'":null).">".trim(file_get_contents(H.'style/themes/'.$themes.'/them.name'))."</option>";
 }
 closedir($opendirthem);
 echo "</select><br />";

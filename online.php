@@ -41,7 +41,7 @@ if ($k_lider > 0)
 	echo user::avatar($lider['id'], 0) . user::nick($lider['id'], 1, 1, 1) . '<br />';
 	if ($liders['msg'])
 		echo output_text($liders['msg']) . '<br />';
-	echo '<img src="/style/icons/lider.gif" alt="S"/> <a href="/user/liders/">Все лидеры</a> (' . $k_lider . ')';
+	echo '<img src="/style/icons/lider.gif" alt="S"/> <a href="/user/liders/">所有管理员</a> (' . $k_lider . ')';
 	echo '</div>';
 }
 	
