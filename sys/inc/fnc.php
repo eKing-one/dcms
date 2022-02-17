@@ -464,13 +464,13 @@ function t_toolbar_html()
   <div class="toolbar">
     <div class="toolbar_inner">
       <span style="color: white">Admin Tool</span> ::
-      <a href="/">Главная</a>  |
-      <a href="/plugins/admin/">行政科</a> |
+      <a href="/">主页</a>  |
+      <a href="/plugins/admin/">管理员</a> |
       <a href="/adm_panel/">控制面板</a> |
       <a target="_blank" href="https://dcms-social.ru">DCMS-Social.ru</a>
        v. <?=$set['dcms_version']?>
         <?
-        if (status_version() < 0)   echo "<center>	 <font color='red'>Есть новая версия - ".version_stable()."! <a href='/adm_panel/update.php'>Подробнее</a></font>		</center>	";
+        if (status_version() < 0)   echo "<center>	 <font color='red'>有个新版本 - ".version_stable()."! <a href='/adm_panel/update.php'>Подробнее</a></font>		</center>	";
 ?>
 
     </div>

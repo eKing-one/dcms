@@ -93,8 +93,8 @@ echo "主页:<br />\n<input name=\"main\" value=\"".setget('main',"")."\" type=\
 echo "Admin Toolbar:<br />\n
 
 <select name='toolbar'>
-  <option ".(setget('toolbar',1)==1? " selected ":null)." value='1'>是</option>
-  <option ".(setget('toolbar',1)==0? " selected ":null)." value='0'>没有</option>
+  <option ".(setget('toolbar',1)==1? " selected ":null)." value='1'>显示</option>
+  <option ".(setget('toolbar',1)==0? " selected ":null)." value='0'>关闭</option>
 </select>
 <br />\n";
 
