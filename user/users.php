@@ -148,9 +148,9 @@ if (!isset($_GET['go'])) {
 
 		if ($sort == 'id')
 
-			echo "<span class=\"ank_n\">登记注册:</span> <span class=\"ank_d\">" . vremja($ank['date_reg']) . "</span><br />";
+			echo "<span class=\"ank_n\">注册时间:</span> <span class=\"ank_d\">" . vremja($ank['date_reg']) . "</span><br />";
 
-		echo "<span class=\"ank_n\">参观后:</span> <span class=\"ank_d\">" . vremja($ank['date_last']) . "</span><br />";
+		echo "<span class=\"ank_n\">最后登录:</span> <span class=\"ank_d\">" . vremja($ank['date_last']) . "</span><br />";
 
 		if (user_access('user_prof_edit') && $user['level'] > $ank['level']) {
 
@@ -269,9 +269,9 @@ if (isset($_GET['go']) && $usearch != NULL) {
 
 		if ($sort == 'id')
 
-			echo "<span class=\"ank_n\">登记注册:</span> <span class=\"ank_d\">" . vremja($ank['date_reg']) . "</span><br />";
+			echo "<span class=\"ank_n\">注册时间:</span> <span class=\"ank_d\">" . vremja($ank['date_reg']) . "</span><br />";
 
-		echo "<span class=\"ank_n\">参观后:</span> <span class=\"ank_d\">" . vremja($ank['date_last']) . "</span><br />";
+		echo "<span class=\"ank_n\">最后登录:</span> <span class=\"ank_d\">" . vremja($ank['date_last']) . "</span><br />";
 
 		if (user_access('user_prof_edit') && $user['level'] > $ank['level']) {
 

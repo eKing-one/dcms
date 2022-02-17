@@ -220,7 +220,7 @@ if (
         尚未登记？<br/>
 
 
-        <a href='/reg.php'>登记注册</a><br/>
+        <a href='/reg.php'>注册账号</a><br/>
 
 
     </div>

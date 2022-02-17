@@ -347,7 +347,7 @@ if (!isset($block_foto))
 if (isset($list['id']))	echo '<span class="page">' . ($list['id'] ? "<a href='/foto/$ank[id]/$gallery[id]/$list[id]/'>&laquo; 上一页</a>" : "&laquo; 上一页") . '</span>';
 	$k_1 = dbresult(query("SELECT COUNT(*) FROM `gallery_foto` WHERE `id` > '$foto[id]' AND `id_gallery` = '$gallery[id]'"),0) + 1;
 	$k_2 = dbresult(query("SELECT COUNT(*) FROM `gallery_foto` WHERE `id_gallery` = '$gallery[id]'"),0);
-	echo ' (' . $k_1 . ' из ' . $k_2 . ') ';
+	echo ' (第' . $k_1 . '页 共' . $k_2 . '页) ';
 if (isset($listr['id']))	echo '<span class="page">' . ($listr['id'] ? "<a href='/foto/$ank[id]/$gallery[id]/$listr[id]/'>下一页 &raquo;</a>" : "下一页 &raquo;") . '</span>';
 	echo '</div>';
 	/*----------------------alex-borisi---------------*/

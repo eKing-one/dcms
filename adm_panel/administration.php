@@ -59,7 +59,7 @@ $mes=mktime(0, 0, 0, date('m')-1); // время месяц назад
 $adm_log_c_mes=dbresult(dbquery("SELECT COUNT(*) FROM `admin_log` WHERE `id_user` = '$ank[id]' AND `time` > '$mes'"), 0);
 echo "<span class='ank_n'>所有活动:</span> <span class='ank_d'>$adm_log_c_all</span><br />";
 echo "<span class='ank_n'>每月活动:</span> <span class='ank_d'>$adm_log_c_mes</span><br />";
-echo "<span class=\"ank_n\">参观后:</span> <span class=\"ank_d\">".vremja($ank['date_last'])."</span><br />";
+echo "<span class=\"ank_n\">最后登录:</span> <span class=\"ank_d\">".vremja($ank['date_last'])."</span><br />";
 if (isset($user) && ($user['level']>$ank['level'] || $user['level']==4))
 {
 echo "<a href='/adm_panel/user.php?id=$ank[id]'>编辑个人资料</a><br />";

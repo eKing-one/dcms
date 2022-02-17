@@ -108,12 +108,12 @@ dbquery("DELETE FROM `user_voice` WHERE `id_user` = '$collisions[$i]' OR `id_kon
 dbquery("DELETE FROM `user_collision` WHERE `id_user` = '$collisions[$i]' OR `id_user2` = '$collisions[$i]'");
 dbquery("DELETE FROM `votes_user` WHERE `u_id` = '$collisions[$i]'");
 }
-admin_log('用户','移走',"移走用户组 '$ank[nick]' (id#".implode(',id#',$collisions).")");
+admin_log('用户','删除',"删除用户组 '$ank[nick]' (id#".implode(',id#',$collisions).")");
 msg('所有用户数据已被删除');
 }
 else 
 {
-admin_log('用户','移走',"移走用户 '$ank[nick]' (id#$ank[id])");
+admin_log('用户','删除',"删除用户 '$ank[nick]' (id#$ank[id])");
 msg("所有用户数据 $ank[nick] 已删除");
 }
 $tab=mysql_list_tables($set['mysql_db_name']);
@@ -265,7 +265,7 @@ while ($filebase=@readdir($opdirbase))
 if (preg_match('#\.php$#i',$filebase))
 include_once (check_replace(H.'sys/add/delete_user_info/'.$filebase));
 echo "<form method=\"post\" action=\"\">";
-echo "<input value=\"移走\" type=\"submit\" name='delete' />";
+echo "<input value=\"删除\" type=\"submit\" name='delete' />";
 echo "</form>";
 if (count($collisions)>1 && isset($_GET['all']))
 {

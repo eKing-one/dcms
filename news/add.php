@@ -72,7 +72,7 @@ if (isset($_POST['title']) && isset($_POST['msg']) && isset($_POST['link']) && i
 	}
 }
 
-$set['title'] = '创造新闻';
+$set['title'] = '创建新闻';
 include_once '../sys/inc/thead.php';
 title();
 err();

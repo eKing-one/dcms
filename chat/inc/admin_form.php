@@ -112,7 +112,7 @@ echo "<input class='submit' type='submit' value='申请' /><br />";
 
 
 
-echo "<a href='?delete=$room[id]'>移走</a><br />";
+echo "<a href='?delete=$room[id]'>删除</a><br />";
 
 
 

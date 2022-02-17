@@ -85,7 +85,7 @@ if ($themes==$temp_set['set_them2'])
 echo "默认情况下,WEB<br />";
 }
 echo '站在 '.dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `set_them` = '$themes' OR `set_them2` = '$themes'"),0)." 伙计.<br />";
-echo "<a href='?delete=$themes&amp;page=$page'>移走</a><br />";
+echo "<a href='?delete=$themes&amp;page=$page'>删除</a><br />";
 echo "  </td>";
 echo "   </tr>";
 }
@@ -99,7 +99,7 @@ echo "题目 ".(($name=@file_get_contents(H.'style/themes/'.$del_them.'/them.nam
 else
 {
 echo "确认删除 (".(($name=@file_get_contents(H.'style/themes/'.$del_them.'/them.name'))?$name:$del_them)."):<br />";
-echo "<a href='?delete=$del_them&amp;page=$page&amp;ok'>移走</a> | <a href='?page=$page'>取消</a><br />";
+echo "<a href='?delete=$del_them&amp;page=$page&amp;ok'>删除</a> | <a href='?page=$page'>取消</a><br />";
 }
 echo "</div>";
 }

@@ -214,7 +214,7 @@ $umnik_vopros = dbassoc(dbquery("SELECT * FROM `chat_vopros` LIMIT ".rand(0,$k_v
 
 
 
-$msg="[b]问题:[/b] \"$umnik_vopros[vopros]\"[b]回答:[/b] слово из ".strlen2($umnik_vopros['otvet'])." букв";
+$msg="[b]问题:[/b] \"$umnik_vopros[vopros]\"[b]回答:[/b] 字从".strlen2($umnik_vopros['otvet'])." 字母";
 
 
 

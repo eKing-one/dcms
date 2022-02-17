@@ -62,7 +62,7 @@ echo "  </td>";
 echo "   </tr>";
 echo "   <tr>";
 echo "  <td class='p_m'>";
-echo "<a href='?page=$page&amp;delmin=$post[min]&amp;delmax=$post[max]'>移走</a><br />";
+echo "<a href='?page=$page&amp;delmin=$post[min]&amp;delmax=$post[max]'>删除</a><br />";
 echo "  </td>";
 echo "   </tr>";
 }

@@ -216,7 +216,7 @@ if ($k_post>0)
 {
 echo "<div class='c2'>";
 echo " 标记的朋友:<br />";
-echo "<input value=\"移走\" type=\"submit\" name=\"delete\" />";
+echo "<input value=\"删除\" type=\"submit\" name=\"delete\" />";
 echo "</div>";
 echo "</form>";
 }

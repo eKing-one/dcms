@@ -221,7 +221,7 @@ if (isset($user) && $ank['id'] == $user['id']) {
 }
 if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
 echo "<div class='nav2'>";
-echo "<span class=\"ank_n\">参观后:</span> <span class=\"ank_d\">" . vremja($ank['date_last']) . "</span><br />";
+echo "<span class=\"ank_n\">最后登录:</span> <span class=\"ank_d\">" . vremja($ank['date_last']) . "</span><br />";
 echo "</div>";
 
 echo "<div class='nav1'>";

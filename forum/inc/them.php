@@ -679,7 +679,7 @@ if ($user['id']!=$ank['id'] && $ank['id']!=0) // Кроме автора пос�
 		}
 if (user_access('forum_post_ed')) // удаление поста
 		{
-		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?del=$post[id]&amp;page=$page\" title='Удалить'  class='link_s'><img src='/style/icons/delete.gif' alt='*' title='移走'></a>";
+		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?del=$post[id]&amp;page=$page\" title='Удалить'  class='link_s'><img src='/style/icons/delete.gif' alt='*' title='删除'></a>";
 		}
 echo "&nbsp;";
 echo '</span><br/>';

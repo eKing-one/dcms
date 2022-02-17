@@ -125,7 +125,7 @@ else
 echo "柜台: ".($post['counter']==null?'缺席':$post['counter'])."<br />";
 echo "<a href='?id=$post[id]&amp;act=up&amp;$passgen'>更高</a> | ";
 echo "<a href='?id=$post[id]&amp;act=down&amp;$passgen'>下面</a> | ";
-echo "<a href='?id=$post[id]&amp;act=del&amp;$passgen'>移走 </a><br />";
+echo "<a href='?id=$post[id]&amp;act=del&amp;$passgen'>删除 </a><br />";
 echo "<a href='?id=$post[id]&amp;act=edit&amp;$passgen'>编辑 </a><br />";
 }
 echo "  </td>";

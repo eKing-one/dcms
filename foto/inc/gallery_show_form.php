@@ -58,7 +58,7 @@ if ((user_access('foto_alb_del') || isset($user) && $user['id'] == $ank['id']) &
 	<div class='mess'>
 	您确实要删除相册 <b><?=text($gallery['name'])?></b>, 和里面的所有照片？<br />
 	<center>
-	<a href="?act=delete&amp;ok"><img src="/style/icons/ok.gif" alt="*"> 移走</a> 
+	<a href="?act=delete&amp;ok"><img src="/style/icons/ok.gif" alt="*"> 删除</a> 
 	<a href="?act=delete&amp;ok"><img src="/style/icons/delete.gif" alt="*"> 取消</a> 
 	</center>
 	</div>

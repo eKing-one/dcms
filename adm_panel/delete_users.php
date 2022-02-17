@@ -71,7 +71,7 @@ echo "<option value=\"\">       </option>";
 echo "<option value=\"mes\">个月</option>";
 echo "<option value=\"sut\">天数</option>";
 echo "</select><br />";
-echo "<input value=\"移走\" type=\"submit\" /><br />";
+echo "<input value=\"删除\" type=\"submit\" /><br />";
 echo "<a href=\"?\">取消</a><br />";
 echo "</form>";
 if (user_access('adm_panel_show')){

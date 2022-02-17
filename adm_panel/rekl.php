@@ -102,7 +102,7 @@ if ($post['img']!=NULL)
 echo "图片: $post[img]<br />";
 if ($post['dop_str']==1)
 echo "访问时间: $post[count]<br />";
-echo "<a href='rekl.php?sel=$sel&amp;del=$post[id]&amp;page=$page'>移走</a><br />";
+echo "<a href='rekl.php?sel=$sel&amp;del=$post[id]&amp;page=$page'>删除</a><br />";
 
 
 if (isset($_GET['set']) && $_GET['set']==$post['id'])

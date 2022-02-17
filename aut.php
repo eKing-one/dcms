@@ -42,7 +42,7 @@ $_SESSION['refer']=str_replace('&','&amp;',preg_replace('#^http://[^/]*/#','/', 
 <input type='submit' value='登录' />
 </form>					
 
-<div class='foot'>尚未登记？ <br /><a href='/reg.php'>登记注册</a><br /></div>
+<div class='foot'>尚未登记？ <br /><a href='/reg.php'>注册账号</a><br /></div>
 <div class='foot'>忘记密码？<br /><a href='/pass.php'>密码恢复</a><br /></div>
 
 <?php

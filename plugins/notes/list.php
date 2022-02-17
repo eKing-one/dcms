@@ -236,7 +236,7 @@ if (isset($_GET['delete']) && ($user['id']==$avtor['id'] || user_access('notes_d
 {
 	echo "<center>";
 	echo "你真的想删除日记吗 " . output_text($notes['name']) . "?<br />";
-	echo "[<a href='delete.php?id=$notes[id]'><img src='/style/icons/ok.gif'> 移走</a>] [<a href='list.php?id=$notes[id]'><img src='/style/icons/delete.gif'> отмена</a>] ";
+	echo "[<a href='delete.php?id=$notes[id]'><img src='/style/icons/ok.gif'> 删除</a>] [<a href='list.php?id=$notes[id]'><img src='/style/icons/delete.gif'> отмена</a>] ";
 	echo "</center>";
 	include_once '../../sys/inc/tfoot.php';
 }
@@ -336,7 +336,7 @@ if (isset($list['id'])) echo '<span class="page">'.($list['id']?'<a href="list.p
 
 $k_1=dbresult(dbquery("SELECT COUNT(*) FROM `notes` WHERE `id` > '$notes[id]'"),0)+1;
 $k_2=dbresult(dbquery("SELECT COUNT(*) FROM `notes`"),0);
-echo ' ('.$k_1.' из '.$k_2.') ';
+echo ' (第' . $k_1 . '页 共' . $k_2 . '页) '; 
 
 if (isset($listr['id'])) echo '<span class="page">' . ($listr['id'] ? '<a href="list.php?id=' . $listr['id'] . '">下一页. &raquo;</a>' : ' 下一页. &raquo;') . '</span>';
 echo '</div>';
@@ -348,7 +348,7 @@ echo " <a href='share.php?id=".$notes['id']."'><img src='/style/icons/action_sha
 }else{ 
 echo "<img src='/style/icons/action_share_color.gif'> 分享:  (".$share.")"; }
 if (isset($user) && (user_access('notes_delete') || $user['id']==$avtor['id'])){
-echo "<br/><a href='edit.php?id=$notes[id]'><img src='/style/icons/edit.gif'> 修改</a> <a href='?id=$notes[id]&amp;delete'><img src='/style/icons/delete.gif'> 移走</a>";
+echo "<br/><a href='edit.php?id=$notes[id]'><img src='/style/icons/edit.gif'> 修改</a> <a href='?id=$notes[id]&amp;delete'><img src='/style/icons/delete.gif'> 删除</a>";
 }
 echo "</div><div class='main'>";
 $l1=dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `like` = '0' AND `id_notes` = '".$notes['id']."' LIMIT 1"),0);

@@ -1662,7 +1662,7 @@ $k_2=dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_files` WHERE `my_dir` = '$
 
 
 
-echo ' ('.$k_1.' из '.$k_2.') ';
+echo ' (第' . $k_1 . '页 共' . $k_2 . '页) '; 
 
 
 

@@ -566,7 +566,7 @@ if ($post['status'] == 0)
 
 
 
-	echo '<img src="/style/icons/delete.gif" alt="*" /> <a href="/user/gift/gift.php?id=' . $post['id'] . '&amp;delete">移走</a>';
+	echo '<img src="/style/icons/delete.gif" alt="*" /> <a href="/user/gift/gift.php?id=' . $post['id'] . '&amp;delete">删除</a>';
 
 
 

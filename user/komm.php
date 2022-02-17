@@ -114,7 +114,7 @@ echo ' ('.vremja($komm['time']).')';
 echo "<br />";
 echo output_text($komm['msg'])."<br />";
 if (isset($user) && ($user['level']>=3 || $user['id'] == $post['id_user']))
-echo'<a href="?id='.$post['id'].'&del='.$komm['id'].'">移走</a><br />';
+echo'<a href="?id='.$post['id'].'&del='.$komm['id'].'">删除</a><br />';
 echo'</div>';
 
 }

@@ -77,7 +77,7 @@ echo "</div>";
 if (isset($user) && isset($dir_id['upload']) && $dir_id['upload']==1 && isset($_GET['trans']))
 {
 echo '<div class="mess">';
-echo '<img src="/style/icons/ok.gif" alt="*"> <b><a href="?act=upload&amp;trans='.$trans['id'].'&amp;ok">在这里添加</a></b><br />';
+echo '<img src="/style/icons/ok.gif" alt="*"> <b><a href="?act=upload&amp;trans='.$trans['id'].'&amp;ok">添加在这里</a></b><br />';
 echo '</div>';
 }
 

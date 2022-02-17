@@ -148,7 +148,7 @@ if (isset($list['id'])) echo '<span class="page">' . ($list['id'] ? '<a href="?i
 
 $k_1 = dbresult(dbquery("SELECT COUNT(*) FROM `news` WHERE `id` > '$news[id]'"),0)+1;
 $k_2 = dbresult(dbquery("SELECT COUNT(*) FROM `news`"),0);
-echo ' (' . $k_1 . ' из ' . $k_2 . ') ';
+echo ' (第' . $k_1 . '页 共' . $k_2 . '页) '; 
 
 if (isset($list['id'])) echo '<span class="page">' . ($listr['id'] ? '<a href="?id=' . $listr['id'] . '">下一页 &raquo;</a>' : ' 下一页 &raquo;') . '</span>';
 echo '</div>';

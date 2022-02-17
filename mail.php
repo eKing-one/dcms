@@ -659,7 +659,7 @@ if ($ank2['id']!=$user['id'])echo "<a href=\"mail.php?id=$ank[id]&amp;page=$page
 
 
 
-echo "<a href=\"mail.php?id=$ank[id]&amp;page=$page&amp;delete=$post[id]\"><img src='/style/icons/delete.gif' alt='*' title='删除此消息'> 移走</a>";
+echo "<a href=\"mail.php?id=$ank[id]&amp;page=$page&amp;delete=$post[id]\"><img src='/style/icons/delete.gif' alt='*' title='删除此消息'> 删除</a>";
 
 
 

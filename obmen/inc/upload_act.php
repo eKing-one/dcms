@@ -20,12 +20,12 @@ for($i=0;$i<count($rasss);$i++)
 	if ($rasss[$i]!=NULL && $ras==$rasss[$i])$ras_ok=true;
 }
 
-if (!$ras_ok)$err='Неверное расширение файла';
+if (!$ras_ok)$err='文件扩展名无效';
 
 	if (!$err)
 	{
 	dbquery("UPDATE `obmennik_files` SET `id_dir` = '$dir_id[id]' WHERE `id` = '$trans[id]' LIMIT 1");
-	$_SESSION['message'] = 'Файл успешно добавлен в папку '.$dir_id['name'].' зоны обмена';
+	$_SESSION['message'] = '文件已成功添加到文件夹 '.$dir_id['name'].' 下载中心';
 	header('Location: /user/personalfiles/'.$trans['id_user'].'/'.$trans['my_dir'].'/?id_file='.$trans['id'].'');
 	exit;
 	}else{
@@ -34,7 +34,7 @@ if (!$ras_ok)$err='Неверное расширение файла';
 	exit;
 	}
 }else{
-echo "Ошибка! Эта папка не доступна!";
+echo "错误！此文件夹不可用!";
 exit;
 }
 }

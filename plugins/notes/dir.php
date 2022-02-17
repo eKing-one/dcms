@@ -214,7 +214,7 @@ echo "<form method=\"post\" action=\"dir.php\">";
 echo "标题:<br /><input name=\"title\" size=\"16\" maxlength=\"32\" value=\"\" type=\"text\" /><br />";
 echo "说明:<br /><textarea name=\"msg\" ></textarea><br />";
 
-echo "<input value=\"创造\" type=\"submit\" />";
+echo "<input value=\"创建\" type=\"submit\" />";
 echo "</form>";
 }else{
 echo "<div class='foot'>";

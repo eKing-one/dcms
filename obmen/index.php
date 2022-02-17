@@ -350,7 +350,7 @@ echo '<div class="mess">';
 echo '<img src="/style/icons/small_adult.gif" alt="*"> 
 此文件包含色情性质的图像。只有18岁以上的注册用户才能查看此类文件。
 ';
-echo '<a href="/aut.php">入口处</a> | <a href="/reg.php">登记注册</a>'; 
+echo '<a href="/aut.php">入口处</a> | <a href="/reg.php">注册时间</a>'; 
 echo '</div>'; 
 }else{ 
 echo '<div class="mess">'; 
@@ -371,7 +371,7 @@ if (isset($list['id'])) echo '<span class="page">'.($list['id']?'<a href="/obmen
 
 $k_1=dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_files` WHERE `id` > '$file_id[id]' AND `id_dir` = '$id_dir'"),0)+1;
 $k_2=dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_files` WHERE `id_dir` = '$id_dir'"),0);
-echo ' ('.$k_1.' из '.$k_2.') '; 
+echo ' (第' . $k_1 . '页 共' . $k_2 . '页) '; 
 
 if (isset($listr['id'])) echo '<span class="page">'.($listr['id']?'<a href="/obmen'.$dir_id['dir'] . $listr['id'].'.'.$listr['ras'].'?showinfo">下一页 &raquo;</a>':' 下一页 &raquo;').'</span>';
 echo '</div>'; 
@@ -384,7 +384,7 @@ if (user_access('obmen_file_edit') || $user['id'] == $file_id['id_user'])
 { 
     echo '<div class="main">'; 
     echo '<img src="/style/icons/edit.gif" alt="*"> <a href="?showinfo&act=edit">编辑</a>'; 
-    echo '<br/><img src="/style/icons/delete.gif" alt="*"> <a href="?showinfo&act=delete">移走</a>'; 
+    echo '<br/><img src="/style/icons/delete.gif" alt="*"> <a href="?showinfo&act=delete">删除</a>'; 
     echo '</div>'; 
 } 
 //----------------------plugins---------------/

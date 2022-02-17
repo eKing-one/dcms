@@ -922,7 +922,7 @@ echo "你真的想删除日记吗 " . output_text($notes['name']) . "?<br />";
 
 
 
-echo "[<a href='delete.php?id=$notes[id]'><img src='/style/icons/ok.gif'> 移走</a>] [<a href='list.php?id=$notes[id]'><img src='/style/icons/delete.gif'> 取消预约</a>] ";
+echo "[<a href='delete.php?id=$notes[id]'><img src='/style/icons/ok.gif'> 删除</a>] [<a href='list.php?id=$notes[id]'><img src='/style/icons/delete.gif'> 取消预约</a>] ";
 
 
 
@@ -1314,7 +1314,7 @@ $k_2=dbresult(dbquery("SELECT COUNT(*) FROM `notes`"),0);
 
 
 
-echo ' ('.$k_1.' из '.$k_2.') ';
+echo ' (第' . $k_1 . '页 共' . $k_2 . '页) '; 
 
 
 

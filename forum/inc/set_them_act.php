@@ -18,9 +18,9 @@ $msgg='[red]转移话题 '.$user['group_name'].' '.$user['nick'].' 从节 '.$old
 dbquery("INSERT INTO `forum_p` (`id_forum`, `id_razdel`, `id_them`, `id_user`, `msg`, `time`) values('$forum[id]', '$razdel[id]', '$them[id]', '0', '".my_esc($msgg)."', '$time')");
 /*тут конец*/
 if ($ank2['id']!=$user['id'])
-admin_log('论坛','移动主题',"移动主题 '[url=/forum/$forum[id]/$razdel[id]/$them[id]/]$them[name][/url]' из раздела '[url=/forum/$forum[id]/$old_razdel[id]/]$old_razdel[name][/url]' в раздел '[url=/forum/$forum[id]/$old_razdel[id]/]$razdel[name][/url]'");
+admin_log('论坛','移动主题',"移动主题 '[url=/forum/$forum[id]/$razdel[id]/$them[id]/]$them[name][/url]' 从节'[url=/forum/$forum[id]/$old_razdel[id]/]$old_razdel[name][/url]' в раздел '[url=/forum/$forum[id]/$old_razdel[id]/]$razdel[name][/url]'");
 
-$_SESSION['message'] = 'Тema已成功移动';
+$_SESSION['message'] = '主题已成功移动';
 header("Location: /forum/$forum[id]/$razdel[id]/$them[id]/");
 exit;
 }
