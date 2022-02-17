@@ -29,7 +29,7 @@ if (user_access('obmen_dir_delete') && isset($_GET['act']) && $_GET['act']=='del
 	dbquery("DELETE FROM `obmennik_dir` WHERE `id` = '$dir_id[id]' LIMIT 1");
 	$l=$dir_id['dir_osn'];
 	msg('文件夹已成功删除');
-	admin_log('下载中心','正在删除文件夹',"Папка '$dir_id[name]' 删除");
+	admin_log('下载中心','正在删除文件夹',"文件夹 '$dir_id[name]' 删除");
 	$dir_id=dbassoc(dbquery("SELECT * FROM `obmennik_dir` WHERE `dir` = '/$l' OR `dir` = '$l/' OR `dir` = '$l' LIMIT 1"));
 	if (isset($dir_id['id'])) $id_dir=$dir_id['id'];
 }
@@ -44,7 +44,7 @@ if (user_access('obmen_dir_edit') && isset($_GET['act']) && $_GET['act']=='mesto
 		}
 		$l=$_POST['dir_osn'];
 		dbquery("UPDATE `obmennik_dir` SET `dir`='".$l."$dir_id[name]/', `dir_osn`='".$l."' WHERE `id` = '$dir_id[id]' LIMIT 1");
-		admin_log('下载中心','编辑文件夹',"Папка '$dir_id[name]' 移动");
+		admin_log('下载中心','编辑文件夹',"文件夹 '$dir_id[name]' 移动");
 		msg('文件夹已成功移动');
 		$dir_id=dbassoc(dbquery("SELECT * FROM `obmennik_dir` WHERE `id` = '$dir_id[id]' LIMIT 1"));
 		$id_dir=$dir_id['id'];
@@ -68,7 +68,7 @@ if (user_access('obmen_dir_edit') && isset($_GET['act']) && $_GET['act']=='renam
 			$id_dir=(int) $dir_id['id']; else $id_dir = 0;
 		}
 	}
-}
+
 if (user_access('obmen_dir_create') && isset($_GET['act']) && $_GET['act']=='mkdir' && isset($_GET['ok']) && isset($_POST['name'])) {
 	if ($_POST['name']==NULL){
 	$err= "输入文件夹名称";  }else {

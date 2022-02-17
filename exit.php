@@ -43,18 +43,17 @@ include_once 'sys/inc/thead.php';
 
 title();
 aut();
-?>
+
 
 echo '<form  method="post">
-你真的想出去吗？
-  <input type="hidden" name="return" value="<?=$_SERVER['HTTP_REFERER']?>">
+你真的想退出吗？
+  <input type="hidden" name="return" value="'.$_SERVER['HTTP_REFERER'].'">
   <input type="submit" name="confirm_yes" value="是">
   <input type="submit" name="confirm_no" value="否">
 
 </form>
 ';
 
-<?php
 include_once 'sys/inc/tfoot.php';
 
 
