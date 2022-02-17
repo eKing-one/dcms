@@ -2,8 +2,7 @@
 function gif_resize($string,$x,$y)
 {
 global $sess;
-include_once H.'sys/inc/gifdecoder.php';
-include_once H.'sys/inc/gifencoder.php';
+  include_once check_replace('sys/inc/gifdecoder.php');
 $giff = new GIFDecoder ( $string );
 $arr = $giff->GIFGetFrames ( ); // разрезание gif анимации на отдельные картинки
 $dly = $giff->GIFGetDelays ( );

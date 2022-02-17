@@ -32,4 +32,12 @@ elseif (isset($_SERVER["HTTP_USER_AGENT"]) && (preg_match('#windows#i', $_SERVER
 $webbrowser = true;else $webbrowser = false; // определение типа браузера
 
 $set['web'] = false;
-?>
+
+function setset($name, $value=null)
+{
+  global $set;
+  $set[$name]= $value;
+
+}
+
+

@@ -46,6 +46,35 @@ else
 	<?
 }
 
+  if ($user['level']>4)
+  {
+    if (setget('toolbar',1)==1)
+    {
+      t_toolbar_html();
+
+    }
+  }
+  if ($user['level']>4)
+  {
+    if (setget('toolbar',1)==1)
+    {
+      t_toolbar_css();
+
+    }
+  }
+
+  if (empty(setget('job',1)))
+  {
+
+      if (isset($user) and $user['level']>=5)
+        echo "<div style='color:red' class='err'>注意！网站关闭在<a href='/adm_panel/settings_sys.php?'>行政</a>. 用户看到技术工作正在进行的消息</div>";
+
+  }
+
+
+
+
+
 // Уведомления 
 if (isset($_SESSION['message']))
 {
@@ -56,8 +85,14 @@ if (isset($_SESSION['message']))
 // Вывод ошибок
 if (isset($_SESSION['err']))
 {
-	echo '<div class="msg">' . $_SESSION['err'] . '</div>';
+	echo '<div class="err">' . $_SESSION['err'] . '</div>';
 	$_SESSION['err'] = NULL;
 }
+
+
+
+header_html();
+
 ?>
 <link rel="stylesheet" href="/style/system.css" type="text/css" />
+    <div id="load"></div>

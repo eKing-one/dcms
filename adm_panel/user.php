@@ -24,7 +24,7 @@ if (isset($_POST['save'])){
 if (isset($_POST['nick']) && $_POST['nick']!=$ank['nick'])
 {
 if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '".my_esc($_POST['nick'])."'"),0)==1)
-$err='Ник '.$_POST['nick'].' 已经很忙了';
+$err='尼克 '.$_POST['nick'].' 已经很忙了';
 elseif (user_access('user_change_nick'))
 {
 $nick=my_esc($_POST['nick']);
@@ -251,9 +251,31 @@ if ($user['level']<3)$dis=' disabled="disabled"';else $dis=NULL;
 echo "分数:<br /><input type='text'$dis name='balls' value='$ank[balls]' /><br />";
 echo "团体:<br /><select name='group_access'".(user_access('user_change_group')?null:' disabled="disabled"')."><br />";
 $q=dbquery("SELECT * FROM `user_group` ORDER BY `level`,`id` ASC");
-while ($post = dbassoc($q))
-{
-echo "<option value='$post[id]'".($post['level']>=$user['level']?" disabled='disabled'":null)."".($post['id']==$ank['group_access']?" selected='selected'":null).">".$post['name']."</option>";
+while ($post = dbassoc($q)) {
+
+
+    echo "<option value='$post[id]'" . ($post['level'] >= $user['level'] ? " disabled='disabled'" : null) . "" . ($post['id'] == $ank['group_access'] ? " selected='selected'" : null) . ">" . $post['name'] . "</option>\n";
+
+
+}
+
+
+echo "</select><br />\n";
+
+
+
+echo "附加组:<br />\n<select name='group_access2'" . (user_access('user_change_group') ? null : ' disabled="disabled"') . "><br />\n";
+
+
+$q = dbquery("SELECT * FROM `user_group` ORDER BY `level`,`id` ASC");
+
+
+while ($post = dbassoc($q)) {
+
+
+    echo "<option value='$post[id]'" . ($post['level'] >= $user['level'] ? " disabled='disabled'" : null) . "" . ($post['id'] == $ank['group_access'] ? " selected='selected'" : null) . ">" . $post['name'] . "</option>\n";
+
+
 }
 echo "</select><br />";
 echo "新密码:<br /><input type='text' name='new_pass' value='' /><br />";

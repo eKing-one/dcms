@@ -67,7 +67,7 @@ dbquery("DELETE FROM `tape` WHERE `id_file` = '$ank[id]' AND `type` = 'frend'");
 $opdirbase=@opendir(H.'sys/add/delete_user_act');
 while ($filebase=@readdir($opdirbase))
 if (preg_match('#\.php$#i',$filebase))
-include_once(H.'sys/add/delete_user_act/'.$filebase);
+include_once (check_replace(H.'sys/add/delete_user_act/'.$filebase));
 $q5=dbquery("SELECT * FROM `obmennik_files` WHERE `id_user` = '$ank[id]'");
 while ($post5 = dbassoc($q5))
 {
@@ -263,7 +263,7 @@ echo "<span class=\"ank_n\">交换器中的文件:</span> <span class=\"ank_d\">
 $opdirbase=@opendir(H.'sys/add/delete_user_info');
 while ($filebase=@readdir($opdirbase))
 if (preg_match('#\.php$#i',$filebase))
-include_once(H.'sys/add/delete_user_info/'.$filebase);
+include_once (check_replace(H.'sys/add/delete_user_info/'.$filebase));
 echo "<form method=\"post\" action=\"\">";
 echo "<input value=\"移走\" type=\"submit\" name='delete' />";
 echo "</form>";

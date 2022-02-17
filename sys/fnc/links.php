@@ -1,21 +1,35 @@
 <?
 function img_preg($arr)
 {
-	if (@imagecreatefromstring(file_get_contents($arr[1])))
-	{
-		return '<a href="http://' . $_SERVER['HTTP_HOST'] . '/go.php?go='.base64_encode(html_entity_decode($arr[1])) . '"><img style="max-width:240px;" src="http://' . $_SERVER['HTTP_HOST'] . '/go.php?go=' . base64_encode(html_entity_decode($arr[1])) . '" alt="img" /></a>';		
-	}
-	else
-	{
-		return '<img style="max-width:240px;" src="/style/no_image.png" alt="No Image" />';	
-	}
+
+  if (preg_match('#^https://' . preg_quote($_SERVER['HTTP_HOST']) . '#',$arr[1]) || !preg_match('#://#',$arr[1]))
+  {
+    if (preg_match('/\.(?:jp(?:e?g|e|2)|gif|png|tiff?|bmp|ico)$/i', $arr[1])) {
+
+      if (true) {
+        return '<a href="https://' . $_SERVER['HTTP_HOST'] . '/go.php?go=' . base64_encode(html_entity_decode($arr[1])) . '"><img  decoding=async  style="max-width:240px; max-height:320px;" src="' . text($arr[1]) . '" alt="img" /></a>';
+      }
+    }
+    else {
+      return '<img style="max-width:240px;" src="/style/no_image.png" alt="No Image" />';
+    }
+  }
+  else
+  {
+    return '<a target="_blank" href="https://' . $_SERVER['HTTP_HOST'] . '/go.php?go='.base64_encode(html_entity_decode($arr[1])) . '">Ссылка на внешний сайт/изображение</a>';
+
+  }
+
+
+
+
 }
 
 function links_preg1($arr)
 {
 	global $set;
 
-	if (preg_match('#^http://' . preg_quote($_SERVER['HTTP_HOST']) . '#',$arr[1]) || !preg_match('#://#',$arr[1]))
+	if (preg_match('#^https://' . preg_quote($_SERVER['HTTP_HOST']) . '#',$arr[1]) || !preg_match('#://#',$arr[1]))
 	return '<a href="' . $arr[1] . '">' . $arr[2] . '</a>';
 	else
 	return '<a' . ($set['web'] ? ' target="_blank"' : null) . ' href="http://' . $_SERVER['HTTP_HOST'] . '/go.php?go=' . base64_encode(html_entity_decode($arr[1])) . '">' . $arr[2] . '</a>';
@@ -25,7 +39,7 @@ function links_preg1($arr)
 function links_preg2($arr)
 {
 	global $set;
-	if (preg_match('#^http://' . preg_quote($_SERVER['HTTP_HOST']) . '#',$arr[2]))
+	if (preg_match('#^https://' . preg_quote($_SERVER['HTTP_HOST']) . '#',$arr[2]))
 	return $arr[1] . '<a href="' . $arr[2] . '">' . $arr[2] . '</a>' . $arr[4];
 	else
 	return $arr[1] . '<a' . ($set['web'] ? ' target="_blank"' : null) . ' href="http://' . $_SERVER['HTTP_HOST'] . '/go.php?go=' . base64_encode(html_entity_decode($arr[2])) . '">Ссылка</a>' . $arr[4];

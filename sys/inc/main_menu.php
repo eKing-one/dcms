@@ -19,7 +19,7 @@ while ($post_menu = dbassoc($q_menu))
 	if ($post_menu['type'] == 'link')
 	echo '</a> ';
 	
-	if ($post_menu['counter'] != NULL && is_file(H . $post_menu['counter']))
+	if ($post_menu['counter'] != NULL && test_file(H . $post_menu['counter']))
 	{
 		@include H . $post_menu['counter'];
 	}
@@ -33,7 +33,7 @@ if (user_access('adm_panel_show'))
 	<div class="main2">
 	<img src="/style/icons/adm.gif" alt="DS" /> <a href="/plugins/admin/">网站管理</a> 
 	<?
-	include_once H.'plugins/admin/count.php';
+  include_once check_replace(H.'plugins/admin/count.php');
 	?>
 	</div>
 	<?

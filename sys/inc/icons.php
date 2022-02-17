@@ -6,12 +6,12 @@ function icons($name,$code='path')
 global $set;
 
 $name=preg_replace('#[^a-z0-9 _\-\.]#i', null, $name);
-if (file_exists(H."style/themes/$set[set_them]/icons/$name") && $name!=null)
+if (test_file2(H."style/themes/$set[set_them]/icons/$name") && $name!=null)
 {
 $path= "/style/themes/$set[set_them]/icons/$name";
 
 }
-elseif (file_exists(H."style/icons/$name") && $name!=null)
+elseif (test_file2(H."style/icons/$name") && $name!=null)
 {
 $path= "/style/icons/$name";
 

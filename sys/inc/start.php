@@ -1,5 +1,15 @@
 <?
 require 'mysql2i.class.php';
+$err = NULL;
+$db=NULL;
+$time=NULL;
+$passgen=NULL;
+$sess=NULL;
+$ip=NULL;
+$ua=NULL;
+$iplong=NULL;
+$webbrowser=NULL;
+$tpanel=NULL;
 if (function_exists('error_reporting'))@error_reporting(0); // отключаем показ ошибок
 // Ставим ограничение для выполнения скрипта на 60 сек
 if (function_exists('set_time_limit'))@set_time_limit(60);
@@ -55,9 +65,16 @@ return $msg;
  // Полночь
 $ftime = mktime(0, 0, 0);
 
+$replace_file = replace_file($_SERVER["PHP_SELF"]);
+if (is_file($replace_file))
+{
+  include_source_once($replace_file);
+  exit();
+}
 
-
-
-
+function replace_file ($file)
+{
+  return H."/replace".$file;
+}
 
 ?>

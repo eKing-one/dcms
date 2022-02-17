@@ -16,11 +16,33 @@ include_once '../sys/inc/thead.php';
 title();
 err();
 aut();
-$k_post=dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `time` > '$time'"),0);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$k_post=dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `time` > '$time' OR `navsegda`='1' "),0);
+
+
+
+
+
+
+
 $k_page=k_page($k_post,$set['p_str']);
 $page=page($k_page);
 $start=$set['p_str']*$page-$set['p_str'];
-$q=dbquery("SELECT * FROM `ban` WHERE `time` > '$time' ORDER BY `id` DESC LIMIT $start, $set[p_str]");
+$q=dbquery("SELECT * FROM `ban` WHERE `time` > '$time' OR `navsegda`='1' ORDER BY `id` DESC LIMIT $start, $set[p_str]");
 echo "<table class='post'>";
 if ($k_post==0)
 {

@@ -4,7 +4,15 @@ define('PEAR_MP3_ID_FNO', 1);
 define('PEAR_MP3_ID_RE', 2);
 define('PEAR_MP3_ID_TNF', 3);
 define('PEAR_MP3_ID_NOMP3', 4);
-class MP3_Id {
+if (!function_exists('set_magic_quotes_runtime')) {
+    function set_magic_quotes_runtime($new_setting)
+    {
+        return true;
+    }
+}
+
+class MP3_Id
+{
 
 var $file = false;
 
@@ -110,18 +118,19 @@ var $debugbeg = '<DIV STYLE="margin: 0.5 em; padding: 0.5 em; border-width: thin
 */
 var $debugend = '</DIV>';
 
-/*
-* creates a new id3 object
-* and loads a tag from a file.
-*
-* @param string    $study  study the mpeg frame to get extra info like bitrate and frequency
-*                          You should advoid studing alot of files as it will siginficantly
-*                          slow this down.
-* @access public
-*/
-function MP3_Id($study = false) {
-if(defined('ID3_SHOW_DEBUG')) $this->debug = true;
-$this->study=($study || defined('ID3_AUTO_STUDY'));
+    /*
+    * creates a new id3 object
+    * and loads a tag from a file.
+    *
+    * @param string    $study  study the mpeg frame to get extra info like bitrate and frequency
+    *                          You should advoid studing alot of files as it will siginficantly
+    *                          slow this down.
+    * @access public
+    */
+    function __construct($study = false)
+    {
+        if (defined('ID3_SHOW_DEBUG')) $this->debug = true;
+        $this->study = ($study || defined('ID3_AUTO_STUDY'));
 
 } // id3()
 
@@ -282,15 +291,13 @@ $r = fread($f, 128);
 fclose($f);
 set_magic_quotes_runtime($mqr);
 
-if ($this->debug) {
-$unp = unpack('H*raw', $r);
-print_r($unp);
-}
-
-$id3tag = $this->_decode_v1($r);
-
-if(!PEAR::isError( $id3tag)) {
-$this->id3v1 = true;
+        if ($this->debug) {
+            $unp = unpack('H*raw', $r);
+            print_r($unp);
+        }
+        $id3tag = new PEAR;
+        if ($id3tag->isError($id3tag)) {
+            $this->id3v1 = true;
 
 $tmp = explode(Chr(0), $id3tag['NAME']);
 $this->name = $tmp[0];
@@ -683,12 +690,16 @@ if ($this->debug) print("protected (crc)");
 $this->crc = true;
 }
 
-$bitrate = 0;
-if ($bits[16] == 1) $bitrate += 8;
-if ($bits[17] == 1) $bitrate += 4;
-if ($bits[18] == 1) $bitrate += 2;
-if ($bits[19] == 1) $bitrate += 1;
-$this->bitrate = $bitrates[$this->layer][$bitrate];
+        $bitrate = 0;
+        if ($bits[16] == 1) $bitrate += 8;
+        if ($bits[17] == 1) $bitrate += 4;
+        if ($bits[18] == 1) $bitrate += 2;
+        if ($bits[19] == 1) $bitrate += 1;
+
+
+        if (isset($bitrates[$this->layer][$bitrate])) $this->bitrate = $bitrates[$this->layer][$bitrate];
+        else $this->bitrate = 0;
+
 
 $frequency = array(
 '1' => array(
@@ -726,24 +737,25 @@ array('', 'CCITT j.17'),
 );
 $this->emphasis = $emphasis[$bits[30]][$bits[31]];
 
-$samplesperframe = array(
-'1' => array(
-'1' => 384,
-'2' => 1152,
-'3' => 1152
-),
-'2' => array(
-'1' => 384,
-'2' => 1152,
-'3' => 576
-),
-'2.5' => array(
-'1' => 384,
-'2' => 1152,
-'3' => 576
-),
-);
-$this->samples_per_frame = $samplesperframe[$this->mpeg_ver][$this->layer];
+        $samplesperframe = array(
+            '1' => array(
+                '1' => 384,
+                '2' => 1152,
+                '3' => 1152
+            ),
+            '2' => array(
+                '1' => 384,
+                '2' => 1152,
+                '3' => 576
+            ),
+            '2.5' => array(
+                '1' => 384,
+                '2' => 1152,
+                '3' => 576
+            ),
+        );
+        if (isset($samplesperframe[$this->mpeg_ver][$this->layer])) $this->samples_per_frame = $samplesperframe[$this->mpeg_ver][$this->layer];
+        else $this->samples_per_frame = 0;
 
 if ($this->encoding_type != 'VBR') {
 if ($this->bitrate == 0) {

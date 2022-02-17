@@ -13,7 +13,7 @@ user_access('adm_panel_show',null,'/index.php?'.SID);
 		   
 if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth']>$time || isset($_SESSION['captcha']) && isset($_POST['chislo']) && $_SESSION['captcha']==$_POST['chislo'])
 {
-$_SESSION['adm_auth']=$time+600;
+$_SESSION['adm_auth']=$time+setget("timeadmin",1000);
 
 if (isset($_GET['go']) && $_GET['go']!=null)
 {
@@ -23,8 +23,20 @@ include_once '../sys/inc/thead.php';
 title();
 err();
 aut();
-echo "<div class='mess'>";
-echo "<center><b>DCMS-Social v.$set[dcms_version]</b></center>";echo "</div>";
+echo "<div class='mess'>\n";
+echo "<center><span style='font-size:16px;'><strong>DCMS-Social v.$set[dcms_version]</strong></span></center>\n";
+
+   echo "<center><span style='font-size:14px;'> 官方支持网站 <a href='https://dcms-social.ru'>https://dcms-social.ru</a></span></center>\n";echo "\n";
+
+
+
+    if (status_version() >= 0)
+  echo "<center> <font color='green'>实际版本 </font>		</center>	";
+
+  else    echo "<center>	 <font color='red'>Есть новая версия - ".version_stable()."! <a href='/adm_panel/update.php'>更详细</a></font>		</center>	";
+
+
+echo "</div>";
 if (user_access('adm_info'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a target='_blank' href='http://dcms-social.ru'>支持论坛</a></div>";
 if (user_access('adm_info'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='info.php'>一般资料</a></div>";
 if (user_access('adm_statistic'))echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='statistic.php'>网站统计</a></div>";

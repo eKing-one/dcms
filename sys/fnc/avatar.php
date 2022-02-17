@@ -8,7 +8,7 @@ function avatar($ID, $link = false, $dir = '50', $w = '50')
 	*/
 	$avatar = dbarray(dbquery("SELECT id,id_gallery,ras FROM `gallery_foto` WHERE `id_user` = '$ID' AND `avatar` = '1' LIMIT 1"));
 
-	if (isset($avatar['id']) && isset($avatar['ras']) && is_file(H."sys/gallery/$dir/$avatar[id].$avatar[ras]"))
+	if (isset($avatar['id']) && isset($avatar['ras']) && test_file(H."sys/gallery/$dir/$avatar[id].$avatar[ras]"))
 	{
 		return ($link == true ? '<a href="/foto/' . $ID . '/' . $avatar['id_gallery'] . '/' . $avatar['id'] . '/">' : false) . '
 	<img class="avatar" src="/foto/foto' . $dir . '/' . $avatar['id'] . '.' . $avatar['ras'] . '" alt="Avatar"  width="' . $w . '" />' . ($link == true ? '</a>' : false);

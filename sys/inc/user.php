@@ -40,7 +40,8 @@ if (isset($user['activation']) && $user['activation'] != NULL)
 if (isset($user))
 {
 	$tmp_us = dbassoc(dbquery("SELECT `level` FROM `user_group` WHERE `id` = '$user[group_access]' LIMIT 1"));
-	$user['level'] = $tmp_us['level'];
+  if (isset($tmp_us['level'])) $user['level'] = $tmp_us['level'];
+  else $user['level'] = 0;
 	$timeactiv  =  time() - $user['date_last'];
 	
 	if($timeactiv < 120)
@@ -424,11 +425,25 @@ $sMonet[2] = '硬币';
 // Загрузка остальных плагинов из папки "sys/inc/plugins"
 $opdirbase = opendir(H.'sys/inc/plugins');
 
-while ($filebase = readdir($opdirbase))
-{
-	if (preg_match('#\.php$#i', $filebase))
-	{
-		require_once(H.'sys/inc/plugins/' . $filebase);
-	}
+while ($filebase = readdir($opdirbase)) {
+  if (preg_match('#\.php$#i', $filebase)) {
+    require_once(check_replace(H . 'sys/inc/plugins/' . $filebase));
+  }
 }
-?>
+
+
+if ($_SERVER["REQUEST_URI"] == "/" or $_SERVER["REQUEST_URI"] == "/index.php") {
+
+  if (!empty(setget('main', "")) and setget('main', "") != "index" and setget('main', "") != "index.php") {
+
+    header("Location: " . setget('main', ""));
+    exit();
+  }
+
+}
+
+if (empty(setget('job',1)))
+{
+  if (((isset($user) and $user['level']<5) or (!isset($user) ))  and  $_SERVER["PHP_SELF"] != "/aut.php" and $_SERVER["PHP_SELF"] != "/login.php" and  $_SERVER["PHP_SELF"] != "/exit.php" and  $_SERVER["PHP_SELF"] != "/pass.php")
+    exit("Идут технические работы");
+}

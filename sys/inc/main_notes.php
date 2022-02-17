@@ -1,12 +1,18 @@
 <div style="padding: 6px 10px;" class="foot"><a href="/plugins/notes/">
- <b>日记</b> <?=dbresult(dbquery("SELECT COUNT(`id`)FROM `notes`"),0);?>+<?=dbresult(dbquery("SELECT COUNT(`id`)FROM `notes` WHERE `time`>'".($time-86000)."'"),0);?></span></a></div><?
+    <?
+    $plus = dbresult(dbquery("SELECT COUNT(`id`)FROM `notes` WHERE `time`>'".($time-86000)."'"),0);
+    ?>
+ <b>日记</b> (<?=dbresult(dbquery("SELECT COUNT(`id`)FROM `notes`"),0);?>
+ <? if ($plus>0) echo " +".$plus; ?>)</a>
+
+</div><?
 $q=dbquery("SELECT * FROM `notes` ORDER BY `time` DESC LIMIT 3");
 if(dbrows($q)==0){
 ?><div class="nav2" style="color:#666;">没有记录</div><?php
 }else{
 while($post=dbassoc($q)){
 $note_name = '<a href="/plugins/notes/list.php?id='.$post['id'].'"><span style="color:#06f">'.text($post['name']).'</span></a>';
-$note_text =$post['msg'];
+$note_text =output_text($post['msg']);
 $count_comm =dbresult(dbquery("SELECT COUNT(`id`) FROM `notes_komm` WHERE `id_notes`='".$post['id']."'"),0);
 echo "<div style='border-bottom:1px #d5dde5 solid;' class='nav2'>";
 ?><?=group($post['id_user']);?> 

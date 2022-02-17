@@ -9,7 +9,7 @@ function make_pre($dir_loads2,$file2){
 	$now = time();
 	$xml = NULL;
 	$scr_name = '';
-	if(file_exists($filename))	{
+	if(test_file2($filename))	{
 		$file = $filename;
 		$archive = new Archive_Tar($filename);
 		$xml = $archive -> extractInString('Theme.xml');

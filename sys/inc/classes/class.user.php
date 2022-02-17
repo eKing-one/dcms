@@ -12,6 +12,18 @@ class user
 	/**
 	* / Ссылка и Ник юзера
 	*/
+// все поля пользователя
+  public static function user_db($user = 0)
+  {
+    static $nicks = [];
+    if (empty($nicks[$user]))
+    {
+      $ank = dbassoc(query('SELECT `nick`, `date_last`, `rating`, `browser` FROM `user` WHERE `id` = "' . $user . '" LIMIT 1 '));
+      $nicks[$user] = $ank;
+    }
+    else $ank = $nicks[$user];
+
+  }
 
 	public static function nick($user = 0, $url = 1, $on = 0, $medal = 0)
 	{
@@ -22,8 +34,15 @@ class user
 		* $medal == 1	Выводит медальку рядом со значком онлайн
 		*/
 		
-		$ank = dbassoc(query('SELECT `nick`, `date_last`, `rating`, `browser` FROM `user` WHERE `id` = "' . $user . '" LIMIT 1 '));
-		
+
+		static $nicks = [];
+		if (empty($nicks[$user]))
+    {
+      $ank = dbassoc(query('SELECT `nick`, `date_last`, `rating`, `browser` FROM `user` WHERE `id` = "' . $user . '" LIMIT 1 '));
+      $nicks[$user] = $ank;
+    }
+		else $ank = $nicks[$user];
+
 		$nick = null;
 		$online = null;
 		$icon_medal = null;
@@ -84,24 +103,45 @@ class user
 		
 		  if ($user == 0) $ank = array('id' => '0', 'pol' => '1', 'group_access' => '0');
           elseif (!$ank)  $ank = array('id' => '0', 'pol' => '1', 'group_access' => '0');
-        
-		
+
+
+    static $avatars= [];
 		// Аватар
 		if ($type == 0 || $type == 1)
 		{
-			$avatar = dbarray(query("SELECT id,ras FROM `gallery_foto` WHERE `id_user` = '$user' AND `avatar` = '1' LIMIT 1"));
-			
-			if (isset($avatar['id']) && is_file(H.'sys/gallery/50/' . $avatar['id'] . '.' . $avatar['ras']))
+
+      if (empty($avatars[$user]))
+      {
+        $avatar = dbarray(query("SELECT id,ras FROM `gallery_foto` WHERE `id_user` = '$user' AND `avatar` = '1' LIMIT 1"));
+        $avatars[$user] = $avatar;
+      }
+else $avatar = $avatars[$user];
+
+
+
+			if (isset($avatar['id']) && test_file(H.'sys/gallery/50/' . $avatar['id'] . '.' . $avatar['ras']))
 				$AVATAR = ' <img class="avatar" src="/foto/foto50/' . $avatar['id'] . '.' . $avatar['ras'] . '" alt="Avatar" /> ';
 			else
 				$AVATAR = '<img class="avatar" src="/style/user/avatar.gif" width="50" alt="No Avatar" />';			
 		}
-		
-		
+
+    static $icons= [];
+
+
 		// Иконка пользователя
 		if ($type == 0 || $type == 2)
 		{
-			if (dbresult(query("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$user' AND (`time` > '$time' OR `navsegda` = '1')"), 0) != 0)
+
+      if (empty($icons[$user]))
+      {
+        $result = dbresult(query("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$user' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
+        $icons[$user] = $result;
+      }
+      else $result = $icons[$user];
+
+
+
+			if ($result != 0)
 			{
 				$icon = ' <img src="/style/user/ban.png" alt="*" class="icon" id="icon_group" /> ';
 			}
@@ -153,6 +193,9 @@ class user
 		*/
 		
 		global $user;
+    static $users;
+
+
 		$ank=array();
 		$ID = (int)$ID; //Определяем ID и $ank
 		$ank['group_name'] = null;
@@ -165,16 +208,36 @@ class user
 		}
 		else
 		{
-			// Иначе выбираем из базы
-			$ank = dbassoc(dbquery('SELECT * FROM `user` WHERE `id` = "' . $ID . '" LIMIT 1'));
+
+      if (empty($users[$ID]))
+      {
+        // Иначе выбираем из базы
+        $ank = dbassoc(dbquery('SELECT * FROM `user` WHERE `id` = "' . $ID . '" LIMIT 1'));
+        $users[$ID] = $ank;
+      }
+
+      else $ank = $users[$ID];
+
+
+
+
 		}
 		
 		// Если система или неопределенный юзер
 		if ($ID == 0) { $ank = array('id' => '0', 'pol' => '1', 'wmid' => '0', 'group_access' => '0', 'level' => '999'); } 
 		elseif (!$ank){ $ank = array('id' => '0', 'pol' => '1', 'wmid' => '0', 'group_access' => '0', 'level' => '0'); }
 		else 
-		{ 
-			$tmp_us = dbassoc(dbquery("SELECT `level`,`name` AS `group_name` FROM `user_group` WHERE `id` = '" . $ank['group_access'] . "' LIMIT 1"));
+		{
+
+      static $tmps = [];
+      if (empty($tmps[$ID]))
+      {
+        $tmp_us = dbassoc(dbquery("SELECT `level`,`name` AS `group_name` FROM `user_group` WHERE `id` = '" . $ank['group_access'] . "' LIMIT 1"));
+        $tmps[$ID]=$tmp_us;
+      }
+		else $tmp_us = $tmps[$ID];
+
+
 			$ank['group_name'] = $tmp_us['group_name'];
 			$ank['level'] = $tmp_us['level'];
 		}
@@ -182,17 +245,27 @@ class user
 		// Если поставлен параметр выводить фото
 		if ($photo)
 		{
-			// Определяем аватар 
-			$avatar = dbarray(dbquery("SELECT id,ras FROM `gallery_foto` WHERE `id_user` = '$ID' AND `avatar` = '1' LIMIT 1"));
-			
-			if (is_file(H.'sys/gallery/50/' . $avatar['id'] . '.' . $avatar['ras']))
+
+
+      static $avatars = [];
+      if (empty($avatars[$ID]))
+      {
+        // Определяем аватар
+        $avatar = dbarray(dbquery("SELECT id,ras FROM `gallery_foto` WHERE `id_user` = '$ID' AND `avatar` = '1' LIMIT 1"));
+        $avatars[$ID] = $avatar;
+      }
+
+      else $avatar = $avatars[$ID];
+
+
+			if (test_file(H.'sys/gallery/50/' . $avatar['id'] . '.' . $avatar['ras']))
 				$ank['avatar'] = ' <img class="avatar" src="/sys/gallery/50/' . $avatar['id'] . '.' . $avatar['ras'] . '" alt="Avatar" /> ';
 			else
 				$ank['avatar'] = ' <img class="avatar" src="/style/user/avatar.gif" width="50" alt="No Avatar" /> ';	
 		}
 		
 		// Вывод значка онлайн
-		if ($ID != 0 && $ank['date_last'] > time()-600)
+		if (isset($ank['date_last']) && $ID != 0 && $ank['date_last'] > time()-600)
 		{
 			if ($ank['browser'] == 'wap')
 				$ank['online'] = ' <img src="/style/icons/online.gif" alt="WAP" /> ';
@@ -205,7 +278,8 @@ class user
 		}
 		
 		// Вывод медали
-		$R = $ank['rating'];
+    if (isset($ank['rating'])) $R = $ank['rating'];
+    else $R = 0;
 		
 		if ($R >= 6)
 		{
@@ -222,9 +296,17 @@ class user
 		{
 			$ank['medal'] = null;
 		}
-		
+
+    static $icons = array ();
+		if (empty($icons[$ID]))
+    {
+      $result = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$ID' AND (`time` > '" . time() . "' OR `navsegda` = '1')"), 0);
+      $icons[$ID] = $result;
+    }
+		else $result = $icons[$ID];
+
 		// Иконка пользователя
-		if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$ID' AND (`time` > '" . time() . "' OR `navsegda` = '1')"), 0) != 0)
+		if ($result!=0)
 		{
 			$ank['icon'] = ' <img src="/style/user/ban.png" alt="*" class="icon" id="icon_group" /> ';
 		}
@@ -253,9 +335,11 @@ class user
 			}
 		}
 
-		
-		$ank['link'] = ' <a href="/id' . $ID . '">' . text($ank['nick']) . '</a> ';
-		$ank['nick'] = text($ank['nick']);
+
+    if (isset($ank['link'])) 	$ank['link'] = ' <a href="/id' . $ID . '">' . text($ank['nick']) . '</a> ';
+    else $ank['link'] = null;
+		 if (isset($ank['nick'])) $ank['nick'] = text($ank['nick']);
+		 else $ank['nick'] = null;
 		
 		return $ank;
 	}

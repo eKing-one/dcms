@@ -24,10 +24,10 @@ if (!isset($hard_process))
 		{
 			$sql = NULL;
 			$table = mysql_tablename($tab,$i);
-			$sql .= "DROP TABLE IF EXISTS `$table`;\r";
+			$sql .= "DROP TABLE IF EXISTS `$table`;\r\n";
 			$res = @dbquery("SHOW CREATE TABLE `$table`");
 			$row = @mysql_fetch_row($res);
-			$sql .= $row[1].";\r\r";
+			$sql .= $row[1].";\r\n\r\n";
 			$res = @dbquery("SELECT * FROM `$table`");
 
 			if (@dbrows($res) > 0)
@@ -40,16 +40,16 @@ if (!isset($hard_process))
 					foreach($values as $k => $v) 
 					{
 						$values[$k] = my_esc($v);
-						$values[$k] = preg_replace("(|\r)", '', $values[$k]);
+						$values[$k] = preg_replace("(\n|\r)", '\n', $values[$k]);
 					}
 
 					$values2 = @implode("', '", $values);
 					$values2 = "'" . $values2 . "'";
 					$values2 = str_replace("''", "null", $values2);
-					$sql  .=  "INSERT INTO `$table` (`$keys`) VALUES ($values2);\r";
+					$sql  .=  "INSERT INTO `$table` (`$keys`) VALUES ($values2);\r\n";
 				}
 				
-				$sql  .=  "\r\r";
+				$sql  .=  "\r\n\r\n";
 			}
 
 			$fopen_mysql = fopen(H."sys/tmp/MySQL.sql.gz",'a');
@@ -59,7 +59,7 @@ if (!isset($hard_process))
 			fclose($fopen_mysql);
 		}
 		
-		$EOL = "\r";
+		$EOL = "\r\n";
 		$subj = 'BackUp DCMS-Social';
 		$bound = "--".md5(uniqid(time()));
 		$headers = "From: \"BackUP@$_SERVER[HTTP_HOST]\" <BackUp@$_SERVER[HTTP_HOST]>$EOL";
