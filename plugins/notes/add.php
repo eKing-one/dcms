@@ -117,11 +117,11 @@ echo "<option value='$post[id]'".($id_dir == $post['id']?" selected='selected'" 
 
 echo "</select><br />";
 
-echo "<div class='main'>他们可以看:<br /><input name='private' type='radio' value='0'  selected='selected'/>Все ";
+echo "<div class='main'>他们可以看:<br /><input name='private' type='radio' value='0'  selected='selected'/>所有人 ";
 echo "<input name='private' type='radio'  value='1' />朋友 ";
 echo "<input name='private' type='radio'  value='2' />只有我</div>";
  
-echo "<div class='main'>他们可以发表评论:<br /><input name='private_komm' type='radio' value='0'  selected='selected'/>Все ";
+echo "<div class='main'>他们可以发表评论:<br /><input name='private_komm' type='radio' value='0'  selected='selected'/>所有人 ";
 echo "<input name='private_komm' type='radio'  value='1' />朋友 ";
 echo "<input name='private_komm' type='radio'  value='2' />只有我</div>";
 

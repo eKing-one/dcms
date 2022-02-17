@@ -130,9 +130,9 @@ echo '</span> </div></div>';*/
 if ($set['web']==true) {
 echo '<div class="mb4">
 <nav class="acsw rnav_w"><ul class="rnav js-rnav  " style="padding-right: 45px;">';
-echo '<li class="rnav_i"><a href="index.php?id='.$ank['id'].'" class="ai aslnk"><span class="wlnk"><span class="slnk">Все друзья</span></span> 
+echo '<li class="rnav_i"><a href="index.php?id='.$ank['id'].'" class="ai aslnk"><span class="wlnk"><span class="slnk">所有的朋友。</span></span> 
 <i><font color="#999">'.$f.'</font></i></a></li>';
-echo '<li class="rnav_i"><a href="online.php?id='.$ank['id'].'" class="ai alnk"><span class="wlnk"><span class="lnk">Онлайн
+echo '<li class="rnav_i"><a href="online.php?id='.$ank['id'].'" class="ai alnk"><span class="wlnk"><span class="lnk">在线
 <i><font color="#999">'.$on_f.'</font></i></a></span></span></li> ';
 if($ank['id']==$user['id']){ 
 echo '<li class="rnav_i"><a href="new.php" class="ai alnk"><span class="wlnk"><span class="lnk">Заявки
