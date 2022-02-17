@@ -10,7 +10,7 @@ include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
-user_access('adm_set_er',null,'index.php?'.SID);
+user_access('adm_set_user',null,'index.php?'.SID);
 adm_check();
 $set['title']='用户设置';
 include_once '../sys/inc/thead.php';

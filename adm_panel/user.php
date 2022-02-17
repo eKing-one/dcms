@@ -167,7 +167,7 @@ aut();
 echo "<form method='post' action='user.php?id=$ank[id]'>
 尼克:<br /><input".(user_access('user_change_nick')?null:' disabled="disabled"')." type='text' name='nick' value='$ank[nick]' maxlength='32' /><br />
 	真实姓名:<br /><input type='text' name='ank_name' value='$ank[ank_name]' maxlength='32' /><br />";
-	echo 'Дата рождения:<br />
+	echo '出生日期：<br />
 	<select name="ank_d_r">
 	<option selected="'.$ank['ank_d_r'].'" value="'.$ank['ank_d_r'].'" >'.$ank['ank_d_r'].'<option>
 	<option value="1">1</option>
