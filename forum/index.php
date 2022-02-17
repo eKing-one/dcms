@@ -672,7 +672,7 @@ echo "<option value='$icon[$i]'>$icon[$i]</option>";
 
 echo "</select><br />";
 
-echo "<input value=\"Создать\" type=\"submit\" /><br />";
+echo "<input value=\"创建\" type=\"submit\" /><br />";
 
 echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">取消</a><br />";
 

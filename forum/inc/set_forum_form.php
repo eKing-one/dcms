@@ -8,7 +8,7 @@ if (user_access('forum_razd_create') && (isset($_GET['act']) && $_GET['act']=='n
 	echo "<input name=\"name\" type=\"text\" maxlength='32' value='' /><br />";
 	echo "资料描述<br/>";
 	echo "<textarea name='opis' placeholder='部分描述'></textarea><br/>";
-	echo "<input value=\"Создать\" type=\"submit\" /><br />";
+	echo "<input value=\"创建\" type=\"submit\" /><br />";
 	echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/\">取消</a><br />";
 	echo "</form>";
 }

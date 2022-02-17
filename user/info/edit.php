@@ -11,7 +11,7 @@ include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 
 only_reg();
-$set['title']='Редактирование анкеты';
+$set['title']='编辑问卷';
 include_once '../../sys/inc/thead.php';
 title();
 aut();
@@ -35,13 +35,13 @@ if (isset($_GET['set']) && $_GET['set']=='nick' && $user['set_nick'] == 1){
 if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '".my_esc($_POST['nick'])."'"),0)==0)
 {
 $nick=my_esc($_POST['nick']);
-if( !preg_match("#^([A-zА-я0-9\-\_\ ])+$#ui", $_POST['nick']))$err[]='В нике присутствуют запрещенные символы';
-if (preg_match("#[a-z]+#ui", $_POST['nick']) && preg_match("#[а-я]+#ui", $_POST['nick']))$err[]='Разрешается использовать символы только русского или только английского алфавита';
-if (preg_match("#(^\ )|(\ $)#ui", $_POST['nick']))$err[]='Запрещено использовать пробел в начале и конце ника';
-if (strlen2($nick)<3)$err[]='Короткий ник';
-if (strlen2($nick)>32)$err[]='Длина ника превышает 32 символа';
+if( !preg_match("#^([A-zА-я0-9\-\_\ ])+$#ui", $_POST['nick']))$err[]='尼克有被禁止的符号。';
+if (preg_match("#[a-z]+#ui", $_POST['nick']) && preg_match("#[а-я]+#ui", $_POST['nick']))$err[]='只允许使用英文字符。';
+if (preg_match("#(^\ )|(\ $)#ui", $_POST['nick']))$err[]='禁止在尼克的开头和结尾使用空格';
+if (strlen2($nick)<3)$err[]='短尼克';
+if (strlen2($nick)>32)$err[]='尼克长度超过 32 个字符';
 }
-else $err[]='Ник "'.stripcslashes(htmlspecialchars($_POST['nick'])).'" уже зарегистрирован';
+else $err[]='Ник "'.stripcslashes(htmlspecialchars($_POST['nick'])).'" 已登记';
 
 if (isset($_POST['nick']) && !isset($err))
 {
