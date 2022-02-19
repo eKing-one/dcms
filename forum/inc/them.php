@@ -630,7 +630,7 @@ $postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' 
 if ($postBan == 0) // Блок сообщения
 {	
 if ($them['id_user'] == $post['id_user']) // Отмечаем автора темы
-		echo '<font color="#999">Автор темы</font><br />';	
+		echo '<font color="#999">主题作者</font><br />';	
 /*------------Вывод статуса-------------*/
 $status=dbassoc(dbquery("SELECT * FROM `status` WHERE `pokaz` = '1' AND `id_user` = '$ank[id]' LIMIT 1"));
 if (isset($status['id']) && $set['st']==1)
@@ -663,23 +663,23 @@ if (isset($user))
 if ($them['close']==0){
 if (isset($user) &&  $user['id']!=$ank['id'] && $ank['id']!=0){
 echo '<a href="/forum/'.$forum['id'].'/'.$razdel['id'].'/'.$them['id'].'/?response='.$ank['id'].'&amp;page='.$page.'" title="Ответить '.$ank['nick'].'">回答</a> | ';
-echo '<a href="/forum/'.$forum['id'].'/'.$razdel['id'].'/'.$them['id'].'/'.$post['id'].'/cit" title="Цитировать '.$ank['nick'].'">报价</a>';
+echo '<a href="/forum/'.$forum['id'].'/'.$razdel['id'].'/'.$them['id'].'/'.$post['id'].'/cit" title="引用 '.$ank['nick'].'">报价</a>';
 }}
 echo '<span style="float:right;">';
 if ($them['close']==0) // если тема закрыта, то скрываем кнопки
 {
     	if (user_access('forum_post_ed') && ($ank['level']<=$user['level'] || $ank['level']==$user['level'] &&  $post['id_user']==$user['id'])) 
-    		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit\" title='修改 пост $ank[nick]'  class='link_s'><img src='/style/icons/edit.gif' alt='*'> </a> ";
+    		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit\" title='修改岗位$ank[nick]'  class='link_s'><img src='/style/icons/edit.gif' alt='*'> </a> ";
     	elseif ($user['id']==$post['id_user'] && $post['time']>time()-600) 
-    		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit\" title='修改 мой пост'  class='link_s'><img src='/style/icons/edit.gif' alt='*'> (".($post['time']+600-time())." sec)</a> ";
+    		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit\" title='修改我的职位。'  class='link_s'><img src='/style/icons/edit.gif' alt='*'> (".($post['time']+600-time())." sec)</a> ";
 if ($user['id']!=$ank['id'] && $ank['id']!=0) // Кроме автора поста и системы 
 		{
-	echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?spam=$post[id]&amp;page=$page\" title='Это спам'  class='link_s'><img src='/style/icons/blicon.gif' alt='*' title='这是垃圾邮件'></a>";
+	echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?spam=$post[id]&amp;page=$page\" title='是垃圾邮件。'  class='link_s'><img src='/style/icons/blicon.gif' alt='*' title='这是垃圾邮件'></a>";
     }
 		}
 if (user_access('forum_post_ed')) // удаление поста
 		{
-		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?del=$post[id]&amp;page=$page\" title='Удалить'  class='link_s'><img src='/style/icons/delete.gif' alt='*' title='删除'></a>";
+		echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?del=$post[id]&amp;page=$page\" title='删除'  class='link_s'><img src='/style/icons/delete.gif' alt='*' title='删除'></a>";
 		}
 echo "&nbsp;";
 echo '</span><br/>';
@@ -715,7 +715,7 @@ if ((user_access('forum_post_ed') || isset($user) && $ank2['id'] == $user['id'])
                     echo "<img src='/style/themes/$set[set_them]/forum/14/file.png' alt='' />";
                     echo $_SESSION['file'][$i]['name'] . '.' . $_SESSION['file'][$i]['ras'] . ' (';
                     echo size_file($_SESSION['file'][$i]['size']);
-                    echo ") <a href='/forum/$forum[id]/$razdel[id]/$them[id]/d_file$i' title='Удалить из списка'><img src='/style/themes/$set[set_them]/forum/14/del_file.png' alt='' /></a>";
+                    echo ") <a href='/forum/$forum[id]/$razdel[id]/$them[id]/d_file$i' title='从列表中删除'><img src='/style/themes/$set[set_them]/forum/14/del_file.png' alt='' /></a>";
                     echo "<br />";
                 }
             }

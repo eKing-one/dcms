@@ -1452,7 +1452,7 @@ if ($user['id']==$file_id['id_user'])
 
 
 
-echo '<img src="/style/icons/z.gif" alt="*"> 交换区: <a href="/obmen'.$dir_id['dir'].'">'.$dir_id['name'].'</a> <a href="/obmen/?trans='.$file_id['id'].'"><img src="/style/icons/edit.gif" alt="*"></a><br />';
+echo '<img src="/style/icons/z.gif" alt="*"> 文件夹 <a href="/obmen'.$dir_id['dir'].'">'.$dir_id['name'].'</a> <a href="/obmen/?trans='.$file_id['id'].'"><img src="/style/icons/edit.gif" alt="*"></a><br />';
 
 
 
@@ -1462,7 +1462,7 @@ else
 
 
 
-echo '<img src="/style/icons/z.gif" alt="*"> 交换区： <a href="/obmen'.$dir_id['dir'].'">'.$dir_id['name'].'</a><br /> ';
+echo '<img src="/style/icons/z.gif" alt="*"> 文件夹： <a href="/obmen'.$dir_id['dir'].'">'.$dir_id['name'].'</a><br /> ';
 
 
 

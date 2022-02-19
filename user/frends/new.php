@@ -54,7 +54,7 @@ if (!isset($user)){header("Location: /index.php?".SID);exit;}
 
 
 
-$set['title']="申请表格"; //网页标题
+$set['title']="好友请求"; //网页标题
 
 
 
@@ -86,7 +86,7 @@ echo '<li class="rnav_i"><a href="index.php?id='.$ank['id'].'" class="ai aslnk">
 echo '<li class="rnav_i"><a href="online.php?id='.$ank['id'].'" class="ai alnk"><span class="wlnk"><span class="lnk">在线
 <i><font color="#999">'.$on_f.'</font></i></a></span></span></li> ';
 if($ank['id']==$user['id']){ 
-echo '<li class="rnav_i"><a href="new.php" class="ai alnk"><span class="wlnk"><span class="lnk">申请表格
+echo '<li class="rnav_i"><a href="new.php" class="ai alnk"><span class="wlnk"><span class="lnk">好友请求
 <i><font color="#999">'.$add.'</font></i></a></span></span> </li>'; 
 }
 echo '</ul></nav></div></div>'; }
@@ -103,7 +103,7 @@ echo "</div>";
 if ($ank['id'] == $user['id'])
 {
     echo "<div class='webmenu last'>";
-    echo "<a href='new.php' class='activ'>申请表格 (".dbresult(dbquery("SELECT COUNT(id) FROM `frends_new` WHERE `to` = '$ank[id]' LIMIT 1"), 0).")</a>";
+    echo "<a href='new.php' class='activ'>好友请求 (".dbresult(dbquery("SELECT COUNT(id) FROM `frends_new` WHERE `to` = '$ank[id]' LIMIT 1"), 0).")</a>";
     echo "</div>"; 
 }
 echo "</div>";

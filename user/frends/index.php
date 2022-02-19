@@ -152,7 +152,7 @@ echo "</div>";
 if ($ank['id'] == $user['id'])
 {
     echo "<div class='webmenu last'>";
-    echo "<a href='new.php'>申请表格 (".dbresult(dbquery("SELECT COUNT(id) FROM `frends_new` WHERE `to` = '$ank[id]' LIMIT 1"), 0).")</a>";
+    echo "<a href='new.php'>添加好友 (".dbresult(dbquery("SELECT COUNT(id) FROM `frends_new` WHERE `to` = '$ank[id]' LIMIT 1"), 0).")</a>";
     echo "</div>"; 
 }
 echo "</div>";
