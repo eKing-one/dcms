@@ -29,28 +29,25 @@ $dir = dbarray(dbquery("SELECT * FROM `smile_dir` WHERE `id` = '" . $id . "'"));
 if (!$dir['id'])
 header("Location: /index.php");
 
-$set['title'] = text($dir['name']) . ' | Список смайлов';
+$set['title'] = text($dir['name']) . ' | 表情列表';
 include_once H.'sys/inc/thead.php';
 
 title();
 aut();
 
-?>
-<div class="foot">
-<img src="/style/icons/str2.gif" alt="*"> <a href="index.php">Категории</a> | <b><?=text($dir['name'])?></b>
-</div>
-<?
+echo '<div class="foot"><img src="/style/icons/str2.gif" alt="*"> <a href="index.php">类别</a> | <b>'.text($dir['name']).'</b></div>';
+
 				
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `smile` WHERE `dir` = '$id'"),0);
 $k_page = k_page($k_post,$set['p_str']);
 $page = page($k_page);
 $start = $set['p_str']*$page-$set['p_str'];
 
-?><table class="post"><?
+echo '<table class="post">';
 
 if ($k_post == 0) 
 {
-	?><div class="mess">Список смайлов пуст</div><?
+	echo '<div class="mess">表情列表为空</div>';
 }
 
 $q = dbquery("SELECT * FROM `smile` WHERE `dir` = '$id' ORDER BY `id` ASC LIMIT $start, $set[p_str]");
@@ -61,28 +58,20 @@ while($post = dbarray($q))
 	echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 	$num++;
 
-	?>
-	<img src="/style/smiles/<?=$post['id']?>.gif" alt="<?=$post['name']?>"/> <?=text($post['smile'])?>
-	</div>
-	<?
+	echo '<img src="/style/smiles/'.$post['id'].'.gif" alt="'.$post['name'].'"/> '.text($post['smile']).'</div>';
 }
 
 if($k_page>1)str('dir.php?id='.$id.'&amp;',$k_page,$page);
 
 if (isset($user) && $user['level'] > 3)
 {
-	?>
-	<div class="foot">
-	<img src="/style/icons/str.gif" alt="*"> <a href="/adm_panel/smiles.php">Админка</a>
-	</div>
-	<?
-}
 
-?>
-<div class="foot">
-<img src="/style/icons/str2.gif" alt="*"> <a href="index.php">Категории</a> | <b><?=text($dir['name'])?></b>
-</div>
-<?
+	echo '<div class="foot">
+	<img src="/style/icons/str.gif" alt="*"> <a href="/adm_panel/smiles.php">管理</a>
+	</div>';
+	
+}
+echo '<div class="foot"><img src="/style/icons/str2.gif" alt="*"> <a href="index.php">类别</a> | <b>'.text($dir['name']).'</b></div>';
 
 include_once H.'sys/inc/tfoot.php';
 ?>

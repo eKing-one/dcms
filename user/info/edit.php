@@ -739,18 +739,47 @@ err();
 	
 	
 	if (isset($_GET['set']) && $_GET['set']=='name')
-	echo "Имя в реале:<br /><input type='text' name='ank_name' value='".htmlspecialchars($user['ank_name'],false)."' maxlength='32' /><br />";
+	echo "真实名字:<br /><input type='text' name='ank_name' value='".htmlspecialchars($user['ank_name'],false)."' maxlength='32' /><br />";
 	
 	if (isset($_GET['set']) && $_GET['set']=='glaza')
-	echo "Цвет глаз:<br /><input type='text' name='ank_cvet_glas' value='".htmlspecialchars($user['ank_cvet_glas'],false)."' maxlength='32' /><br />";
+	echo "眼睛颜色:<br /><input type='text' name='ank_cvet_glas' value='".htmlspecialchars($user['ank_cvet_glas'],false)."' maxlength='32' /><br />";
 	
 	if (isset($_GET['set']) && $_GET['set']=='volos')
-	echo "Волосы:<br /><input type='text' name='ank_volos' value='".htmlspecialchars($user['ank_volos'],false)."' maxlength='32' /><br />";
+	echo "头发:<br /><input type='text' name='ank_volos' value='".htmlspecialchars($user['ank_volos'],false)."' maxlength='32' /><br />";
 	
 	
 	if (isset($_GET['set']) && $_GET['set']=='date'){
-	echo '出生日期:<br />
-	<select name="ank_d_r">
+	echo '出生日期:<br />';
+	//年
+	echo '<select name="ank_g_r">';
+    if (!empty($user['ank_g_r']))  echo '<option  value=""></option>';
+		echo '<option selected="'.$user['ank_g_r'].'" value="'.$user['ank_g_r'].'" >'.$user['ank_g_r'].'</option>';
+
+
+
+		for( $i = date("Y")-16; $i >= 1940; $i--) {
+
+		echo '<option  value="' . $i . '">' . $i . '</option>';
+		}
+	echo '</select><br/>';
+//月
+	echo '<select name="ank_m_r">
+	<option selected="'.$user['ank_m_r'].'" value="'.$user['ank_m_r'].'" >'.$user['ank_m_r'].'<option>	
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4">4</option>
+	<option value="5">5</option>
+	<option value="6">6</option>
+	<option value="7">7</option>
+	<option value="8">8</option>
+	<option value="9">9</option>
+	<option value="10">10</option>
+	<option value="11">11</option>
+	<option value="12">12</option>
+	</select>';
+//日
+	echo '<select name="ank_d_r">
 	<option selected="'.$user['ank_d_r'].'" value="'.$user['ank_d_r'].'" >'.$user['ank_d_r'].'<option>
 	<option value="1">1</option>
 	<option value="2">2</option>
@@ -785,38 +814,12 @@ err();
 	<option value="31">31</option>
 	</select>';
 		
-	echo '<select name="ank_m_r">
-	<option selected="'.$user['ank_m_r'].'" value="'.$user['ank_m_r'].'" >'.$user['ank_m_r'].'<option>	
-	<option value="1">1</option>
-	<option value="2">2</option>
-	<option value="3">3</option>
-	<option value="4">4</option>
-	<option value="5">5</option>
-	<option value="6">6</option>
-	<option value="7">7</option>
-	<option value="8">8</option>
-	<option value="9">9</option>
-	<option value="10">10</option>
-	<option value="11">11</option>
-	<option value="12">12</option>
-	</select>';
 	
-	echo '<select name="ank_g_r">';
-    if (!empty($user['ank_g_r']))  echo '<option  value=""></option>';
-echo '<option selected="'.$user['ank_g_r'].'" value="'.$user['ank_g_r'].'" >'.$user['ank_g_r'].'</option>';
-
-
-
-for( $i = date("Y")-16; $i >= 1940; $i--) {
-
-  echo '<option  value="' . $i . '">' . $i . '</option>';
-}
-	echo '</select><br/>';
 	}
 		
 	if (isset($_GET['set']) && $_GET['set']=='pol'){
-	echo "Пол:<br /> <input name='pol' type='radio' ".($user['pol']==1?' checked="checked"':null)." value='1' />丈夫<br />
-	<input name='pol' type='radio' ".($user['pol']==0?' checked="checked"':null)." value='0' />妻子<br />";
+	echo "性别:<br /> <input name='pol' type='radio' ".($user['pol']==1?' checked="checked"':null)." value='1' />男<br />
+	<input name='pol' type='radio' ".($user['pol']==0?' checked="checked"':null)." value='0' />女<br />";
 	}
 		
 	if (isset($_GET['set']) && $_GET['set']=='telo'){

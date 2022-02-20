@@ -459,7 +459,7 @@ if ($ank['group_access'] > 1) {
 				elseif ($ank['ank_m_r'] == 10) $ank['mes'] = '10 月';
 				elseif ($ank['ank_m_r'] == 11) $ank['mes'] = '11 月';
 				else $ank['mes'] = '12 月';
-				echo "$date<span class=\"ank_n\">出生日期:</span>$a $ank[ank_d_r] $ank[mes] $ank[ank_g_r]г. <br />";
+				echo "$date<span class=\"ank_n\">出生日期:</span>$a $ank[ank_g_r]/$ank[mes]/$ank[ank_d_r]<br />";
 				$ank['ank_age'] = date("Y") - $ank['ank_g_r'];
 				if (date("n") < $ank['ank_m_r']) $ank['ank_age'] = $ank['ank_age'] - 1;
 				elseif (date("n") == $ank['ank_m_r'] && date("j") < $ank['ank_d_r']) $ank['ank_age'] = $ank['ank_age'] - 1;
