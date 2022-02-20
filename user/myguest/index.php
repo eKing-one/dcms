@@ -14,11 +14,11 @@ only_reg();
 if (isset($_GET['truncate']))
 {
 	dbquery("DELETE FROM `my_guests` WHERE `id_ank` = '$user[id]'");
-	$_SESSION['message'] = '清除客人名单';
+	$_SESSION['message'] = '清除访问列表';
 }
 
 //网页标题
-$set['title'] = '在线游客';
+$set['title'] = '谁来看我？';
 
 include_once '../../sys/inc/thead.php';
 
@@ -27,7 +27,7 @@ aut();
 
 echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" alt="*"> <a href="/info.php?id=' . $user['id'] . '">' . $user['nick'] . '</a> | ';
-echo '<b>在线游客</b>';
+echo '<b>谁来看我？</b>';
 echo '</div>';
 
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `my_guests` WHERE `id_ank` = '$user[id]'"),0);
@@ -80,12 +80,12 @@ echo '</table>';
 if ($k_page>1)str("?",$k_page,$page);
 
 echo '<div class="foot">';
-echo '<img src="/style/icons/delete.gif" alt="*"> <a href="?truncate">清除客人名单</a><br />';
+echo '<img src="/style/icons/delete.gif" alt="*"> <a href="?truncate">清除列表</a><br />';
 echo '</div>';
 
 echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" alt="*"> <a href="/info.php?id=' . $user['id'] . '">' . $user['nick'] . '</a> | ';
-echo '<b>在线游客</b>';
+echo '<b>谁来看我？</b>';
 echo '</div>';
 
 include_once '../../sys/inc/tfoot.php';
