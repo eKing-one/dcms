@@ -23,7 +23,7 @@ if (!$set['web'])
 	</a>
 	<font color="#fee300" size="2"> (</font>
 	<font color="#ffffff">+<?=dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `date_last` > ".(time()-600)." AND `pereh` > '0'"), 0)?></font>
-	<font color="#fee300" size="2"> 各位嘉宾 )</font>
+	<font color="#fee300" size="2"> 在线游客 )</font>
 	</center>
 	</div>
 	<div class='main_menu'>

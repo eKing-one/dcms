@@ -18,7 +18,7 @@ if (isset($_GET['truncate']))
 }
 
 //网页标题
-$set['title'] = '各位嘉宾';
+$set['title'] = '在线游客';
 
 include_once '../../sys/inc/thead.php';
 
@@ -27,7 +27,7 @@ aut();
 
 echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" alt="*"> <a href="/info.php?id=' . $user['id'] . '">' . $user['nick'] . '</a> | ';
-echo '<b>各位嘉宾</b>';
+echo '<b>在线游客</b>';
 echo '</div>';
 
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `my_guests` WHERE `id_ank` = '$user[id]'"),0);
@@ -85,7 +85,7 @@ echo '</div>';
 
 echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" alt="*"> <a href="/info.php?id=' . $user['id'] . '">' . $user['nick'] . '</a> | ';
-echo '<b>各位嘉宾</b>';
+echo '<b>在线游客</b>';
 echo '</div>';
 
 include_once '../../sys/inc/tfoot.php';

@@ -71,7 +71,7 @@ if (
 
 
 
-    echo "<a href='/info.php?id=$ank[id]'>查看问卷</a><br />";
+    echo "<a href='/info.php?id=$ank[id]'>查看资料</a><br />";
 
 
 

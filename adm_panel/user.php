@@ -159,13 +159,13 @@ dbquery("UPDATE `user` SET `group_access` = '$ank[group_access]' WHERE `id` = '$
 if (($user['level']>=3 || $ank['id']==$user['id']) && isset($_POST['balls']) && is_numeric($_POST['balls'])){
 $ank['balls']=intval($_POST['balls']);
 dbquery("UPDATE `user` SET `balls` = '$ank[balls]' WHERE `id` = '$ank[id]' LIMIT 1");}
-admin_log('用户','个人资料',"编辑用户配置文件 '$ank[nick]' (id#$ank[id])");
+admin_log('用户','个人资料',"编辑用户个人资料 '$ank[nick]' (id#$ank[id])");
 if (!isset($err))msg('更改已成功接受');
 }
 err();
 aut();
 echo "<form method='post' action='user.php?id=$ank[id]'>
-尼克:<br /><input".(user_access('user_change_nick')?null:' disabled="disabled"')." type='text' name='nick' value='$ank[nick]' maxlength='32' /><br />
+用户名:<br /><input".(user_access('user_change_nick')?null:' disabled="disabled"')." type='text' name='nick' value='$ank[nick]' maxlength='32' /><br />
 	真实姓名:<br /><input type='text' name='ank_name' value='$ank[ank_name]' maxlength='32' /><br />";
 	echo '出生日期：<br />
 	<select name="ank_d_r">
@@ -231,9 +231,9 @@ echo "聊天中自动更新:<br /><input type='text' name='set_time_chat' value=
 echo "每页积分:<br /><input type='text' name='set_p_str' value='$ank[set_p_str]' maxlength='3' /><br />";
 echo "图标:<br /><select name=\"set_show_icon\">";
 if ($ank['set_show_icon']==1)$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"1\"$sel>展示</option>";
+echo "<option value=\"1\"$sel>显示</option>";
 if ($ank['set_show_icon']==0)$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"0\"$sel>藏起来</option>";
+echo "<option value=\"0\"$sel>隐藏</option>";
 echo "</select><br />";
 echo "音译:<br /><select name=\"set_translit\">";
 if ($ank['set_translit']==1)$sel=' selected="selected"';else $sel=NULL;
@@ -241,14 +241,14 @@ echo "<option value=\"1\"$sel>由选择</option>";
 if ($ank['set_translit']==0)$sel=' selected="selected"';else $sel=NULL;
 echo "<option value=\"0\"$sel>从来没有</option>";
 echo "</select><br />";
-echo "上传文件:<br /><select name=\"set_files\">";
+echo "上传文件展示:<br /><select name=\"set_files\">";
 if ($ank['set_files']==1)$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"1\"$sel>展场</option>";
+echo "<option value=\"1\"$sel>显示</option>";
 if ($ank['set_files']==0)$sel=' selected="selected"';else $sel=NULL;
-echo "<option value=\"0\"$sel>否定使用上传</option>";
+echo "<option value=\"0\"$sel>隐藏</option>";
 echo "</select><br />";
 if ($user['level']<3)$dis=' disabled="disabled"';else $dis=NULL;
-echo "分数:<br /><input type='text'$dis name='balls' value='$ank[balls]' /><br />";
+echo "评分:<br /><input type='text'$dis name='balls' value='$ank[balls]' /><br />";
 echo "团体:<br /><select name='group_access'".(user_access('user_change_group')?null:' disabled="disabled"')."><br />";
 $q=dbquery("SELECT * FROM `user_group` ORDER BY `level`,`id` ASC");
 while ($post = dbassoc($q)) {
@@ -283,7 +283,7 @@ echo "<input type='submit' name='save' value='保存' />";
 echo "</form>";
 echo "<div class='foot'>";
 echo "&raquo;<a href=\"/mail.php?id=$ank[id]\">写一封信</a><br />";
-echo "&laquo;<a href=\"/info.php?id=$ank[id]\">到问卷</a><br />";
+echo "&laquo;<a href=\"/info.php?id=$ank[id]\">返回资料</a><br />";
 if (user_access('adm_panel_show'))
 echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
 echo "</div>";

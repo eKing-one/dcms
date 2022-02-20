@@ -147,8 +147,8 @@ if (user_access('user_ban_set') || user_access('user_ban_set_h')) {
     echo "<input name='pochemu' type='radio' value='7' />火焰<br />";
     echo "<input name='pochemu' type='radio' value='0' />其他<br />";
     echo "<div class='nav1'>来文:</div>";
-    echo "<input name='post' type='radio' value='0' checked='checked'/>展示 <br />";
-    echo "<input name='post' type='radio' value='1' />藏起来<br />";
+    echo "<input name='post' type='radio' value='0' checked='checked'/>显示 <br />";
+    echo "<input name='post' type='radio' value='1' />隐藏<br />";
     echo "<div class='nav1'>评论:</div>";
     echo "<textarea name=\"ban_pr\"></textarea><br />";
     echo "<div class='nav1'>禁令时间 " . (user_access('user_ban_set') ? null : '(最多1天)') . ":</div>";
@@ -167,7 +167,7 @@ if (user_access('user_ban_set') || user_access('user_ban_set_h')) {
 }
 echo "<div class='foot'>";
 echo "&raquo;<a href=\"/mail.php?id=$ank[id]\">写一封信</a><br />";
-echo "&laquo;<a href=\"/info.php?id=$ank[id]\">到问卷</a><br />";
+echo "&laquo;<a href=\"/info.php?id=$ank[id]\">返回资料</a><br />";
 if (user_access('adm_panel_show'))
     echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
 echo "</div>";

@@ -111,7 +111,7 @@ if (isset($user) && $user['id'] == $ank['id']) {
 echo "</div>";
 /*
 ========================================
-各位嘉宾
+在线游客
 ========================================
 */
 if (isset($user) && $user['id'] == $ank['id']) {
@@ -122,9 +122,9 @@ if (isset($user) && $user['id'] == $ank['id']) {
 	echo '<img src="/style/icons/guests.gif" alt="*" /> ';
 
 	if ($new_g != 0) {
-		echo "<a href='/user/myguest/index.php'><font color='red'>各位嘉宾 +$new_g</font></a> ";
+		echo "<a href='/user/myguest/index.php'><font color='red'>在线游客 +$new_g</font></a> ";
 	} else {
-		echo "<a href='/user/myguest/index.php'>各位嘉宾</a> ";
+		echo "<a href='/user/myguest/index.php'>在线游客</a> ";
 	}
 
 	echo ' | ';

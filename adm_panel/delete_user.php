@@ -281,7 +281,7 @@ echo "<br />";
 }
 echo "无法恢复已删除的数据ь<br />";
 echo "<div class='foot'>";
-echo "&laquo;<a href='/info.php?id=$ank[id]'>到问卷</a><br />";
+echo "&laquo;<a href='/info.php?id=$ank[id]'>返回资料</a><br />";
 echo "&laquo;<a href='/users.php'>用户</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';

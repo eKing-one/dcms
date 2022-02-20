@@ -92,7 +92,7 @@ $q = dbquery("SELECT ank_o_sebe,nick,id FROM `user` WHERE $cel AND $orien AND $o
 echo '<table class="post">';
 if ($k_post == 0) {
 	echo '<div class="mess">';
-	echo '问卷列表为空';
+	echo '列表为空';
 	echo '</div>';
 }
 while ($ank = dbassoc($q)) {

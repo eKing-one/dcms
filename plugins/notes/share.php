@@ -46,7 +46,7 @@ exit;
 <?
 echo "<form method='post' action='share.php?id=".intval($_GET['id'])."'>";
 echo $tPanel;
-echo "<textarea name='share_text'></textarea>";
+echo "<textarea name='share_text'></textarea><br/>";
 echo "<input type='submit' name='ok' value='分享'>";
 echo "</form></div>";
 }else{

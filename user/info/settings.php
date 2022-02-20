@@ -133,8 +133,8 @@ echo "<option value='0'".($user['set_files']==0?" selected='selected'":null).">�
 echo "</select><br />";
 
 echo "地点:<br /><select name='show_url'>";
-echo "<option value='1'".($user['show_url']==1?" selected='selected'":null).">展示</option>";
-echo "<option value='0'".($user['show_url']==0?" selected='selected'":null).">藏起来</option>";
+echo "<option value='1'".($user['show_url']==1?" selected='selected'":null).">显示</option>";
+echo "<option value='0'".($user['show_url']==0?" selected='selected'":null).">隐藏</option>";
 echo "</select><br />";
 
 echo "添加联系人:<br /><select name='add_konts'>";

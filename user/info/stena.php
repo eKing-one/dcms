@@ -194,7 +194,7 @@ echo "<label><input type='checkbox' name='stena_foto'".($user['stena_foto']==0?'
 
 
 
-	&raquo;<a href='anketa.php'>查看问卷</a><br />\n";
+	&raquo;<a href='anketa.php'>查看资料</a><br />\n";
 
 if(isset($_SESSION['refer']) && $_SESSION['refer']!=NULL && otkuda($_SESSION['refer']))
 

@@ -119,7 +119,7 @@ if (isset($_GET['id']))
 		<form enctype="multipart/form-data" action="?id=<?=intval($_GET['id'])?>&amp;act=add_smile&amp;ok" method="post">
 		档案数目:<br />
 		<input type="text" name="forms" value="<?=$forms?>"/><br />
-		<input class="submit" type="submit" value="展示表格" /><br />
+		<input class="submit" type="submit" value="显示表格" /><br />
 		<?
 		for ($i=0; $i < $forms; $i++)
 		{

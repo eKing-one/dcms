@@ -441,7 +441,7 @@ if ($ank['group_access'] > 1) {
 				echo "$name<span class=\"ank_n\">姓名:</span>$a <span class=\"ank_d\">$ank[ank_name]</span><br />";
 			else
 				echo "$name<span class=\"ank_n\">姓名:</span>$a<br />";
-			echo "$pol<span class=\"ank_n\">Пол:</span>$a <span class=\"ank_d\">" . (($ank['pol'] == 1) ? '男' : '女') . "</span><br />";
+			echo "$pol<span class=\"ank_n\">性别:</span>$a <span class=\"ank_d\">" . (($ank['pol'] == 1) ? '男' : '女') . "</span><br />";
 			if ($ank['ank_city'] != NULL)
 				echo "$gorod<span class=\"ank_n\">城市:</span>$a <span class=\"ank_d\">" . output_text($ank['ank_city']) . "</span><br />";
 			else
@@ -449,15 +449,15 @@ if ($ank['group_access'] > 1) {
 			if ($ank['ank_d_r'] != NULL && $ank['ank_m_r'] != NULL && $ank['ank_g_r'] != NULL) {
 				if ($ank['ank_m_r'] == 1) $ank['mes'] = '1 月';
 				elseif ($ank['ank_m_r'] == 2) $ank['mes'] = '2 月';
-				elseif ($ank['ank_m_r'] == 3) $ank['mes'] = '玛尔塔';
+				elseif ($ank['ank_m_r'] == 3) $ank['mes'] = '3 月';
 				elseif ($ank['ank_m_r'] == 4) $ank['mes'] = '4 月';
-				elseif ($ank['ank_m_r'] == 5) $ank['mes'] = '五月';
+				elseif ($ank['ank_m_r'] == 5) $ank['mes'] = '5 月';
 				elseif ($ank['ank_m_r'] == 6) $ank['mes'] = '6 月';
-				elseif ($ank['ank_m_r'] == 7) $ank['mes'] = 'Июля';
-				elseif ($ank['ank_m_r'] == 8) $ank['mes'] = 'Августа';
-				elseif ($ank['ank_m_r'] == 9) $ank['mes'] = 'Сентября';
-				elseif ($ank['ank_m_r'] == 10) $ank['mes'] = 'Октября';
-				elseif ($ank['ank_m_r'] == 11) $ank['mes'] = 'Ноября';
+				elseif ($ank['ank_m_r'] == 7) $ank['mes'] = '7 月';
+				elseif ($ank['ank_m_r'] == 8) $ank['mes'] = '8 月';
+				elseif ($ank['ank_m_r'] == 9) $ank['mes'] = '9 月';
+				elseif ($ank['ank_m_r'] == 10) $ank['mes'] = '10 月';
+				elseif ($ank['ank_m_r'] == 11) $ank['mes'] = '11 月';
 				else $ank['mes'] = '12 月';
 				echo "$date<span class=\"ank_n\">出生日期:</span>$a $ank[ank_d_r] $ank[mes] $ank[ank_g_r]г. <br />";
 				$ank['ank_age'] = date("Y") - $ank['ank_g_r'];
@@ -467,66 +467,66 @@ if ($ank['group_access'] > 1) {
 			} elseif ($ank['ank_d_r'] != NULL && $ank['ank_m_r'] != NULL) {
 				if ($ank['ank_m_r'] == 1) $ank['mes'] = '1 月';
 				elseif ($ank['ank_m_r'] == 2) $ank['mes'] = '2 月';
-				elseif ($ank['ank_m_r'] == 3) $ank['mes'] = '玛尔塔';
+				elseif ($ank['ank_m_r'] == 3) $ank['mes'] = '3 月';
 				elseif ($ank['ank_m_r'] == 4) $ank['mes'] = '4 月';
-				elseif ($ank['ank_m_r'] == 5) $ank['mes'] = 'Мая';
-				elseif ($ank['ank_m_r'] == 6) $ank['mes'] = 'Июня';
-				elseif ($ank['ank_m_r'] == 7) $ank['mes'] = 'Июля';
-				elseif ($ank['ank_m_r'] == 8) $ank['mes'] = 'Августа';
-				elseif ($ank['ank_m_r'] == 9) $ank['mes'] = 'Сентября';
-				elseif ($ank['ank_m_r'] == 10) $ank['mes'] = 'Октября';
-				elseif ($ank['ank_m_r'] == 11) $ank['mes'] = 'Ноября';
+				elseif ($ank['ank_m_r'] == 5) $ank['mes'] = '5 月';
+				elseif ($ank['ank_m_r'] == 6) $ank['mes'] = '6 月';
+				elseif ($ank['ank_m_r'] == 7) $ank['mes'] = '7 月';
+				elseif ($ank['ank_m_r'] == 8) $ank['mes'] = '8 月';
+				elseif ($ank['ank_m_r'] == 9) $ank['mes'] = '9 月';
+				elseif ($ank['ank_m_r'] == 10) $ank['mes'] = '10 月';
+				elseif ($ank['ank_m_r'] == 11) $ank['mes'] = '11 月';
 				else $ank['mes'] = '12 月';
 				echo "$date<span class=\"ank_n\">生日。:</span>$a $ank[ank_d_r] $ank[mes] ";
 			}
 			if ($ank['ank_d_r'] >= 19 && $ank['ank_m_r'] == 1) {
 				echo "| 水瓶座<br />";
 			} elseif ($ank['ank_d_r'] <= 19 && $ank['ank_m_r'] == 2) {
-				echo "| Водолей<br />";
+				echo "| 水瓶座<br />";
 			} elseif ($ank['ank_d_r'] >= 18 && $ank['ank_m_r'] == 2) {
-				echo "| Рыбы<br />";
+				echo "| 双鱼座<br />";
 			} elseif ($ank['ank_d_r'] <= 21 && $ank['ank_m_r'] == 3) {
-				echo "| Рыбы<br />";
+				echo "| 双鱼座<br />";
 			} elseif ($ank['ank_d_r'] >= 20 && $ank['ank_m_r'] == 3) {
-				echo "| Овен<br />";
+				echo "| 白羊座<br />";
 			} elseif ($ank['ank_d_r'] <= 21 && $ank['ank_m_r'] == 4) {
-				echo "| Овен<br />";
+				echo "| 白羊座<br />";
 			} elseif ($ank['ank_d_r'] >= 20 && $ank['ank_m_r'] == 4) {
-				echo "| Телец<br />";
+				echo "| 金牛座<br />";
 			} elseif ($ank['ank_d_r'] <= 21 && $ank['ank_m_r'] == 5) {
-				echo "| Телец<br />";
+				echo "| 金牛座<br />";
 			} elseif ($ank['ank_d_r'] >= 20 && $ank['ank_m_r'] == 5) {
-				echo "| Близнецы<br />";
+				echo "| 双子胎<br />";
 			} elseif ($ank['ank_d_r'] <= 22 && $ank['ank_m_r'] == 6) {
-				echo "| Близнецы<br />";
+				echo "| 双子胎<br />";
 			} elseif ($ank['ank_d_r'] >= 21 && $ank['ank_m_r'] == 6) {
-				echo "| Рак<br />";
+				echo "| 巨蟹座<br />";
 			} elseif ($ank['ank_d_r'] <= 22 && $ank['ank_m_r'] == 7) {
-				echo "| Рак<br />";
+				echo "| 巨蟹座<br />";
 			} elseif ($ank['ank_d_r'] >= 23 && $ank['ank_m_r'] == 7) {
-				echo "| Лев<br />";
+				echo "| 狮子座<br />";
 			} elseif ($ank['ank_d_r'] <= 22 && $ank['ank_m_r'] == 8) {
-				echo "| Лев<br />";
+				echo "| 狮子座<br />";
 			} elseif ($ank['ank_d_r'] >= 22 && $ank['ank_m_r'] == 8) {
-				echo "| Дева<br />";
+				echo "| 处女座<br />";
 			} elseif ($ank['ank_d_r'] <= 23 && $ank['ank_m_r'] == 9) {
-				echo "| Дева<br />";
+				echo "| 处女座<br />";
 			} elseif ($ank['ank_d_r'] >= 22 && $ank['ank_m_r'] == 9) {
-				echo "| Весы<br />";
+				echo "| 天秤座<br />";
 			} elseif ($ank['ank_d_r'] <= 23 && $ank['ank_m_r'] == 10) {
-				echo "| Весы<br />";
+				echo "| 天秤座<br />";
 			} elseif ($ank['ank_d_r'] >= 22 && $ank['ank_m_r'] == 10) {
-				echo "| Скорпион<br />";
+				echo "| 天蝎座<br />";
 			} elseif ($ank['ank_d_r'] <= 22 && $ank['ank_m_r'] == 11) {
-				echo "| Скорпион<br />";
+				echo "| 天蝎座<br />";
 			} elseif ($ank['ank_d_r'] >= 21 && $ank['ank_m_r'] == 11) {
-				echo "| Стрелец<br />";
+				echo "| 射手座<br />";
 			} elseif ($ank['ank_d_r'] <= 22 && $ank['ank_m_r'] == 12) {
-				echo "| Стрелец<br />";
+				echo "| 射手座<br />";
 			} elseif ($ank['ank_d_r'] >= 21 && $ank['ank_m_r'] == 12) {
-				echo "| Козерог<br />";
+				echo "| 摩羯座<br />";
 			} elseif ($ank['ank_d_r'] <= 20 && $ank['ank_m_r'] == 1) {
-				echo "| Козерог<br />";
+				echo "| 摩羯座<br />";
 			}
 			echo "</div>";
 			echo '<form action="someplace.html" method="post" name="myForm"><div id="formResponse">';

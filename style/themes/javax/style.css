@@ -1,0 +1,340 @@
+﻿body
+{
+font-family: Tahoma;
+font-size: 11px;
+background: #ffffff;
+color: #2b4e01;
+padding: 0px;
+margin: auto;
+}
+
+a:link, a:active, a:visited
+{
+color: #000;
+text-decoration: none;
+border-bottom: 1px #a2c873 dotted;
+}
+
+a:hover
+{
+color: #000;
+border-bottom: 1px #4a7c0f solid;
+}
+
+textarea
+{
+background: #f4d6bd;
+border: 2px solid #f4a460;
+padding: 2px;
+margin: 2px 2px 2px 4px;
+color: #000;
+}
+
+textarea:hover
+{
+background: #f4d6bd;
+border: 2px solid #f4a460;
+padding: 2px;
+margin: 2px 2px 2px 4px;
+color: #000;
+}
+
+input
+{
+background: #f4d6bd;
+border: 2px solid #f4a460;
+padding: 2px;
+margin: 2px 2px 2px 4px;
+color: #000;
+}
+
+input:hover
+{
+background: #f4d6bd;
+border: 2px solid #f4a460;
+padding: 2px;
+margin: 2px 2px 2px 4px;
+color: #000;
+}
+
+select
+{
+background: #f4d6bd;
+border: 2px solid #f4a460;
+padding: 2px;
+margin: 2px 2px 2px 4px;
+color: #000;
+}
+
+select:hover
+{
+background: #f4d6bd;
+border: 2px solid #f4a460;
+padding: 2px;
+margin: 2px 2px 2px 4px;
+color: #000;
+}
+
+.logo
+{
+background: #629a1f url('graph/logo_bg.png') top repeat-x;
+border: 4px #abce82 solid;
+margin: 3px 3px 3px 2px;
+}
+
+.search_cit
+{
+font-size: small;
+font-weight: bold;
+border-bottom: 1px #FF0000 dotted;
+}
+
+.cit /* вставка цитаты */
+{
+font-size: xx-small;
+background: #FFFFFF url('cit.gif') repeat-y scroll left;
+padding-left: 18px;
+padding-right: 3px;
+margin: 5px;
+border: 1px #9291C7 solid;
+color: #444444;
+font-style: italic;
+}
+
+
+
+form
+{
+background: #fbf5ed;
+border: 2px solid #f4a460;
+padding: 2px;
+margin: 2px 2px 2px 4px;
+color: #000;
+}
+
+.ank_n {
+font-weight: bold;
+}
+.ank_d {
+font-style: italic;
+}
+
+.status
+{
+color: #524383;
+font-weight: bold;
+}
+
+
+.icon48
+{
+font-size: large;
+width: 48px;
+height: 48px;
+vertical-align: top;
+text-align: center;
+
+
+}
+
+.icon14
+{
+font-size: xx-small;
+width: 14px;
+height: 14px;
+vertical-align: top;
+text-align: center;
+
+
+}
+
+.post
+{
+background: #f6f5f5 url('graph/menu_bg.png');
+border: 1px #d8d8d7 solid;
+padding: 4px;
+margin: 3px 3px 3px 2px;
+border: 3px solid #b1b1b1;
+width: 100%;
+}
+
+.p_t
+{
+background: #f6f5f5 url('graph/p_t_bg.png') top repeat-x;
+font-size: 11px;
+border: 3px #9091ff solid;
+color: #2b4e01;
+margin: 3px 3px 3px 2px;
+}
+
+.p_t a
+{
+color: #000;
+border-bottom: 1px #2b4e01 dotted;
+}
+
+.p_t a:hover
+{
+color: #9c4d0c;
+border-bottom: 1px #ebfad9 solid;
+}
+
+
+.p_m
+{
+border: #9091ff solid 3px;
+background: #ffd99f;
+padding: 5px;
+margin: 3px 3px 3px 2px;
+}
+
+
+.rekl
+{
+border: #ffa722 solid 3px;
+background: #ffd99f;
+padding: 5px;
+margin: 3px 3px 3px 2px;
+}
+
+.rekl_main
+{
+background: #f6f5f5;
+border-top: 1px #f6f5f5 solid;
+border-bottom: 1px #f6f5f5 solid;
+padding: 5px;
+margin: 2px 0px 3px 0px;
+}
+.news{
+text-align: left;
+font-weight: normal;
+color: #646500;
+background: #f6f5f5;
+border: 3px solid #ffa722; 
+margin: 3px 3px 3px 2px;
+}
+
+.menu
+{
+background: #f6f5f5 url('graph/menu_bg.png');
+border: 1px #d8d8d7 solid;
+padding: 2px;
+margin: 3px 3px 3px 2px;
+border: 3px solid #f4b37e;
+}
+
+.menu a
+{
+padding-left: 16px;
+background: url('p_menu.gif') no-repeat left;
+}
+
+.main_menu
+{
+background: #f6f5f5 url('graph/menu_bg.png');
+padding: 2px;
+margin: 3px 3px 3px 2px;
+border: 3px solid #ffa722;
+}
+
+
+.str
+{
+margin: 1px;
+text-align: center;
+font-weight: normal;
+color: #2b4e01;
+border: 1px #EEEEEE solid;
+background-color: #FFFFFF;
+}
+
+
+
+.foot
+{
+background: #fbf5ed url('graph/foot_bg.png');
+border: 3px #ffa722 solid;
+text-align: center;
+padding: 5px 5px;
+font-weight: bold;
+color: #4e2809;
+margin: 3px 3px 3px 2px;
+}
+
+.foot a
+{
+color: #66340a;
+text-decoration: none;
+border-bottom: 1px dotted #5d8e21;
+}
+
+.foot a:hover
+{
+color: #9c4d0c;
+text-decoration: none;
+border-bottom: 1px #a8b995 solid;
+}
+
+.err
+{
+margin: 3px 3px 3px 2px;
+border: 1px #aa1655 solid;
+background: #da4c4f;
+padding: 3px;
+color: #dadb00;
+font-size: 13px;
+font-weight: bold;
+text-align: center;
+}
+
+.msg
+{
+margin: 1px 0px 3px 0px;
+border-bottom: 1px #16aa32 solid;
+border-top: 1px #16aa32 solid;
+background: #9ae7a8;
+padding: 3px;
+color: #0d7621;
+font-size: 13px;
+font-weight: bold;
+text-align: center;
+}
+
+.aut, .menu_razd
+{
+background: #629a1f url('graph/aut_bg.png') top repeat-x;
+text-align: center;
+font-size: 12px;
+border: 3px #9091ff solid;
+color: #000;
+margin: 3px 3px 3px 2px;
+}
+
+.aut a
+{
+color: #5a2275;
+border-bottom: 1px #2b4e01 dotted;
+}
+
+.aut a:hover
+{
+color: #ebfad9;
+border-bottom: 1px #ebfad9 solid;
+}
+
+
+.title
+{
+background: #629a1f url('graph/title_bg.png') top repeat-x;
+padding: 4px;
+text-align: center;
+font-size: 13px;
+font-weight: bold;
+color: maroon;
+border-top: #60bfe5 solid 3px;
+border-bottom: 2px #60bfe5 solid;
+margin: 3px 3px 3px 2px;
+}
+
+.on {color: #006E00;} 
+.off {color: #FF0000;} 

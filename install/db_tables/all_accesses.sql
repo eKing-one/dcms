@@ -72,7 +72,7 @@ INSERT INTO `all_accesses` (`type`, `name`) VALUES
 ('user_mass_delete', '用户-大规模删除'),
 ('user_ban_set', '用户被禁止'),
 ('user_ban_unset', '用户-取消禁令'),
-('user_prof_edit', '用户-配置文件编辑'),
+('user_prof_edit', '用户-编辑个人资料'),
 ('user_collisions', '用户-昵称匹配'),
 ('user_show_ip', '用户-显示IP'),
 ('user_show_ua', '用户-用户-代理显示'),

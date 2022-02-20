@@ -190,7 +190,7 @@ echo "<label><input type='checkbox'".($temp_set['antidos']?" checked='checked'":
 echo "<label><input type='checkbox'".($temp_set['antimat']?" checked='checked'":null)." name='antimat' value='1' /> 反CC</label><br />";
 
 echo "解释器错误:<br /><select name=\"show_err_php\">";
-echo "<option value='0'".($temp_set['show_err_php']==0?" selected='selected'":null).">藏起来</option>";
+echo "<option value='0'".($temp_set['show_err_php']==0?" selected='selected'":null).">隐藏</option>";
 echo "<option value='1'".($temp_set['show_err_php']==1?" selected='selected'":null).">节目管理</option>";
 echo "</select><br />";
 

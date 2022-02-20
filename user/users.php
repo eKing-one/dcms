@@ -38,7 +38,7 @@ switch (@$_GET['sort']) {
 
 	case 'balls':
 		$sql_sort = '`user`.`balls`';
-		$sort = 'balls'; // 分数
+		$sort = 'balls'; // 评分
 
 		break;
 
@@ -85,7 +85,7 @@ if (!isset($_GET['go'])) {
 
 	<option selected>-选择-
 
-	<option value='?sort=balls&amp;DESC&amp;page=$page'>分数</option>
+	<option value='?sort=balls&amp;DESC&amp;page=$page'>评分</option>
 
 	<option value='?sort=level&amp;DESC&amp;page=$page'>状况</option>
 
@@ -140,7 +140,7 @@ if (!isset($_GET['go'])) {
 
 		if ($sort == 'balls')
 
-			echo "<span class=\"ank_n\">分数:</span> <span class=\"ank_d\">$ank[balls]</span><br />";
+			echo "<span class=\"ank_n\">评分:</span> <span class=\"ank_d\">$ank[balls]</span><br />";
 
 		if ($sort == 'pol')
 
@@ -202,7 +202,7 @@ if (isset($_GET['go']) && $usearch != NULL) {
 
 	<option selected>-选择-
 
-	<option value='?sort=balls&amp;DESC&amp;page=$page'>分数</option>
+	<option value='?sort=balls&amp;DESC&amp;page=$page'>评分</option>
 
 	<option value='?sort=level&amp;DESC&amp;page=$page'>状况</option>
 
@@ -261,7 +261,7 @@ if (isset($_GET['go']) && $usearch != NULL) {
 
 		if ($sort == 'balls')
 
-			echo "<span class=\"ank_n\">分数</span> <span class=\"ank_d\">$ank[balls]</span><br />";
+			echo "<span class=\"ank_n\">评分</span> <span class=\"ank_d\">$ank[balls]</span><br />";
 
 		if ($sort == 'pol')
 

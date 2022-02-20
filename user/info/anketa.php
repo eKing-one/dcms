@@ -1,4 +1,5 @@
 <?php
+//个人资料页面
 include_once '../../sys//inc/start.php';
 include_once '../../sys//inc/compress.php';
 include_once '../../sys//inc/sess.php';
@@ -305,7 +306,7 @@ echo "</div>";
 //-----------------инфо----------------//
 echo "<div class='nav2'>";
 echo "<b>ID: $ank[id]</b><br /> ";
-echo "分数 (";
+echo "评分 (";
 echo "<font color='green'>$ank[balls]</font>)<br /> ";
 echo $sMonet[2] . ' (' . $ank['money'] . ')<br />';
 echo "<img src='/style/icons/time.png' alt='*' width='14'/> ($displaystring)<br />  ";
@@ -328,36 +329,36 @@ else
 	echo "$gorod<span class=\"ank_n\">城市:</span>$a<br />";
 
 if ($ank['ank_d_r'] != NULL && $ank['ank_m_r'] != NULL && $ank['ank_g_r'] != NULL) {
-	if ($ank['ank_m_r'] == 1) $ank['mes'] = '一月';
-	elseif ($ank['ank_m_r'] == 2) $ank['mes'] = '二月';
-	elseif ($ank['ank_m_r'] == 3) $ank['mes'] = '三月';
-	elseif ($ank['ank_m_r'] == 4) $ank['mes'] = '四月';
-	elseif ($ank['ank_m_r'] == 5) $ank['mes'] = '五月';
-	elseif ($ank['ank_m_r'] == 6) $ank['mes'] = '六月';
-	elseif ($ank['ank_m_r'] == 7) $ank['mes'] = '七月';
-	elseif ($ank['ank_m_r'] == 8) $ank['mes'] = '八月';
-	elseif ($ank['ank_m_r'] == 9) $ank['mes'] = '九月';
-	elseif ($ank['ank_m_r'] == 10) $ank['mes'] = '十月';
-	elseif ($ank['ank_m_r'] == 11) $ank['mes'] = '十一月';
-	else $ank['mes'] = '十二月';
+	if ($ank['ank_m_r'] == 1) $ank['mes'] = '1 月';
+	elseif ($ank['ank_m_r'] == 2) $ank['mes'] = '2 月';
+	elseif ($ank['ank_m_r'] == 3) $ank['mes'] = '3 月';
+	elseif ($ank['ank_m_r'] == 4) $ank['mes'] = '4 月';
+	elseif ($ank['ank_m_r'] == 5) $ank['mes'] = '5 月';
+	elseif ($ank['ank_m_r'] == 6) $ank['mes'] = '6 月';
+	elseif ($ank['ank_m_r'] == 7) $ank['mes'] = '7 月';
+	elseif ($ank['ank_m_r'] == 8) $ank['mes'] = '8 月';
+	elseif ($ank['ank_m_r'] == 9) $ank['mes'] = '9 月';
+	elseif ($ank['ank_m_r'] == 10) $ank['mes'] = '10 月';
+	elseif ($ank['ank_m_r'] == 11) $ank['mes'] = '11 月';
+	else $ank['mes'] = '12 月';
 	echo "$date<span class=\"ank_n\">出生日期:</span>$a $ank[ank_d_r] $ank[mes] $ank[ank_g_r]г. <br />";
 	$ank['ank_age'] = date("Y") - $ank['ank_g_r'];
 	if (date("n") < $ank['ank_m_r']) $ank['ank_age'] = $ank['ank_age'] - 1;
 	elseif (date("n") == $ank['ank_m_r'] && date("j") < $ank['ank_d_r']) $ank['ank_age'] = $ank['ank_age'] - 1;
 	echo "<span class=\"ank_n\">年龄:</span> $ank[ank_age] ";
 } elseif ($ank['ank_d_r'] != NULL && $ank['ank_m_r'] != NULL) {
-	if ($ank['ank_m_r'] == 1) $ank['mes'] = '一月';
-	elseif ($ank['ank_m_r'] == 2) $ank['mes'] = '二月';
-	elseif ($ank['ank_m_r'] == 3) $ank['mes'] = '三月';
-	elseif ($ank['ank_m_r'] == 4) $ank['mes'] = '四月';
-	elseif ($ank['ank_m_r'] == 5) $ank['mes'] = '五月';
-	elseif ($ank['ank_m_r'] == 6) $ank['mes'] = '六月';
-	elseif ($ank['ank_m_r'] == 7) $ank['mes'] = '七月';
-	elseif ($ank['ank_m_r'] == 8) $ank['mes'] = '八月';
-	elseif ($ank['ank_m_r'] == 9) $ank['mes'] = '九月';
-	elseif ($ank['ank_m_r'] == 10) $ank['mes'] = '十月';
-	elseif ($ank['ank_m_r'] == 11) $ank['mes'] = '十一月';
-	else $ank['mes'] = '十二月';
+	if ($ank['ank_m_r'] == 1) $ank['mes'] = '1 月';
+	elseif ($ank['ank_m_r'] == 2) $ank['mes'] = '2 月';
+	elseif ($ank['ank_m_r'] == 3) $ank['mes'] = '3 月';
+	elseif ($ank['ank_m_r'] == 4) $ank['mes'] = '4 月';
+	elseif ($ank['ank_m_r'] == 5) $ank['mes'] = '5 月';
+	elseif ($ank['ank_m_r'] == 6) $ank['mes'] = '6 月';
+	elseif ($ank['ank_m_r'] == 7) $ank['mes'] = '7 月';
+	elseif ($ank['ank_m_r'] == 8) $ank['mes'] = '8 月';
+	elseif ($ank['ank_m_r'] == 9) $ank['mes'] = '9 月';
+	elseif ($ank['ank_m_r'] == 10) $ank['mes'] = '10 月';
+	elseif ($ank['ank_m_r'] == 11) $ank['mes'] = '11 月';
+	else $ank['mes'] = '12 月';
 	echo "$date<span class=\"ank_n\">生日:</span>$a $ank[ank_d_r] $ank[mes] ";
 } else {
 	echo "$date<span class=\"ank_n\">出生日期:</span>$a";
@@ -424,9 +425,9 @@ if ($ank['ank_rost'] != NULL)
 else
 	echo "$rost<span class=\"ank_n\">身高:</span>$a<br />";
 if ($ank['ank_ves'] != NULL)
-	echo "$ves<span class=\"ank_n\">重量:</span>$a <span class=\"ank_d\">$ank[ank_ves]</span><br />";
+	echo "$ves<span class=\"ank_n\">体重:</span>$a <span class=\"ank_d\">$ank[ank_ves]</span><br />";
 else
-	echo "$ves<span class=\"ank_n\">重量:</span>$a<br />";
+	echo "$ves<span class=\"ank_n\">体重:</span>$a<br />";
 
 if ($ank['ank_cvet_glas'] != NULL)
 	echo "$glaza<span class=\"ank_n\">眼睛颜色:</span>$a <span class=\"ank_d\">$ank[ank_cvet_glas]</span><br />";
@@ -437,7 +438,7 @@ if ($ank['ank_volos'] != NULL)
 else
 	echo "$volos<span class=\"ank_n\">头发:</span>$a<br />";
 
-echo "$telo<span class=\"ank_n\">身体类型:</span>$a";
+echo "$telo<span class=\"ank_n\">身体状况:</span>$a";
 if ($ank['ank_telosl'] == 1)
 	echo " <span class=\"ank_d\">没有人回答</span><br />";
 if ($ank['ank_telosl'] == 2)
@@ -728,7 +729,7 @@ if ($user['level'] > $ank['level']) {
 
 echo "<div class='foot'>";
 
-if (isset($user) && $user['id'] == $ank['id']) echo "<img src='/style/icons/str.gif' alt='*' /> <a href=\"edit.php\">修改问卷</a><br />";
+if (isset($user) && $user['id'] == $ank['id']) echo "<img src='/style/icons/str.gif' alt='*' /> <a href=\"edit.php\">修改资料</a><br />";
 if ($user['level'] > $ank['level']) {
 	if (user_access('user_prof_edit'))
 		echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/user.php?id=$ank[id]'>编辑配置文件</a><br />";

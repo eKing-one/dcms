@@ -64,9 +64,9 @@ if (isset($_GET['id'])) {
         echo $rost . '<span class="ank_n">身高:</span>' . $a . '<br />';
     }
     if ($ank['ank_ves'] != NULL) {
-        echo $ves . '<span class="ank_n">重量:</span>' . $a . ' <span class="ank_d">' . $ank['ank_ves'] . '</span><br />';
+        echo $ves . '<span class="ank_n">体重:</span>' . $a . ' <span class="ank_d">' . $ank['ank_ves'] . '</span><br />';
     } else {
-        echo $ves . '<span class="ank_n">重量:</span>' . $a . '<br />';
+        echo $ves . '<span class="ank_n">体重:</span>' . $a . '<br />';
     }
     if ($ank['ank_cvet_glas'] != NULL) {
         echo $glaza . '<span class="ank_n">眼睛颜色:</span>' . $a . ' <span class="ank_d">' . $ank['ank_cvet_glas'] . '</span><br />';
@@ -78,7 +78,7 @@ if (isset($_GET['id'])) {
     } else {
         echo $volos . '<span class="ank_n">头发:</span>' . $a . '<br />';
     }
-    echo $telo . '<span class="ank_n">身体类型:</span>' . $a . '';
+    echo $telo . '<span class="ank_n">身体状况:</span>' . $a . '';
     if ($ank['ank_telosl'] == 1) {
         echo ' <span class="ank_d">没有人回答</span><br />';
     }

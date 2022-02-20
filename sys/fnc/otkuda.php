@@ -17,7 +17,7 @@ function otkuda($ref)
 	elseif (preg_match('#^/online\.php#', $ref))
 		$mesto = ' 正在查看 <a href="/online.php">在线用户</a> ';
 	elseif (preg_match('#^/online_g\.php#', $ref))
-		$mesto = ' 看看谁进来了 <a href="/online_g.php">各位嘉宾</a> ';
+		$mesto = ' 看看谁进来了 <a href="/online_g.php">在线游客</a> ';
 	elseif (preg_match('#^/reg\.php#', $ref))
 		$mesto = ' 需要 <a href="/reg.php">登记册</a> ';
 	elseif (preg_match('#^/obmen/#', $ref))

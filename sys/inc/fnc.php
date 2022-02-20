@@ -153,10 +153,10 @@ function esc($text, $br = NULL)
 	return $text;
 }
 
-// получаем данные пользователя и уровень прав (+ кеширование)
+// 获取用户数据和权限级别（+ 缓存）
 function get_user($user_id = 0)
 {
-  static $users; // переменная не удаляется после вызова функции
+  static $users; // 调用函数后不删除变量
   if ($user_id == 0) {
 // бот
     $ank2['id'] = 0;
@@ -207,16 +207,16 @@ function vremja($time = NULL)
 	global $user;
 	if ($time == NULL) $time = time();
 	if (isset($user)) $time = $time + $user['set_timesdvig'] * 60 * 60;
-	$timep = "" . date("Y m d в H:i", $time) . "";
+	$timep = "" . date("Y m d H:i", $time) . "";
 	$time_p[0] = date("Y m d", $time);
 	$time_p[1] = date("H:i", $time);
 	if ($time_p[0] == date("Y m d")) $timep = date("H:i:s", $time);
 	if (isset($user)) {
 		if ($time_p[0] == date("Y m d", time() + $user['set_timesdvig'] * 60 * 60)) $timep = date("H:i:s", $time);
-		if ($time_p[0] == date("Y m d", time() - 60 * 60 * (24 - $user['set_timesdvig']))) $timep = "昨天在$time_p[1]";
+		if ($time_p[0] == date("Y m d", time() - 60 * 60 * (24 - $user['set_timesdvig']))) $timep = "昨天$time_p[1]";
 	} else {
 		if ($time_p[0] == date("Y m d")) $timep = date("H:i:s", $time);
-		if ($time_p[0] == date("Y m d", time() - 60 * 60 * 24)) $timep = "昨天在$time_p[1]";
+		if ($time_p[0] == date("Y m d", time() - 60 * 60 * 24)) $timep = "昨天$time_p[1]";
 	}
 	$timep = str_replace("Jan", "1月", $timep);
 	$timep = str_replace("Feb", "2月", $timep);
@@ -257,7 +257,7 @@ function only_unreg($link = NULL)
 }
 
 
-// только для тех, у кого уровень доступа больше или равен $level
+// 仅适用于访问级别大于或等于 $level
 function only_level($level = 0, $link = NULL)
 {
 	global $user;
@@ -323,7 +323,7 @@ function msg2($msg)
 
 
 
-// отправка запланированных писем
+// 发送预定邮件
 $q = dbquery("SELECT * FROM `mail_to_send` LIMIT 1");
 if (dbrows($q) != 0) {
 	$mail = dbassoc($q);
@@ -333,7 +333,7 @@ if (dbrows($q) != 0) {
 	dbquery("DELETE FROM `mail_to_send` WHERE `id` = '$mail[id]'");
 }
 
-// сохранение настроек системы
+// 保存系统设置
 function save_settings($set)
 {
   unset($set['web']);
@@ -346,7 +346,7 @@ function save_settings($set)
     return FALSE;
 }
 
-// запись действий администрации
+// 管理行动记录
 function admin_log($mod, $act, $opis)
 {
 	global $user;
@@ -373,7 +373,7 @@ if (isset($_POST['token'])) {
 	$_POST['loginAPI'] = true;
 }
 
-// Загрузка остальных функций из папки "sys/fnc"
+// 从文件夹加载其余功能 "sys/fnc"
 $opdirbase = opendir(H . 'sys/fnc');
 
 while ($filebase = readdir($opdirbase)) {
@@ -382,7 +382,7 @@ while ($filebase = readdir($opdirbase)) {
 	}
 }
 
-// запись о посещении
+// 参观记录
 dbquery("INSERT INTO `visit_today` (`ip` , `ua`, `time`) VALUES ('$iplong', '" . @my_esc($_SERVER['HTTP_USER_AGENT']) . "', '$time')");
 
 function csrf_token_new()
@@ -396,12 +396,12 @@ function ages($age)
 {
   $str = '';
   $num = $age > 100 ? substr($age, -2) : $age;
-  if ($num >= 5 && $num <= 14) $str = "лет";
+  if ($num >= 5 && $num <= 14) $str = "年";
   else {
     $num = substr($age, -1);
-    if ($num == 0 || ($num >= 5 && $num <= 9)) $str = 'лет';
-    if ($num == 1) $str = 'год';
-    if ($num >= 2 && $num <= 4) $str = 'года';
+    if ($num == 0 || ($num >= 5 && $num <= 9)) $str = '年';
+    if ($num == 1) $str = '年';
+    if ($num >= 2 && $num <= 4) $str = '年';
   }
   return $age . ' ' . $str;
 }
@@ -409,10 +409,8 @@ function ages($age)
 
 function t_toolbar_css ()
 {
-  ?>
-  <style>
-
-
+  
+  echo '<style>
       .toolbar {
           position: fixed;
           text-align: center;
@@ -445,8 +443,7 @@ function t_toolbar_css ()
 
           padding-top: 40px;
       }
-  </style>
-  <?php
+  </style>';
 }
 
 function version_stable ()
@@ -460,22 +457,18 @@ function t_toolbar_html()
 {
     global $set;
 
-  ?>
-  <div class="toolbar">
+  echo '<div class="toolbar">
     <div class="toolbar_inner">
       <span style="color: white">Admin Tool</span> ::
       <a href="/">网站主页</a>  |
       <a href="/plugins/admin/">行政科</a> |
       <a href="/adm_panel/">控制面板</a> |
       <a target="_blank" href="https://dcms-social.ru">DCMS-Social.ru</a>
-       v. <?=$set['dcms_version']?>
-        <?
-        if (status_version() < 0)   echo "<center>	 <font color='red'>有一个新版本 - ".version_stable()."! <a href='/adm_panel/update.php'>更详细</a></font>		</center>	";
-?>
-
-    </div>
-  </div>
-  <?php
+       v'.$set['dcms_version'];
+        if (status_version() < 0)   
+		echo '<center>	 
+		<font color="red">有一个新版本 - '.version_stable().'! <a href="/adm_panel/update.php">详细</a></font>
+		</center></div></div>';
 }
 
 
@@ -558,7 +551,6 @@ function token_js()
 {
     ob_start()
 ?>
-
   <script>
 
 
@@ -572,9 +564,6 @@ function token_js()
       }
 
     </script>
-
-
-
     <?php
     $page = ob_get_contents();
     ob_end_clean();
@@ -588,14 +577,12 @@ function token_form()
     echo '<input type="text" name="token" value="'.$_SESSION['token'].'">';
 
 }
-
+//获取远程更新代码
 function status_version ()
 {
     global $set;
     $content = file_get_contents("https://dcms-social.ru/launcher/social.json");
     $data = json_decode($content, TRUE);
-
-
     return version_compare($set['dcms_version'], $data['stable']['version']);
 }
 

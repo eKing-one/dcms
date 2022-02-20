@@ -17,8 +17,8 @@ INSERT INTO `forum_f` (`id`, `name`, `pos`, `opis`, `adm`, `icon`) VALUES
 (5, '休闲和爱好', 5, '娱乐，旅游，电影，汽车/摩托等。', '0', 'f_dosug.gif'),
 (6, '音乐', 6, '一切与音乐有关', '0', 'f_music.gif'),
 (7, '关于运动', 7, '足球曲棍球和其他', '0', 'f_sport.gif'),
-(8, '流动电话', 8, '模型的讨论，购买，销售', '0', 'f_mobil.gif'),
+(8, '移动电话', 8, '模型的讨论，购买，销售', '0', 'f_mobil.gif'),
 (9, '电话的一切', 9, 'Java塞班铃声图片', '0', 'f_vse_mobil.gif'),
-(10, '流动通讯', 10, '所有关于运营商，WAP;GPRS;EDGE;3G;Wi-Fi;短信;彩信', '0', 'svyaz_mob.gif'),
+(10, '移动通讯', 10, '所有关于运营商，WAP;GPRS;EDGE;3G;Wi-Fi;短信;彩信', '0', 'svyaz_mob.gif'),
 (11, '电脑', 11, '关于电脑的一切', '0', 'f_jkomp.gif'),
 (12, '无法无天', 12, 'No comments...', '0', 'bespredel.gif');

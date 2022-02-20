@@ -180,7 +180,7 @@ aut();
 
 echo "<div class='nav2'><form method='post' name='message' action='/forum/$forum[id]/$razdel[id]/$them[id]/new'>";
 
-echo "<a href='/info.php?id=$ank[id]'>查看问卷</a><br />";
+echo "<a href='/info.php?id=$ank[id]'>查看资料</a><br />";
 
 $msg2=$ank['nick'].', ';
 
