@@ -27,7 +27,7 @@ if (!$set['web'])
 	</center>
 	</div>
 	<div class='main_menu'>
-	<?
+	<?php
 	if (isset($user))
 	{
 		?>
@@ -35,7 +35,7 @@ if (!$set['web'])
 		<img src="/style/icons/icon_stranica.gif" alt="DS" />
 		<?=user::nick($user['id'])?> | <a href="exit.php"><font color="#ff0000">退出</font></a>
 		</div>
-		<?
+		<?php
 	}
 	else
 	{
