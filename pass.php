@@ -1,4 +1,4 @@
-<?
+<?php
 include_once 'sys/inc/start.php';
 include_once 'sys/inc/compress.php';
 include_once 'sys/inc/sess.php';
@@ -28,9 +28,7 @@ if (isset($_POST['nick']) && isset($_POST['mail']) && $_POST['nick'] != NULL && 
 您已激活密码恢复<br />
 要设置新密码，请点击链接:<br />
 <a href='http://$_SERVER[HTTP_HOST]/pass.php?id=$user2[id]&amp;set_new=$new_sess'>http://$_SERVER[HTTP_HOST]/pass.php?id=$user2[id]&amp;set_new=$new_sess</a><br />
-此链接有效，直到您的用户名下的第一个授权($user2[nick])<br />
-真诚的，网站管理<br />
-";
+此链接有效，直到您的用户名下的第一个授权($user2[nick])<br />真诚的，网站管理<br />";
         $adds = "From: \"password@$_SERVER[HTTP_HOST]\" <password@$_SERVER[HTTP_HOST]>";
         //$adds = "From: <$set[reg_mail]>";
         //$adds .= "X-sender: <$set[reg_mail]>";
@@ -80,15 +78,13 @@ if (
     echo "设置新密码的链接将发送到您的电子邮件。<br />";
     echo "如果您在资料中没有关于您的电子邮件的条目，密码恢复是不可能的。<br />";
 }
-?>
-    <div class='foot'>
+    echo '<div class="foot">
         尚未登记？<br/>
-        <a href='/reg.php'>注册账号</a><br/>
+        <a href="/reg.php">注册账号</a><br/>
     </div>
-    <div class='foot'>
+    <div class="foot">
         已经注册？ <br/>
-        <a href='/aut.php'>登录账号</a><br/>
-    </div>
-<?
+        <a href="/aut.php">登录账号</a><br/>
+    </div>';
 include_once 'sys/inc/tfoot.php';
 ?>

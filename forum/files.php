@@ -1,6 +1,6 @@
 <?php
 include_once '../sys/inc/start.php';
-//include_once '../sys/inc/compress.php'; // если раскомментировать то файл будет качаться некорректно
+//include_once '../sys/inc/compress.php'; //如果取消注释，文件将无法正确摇摆
 include_once '../sys/inc/sess.php';
 include_once '../sys/inc/home.php';
 include_once '../sys/inc/settings.php';
