@@ -106,7 +106,7 @@ include_once H.'style/themes/'.$set['set_them'].'/altername_post_form.php';
 else
 echo "通信:$tPanel<textarea name=\"msg\"></textarea><br />";
 
-echo "类别：:<br /><select name='id_dir'>";
+echo "分类:<br /><select name='id_dir'>";
 $q=dbquery("SELECT * FROM `notes_dir` ORDER BY `id` DESC");
 echo "<option value='0'".($id_dir==0?" selected='selected'":null)."><b>没有类别</b></option>";
 

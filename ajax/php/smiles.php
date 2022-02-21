@@ -35,7 +35,7 @@ while($post = dbarray($q))
 echo '</div>';
 
 $q = dbquery("SELECT * FROM `smile_dir` ORDER BY id ASC");
-echo '<div class="title">类别：</div>';
+echo '<div class="title">分类</div>';
 while ($dir = dbassoc($q))
 {
 	echo '<a onclick="showContent2(\'/ajax/php/smiles.php?dir='.$dir['id'].'\')" class="onclick">' . text($dir['name']) . '</a> ';
