@@ -7,7 +7,7 @@
 
 
 
-echo '大小: '.size_file($size)."<br />\n";
+echo '大小: '.size_file($size)."<br />";
 
 
 
@@ -79,7 +79,7 @@ if ($media!=NULL)
 
 
 
-echo '许可: '.$media['wh']."pix<br />\n";
+echo '许可: '.$media['wh']."pix<br />";
 
 
 
@@ -88,7 +88,7 @@ echo '许可: '.$media['wh']."pix<br />\n";
 
 
 
-//echo 'Кодек: '.$media['codec']."<br />\n";
+//echo 'Кодек: '.$media['codec']."<br />";
 
 
 
@@ -97,7 +97,7 @@ echo '许可: '.$media['wh']."pix<br />\n";
 
 
 
-echo '时间: '.$media['lenght']."<br />\n";
+echo '时间: '.$media['lenght']."<br />";
 
 
 
@@ -106,7 +106,7 @@ echo '时间: '.$media['lenght']."<br />\n";
 
 
 
-//echo "Битрейт: ".$media['bit']." KBPS<br />\n";
+//echo "Битрейт: ".$media['bit']." KBPS<br />";
 
 
 
@@ -160,7 +160,7 @@ $media = new ffmpeg_movie($file);
 
 
 
-echo '许可: '. $media->GetFrameWidth().'x'.$media->GetFrameHeight()."pix<br />\n";
+echo '许可: '. $media->GetFrameWidth().'x'.$media->GetFrameHeight()."pix<br />";
 
 
 
@@ -169,7 +169,7 @@ echo '许可: '. $media->GetFrameWidth().'x'.$media->GetFrameHeight()."pix<br />
 
 
 
-//echo 'Кодек: '.$media->getVideoCodec()."<br />\n";
+//echo 'Кодек: '.$media->getVideoCodec()."<br />";
 
 
 
@@ -196,7 +196,7 @@ if (intval($media->getDuration())>3599)
 
 
 
-echo '时间: '.intval($media->getDuration()/3600).":".date('s',fmod($media->getDuration()/60,60)).":".date('s',fmod($media->getDuration(),3600))."<br />\n";
+echo '时间: '.intval($media->getDuration()/3600).":".date('s',fmod($media->getDuration()/60,60)).":".date('s',fmod($media->getDuration(),3600))."<br />";
 
 
 
@@ -214,7 +214,7 @@ elseif (intval($media->getDuration())>59)
 
 
 
-echo '时间: '.intval($media->getDuration()/60).":".date('s',fmod($media->getDuration(),60))."<br />\n";
+echo '时间: '.intval($media->getDuration()/60).":".date('s',fmod($media->getDuration(),60))."<br />";
 
 
 
@@ -232,7 +232,7 @@ else
 
 
 
-echo '时间: '.intval($media->getDuration())." сек<br />\n";
+echo '时间: '.intval($media->getDuration())." сек<br />";
 
 
 
@@ -241,7 +241,7 @@ echo '时间: '.intval($media->getDuration())." сек<br />\n";
 
 
 
-//echo "Битрейт: ".ceil(($media->getBitRate())/1024)." KBPS<br />\n";
+//echo "Битрейт: ".ceil(($media->getBitRate())/1024)." KBPS<br />";
 
 
 
@@ -313,31 +313,4 @@ dbquery("INSERT INTO `media_info` (`file`, `size`, `lenght`, `bit`, `codec`, `wh
 
 
 
-else echo '上膛了: '.vremja($post['time'])."<br />\n";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>
+else echo '上膛了: '.vremja($post['time'])."<br />";

@@ -87,7 +87,7 @@ function make_pre($dir_loads2,$file2)
 							unlink($filename);
 							return $var;
 						}
-						//else echo "<img src=\"../style/swf.jpg\" alt=\"SWF!\" /><br />\n";
+						//else echo "<img src=\"../style/swf.jpg\" alt=\"SWF!\" /><br />";
 					}
 					else echo'ненадо преобразований<br />';
 				}
@@ -96,10 +96,9 @@ function make_pre($dir_loads2,$file2)
 			}
 			else echo'не найдены изображения для создания скрина<br/>';
 		}
-		//else echo "<img src=\"../style/xml.jpg\" alt=\"XML не найден!\" /><br />\n";
+		//else echo "<img src=\"../style/xml.jpg\" alt=\"XML не найден!\" /><br />";
 	}
 	else echo'файл не найден<br />';
 	clearstatcache();
 	return false;
 }
-?>

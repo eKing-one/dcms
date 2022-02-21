@@ -71,8 +71,7 @@ echo "<div class='main'>";
 echo "<input type='submit' name='save' value='保存' />";
 echo "</div>";
 echo "</form>";
-echo "<div class='foot'>\n";
-echo "<img src='/style/icons/str2.gif' alt='*' /> <a href='index.php'>通知书</a> | <b>设置</b><br />\n";
-echo "</div>\n";
+echo "<div class='foot'>";
+echo "<img src='/style/icons/str2.gif' alt='*' /> <a href='index.php'>通知书</a> | <b>设置</b><br />";
+echo "</div>";
 include_once '../../sys/inc/tfoot.php';
-?>

@@ -774,11 +774,11 @@ echo "</form>";
 
 
 
-echo "<div class=\"foot\">\n";
+echo "<div class=\"foot\">";
 
 
 
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$user[id]'>$user[nick]</a> | \n";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$user[id]'>$user[nick]</a> | ";
 
 
 
@@ -786,7 +786,7 @@ echo '<b>录音带</b>';
 
 
 
-echo "</div>\n";
+echo "</div>";
 
 
 
@@ -795,7 +795,3 @@ echo "</div>\n";
 
 
 include_once '../../sys/inc/tfoot.php';
-
-
-
-?>

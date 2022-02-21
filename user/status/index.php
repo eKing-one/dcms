@@ -59,7 +59,7 @@ $frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` =
 if ($anketa['id'] != $user['id'] && $user['group_access'] == 0) {
 	if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) // Начинаем вывод если стр имеет приват настройки
 	{
-		if ($anketa['group_access'] > 1) echo "<div class='err'>$anketa[group_name]</div>\n";
+		if ($anketa['group_access'] > 1) echo "<div class='err'>$anketa[group_name]</div>";
 		echo "<div class='nav1'>";
 		echo group($anketa['id']) . " $anketa[nick] ";
 		echo medal($anketa['id']) . " " . online($anketa['id']) . " ";
@@ -77,11 +77,11 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0) {
 		if (isset($user)) {
 			echo '<div class="nav1">';
 			if ($frend_new == 0 && $frend == 0) {
-				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=" . $anketa['id'] . "'>添加到好友</a><br />\n";
+				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=" . $anketa['id'] . "'>添加到好友</a><br />";
 			} elseif ($frend_new == 1) {
-				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$anketa[id]'>拒绝申请</a><br />\n";
+				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$anketa[id]'>拒绝申请</a><br />";
 			} elseif ($frend == 2) {
-				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$anketa[id]'>从朋友中删除</a><br />\n";
+				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$anketa[id]'>从朋友中删除</a><br />";
 			}
 			echo "</div>";
 		}
@@ -105,11 +105,11 @@ $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
 $q = dbquery("SELECT * FROM `status` WHERE `id_user` = '" . $anketa['id'] . "' ORDER BY `id` DESC LIMIT $start, $set[p_str]");
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 if ($k_post == 0) {
-	echo "<div class='mess'>\n";
+	echo "<div class='mess'>";
 	echo "没有状态";
-	echo "</div>\n";
+	echo "</div>";
 }
 while ($post = dbassoc($q)) {
 	$ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
@@ -129,18 +129,18 @@ while ($post = dbassoc($q)) {
 	echo "<a href='komm.php?id=$post[id]'><img src='/style/icons/bbl4.png' alt=''/>" . dbresult(dbquery("SELECT COUNT(*) FROM `status_komm` WHERE `id_status` = '$post[id]'"), 0) . "</a> ";
 	if ($post['pokaz'] == 0) {
 		if (isset($user) && ($user['level'] != 0 || $user['id'] == $ank['id']))
-			echo "[<a href=\"index.php?id=" . $anketa['id'] . "&amp;reset=$post[id]\"><img src='/style/icons/ok.gif' alt=''/> вкл</a>]\n";
+			echo "[<a href=\"index.php?id=" . $anketa['id'] . "&amp;reset=$post[id]\"><img src='/style/icons/ok.gif' alt=''/> вкл</a>]";
 		if (isset($user) && ($user['level'] > $ank['level'] || $user['level'] != 0 || $user['id'] == $ank['id']))
-			echo " [<a href=\"delete.php?id=$post[id]\"><img src='/style/icons/delete.gif' alt=''/> 删除</a>]\n";
+			echo " [<a href=\"delete.php?id=$post[id]\"><img src='/style/icons/delete.gif' alt=''/> 删除</a>]";
 	} else {
 		if (isset($user) && ($user['level'] > $ank['level'] || $user['level'] != 0 || $user['id'] == $ank['id']))
-			echo " <font color='green'>已安装</font>\n";
+			echo " <font color='green'>已安装</font>";
 		if (isset($user) && ($user['level'] > $ank['level'] || $user['level'] != 0 || $user['id'] == $ank['id']))
-			echo " [<a href=\"delete.php?id=$post[id]\"><img src='/style/icons/delete.gif' alt=''/> 删除</a>]\n";
+			echo " [<a href=\"delete.php?id=$post[id]\"><img src='/style/icons/delete.gif' alt=''/> 删除</a>]";
 	}
 	echo '</div>';
 }
-echo "</table>\n";
+echo "</table>";
 if ($k_page > 1) str("index.php?id=" . $anketa['id'] . '&amp;', $k_page, $page); // 输出页数
 echo "<div class='foot'>";
 echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <b>状态</b>";

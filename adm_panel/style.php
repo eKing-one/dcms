@@ -16,14 +16,15 @@ include_once '../sys/inc/thead.php';
 title();
 err();
 aut();
-if (isset($_POST['robots'])) $robots = $_POST['robots']; else  $robots = '' ;
+if (isset($_POST['robots'])) $robots = $_POST['robots'];
+else  $robots = '';
 if (isset($_POST['save'])) {
-  $fs = fopen(H."style/themes/$set[set_them]/style.css", "w");
+  $fs = fopen(H . "style/themes/$set[set_them]/style.css", "w");
   $text = fputs($fs, $robots);
   fclose($fs);
 }
 $text = '';
-$f = file(H."style/themes/$set[set_them]/style.css");
+$f = file(H . "style/themes/$set[set_them]/style.css");
 for ($i = 0; $i < count($f); $i++) {
   $text = "$text$f[$i]";
 }
@@ -36,6 +37,6 @@ for ($i = 0; $i < count($f); $i++) {
 if (user_access('adm_panel_show')) {
   echo "<div class='foot'>";
   echo "&laquo;<a href='/adm_panel/'> 到管理</a><br />";
-  echo "</div>\n";
+  echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';

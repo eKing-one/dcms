@@ -40,9 +40,8 @@ echo "<label><input type='checkbox' name='stena_foto'".($user['stena_foto']==0?'
 	<input type='submit' name='save' value='保存' />
 	</form>
 	<div class='foot'>
-	&raquo;<a href='anketa.php'>查看资料</a><br />\n";
+	&raquo;<a href='anketa.php'>查看资料</a><br />";
 if(isset($_SESSION['refer']) && $_SESSION['refer']!=NULL && otkuda($_SESSION['refer']))
-echo "&laquo;<a href='$_SESSION[refer]'>".otkuda($_SESSION['refer'])."</a><br />\n";
-echo "&laquo;<a href='/umenu.php'>我的菜单</a><br /></div>\n";
+echo "&laquo;<a href='$_SESSION[refer]'>".otkuda($_SESSION['refer'])."</a><br />";
+echo "&laquo;<a href='/umenu.php'>我的菜单</a><br /></div>";
 include_once '../../sys/inc/tfoot.php';
-?>

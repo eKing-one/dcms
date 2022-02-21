@@ -1,7 +1,7 @@
 <?
 if (test_file(H."sys/obmen/screens/48/$post[id].gif"))
 {
-echo "<img src='/sys/obmen/screens/48/$post[id].gif' alt='scr...' /><br />\n";
+echo "<img src='/sys/obmen/screens/48/$post[id].gif' alt='scr...' /><br />";
 }
 elseif (class_exists('ffmpeg_movie')){
 $media = new ffmpeg_movie($file);
@@ -19,8 +19,7 @@ imagegif($des_img,H."sys/obmen/screens/48/$post[id].gif");
 chmod(H."sys/obmen/screens/48/$post[id].gif", 0777);
 imagedestroy($des_img);
 imagedestroy($s_img);
-echo "<img src='/sys/obmen/screens/48/$post[id].gif' alt='scr...' /><br />\n";
+echo "<img src='/sys/obmen/screens/48/$post[id].gif' alt='scr...' /><br />";
 }
 }
 }
-?>

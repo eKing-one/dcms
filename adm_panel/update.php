@@ -110,29 +110,27 @@ deny from all");
 }
 $content = file_get_contents("https://dcms-social.ru/launcher/social.json");
 $data = json_decode($content, TRUE);
-echo "<div class='mess'>\n";
-echo "<center><span style='font-size:16px;'><strong>DCMS-Social v.$set[dcms_version]</strong></span></center>\n";
-echo "<center><span style='font-size:14px;'> 官方支持网站 <a href='https://dcms-social.ru'>https://dcms-social.ru</a></span></center>\n";
-echo "\n";
+echo "<div class='mess'>";
+echo "<center><span style='font-size:16px;'><strong>DCMS-Social v.$set[dcms_version]</strong></span></center>";
+echo "<center><span style='font-size:14px;'> 官方支持网站 <a href='https://dcms-social.ru'>https://dcms-social.ru</a></span></center>";
+echo "";
 if (status_version() >= 0) {
     echo "<div class='mess'> 你有最新的相关版本。你可以在引擎官网上手动查看新版本  <a target='_blank' href='https://dcms-social.ru'>DCMS-Social.ru</a></div>";
-}
-else
-{
+} else {
     echo "<div class='mess' style='font-size: 16px; background-color: #9aff9a' >有个新版本 - " . $data['stable']['version'] . "! 需要升级。新发布的所有信息在官网 <a target='_blank' href='https://dcms-social.ru'>DCMS-Social.ru</a> 你可以在此页面上自动更新引擎。</div>";
 }
 echo "<div class='mess'> <h3 style='color: red'>注意！这是自动更新的阿尔法版本。明智地使用！在/replace/文件夹之外对原始引擎文件所做的所有手动更改都将丢失。做备份！</h3>  </div>";
 echo "<form method='post' >";
-    echo "<label><input type='checkbox' name='backup'> 备份文件到 /sys/backup/</label></br> ";
-    if (status_version() < 0)
+echo "<label><input type='checkbox' name='backup'> 备份文件到 /sys/backup/</label></br> ";
+if (status_version() < 0)
     echo "<input type='submit' name='update' value='更新!' />";
-    else
-        echo "<input type='submit' name='update' value='重新安装当前版本！' />";
-    echo "</form>";
+else
+    echo "<input type='submit' name='update' value='重新安装当前版本！' />";
+echo "</form>";
 if (user_access('adm_panel_show')) {
-    echo "<div class='foot'>\n";
-    echo "&laquo;<a href='/adm_panel/'>去行政办公室</a><br />\n";
-    echo "</div>\n";
+    echo "<div class='foot'>";
+    echo "&laquo;<a href='/adm_panel/'>去行政办公室</a><br />";
+    echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
 function getFileListAsArray(string $dir, bool $recursive = TRUE, string $basedir = ''): array

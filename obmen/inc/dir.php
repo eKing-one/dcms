@@ -117,7 +117,7 @@ for ($i = $start; $i < $k_post && $i < $set['p_str'] * $page; $i++) {
 		/*---------------------------*/
 		include 'inc/icon48.php';
 		if (test_file(H . 'style/themes/' . $set['set_them'] . '/loads/14/' . $ras . '.png'))
-			echo "<img src='/style/themes/$set[set_them]/loads/14/$ras.png' alt='$ras' /> \n";
+			echo "<img src='/style/themes/$set[set_them]/loads/14/$ras.png' alt='$ras' /> ";
 		else
 			echo "<img src='/style/themes/$set[set_them]/loads/14/file.png' alt='file' /> ";
 		if ($set['echo_rassh'] == 1) $ras = $post['ras'];

@@ -59,7 +59,7 @@ function antimat($str)
 	} else return false;
 }
 
-// рекурсивное удаление папки
+// 递归删除文件夹
 function delete_dir($dir)
 {
 	if (is_dir($dir)) {
@@ -134,7 +134,7 @@ if (isset($_SERVER['HTTP_REFERER']) && !preg_match('#' . preg_quote($_SERVER['HT
 function br($msg, $br = '<br />')
 {
 	return preg_replace("#((<br( ?/?)>)|\n|\r)+#i", $br, $msg);
-} // переносы строк
+} // 换行
 
 function esc($text, $br = NULL)
 { // 过滤所有不可读字符
@@ -309,7 +309,9 @@ function err()
 
 function msg($msg)
 {
+	
 	echo "<div class='msg'>$msg</div>";
+	
 } // 消息输出
 
 

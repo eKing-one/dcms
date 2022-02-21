@@ -18,7 +18,7 @@ if (test_file(H."sys/obmen/screens/48/$post[id].$ras"))
 
 
 
-echo "<img src='/sys/obmen/screens/48/$post[id].$ras' alt='scr...' /><br />\n";
+echo "<img src='/sys/obmen/screens/48/$post[id].$ras' alt='scr...' /><br />";
 
 
 
@@ -173,24 +173,9 @@ imagedestroy($screen);
 
 
 
-echo "<img src='/sys/obmen/screens/48/$post[id].$ras' alt='scr...' /><br />\n";
+echo "<img src='/sys/obmen/screens/48/$post[id].$ras' alt='scr...' /><br />";
 
 
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>

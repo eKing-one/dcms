@@ -19,5 +19,4 @@ $foto_coll+=dbresult(dbquery("SELECT COUNT(*) FROM `gallery_foto` WHERE `id_gall
 if ($obmennik_coll!=0)
 $foto="$foto +$foto_coll*";
 }
-echo "<span class=\"ank_n\">Фотографии:</span> <span class=\"ank_d\">$foto</span><br />\n";
-?>
+echo "<span class=\"ank_n\">Фотографии:</span> <span class=\"ank_d\">$foto</span><br />";

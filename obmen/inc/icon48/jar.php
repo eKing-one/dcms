@@ -1,6 +1,6 @@
 <?
 if (test_file(H."sys/loads/screens/48/$size.$name.$ras.png"))
-echo "<img src='/sys/loads/screens/48/$size.$name.$ras.png' alt='$ras' /><br />\n";
+echo "<img src='/sys/loads/screens/48/$size.$name.$ras.png' alt='$ras' /><br />";
 else
 {
 include_once H.'sys/inc/zip.php';
@@ -60,23 +60,22 @@ unlink(H."sys/tmp/$sess.png");
 elseif (test_file(H."style/themes/default/loads/48/$ras.png"))
 {
 @copy (H."style/themes/default/loads/48/$ras.png",H."sys/loads/screens/48/$size.$name.$ras.png");
-echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br />\n";
+echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br />";
 }
 else
 {
 @copy (H."style/themes/default/loads/48/file.png",H."sys/loads/screens/48/$size.$name.$ras.png");
-echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br />\n";
+echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br />";
 }
 }
 elseif (test_file(H."style/themes/default/loads/48/$ras.png"))
 {
 @copy (H."style/themes/default/loads/48/$ras.png",H."sys/loads/screens/48/$size.$name.$ras.png");
-echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br />\n";
+echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br />";
 }
 else
 {
 @copy (H."style/themes/default/loads/48/file.png",H."sys/loads/screens/48/$size.$name.$ras.png");
-echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br />\n";
+echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br />";
 }
 }
-?>

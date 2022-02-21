@@ -44,10 +44,10 @@ $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
 $q = dbquery("SELECT * FROM `status_like` WHERE `id_status` = '" . intval($_GET['id']) . "' ORDER BY `id` DESC LIMIT $start, $set[p_str]");
-echo "<table class='post'>\n";
+echo "<table class='post'>";
 if ($k_post == 0) {
-	echo "<div class='mess'>\n";
-	echo "他们还没有投票支持这个地位\n";
+	echo "<div class='mess'>";
+	echo "他们还没有投票支持这个地位";
 	echo "</div>";
 }
 while ($post = dbassoc($q)) {
@@ -61,7 +61,7 @@ while ($post = dbassoc($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	echo status($ank['id']) . " <a href='/info.php?id=$ank[id]'>$ank[nick]</a> \n";
+	echo status($ank['id']) . " <a href='/info.php?id=$ank[id]'>$ank[nick]</a> ";
 	echo medal($ank['id']) . online($ank['id']) . " (" . vremja($post['time']) . ")";
 	$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id_user` = '$ank[id]' AND `pokaz` = '1' LIMIT 1"));
 	if ($status['id']) {
@@ -72,7 +72,7 @@ while ($post = dbassoc($q)) {
 	}
 	echo "</div>";
 }
-echo "</table>\n";
+echo "</table>";
 if ($k_page > 1) str("like.php?id=" . intval($_GET['id']) . '&amp;', $k_page, $page); // 输出页数
 echo "<div class='foot'>";
 echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <a href='index.php?id=" . $anketa['id'] . "'>状态</a> | <b>评分</b>";

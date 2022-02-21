@@ -252,13 +252,13 @@ echo "评分:<br /><input type='text'$dis name='balls' value='$ank[balls]' /><br
 echo "团体:<br /><select name='group_access'".(user_access('user_change_group')?null:' disabled="disabled"')."><br />";
 $q=dbquery("SELECT * FROM `user_group` ORDER BY `level`,`id` ASC");
 while ($post = dbassoc($q)) {
-    echo "<option value='$post[id]'" . ($post['level'] >= $user['level'] ? " disabled='disabled'" : null) . "" . ($post['id'] == $ank['group_access'] ? " selected='selected'" : null) . ">" . $post['name'] . "</option>\n";
+    echo "<option value='$post[id]'" . ($post['level'] >= $user['level'] ? " disabled='disabled'" : null) . "" . ($post['id'] == $ank['group_access'] ? " selected='selected'" : null) . ">" . $post['name'] . "</option>";
 }
-echo "</select><br />\n";
-echo "附加组:<br />\n<select name='group_access2'" . (user_access('user_change_group') ? null : ' disabled="disabled"') . "><br />\n";
+echo "</select><br />";
+echo "附加组:<br />\n<select name='group_access2'" . (user_access('user_change_group') ? null : ' disabled="disabled"') . "><br />";
 $q = dbquery("SELECT * FROM `user_group` ORDER BY `level`,`id` ASC");
 while ($post = dbassoc($q)) {
-    echo "<option value='$post[id]'" . ($post['level'] >= $user['level'] ? " disabled='disabled'" : null) . "" . ($post['id'] == $ank['group_access'] ? " selected='selected'" : null) . ">" . $post['name'] . "</option>\n";
+    echo "<option value='$post[id]'" . ($post['level'] >= $user['level'] ? " disabled='disabled'" : null) . "" . ($post['id'] == $ank['group_access'] ? " selected='selected'" : null) . ">" . $post['name'] . "</option>";
 }
 echo "</select><br />";
 echo "新密码:<br /><input type='text' name='new_pass' value='' /><br />";
@@ -271,4 +271,3 @@ if (user_access('adm_panel_show'))
 echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
-?>

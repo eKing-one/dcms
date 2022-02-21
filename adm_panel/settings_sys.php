@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -17,9 +17,9 @@ include_once '../sys/inc/thead.php';
 title();
 if (isset($_POST['save']))
 {
-// ShaMan
+// Shaman
 $temp_set['title']=esc(stripcslashes(htmlspecialchars($_POST['title'])),1);
-// Тут конец моих дум
+// 这是我的末日
 $temp_set['mail_backup']=esc($_POST['mail_backup']);
 $temp_set['p_str']=intval($_POST['p_str']);
 dbquery("ALTER TABLE `user` CHANGE `set_p_str` `set_p_str` INT( 11 ) DEFAULT '$temp_set[p_str]'");
@@ -75,7 +75,7 @@ echo "Admin Toolbar:<br />
 <br />";
 echo "寿命管理会话:<br /><input name=\"timeadmin\" value='".setget('timeadmin',1000)."' type=\"text\" /><br />";
 /*
-echo 'Фон сайта:<br />
+echo '网站背景:<br />
 <input type="color"  name="background"
            value="'.setget('background').'">
 <br />';
@@ -99,10 +99,10 @@ echo "网站帽:<br />
 </select>
 <br />";
 /*
-echo "  Установка плагинов через папку /Replace/:<br />
+echo "  通过文件夹安装插件 /Replace/:<br />
 <select name='replace'>
-  <option ".(setget('replace',1)==1? " selected ":null)." value='1'>Включено</option>
-  <option ".(setget('replace',1)==0? " selected ":null)." value='0'>Отключено</option>
+  <option ".(setget('replace',1)==1? " selected ":null)." value='1'>包括</option>
+  <option ".(setget('replace',1)==0? " selected ":null)." value='0'>断开</option>
 </select>
 <br />";
 */

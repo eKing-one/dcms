@@ -90,10 +90,10 @@ aut();
 <script type="text/javascript" src="/ajax/js/user-music.js"></script>
 <div id="ajaxsPlayer">
 	<?
-	echo "<div class=\"foot\">\n";
-	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | \n";
+	echo "<div class=\"foot\">";
+	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | ";
 	echo '<b>音乐</b>';
-	echo "</div>\n";
+	echo "</div>";
 	if ($set['web']) $set['p_str'] = 100;
 	$k_post = dbresult(dbquery("SELECT COUNT(*) FROM `user_music` WHERE `id_user` = '$ank[id]'"), 0);
 	$k_page = k_page($k_post, $set['p_str']);
@@ -101,7 +101,7 @@ aut();
 	$start = $set['p_str'] * $page - $set['p_str'];
 	if ($k_post == 0) {
 		echo "<div class='mess'>";
-		echo "播放列表中没有曲目\n";
+		echo "播放列表中没有曲目";
 		echo '</div>';
 	}
 	$track = 0;
@@ -112,10 +112,10 @@ aut();
 		$ras = $mp3['ras'];
 		/*-----------代码-----------*/
 		if ($num == 0) {
-			echo "  <div class='nav1'>\n";
+			echo "  <div class='nav1'>";
 			$num = 1;
 		} elseif ($num == 1) {
-			echo "  <div class='nav2'>\n";
+			echo "  <div class='nav2'>";
 			$num = 0;
 		}
 		/*---------------------------*/
@@ -140,10 +140,10 @@ aut();
 </div>
 <?
 if ($k_page > 1) str('index.php?id=' . $ank['id'] . '&amp;', $k_page, $page); // 输出页数
-echo "<div class=\"foot\">\n";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | \n";
+echo "<div class=\"foot\">";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | ";
 echo '<b>音乐</b>';
-echo "</div>\n";
+echo "</div>";
 // (c) Искатель
 include_once '../../sys/inc/tfoot.php';
 ?>

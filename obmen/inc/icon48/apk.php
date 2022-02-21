@@ -45,6 +45,5 @@ if ($icon){
 $_SESSION['file_icon']=null;
 }
 if (test_file(H."sys/obmen/screens/48/$post[id].png"))
-echo "<img src='/sys/obmen/screens/48/$post[id].png' alt='*' /><br />\n";
+echo "<img src='/sys/obmen/screens/48/$post[id].png' alt='*' /><br />";
 $_SESSION['file_icon']=null;
-?>
