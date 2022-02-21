@@ -78,7 +78,7 @@ if ($k_post == 0) {
 }
 while ($ank = dbassoc($q)) {
 	$ank = get_user($ank['id']);
-	/*-----------зебра-----------*/
+	/*-----------代码-----------*/
 	if ($num == 0) {
 		echo '<div class="nav1">';
 		$num = 1;
@@ -101,5 +101,5 @@ while ($ank = dbassoc($q)) {
 	echo "</div>";
 }
 echo "</table>";
-if ($k_page > 1) str("?", $k_page, $page); // Вывод страниц
+if ($k_page > 1) str("?", $k_page, $page); // 输出页数
 include_once '../sys/inc/tfoot.php';

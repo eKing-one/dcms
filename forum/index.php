@@ -236,7 +236,7 @@ echo "  </div>";
 }
 while ($forum = dbassoc($q))
 {
-/*-----------зебра-----------*/
+/*-----------代码-----------*/
   if ($num==0){
   echo "  <div class='nav1'>";
   $num=1;
@@ -292,4 +292,3 @@ echo "<img src='/style/icons/str.gif' alt='*'> <a href=\"/forum/?act=new\">新�
 echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
-?>

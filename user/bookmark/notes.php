@@ -66,9 +66,8 @@ echo '<div style="text-align:right;"><a href="?delete=' . $post['id'] . '&amp;pa
 echo '</div>';
 }
 echo "</table>";
-if ($k_page>1)str('?',$k_page,$page); // Вывод страниц
+if ($k_page>1)str('?',$k_page,$page); // 输出页数
 echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/user/bookmark/index.php?id=' . $ank['id'] . '">书签</a> | <b>日记</b>';
 echo '</div>';
 include_once '../../sys/inc/tfoot.php';
-?>

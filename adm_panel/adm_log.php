@@ -78,7 +78,7 @@ echo "  </td>";
 echo "   </tr>";
 }
 echo "</table>";
-if ($k_page>1)str('?id_mod='.$mod['id'].'&amp;id_act='.$act['id'].'&amp;',$k_page,$page); // Вывод страниц
+if ($k_page>1)str('?id_mod='.$mod['id'].'&amp;id_act='.$act['id'].'&amp;',$k_page,$page); // 输出页数
 echo "&laquo;<a href='?id_mod=$mod[id]".($ank?"&amp;id=$ank[id]":null)."'>行动清单</a><br />";
 echo "&laquo;<a href='?$passgen".($ank?"&amp;id=$ank[id]":null)."'>模块列表</a><br />";
 }elseif (isset($_GET['id_mod']) && dbresult(dbquery("SELECT COUNT(*) FROM `admin_log` WHERE `mod` = '".intval($_GET['id_mod'])."'".($ank?" AND `id_user` = '$ank[id]'":null)),0)!=0)
@@ -108,4 +108,3 @@ echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
 echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
-?>

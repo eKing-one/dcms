@@ -50,6 +50,5 @@ while ($guest = dbassoc($q)) {
     echo "   </tr>";
 }
 echo "</table>";
-if ($k_page > 1) str("?", $k_page, $page); // Вывод страниц
+if ($k_page > 1) str("?", $k_page, $page); // 输出页数
 include_once 'sys/inc/tfoot.php';
-?>

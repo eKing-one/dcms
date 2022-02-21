@@ -49,7 +49,7 @@ if (isset($_GET['go']) && $search != NULL) {
         $name = $post['name'];
         $size = $post['size'];
         $dir_id = dbarray(dbquery("SELECT * FROM `obmennik_dir` WHERE `id` = '$post[id_dir]' LIMIT 1"));
-        /*-----------зебра-----------*/
+        /*-----------代码-----------*/
         if ($num == 0) {
             echo '<div class="nav1">';
             $num = 1;
@@ -71,7 +71,7 @@ if (isset($_GET['go']) && $search != NULL) {
     if ($k_page > 1) {
         str("search.php?go&amp;", $k_page, $page);
         echo '<br />';
-    } // Вывод страниц
+    } // 输出页数
 } else
     echo '<div class="foot">';
 echo '档案搜寻';

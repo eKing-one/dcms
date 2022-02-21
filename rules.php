@@ -28,7 +28,7 @@ $start=$set['p_str']*($page-1);
 $end=$set['p_str']*$page;
 for ($i=$start;$i<$end && $i<count($f);$i++)
 echo ($i+1).') '.trim(stripcslashes(htmlspecialchars($f[$i])))."<br />";
-if ($k_page>1)str("?",$k_page,$page); // Вывод страниц
+if ($k_page>1)str("?",$k_page,$page); // 输出页数
 }
 if(isset($_SESSION['refer']) && $_SESSION['refer']!=NULL && otkuda($_SESSION['refer']))
 {
@@ -37,4 +37,3 @@ echo "&laquo;<a href='$_SESSION[refer]'>".otkuda($_SESSION['refer'])."</a><br />
 echo "</div>";
 }
 include_once 'sys/inc/tfoot.php';
-?>

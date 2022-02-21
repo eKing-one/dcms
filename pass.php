@@ -8,7 +8,7 @@ include_once 'sys/inc/db_connect.php';
 include_once 'sys/inc/ipua.php';
 include_once 'sys/inc/fnc.php';
 include_once 'sys/inc/shif.php';
-$show_all = true; // показ для всех
+$show_all = true; //为大家展示
 include_once 'sys/inc/user.php';
 only_unreg();
 $set['title'] = '密码恢复';
@@ -87,4 +87,3 @@ if (
         <a href="/aut.php">登录账号</a><br/>
     </div>';
 include_once 'sys/inc/tfoot.php';
-?>

@@ -95,7 +95,7 @@ if (isset($user) && ($user['level']>=3 || $user['id'] == $post['id_user']))
 echo'<a href="?id='.$post['id'].'&del='.$komm['id'].'">删除</a><br />';
 echo'</div>';
 }
-if ($k_page>1)str("komm.php?id=$post[id]&",$k_page,$page); // Вывод страниц
+if ($k_page>1)str("komm.php?id=$post[id]&",$k_page,$page); // 输出页数
 if (!isset($_POST['msg']) && isset($user) ) 
 {
 echo'<div class="main_menu"><form method="post" name="message" action="?id='.$post['id'].'">';
@@ -107,4 +107,3 @@ echo'</form></div>';
 header('Location: /index.php');
 }
 include_once '../sys/inc/tfoot.php';
-?>

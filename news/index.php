@@ -42,7 +42,7 @@ while ($post = dbassoc($q))
 	echo '</div>';
 }
 echo '</table>';
-// Вывод страниц
+// 输出页数
 if ($k_page>1)str('index.php?',$k_page,$page); 
 if (user_access('adm_news'))
 {	
@@ -51,4 +51,3 @@ if (user_access('adm_news'))
 	echo '</div>';
 }
 include_once '../sys/inc/tfoot.php';
-?>

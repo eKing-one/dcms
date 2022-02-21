@@ -102,7 +102,7 @@ deny from all");
             save_settings($temp_set);
             if (save_settings($temp_set)) {
                 admin_log('设置', '系统', '系统更新');
-                msg2('系统更新');
+                msg('系统更新');
             }
             header("Location: /adm_panel/update.php");
         }

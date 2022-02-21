@@ -39,7 +39,7 @@ echo '<table class="post">';
 while ($post = dbarray($q))
 {
 	$ank = get_user($post['id_user']);
-	/*-----------зебра-----------*/ 
+	/*-----------代码-----------*/ 
 	if ($num == 0){
 		echo '<div class="nav1">';
 		$num = 1;
@@ -68,4 +68,3 @@ echo '<img src="/style/icons/str2.gif" alt="*"> <a href="/info.php?id=' . $user[
 echo '<b>谁来看我？</b>';
 echo '</div>';
 include_once '../../sys/inc/tfoot.php';
-?>

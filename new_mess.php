@@ -33,7 +33,7 @@ if ($k_post == 0) {
 	//echo mysql_error(),"<br />";
 	while ($kont = dbassoc($q)) {
 		$ank = get_user($kont['id_user']);
-		/*-----------зебра-----------*/
+		/*-----------代码-----------*/
 		if ($num == 0) {
 			echo "  <div class='nav1'>";
 			$num = 1;
@@ -53,7 +53,7 @@ if ($k_post == 0) {
 	}
 }
 echo "</table>";
-if ($k_page > 1) str('?', $k_page, $page); // Вывод страниц
+if ($k_page > 1) str('?', $k_page, $page); // 输出页数
 echo "<div class='foot'>";
 echo "<img src='/style/icons/konts.png' alt='*' /> <a href='/konts.php?$passgen'>联络人</a><br />";
 echo "</div>";

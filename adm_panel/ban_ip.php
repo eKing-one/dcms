@@ -67,7 +67,7 @@ echo "  </td>";
 echo "   </tr>";
 }
 echo "</table>";
-if ($k_page>1)str('?',$k_page,$page); // Вывод страниц
+if ($k_page>1)str('?',$k_page,$page); // 输出页数
 $min=NULL;$max=NULL;
 if (isset($_GET['min']) && preg_match("#^([0-9]{1,3}).([0-9]{1,3}).([0-9]{1,3}).([0-9]{1,3})$#",long2ip($_GET['min'])))
 {
@@ -86,4 +86,3 @@ echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
 echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
-?>

@@ -99,7 +99,7 @@ if (count($res)!=0)
         } 
     } 
     echo '</table>'; 
-    if ($k_page > 1)str('?',$k_page,$page); // Вывод страниц 
+    if ($k_page > 1)str('?',$k_page,$page); // 输出页数 
 } 
 else 
 { 
@@ -112,4 +112,3 @@ if (count($searched['result']) != 0)echo '<img src="/style/icons/str2.gif" /> <a
 echo '<img src="/style/icons/str2.gif" /> <a href="/forum/">论坛</a> | <b>论坛搜索</b>';
 echo '</div>'; 
 include_once '../sys/inc/tfoot.php';
-?>

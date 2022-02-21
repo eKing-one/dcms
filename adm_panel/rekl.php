@@ -112,7 +112,7 @@ echo "  </td>";
 echo "   </tr>";
 }
 echo "</table>";
-if ($k_page>1)str("rekl.php?sel=$sel&amp;",$k_page,$page); // Вывод страниц
+if ($k_page>1)str("rekl.php?sel=$sel&amp;",$k_page,$page); // 输出页数
 echo "<form class='foot' method='post' action='rekl.php?sel=$sel&amp;add'>";
 echo "标题:<br /><input type=\"text\" name=\"name\" value=\"\" /><br />";
 echo "链接:<br /><input type=\"text\" name=\"link\" value=\"\" /><br />";
@@ -149,4 +149,3 @@ echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
 echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
-?>

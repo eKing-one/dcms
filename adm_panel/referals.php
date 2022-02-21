@@ -44,10 +44,9 @@ echo "  </td>";
 echo "   </tr>";
 }
 echo "</table>";
-if ($k_page>1)str("?",$k_page,$page); // Вывод страниц
+if ($k_page>1)str("?",$k_page,$page); // 输出页数
 echo "<div class='foot'>";
 if (user_access('adm_panel_show'))
 echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
-?>

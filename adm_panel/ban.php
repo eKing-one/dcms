@@ -96,7 +96,7 @@ if ($k_post == 0) {
 }
 $q = dbquery("SELECT * FROM `ban` WHERE `id_user` = '$ank[id]' ORDER BY `time` DESC LIMIT $start, $set[p_str]");
 while ($post = dbassoc($q)) {
-    /*-----------зебра-----------*/
+    /*-----------代码-----------*/
     if ($num == 0) {
         echo "  <div class='nav1'>";
         $num = 1;
@@ -125,7 +125,7 @@ while ($post = dbassoc($q)) {
     echo "</div>";
 }
 echo "</table>";
-if ($k_page > 1) str('?id=' . $ank['id'] . '&amp;', $k_page, $page); // Вывод страниц
+if ($k_page > 1) str('?id=' . $ank['id'] . '&amp;', $k_page, $page); // 输出页数
 if (user_access('user_ban_set') || user_access('user_ban_set_h')) {
     echo "<form action=\"ban.php?id=$ank[id]&amp;$passgen\" method=\"post\">";
     echo "<div class='nav1'>说明:</div>";

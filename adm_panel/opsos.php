@@ -64,7 +64,7 @@ echo "  </td>";
 echo "   </tr>";
 }
 echo "</table>";
-if ($k_page>1)str('?',$k_page,$page); // Вывод страниц
+if ($k_page>1)str('?',$k_page,$page); // 输出页数
 echo "<form method=\"post\" action=\"\">";
 echo "初始IP地址:<br /><input name=\"min\" size=\"16\"  value=\"\" type=\"text\" /><br />";
 echo "结束IP:<br /><input name=\"max\" size=\"16\" value=\"\" type=\"text\" /><br />";
@@ -77,4 +77,3 @@ echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
 echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
-?>

@@ -22,22 +22,23 @@ function output_text($str, $br = true, $html = true, $smiles = true, $links = tr
         $str = br($str); // 换行符
         $str = esc($str); // 我们删除了所有无法读取的字符，这些字符会破坏我们的标记:)
     } else {
-        //$str=br($str, ' '); // пробелы вместо переносов
+        //$str=br($str, ' '); // 空格代替进位
         $str = esc($str); // 我们删除了所有无法读取的字符，这些字符会破坏我们的标记:)
     }
-    return $str; // возвращаем обработанную строку
+    return $str; // 返回已处理的字符串
 }
 function msg($msg)
 {
-    echo "<div class='msg'>$msg</div>\n";
-} // вывод сообщений
+    echo '<div class="msg">' . $msg . '</div>';
+} // 消息输出
+
 function passgen($k_simb = 8, $types = 3)
 {
     $password = "";
     $small = "abcdefghijklmnopqrstuvwxyz";
     $large = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     $numbers = "1234567890";
-mt_srand((double)microtime()*1000000); 
+    mt_srand((float)microtime() * 1000000);
     for ($i = 0; $i < $k_simb; $i++) {
         $type = mt_rand(1, min($types, 3));
         switch ($type) {

@@ -124,6 +124,5 @@ while ($post = dbassoc($q))
 	echo '</div>';
 }
 echo "</table>";
-if ($k_page>1)str('who_rating.php?id='.$user_id.'&amp;',$k_page,$page); // Вывод страниц
+if ($k_page>1)str('who_rating.php?id='.$user_id.'&amp;',$k_page,$page); // 输出页数
 include_once '../../sys/inc/tfoot.php';
-?>

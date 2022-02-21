@@ -55,7 +55,7 @@ $temp_set['meta_description']=esc(stripcslashes(htmlspecialchars($_POST['meta_de
   $temp_set['header'] = esc(stripcslashes(htmlspecialchars(($_POST['header']))));
   if (save_settings($temp_set)) {
     admin_log('设置', '系统', '更改系统设置');
-    msg2('已成功接受设置');
+    msg('已成功接受设置');
   } else
     $err = '无权更改设置文件';
   header( "Location: " . $_SERVER [ "REQUEST_URI" ]);

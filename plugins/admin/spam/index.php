@@ -47,7 +47,7 @@ if (user_access('adm_panel_show')) {
 	}
 	$q = dbquery("SELECT * FROM `spamus` $types ORDER BY id DESC LIMIT $start, $set[p_str]");
 	while ($post = dbassoc($q)) {
-		/*-----------зебра-----------*/
+		/*-----------代码-----------*/
 		if ($num == 0) {
 			echo "  <div class='nav1'>";
 			$num = 1;
@@ -128,7 +128,7 @@ if (user_access('adm_panel_show')) {
 		}
 		echo "</table>";
 	}
-	if ($k_page > 1) str('?', $k_page, $page); // Вывод страниц
+	if ($k_page > 1) str('?', $k_page, $page); // 输出页数
 	echo "<div class='foot'>";
 	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/plugins/admin/'>行政款</a><br />";
 	echo "</div>";

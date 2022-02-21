@@ -67,7 +67,7 @@ if (dbrows($q) == 0) {
     echo "  </div>";
 }
 while ($room = dbassoc($q)) {
-    /*-----------зебра-----------*/
+    /*-----------代码-----------*/
     if ($num == 0) {
         echo '<div class="nav1">';
         $num = 1;

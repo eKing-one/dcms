@@ -41,11 +41,10 @@ while ($post = dbassoc($q))
 	echo '</div>';
 }
 echo '</table>';
-// Вывод страниц
+// 输出页数
 if ($k_page > 1)str("?",$k_page,$page);  
 echo '<div class="foot">';
 echo '<img src="/style/icons/str.gif" alt="*" /> <a href="/info.php">我的页面</a><br />';
 echo '<img src="/style/icons/str.gif" alt="*" /> <a href="/umenu.php">我的菜单</a><br />';
 echo '</div>';
 include_once H.'sys/inc/tfoot.php';
-?>

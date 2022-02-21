@@ -172,7 +172,7 @@ while ($post = dbassoc($q))
 	echo '</div>';
 }
 echo '</table>';
-// Вывод страниц
+// 输出页数
 if ($k_page>1)str("news.php?id=" . intval($_GET['id']) . '&amp;', $k_page,$page); 
 // Форма для комментариев
 if (isset($user))
@@ -189,4 +189,3 @@ echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" alt="*"> <a href="index.php">新闻报道</a><br />';
 echo '</div>';
 include_once '../sys/inc/tfoot.php';
-?>

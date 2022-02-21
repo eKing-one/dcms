@@ -141,7 +141,7 @@ if (!isset($block_foto))
 	
 	echo '</table>';
 	
-	// Вывод страниц
+	// 输出页数
 	if ($k_page > 1)str('?', $k_page, $page); 
 }
 if(isset($user) && (user_access('foto_alb_del') || $ank['id']==$user['id'])){
@@ -156,4 +156,3 @@ echo '</div>';
 
 include_once '../sys/inc/tfoot.php';
 exit;
-?>

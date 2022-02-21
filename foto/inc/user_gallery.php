@@ -62,11 +62,10 @@ while ($post = dbassoc($q))
 	echo '</div>';
 }
 echo '</table>';
-// Вывод страниц
+// 输出页数
 if ($k_page > 1)str('?', $k_page, $page); 
 echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <b>专辑</b>';
 echo '</div>';
 include_once '../sys/inc/tfoot.php';
 exit;
-?>

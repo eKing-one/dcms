@@ -379,7 +379,7 @@ if (isset($listr['id']))	echo '<span class="page">' . ($listr['id'] ? "<a href='
 		}
 		echo '</div>';
 	}
-	if ($k_page > 1)str('?',$k_page,$page); // Вывод страниц
+	if ($k_page > 1)str('?',$k_page,$page); // 输出页数
 	if (isset($user))
 	{
 		echo '<form method="post" name="message" action="?page=' . $pageEnd . '&amp;' . REPLY . '">';
@@ -399,4 +399,3 @@ if ($foto['metka'] == 1)echo ' <font color=red>(18+)</font>';
 echo '</div>';
 include_once '../sys/inc/tfoot.php';
 exit;
-?>

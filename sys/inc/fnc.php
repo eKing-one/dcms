@@ -1,14 +1,8 @@
-<?
-// псевдонимы функций
+<?php
+// 函数别名
 function my_esc($str)
 {
 	return mysql_real_escape_string($str);
-}
-
-
-function __($str)
-{
-	return $str;
 }
 
 // 对于php4（替代file_put_contents）
@@ -21,7 +15,7 @@ if (!function_exists('file_put_contents')) {
 	}
 }
 
-if ($set['antidos']) { // Защита от частых запросов с одного IP
+if ($set['antidos']) { // 来自单个 IP 的频繁请求保护
 	$antidos[] = array('time' => $time);
 	$k_loads = 0;
 	if (test_file(H . 'sys/tmp/antidos_' . $iplong . '.dat')) {
@@ -90,7 +84,7 @@ function delete_dir($dir)
 }
 
 
-// очистка временной папки
+// 正在清除临时文件夹
 if (!isset($hard_process)) {
 	$q = dbquery("SELECT * FROM `cron` WHERE `id` = 'clear_tmp_dir'");
 	if (dbrows($q) == 0) dbquery("INSERT INTO `cron` (`id`, `time`) VALUES ('clear_tmp_dir', '$time')");
@@ -113,7 +107,8 @@ if (!isset($hard_process)) {
 		}
 		closedir($od);
 	}
-} // Подведение итогов статистики
+}
+// 统计数据汇总
 if (!isset($hard_process)) {
 	$q = dbquery("SELECT * FROM `cron` WHERE `id` = 'visit' LIMIT 1");
 	if (dbrows($q) == 0) dbquery("INSERT INTO `cron` (`id`, `time`) VALUES ('visit', '$time')");
@@ -131,7 +126,7 @@ if (!isset($hard_process)) {
 	}
 }
 
-// запись о переходах на сайт
+// 现场迁移记录
 if (isset($_SERVER['HTTP_REFERER']) && !preg_match('#' . preg_quote($_SERVER['HTTP_HOST']) . '#', $_SERVER['HTTP_REFERER']) && $ref = @parse_url($_SERVER['HTTP_REFERER'])) {
 	if (isset($ref['host'])) $_SESSION['http_referer'] = $ref['host'];
 }
@@ -142,7 +137,7 @@ function br($msg, $br = '<br />')
 } // переносы строк
 
 function esc($text, $br = NULL)
-{ // Вырезает все нечитаемые символы
+{ // 过滤所有不可读字符
 	if ($br != NULL)
 		for ($i = 0; $i <= 31; $i++) $text = str_replace(chr($i), NULL, $text);
 	else {
@@ -156,42 +151,42 @@ function esc($text, $br = NULL)
 // 获取用户数据和权限级别（+ 缓存）
 function get_user($user_id = 0)
 {
-  static $users; // 调用函数后不删除变量
-  if ($user_id == 0) {
-// бот
-    $ank2['id'] = 0;
-    $ank2['nick'] = '系统';
-    $ank2['level'] = 999;
-    $ank2['pol'] = 1;
-    $ank2['group_name'] = '系统机器人';
-    $ank2['ank_o_sebe'] = '为通知创建';
-    return $ank2;
-  } else {
+	static $users; // 调用函数后不删除变量
+	if ($user_id == 0) {
+		// бот
+		$ank2['id'] = 0;
+		$ank2['nick'] = '系统';
+		$ank2['level'] = 999;
+		$ank2['pol'] = 1;
+		$ank2['group_name'] = '系统机器人';
+		$ank2['ank_o_sebe'] = '为通知创建';
+		return $ank2;
+	} else {
 
-    $user_id = intval($user_id);
-    $users[0] = FALSE;
-    if (!isset($users[$user_id])) {
-      $users[$user_id] = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$user_id' LIMIT 1"));
+		$user_id = intval($user_id);
+		$users[0] = FALSE;
+		if (!isset($users[$user_id])) {
+			$users[$user_id] = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$user_id' LIMIT 1"));
 
-      if ($users[$user_id]['id'] != 0) {
+			if ($users[$user_id]['id'] != 0) {
 
 
-        $tmp_us = dbassoc(dbquery("SELECT `level`,`name` AS `group_name` FROM `user_group` WHERE `id` = '" . $users[$user_id]['group_access'] . "' LIMIT 1"));
+				$tmp_us = dbassoc(dbquery("SELECT `level`,`name` AS `group_name` FROM `user_group` WHERE `id` = '" . $users[$user_id]['group_access'] . "' LIMIT 1"));
 
-        if (!isset($tmp_us) or empty($tmp_us['group_name'])) {
-          $users[$user_id]['level'] = 0;
-          $users[$user_id]['group_name'] = '用户';
-        } else {
-          $users[$user_id]['level'] = $tmp_us['level'];
-          $users[$user_id]['group_name'] = $tmp_us['group_name'];
-        }
-      } else $users[$user_id] = FALSE;
-    }
-    return $users[$user_id];
-  }
+				if (!isset($tmp_us) or empty($tmp_us['group_name'])) {
+					$users[$user_id]['level'] = 0;
+					$users[$user_id]['group_name'] = '用户';
+				} else {
+					$users[$user_id]['level'] = $tmp_us['level'];
+					$users[$user_id]['group_name'] = $tmp_us['group_name'];
+				}
+			} else $users[$user_id] = FALSE;
+		}
+		return $users[$user_id];
+	}
 }
 
-// определение оператора
+// 语句定义
 function opsos($ips = NULL)
 {
 	global $ip;
@@ -201,7 +196,8 @@ function opsos($ips = NULL)
 		$opsos = dbassoc(dbquery("SELECT opsos FROM `opsos` WHERE `min` <= '$ipl' AND `max` >= '$ipl' LIMIT 1"));
 		return stripcslashes(htmlspecialchars($opsos['opsos']));
 	} else return false;
-} // вывод времени
+}
+// 时间输出
 function vremja($time = NULL)
 {
 	global $user;
@@ -233,7 +229,7 @@ function vremja($time = NULL)
 	return $timep;
 }
 
-// только для зарегистрированых
+// 只供已登记人士使用
 function only_reg($link = NULL)
 {
 	global $user;
@@ -245,7 +241,7 @@ function only_reg($link = NULL)
 }
 
 
-// только для незарегистрированых
+// 只适用于未登记的人
 function only_unreg($link = NULL)
 {
 	global $user;
@@ -280,7 +276,7 @@ if (!isset($hard_process)) {
 		dbquery("DELETE FROM `chat_post` WHERE `time` < '" . (time() - 60 * 60 * 24) . "'"); // удаление старых постов в чате
 		dbquery("DELETE FROM `user` WHERE `activation` != null AND `time_reg` < '" . (time() - 60 * 60 * 24) . "'"); // удаление неактивированных аккаунтов
 
-		// удаляем все контакты, помеченные на удаление более месяца назад
+		// 删除所有一个多月前标记为删除的联系人
 		$qd = dbquery("SELECT * FROM `users_konts` WHERE `type` = 'deleted' AND `time` < " . ($time - 60 * 60 * 24 * 30));
 		while ($deleted = dbarray($qd)) {
 			dbquery("DELETE FROM `users_konts` WHERE `id_user` = '$deleted[id_user]' AND `id_kont` = '$deleted[id_kont]'");
@@ -292,34 +288,30 @@ if (!isset($hard_process)) {
 		}
 		$tab = dbquery('SHOW TABLES FROM ' . $set['mysql_db_name']);
 		for ($i = 0; $i < dbrows($tab); $i++) {
-			dbquery("OPTIMIZE TABLE `" . mysql_tablename($tab, $i) . "`"); // оптимизация таблиц
+			dbquery("OPTIMIZE TABLE `" . mysql_tablename($tab, $i) . "`"); // 表的优化
 		}
 	}
 }
 
 
-// вывод ошибок
+// 错误输出
 function err()
 {
 	global $err;
 	if (isset($err)) {
 		if (is_array($err)) {
 			foreach ($err as $key => $value) {
-				echo "<div class='err'>$value</div>\n";
+				echo "<div class='err'>$value</div>";
 			}
-		} else echo "<div class='err'>$err</div>\n";
+		} else echo "<div class='err'>$err</div>";
 	}
 }
 
 function msg($msg)
 {
-	echo "<div class='msg'>$msg</div>\n";
-} // вывод сообщений
-function msg2($msg)
-{
-  $_SESSION['message'] = $msg;
+	echo "<div class='msg'>$msg</div>";
+} // 消息输出
 
-} // вывод сообщений
 
 
 
@@ -336,14 +328,14 @@ if (dbrows($q) != 0) {
 // 保存系统设置
 function save_settings($set)
 {
-  unset($set['web']);
-  if ($fopen = @fopen(H . 'sys/dat/settings_6.2.dat', 'w')) {
-    @fputs($fopen, serialize($set));
-    @fclose($fopen);
-    @chmod(H . 'sys/dat/settings_6.2.dat', 0755);
-    return TRUE;
-  } else
-    return FALSE;
+	unset($set['web']);
+	if ($fopen = @fopen(H . 'sys/dat/settings_6.2.dat', 'w')) {
+		@fputs($fopen, serialize($set));
+		@fclose($fopen);
+		@chmod(H . 'sys/dat/settings_6.2.dat', 0755);
+		return TRUE;
+	} else
+		return FALSE;
 }
 
 // 管理行动记录
@@ -367,8 +359,6 @@ function admin_log($mod, $act, $opis)
 }
 
 
-// LoginAPI
-
 // 从文件夹加载其余功能 "sys/fnc"
 $opdirbase = opendir(H . 'sys/fnc');
 
@@ -383,30 +373,28 @@ dbquery("INSERT INTO `visit_today` (`ip` , `ua`, `time`) VALUES ('$iplong', '" .
 
 function csrf_token_new()
 {
-  setcookie('token', random_bytes(), time() + 60 * 10);
-
-
+	setcookie('token', random_bytes(), time() + 60 * 10);
 }
 
 function ages($age)
 {
-  $str = '';
-  $num = $age > 100 ? substr($age, -2) : $age;
-  if ($num >= 5 && $num <= 14) $str = "年";
-  else {
-    $num = substr($age, -1);
-    if ($num == 0 || ($num >= 5 && $num <= 9)) $str = '年';
-    if ($num == 1) $str = '年';
-    if ($num >= 2 && $num <= 4) $str = '年';
-  }
-  return $age . ' ' . $str;
+	$str = '';
+	$num = $age > 100 ? substr($age, -2) : $age;
+	if ($num >= 5 && $num <= 14) $str = "年";
+	else {
+		$num = substr($age, -1);
+		if ($num == 0 || ($num >= 5 && $num <= 9)) $str = '年';
+		if ($num == 1) $str = '年';
+		if ($num >= 2 && $num <= 4) $str = '年';
+	}
+	return $age . ' ' . $str;
 }
 
 
-function t_toolbar_css ()
+function t_toolbar_css()
 {
-  
-  echo '<style>
+
+	echo '<style>
       .toolbar {
           position: fixed;
           text-align: center;
@@ -442,144 +430,119 @@ function t_toolbar_css ()
   </style>';
 }
 
-function version_stable ()
+function version_stable()
 {
-    $content = file_get_contents("https://dcms-social.ru/launcher/social.json");
-    $data = json_decode($content, TRUE);
-    return $data['stable']['version'];
-
+	$content = file_get_contents("https://dcms-social.ru/launcher/social.json");
+	$data = json_decode($content, TRUE);
+	return $data['stable']['version'];
 }
 function t_toolbar_html()
 {
-    global $set;
+	global $set;
 
-  echo '<div class="toolbar">
+	echo '<div class="toolbar">
     <div class="toolbar_inner">
       <span style="color: white">Admin Tool</span> ::
       <a href="/">网站主页</a>  |
       <a href="/plugins/admin/">行政科</a> |
       <a href="/adm_panel/">控制面板</a> |
       <a target="_blank" href="https://dcms-social.ru">DCMS-Social.ru</a>
-       v'.$set['dcms_version'];
-        if (status_version() < 0)   
+       v' . $set['dcms_version'];
+	if (status_version() < 0)
 		echo '<center>	 
-		<font color="red">有一个新版本 - '.version_stable().'! <a href="/adm_panel/update.php">详细</a></font>
+		<font color="red">有一个新版本 - ' . version_stable() . '! <a href="/adm_panel/update.php">详细</a></font>
 		</center></div></div>';
 }
 
 
-function new_token ()
+function new_token()
 {
-    $token = rand(10000,100000);
-    return bin2hex($token); // ffa7a910ca2dfce501b0d548605aaf
+	$token = rand(10000, 100000);
+	return bin2hex($token); // ffa7a910ca2dfce501b0d548605aaf
 
 }
 
 function token_p($token)
 {
-    if ($token===$_SESSION['token']) return true;
-    else
-    {
-        header("/");
-        exit("error token");
-
-    }
+	if ($token === $_SESSION['token']) return true;
+	else {
+		header("/");
+		exit("error token");
+	}
 }
 
 
-function set_token ()
+function set_token()
 {
 
-    if (empty($_SESSION['token']))  $_SESSION['token'] = new_token();
-
-
-
+	if (empty($_SESSION['token']))  $_SESSION['token'] = new_token();
 }
-function reset_token ()
+function reset_token()
 {
 
-    $_SESSION['token'] = new_token();
-
-
+	$_SESSION['token'] = new_token();
 }
 
 
 function check_token()
 {
 
-    add_header(token_js());
+	add_header(token_js());
 
-    if (isset($_POST)&&!empty($_POST))
-    {
-        if (isset($_POST['token'])) token_p ($_POST['token']);
-        else
-        {
-            header("/");
-            exit("error token");
-        }
-    }
-
+	if (isset($_POST) && !empty($_POST)) {
+		if (isset($_POST['token'])) token_p($_POST['token']);
+		else {
+			header("/");
+			exit("error token");
+		}
+	}
 }
 
-function add_header ($value)
+function add_header($value)
 {
-    static $add;
-    return $add[]=$value;
-    header_html($add);
-
+	static $add;
+	return $add[] = $value;
+	header_html($add);
 }
-function header_html($add=null)
+function header_html($add = null)
 {
-    static $header;
-    if ($add==null)
-    {
-     //   var_dump($header);
-        echo "".$header;
-    }
-    else $header = $add;
+	static $header;
+	if ($add == null) {
+		//   var_dump($header);
+		echo "" . $header;
+	} else $header = $add;
 }
 
 function token()
 {
-    return $_SESSION['token'];
+	return $_SESSION['token'];
 }
 function token_js()
 {
-    ob_start()
-?>
-  <script>
-
-
-      window.onload = function() {
-          form = document.querySelector('form');
-          var x = document.createElement("input");
-          x.setAttribute("type", "text");
-          x.setAttribute("value", "<?=token()?>");
-          x.setAttribute("name", "token");
-          form.appendChild(x);
-      }
-
-    </script>
-    <?php
-    $page = ob_get_contents();
-    ob_end_clean();
-
-
-return $page;
-
+	ob_start();
+	echo '<script>
+		window.onload = function() {
+			form = document.querySelector("form");
+			var x = document.createElement("input");
+			x.setAttribute("type", "text");
+			x.setAttribute("value", "' . token() . '");
+			x.setAttribute("name", "token");
+			form.appendChild(x);
+		}
+	</script>';
+	$page = ob_get_contents();
+	ob_end_clean();
+	return $page;
 }
 function token_form()
 {
-    echo '<input type="text" name="token" value="'.$_SESSION['token'].'">';
-
+	echo '<input type="text" name="token" value="' . $_SESSION['token'] . '">';
 }
 //获取远程更新代码
-function status_version ()
+function status_version()
 {
-    global $set;
-    $content = file_get_contents("https://dcms-social.ru/launcher/social.json");
-    $data = json_decode($content, TRUE);
-    return version_compare($set['dcms_version'], $data['stable']['version']);
+	global $set;
+	$content = file_get_contents("https://dcms-social.ru/launcher/social.json");
+	$data = json_decode($content, TRUE);
+	return version_compare($set['dcms_version'], $data['stable']['version']);
 }
-
-

@@ -38,9 +38,8 @@ while ($forum = dbarray($q))
 	echo "</div>"; 
 }
 echo "</table>";
-if ($k_page>1)str("?",$k_page,$page); // Вывод страниц
+if ($k_page>1)str("?",$k_page,$page); // 输出页数
 echo "<div class='foot'>
 	  &laquo;<a href='/forum/'>回到论坛</a><br />
 	  </div>";
 include_once '../sys/inc/tfoot.php';
-?>

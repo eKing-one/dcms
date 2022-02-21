@@ -53,7 +53,7 @@ if ($k_post==0)
 }
 while ($post = dbassoc($q))
 {
-	/*-----------зебра-----------*/
+	/*-----------代码-----------*/
 	if ($num==0)
 	{echo '<div class="nav1">';
 	$num=1;
@@ -79,4 +79,3 @@ if ($user['level'] > 2){
 	echo '<div class="foot"><img src="/style/icons/ok.gif" alt="*" /> <a href="new.php?url">添加链接</a></div>';
 }
 include_once '../../sys/inc/tfoot.php';
-?>

@@ -54,7 +54,7 @@ echo "<table class='post'>";
 while ($post2 = dbassoc($q))
 {
 	$ank=get_user($post2['id_user']);
-		/*-----------зебра-----------*/
+		/*-----------代码-----------*/
 		if ($num==0)
 		{echo '<div class="nav1">';
 		$num=1;
@@ -90,4 +90,3 @@ if ($user['level'] > 2)
 }
 echo '<div class="foot"><img src="/style/icons/str2.gif" alt="*"/> <a href="index.php">资料</a></div>';
 include_once '../../sys/inc/tfoot.php';
-?>

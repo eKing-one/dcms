@@ -3,8 +3,6 @@
 // http://dcms-social.ru
 // Искатель
 
-//include_once 'sys/inc/mp3.php';
-//include_once 'sys/inc/zip.php';
 include_once 'sys/inc/start.php';
 include_once 'sys/inc/compress.php';
 include_once 'sys/inc/sess.php';
@@ -13,7 +11,7 @@ include_once 'sys/inc/settings.php';
 include_once 'sys/inc/db_connect.php';
 include_once 'sys/inc/ipua.php';
 include_once 'sys/inc/fnc.php';
-$show_all = true; // показ для всех
+$show_all = true; //为大家展示
 include_once 'sys/inc/user.php';
 only_unreg();
 
@@ -29,7 +27,7 @@ title();
 aut();
 
 
-if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL) && isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != NULL &&!preg_match('#mail\.php#', $_SERVER['HTTP_REFERER'])){
+if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL) && isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != NULL && !preg_match('#mail\.php#', $_SERVER['HTTP_REFERER'])) {
 	$_SESSION['refer'] = str_replace('&', '&amp;', preg_replace('#^http://[^/]*/#', '/', $_SERVER['HTTP_REFERER']));
 }
 echo '<form class="mess" method="post" action="/login.php">

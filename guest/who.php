@@ -45,6 +45,5 @@ echo '</table>';
 echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" /> <a href="index.php">客人</a> | <b>谁是客人？</b>';
 echo '</div>';
-if ($k_page > 1)str('who.php?', $k_page, $page); // Вывод страниц
+if ($k_page > 1)str('who.php?', $k_page, $page); // 输出页数
 include_once '../sys/inc/tfoot.php';
-?>

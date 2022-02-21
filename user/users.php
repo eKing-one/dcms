@@ -64,7 +64,7 @@ if (!isset($_GET['go'])) {
 	$q = dbquery("SELECT `user`.`id` FROM `user` LEFT JOIN `user_group` ON `user`.`group_access` = `user_group`.`id` ORDER BY $sql_sort $por LIMIT $start, $set[p_str]");
 	while ($ank = dbassoc($q)) {
 		$ank = get_user($ank['id']);
-		/*-----------зебра-----------*/
+		/*-----------代码-----------*/
 		if ($num == 0) {
 			echo '<div class="nav1">';
 			$num = 1;
@@ -92,7 +92,7 @@ if (!isset($_GET['go'])) {
 		echo '</div>';
 	}
 	echo "</table>";
-	if ($k_page > 1) str("users.php?sort=$sort&amp;$por&amp;", $k_page, $page); // Вывод страниц
+	if ($k_page > 1) str("users.php?sort=$sort&amp;$por&amp;", $k_page, $page); // 输出页数
 }
 $usearch = NULL;
 if (isset($_SESSION['usearch'])) $usearch = $_SESSION['usearch'];
@@ -130,7 +130,7 @@ if (isset($_GET['go']) && $usearch != NULL) {
 	$q = dbquery("SELECT `id` FROM `user` WHERE `nick` like '%" . mysql_real_escape_string($usearch) . "%' OR `id` = '" . intval($usearch) . "' ORDER BY `$sort` $por LIMIT $start, $set[p_str]");
 	while ($ank = dbassoc($q)) {
 		$ank = get_user($ank['id']);
-		/*-----------зебра-----------*/
+		/*-----------代码-----------*/
 		if ($num == 0) {
 			echo '<div class="nav1">';
 			$num = 1;
@@ -158,7 +158,7 @@ if (isset($_GET['go']) && $usearch != NULL) {
 		echo '</div>';
 	}
 	echo "</table>";
-	if ($k_page > 1) str("users.php?go&amp;sort=$sort&amp;$por&amp;", $k_page, $page); // Вывод страниц
+	if ($k_page > 1) str("users.php?go&amp;sort=$sort&amp;$por&amp;", $k_page, $page); // 输出页数
 } else
 	echo "<div class=\"post\">输入用户的ID或昵称</div>";
 echo "<form method=\"post\" action=\"?go&amp;sort=$sort&amp;$por\">";

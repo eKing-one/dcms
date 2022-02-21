@@ -103,11 +103,10 @@ echo "<a href='?delete=$del_them&amp;page=$page&amp;ok'>删除</a> | <a href='?p
 }
 echo "</div>";
 }
-if ($k_page>1)str('?',$k_page,$page); // Вывод страниц
+if ($k_page>1)str('?',$k_page,$page); // 输出页数
 echo "<div class='foot'>";
 echo "&raquo;<a href='them_installer.php'>安装主题</a><br />";
 if (user_access('adm_panel_show'))
 echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
-?>

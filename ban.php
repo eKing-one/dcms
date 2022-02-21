@@ -23,7 +23,7 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$user[id]' A
 	header('Location: /index.php?' . SID);
 	exit;
 }
-dbquery("UPDATE `ban` SET `view` = '1' WHERE `id_user` = '$user[id]'"); // увидел причину бана
+dbquery("UPDATE `ban` SET `view` = '1' WHERE `id_user` = '$user[id]'"); // 看到了BAN的原因
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$user[id]'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
@@ -32,7 +32,7 @@ echo "<table class='post'>";
 $q = dbquery("SELECT * FROM `ban` WHERE `id_user` = '$user[id]' ORDER BY `time` DESC LIMIT $start, $set[p_str]");
 while ($post = dbassoc($q)) {
 	$ank = get_user($post['id_ban']);
-	/*-----------зебра-----------*/
+	/*-----------代码-----------*/
 	if ($num == 0) {
 		echo "  <div class='nav1'>";
 		$num = 1;
@@ -43,17 +43,17 @@ while ($post = dbassoc($q)) {
 	/*---------------------------*/
 	echo "发出禁令" . ($ank['pol'] == 0 ? "а" : "") . " $ank[nick]: ";
 	if ($post['navsegda'] == 1) {
-		echo " бан <font color=red><b>永遠！</b></font><br />";
+		echo " 禁止 <font color=red><b>永遠！</b></font><br />";
 	} else {
-		echo " до " . vremja($post['time']) . "<br />";
+		echo " 直到 " . vremja($post['time']) . "<br />";
 	}
 	echo '<b>原因:</b> ' . $pBan[$post['pochemu']] . '<br />';
 	echo '<b>章:</b> ' . $rBan[$post['razdel']] . '<br />';
 	echo '<b>评论:</b> ' . esc(trim(br(bbcode(smiles(links(stripcslashes(htmlspecialchars($post['prich'])))))))) . "<br />";
-	if ($post['time'] > $time) echo "<font color=red><b>Активен</b></font><br />";
+	if ($post['time'] > $time) echo "<font color=red><b>活跃的</b></font><br />";
 	echo "   </div>";
 }
 echo "</table>";
-if ($k_page > 1) str('?', $k_page, $page); // Вывод страниц
+if ($k_page > 1) str('?', $k_page, $page); // 输出页数
 echo "为了避免这种情况，我们建议您学习 <a href=\"/rules.php\">规则</a>我们的网站<br />";
 include_once 'sys/inc/tfoot.php';

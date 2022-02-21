@@ -115,7 +115,7 @@ $q = dbquery("SELECT * FROM `chat_rooms` ORDER BY `pos` ASC");
 if (dbrows($q) != 0) {
 	echo "<div class='mess'>";
 	while ($room = dbassoc($q)) {
-		/*-----------зебра-----------*/
+		/*-----------代码-----------*/
 		if ($num == 0) {
 			echo "  <div class='nav1'>";
 			$num = 1;

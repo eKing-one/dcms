@@ -30,84 +30,74 @@ $my = null;
 $frend = null;
 $all = null;
 
-if (isset($_GET['read']) && $_GET['read'] == 'all')
-{
-	if (isset($user))
-	{
+if (isset($_GET['read']) && $_GET['read'] == 'all') {
+	if (isset($user)) {
 		dbquery("UPDATE `discussions` SET `count` = '0' WHERE `id_user` = '$user[id]'");
-		$_SESSION['message'] = __('未读列表已清除');
+		$_SESSION['message'] = '未读列表已清除';
 		header("Location: ?");
 		exit;
 	}
 }
 
-if (isset($_GET['delete']) && $_GET['delete']=='all')
-{
-	if (isset($user))
-	{
+if (isset($_GET['delete']) && $_GET['delete'] == 'all') {
+	if (isset($user)) {
 		dbquery("DELETE FROM `discussions` WHERE `id_user` = '$user[id]'");
-		$_SESSION['message'] = __('讨论名单已清零');
+		$_SESSION['message'] = '讨论名单已清零';
 		header("Location: ?");
 		exit;
 	}
 }
 
 //------------------------like к статусу-------------------------//
-if (isset($_GET['likestatus']))
-{
-	$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '".intval($_GET['likestatus'])."' LIMIT 1"));
+if (isset($_GET['likestatus'])) {
+	$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '" . intval($_GET['likestatus']) . "' LIMIT 1"));
 	$ank = get_user(intval($_GET['likestatus']));
-	
-	if (isset($user) && $user['id'] != $ank['id'] && 
-	dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"),0) == 0)
-	{
+
+	if (
+		isset($user) && $user['id'] != $ank['id'] &&
+		dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0
+	) {
 		dbquery("INSERT INTO `status_like` (`id_user`, `time`, `id_status`) values('$user[id]', '$time', '$status[id]')");
 
-		$q = dbquery("SELECT * FROM `frends` WHERE `user` = '".$user['id']."' AND `i` = '1'");
-		
-		while ($f = dbarray($q))
-		{
+		$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $user['id'] . "' AND `i` = '1'");
+
+		while ($f = dbarray($q)) {
 			$a = get_user($f['frend']);
 			dbquery("INSERT INTO `tape` (`id_user`,`ot_kogo`,  `avtor`, `type`, `time`, `id_file`) 
-			values('$a[id]', '$user[id]', '$status[id_user]', 'status_like', '$time', '$status[id]')"); 
+			values('$a[id]', '$user[id]', '$status[id_user]', 'status_like', '$time', '$status[id]')");
 		}
 
-		header("Location: ?page=".intval($_GET['page']));
+		header("Location: ?page=" . intval($_GET['page']));
 		exit;
 	}
 }
 
-if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions`  WHERE `id_user` = '$user[id]' AND `count` > '0' AND `avtor` = '$user[id]'"),0) > 0)
-$count_my = " <img src='/style/icons/tochka.png' alt='*'/>";
+if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions`  WHERE `id_user` = '$user[id]' AND `count` > '0' AND `avtor` = '$user[id]'"), 0) > 0)
+	$count_my = " <img src='/style/icons/tochka.png' alt='*'/>";
 else
-$count_my = null;
+	$count_my = null;
 
-if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions`  WHERE `id_user` = '$user[id]' AND `count` > '0' AND `avtor` <> '$user[id]'"),0) > 0)
-$count_f = " <img src='/style/icons/tochka.png' alt='*'/>";
+if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions`  WHERE `id_user` = '$user[id]' AND `count` > '0' AND `avtor` <> '$user[id]'"), 0) > 0)
+	$count_f = " <img src='/style/icons/tochka.png' alt='*'/>";
 else
-$count_f = null;
+	$count_f = null;
 
-$set['title'] = __('讨论');
+$set['title'] = '讨论';
 include_once '../../sys/inc/thead.php';
 title();
 err();
 aut();
 
 
-if (isset($_GET['order']) && $_GET['order']=='my')
-{
+if (isset($_GET['order']) && $_GET['order'] == 'my') {
 	$order = "AND `avtor` = '$user[id]'";
 	$sort = "order=my&amp;";
 	$my = 'activ';
-}
-else if (isset($_GET['order']) && $_GET['order']=='frends')
-{
+} else if (isset($_GET['order']) && $_GET['order'] == 'frends') {
 	$order = "AND `avtor` != '$user[id]'";
 	$sort = "order=frends&amp;";
 	$frend = 'activ';
-}
-else
-{
+} else {
 	$order = null;
 	$sort = null;
 	$all = 'activ';
@@ -116,69 +106,64 @@ else
 // Уведомления
 $k_notif = dbresult(dbquery("SELECT COUNT(`read`) FROM `notification` WHERE `id_user` = '$user[id]' AND `read` = '0'"), 0);
 
-if ($k_notif > 0)$k_notif = '<font color=red>(' . $k_notif . ')</font>';
+if ($k_notif > 0) $k_notif = '<font color=red>(' . $k_notif . ')</font>';
 else $k_notif = null;
 
 // Обсуждения
-$discuss = dbresult(dbquery("SELECT COUNT(`count`) FROM `discussions` WHERE `id_user` = '$user[id]' AND `count` > '0' "),0);
+$discuss = dbresult(dbquery("SELECT COUNT(`count`) FROM `discussions` WHERE `id_user` = '$user[id]' AND `count` > '0' "), 0);
 
-if ($discuss > 0)$discuss = '<font color=red>(' . $discuss . ')</font>';
+if ($discuss > 0) $discuss = '<font color=red>(' . $discuss . ')</font>';
 else $discuss = null;
 
 // Лента
-$lenta = dbresult(dbquery("SELECT COUNT(`read`) FROM `tape` WHERE `id_user` = '$user[id]' AND `read` = '0' "),0);
+$lenta = dbresult(dbquery("SELECT COUNT(`read`) FROM `tape` WHERE `id_user` = '$user[id]' AND `read` = '0' "), 0);
 
-if ($lenta > 0)$lenta = '<font color=red>(' . $lenta . ')</font>';
+if ($lenta > 0) $lenta = '<font color=red>(' . $lenta . ')</font>';
 else $lenta = null;
 
 ?>
 <div id="comments" class="menus">
-<div class="webmenu">
-<a href="/user/tape/"><?= __('录音带')?> <?= $lenta?></a>
-</div>
-<div class="webmenu">
-<a href="/user/discussions/" class="activ"><?= __('讨论')?> <?= $discuss?></a>
-</div>
-<div class="webmenu">
-<a href="/user/notification/"><?= __('通知书')?> <?= $k_notif?></a>
-</div>
+	<div class="webmenu">
+		<a href="/user/tape/">录音带<?= $lenta ?></a>
+	</div>
+	<div class="webmenu">
+		<a href="/user/discussions/" class="activ">讨论 <?= $discuss ?></a>
+	</div>
+	<div class="webmenu">
+		<a href="/user/notification/">通知书 ?> <?= $k_notif ?></a>
+	</div>
 </div>
 
 <div class="foot">
-<?= __('排序')?>: 
-<a href="?"> <?= __('全部')?> </a>  | 
-<a href="?order=my"> <?= __('我的')?><?= $count_my?> </a>  | 
-<a href="?order=frends"> <?= __('朋友')?><?= $count_f?> </a> 
+	排序:
+	<a href="?"> 全部</a> |
+	<a href="?order=my"> 我的 <?= $count_my ?> </a> |
+	<a href="?order=frends"> 朋友 <?= $count_f ?> </a>
 </div>
 <?
-$k_post = dbresult(dbquery("SELECT COUNT(*) FROM `discussions`  WHERE `id_user` = '$user[id]' $order"),0);
+$k_post = dbresult(dbquery("SELECT COUNT(*) FROM `discussions`  WHERE `id_user` = '$user[id]' $order"), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
 
 $q = dbquery("SELECT * FROM `discussions` WHERE `id_user` = '$user[id]' $order ORDER BY `time` DESC LIMIT $start, $set[p_str]");
 
-if ($k_post == 0)
-{
-	?>
+if ($k_post == 0) {
+?>
 	<div class="mess">
-	<?= __('没有新的讨论')?>
+		没有新的讨论
 	</div>
-	<?
+<?
 }
 
-while ($post = dbassoc($q))
-{
+while ($post = dbassoc($q)) {
 	$type = $post['type'];
 	$avtor = user::get_user($post['avtor']);
-	
-	if ($post['count'] > 0)
-	{
+
+	if ($post['count'] > 0) {
 		$s1 = '<font color="red">';
 		$s2 = '</font>';
-	}
-	else
-	{
+	} else {
 		$s1 = null;
 		$s2 = null;
 	}
@@ -186,24 +171,22 @@ while ($post = dbassoc($q))
 	// Подгружаем типы обсуждений
 	$d = opendir('inc/');
 
-	while($dname = readdir($d))
-	{
-		if ($dname != '.' && $dname != '..')
-		{
+	while ($dname = readdir($d)) {
+		if ($dname != '.' && $dname != '..') {
 			include 'inc/' . $dname;
 		}
 	}
 }
 
-// Вывод страниц
-if ($k_page > 1)str('?' . $sort, $k_page, $page); 
+// 输出页数
+if ($k_page > 1) str('?' . $sort, $k_page, $page);
 
 ?>
 <div class='foot'>
-<a href='?read=all'><img src='/style/icons/ok.gif'> 将所有内容标记为已读</a>
+	<a href='?read=all'><img src='/style/icons/ok.gif'> 将所有内容标记为已读</a>
 </div>
 <div class='foot'>
-<a href='?delete=all'><img src='/style/icons/delete.gif'> 删除所有讨论</a> | <a href='settings.php'>设置</a>
+	<a href='?delete=all'><img src='/style/icons/delete.gif'> 删除所有讨论</a> | <a href='settings.php'>设置</a>
 </div>
 <?
 include_once '../../sys/inc/tfoot.php';
