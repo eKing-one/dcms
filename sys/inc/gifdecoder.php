@@ -15,7 +15,6 @@
 ::
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 */
-
 Class GIFDecoder {
 	var $GIF_buffer = Array ( );
 	var $GIF_arrays = Array ( );
@@ -24,14 +23,12 @@ Class GIFDecoder {
 	var $GIF_stream = "";
 	var $GIF_string = "";
 	var $GIF_bfseek =  0;
-
 	var $GIF_screen = Array ( );
 	var $GIF_global = Array ( );
 	var $GIF_sorted;
 	var $GIF_colorS;
 	var $GIF_colorC;
 	var $GIF_colorF;
-
 	/*
 	:::::::::::::::::::::::::::::::::::::::::::::::::::
 	::
@@ -40,18 +37,13 @@ Class GIFDecoder {
 	*/
 	function __construct ( $GIF_pointer ) {
 		$this->GIF_stream = $GIF_pointer;
-
 		GIFDecoder::GIFGetByte ( 6 );	// GIF89a
-
 		GIFDecoder::GIFGetByte ( 7 );	// Logical Screen Descriptor
-
-
 		$this->GIF_screen = $this->GIF_buffer;
 		$this->GIF_colorF = $this->GIF_buffer [ 4 ] & 0x80 ? 1 : 0;
 		$this->GIF_sorted = $this->GIF_buffer [ 4 ] & 0x08 ? 1 : 0;
 		$this->GIF_colorC = $this->GIF_buffer [ 4 ] & 0x07;
 		$this->GIF_colorS = 2 << $this->GIF_colorC;
-
 		if ( $this->GIF_colorF == 1 ) {
 			GIFDecoder::GIFGetByte ( 3 * $this->GIF_colorS );
 			$this->GIF_global = $this->GIF_buffer;
@@ -134,7 +126,6 @@ Class GIFDecoder {
 	*/
 	function GIFReadDescriptor ( ) {
 		$GIF_screen	= Array ( );
-
 		GIFDecoder::GIFGetByte ( 9 );
 		$GIF_screen = $this->GIF_buffer;
 		/*
@@ -198,7 +189,6 @@ Class GIFDecoder {
 	::	GIFGetByte ( $len )
 	::
 	*/
-
 	/*
 	 *
 	 *  05.06.2007.
@@ -219,7 +209,6 @@ Class GIFDecoder {
 	 */
 	function GIFGetByte ( $len ) {
 		$this->GIF_buffer = Array ( );
-
 		for ( $i = 0; $i < $len; $i++ ) {
 			if ( $this->GIF_bfseek > strlen ( $this->GIF_stream ) ) {
 				return 0;

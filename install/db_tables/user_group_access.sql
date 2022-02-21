@@ -1,11 +1,8 @@
-
-
 CREATE TABLE IF NOT EXISTS `user_group_access` (
   `id_group` int(10) unsigned NOT NULL,
   `id_access` varchar(32) NOT NULL,
   KEY `id_group` (`id_group`,`id_access`)
 ) ENGINE=MyISAM DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
 INSERT INTO `user_group_access` (`id_group`, `id_access`) VALUES
 (2, 'adm_info'),
 (2, 'adm_panel_show'),

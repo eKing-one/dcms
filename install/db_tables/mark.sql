@@ -16,7 +16,6 @@ CREATE TABLE IF NOT EXISTS `mark_files` (
   PRIMARY KEY (`id`),
   KEY `time` (`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 CREATE TABLE IF NOT EXISTS `mark_foto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
@@ -25,7 +24,6 @@ CREATE TABLE IF NOT EXISTS `mark_foto` (
   PRIMARY KEY (`id`),
   KEY `time` (`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 CREATE TABLE IF NOT EXISTS `mark_notes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
@@ -34,7 +32,6 @@ CREATE TABLE IF NOT EXISTS `mark_notes` (
   PRIMARY KEY (`id`),
   KEY `time` (`time`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 CREATE TABLE IF NOT EXISTS `mark_people` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
@@ -43,5 +40,3 @@ CREATE TABLE IF NOT EXISTS `mark_people` (
   PRIMARY KEY (`id`),
   KEY `time` (`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
-

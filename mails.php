@@ -8,14 +8,11 @@ include_once 'sys/inc/db_connect.php';
 include_once 'sys/inc/ipua.php';
 include_once 'sys/inc/fnc.php';
 include_once 'sys/inc/user.php';
-
 $set['title']='写一封信';
 include_once 'sys/inc/thead.php';
 title();
 aut();
 only_reg();
-
-
 if(isset($_GET['send']) AND isset($_POST['send'])){
 if(dbresult(dbquery("SELECT COUNT(`id`)FROM `user` WHERE `nick`='".my_esc($_POST['komu'])."' LIMIT 1"),0)==0){
 /* 检查是否有这样一个昵称的性别 */
@@ -35,10 +32,8 @@ $block = true;
 	$uSet = dbarray(dbquery("SELECT `privat_mail` FROM `user_set` WHERE `id_user` = '$ank[id]'  LIMIT 1"));
 	$frend=dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$ank[id]') OR (`user` = '$ank[id]' AND `frend` = '$user[id]') LIMIT 1"),0);
 	$frend_new=dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[id]' AND `to` = '$ank[id]') OR (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"),0);
-
 if ($user['group_access'] == 0)
 {
-
 	if ($uSet['privat_mail'] == 2 && $frend != 2) // Если только для друзей
 	{
 	?><div class="mess">只有他的朋友可以写消息给用户！</div>
@@ -64,7 +59,6 @@ dbquery("INSERT INTO `mail`(`id_user`,`id_kont`,`time`,`msg`) values('$user[id]'
 header("Location: /mail.php?id=$ank[id]");
 $_SESSION['message']='消息发送成功';
 }}}
-
 /* Поле воода сообщения */
 ?><form class="nav2" action="/mails.php?send" method="post">To（昵称）:<br/><input type="text" name="komu"><br/><?=$tPanel;?><textarea name="msg"></textarea>
 <br/><input type="submit" value="发送" name="send"></form><?php

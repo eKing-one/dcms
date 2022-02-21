@@ -2,11 +2,8 @@
 if (test_file(H . "sys/obmen/screens/128/$file_id[id].gif")) {
     echo "<img src='/sys/obmen/screens/128/$file_id[id].gif' alt='屏幕...' /><br />\n";
 }
-
 $url =   '/obmen' . $dir_id['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '';
-
 ?>
-
 <figure>
     <audio
         controls
@@ -14,20 +11,15 @@ $url =   '/obmen' . $dir_id['dir'] . $file_id['id'] . '.' . $file_id['ras'] . ''
         您的浏览器不支持在线收听
     </audio>
 </figure>
-
 <?
-
 // echo '<script type="text/javascript" src="/ajax/js/audio-player.js"></script>                                <script type="text/javascript">                                AudioPlayer.setup                                (                                    "/ajax/js/player.swf",                                    {                                        width:"100%",                                        animation:"yes",                                        encode:"no",                                        initialvolume:"100",                                        remaining:"yes",                                        noinfo:"no",                                        buffer:"2",                                        checkpolicy:"no",                                        rtl:"no",                                        bg:"064a91",                                        text:"000000",                                        leftbg:"064a91",                                        lefticon:"fee300",                                        volslider:"fee300",                                        voltrack:"ffffff",                                        rightbg:"064a91",                                        rightbghover:"064a91",                                        righticon:"fee300",                                        righticonhover:"fee300",                                        track:"FFFFFF",                                        loader:"fee300",                                        border:"D2F0FF",                                        tracker:"fee300",                                        skip:"ff284b",                                        pagebg:"064a91",                                        transparentpagebg:"yes"                                    }                                );                                </script>                                <p id="audioplayer_1">Для отображение плеера необходимо включить Javascript</p>                                <script type="text/javascript">                                AudioPlayer.embed                                (                                    "audioplayer_1",                                    {                                        soundFile: "http://' . $_SERVER['SERVER_NAME'] . '/obmen' . $dir_id['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '",                                        titles: "' . $file_id['name'] . '",                                        artists: "",                                        autostart: "no"                                    }                                );                                </script>';
-
 if ($file_id['opis'] != NULL) {
     echo "资料描述: ";
     echo output_text($file_id['opis']);
     echo "<br />\n";
 }
-
 if (class_exists('ffmpeg_movie')) {
     $media = new ffmpeg_movie($file);
-
     if (intval($media->getDuration()) > 3599)
         echo '' . intval($media->getDuration() / 3600) . ":" . date('s', fmod($media->getDuration() / 60, 60)) . ":" . date('s', fmod($media->getDuration(), 3600)) . "\n";
     elseif (intval($media->getDuration()) > 59)
@@ -77,6 +69,4 @@ if (class_exists('ffmpeg_movie')) {
         echo ', ' . $id3->getTag('genre') . "\n";
     }
 }
-
 // var_dump($id3);
-

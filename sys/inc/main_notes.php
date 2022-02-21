@@ -4,7 +4,6 @@
     ?>
  <b>日记</b> (<?=dbresult(dbquery("SELECT COUNT(`id`)FROM `notes`"),0);?>
  <? if ($plus>0) echo " +".$plus; ?>)</a>
-
 </div><?
 $q=dbquery("SELECT * FROM `notes` ORDER BY `time` DESC LIMIT 3");
 if(dbrows($q)==0){

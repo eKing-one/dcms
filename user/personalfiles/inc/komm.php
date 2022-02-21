@@ -19,11 +19,9 @@ $k_page=k_page($k_post,$set['p_str']);
 $page=page($k_page);
 $start=$set['p_str']*$page-$set['p_str'];
 echo "<table class='post'>";
-
 echo '<div class="foot">';
 echo "评论：";
 echo '</div>';
-
 if ($k_post==0)
 {
 echo '<div class="mess">';
@@ -45,9 +43,7 @@ else if (isset($user))
 	}
 	/*---------------alex-borisi---------------------*/
 }
-
 $q=dbquery("SELECT * FROM `obmennik_komm` WHERE `id_file` = '$file_id[id]' ORDER BY `id` $sort LIMIT $start, $set[p_str]");
-
 while ($post = dbassoc($q))
 {
 	$anketa=dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$post[id_user]' LIMIT 1"));
@@ -64,7 +60,6 @@ while ($post = dbassoc($q))
 	echo " ".group($anketa['id'])." <a href='/info.php?id=$anketa[id]'>$anketa[nick]</a>";
 	if (isset($user) && $anketa['id'] != $user['id'])echo ' <a href="?id_file='.$file_id['id'].'&amp;page='.$page.'&amp;response='.$anketa['id'].'">[*]</a> ';
 	echo "".online($anketa['id'])." (".vremja($post['time']).")<br />";
-	
 $postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'files') AND `post` = '1' AND `id_user` = '$anketa[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
 if ($postBan == 0) // Блок сообщения
 {	
@@ -72,28 +67,19 @@ if ($postBan == 0) // Блок сообщения
 }else{
 	echo output_text($banMess).'<br />';
 }
-
-
 if (isset($user))
 {
 echo '<div style="text-align:right;">';
-
 	if ($anketa['id']!=$user['id'])
 		echo "<a href=\"?id_file=$file_id[id]&amp;page=$page&amp;spam=$post[id]\"><img src='/style/icons/blicon.gif' alt='*' title='Это спам'></a> "; 
-
 	if (user_access('obmen_komm_del') || $anketa['id'] == $user['id'])
 		echo '<a href="?id_file='.$file_id['id'].'&amp;page='.$page.'&amp;del_post='.$post['id'].'"><img src="/style/icons/delete.gif" alt="*"></a>';
 	echo "   </div>";
 }
-
 	echo "   </div>";
 }
 echo "</table>";
-
-
 if ($k_page>1)str('?id_file='.$file_id['id'].'&amp;',$k_page,$page); // Вывод страниц
-
-
 if (isset($user))
 {
 echo "<form method=\"post\" name='message' action=\"?id_file=$file_id[id]".$go_otv."\">";
@@ -103,7 +89,5 @@ else
 echo "$tPanel<textarea name=\"msg\">$respons_msg</textarea><br />";
 echo "<input value=\"发送\" type=\"submit\" />";
 echo "</form>";
-
 }
-
 ?>

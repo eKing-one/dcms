@@ -6,7 +6,6 @@ if (!test_file(H."sys/obmen/screens/128/$file_id[id].png"))
 	$zip=new PclZip($file);
 	$content = $zip->extract(PCLZIP_OPT_BY_NAME, "META-INF/MANIFEST.MF" ,PCLZIP_OPT_EXTRACT_AS_STRING);
 	$i5=explode('Name: ', $content[0]['content']);
-
 	for ($i = 0; $i <= count($i5); $i++) {
 		$i6=@explode('icon', $i5[$i]);
 			for ($i2 = 0; $i2 <= count($i6); $i2++) {
@@ -17,7 +16,6 @@ if (!test_file(H."sys/obmen/screens/128/$file_id[id].png"))
 					}
 			}
 	}
-
 	if ($_SESSION['file_icon']==null)
 	{
 		for ($i0 = 0; $i0 <= count($i5); $i0++) {
@@ -33,27 +31,20 @@ if (!test_file(H."sys/obmen/screens/128/$file_id[id].png"))
 	}
 	$icon=''.$_SESSION['file_icon'];
 	if ($icon==NULL)$icon=false;
-
 	if ($icon){
 		$content = $zip->extract(PCLZIP_OPT_BY_NAME, $icon,PCLZIP_OPT_EXTRACT_AS_STRING);
-
 		$j=@fopen(H."sys/tmp/$sess.png", 'w');
 		@fwrite($j, $content[0]['content']);
 		@fclose($j);
 		@chmod(H."sys/tmp/$sess.png", 0777);
-
 		copy(H."sys/tmp/$sess.png", H."sys/obmen/screens/128/$file_id[id].png");
-
 		@chmod(H."sys/obmen/screens/128/$file_id[id].png", 0777);
 		unlink(H."sys/tmp/$sess.png");
-
 	}
 	$_SESSION['file_icon']=null;
 }
-
 if (is_file(H."sys/obmen/screens/128/$file_id[id].png") && $file_id['ras']=='apk')
 echo "<img src='/sys/obmen/screens/128/$file_id[id].png' alt='*' /><br />";
-
 if ($file_id['opis']!=NULL)
 {
 	echo "资料描述: ";

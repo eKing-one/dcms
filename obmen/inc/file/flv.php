@@ -16,7 +16,6 @@ s1.write('preview');
 <br />
 <?
 }
-
 if (test_file(H."sys/obmen/screens/128/$file_id[id].gif"))
 {
 	echo "<img src='/sys/obmen/screens/128/$file_id[id].gif' alt='scr...' /><br />";
@@ -25,7 +24,6 @@ elseif (class_exists('ffmpeg_movie'))
 {
 	$media = new ffmpeg_movie($file);
 	$k_frame=intval($media->getFrameCount());
-
 	$w = $media->GetFrameWidth();
 	$h = $media->GetFrameHeight();
 	$ff_frame = $media->getFrame(intval($k_frame/2));
@@ -49,22 +47,18 @@ elseif (class_exists('ffmpeg_movie'))
 		}
 	}
 }
-
 if ($file_id['opis']!=NULL)
 {
 	echo "资料描述: ";
 	echo output_text($file_id['opis']);
 	echo "<br />";
 }
-
 if (class_exists('ffmpeg_movie'))
 {
 	$media = new ffmpeg_movie($file);
-
 	echo '许可: '. $media->GetFrameWidth().'x'.$media->GetFrameHeight()."пикс<br />";
 	echo '帧速率: '.$media->getFrameRate()."<br />";
 	echo '编解码器(视频): '.$media->getVideoCodec()."<br />";
-
 	if (intval($media->getDuration())>3599)
 	echo '时间: '.intval($media->getDuration()/3600).":".date('s',fmod($media->getDuration()/60,60)).":".date('s',fmod($media->getDuration(),3600))."<br />";
 	elseif (intval($media->getDuration())>59)
@@ -73,7 +67,6 @@ if (class_exists('ffmpeg_movie'))
 	echo '时间: '.intval($media->getDuration())." сек<br />";
 	echo "比特率: ".ceil(($media->getBitRate())/1024)." KBPS<br />";
 }
-
 echo "上传时间: ".vremja($file_id['time'])."<br />";
 echo "大小: ".size_file($size)."<br />";
 ?>

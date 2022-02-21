@@ -5,13 +5,10 @@ function passgen($k_simb = 8, $types = 3)
 	$small = 'abcdefghijklmnopqrstuvwxyz';	
 	$large = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';	
 	$numbers = '1234567890';	
-	
 	mt_srand((double)microtime()*1000000);	 
-	
 	for ($i = 0; $i < $k_simb; $i++) 
 	{		
 		$type = mt_rand(1,min($types,3));	
-			
 		switch ($type) 
 		{		
 			case 3:		
@@ -25,9 +22,7 @@ function passgen($k_simb = 8, $types = 3)
 			break;		
 		}	
 	}	
-
 	return $password;
 }
-
 $passgen = @passgen();
 ?>

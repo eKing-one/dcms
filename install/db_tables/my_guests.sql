@@ -1,4 +1,3 @@
-
 CREATE TABLE IF NOT EXISTS `my_guests` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_ank` int(11) NOT NULL,

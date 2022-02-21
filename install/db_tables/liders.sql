@@ -1,4 +1,3 @@
-
 CREATE TABLE IF NOT EXISTS `liders` (
   `time` int(11) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,

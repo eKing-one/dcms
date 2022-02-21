@@ -1,5 +1,4 @@
 <?
-
 function compress_output_gzip($output){return gzencode($output,9);}
 function compress_output_deflate($output){return gzdeflate($output, 9);}
 // сжатие по умолчанию
@@ -23,6 +22,5 @@ ob_start("compress_output_gzip");
 }
 else
 ob_start(); // если нет сжатия, то просто буферизация данных
-
 $compress=true;
 ?>

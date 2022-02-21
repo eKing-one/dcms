@@ -1,4 +1,3 @@
-
 CREATE TABLE IF NOT EXISTS `rekl` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32)  CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci NOT NULL,
@@ -12,4 +11,3 @@ CREATE TABLE IF NOT EXISTS `rekl` (
   KEY `sel` (`sel`),
   KEY `time_last` (`time_last`)
 ) ENGINE=MyISAM  DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci AUTO_INCREMENT=3 ;
-

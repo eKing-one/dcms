@@ -1,4 +1,3 @@
-
 CREATE TABLE IF NOT EXISTS `gallery` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) DEFAULT NULL,
@@ -15,4 +14,3 @@ CREATE TABLE IF NOT EXISTS `gallery` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-

@@ -15,45 +15,32 @@ header('Location: /ban.php?'.SID);exit;
 }
 $set['title']='日记';
 include_once '../../sys/inc/thead.php';
-
 title();
 aut(); // форма авторизации
-
-
 echo "<div id='comments' class='menus'>";
-
 echo "<div class='webmenu'>";
 echo "<a href='index.php' >日记</a>";
 echo "</div>"; 
-
 echo "<div class='webmenu last'>";
 echo "<a href='dir.php'>类别</a>";
 echo "</div>"; 
-        
 echo "<div class='webmenu'>";
 echo "<a href='search.php' class='activ'>搜索</a>";
 echo "</div>"; 
-
 echo "</div>";
-
-
 $usearch=NULL;
 if (isset($_SESSION['usearch']))$usearch=$_SESSION['usearch'];
 if (isset($_POST['usearch']))$usearch=$_POST['usearch'];
-
 if ($usearch==NULL)
 unset($_SESSION['usearch']);
 else
 $_SESSION['usearch']=$usearch;
 $usearch=preg_replace("#( ){1,}#","",$usearch);
-
 $order='order by `time` desc';echo "<form method=\"post\" action=\"search.php?go\">日记搜索<br />";
 $usearch=stripcslashes(htmlspecialchars($usearch));
 echo "<input type=\"text\" name=\"usearch\" maxlength=\"16\" value=\"$usearch\" /><br />";
 echo "<input type=\"submit\" value=\"寻找\" />";
 echo "</form>";
-
-
 if (isset($_GET['go']))
 {
 $k_post=dbresult(dbquery("SELECT COUNT(*) FROM `notes` where `name` like '%".mysql_real_escape_string($usearch)."%'"),0);
@@ -81,20 +68,14 @@ while ($post = dbassoc($q))
 		$num=0;
 	}
 /*---------------------------*/
-
 echo "<img src='/style/icons/dnev.png' alt='*'> ";
-
 echo "<a href='list.php?id=$post[id]'>" . text($post['name']) . "</a> ";
-
 echo " <span style='time'>(".vremja($post['time']).")</span>";
-
 $k_n= dbresult(dbquery("SELECT COUNT(*) FROM `notes` WHERE `id` = $post[id] AND `time` > '".$ftime."'",$db), 0);
 if ($k_n!=0)echo " <img src='/style/icons/new.gif' alt='*'>";echo "  </div>";
 }
 echo "</table>";
-
 if ($k_page>1)str('?go&amp;',$k_page,$page); // Вывод страниц
-
 }
 include_once '../../sys/inc/tfoot.php';
 ?>

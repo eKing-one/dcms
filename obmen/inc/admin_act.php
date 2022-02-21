@@ -68,7 +68,6 @@ if (user_access('obmen_dir_edit') && isset($_GET['act']) && $_GET['act']=='renam
 			$id_dir=(int) $dir_id['id']; else $id_dir = 0;
 		}
 	}
-
 if (user_access('obmen_dir_create') && isset($_GET['act']) && $_GET['act']=='mkdir' && isset($_GET['ok']) && isset($_POST['name'])) {
 	if ($_POST['name']==NULL){
 	$err= "输入文件夹名称";  }else {

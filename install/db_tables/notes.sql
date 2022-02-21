@@ -20,20 +20,17 @@ CREATE TABLE IF NOT EXISTS `notes` (
   PRIMARY KEY (`id`),
   KEY `time` (`time`)
 ) ENGINE=MyISAM  DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
-
 CREATE TABLE IF NOT EXISTS `notes_count` (
   `id_notes` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   KEY `id_notes` (`id_notes`,`id_user`)
 ) ENGINE=MyISAM DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
 CREATE TABLE IF NOT EXISTS `notes_dir` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `msg` varchar(1024) NOT NULL,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
-
 CREATE TABLE IF NOT EXISTS `notes_komm` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
@@ -42,7 +39,6 @@ CREATE TABLE IF NOT EXISTS `notes_komm` (
   `time` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
-
 CREATE TABLE IF NOT EXISTS `notes_like` (
   `id_notes` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,

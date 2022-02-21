@@ -1,4 +1,3 @@
-
 CREATE TABLE IF NOT EXISTS `gallery_rating` (
   `id_foto` int(11) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,

@@ -2,7 +2,6 @@
 /* 
 Модификация модуля закладок от PluginS 
 */
-
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -32,7 +31,6 @@ if (isset($user) && $ank['id'] == $user['id']){
 echo '<div class="mess">';
 echo '使用书签功能，您可以保存您感兴趣的人的链接，文件，照片，相册，笔记，讨论<br />';
 echo '</div>';
-
 }
 echo "<table>";
 if(!isset($_GET['metki'])){ echo "<td class='nav1'><b>书签</b></td><td class='nav1'><a href='?id=".$ank['id']."&metki'>标签</a></td>";
@@ -71,7 +69,6 @@ $k_post=dbresult(dbquery("SELECT COUNT(id_object) FROM `bookmarks` WHERE `id_use
 $k_page=k_page($k_post,$set['p_str']);
 $page=page($k_page);
 $start=$set['p_str']*$page-$set['p_str'];
-
 $q=dbquery("SELECT * FROM `bookmarks` WHERE `id_user`='$ank[id]' ORDER BY `time` DESC LIMIT $start,$set[p_str]");
 while($post=dbassoc($q)){
 echo "<div class='nav1'>";
@@ -103,9 +100,5 @@ echo" (添加时间 ".vremja($post['time']).")";
 echo "</div>";
 }
 }
-
 include_once '../../sys/inc/tfoot.php';
-
-
-
 ?>

@@ -1,8 +1,6 @@
 <?php
 $pre_w = 120; // 预览图像的宽度
 $dir = array('tmp'=>H.'sys/tmp/', 'scr'=>'scr/'); // папки для временных файлов и скринов
-
-
 function make_pre($dir_loads2,$file2)
 {
 	global $dir, $pre_w;
@@ -40,7 +38,6 @@ function make_pre($dir_loads2,$file2)
 				fclose($fp);
 				@chmod($filename, 0666);
 				$scr_stat = getimagesize($filename);
-				
 				if($scr_stat !== false)
 				{
 					if($scr_stat[0] > $pre_w)
@@ -59,7 +56,6 @@ function make_pre($dir_loads2,$file2)
 							default:
 							$i_scr = '';
 						}
-						
 						if(!empty($i_scr))
 						{
 							$ratio = $scr_stat[0] / $pre_w;
@@ -77,20 +73,14 @@ function make_pre($dir_loads2,$file2)
 							//imagecopy($i_pre, $logo, 0, 0, 0, 0, 120, 120);
 							//imagedestroy($logo);
 							//imagecolorallocatealpha($alpha,0,0,255,120);
-
 							$data = explode('/', $file);
 							$var = $data[(sizeof($data) - 1)];
 							$var = preg_replace('/[a-z]{3,4}$/i', 'thm.JPG', $var);
 							//header('Content-type: image/jpeg');
 							$var = $dir['scr'] . $var;
-
-
-
-
 							@chmod($var, 0777);
 							//imagejpeg($i_pre, $var);
 							$i_pre = img_copyright($i_pre); // копирайт
-
 							imagejpeg($i_pre, $dir_loads2 . '/' . $file2 . '.JPG', 100);
 							imagedestroy($i_pre);
 							imagedestroy($i_scr);

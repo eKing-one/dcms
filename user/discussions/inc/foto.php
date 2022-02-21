@@ -2,7 +2,6 @@
 /*
 * Заголовок обсуждения
 */
-
 if ($type == 'foto' && $post['avtor'] != $user['id'])
 {
 	$name = __('朋友的照片');
@@ -11,14 +10,12 @@ else if ($type == 'foto' && $post['avtor'] == $user['id'])
 {
 	$name = __('你的照片');
 }
- 
 /*
 * Выводим на экран
 */
 if ($type == 'foto')
 {
 	$foto = dbassoc(dbquery("SELECT * FROM `gallery_foto` WHERE `id` = '" . $post['id_sim'] . "' LIMIT 1"));
-	
 	if ($foto['id'])
 	{
 		?>
@@ -32,7 +29,6 @@ if ($type == 'foto')
 		?>
 		<span class="time"><?= $s1 . vremja($post['time']) . $s2?></span>
 		</div>
-		
 		<div class="nav2">
 		<b><font color='green'><?= $avtor['nick']?></font></b> 
 		<?= ($avtor['id'] != $user['id'] ? '<a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>' : '')?> 
@@ -50,6 +46,5 @@ if ($type == 'foto')
 		</div>
 		<?
 	}
-
 }
 ?>

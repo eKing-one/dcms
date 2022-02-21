@@ -15,8 +15,6 @@
  * @author Прибора Антон Николаевич (http://anton-pribora.ru)
  * @copyright (c) Прибора Антон Николаевич, 2008-11-07
  */
-
-
 /**
  * Парсер SQL-запросов
  *
@@ -33,7 +31,6 @@ class SQLParser
     {
         return self::getQueries( file_get_contents($file) );
     }
-
     /**
      * Разбор SQL-строки на запросы
      *
@@ -46,11 +43,9 @@ class SQLParser
         $strlen   = strlen($sql);
         $position = 0;
         $query    = '';
-
         for ( ; $position < $strlen; ++$position )
         {
             $char  = $sql[$position];
-
             switch ( $char )
             {
                 case '-':
@@ -59,31 +54,25 @@ class SQLParser
                         $query .= $char;
                         break;
                     }
-
                 case '#':
                     while ( $char !== "\r" && $char !== "\n" && $position < $strlen - 1 )
                         $char = $sql[++$position ];
                     break;
-
                 case '`':
                 case '\'':
                 case '"':
                     $quote  = $char;
                     $query .= $quote;
-
                     while ( $position < $strlen - 1 )
                     {
                         $char = $sql[++$position ];
-
                         if ( $char === '\\' )
                         {
                             $query .= $char;
-
                             if ( $position < $strlen - 1 )
                             {
                                 $char   = $sql[++$position ];
                                 $query .= $char;
-
                                 if ( $position < $strlen - 1 ) $char = $sql[ ++$position ];
                             }
                             else
@@ -91,32 +80,24 @@ class SQLParser
                                 break;
                             }
                         }
-
                         if ( $char === $quote ) break;
-
                         $query .= $char;
                     }
-
                     $query .= $quote;
                     break;
-
                 case ';':
                     $query = trim($query);
                     if ( $query ) $queries[] = $query;
                     $query     = '';
                     break;
-
                 default:
                     $query .= $char;
                     break;
             }
         }
-
         $query = trim( $query );
         if ( $query ) $queries[] = $query;
-
         return $queries;
     }
 }
-
 ?>

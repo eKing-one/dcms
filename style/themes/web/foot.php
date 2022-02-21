@@ -1,13 +1,7 @@
 </td></tr>
-
 </table>
-
-
-
 </td></tr>
-
 </table></div></div>
-
 <?
 rekl(3);
 ?>
@@ -31,10 +25,8 @@ rekl(3);
 list($msec, $sec) = explode(chr(32), microtime());
 $page_size = ob_get_length();
 ob_end_flush();
-
 if (!isset($_SESSION['traf']))
     $_SESSION['traf'] = 0;
-
 $_SESSION['traf'] += $page_size;
 ?><a href="http://dcms-social.ru/"><span style="color:white;">DCMS-Social</span></a>
  </span>                    

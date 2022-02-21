@@ -2,7 +2,6 @@
 /*
 * 讨论题目
 */
-
 if ($type == 'obmen' && $post['avtor'] != $user['id']) // обмен
 {
 	$name = __('档案 | 朋友档案');
@@ -11,14 +10,12 @@ else if ($type == 'obmen' && $post['avtor'] == $user['id'])
 {
 	$name = __('档案 | 你的档案');
 }
- 
 /*
 * Выводим на экран
 */
 if ($type == 'obmen')
 {
 	$file = dbassoc(dbquery("SELECT * FROM `obmennik_files` WHERE `id` = '".$post['id_sim']."' LIMIT 1"));
-	
 	if ($file['id'])
 	{
 		?>
@@ -33,7 +30,6 @@ if ($type == 'obmen')
 		?>
 		<span class="time"><?= $s1 . vremja($post['time']) . $s2?></span>
 		</div>
-		
 		<div class="nav2">
 		<b><font color='green'><?= $avtor['nick']?></font></b> 
 		<?= ($avtor['id'] != $user['id'] ? '<a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>' : '')?> 
@@ -51,6 +47,5 @@ if ($type == 'obmen')
 		</div>
 		<?
 	}
-
 }
 ?>

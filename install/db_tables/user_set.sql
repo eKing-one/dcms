@@ -1,5 +1,3 @@
-
-
 CREATE TABLE IF NOT EXISTS `user_set` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,

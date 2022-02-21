@@ -8,11 +8,9 @@ include_once 'sys/inc/db_connect.php';
 include_once 'sys/inc/ipua.php';
 include_once 'sys/inc/fnc.php';
 include_once 'sys/inc/user.php';
-
 if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
 $ank = get_user($ank['id']);
-
 if (!$ank) {
 	header("Location: /index.php?" . SID);
 	exit;
@@ -30,35 +28,27 @@ if ($ank['id'] == 0) {
 	include_once 'sys/inc/tfoot.php';
 	exit;
 }
-
 /* Бан пользователя */
 if ((!isset($user) || $user['group_access'] == 0) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'all' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0) != 0) {
 	$set['title'] = $ank['nick'] . ' - 页面 '; //网页标题
 	include_once 'sys/inc/thead.php';
 	title();
 	aut();
-
 	echo '<div class="mess">';
 	echo '<b><font color=red>此用户被阻止!</font></b><br /> ';
 	echo '</div>';
-
 	include_once 'sys/inc/tfoot.php';
 	exit;
 }
-
-
 // Удаление комментариев
 if (isset($_GET['delete_post']) && dbresult(dbquery("SELECT COUNT(*) FROM `stena` WHERE `id` = '" . intval($_GET['delete_post']) . "'"), 0) == 1) {
 	$post = dbassoc(dbquery("SELECT * FROM `stena` WHERE `id` = '" . intval($_GET['delete_post']) . "' LIMIT 1"));
-
 	if (user_access('guest_delete') || $ank['id'] == $user['id']) {
 		dbquery("DELETE FROM `stena` WHERE `id` = '$post[id]'");
 		dbquery("DELETE FROM `stena_like` WHERE `id_stena` = '$post[id]'");
 		$_SESSION['message'] = '邮件已成功删除';
 	}
 }
-
-
 /*-------------------------гости----------------------*/
 if (isset($user) && $user['id'] != $ank['id'] && !isset($_SESSION['guest_' . $ank['id']])) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `my_guests` WHERE `id_ank` = '$ank[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
@@ -73,8 +63,6 @@ if (isset($user) && $user['id'] != $ank['id'] && !isset($_SESSION['guest_' . $an
 	}
 }
 /*----------------------------------------------------*/
-
-
 /*------------------------стена-----------------------*/
 if (isset($user) && isset($_GET['wall']) && $_GET['wall'] == 1) {
 	dbquery("UPDATE `user` SET `wall` = '1' WHERE `id` = '$user[id]'");
@@ -104,7 +92,6 @@ if (isset($_POST['msg']) && isset($user)) {
 		*/
 		if (isset($user) && $respons == TRUE) {
 			$notifiacation = dbassoc(dbquery("SELECT * FROM `notification_set` WHERE `id_user` = '" . $ank_otv['id'] . "' LIMIT 1"));
-
 			if ($notifiacation['komm'] == 1 && $ank_otv['id'] != $user['id'])
 				dbquery("INSERT INTO `notification` (`avtor`, `id_user`, `id_object`, `type`, `time`) VALUES ('$user[id]', '$ank_otv[id]', '$ank[id]', 'stena_komm', '$time')");
 		}
@@ -113,7 +100,6 @@ if (isset($_POST['msg']) && isset($user)) {
 		$_SESSION['message'] = '消息已成功添加';
 		if (isset($user)) {
 			$notifiacation = dbassoc(dbquery("SELECT * FROM `notification_set` WHERE `id_user` = '" . $ank['id'] . "' LIMIT 1"));
-
 			if ($notifiacation['komm'] == 1 && $user['id'] != $ank['id'])
 				dbquery("INSERT INTO `notification` (`avtor`, `id_user`, `type`, `time`) VALUES ('$user[id]', '$ank[id]', 'stena', '$time')");
 		}
@@ -146,7 +132,6 @@ if (isset($_POST['status']) && isset($user) && $user['id'] == $ank['id']) {
 	if (isset($_POST['translit']) && $_POST['translit'] == 1) $msg = translit($msg);
 	$mat = antimat($msg);
 	if ($mat) $err[] = '在消息的文本中发现了一个禁止字符: ' . $mat;
-
 	if (strlen2($msg) > 512) {
 		$err = '信息太长了';
 	} elseif (strlen2($msg) < 2) {
@@ -166,7 +151,6 @@ if (isset($_POST['status']) && isset($user) && $user['id'] == $ank['id']) {
 				dbquery("INSERT INTO `tape` (`id_user`,`ot_kogo`,  `avtor`, `type`, `time`, `id_file`) values('$a[id]', '$user[id]', '$status[id_user]', 'status', '$time', '$status[id]')");
 		}
 		#######################Конец
-
 		$_SESSION['message'] = '新增状态';
 		header("Location: ?id=$ank[id]");
 		exit;
@@ -181,12 +165,9 @@ if (isset($_GET['off'])) {
 	}
 }
 //-------------------------------------// 
-
 // Статус пользователя
 $status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id_user` = '$ank[id]' AND `pokaz` = '1' LIMIT 1"));
-
 /* Класс к статусу */
-
 if (isset($_GET['like']) && $user['id'] != $ank['id'] && dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
 	dbquery("INSERT INTO `status_like` (`id_user`, `time`, `id_status`) values('$user[id]', '$time', '$status[id]')"); 
 	######################Лента
@@ -215,7 +196,6 @@ if (isset($_GET['fav']) && isset($user)) {
 		dbquery("DELETE FROM `mark_people` WHERE `id_user` = '$user[id]' AND  `id_object` = '$ank[id]' AND `type`='people'");
 		$_SESSION['message'] = $ank['nick'] . ' 从书签中删除';
 	}
-
 	header("Location: /info.php?id=$ank[id]");
 	exit;
 }
@@ -257,8 +237,6 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 	title();
 	aut();
 	err();
-
-
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'stena'"), 0) == 0) {
 		echo "<div class='mess'>虚假信息会导致昵称被屏蔽。
 		如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
@@ -294,7 +272,6 @@ $set['title'] = $ank['nick'] . ' - 页面 '; //网页标题
 include_once 'sys/inc/thead.php';
 title();
 aut();
-
 /*
 ==================================
 用户页面的隐私
@@ -311,19 +288,15 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 		echo group($ank['id']) . " $ank[nick] ";
 		echo medal($ank['id']) . " " . online($ank['id']) . " ";
 		echo "</div>";
-
 		echo "<div class='nav2'>";
 		echo avatar($ank['id'], true, 128, false);
 		echo "<br />";
 	}
-
-
 	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей
 	{
 		echo '<div class="mess">';
 		echo '只有他的朋友才能查看用户的页面！';
 		echo '</div>';
-
 		// В друзья
 		if (isset($user)) {
 			echo '<div class="nav1">';
@@ -339,23 +312,17 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 		include_once 'sys/inc/tfoot.php';
 		exit;
 	}
-
 	if ($uSet['privat_str'] == 0) // Если закрыта
 	{
 		echo '<div class="mess">';
 		echo '用户已禁止查看他的页面！';
 		echo '</div>';
-
 		include_once 'sys/inc/tfoot.php';
 		exit;
 	}
 }
-
-
 if ($set['web'] == true)
 	include_once H . "user/info/web.php";
 else
 	include_once H . "user/info/wap.php";
-
-
 include_once 'sys/inc/tfoot.php';

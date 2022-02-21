@@ -1,5 +1,4 @@
 <?
-
 function user_files($path)
 {
 	$path=preg_replace("#(/){1,}#","/",$path);
@@ -18,5 +17,4 @@ function user_files($path)
 		}
 return preg_replace("# &gt; $#","",$rudir);
 }
-
 ?>

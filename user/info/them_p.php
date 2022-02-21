@@ -27,7 +27,6 @@ echo "<div class='nav1'>";
 if(isset($_GET['komm']))echo "<a href='?id=".$ank['id']."'>主题</a> | <b>评论</b>";
 else echo "<b>主题</b> | <a href='?id=".$ank['id']."&komm'>评论</a>";
 echo "</div>";
-
 //Если коммы смотрим
 if(isset($_GET['komm'])){
 $k_post = dbresult(dbquery("SELECT COUNT(`id`) FROM `forum_p` WHERE `id_user`='".$ank['id']."'"), 0);
@@ -58,10 +57,4 @@ if ($k_page > 1)str('them.php?id='.$ank['id'].'&', $k_page, $page); // Выво�
 //Конец, ёптить
 include_once '../../sys/inc/tfoot.php';
 ?>
-
-
-
-
-
-
 ?>

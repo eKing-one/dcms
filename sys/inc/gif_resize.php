@@ -26,14 +26,12 @@ $prop=$img_y/$img_x;
 $dstH=$y;
 $dstW=ceil($dstH/$prop);
 }
-
 for ($i=0;$i<count($arr);$i++)
 {
 $frames[]=H."sys/tmp/frame_$sess.$i.gif";
 file_put_contents(H."sys/tmp/frame_$sess.$i.gif", $arr[$i]);
 @chmod(H."sys/tmp/frame_$sess.$i.gif",0777);
 }
-
 for ($i=0;$i<count($arr);$i++)
 {
 $imgc[$i]=imagecreatefromgif(H."sys/tmp/frame_$sess.$i.gif");
@@ -44,16 +42,11 @@ imagegif($frame_img[$i],H."sys/tmp/frame_$sess.$i.gif");
 //@chmod(H."sys/tmp/frame_$sess.$i.gif",0777);
 imagedestroy($frame_img[$i]);
 }
-
 $gif = @new GIFEncoder	($frames,$dly,0,2,0, 0, 0,"url");
-
-
-
 for ($i=0;$i<count($arr);$i++)
 {
 unlink(H."sys/tmp/frame_$sess.$i.gif");
 }
-
 return ($gif->GetAnimation());
 }
 ?>

@@ -1,4 +1,3 @@
-
 CREATE TABLE IF NOT EXISTS `forum_f` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
@@ -8,7 +7,6 @@ CREATE TABLE IF NOT EXISTS `forum_f` (
   `icon` varchar(30) DEFAULT 'default',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci AUTO_INCREMENT=13 ;
-
 INSERT INTO `forum_f` (`id`, `name`, `pos`, `opis`, `adm`, `icon`) VALUES
 (1, '论坛新闻', 1, '竞赛、促销、活动、新闻', '0', 'f_news.gif'),
 (2, '沟通与认识', 2, '本网站用户之间的沟通', '0', 'f_obshenie.gif'),

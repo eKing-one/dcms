@@ -6,35 +6,26 @@ if(!($db = @mysql_connect($set['mysql_host'], $set['mysql_user'], $set['mysql_pa
 	echo "没有连接到数据库服务器<br />*检查连接设置";
 	exit;
 }
-
 // подключение к базе
 if (!@mysql_select_db($set['mysql_db_name'],$db))
 {
 	echo '找不到数据库<br />*检查此数据库是否存在';
 	exit;
 }
-
 $query_number = 0;
 $tpassed = 0;
-
-
 function dbresult($result, $row, $field = 0)
 {
  return mysql_result($result, $row, $field);
 }
-
 function dbquery($query)
 {
   return query($query);
 }
-
-
 function dbrows($result)
 {
   return mysql_num_rows($result);
 }
-
-
 function dbarray($result)
 {
   return mysql_fetch_array($result);
@@ -43,9 +34,6 @@ function dbassoc($result)
 {
   return mysql_fetch_assoc($result);
 }
-
-
-
 // Псевдоним dbquery
 function query($query) 
 {
@@ -64,15 +52,11 @@ function query($query)
     $tpassed += ($tend - $tstart);
     return $query;
 }
- 
-
 query('set charset utf8mb4',$db);
 query('SET names utf8mb4',$db);
 query('set character_set_client="utf8mb4"',$db);
 query('set character_set_connection="utf8mb4"',$db);
 //query('set character_set_result="utf8mb4"',$db);
-
-
 // оптимизация всех таблиц
 function db_optimize()
 {

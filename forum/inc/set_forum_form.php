@@ -1,6 +1,4 @@
 <?
-
-
 if (user_access('forum_razd_create') && (isset($_GET['act']) && $_GET['act']=='new' || !isset($_GET['act']) && dbresult(dbquery("SELECT COUNT(*) FROM `forum_r` WHERE `id_forum` = '$forum[id]'"),0)==0))
 {
 	echo "<form method=\"post\" action=\"/forum/$forum[id]/?act=new&amp;ok\">";
@@ -12,8 +10,6 @@ if (user_access('forum_razd_create') && (isset($_GET['act']) && $_GET['act']=='n
 	echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/\">取消</a><br />";
 	echo "</form>";
 }
-
-
 if (user_access('forum_for_edit') && (isset($_GET['act']) && $_GET['act']=='set')) 
 { 
     echo "<form method='post' action='/forum/$forum[id]/?act=set&ok'>"; 
@@ -29,7 +25,6 @@ if (user_access('forum_for_edit') && (isset($_GET['act']) && $_GET['act']=='set'
         $icon[]=$icons; 
     } 
     closedir($opendiricon); 
-     
     echo "<br>图标:"; 
     echo "<select name='icon'>"; 
     echo "<option value='default.png'>默认情况下</option>"; 
@@ -40,20 +35,16 @@ if (user_access('forum_for_edit') && (isset($_GET['act']) && $_GET['act']=='set'
     echo "</select>"; 
     echo "<br>职位:"; 
     echo "<input name='pos' type='text' maxlength='3' value='$forum[pos]' />"; 
-     
     if ($user['level'] >= 3) { 
         if ($forum['adm']==1)$check=' checked="checked"'; 
         else  
         $check=NULL; 
-         
         echo "<br><label><input type='checkbox".$check."' name='adm' value='1' /> 仅用于管理</label>"; 
     } 
-     
     echo "<br><input value='更改' type='submit' />"; 
     echo "<br><img src='/style/icons/str2.gif' alt='*'> <a href='/forum/$forum[id]/'>取消</a>"; 
     echo "</form>"; 
 } 
-
 if (isset($_GET['act']) && $_GET['act']=='del' && user_access('forum_for_delete')) 
 { 
     echo "<div class='err'>"; 
@@ -61,17 +52,13 @@ if (isset($_GET['act']) && $_GET['act']=='del' && user_access('forum_for_delete'
     echo '<a href="/forum/'.$forum['id'].'/?act=delete&ok">是的</a> / <a href="/forum/'.$forum['id'].'/">取消</a>'; 
     echo "</div>"; 
 } 
-
 if (user_access('forum_razd_create') || user_access('forum_for_edit') || user_access('forum_for_delete'))
 { 
     echo "<div class='foot'>"; 
-
     if(user_access('forum_razd_create')) 
     echo "<img src='/style/icons/str.gif' alt='*'> <a href='/forum/$forum[id]/?act=new'>新组</a>"; 
-
     if(user_access('forum_for_edit')) 
     echo "<br/><img src='/style/icons/str.gif' alt='*'> <a href='/forum/$forum[id]/?act=set'>论坛参数</a>"; 
-
     if(user_access('forum_for_delete')) 
     echo "<br/><img src='/style/icons/str.gif' alt='*'> <a href='/forum/$forum[id]/?act=del'>删除论坛</a>"; 
     echo "</div>"; 

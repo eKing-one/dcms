@@ -2,7 +2,6 @@
 /*
 * Заголовок обсуждения
 */
-
 if ($type == 'them' && $post['avtor'] != $user['id'])
 {
 	$name = __('论坛| 论坛主题');
@@ -11,14 +10,12 @@ else if ($type == 'them' && $post['avtor'] == $user['id'])
 {
 	$name = __('论坛| 你的主题');
 }
- 
 /*
 * Выводим на экран
 */
 if ($type == 'them')
 {
 	$them = dbassoc(dbquery("SELECT * FROM `forum_t` WHERE `id` = '".$post['id_sim']."' LIMIT 1"));
-	
 	if ($them['id'])
 	{
 		?>
@@ -32,7 +29,6 @@ if ($type == 'them')
 		?>
 		<span class="time"><?= $s1 . vremja($post['time']) . $s2?></span>
 		</div>
-		
 		<div class="nav2">
 		<b><font color='green'><?= $avtor['nick']?></font></b> 
 		<?= ($avtor['id'] != $user['id'] ? '<a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>' : '')?> 
@@ -50,6 +46,5 @@ if ($type == 'them')
 		</div>
 		<?
 	}
-
 }
 ?>

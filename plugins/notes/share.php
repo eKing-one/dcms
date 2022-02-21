@@ -18,7 +18,6 @@ if (isset($user) && dbresult(dbquery("SELECT COUNT(`id`) FROM `ban` WHERE `razde
 {
 header('Location: /ban.php?'.SID);exit;
 }
-
 $set['title']='分享';
 include_once '../../sys/inc/thead.php';
 title();
@@ -39,7 +38,6 @@ msg('Ок всё крч');
 header('Location: list.php?id='.$id);
 exit;
 }
-
 ?>
 <div class='nav2'><div class="friends_access_list attach_block mt_0 grey"> <? echo group($avtor['id'])." ";?> <a href="/info.php?id=<?=$notes['id_user']?>"><span style="color:#79358c"><b><? echo " ".$avtor['nick']." ";?> </b></span></a> : <a href="list.php?id=<?=$notes['id']?>">
 <span style="color:#06F;"><? echo $notes['name']; ?></span></a></div>

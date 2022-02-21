@@ -10,70 +10,38 @@ if (!function_exists('set_magic_quotes_runtime')) {
         return true;
     }
 }
-
 class MP3_Id
 {
-
 var $file = false;
-
 var $id3v1 = false;
-
 var $id3v11 = false;
-
 var $id3v2 = false;
-
 var $name = '';
-
 var $artists = '';
-
 var $album = '';
-
 var $year = '';
-
 var $comment = '';
-
 var $track = 0;
-
 var $genre = '';
-
 var $genreno = 255;
-
 var $studied = false;
-
 var $mpeg_ver = 0;
-
 var $layer = 0;
-
 var $bitrate = 0;
-
 var $crc = false;
-
 var $frequency = 0;
-
 var $encoding_type = 0;
-
 var $samples_per_frame = 0;
-
 var $samples = 0;
-
 var $musicsize = -1;
-
 var $frames = 0;
-
 var $quality = 0;
-
 var $padding = false;
-
 var $private = false;
-
 var $mode = '';
-
 var $copyright = false;
-
 var $original = false;
-
 var $emphasis = '';
-
 var $filesize = -1;
 /**
 * Byte at which the first mpeg header was found
@@ -95,13 +63,11 @@ var $length = false;
 * @var string
 */
 var $lengths = false;
-
 /**
 * if any errors they will be here
 * @var string
 */
 var $error = false;
-
 /**
 * print debugging info?
 * @var boolean
@@ -117,7 +83,6 @@ var $debugbeg = '<DIV STYLE="margin: 0.5 em; padding: 0.5 em; border-width: thin
 * @var string
 */
 var $debugend = '</DIV>';
-
     /*
     * creates a new id3 object
     * and loads a tag from a file.
@@ -131,9 +96,7 @@ var $debugend = '</DIV>';
     {
         if (defined('ID3_SHOW_DEBUG')) $this->debug = true;
         $this->study = ($study || defined('ID3_AUTO_STUDY'));
-
 } // id3()
-
 /**
 * reads the given file and parse it
 *
@@ -143,13 +106,10 @@ var $debugend = '</DIV>';
 */
 function read( $file="") {
 if ($this->debug) print($this->debugbeg . "id3('$file')<HR>");
-
 if(!empty($file))$this->file = $file;
 if ($this->debug) print($this->debugend);
-
 return $this->_read_v1();
 }
-
 /**
 * sets a field
 *
@@ -176,7 +136,6 @@ $this -> $n = $v ;
 $this -> $name = $value ;
 }
 }
-
 /**
 * get the value of a tag
 *
@@ -194,7 +153,6 @@ return $default ;
 return $this -> $name ;
 }
 }
-
 /**
 * update the id3v1 tags on the file.
 * Note: If/when ID3v2 is implemented this method will probably get another
@@ -211,7 +169,6 @@ $this->_write_v1();
 }
 if ($this->debug) print($this->debugend);
 } // write()
-
 /**
 * study() - does extra work to get the MPEG frame info.
 *
@@ -221,7 +178,6 @@ function study() {
 $this->studied = true;
 $this->_readframe();
 } // study()
-
 /**
 * copy($from) - set's the ID3 fields to the same as the fields in $from
 *
@@ -240,7 +196,6 @@ $this->genre    = $from->genre;
 $this->genreno  = $from->genreno;
 if ($this->debug) print($this->debugend);
 } // copy($from)
-
 /**
 * remove - removes the id3 tag(s) from a file.
 *
@@ -251,19 +206,14 @@ if ($this->debug) print($this->debugend);
 */
 function remove($id3v1 = true, $id3v2 = true) {
 if ($this->debug) print($this->debugbeg . "remove()<HR>");
-
 if ($id3v1) {
 $this->_remove_v1();
 }
-
 if ($id3v2) {
 // TODO: write ID3v2 code
 }
-
 if ($this->debug) print($this->debugend);
 } // remove
-
-
 /**
 * read a ID3 v1 or v1.1 tag from a file
 *
@@ -275,22 +225,17 @@ if ($this->debug) print($this->debugend);
 */
 function _read_v1() {
 if ($this->debug) print($this->debugbeg . "_read_v1()<HR>");
-
 $mqr = get_magic_quotes_runtime();
 set_magic_quotes_runtime(0);
-
 if (! ($f = @fopen($this->file, 'rb')) ) {
 return PEAR::raiseError( "Unable to open " . $this->file, PEAR_MP3_ID_FNO);
 }
-
 if (fseek($f, -128, SEEK_END) == -1) {
 return PEAR::raiseError( 'Unable to see to end - 128 of ' . $this->file, PEAR_MP3_ID_RE);
 }
-
 $r = fread($f, 128);
 fclose($f);
 set_magic_quotes_runtime($mqr);
-
         if ($this->debug) {
             $unp = unpack('H*raw', $r);
             print_r($unp);
@@ -298,36 +243,27 @@ set_magic_quotes_runtime($mqr);
         $id3tag = new PEAR;
         if ($id3tag->isError($id3tag)) {
             $this->id3v1 = true;
-
 $tmp = explode(Chr(0), $id3tag['NAME']);
 $this->name = $tmp[0];
-
 $tmp = explode(Chr(0), $id3tag['ARTISTS']);
 $this->artists = $tmp[0];
-
 $tmp = explode(Chr(0), $id3tag['ALBUM']);
 $this->album = $tmp[0];
-
 $tmp = explode(Chr(0), $id3tag['YEAR']);
 $this->year = $tmp[0];
-
 $tmp = explode(Chr(0), $id3tag['COMMENT']);
 $this->comment = $tmp[0];
-
 if (isset($id3tag['TRACK'])) {
 $this->id3v11 = true;
 $this->track = $id3tag['TRACK'];
 }
-
 $this->genreno = $id3tag['GENRENO'];
 $this->genre = $id3tag['GENRE'];
 } else {
 return $id3tag ;
 }
-
 if ($this->debug) print($this->debugend);
 } // _read_v1()
-
 /**
 * decodes that ID3v1 or ID3v1.1 tag
 *
@@ -340,7 +276,6 @@ if ($this->debug) print($this->debugend);
 */
 function _decode_v1($rawtag) {
 if ($this->debug) print($this->debugbeg . "_decode_v1(\$rawtag)<HR>");
-
 if ($rawtag[125] == Chr(0) and $rawtag[126] != Chr(0)) {
 // ID3 v1.1
 $format = 'a3TAG/a30NAME/a30ARTISTS/a30ALBUM/a4YEAR/a28COMMENT/x1/C1TRACK/C1GENRENO';
@@ -348,10 +283,8 @@ $format = 'a3TAG/a30NAME/a30ARTISTS/a30ALBUM/a4YEAR/a28COMMENT/x1/C1TRACK/C1GENR
 // ID3 v1
 $format = 'a3TAG/a30NAME/a30ARTISTS/a30ALBUM/a4YEAR/a30COMMENT/C1GENRENO';
 }
-
 $id3tag = unpack($format, $rawtag);
 if ($this->debug) print_r($id3tag);
-
 if ($id3tag['TAG'] == 'TAG') {
 $id3tag['GENRE'] = $this->getgenre($id3tag['GENRENO']);
 } else {
@@ -360,8 +293,6 @@ $id3tag = PEAR::raiseError( 'TAG not found', PEAR_MP3_ID_TNF);
 if ($this->debug) print($this->debugend);
 return $id3tag;
 } // _decode_v1()
-
-
 /**
 * writes a ID3 v1 or v1.1 tag to a file
 *
@@ -370,27 +301,19 @@ return $id3tag;
 */
 function _write_v1() {
 if ($this->debug) print($this->debugbeg . "_write_v1()<HR>");
-
 $file = $this->file;
-
 if (! ($f = @fopen($file, 'r+b')) ) {
 return PEAR::raiseError( "Unable to open " . $file, PEAR_MP3_ID_FNO);
 }
-
 if (fseek($f, -128, SEEK_END) == -1) {
 //        $this->error = 'Unable to see to end - 128 of ' . $file;
 return PEAR::raiseError( "Unable to see to end - 128 of " . $file, PEAR_MP3_ID_RE);
 }
-
 $this->genreno = $this->getgenreno($this->genre, $this->genreno);
-
 $newtag = $this->_encode_v1();
-
 $mqr = get_magic_quotes_runtime();
 set_magic_quotes_runtime(0);
-
 $r = fread($f, 128);
-
 if ( !PEAR::isError( $this->_decode_v1($r))) {
 if (fseek($f, -128, SEEK_END) == -1) {
 //        $this->error = 'Unable to see to end - 128 of ' . $file;
@@ -406,10 +329,8 @@ fwrite($f, $newtag);
 }
 fclose($f);
 set_magic_quotes_runtime($mqr);
-
 if ($this->debug) print($this->debugend);
 } // _write_v1()
-
 /*
 * encode the ID3 tag
 *
@@ -420,7 +341,6 @@ if ($this->debug) print($this->debugend);
 */
 function _encode_v1() {
 if ($this->debug) print($this->debugbeg . "_encode_v1()<HR>");
-
 if ($this->track) {
 // ID3 v1.1
 $id3pack = 'a3a30a30a30a4a28x1C1C1';
@@ -447,17 +367,14 @@ $this->comment,
 $this->genreno
 );
 }
-
 if ($this->debug) {
 print('id3pack: ' . $id3pack . "");
 $unp = unpack('H*new', $newtag);
 print_r($unp);
 }
-
 if ($this->debug) print($this->debugend);
 return $newtag;
 } // _encode_v1()
-
 /**
 * if exists it removes an ID3v1 or v1.1 tag
 *
@@ -469,22 +386,16 @@ return $newtag;
 */
 function _remove_v1() {
 if ($this->debug) print($this->debugbeg . "_remove_v1()<HR>");
-
 $file = $this->file;
-
 if (! ($f = fopen($file, 'r+b')) ) {
 return PEAR::raiseError( "Unable to open " . $file, PEAR_MP3_ID_FNO);
 }
-
 if (fseek($f, -128, SEEK_END) == -1) {
 return PEAR::raiseError( 'Unable to see to end - 128 of ' . $file, PEAR_MP3_ID_RE);
 }
-
 $mqr = get_magic_quotes_runtime();
 set_magic_quotes_runtime(0);
-
 $r = fread($f, 128);
-
 $success = false;
 if ( !PEAR::isError( $this->_decode_v1($r))) {
 $size = filesize($this->file) - 128;
@@ -495,11 +406,9 @@ if ($this->debug) print(' new: ' . filesize($this->file));
 }
 fclose($f);
 set_magic_quotes_runtime($mqr);
-
 if ($this->debug) print($this->debugend);
 return $success;
 } // _remove_v1()
-
 /**
 * reads a frame from the file
 *
@@ -508,19 +417,14 @@ return $success;
 */
 function _readframe() {
 if ($this->debug) print($this->debugbeg . "_readframe()<HR>");
-
 $file = $this->file;
-
 $mqr = get_magic_quotes_runtime();
 set_magic_quotes_runtime(0);
-
 if (! ($f = fopen($file, 'rb')) ) {
 if ($this->debug) print($this->debugend);
 return PEAR::raiseError( "Unable to open " . $file, PEAR_MP3_ID_FNO) ;
 }
-
 $this->filesize = filesize($file);
-
 do {
 while (fread($f,1) != Chr(255)) { // Find the first frame
 if ($this->debug) echo "Find...";
@@ -530,9 +434,7 @@ return PEAR::raiseError( "No mpeg frame found", PEAR_MP3_ID_NOMP3) ;
 }
 }
 fseek($f, ftell($f) - 1); // back up one byte
-
 $frameoffset = ftell($f);
-
 $r = fread($f, 4);
 // Binary to Hex to a binary sting. ugly but best I can think of.
 // $bits = unpack('H*bits', $r);
@@ -540,9 +442,7 @@ $r = fread($f, 4);
 $bits = sprintf("%'08b%'08b%'08b%'08b", ord($r{0}), ord($r{1}), ord($r{2}), ord($r{3}));
 } while (!$bits[8] and !$bits[9] and !$bits[10]); // 1st 8 bits true from the while
 if ($this->debug) print('Bits: ' . $bits . "");
-
 $this->frameoffset = $frameoffset;
-
 // Detect VBR header
 if ($bits[11] == 0) {
 if (($bits[24] == 1) && ($bits[25] == 1)) {
@@ -563,58 +463,46 @@ $vbroffset = 17; // MPEG 1 Mono
 $vbroffset = 32; // MPEG 1 Stereo
 }
 }
-
 fseek($f, ftell($f) + $vbroffset);
 $r = fread($f, 4);
-
 switch ($r) {
 case 'Xing':
 $this->encoding_type = 'VBR';
 case 'Info':
 // Extract info from Xing header
-
 if ($this->debug) print('Encoding Header: ' . $r . "");
-
 $r = fread($f, 4);
 $vbrbits = sprintf("%'08b", ord($r{3}));
-
 if ($this->debug) print('XING Header Bits: ' . $vbrbits . "");
-
 if ($vbrbits[7] == 1) {
 // Next 4 bytes contain number of frames
 $r = fread($f, 4);
 $this->frames = unpack('N', $r);
 $this->frames = $this->frames[1];
 }
-
 if ($vbrbits[6] == 1) {
 // Next 4 bytes contain number of bytes
 $r = fread($f, 4);
 $this->musicsize = unpack('N', $r);
 $this->musicsize = $this->musicsize[1];
 }
-
 if ($vbrbits[5] == 1) {
 // Next 100 bytes contain TOC entries, skip
 fseek($f, ftell($f) + 100);
 }
-
 if ($vbrbits[4] == 1) {
 // Next 4 bytes contain Quality Indicator
 $r = fread($f, 4);
 $this->quality = unpack('N', $r);
 $this->quality = $this->quality[1];
 }
-
 break;
-
 case 'VBRI':
 default:
 if ($vbroffset != 32) {
 // VBRI Header is fixed after 32 bytes, so maybe we are looking at the wrong place.
 fseek($f, ftell($f) + 32 - $vbroffset);
 $r = fread($f, 4);
-
 if ($r != 'VBRI') {
 $this->encoding_type = 'CBR';
 break;
@@ -623,36 +511,27 @@ break;
 $this->encoding_type = 'CBR';
 break;
 }
-
 if ($this->debug) print('Encoding Header: ' . $r . "");
-
 $this->encoding_type = 'VBR';
-
 // Next 2 bytes contain Version ID, skip
 fseek($f, ftell($f) + 2);
-
 // Next 2 bytes contain Delay, skip
 fseek($f, ftell($f) + 2);
-
 // Next 2 bytes contain Quality Indicator
 $r = fread($f, 2);
 $this->quality = unpack('n', $r);
 $this->quality = $this->quality[1];
-
 // Next 4 bytes contain number of bytes
 $r = fread($f, 4);
 $this->musicsize = unpack('N', $r);
 $this->musicsize = $this->musicsize[1];
-
 // Next 4 bytes contain number of frames
 $r = fread($f, 4);
 $this->frames = unpack('N', $r);
 $this->frames = $this->frames[1];
 }
-
 fclose($f);
 set_magic_quotes_runtime($mqr);
-
 if ($bits[11] == 0) {
 $this->mpeg_ver = "2.5";
 $bitrates = array(
@@ -676,31 +555,24 @@ $bitrates = array(
 );
 }
 if ($this->debug) print('MPEG' . $this->mpeg_ver . "");
-
 $layer = array(
 array(0,3),
 array(2,1),
 );
 $this->layer = $layer[$bits[13]][$bits[14]];
 if ($this->debug) print('layer: ' . $this->layer . "");
-
 if ($bits[15] == 0) {
 // It's backwards, if the bit is not set then it is protected.
 if ($this->debug) print("protected (crc)");
 $this->crc = true;
 }
-
         $bitrate = 0;
         if ($bits[16] == 1) $bitrate += 8;
         if ($bits[17] == 1) $bitrate += 4;
         if ($bits[18] == 1) $bitrate += 2;
         if ($bits[19] == 1) $bitrate += 1;
-
-
         if (isset($bitrates[$this->layer][$bitrate])) $this->bitrate = $bitrates[$this->layer][$bitrate];
         else $this->bitrate = 0;
-
-
 $frequency = array(
 '1' => array(
 '0' => array(44100, 48000),
@@ -716,27 +588,21 @@ $frequency = array(
 ),
 );
 $this->frequency = $frequency[$this->mpeg_ver][$bits[20]][$bits[21]];
-
 $this->padding = $bits[22];
 $this->private = $bits[23];
-
 $mode = array(
 array('Stereo', 'Joint Stereo'),
 array('Dual Channel', 'Mono'),
 );
 $this->mode = $mode[$bits[24]][$bits[25]];
-
 // XXX: I dunno what the mode extension is for bits 26,27
-
 $this->copyright = $bits[28];
 $this->original = $bits[29];
-
 $emphasis = array(
 array('none', '50/15ms'),
 array('', 'CCITT j.17'),
 );
 $this->emphasis = $emphasis[$bits[30]][$bits[31]];
-
         $samplesperframe = array(
             '1' => array(
                 '1' => 384,
@@ -756,7 +622,6 @@ $this->emphasis = $emphasis[$bits[30]][$bits[31]];
         );
         if (isset($samplesperframe[$this->mpeg_ver][$this->layer])) $this->samples_per_frame = $samplesperframe[$this->mpeg_ver][$this->layer];
         else $this->samples_per_frame = 0;
-
 if ($this->encoding_type != 'VBR') {
 if ($this->bitrate == 0) {
 $s = -1;
@@ -766,7 +631,6 @@ $s = ((8*filesize($this->file))/1000) / $this->bitrate;
 $this->length = sprintf('%02d:%02d',floor($s/60),floor($s-(floor($s/60)*60)));
 $this->lengthh = sprintf('%02d:%02d:%02d',floor($s/3600),floor($s/60),floor($s-(floor($s/60)*60)));
 $this->lengths = (int)$s;
-
 $this->samples = ceil($this->lengths * $this->frequency);
 if(0 != $this->samples_per_frame) {
 $this->frames = ceil($this->samples / $this->samples_per_frame);
@@ -777,17 +641,13 @@ $this->musicsize = ceil($this->lengths * $this->bitrate * 1000 / 8);
 } else {
 $this->samples = $this->samples_per_frame * $this->frames;
 $s = $this->samples / $this->frequency;
-
 $this->length = sprintf('%02d:%02d',floor($s/60),floor($s-(floor($s/60)*60)));
 $this->lengthh = sprintf('%02d:%02d:%02d',floor($s/3600),floor($s/60),floor($s-(floor($s/60)*60)));
 $this->lengths = (int)$s;
-
 $this->bitrate = (int)(($this->musicsize / $s) * 8 / 1000);
 }
-
 if ($this->debug) print($this->debugend);
 } // _readframe()
-
 /**
 * getGenre - return the name of a genre number
 *
@@ -804,7 +664,6 @@ if ($this->debug) print($this->debugend);
 */
 function getGenre($genreno) {
 if ($this->debug) print($this->debugbeg . "getgenre($genreno)<HR>");
-
 $genres = $this->genres();
 if (isset($genres[$genreno])) {
 $genre = $genres[$genreno];
@@ -812,11 +671,9 @@ if ($this->debug) print($genre . "");
 } else {
 $genre = '';
 }
-
 if ($this->debug) print($this->debugend);
 return $genre;
 } // getGenre($genreno)
-
 /*
 * getGenreNo - return the number of the genre name
 *
@@ -831,7 +688,6 @@ return $genre;
 */
 function getGenreNo($genre, $default = 0xff) {
 if ($this->debug) print($this->debugbeg . "getgenreno('$genre',$default)<HR>");
-
 $genres = $this->genres();
 $genreno = false;
 if ($genre) {
@@ -846,7 +702,6 @@ if ($genreno === false) $genreno = $default;
 if ($this->debug) print($this->debugend);
 return $genreno;
 } // getGenreNo($genre, $default = 0xff)
-
 /*
 * genres - returns an array of the ID3v1 genres
 *
@@ -1007,5 +862,4 @@ return array(
 );
 } // genres
 } // end of id3
-
 ?>

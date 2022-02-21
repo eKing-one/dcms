@@ -1,18 +1,15 @@
 <?
-
 if (isset($_GET['act']) && $_GET['act']=='mesto')
 {
     echo "<form method=\"post\" action=\"/forum/$forum[id]/$razdel[id]/?act=mesto&amp;ok\">";
     echo "子论坛:<br />";
     echo "<select name=\"forum\">";
     $q2 = dbquery("SELECT * FROM `forum_f` ORDER BY `pos` ASC");
-    
     while ($forums = dbassoc($q2))
     {
         if ($forum['id']==$forums['id'])$check=' selected="selected"';
         else 
         $check=NULL;
-        
         echo '<option' . $check . ' value="' . $forums['id'] . '">' . text($forums['name']) . '</option>';
     }
     echo "</select><br />";
@@ -20,7 +17,6 @@ if (isset($_GET['act']) && $_GET['act']=='mesto')
     echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/'>取消</a><br />";
     echo "</form>";
 }
-
 if (isset($_GET['act']) && $_GET['act']=='set')
 {
     echo "<form method=\"post\" action=\"/forum/$forum[id]/$razdel[id]/?act=set&amp;ok\">";
@@ -32,7 +28,6 @@ if (isset($_GET['act']) && $_GET['act']=='set')
     echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/'>取消</a><br />";
     echo "</form>";
 }
-
 if (isset($_GET['act']) && $_GET['act']=='del')
 {
     echo "<div class=\"err\">";
@@ -40,14 +35,9 @@ if (isset($_GET['act']) && $_GET['act']=='del')
     echo "<a href=\"/forum/$forum[id]/$razdel[id]/?act=delete&amp;ok\">是的</a> / <a href=\"/forum/$forum[id]/$razdel[id]/\">取消</a><br />";
     echo "</div>";
 }
-
 echo "<div class=\"foot\">";
-
 echo "<img src='/style/icons/str.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/?act=mesto'>移动一个部分</a><br />";
-
 echo "<img src='/style/icons/str.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/?act=del'>删除部分</a><br />";
-
 echo "<img src='/style/icons/str.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/?act=set'>节参数</a><br />";
-
 echo "</div>";
 ?>

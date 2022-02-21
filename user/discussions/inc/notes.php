@@ -2,7 +2,6 @@
 /*
 * Заголовок обсуждения
 */
-
 if ($type == 'notes' && $post['avtor'] != $user['id'])
 {
 	$name = __('朋友的日记');
@@ -11,14 +10,12 @@ else if ($type == 'notes' && $post['avtor'] == $user['id'])
 {
 	$name = __('你的日记');
 }
- 
 /*
 * Выводим на экран
 */
 if ($type == 'notes')
 {
 	$notes = dbassoc(dbquery("SELECT * FROM `notes` WHERE `id` = '".$post['id_sim']."' LIMIT 1"));
-	
 	if ($notes['id'])
 	{
 		?>
@@ -32,7 +29,6 @@ if ($type == 'notes')
 		?>
 		<span class="time"><?= $s1 . vremja($post['time']) . $s2?></span>
 		</div>
-		
 		<div class="nav2">
 		<b><font color='green'><?= $avtor['nick']?></font></b> 
 		<?= ($avtor['id'] != $user['id'] ? '<a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>' : '')?> 
@@ -50,6 +46,5 @@ if ($type == 'notes')
 		</div>
 		<?
 	}
-
 }
 ?>

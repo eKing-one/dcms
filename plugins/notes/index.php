@@ -1,5 +1,4 @@
 <?php
-
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -9,13 +8,11 @@ include_once '../../sys/inc/db_connect.php';
 include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
-
 /* Бан пользователя */ 
 if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'notes' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0)!=0)
 {
 header('Location: /ban.php?'.SID);exit;
 }
-
 $set['title']='日记';
 include_once '../../sys/inc/thead.php';
 title();
@@ -25,7 +22,6 @@ echo "<div class='foot'><form method=\"post\" action=\"search.php?go\">";
 echo "<table><td><input style='width:95%;' type=\"text\" name=\"usearch\" maxlength=\"16\" /></td><td> ";
 echo "<input type=\"submit\" value=\"搜索\" /></td></table>";
 echo "</form></div>";
-
 /**** Панель навигации ****/
 echo "<div id='comments' class='menus'>";
 echo "<div class='webmenu'>";
@@ -40,7 +36,6 @@ echo "<a href='user.php?id=".$user['id']."'>我的</a>";
 echo "</div>"; 
 }
 echo "</div>";
-
 /**** Сортировка*****/
 $sortir = isset($_GET['sort']) ? $_GET['sort'] : NULL;
 switch($sortir)
@@ -74,28 +69,22 @@ default:
 $order='order by `time` desc';
  echo "<div class='foot'><b>新的</b> | <a href='?sort=c'>流行的</a></div>";
 }
-
 if(!isset($_GET['sort']) OR $_GET['sort']!='c'){
 $new=null; }
 $k_post=dbresult(dbquery("SELECT COUNT(*) FROM `notes` WHERE `private`='0'"),0);
 $k_page=k_page($k_post,$set['p_str']);
 $page=page($k_page);
 $start=$set['p_str']*$page-$set['p_str'];
-
 $q=dbquery("SELECT * FROM `notes` $order LIMIT $start, $set[p_str]");
-
 echo "<table class='post'>";
-
 if ($k_post==0)
 {
 echo "  <div class='mess'>";
 echo "没有记录";
 echo "  </div>";
 }
-
 while ($post = dbassoc($q))
 {
-
 /*-----------зебра-----------*/
 if ($num==0)
 {echo "  <div class='nav1'>";
@@ -113,10 +102,8 @@ echo "<br/><img src='/style/icons/uv.png'> <font color=#666>(".dbresult(dbquery(
 echo " <a href='fav.php?id=".$post['id']."'><img src='/style/icons/add_fav.gif'> (".dbresult(dbquery("SELECT COUNT(`id`)FROM `bookmarks` WHERE `id_object`='".$post['id']."' AND `type`='notes'"),0).")</a> &bull; ";
 echo " <img src='/style/icons/action_share_color.gif'> (".dbresult(dbquery("SELECT COUNT(`id`)FROM `notes` WHERE `share_id`='".$post['id']."' AND `share_type`='notes'"),0).") </font>";
 echo "  </div>";
-
 }
 echo "</table>";
-
 if (isset($_GET['sort'])) $dop="sort=".my_esc($_GET['sort'])."&amp;";
 else $dop='';
 if ($k_page>1)str('?'.$dop.'',$k_page,$page); // Вывод страниц

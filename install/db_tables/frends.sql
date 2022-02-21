@@ -1,4 +1,3 @@
-
 CREATE TABLE IF NOT EXISTS `frends` (
   `user` int(11) NOT NULL DEFAULT '0',
   `frend` int(11) NOT NULL DEFAULT '0',
@@ -21,7 +20,6 @@ CREATE TABLE IF NOT EXISTS `frends` (
   PRIMARY KEY (`user`,`frend`),
   KEY `time` (`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 CREATE TABLE IF NOT EXISTS `frends_new` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user` int(11) NOT NULL DEFAULT '0',

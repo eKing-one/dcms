@@ -1,7 +1,6 @@
 <?php
 if (isset($_SESSION['refer']) && $_SESSION['refer'] != NULL && !preg_match('#(rules)|(smiles)|(secure)|(aut)|(reg)|(umenu)|(zakl)|(mail)|(anketa)|(settings)|(avatar)|(info)\.php#',$_SERVER['SCRIPT_NAME']))
 $_SESSION['refer'] = NULL;
-
 function otkuda($ref)
 {
 	if (preg_match('#^/forum/#', $ref))
@@ -30,9 +29,6 @@ function otkuda($ref)
 		$mesto = ' 访问 <a href="/index.php">网站主页</a> ';
 	else
 		$mesto = ' 某个地方 <a href="/index.php">在网站上</a> ';
-
 	return $mesto;
 }
-
-
 ?>

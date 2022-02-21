@@ -7,16 +7,12 @@ if (isset($_GET['act']) && $_GET['act'] == 'rename')
 	<input name="name" type="text" value="<?=text($foto['name'])?>" /><br />
 	描述:<?=$tPanel?>
 	<textarea name="opis"><?=text($foto['opis'])?></textarea><br />
-
 	<label><input type="checkbox" name="metka" value="1" <?=($foto['metka'] == 1 ? "checked='checked'" : null)?>/> 标签 <font color="red">18+</font></label><br />
-
 	<input class="submit" type="submit" value="应用" /><br />
 	<img src="/style/icons/str2.gif" alt="*"> <a href="?">取消</a><br />
 	</form>
 	<?
 }
-
-
 if (isset($_GET['act']) && $_GET['act'] == 'delete')
 {
 	?>
@@ -27,7 +23,6 @@ if (isset($_GET['act']) && $_GET['act'] == 'delete')
 	</form>
 	<?
 }
-
 echo '<div class="foot">';
 if ($ank['id'] == $user['id'])
 echo '<img src="/style/icons/pht2.png" alt="*"> <a href="?act=avatar">做一个主页</a><br />';

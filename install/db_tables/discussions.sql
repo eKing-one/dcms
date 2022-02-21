@@ -1,5 +1,3 @@
-
-
 CREATE TABLE IF NOT EXISTS `discussions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `avtor` int(11) NOT NULL,

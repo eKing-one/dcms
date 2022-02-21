@@ -1,8 +1,6 @@
-
 --
 -- Структура таблицы `menu`
 --
-
 CREATE TABLE IF NOT EXISTS `menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` enum('link','razd') NOT NULL DEFAULT 'link',
@@ -14,11 +12,9 @@ CREATE TABLE IF NOT EXISTS `menu` (
   PRIMARY KEY (`id`),
   KEY `pos` (`pos`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='主菜单' AUTO_INCREMENT=15 ;
-
 --
 -- Дамп данных таблицы `menu`
 --
-
 INSERT INTO `menu` (`id`, `type`, `name`, `url`, `counter`, `pos`, `icon`) VALUES
 (1, 'link', '新闻中心', '/news/', 'news/count.php', 1, 'news.png'),
 (2, 'link', '聊天', '/chat/', 'chat/count.php', 7, 'chat.png'),

@@ -7,26 +7,18 @@ if (isset($user) && (!isset($_SESSION['time_c_t_forum']) || $_SESSION['time_c_t_
 	echo '<img src="/style/icons/plus.gif" alt="*"> <a href="/forum/' . $forum['id'] . '/' . $razdel['id'] . '/?act=new" title="创建新主题">新主题</a><br />';
 	echo '</div>';
 }
-
-
 $k_post=dbresult(dbquery("SELECT COUNT(*) FROM `forum_t` WHERE `id_forum` = '$forum[id]' AND `id_razdel` = '$razdel[id]'"),0);
 $k_page=k_page($k_post,$set['p_str']);
 $page=page($k_page);
 $start=$set['p_str']*$page-$set['p_str'];
-
-
 echo '<table class="post">';
-
-
 $q=dbquery("SELECT * FROM `forum_t` WHERE `id_forum` = '$forum[id]' AND `id_razdel` = '$razdel[id]' ORDER BY `up` DESC,`time` DESC  LIMIT $start, $set[p_str]");
-
 if (dbrows($q)==0)
 {
 	echo '<div class="mess">';
 	echo '该部分没有主题 "' . text($razdel['name']);
 	echo '</div>';
 }	
-
 while ($them = dbassoc($q))
 {
 /*-----------зебра-----------*/	
@@ -41,7 +33,6 @@ elseif ($num == 1)
 	$num = 0;	
 }	
 /*---------------------------*/
-
 if($them['close']==1){
 $closed='<img src="/style/icons/topic_locked.gif">'; }else{ $closed=null; }
 if($them['up']==1){
@@ -53,11 +44,8 @@ echo '<span style="float:right;">'.vremja($them['time_create']).'</span></font><
 echo user::nick($them['id_user']).'';
 $post2 = dbassoc(dbquery("SELECT `id_user`,`time` FROM `forum_p` WHERE `id_them` = '$them[id]' AND `id_razdel` = '$razdel[id]' AND `id_forum` = '$forum[id]' ORDER BY `time` DESC LIMIT 1"));
 if (!empty($post2['id_user']))echo ' / '.user::nick($post2['id_user']).' (' . vremja($post2['time']) . ')';
-
 echo '</div>';
 }
-
 echo '</table>';
-
 if ($k_page>1)str("/forum/$forum[id]/$razdel[id]/?",$k_page,$page); // Вывод страниц
 ?>

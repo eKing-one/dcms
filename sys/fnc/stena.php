@@ -36,9 +36,7 @@
  echo " <span style='color:#666;'>".rez_text($them['text'],82)."</span>";
  }
  }
-
  }
  }
  }
- 
 ?>

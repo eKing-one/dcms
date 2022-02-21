@@ -20,7 +20,6 @@ $ank = get_user($sid);
 	$uSet = dbarray(dbquery("SELECT * FROM `user_set` WHERE `id_user` = '$ank[id]'  LIMIT 1"));
 	$frend=dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$ank[id]') OR (`user` = '$ank[id]' AND `frend` = '$user[id]') LIMIT 1"),0);
 	$frend_new=dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[id]' AND `to` = '$ank[id]') OR (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"),0);
-
 if ($ank['id'] != $user['id'] && $user['group_access'] == 0)
 {
 	if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) // Начинаем вывод если стр имеет приват настройки
@@ -41,14 +40,11 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0)
 		echo '</div>';
 		// В друзья
 		if (isset($user))
-
 		{
-
 			echo '<div class="nav1">';
 			if ($frend_new == 0 && $frend==0){
 			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=".$ank['id']."'>添加到朋友</a><br />";
 			}elseif ($frend_new == 1){
-
 			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$ank[id]'>拒绝申请</a><br />";
 			}elseif ($frend == 2){
 			echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>从朋友中删除</a><br />";
@@ -66,12 +62,10 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0)
 	exit;
 	}
 }
-
 $set['title']="在线朋友 $ank[nick]"; //网页标题
 include_once '../../sys/inc/thead.php';
 title();
 aut();
-
 //---------------------Panel---------------------------------//
 $on_f=dbresult(dbquery("SELECT COUNT(*) FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'".(time()-600)."'"), 0);
 $f=dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' AND `i` = '1'"), 0);
@@ -97,11 +91,9 @@ echo "<div id='comments' class='menus'>";
 echo "<div class='webmenu'>";
 echo "<a href='index.php?id=$ank[id]' >全部 (".dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' AND `i` = '1'"), 0).")</a>";
 echo "</div>"; 
-
 echo "<div class='webmenu last'>";
 echo "<a href='online.php?id=$ank[id]' class='activ'>在线 (".dbresult(dbquery("SELECT COUNT(*) FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'".(time()-600)."'"), 0).")</a>";
 echo "</div>"; 
-
 if ($ank['id'] == $user['id'])
 {
     echo "<div class='webmenu last'>";
@@ -150,17 +142,6 @@ if (isset($user)){	echo "<a href=\"/mail.php?id=$frend[id]\"><img src='/style/ic
 }
 echo '</td></table></div>';
 }
-
 if ($k_page>1)str("?id=".$ank['id']."&",$k_page,$page); // Вывод страниц
-
-
-
-
-
-
-
 include_once '../../sys/inc/tfoot.php';
-
-
-
 ?>

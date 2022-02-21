@@ -9,29 +9,13 @@ include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
-
-
 adm_check();
-
 user_access('adm_set_sys', NULL, 'index.php?' . SID);
-
-
 $set['title'] = 'style.css';
-
-
 include_once '../sys/inc/thead.php';
-
-
 title();
-
-
 err();
-
-
 aut();
-
-
-
 if (isset($_POST['robots'])) $robots = $_POST['robots']; else  $robots = '' ;
 if (isset($_POST['save'])) {
   $fs = fopen(H."style/themes/$set[set_them]/style.css", "w");
@@ -44,22 +28,14 @@ for ($i = 0; $i < count($f); $i++) {
   $text = "$text$f[$i]";
 }
 ?>
-
 <form method="POST">
   <textarea rows="20" cols="50" name="robots"><? echo $text; ?></textarea><br>
   <input type=submit name="save" value="保存">
 </form>
-
-
-
 <?php
-
 if (user_access('adm_panel_show')) {
   echo "<div class='foot'>";
   echo "&laquo;<a href='/adm_panel/'> 到管理</a><br />";
   echo "</div>\n";
 }
-
-
 include_once '../sys/inc/tfoot.php';
-

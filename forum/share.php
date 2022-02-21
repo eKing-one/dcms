@@ -13,12 +13,10 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
-
 if (isset($user) && dbresult(dbquery("SELECT COUNT(`id`) FROM `ban` WHERE `razdel` = 'forum' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0)!=0)
 {
 header('Location: /ban.php?'.SID);exit;
 }
-
 $set['title']='分享他们';
 include_once '../sys/inc/thead.php';
 title();
@@ -43,7 +41,6 @@ msg('Ок всё крч');
 header('Location:/plugins/notes/list.php?id='.$id);
 exit;
 }
-
 ?>
 <div class='nav2'><div class="friends_access_list attach_block mt_0 grey"> <? echo group($avtor['id'])." ";?> <a href="/info.php?id=<?=$notes['id_user']?>"><span style="color:#79358c"><b><? echo " ".$avtor['nick']." ";?> </b></span></a> : <? echo '<a href="/forum/'.$notes['id_forum'].'/'.$notes['id_razdel'].'/'.$notes['id'].'/">';?>
 <span style="color:#06F;"><? echo $notes['name']; ?></span></a></div>

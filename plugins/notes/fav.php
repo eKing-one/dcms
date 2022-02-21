@@ -8,7 +8,6 @@ include_once '../../sys/inc/db_connect.php';
 include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
-
 /* Бан пользователя */ 
 if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'notes' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0')"), 0)!=0)
 {
@@ -26,11 +25,7 @@ exit;
 }else{
 $k_post=dbresult(dbquery("SELECT COUNT(*)FROM `bookmarks` WHERE `id_object`='".intval($_GET['id'])."' AND `type`='notes' "),0);
 $k_page=k_page($k_post,$set['p_str']);
-
-
 	$page=page($k_page);
-
-
 	$start=$set['p_str']*$page-$set['p_str'];
 if($k_post==0){
 echo "<div class='mess'>没人在书签上。</div>";
@@ -45,5 +40,4 @@ echo "增加 ".vremja($post['time'])."</div>";
 if ($k_page > 1)str("?id=".intval($_GET['id'])."&amp;",$k_page,$page); // Вывод страниц
 }
 include_once '../../sys/inc/tfoot.php';
-
 }

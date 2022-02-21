@@ -8,7 +8,6 @@ class captcha
   var $gif=false;
   var $png=false;
   var $jpg=false;
-
   function __construct($str)
   {
     if (!function_exists('gd_info'))
@@ -20,11 +19,9 @@ class captcha
     if (imagetypes() & IMG_GIF)$this->gif=true;
     if (imagetypes() & IMG_JPG)$this->jpg=true;
     $this->str=$str;
-
     $this->img=imagecreatetruecolor($this->x, $this->y);
     imagefill($this->img, 0, 0, imagecolorallocate ($this->img, 255, 255, 255));
   }
-
   function create()
   {
     for ($i=0; $i<5 ;$i++ )
@@ -36,19 +33,16 @@ class captcha
       imagecopy($this->img, $num[$n], $i*15+10, 8, 0, 0, 15, 20);
     }
   }
-
   function MultiWave()
   {
     include_once H.'sys/inc/MultiWave.php';
     $this->img=MultiWave($this->img);
   }
-
   function colorize($value=90)
   {
     if (function_exists('imagefilter'))
       imagefilter($this->img, IMG_FILTER_COLORIZE, mt_rand(0, $value), mt_rand(0, $value), mt_rand(0, $value));
   }
-
   function output($q=50)
   {
     @ob_end_clean();
@@ -70,4 +64,3 @@ class captcha
     exit;
   }
 }
-

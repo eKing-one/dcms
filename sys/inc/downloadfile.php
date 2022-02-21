@@ -1,5 +1,4 @@
 <?
-
 function DownloadFile($filename, $name, $mimetype='application/octet-stream')
 {
     if (!file_exists($filename))
@@ -23,8 +22,6 @@ function DownloadFile($filename, $name, $mimetype='application/octet-stream')
             $to = $range[2];
         }
         // header('HTTP/1.1 206 Partial Content');
-
-
         $cr = 'Content-Range: bytes ' . $from . '-' . $to . '/' . $size;
     } else
         header('HTTP/1.1 200 Ok');
@@ -39,25 +36,14 @@ function DownloadFile($filename, $name, $mimetype='application/octet-stream')
     header('Last-Modified: ' . gmdate('r', filemtime($filename)));
     header("Last-Modified: " . gmdate("D, d M Y H:i:s", filemtime($filename)) . " GMT");
     header("Expires: " . gmdate("D, d M Y H:i:s", time() + 3600) . " GMT");
-
     header("Content-Description: File Transfer");
     header("Content-Disposition: attachment; filename=\"" . $name . "\"");
-
-
-
 /*
     if (preg_match('#^image/#i', $mimetype))
       header('Content-Disposition: filename="' . $name . '";');
-
-
-
   else  header('Content-Disposition: attachment; filename="' . $name . '";');
 */
-
   $f = fopen($filename, 'rb');
-
-
-
         fseek($f, $from, SEEK_SET);
         $size = $to;
         $downloaded = 0;
@@ -68,9 +54,6 @@ function DownloadFile($filename, $name, $mimetype='application/octet-stream')
             flush();
         }
         fclose($f);
-
     exit();
 }
-
-
 ?>

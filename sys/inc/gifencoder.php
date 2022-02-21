@@ -23,24 +23,20 @@
 ::
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 */
-
 Class GIFEncoder {
 	var $GIF = "GIF89a";		/* GIF header 6 bytes	*/
 	var $VER = "GIFEncoder V2.05";	/* Encoder version		*/
-
 	var $BUF = Array ( );
 	var $LOP =  0;
 	var $DIS =  2;
 	var $COL = -1;
 	var $IMG = -1;
-
 	var $ERR = Array (
 		ERR00=>"Does not supported function for only one image!",
 		ERR01=>"Source is not a GIF image!",
 		ERR02=>"Unintelligible flag ",
 		ERR03=>"Does not make animation from animated GIF source",
 	);
-
 	/*
 	:::::::::::::::::::::::::::::::::::::::::::::::::::
 	::
@@ -59,7 +55,6 @@ Class GIFEncoder {
 		$this->DIS = ( $GIF_dis > -1 ) ? ( ( $GIF_dis < 3 ) ? $GIF_dis : 3 ) : 2;
 		$this->COL = ( $GIF_red > -1 && $GIF_grn > -1 && $GIF_blu > -1 ) ?
 						( $GIF_red | ( $GIF_grn << 8 ) | ( $GIF_blu << 16 ) ) : -1;
-
 		for ( $i = 0; $i < count ( $GIF_src ); $i++ ) {
 			if ( strToLower ( $GIF_mod ) == "url" ) {
 				$this->BUF [ ] = fread ( fopen ( $GIF_src [ $i ], "rb" ), filesize ( $GIF_src [ $i ] ) );
@@ -103,10 +98,8 @@ Class GIFEncoder {
 	*/
 	function GIFAddHeader ( ) {
 		$cmap = 0;
-
 		if ( ord ( $this->BUF [ 0 ] { 10 } ) & 0x80 ) {
 			$cmap = 3 * ( 2 << ( ord ( $this->BUF [ 0 ] { 10 } ) & 0x07 ) );
-
 			$this->GIF .= substr ( $this->BUF [ 0 ], 6, 7		);
 			$this->GIF .= substr ( $this->BUF [ 0 ], 13, $cmap	);
 			$this->GIF .= "!\377\13NETSCAPE2.0\3\1" . GIFEncoder::GIFWord ( $this->LOP ) . "\0";
@@ -119,23 +112,17 @@ Class GIFEncoder {
 	::
 	*/
 	function GIFAddFrames ( $i, $d ) {
-
 		$Locals_str = 13 + 3 * ( 2 << ( ord ( $this->BUF [ $i ] { 10 } ) & 0x07 ) );
-
 		$Locals_end = strlen ( $this->BUF [ $i ] ) - $Locals_str - 1;
 		$Locals_tmp = substr ( $this->BUF [ $i ], $Locals_str, $Locals_end );
-
 		$Global_len = 2 << ( ord ( $this->BUF [ 0  ] { 10 } ) & 0x07 );
 		$Locals_len = 2 << ( ord ( $this->BUF [ $i ] { 10 } ) & 0x07 );
-
 		$Global_rgb = substr ( $this->BUF [ 0  ], 13,
 							3 * ( 2 << ( ord ( $this->BUF [ 0  ] { 10 } ) & 0x07 ) ) );
 		$Locals_rgb = substr ( $this->BUF [ $i ], 13,
 							3 * ( 2 << ( ord ( $this->BUF [ $i ] { 10 } ) & 0x07 ) ) );
-
 		$Locals_ext = "!\xF9\x04" . chr ( ( $this->DIS << 2 ) + 0 ) .
 						chr ( ( $d >> 0 ) & 0xFF ) . chr ( ( $d >> 8 ) & 0xFF ) . "\x0\x0";
-
 		if ( $this->COL > -1 && ord ( $this->BUF [ $i ] { 10 } ) & 0x80 ) {
 			for ( $j = 0; $j < ( 2 << ( ord ( $this->BUF [ $i ] { 10 } ) & 0x07 ) ); $j++ ) {
 				if	(
@@ -203,7 +190,6 @@ Class GIFEncoder {
 	::
 	*/
 	function GIFBlockCompare ( $GlobalBlock, $LocalBlock, $Len ) {
-
 		for ( $i = 0; $i < $Len; $i++ ) {
 			if	(
 					$GlobalBlock { 3 * $i + 0 } != $LocalBlock { 3 * $i + 0 } ||
@@ -213,7 +199,6 @@ Class GIFEncoder {
 					return ( 0 );
 			}
 		}
-
 		return ( 1 );
 	}
 	/*
@@ -223,7 +208,6 @@ Class GIFEncoder {
 	::
 	*/
 	function GIFWord ( $int ) {
-
 		return ( chr ( $int & 0xFF ) . chr ( ( $int >> 8 ) & 0xFF ) );
 	}
 	/*

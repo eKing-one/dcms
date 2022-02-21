@@ -7,7 +7,6 @@ elseif (class_exists('ffmpeg_movie'))
 {
 	$media = new ffmpeg_movie($file);
 	$k_frame=intval($media->getFrameCount());
-
 	$w = $media->GetFrameWidth();
 	$h = $media->GetFrameHeight();
 	$ff_frame = $media->getFrame(intval($k_frame/2));
@@ -24,8 +23,6 @@ elseif (class_exists('ffmpeg_movie'))
 			chmod(H."sys/obmen/screens/128/$file_id[id].gif", 0777);
 			imagedestroy($des_img);
 			imagedestroy($s_img);
-
-
 			if (function_exists('iconv'))
 			echo "<img src='".iconv('windows-1251', 'utf-8',"/sys/obmen/screens/128/$file_id[id].gif")."' alt='scr...' /><br />";
 			else
@@ -33,22 +30,18 @@ elseif (class_exists('ffmpeg_movie'))
 		}
 	}
 }
-
 if ($file_id['opis']!=NULL)
 {
 	echo "资料描述: ";
 	echo output_text($file_id['opis']);
 	echo "<br />";
 }
-
 if (class_exists('ffmpeg_movie'))
 {
 	$media = new ffmpeg_movie($file);
-
 	echo '许可: '. $media->GetFrameWidth().'x'.$media->GetFrameHeight()."pix<br />";
 	echo '帧速率: '.$media->getFrameRate()."<br />";
 	echo '编解码器(视频): '.$media->getVideoCodec()."<br />";
-
 	if (intval($media->getDuration())>3599)
 	echo '时间: '.intval($media->getDuration()/3600).":".date('s',fmod($media->getDuration()/60,60)).":".date('s',fmod($media->getDuration(),3600))."<br />";
 	elseif (intval($media->getDuration())>59)
@@ -57,7 +50,6 @@ if (class_exists('ffmpeg_movie'))
 	echo '时间: '.intval($media->getDuration())." sec<br />";
 	echo "比特率: ".ceil(($media->getBitRate())/1024)." KBPS<br />";
 }
-
 echo "上传时间: ".vremja($file_id['time'])."<br />";
 echo "大小: ".size_file($size)."<br />";
 ?>

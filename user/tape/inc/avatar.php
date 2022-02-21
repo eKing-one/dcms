@@ -9,7 +9,6 @@ if ($type=='avatar' && $post['avtor'] != $user['id']) // аватар
 	else
 	$name = '已安装' . ($avtor['pol'] == 1 ? null : "а") . ' 主页上的照片';	
 }
-
 /*
 * Вывод блока с содержимым 
 */
@@ -19,23 +18,18 @@ if ($type == 'avatar')
 	$avatar = dbassoc(dbquery("SELECT * FROM `gallery_foto` WHERE `id` = '".$post['avatar']."' LIMIT 1"));
 	$gallery = dbassoc(dbquery("SELECT * FROM `gallery` WHERE `id` = '".$foto['id_gallery']."' LIMIT 1"));
 	$gallery2 = dbassoc(dbquery("SELECT * FROM `gallery` WHERE `id` = '".$avatar['id_gallery']."' LIMIT 1"));
-
 	echo '<div class="nav1">';
 	echo avatar($avtor['id']) . group($avtor['id']) . user::nick($avtor['id']);
 	echo medal($avtor['id']) . online($avtor['id']) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a> ' . $name;
 	echo $s1 . vremja($post['time']) . $s2;
 	echo '</div>';
-
 	echo '<div class="nav2">';
 	if ($foto['id'])echo '<b>' . text($foto['name']) . '</b>';
 	if ($avatar['id'])echo ' &raquo; <b>' . text($avatar['name']) . '</b>';
 	if ($avatar['id'] || $foto['id'])echo '<br />';
-	
-	
 	if ($foto['id'])echo '<a href="/foto/' . $avtor['id'] . '/' . $gallery['id'] . '/' . $foto['id'] . '/">';
 	echo '<img style=" max-width:50px; margin:3px;" src="/foto/foto50/' . $post['id_file'] . '.jpg" alt="*" />';
 	if ($foto['id'])echo '</a>';
-	
 	if ($post['avatar'])
 	{
 		echo ' <img src="/style/icons/arRt2.png" alt="*"/> ';
@@ -43,9 +37,7 @@ if ($type == 'avatar')
 		echo '<img style="max-width:50px; margin:3px;" src="/foto/foto50/' . $post['avatar'] . '.jpg" alt="*" />';
 		if ($avatar['id'])echo '</a>';
 	}
-	
 	echo '<br />';
-	
 	if ($foto['id'])
 	echo '<a href="/foto/' . $avtor['id'] . '/' . $gallery['id'] . '/' . $foto['id'] . '/"><img src="/style/icons/bbl5.png" alt="*"/> (' . dbresult(dbquery("SELECT COUNT(*) FROM `gallery_komm` WHERE `id_foto` = '$foto[id]'"),0) . ')</a> ';
 }
