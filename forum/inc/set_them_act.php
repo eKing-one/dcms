@@ -12,71 +12,56 @@ $old_razdel=$razdel;
 $forum=dbassoc(dbquery("SELECT * FROM `forum_f` WHERE `id` = '$razdel_new[id_forum]' LIMIT 1"));
 $razdel=dbassoc(dbquery("SELECT * FROM `forum_r` WHERE `id` = '$razdel_new[id]' LIMIT 1"));
 $them=dbassoc(dbquery("SELECT * FROM `forum_t` WHERE `id_razdel` = '$razdel[id]' AND `id` = '$them[id]' LIMIT 1"));
-
 /* PluginS Dcms-Social.Ru */
 $msgg='[red]转移话题 '.$user['group_name'].' '.$user['nick'].' 从节 '.$old_razdel['name'].' 至该组 '.$razdel['name'].'[/red]';
 dbquery("INSERT INTO `forum_p` (`id_forum`, `id_razdel`, `id_them`, `id_user`, `msg`, `time`) values('$forum[id]', '$razdel[id]', '$them[id]', '0', '".my_esc($msgg)."', '$time')");
 /*тут конец*/
 if ($ank2['id']!=$user['id'])
 admin_log('论坛','移动主题',"移动主题 '[url=/forum/$forum[id]/$razdel[id]/$them[id]/]$them[name][/url]' 从节'[url=/forum/$forum[id]/$old_razdel[id]/]$old_razdel[name][/url]' в раздел '[url=/forum/$forum[id]/$old_razdel[id]/]$razdel[name][/url]'");
-
 $_SESSION['message'] = '主题已成功移动';
 header("Location: /forum/$forum[id]/$razdel[id]/$them[id]/");
 exit;
 }
-
 /**** Удаление темы ****/
 if ((user_access('forum_them_del') || $ank2['id']==$user['id']) &&  isset($_GET['act']) && isset($_GET['ok']) && $_GET['act']=='delete')
 {
 	/*
 	* Удаление файлов темы
 	*/
-	
 	$qf=dbquery("SELECT * FROM `forum_p` WHERE `id_them` = '$them[id]'");
-
 	while ($postf = dbassoc($qf))
 	{
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `forum_files` WHERE `id_post` = '$postf[id]'"), 0) > 0)
 		{
 			$qS=dbquery("SELECT * FROM `forum_files` WHERE `id_post` = '$postf[id]'");
-		
 			while ($postS = dbassoc($qS))
 			{
 				dbquery("DELETE FROM `forum_files` WHERE `id` = '$postS[id]'");
 				@unlink(H.'sys/forum/files/'.$postS['id'].'.frf');
 			}
-	
 		}
 	}
-
 dbquery("DELETE FROM `forum_t` WHERE `id` = '$them[id]'");
 dbquery("DELETE FROM `forum_p` WHERE `id_them` = '$them[id]'");
-
 if ($ank2['id']!=$user['id'])admin_log('论坛','删除主题',"删除主题 '$them[name]' (作者 '[url=/info.php?id=$ank2[id]]$ank2[nick][/url]')");
 $_SESSION['message'] = '主题已成功删除';
 header("Location: /forum/$forum[id]/$razdel[id]/$them[id]/");
 exit;
 }
-
 /**** Изменение темы ****/
 if (isset($_GET['act']) && isset($_GET['ok']) && $_GET['act']=='set' && isset($_POST['name']) && (user_access('forum_them_edit') || $ank2['id']==$user['id']))
 {
-
 $name=esc(stripslashes(htmlspecialchars($_POST['name'])));
 $msg=esc(stripslashes(htmlspecialchars($_POST['msg'])));
-
 if (strlen2($name)<3)$err='名字太短了';
 if (strlen2($name)>32)$err='名字太长了';
 $name=my_esc($_POST['name']);
 $msg=my_esc($_POST['msg']);
-
-
 if ($user['level']>0){
 if (isset($_POST['up']) && $_POST['up']==1 AND $them['up']!=1)
 {
 if ($ank2['id']!=$user['id'])admin_log('论坛','主题参数',"固定主题'[url=/forum/$forum[id]/$razdel[id]/$them[id]/]$them[name][/url]' (作者 '[url=/info.php?id=$ank2[id]]$ank2[nick][/url]', раздел '$razdel[name]')");
 $up=1;
-
 /* PluginS Dcms-Social.Ru */
 $msgg='[red]Тему закрепил '.$user['group_name'].' '.$user['nick'].'[/red]';
 dbquery("INSERT INTO `forum_p` (`id_forum`, `id_razdel`, `id_them`, `id_user`, `msg`, `time`) values('$forum[id]', '$razdel[id]', '$them[id]', '0', '".my_esc($msgg)."', '$time')");
@@ -89,31 +74,21 @@ else $add_q=NULL;
 if (isset($_POST['close']) && $_POST['close']==1 && $them['close']==0){
 $close=1;
 if ($ank2['id']!=$user['id'])admin_log('论坛','主题参数',"结束主题 '[url=/forum/$forum[id]/$razdel[id]/$them[id]]$them[name][/url]' (作者 '[url=/info.php?id=$ank2[id]]$ank2[nick][/url]')");
-
 /* PluginS Dcms-Social.Ru */
 $msgg='[red]关闭主题 '.$user['group_name'].' '.$user['nick'].'[/red]';
 dbquery("INSERT INTO `forum_p` (`id_forum`, `id_razdel`, `id_them`, `id_user`, `msg`, `time`) values('$forum[id]', '$razdel[id]', '$them[id]', '0', '".my_esc($msgg)."', '$time')");
 /*тут конец*/
-
 }
 elseif ($them['close']==1 && (!isset($_POST['close']) || $_POST['close']==0))
 {
 $close=0;
 if ($ank2['id']!=$user['id'])admin_log('论坛','主题参数',"打开主题'[url=/forum/$forum[id]/$razdel[id]/$them[id]]$them[name][/url]' (作者 '[url=/info.php?id=$ank2[id]]$ank2[nick][/url]')");
-
-
 $msgg='[red]打开话题 '.$user['group_name'].' '.$user['nick'].'[/red]';
 dbquery("INSERT INTO `forum_p` (`id_forum`, `id_razdel`, `id_them`, `id_user`, `msg`, `time`) values('$forum[id]', '$razdel[id]', '$them[id]', '0', '".my_esc($msgg)."', '$time')");
 /*тут конец*/
-
 }
-
 else $close=$them['close'];
-
-
 if (isset($_POST['autor']) && $_POST['autor']==1)$autor=$user['id'];else $autor=$ank2['id'];
-
-
 if (!isset($err)){
 if($_POST['close']==1 AND $them['close']==0){
 $cl=",`id_close`='".$user['id']."' ";
@@ -130,7 +105,6 @@ header("Location: /forum/$forum[id]/$razdel[id]/$them[id]/");
 exit;
 }
 }
-
 /***** Удаление отмеченных кАмментов ****/
 if ((user_access('forum_post_ed') || isset($user) && $ank2['id']==$user['id']) && isset($_GET['act']) && $_GET['act']=='post_delete' && isset($_GET['ok']))
 {
@@ -157,5 +131,4 @@ if (isset($_GET['act']) && $_GET['act']=='post_delete' && (user_access('forum_po
 {
 echo "<form method='post' action='/forum/$forum[id]/$razdel[id]/$them[id]/?act=post_delete&amp;ok'>";
 }
-
 ?>

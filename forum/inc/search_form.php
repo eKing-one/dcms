@@ -2,7 +2,7 @@
 echo "<form method='post' action='?newsearch=$passgen'>";
 echo "文本:<br /><input type='text' name='text' value='".htmlentities($searched['text'], ENT_QUOTES, 'UTF-8')."' /><br />";
 echo "搜寻地点:<br /><select name='in'>";
-echo "<option value=''>Везде</option>";
+echo "<option value=''>所有位置</option>";
 $q = dbquery("SELECT `id`,`name` FROM `forum_f`".((!isset($user) || $user['level']==0)?" WHERE `adm` = '0'":null)." ORDER BY `pos` ASC");
 while ($forums = dbassoc($q))
 {

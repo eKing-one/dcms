@@ -11,12 +11,10 @@ include_once '../../sys/inc/user.php';
 if (isset($_GET['id']))$sid = intval($_GET['id']);
 else $sid = $user['id'];
 $ank = get_user($sid);
-
 $set['title']="朋友 ".$ank['nick'].""; //网页标题
 include_once '../../sys/inc/thead.php';
 title();
 aut();
-
 /*
 ==================================
 Приватность станички пользователя
@@ -69,7 +67,6 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0)
 	exit;
 	}
 }
-
 //--------------------отмеченные---------------------//
 if (isset($user) && $user['id']==$ank['id'])
 {
@@ -144,11 +141,9 @@ echo "<div id='comments' class='menus'>";
 echo "<div class='webmenu'>";
 echo "<a href='index.php?id=$ank[id]' class='activ'>全部 (".dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' AND `i` = '1'"), 0).")</a>";
 echo "</div>"; 
-
 echo "<div class='webmenu last'>";
 echo "<a href='online.php?id=$ank[id]'>在线 (".dbresult(dbquery("SELECT COUNT(*) FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'".(time()-600)."'"), 0).")</a>";
 echo "</div>"; 
-
 if ($ank['id'] == $user['id'])
 {
     echo "<div class='webmenu last'>";
@@ -156,9 +151,7 @@ if ($ank['id'] == $user['id'])
     echo "</div>"; 
 }
 echo "</div>";
-
 //--------End Panel---------------------//
-
 $k_post=dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' AND `i` = '1'"), 0);
 $k_page=k_page($k_post,$set['p_str']);
 $page=page($k_page);
@@ -169,18 +162,15 @@ if (isset($user) && $user['id']==$ank['id'])
 if ($k_post>0)
 echo "<form method='post' action='?$page&amp;delete'>";
 }
-
 if ($k_post==0)
 {
 echo '<div class="mess">';
 echo ' '.($ank['id']==$user['id'] ? '你 ' : '在 '.$ank['nick'].' ').' 没有朋友.';
 echo '</div>';
 }
-
 while ($frend = dbassoc($q))
 {
 $frend=get_user($frend['frend']);
-
 /*-----------зебра-----------*/ 
 if ($num==0){
 	echo '<div class="nav1">';
@@ -207,9 +197,7 @@ if (isset($user)){	echo "<a href=\"/mail.php?id=$frend[id]\"><img src='/style/ic
 		if ($ank['id']==$user['id'])			echo "<a href='create.php?del=$frend[id]'><img src='/style/icons/delete.gif' alt='*' /></a>";
 }
 echo '</td></table></div>';
-
 }
-
 if (isset($user) && $user['id']==$ank['id'])
 {
 if ($k_post>0)

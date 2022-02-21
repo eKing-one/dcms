@@ -1,1 +1,6 @@
-<?if (test_file(H.'style/themes/'.$set['set_them'].'/loads/14/'.$ras.'.png'))echo "<img src='/style/themes/$set[set_them]/loads/14/$ras.png' alt='$ras' title='Расширение файла $ras'/>\n";else echo "<img src='/style/themes/$set[set_them]/loads/14/file.png' alt='file' title='Неизвестное расширение'/>\n";?>
+<?php
+if (test_file(H . 'style/themes/' . $set['set_them'] . '/loads/14/' . $ras . '.png')) {
+    echo "<img src='/style/themes/$set[set_them]/loads/14/$ras.png' alt='$ras' title='文件扩展名 $ras'/>\n";
+} else {
+    echo "<img src='/style/themes/$set[set_them]/loads/14/file.png' alt='file' title='未知扩展'/>\n";
+}

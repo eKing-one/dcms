@@ -196,7 +196,7 @@ if (!isset($user) || $user['level']  ==  0)
 	if (function_exists('set_time_limit'))@set_time_limit(20); // Ставим ограничение на 20 сек
 }
 
-if (!isset($user) && $set['guest_select']  ==  '1' && !isset($show_all) && $_SERVER['PHP_SELF'] != '/index.php' && $_SERVER['PHP_SELF'] != '/user/connect/loginAPI.php')
+if (!isset($user) && $set['guest_select']  ==  '1' && !isset($show_all) && $_SERVER['PHP_SELF'] != '/index.php')
 {
 	header("Location: /aut.php");
 	exit;

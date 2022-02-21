@@ -8,15 +8,10 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
-
 user_access('adm_news',null,'index.php?'.SID);
-
 if (!isset($_GET['id']) && !is_numeric($_GET['id'])){header("Location: index.php?".SID);exit;}
-
 if (dbresult(dbquery("SELECT COUNT(*) FROM `news` WHERE `id` = '".intval($_GET['id'])."' LIMIT 1",$db), 0) == 0){header("Location: index.php?".SID);exit;}
-
 $news = dbassoc(dbquery("SELECT * FROM `news` WHERE `id` = '".intval($_GET['id'])."' LIMIT 1"));
-
 if (isset($_POST['view']))
 {
 	$news['title'] = $_POST['title'];
@@ -24,15 +19,12 @@ if (isset($_POST['view']))
 	$news['link'] = $_POST['link'];
 	$news['id_user'] = $user['id'];
 }
-
 if (isset($_POST['title']) && isset($_POST['msg']) && isset($_POST['link']) && isset($_POST['ok']))
 {
 	$title = esc($_POST['title'],1);
 	$link = esc($_POST['link'],1);
-	
 	if ($link != NULL && !preg_match('#^https?://#',$link) && !preg_match('#^/#i',$link))
 	$link='/'.$link;
-	
 	$msg = esc($_POST['msg']);
 	if (strlen2($title) > 50){$err='新闻标题太大了';}
 	if (strlen2($title) < 3){$err='短标题';}
@@ -58,27 +50,19 @@ if (isset($_POST['title']) && isset($_POST['msg']) && isset($_POST['link']) && i
 		exit;
 	}
 }
-
 $set['title'] = '新闻编辑';
 include_once '../sys/inc/thead.php';
 title();
 err();
 aut(); // форма авторизации
-
-
 if (isset($_POST['view']) && !isset($err))
 {
-		
 	echo '<div class="main2">';
-	
 	echo text($news['title']);
 	echo '</div>';
-
 	echo '<div class="mess">';
 	echo output_text($news['msg']) . '<br />';
-
 	echo '</div>';
-	
 	if ($news['link'] != NULL)
 	{
 		echo '<div class="main">';
@@ -86,21 +70,16 @@ if (isset($_POST['view']) && !isset($err))
 		echo '</div>';
 	}
 }
-
 echo '<form class="mess" method="post" name="message" action="?id=' . $news['id'] . '">';
 echo '新闻标题:<br /><input name="title" size="16" maxlength="32" value="' . text($news['title']) . '" type="text" /><br />';
-
 $insert = text($news['msg']);
-
 if (is_file(H.'style/themes/'.$set['set_them'].'/altername_post_form.php'))
 {
 	include_once H.'style/themes/'.$set['set_them'].'/altername_post_form.php';
 }else{
 	echo '信息:' . $tPanel . '<textarea name="msg">' . $insert . '</textarea><br />';
 }
-
 echo '链接:<br /><input name="link" size="16" maxlength="64" value="' . text($news['link']) . '" type="text" /><br />';
-
 echo '在主页显示时间:<br />';
 echo '<input type="text" name="ch" size="3" value="' . (isset($_POST['ch']) ? intval($_POST['ch']) : "1") . '" />';
 echo '<select name="mn">';
@@ -109,15 +88,11 @@ echo '  <option value="1" '.(isset($_POST['mn']) && $_POST['mn'] == 1 ? "selecte
 echo '  <option value="7" '.(isset($_POST['mn']) && $_POST['mn'] == 7 ? "selected='selected'" : null).'>星期</option>';
 echo '  <option value="31" '.(isset($_POST['mn']) && $_POST['mn'] == 31 ? "selected='selected'" : null).'>个月</option>';
 echo '</select><br />';
-
 echo '<input value="Просмотр" type="submit" name="view"/> ';
 echo '<input value="完成" type="submit" name="ok"/>';
 echo '</form>';
-
-
 echo'<div class="foot">';
 echo '<img src="/style/icons/str.gif" alt="*"> <a href="index.php">新闻中心</a> | <a href="news.php?id=' . $news['id'] . '">' . text($news['title']) . '</a><br />';
 echo '</div>';
-
 include_once '../sys/inc/tfoot.php';
 ?>

@@ -1,11 +1,9 @@
 <?php
 $set['title']='MySQL 选项';
 include_once 'inc/head.php'; // 设计主题的顶部
-
 echo "<form method='post' action='?".passgen()."'>";
 echo "<input type='submit' name='refresh' value='下一步' />";
 echo "</form>";
-
 if (isset($_SESSION['mysql_ok']) && $_SESSION['mysql_ok']==true)
 {
 if(isset($_GET['step']) && $_GET['step']=='4')
@@ -31,13 +29,11 @@ $set['mysql_db_name']=$_SESSION['db']=$_POST['db'];
 $set['mysql_host']=$_SESSION['host']=$_POST['host'];
 $set['mysql_user']=$_SESSION['user']=$_POST['user'];
 $set['mysql_pass']=$_SESSION['pass']=$_POST['pass'];
-
 mysql_query('set charset utf8mb4');
   mysql_query('SET names utf8mb4');
   mysql_query('set character_set_client="utf8mb4"');
   mysql_query('set character_set_connection="utf8mb4"');
   mysql_query('set character_set_result="utf8mb4"');
-
 $db_tables=array();
 $tab=mysql_query('SHOW TABLES FROM '.$_SESSION['db']);
 for($i=0;$i<mysql_num_rows($tab);$i++)
@@ -60,30 +56,20 @@ else $db_not_null=true;
 }
 }
 }
-
 if (isset($db_not_null))
 {
-
-
 $err[]='在所选数据库中 ('.$_SESSION['db'].') 包含具有相同名称的表。清除或选择其他数据库。';
 }
 else {
-
 include_once H.'install/inc/ver_tables.php';
 $msg[]="成功 $ok_sql 从 $k_sql 查询";
-
 $_SESSION['mysql_ok']=true;
 }
 }
-
-
-
 }
-
 if (isset($_SESSION['mysql_ok']) && $_SESSION['mysql_ok']==true)
 {
 echo "<div class='msg'>数据库连接成功</div>";
-
 if (isset($msg))
 {
 foreach ($msg as $key=>$value) {
@@ -124,9 +110,7 @@ echo "<label><input type='checkbox' checked='checked' name='rename' value='1' />
 echo "<br /><input value=\"保存\" type=\"submit\" />";
 echo "</form>";
 }
-
 echo "<hr />";
 echo "<b>步骤: $_SESSION[install_step]</b>";
-
 include_once 'inc/foot.php'; //设计主题的底部
 ?>

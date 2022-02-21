@@ -368,10 +368,6 @@ function admin_log($mod, $act, $opis)
 
 
 // LoginAPI
-if (isset($_POST['token'])) {
-	$s = file_get_contents('http://ulogin.ru/token.php?token=' . $_POST['token'] . '&host=' . $_SERVER['HTTP_HOST']);
-	$_POST['loginAPI'] = true;
-}
 
 // 从文件夹加载其余功能 "sys/fnc"
 $opdirbase = opendir(H . 'sys/fnc');

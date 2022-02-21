@@ -18,7 +18,7 @@ if (user_access('adm_panel_show')){
   echo "<center><span style='font-size:14px;'>官方支持网站 <a href='https://dcms-social.ru'>https://dcms-social.ru</a></span></center>\n";echo "\n";
   if (status_version() >= 0)
     echo "<center> <font color='green'>最新版本</font>		</center>	";
-  else    echo "<center>	 <font color='red'>有个新版本 - ".version_stable()."! <a href='/adm_panel/update.php'>Подробнее</a></font>		</center>	";
+  else    echo "<center>	 <font color='red'>有个新版本 - ".version_stable(). "! <a href='/adm_panel/update.php'>更详细</a></font>		</center>	";
   echo "</div>";
   echo "<div class='main'>\n";
 echo "<img src='/style/icons/spam.gif' alt='S' /> <a href='spam'>投诉</a> ";

@@ -8,11 +8,8 @@ include_once 'sys/inc/db_connect.php';
 include_once 'sys/inc/ipua.php';
 include_once 'sys/inc/fnc.php';
 include_once 'sys/inc/user.php';
-
 only_reg();
-
 if (setget('exit',1)==1) {
-
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['confirm_yes'])) {
       setcookie('id_user');
@@ -20,12 +17,10 @@ if (setget('exit',1)==1) {
       session_destroy();
       header('Location: /?' . SID);
       exit();
-
     } else {
       header('Location: ' . $_POST['return']);
       exit();
     }
-
   }
 }
 else
@@ -36,24 +31,15 @@ else
   header('Location: /?' . SID);
   exit();
 }
-
 $set['title']='退出登录';
-
 include_once 'sys/inc/thead.php';
-
 title();
 aut();
-
-
 echo '<form  method="post">
 你真的想退出吗？
   <input type="hidden" name="return" value="'.$_SERVER['HTTP_REFERER'].'">
   <input type="submit" name="confirm_yes" value="是">
   <input type="submit" name="confirm_no" value="否">
-
 </form>
 ';
-
 include_once 'sys/inc/tfoot.php';
-
-

@@ -1,5 +1,4 @@
 <?
-
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -27,7 +26,6 @@ if (isset($user))
 	exit;
 }
 }
-
 if (isset($_GET['del'])) // удаление уведомления
 {
 if (isset($user))
@@ -54,15 +52,12 @@ aut();
 $k_notif = dbresult(dbquery("SELECT COUNT(`read`) FROM `notification` WHERE `id_user` = '$user[id]' AND `read` = '0'"), 0); // Уведомления
 if ($k_notif > 0)$k_notif = '<font color=red>('.$k_notif.')</font>';
 else $k_notif = null;
-
 $discuss = dbresult(dbquery("SELECT COUNT(`count`) FROM `discussions` WHERE `id_user` = '$user[id]' AND `count` > '0' "),0); // Обсуждения
 if ($discuss > 0)$discuss = '<font color=red>('.$discuss.')</font>';
 else $discuss = null;
-
 $lenta = dbresult(dbquery("SELECT COUNT(`read`) FROM `tape` WHERE `id_user` = '$user[id]' AND `read` = '0' "),0); // Лента
 if ($lenta > 0)$lenta = '<font color=red>('.$lenta.')</font>';
 else $lenta = null;
-
 echo "<div id='comments' class='menus'>";
 echo "<div class='webmenu'>";
 echo "<a href='/user/tape/'>录音带 $lenta</a>";
@@ -74,7 +69,6 @@ echo "<div class='webmenu'>";
 echo "<a href='/user/notification/' class='activ'>通知书 $k_notif</a>";
 echo "</div>"; 
 echo "</div>";
-
 /*
 ==========
 Список уведомлений
@@ -84,7 +78,6 @@ echo "</div>";
 	$k_page=k_page($k_post,$set['p_str']);
 	$page=page($k_page);
 	$start=$set['p_str']*$page-$set['p_str'];
-
 	$q=dbquery("SELECT * FROM `notification` WHERE `id_user` = '$user[id]' ORDER BY `time` DESC LIMIT $start, $set[p_str]");
 if ($k_post==0) //Если нет уведомлений, то...
 {
@@ -106,7 +99,6 @@ if ($num==0){
 /*---------------------------*/
 	$type = $post['type']; //Тип уведомления
 	$avtor = get_user($post['avtor']); //От кого уведомление
-	
 	if ($post['read']==0) //Если не прочитано
 	{
 	$s1 = "<font color='red'>";
@@ -137,14 +129,12 @@ elseif ($type == 'files_komm' || $type == 'obmen_komm') // 文件
 {	
 	$name = '回答说'.($avtor['pol'] == 1 ? "" : "а") . ' 在文件的注释中给你 ';
 }
-
 elseif ($type == 'news_komm') // Новости 
 {	
 	$name = '回答说'.($avtor['pol'] == 1 ? "" : "а") . ' 在对新闻的评论中给你 ';
 }
 elseif ($type == 'status_komm') // Статусы
 {	
-
 	$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '".$post['id_object']."' LIMIT 1"));
 	$name = '回答说'.($avtor['pol'] == 1 ? "" : "а") . ' 给你在这个评论 ';
 }
@@ -180,7 +170,6 @@ elseif ($type == 'no_frend') // Уведомления о отклоненных
 {	
 	$name = ' 不幸的是我拒绝了' . ($avtor['pol'] == 1 ? "" : "а").' 在友谊中献给你';
 }
-
 elseif ($type == 'ok_frend') // Уведомления о принятых заявках в друзья
 {	
 	$name = ' 已成为' . ($avtor['pol'] == 1 ? "" : "а").' 你的朋友';
@@ -212,7 +201,6 @@ else echo '<img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:60px;" 
 echo "  $s1 ".vremja($post['time'])." $s2";
 } 
 if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
-
 echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 } 
 /*
@@ -388,8 +376,6 @@ if ($type == 'adm_komm')
 }
 	echo "</div>";
 }
-
-
 if ($k_page>1)str('?',$k_page,$page); // Вывод страниц
 echo '<div class="mess"><img src="/style/icons/delete.gif"> <a href="?delete=all">删除所有通知</a></div>';
 echo "<div class=\"foot\">";

@@ -1,5 +1,4 @@
 <?php
-
 /*--------------------в друзья-------------------*/
 $frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[id]' AND `to` = '$ank[id]') OR (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"), 0);
 $frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$ank[id]') OR (`user` = '$ank[id]' AND `frend` = '$user[id]') LIMIT 1"), 0);
@@ -32,12 +31,10 @@ if ($ank['group_access'] > 1) {
 	<tr>
 		<td class='block_menu'>
 			<?
-
 			// Аватар 
 			echo "<div class='mains'>";
 			echo avatar($ank['id'], false, 640, 200);
 			echo "</div>";
-
 			// Рейтинг
 			echo "<div class='main'>";
 			if ($ank['rating'] >= 0 && $ank['rating'] <= 100) {
@@ -112,7 +109,6 @@ if ($ank['group_access'] > 1) {
 			}
 			echo "</div>";
 			/*---------------------------------------*/
-
 			/*------------------------客人---------------------------*/
 			if (isset($user) && $user['id'] == $ank['id']) {
 				echo "<div class='main'>";
@@ -130,25 +126,21 @@ if ($ank['group_access'] > 1) {
 				echo "</div>";
 			}
 			/*-------------------------------------------------------*/
-
 			/*-----------------лента-----------------*/
 			if (isset($user) && $user['id'] == $ank['id']) {
 				echo "<div class='main'>";
-
 				/*
 ========================================
 Уведомления
 ========================================
 */
 				$k_notif = dbresult(dbquery("SELECT COUNT(`read`) FROM `notification` WHERE `id_user` = '$user[id]' AND `read` = '0'"), 0); // Уведомления
-
 				if ($k_notif > 0) {
 					echo "<img src='/style/icons/notif.png' alt='*' /> ";
 					echo "<a href='/user/notification/index.php'><font color='red'>通知</font></a> ";
 					echo "<font color=\"red\">+$k_notif</font> ";
 					echo "<br />";
 				}
-
 				/*
 ========================================
 Обсуждения
@@ -176,11 +168,9 @@ if ($ank['group_access'] > 1) {
 				echo "</div>";
 			}
 			/*---------------------------------------*/
-
 			echo "<div class='main2'>";
 			echo "<img src='/style/my_menu/who_rating.png' alt='*' /> <a href='/user/info/who_rating.php?id=$ank[id]'><b>反馈意见</b></a> (" . dbresult(dbquery("SELECT COUNT(*) FROM `user_voice2` WHERE `id_kont` = '" . $ank['id'] . "'"), 0) . ")<br />";
 			echo "</div>";
-
 			/*-----------------------------в друзья-------------------------*/
 			if (isset($user) && $user['id'] != $ank['id']) {
 				echo "<div class='main'>";
@@ -193,15 +183,11 @@ if ($ank['group_access'] > 1) {
 				}
 				echo "</div>";
 				/*-------------------------------------------------------------*/
-
-
 				/*--------------------Сообщение-----------------------------------*/
 				echo "<div class='main'>";
 				echo " <a href=\"/mail.php?id=$ank[id]\"><img src='/style/icons/pochta.gif' alt='*' /> 通信</a> ";
 				echo "</div>";
 				/*----------------------------------------------------------------*/
-
-
 				/*
 ========================================
 Монеты перевод
@@ -210,7 +196,6 @@ if ($ank['group_access'] > 1) {
 				echo "<div class='main2'>";
 				echo "<img src='/style/icons/many.gif' alt='*' /> <a href=\"/user/money/translate.php?id=$ank[id]\">赠送$sMonet[0]</a> ";
 				echo "</div>";
-
 				/*
 ========================================
 Сделать подарок
@@ -220,9 +205,6 @@ if ($ank['group_access'] > 1) {
 				echo "<img src='/style/icons/present.gif' alt='*' /> <a href=\"/user/gift/categories.php?id=$ank[id]\">送礼物</a><br />";
 				echo "</div>";
 			}
-
-
-
 			/*-----------------------------настройки-----------------------*/
 			if (isset($user) && $ank['id'] == $user['id']) {
 				echo "<div class='main2'>";
@@ -231,9 +213,6 @@ if ($ank['group_access'] > 1) {
 				echo "</div>";
 			}
 			/*-------------------------------------------------------------*/
-
-
-
 			/*--------------------------在线好友----------------------*/
 			$set['p_str'] = 20;
 			$k_post = dbresult(dbquery("SELECT COUNT(*) FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'" . (time() - 600) . "'"), 0);
@@ -246,7 +225,6 @@ if ($ank['group_access'] > 1) {
 			}
 			while ($post3 = dbassoc($q)) {
 				$ank3 = get_user($post3['frend']);
-
 				/*---------斑马---------*/
 				if ($num == 0) {
 					echo "  <div class='nav1'>";
@@ -255,12 +233,9 @@ if ($ank['group_access'] > 1) {
 					echo "  <div class='nav2'>";
 					$num = 0;
 				}
-
-
 				/*-----------------------*/
 				echo avatar($ank3['id']);
 				echo ' <a href="/info.php?id=' . $ank3['id'] . '">' . $ank3['nick'] . '</a>' . medal($ank3['id']) . ' ' . online($ank3['id']) . ' (' . (($ank3['pol'] == 1) ? '男' : '女') . ')<br />';
-
 				echo '<a href="/mail.php?id=' . $ank3['id'] . '"><img src="/style/icons/pochta.gif" alt="*" /> 通信</a> ';
 				echo "</div>";
 			}
@@ -269,14 +244,11 @@ if ($ank['group_access'] > 1) {
 		</td>
 		<td class='block_info'>
 			<?
-
 			echo '<table>';
-
 			/*---------------------------朋友-----------------------------*/
 			$k_f = dbresult(dbquery("SELECT COUNT(id) FROM `frends_new` WHERE `to` = '$ank[id]' LIMIT 1"), 0);
 			$k_fr = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' AND `i` = '1'"), 0);
 			$res = dbquery("select `frend` from `frends` WHERE `user` = '$ank[id]' AND `i` = '1'");
-
 			echo '<a class="top_nav" href="/user/frends/?id=' . $ank['id'] . '">朋友 (' . $k_fr . '</b>/';
 			$i = 0;
 			while ($k_fr = dbarray($res)) {
@@ -285,47 +257,33 @@ if ($ank['group_access'] > 1) {
 			echo $i;
 			if ($k_f > 0 && $ank['id'] == $user['id']) echo " +" . $k_f . "";
 			echo "</a>";
-
 			/*--------------------------------------------------------------*/
-
-
 			/*------------------------相片册---------------------------*/
-
 			echo "<a class='top_nav' href='/foto/$ank[id]/'>照片 ";
 			echo "(" . dbresult(dbquery("SELECT COUNT(*) FROM `gallery_foto` WHERE `id_user` = '$ank[id]'"), 0) . ")</a>";
-
 			/*--------------------------------------------------------------*/
 			/*-------------------------个人档案---------------------------*/
 			if (dbresult(dbquery("SELECT COUNT(*) FROM `user_files` WHERE `id_user` = '$ank[id]' AND `osn` = '1'"), 0) == 0) {
 				dbquery("INSERT INTO `user_files` (`id_user`, `name`,  `osn`) values('$ank[id]', '文件', '1')");
 			}
 			$dir_osn = dbassoc(dbquery("SELECT * FROM `user_files` WHERE `id_user` = '$ank[id]' AND `osn` = '1' LIMIT 1"));
-
 			if (isset($dir_osn['id'])) echo "<a class='top_nav' href='/user/personalfiles/$ank[id]/$dir_osn[id]/'>文件";
 			echo "(" . dbresult(dbquery("SELECT COUNT(*) FROM `user_files` WHERE `id_user` = '$ank[id]' AND `osn` > '1'"), 0) . "/" . dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_files` WHERE `id_user` = '$ank[id]'"), 0) . ")";
 			echo "</a>";
 			/*----------------------------------------------------------------*/
-
 			echo "<a class='top_nav' href='/user/info/them_p.php?id=" . $ank['id'] . "'>专题和评论</a> ";
-
 			/*-------------------------音乐---------------------------------*/
 			$k_music = dbresult(dbquery("SELECT COUNT(*) FROM `user_music` WHERE `id_user` = '$ank[id]'"), 0);
-
 			echo "<a class='top_nav' href='/user/music/index.php?id=$ank[id]'>音乐 ";
 			echo "(" . $k_music . ")";
 			echo "</a>";
 			/*----------------------------------------------------------------*/
-
 			/*---------------------------日记------------------------------*/
 			echo "<div>";
 			$kol_dnev = dbresult(dbquery("SELECT COUNT(*) FROM `notes` WHERE `id_user` = '" . $ank['id'] . "'"), 0);
 			echo "<a class='top_nav' href='/plugins/notes/user.php?id=$ank[id]'>日记 ($kol_dnev)";
 			echo "</a>";
 			/*----------------------------------------------------------------*/
-
-
-
-
 			/*
 ========================================
 书签
@@ -334,9 +292,7 @@ if ($ank['group_access'] > 1) {
 			$zakladki = dbresult(dbquery("SELECT COUNT(id) FROM `bookmarks` WHERE `id_user` = '" . $ank['id'] . "'"), 0);
 			echo "<a class='top_nav' href='/user/bookmark/index.php?id=$ank[id]'>书签($zakladki)";
 			echo "</a><br />";
-
 			echo '</table>';
-
 			/*
 调查问卷、照片和墙壁的输出
 */
@@ -347,12 +303,7 @@ if ($ank['group_access'] > 1) {
 			if ((user_access('user_ban_set') || user_access('user_ban_set_h') || user_access('user_ban_unset')) && $ank['id'] != $user['id'])
 				echo "<a href='/adm_panel/ban.php?id=$ank[id]'><font color=red>[禁止]</font></a>";
 			echo "</div></div>";
-
-
-
-
 			//-------------статус вывод------------//
-
 			if (isset($status['id']) || $ank['id'] == $user['id']) {
 				echo '<div class="st_1"></div>';
 				echo '<div class="st_2">';
@@ -380,7 +331,6 @@ if ($ank['group_access'] > 1) {
 					echo "<a href='/user/status/like.php?id=$status[id]'> $like 人. </a>";
 					echo '</div>';
 				}
-
 				/* Общее колличество статусов */
 				$st = dbresult(dbquery("SELECT COUNT(*) FROM `status` WHERE `id_user` = '$ank[id]'"), 0);
 				if ($st > 0) {
@@ -403,7 +353,6 @@ if ($ank['group_access'] > 1) {
 				echo " <span class='mm_counter'>" . dbresult(dbquery("SELECT COUNT(*) FROM `gallery_foto` WHERE `id_user` = '$ank[id]'"), 0) . "</span>";
 				echo "</div>";
 				echo "<div class='nav3'>";
-
 				while ($photo = dbassoc($sql)) {
 					echo "<a href='/foto/$ank[id]/$photo[id_gallery]/$photo[id]/'><img class='sto500' style='width:103px; height:103px; background-image:url(/foto/foto0/$photo[id].$photo[ras]);' src=''/></a>";
 				}
@@ -429,8 +378,6 @@ if ($ank['group_access'] > 1) {
 				$pol =   "<font style='padding:1px; color : #005ba8; padding:1px;'>";
 				$a = "</font>";
 			}
-
-
 			/*
 =====================================
 Основное
@@ -536,8 +483,6 @@ if ($ank['group_access'] > 1) {
 	var anketa = new DHTMLSuite.form({ formRef:'myForm',action:'/ajax/php/anketa.php?id=$ank[id]',responseEl:'formResponse'});	
 	var anketaClose = new DHTMLSuite.form({ formRef:'myForm',action:'/ajax/php/anketa.php',responseEl:'formResponse'});
 		</script>";
-
-
 /*
 ========================================
 礼物
@@ -545,13 +490,10 @@ if ($ank['group_access'] > 1) {
 */
 			$k_p = dbresult(dbquery("SELECT COUNT(id) FROM `gifts_user` WHERE `id_user` = '$ank[id]' AND `status` = '1'"), 0);
 			$width = ($webbrowser == 'web' ? '60' : '45'); // Размер подарков при выводе в браузер
-
 			if ($k_p > 0) {
 				echo '<div class="foot">';
 				echo '&rarr; <a href="/user/gift/index.php?id=' . $ank['id'] . '">所有的礼物</a> (' . $k_p . ')';
 				echo '</div>';
-
-
 				$q = dbquery("SELECT id,id_gift,status FROM `gifts_user` WHERE `id_user` = '$ank[id]' AND `status` = '1' ORDER BY `id` DESC LIMIT 7");
 				echo '<div class="nav2">';
 				while ($post = dbassoc($q)) {
@@ -560,7 +502,6 @@ if ($ank['group_access'] > 1) {
 				}
 				echo '</div>';
 			}
-
 /*
 =====================================
 尤兹韦尔墙

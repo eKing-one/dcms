@@ -24,10 +24,10 @@ $q = dbquery("SELECT * FROM `user` WHERE `date_last` < '$timeclear1'",$db);
 $del_th=0;
 while ($post = dbassoc($q))
 {
-$ank['id']=&$post['id'];
+$ank['id']=$post['id'];
 dbquery("DELETE FROM `user` WHERE `id` = '$ank[id]' LIMIT 1");
 dbquery("DELETE FROM `chat_post` WHERE `id_user` = '$ank[id]'");
-	dbquery("DELETE FROM `frends` WHERE `user` = '$ank[id]' OR `frend` = '$ank[id]'");		dbquery("DELETE FROM `frends_new` WHERE `user` = '$ank[id]' OR `to` = '$ank[id]'");		dbquery("DELETE FROM `blog_list` WHERE `id_user` = '$ank[id]'");		dbquery("DELETE FROM `blog_komm` WHERE `id_user` = '$ank[id]'");		dbquery("DELETE FROM `stena` WHERE `id_user` = '$ank[id]'");		dbquery("DELETE FROM `stena_like` WHERE `id_user` = '$ank[id]'");		dbquery("DELETE FROM `status_like` WHERE `id_user` = '$ank[id]'");		dbquery("DELETE FROM `status` WHERE `id_user` = '$ank[id]'");	
+dbquery("DELETE FROM `frends` WHERE `user` = '$ank[id]' OR `frend` = '$ank[id]'");		dbquery("DELETE FROM `frends_new` WHERE `user` = '$ank[id]' OR `to` = '$ank[id]'");		dbquery("DELETE FROM `blog_list` WHERE `id_user` = '$ank[id]'");		dbquery("DELETE FROM `blog_komm` WHERE `id_user` = '$ank[id]'");		dbquery("DELETE FROM `stena` WHERE `id_user` = '$ank[id]'");		dbquery("DELETE FROM `stena_like` WHERE `id_user` = '$ank[id]'");		dbquery("DELETE FROM `status_like` WHERE `id_user` = '$ank[id]'");		dbquery("DELETE FROM `status` WHERE `id_user` = '$ank[id]'");	
 dbquery("DELETE FROM `gifts_user` WHERE `id_user` = '$ank[id]' OR `id_ank` = '$ank[id]'");
 $q5=dbquery("SELECT * FROM `forum_t` WHERE `id_user` = '$ank[id]'");
 while ($post5 = dbassoc($q5))
@@ -80,4 +80,3 @@ echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
 echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
-?>

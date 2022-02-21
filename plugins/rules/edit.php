@@ -10,20 +10,15 @@ include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 $set['title']='编辑';
 include_once '../../sys/inc/thead.php';
-
 $post['name_url'] = null;
 $post['url'] = null;
 $post['title'] = null;
 $post['msg'] = null;
-
 if (isset($user) && $user['level'] < 3)
 header("Location: /");
-
 title();
 aut();
-
 // Редактирование поста
-
 if (isset($_GET['act']) && $_GET['act'] == 'edit')
 {
 	if (isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `rules_p` WHERE `id` = '".intval($_GET['id'])."'"),0)==1)
@@ -33,14 +28,12 @@ if (isset($_GET['act']) && $_GET['act'] == 'edit')
 		{
 			$id = intval($_GET['id']);
 			$msg = my_esc($_POST['name']);
-					
 			dbquery("UPDATE `rules_p` SET `msg` = '$msg' WHERE `id` = '$id' LIMIT 1");				
 			$_SESSION['message'] = '菜单项已成功更改';
 			header("Location: post.php?id=$post[id_news]");
 			exit;
 		}
 	}
-
 	if (isset($_GET['id']) && isset($_GET['act']) && $_GET['act'] == 'edit')
 	{	
 		echo '<form action="?id=' . $post['id'] . '&amp;act=edit" method="post">';	
@@ -51,14 +44,12 @@ if (isset($_GET['act']) && $_GET['act'] == 'edit')
 	}
 }
 // Редактирование пункта
-
 if (isset($_GET['act']) && $_GET['act'] == 'edits')
 {
 	if (isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `rules` WHERE `id` = '".intval($_GET['id'])."'"),0)==1)
 	{
 		$post = dbassoc(dbquery("SELECT * FROM `rules` WHERE `id` = '".intval($_GET['id'])."' LIMIT 1"));
 		$ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
-		
 		if (isset($_POST['change']) && isset($_GET['id']))
 		{
 			$id=intval($_GET['id']);
@@ -75,7 +66,6 @@ if (isset($_GET['act']) && $_GET['act'] == 'edits')
 			exit;
 		}
 	}
-
 	if (isset($_GET['id']) && $_GET['id'] == $post['id'] && isset($_GET['act']) && $_GET['act']=='edits')
 	{	
 		echo '<form action="?id=' . $post['id'] . '&amp;act=edits" method="post">';	
