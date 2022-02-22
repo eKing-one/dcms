@@ -1,4 +1,4 @@
-<?
+<?php
 include_once 'sys/inc/start.php';
 include_once 'sys/inc/compress.php';
 include_once 'sys/inc/sess.php';
@@ -8,7 +8,7 @@ include_once 'sys/inc/db_connect.php';
 include_once 'sys/inc/ipua.php';
 include_once 'sys/inc/fnc.php';
 include_once 'sys/inc/user.php';
-// Cмена режима отображения
+// 显示模式
 if (isset($_GET['admin']) && user_access('user_collisions')) {
 	if ($_GET['admin'] == 'close')
 		$_SESSION['admin'] = null;
@@ -21,8 +21,8 @@ title();
 aut();
 /*
 ==============================================
-Этот скрипт выводит 1 случайного "Лидера" и 
-ссылку на весь их список.(с) DCMS-Social
+这个脚本输出 1 个随机的“领导者”和
+他们整个名单的链接。(с) DCMS-Social
 ==============================================
 */
 $k_lider = dbresult(dbquery("SELECT COUNT(*) FROM `liders` WHERE `time` > '$time'"), 0);
@@ -73,7 +73,7 @@ while ($ank = dbassoc($q)) {
 			}
 			echo '</span><br />';
 		}
-		// IP пользователя
+		// 用户 IP
 		if ($ank['ip'] != NULL) {
 			if (user_access('user_show_ip') && $ank['ip'] != 0) {
 				echo '<span class="ank_n">IP:</span> <span class="ank_d">' . long2ip($ank['ip']) . '</span>';
@@ -82,7 +82,7 @@ while ($ank = dbassoc($q)) {
 				echo '<br />';
 			}
 		}
-		// IP клиента
+		// 客户端 IP
 		if ($ank['ip_cl'] != NULL) {
 			if (user_access('user_show_ip') && $ank['ip_cl'] != 0) {
 				echo '<span class="ank_n">IP (CLIENT):</span> <span class="ank_d">' . long2ip($ank['ip_cl']) . '</span>';
@@ -100,7 +100,7 @@ while ($ank = dbassoc($q)) {
 				echo '<br />';
 			}
 		}
-		// Браузер
+		// 浏览器
 		if (user_access('user_show_ua') && $ank['ua'] != NULL)
 			echo '<span class="ank_n">浏览器:</span> <span class="ank_d">' . $ank['ua'] . '</span><br />';
 		if (user_access('user_show_ip') && opsos($ank['ip']))

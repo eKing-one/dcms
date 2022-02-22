@@ -309,9 +309,8 @@ function err()
 
 function msg($msg)
 {
-	
+
 	echo "<div class='msg'>$msg</div>";
-	
 } // 消息输出
 
 
@@ -393,44 +392,6 @@ function ages($age)
 }
 
 
-function t_toolbar_css()
-{
-
-	echo '<style>
-      .toolbar {
-          position: fixed;
-          text-align: center;
-          vertical-align: middle;
-
-          color: #e07dc0;
-          top: 0;
-          left: 0;
-          right: 0;
-          margin-bottom: 50px;
-
-          z-index: 9999;
-          border-bottom: 1px solid #656969;
-          width: 100%;
-
-          background: rgb(15, 15, 15);
-          height: 40px;
-
-      }
-      .toolbar_inner
-      {
-          display: inline-block;
-
-          vertical-align: middle;
-
-          text-align: center;
-      }
-
-      html {
-
-          padding-top: 40px;
-      }
-  </style>';
-}
 
 function version_stable()
 {
@@ -442,18 +403,13 @@ function t_toolbar_html()
 {
 	global $set;
 
-	echo '<div class="toolbar">
-    <div class="toolbar_inner">
-      <span style="color: white">Admin Tool</span> ::
-      <a href="/">网站主页</a>  |
-      <a href="/plugins/admin/">行政科</a> |
-      <a href="/adm_panel/">控制面板</a> |
-      <a target="_blank" href="https://dcms-social.ru">DCMS-Social.ru</a>
+	echo '<div class="mess">
+      <b>Admin Tool</b> :: <a href="/">网站主页</a>  |<a href="/plugins/admin/">管理员</a> | <a href="/adm_panel/">控制面板</a> |<a target="_blank" href="https://dcms-social.ru">DCMS-Social.ru</a>
        v' . $set['dcms_version'];
-	if (status_version() < 0)
-		echo '<center>	 
-		<font color="red">有一个新版本 - ' . version_stable() . '! <a href="/adm_panel/update.php">详细</a></font>
-		</center></div></div>';
+	if (status_version() < 0) {
+		echo '<center><font color="red">有一个新版本 - ' . version_stable() . '! <a href="/adm_panel/update.php">详细</a></font></center>';
+	}
+	echo '</div>';
 }
 
 

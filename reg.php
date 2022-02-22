@@ -13,7 +13,7 @@ include_once 'sys/inc/shif.php';
 $show_all = true; // 给大家看
 include_once 'sys/inc/user.php';
 only_unreg();
-$set['title']='注册账号';
+$set['title'] = '注册账号';
 include_once 'sys/inc/thead.php';
 title();
 aut();
@@ -138,7 +138,7 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1) {
 	echo "</form><br />";
 } else {
 	echo "<form class='mess' method='post' action='/reg.php?$passgen'>";
-	echo "选择昵称 [A-zА-я0-9 -_]:<br /><input type='text' name='nick' maxlength='32' /><br />";
+	echo "选择昵称 [A-z0-9 -_]:<br /><input type='text' name='nick' maxlength='32' /><br />";
 	echo "通过注册，您自动同意 <a href='/rules.php'>网站规则</a> <br />";
 	echo "<input type='submit' value='继续' />";
 	echo "</form><br />";

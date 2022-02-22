@@ -1,4 +1,4 @@
-<? //网页标题
+<?php //网页标题
 include_once 'sys/inc/start.php';
 include_once 'sys/inc/compress.php';
 include_once 'sys/inc/sess.php';
@@ -8,7 +8,7 @@ include_once 'sys/inc/db_connect.php';
 include_once 'sys/inc/ipua.php';
 include_once 'sys/inc/fnc.php';
 include_once 'sys/inc/user.php';
-$set['title'] = '网站上的客人'; // заголовок страницы
+$set['title'] = '网站上的客人'; // 页标题
 include_once 'sys/inc/thead.php';
 title();
 aut();
@@ -43,7 +43,7 @@ while ($guest = dbassoc($q)) {
     if ($guest['ua'] != NULL) echo "<span class=\"ank_n\">UA:</span> <span class=\"ank_d\">$guest[ua]</span><br />";
     if (isset($user) && ($user['level'] > 0)) {
         if (user_access('guest_show_ip') && $guest['ip'] != 0) echo "<span class=\"ank_n\">IP:</span> <span class=\"ank_d\">" . long2ip($guest['ip']) . "</span><br />";
-        if (user_access('guest_show_ip') && opsos($guest['ip'])) echo "<span class=\"ank_n\">普罗旺斯:</span> <span class=\"ank_d\">" . opsos($guest['ip']) . "</span><br />";
+        if (user_access('guest_show_ip') && opsos($guest['ip'])) echo "<span class=\"ank_n\">浏览器:</span> <span class=\"ank_d\">" . opsos($guest['ip']) . "</span><br />";
         if (otkuda($guest['url'])) echo "<span class=\"ank_n\">URL:</span> <span class=\"ank_d\"><a href='$guest[url]'>" . otkuda($guest['url']) . "</a></span><br />";
     }
     echo "  </td>";

@@ -1,12 +1,12 @@
 <?php
-// авторизация на сервере базы
+// 数据库服务器上的授权
 if(!($db = @mysql_connect($set['mysql_host'], $set['mysql_user'], $set['mysql_pass'])))
 {
 	//echo $set['mysql_host'], $set['mysql_user'],$set['mysql_pass'];
 	echo "没有连接到数据库服务器<br />*检查连接设置";
 	exit;
 }
-// подключение к базе
+// 基座连接
 if (!@mysql_select_db($set['mysql_db_name'],$db))
 {
 	echo '找不到数据库<br />*检查此数据库是否存在';
