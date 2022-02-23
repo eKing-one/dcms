@@ -13,8 +13,8 @@ if (dbresult(dbquery("SELECT COUNT(`id`)FROM `user` WHERE `id`='" . intval($_GET
     header('Location: /index.php');
     exit;
 }
-if (isset($_GET['id'])) $ank = get_user(intval($_GET['id']));
-else $ank = get_user($user['id']);
+if (isset($_GET['id'])) $ank = user::get_user(intval($_GET['id']));
+else $ank = user::get_user($user['id']);
 $set['title'] = '帖子与评论 ' . $ank['nick'];
 include_once '../../sys/inc/thead.php';
 title();

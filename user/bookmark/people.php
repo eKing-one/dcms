@@ -10,7 +10,7 @@ include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
-$ank = get_user($ank['id']);
+$ank = user::get_user($ank['id']);
 if ($ank['id'] == 0) {
 	header("Location: /index.php?" . SID);
 	exit;

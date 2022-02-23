@@ -31,7 +31,7 @@ if ($k_post == 0) {
 }
 while ($ban = dbassoc($q)) {
     echo "   <tr>";
-    $ank = get_user($ban['id_user']);
+    $ank = user::get_user($ban['id_user']);
     if ($set['set_show_icon'] == 2) {
         echo "  <td class='icon48' rowspan='2'>";
         user::avatar($ank['id']);
@@ -48,7 +48,7 @@ while ($ban = dbassoc($q)) {
     echo "   <tr>";
     if ($set['set_show_icon'] == 1) echo "  <td class='p_m' colspan='2'>";
     else echo "  <td class='p_m'>";
-    $user_ban = get_user($ban['id_ban']);
+    $user_ban = user::get_user($ban['id_ban']);
     echo "<span class=\"ank_n\">禁止，直到 " . vremja($ban['time']) . ":</span><br />";
     echo "<span class=\"ank_d\">" . output_text($ban['prich']) . "</span>($user_ban[nick])<br />";
     if ((isset($access['ban_set']) || isset($access['ban_unset'])) && ($ank['level'] < $user['level'] || $user['level'] == 4))

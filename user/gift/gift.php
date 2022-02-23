@@ -35,9 +35,9 @@ if (!$post['id']) {
 // Сам Подарок 
 $gift = dbassoc(dbquery("SELECT id,name FROM `gift_list` WHERE `id` = '" . $post['id_gift'] . "' LIMIT 1"));
 // Кому подарили
-$ank = get_user($post['id_user']);
+$ank = user::get_user($post['id_user']);
 // Кто подарил
-$anketa = get_user($post['id_ank']);
+$anketa = user::get_user($post['id_ank']);
 // Принятие подарка
 if ($post['status'] == 0 && isset($_GET['ok']) && $user['id'] == $ank['id']) {
 	dbquery("UPDATE `gifts_user` SET `status` = '1' WHERE `id` = '$post[id]' LIMIT 1");

@@ -29,7 +29,7 @@ $k_lider = dbresult(dbquery("SELECT COUNT(*) FROM `liders` WHERE `time` > '$time
 $liders = dbassoc(dbquery("SELECT * FROM `liders` WHERE `time` > '$time' ORDER BY rand() LIMIT 1"));
 if ($k_lider > 0) {
 	echo '<div class="main">';
-	$lider = get_user($liders['id_user']);
+	$lider = user::get_user($liders['id_user']);
 	echo user::avatar($lider['id'], 0) . user::nick($lider['id'], 1, 1, 1) . '<br />';
 	if ($liders['msg'])
 		echo output_text($liders['msg']) . '<br />';

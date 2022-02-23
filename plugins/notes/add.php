@@ -64,7 +64,7 @@ dbquery("insert into `stena`(`id_stena`,`id_user`,`time`,`info`,`info_1`,`type`)
 $q = dbquery("SELECT * FROM `frends` WHERE `user` = '".$user['id']."' AND `i` = '1'");
 while ($f = dbarray($q))
 {
-$a=get_user($f['frend']);
+$a=user::get_user($f['frend']);
 $lentaSet = dbarray(dbquery("SELECT * FROM `tape_set` WHERE `id_user` = '".$a['id']."' LIMIT 1")); // Общая настройка ленты
 if ($f['lenta_notes'] == 1 && $lentaSet['lenta_notes'] == 1 ) // фильтр рассылки
 dbquery("INSERT INTO `tape` (`id_user`,`avtor`, `type`, `time`, `id_file`) values('$a[id]', '$user[id]', 'notes', '$time', '$st')"); }
@@ -111,4 +111,3 @@ echo "<div class='foot'>";
 echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a><br />";
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';
-?>

@@ -72,7 +72,7 @@ if (isset($_GET['f'])) {
                 echo $jad;
                 exit;
             }
-            $avtor = get_user($file_id['id_user']);
+            $avtor = user::get_user($file_id['id_user']);
             if (isset($user) && $_SESSION['file_' . $file['id'] . ''] == 0)
                 dbquery("UPDATE `user` SET `rating_tmp` = '" . ($avtor['rating_tmp'] + 1) . "' WHERE `id` = '$file_id[id_user]' LIMIT 1");
             $_SESSION['file_' . $file['id'] . ''] = 1;
@@ -81,7 +81,7 @@ if (isset($_GET['f'])) {
             DownloadFile(H . 'sys/obmen/files/' . $file_id['id'] . '.dat', retranslit($file_id['name']) . '_' . $_SERVER['HTTP_HOST'] . '.' . $ras, ras_to_mime($ras));
             exit;
         }
-        $avtor = get_user($file_id['id_user']);
+        $avtor = user::get_user($file_id['id_user']);
         /*------------------------Моя музыка--------------------------*/
         $music_people = dbresult(dbquery("SELECT COUNT(*) FROM `user_music` WHERE `dir` = 'obmen' AND `id_file` = '$file_id[id]'"), 0);
         if (isset($user))
@@ -126,7 +126,7 @@ if (isset($_GET['f'])) {
         title();
         if (isset($_GET['spam'])  && isset($user)) {
             $mess = dbassoc(dbquery("SELECT * FROM `obmennik_komm` WHERE `id` = '" . intval($_GET['spam']) . "' limit 1"));
-            $spamer = get_user($mess['id_user']);
+            $spamer = user::get_user($mess['id_user']);
             if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'obmen_komm' AND `spam` = '" . $mess['msg'] . "'"), 0) == 0) {
                 if (isset($_POST['msg'])) {
                     if ($mess['id_user'] != $user['id']) {
@@ -187,7 +187,7 @@ if (isset($_GET['f'])) {
             } elseif (dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_komm` WHERE `id_file` = '$file_id[id]' AND `id_user` = '$user[id]' AND `msg` = '" . mysql_escape_string($msg) . "' LIMIT 1"), 0) != 0) {
                 $err = '您的消息重复前一个';
             } elseif (!isset($err)) {
-                $ank = get_user($file_id['id_user']);
+                $ank = user::get_user($file_id['id_user']);
                 if (isset($user) && $respons == TRUE) {
                     $notifiacation = dbassoc(dbquery("SELECT * FROM `notification_set` WHERE `id_user` = '" . $ank_otv['id'] . "' LIMIT 1"));
                     if ($notifiacation['komm']  ==  1 && $ank_otv['id'] != $user['id'])
@@ -195,7 +195,7 @@ if (isset($_GET['f'])) {
                 }
                 $q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $file_id['id_user'] . "' AND `i` = '1' AND `frend` != '$user[id]'");
                 while ($f = dbarray($q)) {
-                    $a = get_user($f['frend']);
+                    $a = user::get_user($f['frend']);
                     $discSet = dbarray(dbquery("SELECT * FROM `discussions_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // Общая настройка обсуждений
                     if ($f['disc_forum'] == 1 && $discSet['disc_forum'] == 1) /* Фильтр рассылки */ {
                         // друзьям автора 

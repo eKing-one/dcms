@@ -2,7 +2,7 @@
 $set['p_str'] = 5;
 if (isset($_GET['likepost'])) {
     $stena = dbassoc(dbquery("SELECT * FROM `stena` WHERE `id` = '" . intval($_GET['likepost']) . "' LIMIT 1"));
-    $ank3 = get_user($stena['id_user']);
+    $ank3 = user::get_user($stena['id_user']);
     $l = dbresult(dbquery("SELECT COUNT(*) FROM `stena_like` WHERE `id_stena` = '$stena[id]'"), 0);
     if (isset($_GET['likepost']) && dbresult(dbquery("SELECT COUNT(*) FROM `stena_like` WHERE
  `id_stena` = '$stena[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {

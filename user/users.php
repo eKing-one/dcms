@@ -63,7 +63,7 @@ if (!isset($_GET['go'])) {
 	}
 	$q = dbquery("SELECT `user`.`id` FROM `user` LEFT JOIN `user_group` ON `user`.`group_access` = `user_group`.`id` ORDER BY $sql_sort $por LIMIT $start, $set[p_str]");
 	while ($ank = dbassoc($q)) {
-		$ank = get_user($ank['id']);
+		$ank = user::get_user($ank['id']);
 		/*-----------代码-----------*/
 		if ($num == 0) {
 			echo '<div class="nav1">';
@@ -129,7 +129,7 @@ if (isset($_GET['go']) && $usearch != NULL) {
 	}
 	$q = dbquery("SELECT `id` FROM `user` WHERE `nick` like '%" . mysql_real_escape_string($usearch) . "%' OR `id` = '" . intval($usearch) . "' ORDER BY `$sort` $por LIMIT $start, $set[p_str]");
 	while ($ank = dbassoc($q)) {
-		$ank = get_user($ank['id']);
+		$ank = user::get_user($ank['id']);
 		/*-----------代码-----------*/
 		if ($num == 0) {
 			echo '<div class="nav1">';

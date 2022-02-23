@@ -13,7 +13,7 @@ $set['title'] = '评分';
 include_once '../../sys/inc/thead.php';
 title();
 if (isset($user)) $ank['id'] = $user['id'];
-$ank = get_user($ank['id']);
+$ank = user::get_user($ank['id']);
 if (!$ank) {
     header("Location: /index.php?" . SID);
     exit;
@@ -36,7 +36,7 @@ if ($k_post == 0) {
 $num = 0;
 while ($post = dbassoc($q)) {
     //$ank=dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
-    $ank2 = get_user($post['id_user']);
+    $ank2 = user::get_user($post['id_user']);
     $foto = dbassoc(dbquery("SELECT * FROM `gallery_foto` WHERE `id` = $post[id_foto]"));
     if ($foto['id'] && $ank2['id']) {
         $gallery = dbassoc(dbquery("SELECT * FROM `gallery` WHERE `id` = $foto[id_gallery]"));

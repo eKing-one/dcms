@@ -128,22 +128,25 @@ include_once '../../sys/inc/user.php';
 
 
 
-if (isset($user))$ank['id']=$user['id'];
+if (isset($user)) $ank['id'] = $user['id'];
 
 
 
 
-if (isset($_GET['id']))$ank['id']=intval($_GET['id']);
+if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
 
 
 
 
-$ank=get_user($ank['id']);
+$ank = user::get_user($ank['id']);
 
 
 
 
-if(!$ank || $ank['id']==0){header("Location: /index.php?".SID);exit;}
+if (!$ank || $ank['id'] == 0) {
+    header("Location: /index.php?" . SID);
+    exit;
+}
 
 
 
@@ -183,7 +186,7 @@ only_reg();
 
 
 
-$frend = dbarray(dbquery("SELECT * FROM `frends` WHERE `user` = '".$user['id']."' AND `frend` = '$ank[id]' AND `i` = '1'"));
+$frend = dbarray(dbquery("SELECT * FROM `frends` WHERE `user` = '" . $user['id'] . "' AND `frend` = '$ank[id]' AND `i` = '1'"));
 
 
 
@@ -193,206 +196,160 @@ $frend = dbarray(dbquery("SELECT * FROM `frends` WHERE `user` = '".$user['id']."
 
 
 
-if (isset($_POST['save'])){
+if (isset($_POST['save'])) {
 
 
 
 
- // Лента фото
+    // Лента фото
 
 
 
 
-if (isset($_POST['lenta_foto']) && ($_POST['lenta_foto']==0 || $_POST['lenta_foto']==1))
+    if (isset($_POST['lenta_foto']) && ($_POST['lenta_foto'] == 0 || $_POST['lenta_foto'] == 1)) {
 
 
 
 
-{
+        dbquery("UPDATE `frends` SET `lenta_foto` = '" . intval($_POST['lenta_foto']) . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
+    }
 
 
 
 
-dbquery("UPDATE `frends` SET `lenta_foto` = '".intval($_POST['lenta_foto'])."' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
+    // Лента файлов
 
 
 
 
-}
+    if (isset($_POST['lenta_obmen']) && ($_POST['lenta_obmen'] == 0 || $_POST['lenta_obmen'] == 1)) {
 
 
 
 
- // Лента файлов
+        dbquery("UPDATE `frends` SET `lenta_obmen` = '" . intval($_POST['lenta_obmen']) . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
+    }
 
 
 
 
-if (isset($_POST['lenta_obmen']) && ($_POST['lenta_obmen']==0 || $_POST['lenta_obmen']==1))
+    // Лента смены аватара
 
 
 
 
-{
+    if (isset($_POST['lenta_avatar']) && ($_POST['lenta_avatar'] == 0 || $_POST['lenta_avatar'] == 1)) {
 
 
 
 
-dbquery("UPDATE `frends` SET `lenta_obmen` = '".intval($_POST['lenta_obmen'])."' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
+        dbquery("UPDATE `frends` SET `lenta_avatar` = '" . intval($_POST['lenta_avatar']) . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
+    }
 
 
 
 
-}
+    // Лента новых друзей
 
 
 
 
- // Лента смены аватара
+    if (isset($_POST['lenta_frends']) && ($_POST['lenta_frends'] == 0 || $_POST['lenta_frends'] == 1)) {
 
 
 
 
-if (isset($_POST['lenta_avatar']) && ($_POST['lenta_avatar']==0 || $_POST['lenta_avatar']==1))
+        dbquery("UPDATE `frends` SET `lenta_frends` = '" . intval($_POST['lenta_frends']) . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
+    }
 
 
 
 
-{
+    // Лента статусов
 
 
 
 
-dbquery("UPDATE `frends` SET `lenta_avatar` = '".intval($_POST['lenta_avatar'])."' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
+    if (isset($_POST['lenta_status']) && ($_POST['lenta_status'] == 0 || $_POST['lenta_status'] == 1)) {
 
 
 
 
-}
+        dbquery("UPDATE `frends` SET `lenta_status` = '" . intval($_POST['lenta_status']) . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
+    }
 
 
 
 
- // Лента новых друзей
+    // Лента оценок статуса
 
 
 
 
-if (isset($_POST['lenta_frends']) && ($_POST['lenta_frends']==0 || $_POST['lenta_frends']==1))
+    if (isset($_POST['lenta_status_like']) && ($_POST['lenta_status_like'] == 0 || $_POST['lenta_status_like'] == 1)) {
 
 
 
 
-{
+        dbquery("UPDATE `frends` SET `lenta_status_like` = '" . intval($_POST['lenta_status_like']) . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
+    }
 
 
 
 
-dbquery("UPDATE `frends` SET `lenta_frends` = '".intval($_POST['lenta_frends'])."' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
+    // Лента дневников
 
 
 
 
-}
+    if (isset($_POST['lenta_notes']) && ($_POST['lenta_notes'] == 0 || $_POST['lenta_notes'] == 1)) {
 
 
 
 
- // Лента статусов
+        dbquery("UPDATE `frends` SET `lenta_notes` = '" . intval($_POST['lenta_notes']) . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
+    }
 
 
 
 
-if (isset($_POST['lenta_status']) && ($_POST['lenta_status']==0 || $_POST['lenta_status']==1))
+    // Лента форум
 
 
 
 
-{
+    if (isset($_POST['lenta_forum']) && ($_POST['lenta_forum'] == 0 || $_POST['lenta_forum'] == 1)) {
 
 
 
 
-dbquery("UPDATE `frends` SET `lenta_status` = '".intval($_POST['lenta_status'])."' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
+        dbquery("UPDATE `frends` SET `lenta_forum` = '" . intval($_POST['lenta_forum']) . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
+    }
 
 
 
 
-}
 
 
 
 
- // Лента оценок статуса
 
 
 
 
-if (isset($_POST['lenta_status_like']) && ($_POST['lenta_status_like']==0 || $_POST['lenta_status_like']==1))
 
 
+    $_SESSION['message'] = '更改已成功接受';
 
 
-{
 
 
+    header('Location: index.php');
 
 
-dbquery("UPDATE `frends` SET `lenta_status_like` = '".intval($_POST['lenta_status_like'])."' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
 
 
-
-
-}
-
-
-
-
- // Лента дневников
-
-
-
-
-if (isset($_POST['lenta_notes']) && ($_POST['lenta_notes']==0 || $_POST['lenta_notes']==1))
-
-
-
-
-{
-
-
-
-
-dbquery("UPDATE `frends` SET `lenta_notes` = '".intval($_POST['lenta_notes'])."' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
-
-
-
-
-}
-
-
-
-
- // Лента форум
-
-
-
-
-if (isset($_POST['lenta_forum']) && ($_POST['lenta_forum']==0 || $_POST['lenta_forum']==1))
-
-
-
-
-{
-
-
-
-
-dbquery("UPDATE `frends` SET `lenta_forum` = '".intval($_POST['lenta_forum'])."' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
-
-
-
-
+    exit;
 }
 
 
@@ -403,37 +360,7 @@ dbquery("UPDATE `frends` SET `lenta_forum` = '".intval($_POST['lenta_forum'])."'
 
 
 
-
-
-
-
-
-$_SESSION['message'] = '更改已成功接受';
-
-
-
-
-header('Location: index.php');
-
-
-
-
-exit;
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-$set['title']='设置供稿 '.$ank['nick'];
+$set['title'] = '设置供稿 ' . $ank['nick'];
 
 
 
@@ -483,7 +410,7 @@ echo "<a href='index.php'>信息中心</a>";
 
 
 
-echo "</div>"; 
+echo "</div>";
 
 
 
@@ -498,7 +425,7 @@ echo "<a href='settings.php'>设置</a>";
 
 
 
-echo "</div>"; 
+echo "</div>";
 
 
 
@@ -523,7 +450,7 @@ echo "<form action='?id=$ank[id]' method=\"post\">";
 
 
 
- // Лента друзей
+// Лента друзей
 
 
 
@@ -553,12 +480,12 @@ echo "<div class='nav1'>";
 
 
 
-echo "<input name='lenta_frends' type='radio' ".($frend['lenta_frends']==1?' checked="checked"':null)." value='1' /> 是的 ";
+echo "<input name='lenta_frends' type='radio' " . ($frend['lenta_frends'] == 1 ? ' checked="checked"' : null) . " value='1' /> 是的 ";
 
 
 
 
-echo "<input name='lenta_frends' type='radio' ".($frend['lenta_frends']==0?' checked="checked"':null)." value='0' /> 否定 ";
+echo "<input name='lenta_frends' type='radio' " . ($frend['lenta_frends'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
 
 
 
@@ -573,7 +500,7 @@ echo "</div>";
 
 
 
- // Лента Дневников
+// Лента Дневников
 
 
 
@@ -603,12 +530,12 @@ echo "<div class='nav1'>";
 
 
 
-echo "<input name='lenta_notes' type='radio' ".($frend['lenta_notes']==1?' checked="checked"':null)." value='1' /> 是的 ";
+echo "<input name='lenta_notes' type='radio' " . ($frend['lenta_notes'] == 1 ? ' checked="checked"' : null) . " value='1' /> 是的 ";
 
 
 
 
-echo "<input name='lenta_notes' type='radio' ".($frend['lenta_notes']==0?' checked="checked"':null)." value='0' /> 否定 ";
+echo "<input name='lenta_notes' type='radio' " . ($frend['lenta_notes'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
 
 
 
@@ -623,7 +550,7 @@ echo "</div>";
 
 
 
- // Лента Форума
+// Лента Форума
 
 
 
@@ -653,12 +580,12 @@ echo "<div class='nav1'>";
 
 
 
-echo "<input name='lenta_forum' type='radio' ".($frend['lenta_forum']==1?' checked="checked"':null)." value='1' /> 是的 ";
+echo "<input name='lenta_forum' type='radio' " . ($frend['lenta_forum'] == 1 ? ' checked="checked"' : null) . " value='1' /> 是的 ";
 
 
 
 
-echo "<input name='lenta_forum' type='radio' ".($frend['lenta_forum']==0?' checked="checked"':null)." value='0' /> 否定 ";
+echo "<input name='lenta_forum' type='radio' " . ($frend['lenta_forum'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
 
 
 
@@ -673,7 +600,7 @@ echo "</div>";
 
 
 
- // Лента фото
+// Лента фото
 
 
 
@@ -703,12 +630,12 @@ echo "<div class='nav1'>";
 
 
 
-echo "<input name='lenta_foto' type='radio' ".($frend['lenta_foto']==1?' checked="checked"':null)." value='1' /> 是的 ";
+echo "<input name='lenta_foto' type='radio' " . ($frend['lenta_foto'] == 1 ? ' checked="checked"' : null) . " value='1' /> 是的 ";
 
 
 
 
-echo "<input name='lenta_foto' type='radio' ".($frend['lenta_foto']==0?' checked="checked"':null)." value='0' /> 否定 ";
+echo "<input name='lenta_foto' type='radio' " . ($frend['lenta_foto'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
 
 
 
@@ -718,7 +645,7 @@ echo "</div>";
 
 
 
- // Лента о смене аватара
+// Лента о смене аватара
 
 
 
@@ -748,12 +675,12 @@ echo "<div class='nav1'>";
 
 
 
-echo "<input name='lenta_avatar' type='radio' ".($frend['lenta_avatar']==1?' checked="checked"':null)." value='1' /> 是的 ";
+echo "<input name='lenta_avatar' type='radio' " . ($frend['lenta_avatar'] == 1 ? ' checked="checked"' : null) . " value='1' /> 是的 ";
 
 
 
 
-echo "<input name='lenta_avatar' type='radio' ".($frend['lenta_avatar']==0?' checked="checked"':null)." value='0' /> 否定 ";
+echo "<input name='lenta_avatar' type='radio' " . ($frend['lenta_avatar'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
 
 
 
@@ -763,7 +690,7 @@ echo "</div>";
 
 
 
- // Лента файлов
+// Лента файлов
 
 
 
@@ -793,12 +720,12 @@ echo "<div class='nav1'>";
 
 
 
-echo "<input name='lenta_obmen' type='radio' ".($frend['lenta_obmen']==1?' checked="checked"':null)." value='1' /> 是的 ";
+echo "<input name='lenta_obmen' type='radio' " . ($frend['lenta_obmen'] == 1 ? ' checked="checked"' : null) . " value='1' /> 是的 ";
 
 
 
 
-echo "<input name='lenta_obmen' type='radio' ".($frend['lenta_obmen']==0?' checked="checked"':null)." value='0' /> 否定 ";
+echo "<input name='lenta_obmen' type='radio' " . ($frend['lenta_obmen'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
 
 
 
@@ -813,7 +740,7 @@ echo "</div>";
 
 
 
- // Лента статусов
+// Лента статусов
 
 
 
@@ -843,12 +770,12 @@ echo "<div class='nav1'>";
 
 
 
-echo "<input name='lenta_status' type='radio' ".($frend['lenta_status']==1?' checked="checked"':null)." value='1' /> 是的 ";
+echo "<input name='lenta_status' type='radio' " . ($frend['lenta_status'] == 1 ? ' checked="checked"' : null) . " value='1' /> 是的 ";
 
 
 
 
-echo "<input name='lenta_status' type='radio' ".($frend['lenta_status']==0?' checked="checked"':null)." value='0' /> 否定 ";
+echo "<input name='lenta_status' type='radio' " . ($frend['lenta_status'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
 
 
 
@@ -863,7 +790,7 @@ echo "</div>";
 
 
 
- // Лента оценок статуса
+// Лента оценок статуса
 
 
 
@@ -893,12 +820,12 @@ echo "<div class='nav1'>";
 
 
 
-echo "<input name='lenta_status_like' type='radio' ".($frend['lenta_status_like']==1?' checked="checked"':null)." value='1' />是的 ";
+echo "<input name='lenta_status_like' type='radio' " . ($frend['lenta_status_like'] == 1 ? ' checked="checked"' : null) . " value='1' />是的 ";
 
 
 
 
-echo "<input name='lenta_status_like' type='radio' ".($frend['lenta_status_like']==0?' checked="checked"':null)." value='0' /> 否定 ";
+echo "<input name='lenta_status_like' type='radio' " . ($frend['lenta_status_like'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
 
 
 
@@ -948,7 +875,7 @@ echo "</form>";
 
 
 
-	
+
 
 
 

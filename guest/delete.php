@@ -19,7 +19,7 @@ if (isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `guest` WHERE `
 		$ank['nick'] = '客人';
 	}
 	else
-	$ank = get_user($post['id_user']);
+	$ank = user::get_user($post['id_user']);
 	if (user_access('guest_delete'))
 	{
 		admin_log('客人', '删除邮件', '从中删除消息 ' . $ank['nick']);
@@ -30,4 +30,3 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != NULL)
 header('Location: ' . my_esc($_SERVER['HTTP_REFERER']));
 else
 header('Location: index.php?' . SID);
-?>

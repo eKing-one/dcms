@@ -56,8 +56,8 @@ if (user_access('adm_panel_show')) {
 			$num = 0;
 		}
 		/*---------------------------*/
-		$ank = get_user($post['id_user']);
-		$spamer = get_user($post['id_spam']);
+		$ank = user::get_user($post['id_user']);
+		$spamer = user::get_user($post['id_spam']);
 		echo "<b>分类:</b> ";
 		if ($post['razdel'] == 'mail') echo "<font color='red'>邮件</font><br />";
 		if ($post['razdel'] == 'guest') echo "<a href='/guest/'><font color='red'>客人</font></a><br />";
@@ -97,7 +97,7 @@ if (user_access('adm_panel_show')) {
 		if ($post['razdel'] == 'stena') // Стена юзера
 		{
 			echo "<font color='red'>墙</font> | ";
-			$anketa = get_user($post['id_object']);
+			$anketa = user::get_user($post['id_object']);
 			echo " <a href='/info.php?id=$anketa[id]'>$anketa[nick]</a>";
 			echo " " . medal($anketa['id']) . " " . online($anketa['id']) . "<br />";
 		}
@@ -105,7 +105,7 @@ if (user_access('adm_panel_show')) {
 		{
 			$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '$post[id_object]' LIMIT 1"));
 			echo "<a href='/user/status/komm.php?id=$status[id]'><font color='red'>现状</font></a> | ";
-			$anketa = get_user($status['id_user']);
+			$anketa = user::get_user($status['id_user']);
 			echo " <a href='/info.php?id=$anketa[id]'>$anketa[nick]</a>";
 			echo " " . medal($anketa['id']) . " " . online($anketa['id']) . "<br />";
 		}

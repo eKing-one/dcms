@@ -31,7 +31,7 @@ $start = $set['p_str'] * $page - $set['p_str'];
 echo "<table class='post'>";
 $q = dbquery("SELECT * FROM `ban` WHERE `id_user` = '$user[id]' ORDER BY `time` DESC LIMIT $start, $set[p_str]");
 while ($post = dbassoc($q)) {
-	$ank = get_user($post['id_ban']);
+	$ank = user::get_user($post['id_ban']);
 	/*-----------代码-----------*/
 	if ($num == 0) {
 		echo "  <div class='nav1'>";

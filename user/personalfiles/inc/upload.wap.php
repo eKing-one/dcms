@@ -59,7 +59,7 @@ if (!$dir['pass'])
 $q = dbquery("SELECT * FROM `frends` WHERE `user` = '".$dir['id_user']."' AND `i` = '1'"); /* Список друзей пользователя */
 while ($f = dbarray($q))
 {
-$a=get_user($f['frend']);
+$a=user::get_user($f['frend']);
 $lentaSet = dbarray(dbquery("SELECT * FROM `tape_set` WHERE `id_user` = '".$a['id']."' LIMIT 1")); // Общая настройка ленты
 if ($f['lenta_obmen']==1 && $lentaSet['lenta_files']==1) /* Фильтр рассылки */
 {
@@ -196,4 +196,3 @@ echo "<div class='foot'>";
 echo "<img src='/style/icons/up_dir.gif' alt='*'> ".($dir['osn']==1?'<a href="/user/personalfiles/'.$ank['id'].'/'.$dir['id'].'/">档案</a>':'')." ".user_files($dir['id_dires'])." ".($dir['osn']==1?'':'&gt; <a href="/user/personalfiles/'.$ank['id'].'/'.$dir['id'].'/">'.text($dir['name']).'</a>')."";
 echo "</div>";
 }
-?>

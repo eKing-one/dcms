@@ -93,7 +93,7 @@ while ($post = dbassoc($q)) {
 	}
 	/*---------------------------*/
 	$type = $post['type']; //Тип уведомления
-	$avtor = get_user($post['avtor']); //От кого уведомление
+	$avtor = user::get_user($post['avtor']); //От кого уведомление
 	if ($post['read'] == 0) //Если не прочитано
 	{
 		$s1 = "<font color='red'>";
@@ -138,7 +138,7 @@ while ($post = dbassoc($q)) {
 		$name = '回答说' . ($avtor['pol'] == 1 ? "" : "а") . ' 你在主题 ';
 	} elseif ($type == 'stena_komm') // Стена
 	{
-		$stena = get_user($post['id_object']);
+		$stena = user::get_user($post['id_object']);
 		if ($stena['id'] == $user['id']) $sT = '你的';
 		elseif ($stena['id'] == $avtor['id']) $sT = '我的';
 		else {
@@ -307,7 +307,7 @@ while ($post = dbassoc($q)) {
 	if ($type == 'status_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		if ($status['id']) {
-			$ankS = get_user($status['id_user']);
+			$ankS = user::get_user($status['id_user']);
 			echo user::avatar($avtor['id']) .  group($avtor['id']) . " <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>  " . medal($avtor['id']) . " " . online($avtor['id']) . " $name ";
 			echo "<img src='/style/icons/comment.png' alt='*'> <a href='/user/status/komm.php?id=$status[id]&amp;page=$pageEnd'>状况</a>  $s1 " . vremja($post['time']) . " $s2";
 		} else {

@@ -32,7 +32,7 @@ if ($k_post == 0) {
   GROUP BY `mail`.`id_user` ORDER BY `count` DESC LIMIT $start, $set[p_str]");
 	//echo mysql_error(),"<br />";
 	while ($kont = dbassoc($q)) {
-		$ank = get_user($kont['id_user']);
+		$ank = user::get_user($kont['id_user']);
 		/*-----------代码-----------*/
 		if ($num == 0) {
 			echo "  <div class='nav1'>";

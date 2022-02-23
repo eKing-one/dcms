@@ -37,7 +37,7 @@ if ($ank['id'] == 0) {
 	exit;
 }
 // Определяем id автора плейлиста
-$ank = get_user($ank['id']);
+$ank = user::get_user($ank['id']);
 if (!$ank) {
 	header("Location: /index.php?" . SID);
 	exit;

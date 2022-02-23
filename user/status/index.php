@@ -25,9 +25,9 @@ include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 // Автор статусов
 if (isset($_GET['id']))
-	$anketa = get_user(intval($_GET['id']));
+	$anketa = user::get_user(intval($_GET['id']));
 else
-	$anketa = get_user($user['id']);
+	$anketa = user::get_user($user['id']);
 if (!$anketa['id']) {
 	header("Location: /index.php");
 	exit;

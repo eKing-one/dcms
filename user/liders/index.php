@@ -28,7 +28,7 @@ if ($k_post == 0) {
 }
 $q = dbquery("SELECT * FROM `liders` WHERE `time` > '$time' ORDER BY stav DESC LIMIT $start, $set[p_str]");
 while ($post = dbassoc($q)) {
-	$ank = get_user($post['id_user']);
+	$ank = user::get_user($post['id_user']);
 	/*-----------代码-----------*/
 	if ($num == 0) {
 		echo '<div class="nav1">';

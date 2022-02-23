@@ -224,7 +224,7 @@ if ($ank['group_access'] > 1) {
 				echo "<div class='foot'>在线好友 ($k_post)</div>";
 			}
 			while ($post3 = dbassoc($q)) {
-				$ank3 = get_user($post3['frend']);
+				$ank3 = user::get_user($post3['frend']);
 				/*---------斑马---------*/
 				if ($num == 0) {
 					echo "  <div class='nav1'>";

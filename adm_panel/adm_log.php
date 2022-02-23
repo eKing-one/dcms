@@ -16,7 +16,7 @@ include_once '../sys/inc/thead.php';
 title();
 err();
 aut();
-if (isset($_GET['id'])) $ank = get_user($_GET['id']);
+if (isset($_GET['id'])) $ank = user::get_user($_GET['id']);
 else $ank = false;
 if ($ank && user_access('adm_log_read') && ($ank['id'] == $user['id'] || $ank['level'] < $user['level'])) {
     echo "<a href='/info.php?id=$ank[id]'>$ank[nick]</a> ($ank[group_name])<br />";
@@ -49,7 +49,7 @@ if (isset($_GET['id_mod']) && isset($_GET['id_act']) && dbresult(dbquery("SELECT
     }
     $q = dbquery("SELECT * FROM `admin_log` WHERE `mod` = '$mod[id]' AND `act` = '$act[id]'" . ($ank ? " AND `admin_log`.`id_user` = '$ank[id]'" : null) . " ORDER BY id DESC LIMIT $start, $set[p_str]");
     while ($post = dbassoc($q)) {
-        $ank2 = get_user($post['id_user']);
+        $ank2 = user::get_user($post['id_user']);
         echo "   <tr>";
         if ($set['set_show_icon'] == 2) {
             echo "  <td class='icon48' rowspan='2'>";

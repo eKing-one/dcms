@@ -43,7 +43,7 @@ echo "错误！这是系统文件夹！";
 exit;
 }
  // Определяем id автора папки
-$ank = get_user($ank['id']);
+$ank = user::get_user($ank['id']);
 if(!$ank){header("Location: /index.php?".SID);exit;}
 
  // Если у юзера нет основной папки создаем
@@ -95,5 +95,3 @@ include_once 'inc/file.php';
 }
  // (c) Искатель
 include_once '../../sys/inc/tfoot.php';
-
-?>

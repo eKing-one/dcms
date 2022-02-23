@@ -9,7 +9,7 @@ include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 $sid = $user['id'];
-$ank = get_user($sid);
+$ank = user::get_user($sid);
 if (!isset($user)) {
 	header("Location: /index.php?" . SID);
 	exit;
@@ -66,7 +66,7 @@ if ($k_post == 0) {
 	echo '</div>';
 }
 while ($frend = dbassoc($q)) {
-	$frend = get_user($frend['user']);
+	$frend = user::get_user($frend['user']);
 	/*-----------代码-----------*/
 	if ($num == 0) {
 		echo '<div class="nav1">';

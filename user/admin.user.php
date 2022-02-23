@@ -77,7 +77,7 @@ if ($k_post == 0) {
 	echo '</div>';
 }
 while ($ank = dbassoc($q)) {
-	$ank = get_user($ank['id']);
+	$ank = user::get_user($ank['id']);
 	/*-----------代码-----------*/
 	if ($num == 0) {
 		echo '<div class="nav1">';

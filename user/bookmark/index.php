@@ -17,7 +17,7 @@ if ($ank['id'] == 0)
 {
 header("Location: /index.php?" . SID);exit;
 }
-$ank = get_user($ank['id']);
+$ank = user::get_user($ank['id']);
 if( !$ank ){ header("Location: /index.php?" . SID); exit; }
 $set['title'] =  $ank['nick']. '的书签'; //网页标题
 include_once '../../sys/inc/thead.php';
@@ -81,7 +81,7 @@ $notes=dbassoc(dbquery("SELECT * FROM `notes` WHERE `id`='$post[id_object]' LIMI
 echo "<a href='/plugins/notes/list.php?id=".$notes['id']."'><img src='/style/icons/diary.gif'> ".htmlspecialchars($notes['name'])."</a><br/>";
 echo substr(htmlspecialchars($notes['msg']),0,40)."[...] (添加时间 ".vremja($post['time']).")";
 }elseif($post['type']=='people'){
-$people=get_user($post['id_object']);
+$people=user::get_user($post['id_object']);
 echo "<img src='/style/icons/icon_readers.gif'> ";
 echo group($people['id'])." ";
 echo user::nick($people['id'],1,1,1)." <br/>";
@@ -101,4 +101,3 @@ echo "</div>";
 }
 }
 include_once '../../sys/inc/tfoot.php';
-?>

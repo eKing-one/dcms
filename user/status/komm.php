@@ -93,7 +93,7 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0) {
 */
 if (isset($_GET['spam'])  && isset($user)) {
 	$mess = dbassoc(dbquery("SELECT * FROM `status_komm` WHERE `id` = '" . intval($_GET['spam']) . "' limit 1"));
-	$spamer = get_user($mess['id_user']);
+	$spamer = user::get_user($mess['id_user']);
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'status_komm' AND `spam` = '" . $mess['msg'] . "'"), 0) == 0) {
 		if (isset($_POST['msg'])) {
 			if ($mess['id_user'] != $user['id']) {
@@ -181,7 +181,7 @@ if (isset($_POST['msg']) && isset($user)) {
 */
 		$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $status['id_user'] . "' AND `i` = '1'");
 		while ($f = dbarray($q)) {
-			$a = get_user($f['frend']);
+			$a = user::get_user($f['frend']);
 			$discSet = dbarray(dbquery("SELECT * FROM `discussions_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // Общая настройка обсуждений
 			if ($f['disc_status'] == 1 && $discSet['disc_status'] == 1) /* Фильтр рассылки */ {
 				// друзьям автора

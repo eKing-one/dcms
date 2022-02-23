@@ -10,7 +10,7 @@ include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 if (isset($_GET['id'])) $sid = intval($_GET['id']);
 else $sid = $user['id'];
-$ank = get_user($sid);
+$ank = user::get_user($sid);
 $set['title'] = "朋友 " . $ank['nick'] . ""; //网页标题
 include_once '../../sys/inc/thead.php';
 title();
@@ -33,7 +33,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 		echo user::nick($ank['id'], 1, 1, 1);
 		echo "</div>";
 		echo "<div class='nav2'>";
-		user::user::avatar($ank['id']);
+		user::avatar($ank['id']);
 		echo "</div>";
 	}
 	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей
@@ -97,7 +97,7 @@ if (isset($user) && $user['id'] == $ank['id']) {
 							dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$delpost[$q]', '$msgno', '$time')");
 						}
 					}
-					$ank_del = get_user($delpost[$q]);
+					$ank_del = user::get_user($delpost[$q]);
 					echo "<font color='#395aff'><b>" . $ank_del['nick'] . "</b></font>, ";
 				}
 				echo " 从好友列表中删除</div>";
@@ -158,7 +158,7 @@ if ($k_post == 0) {
 	echo '</div>';
 }
 while ($frend = dbassoc($q)) {
-	$frend = get_user($frend['frend']);
+	$frend = user::get_user($frend['frend']);
 	/*-----------代码-----------*/
 	if ($num == 0) {
 		echo '<div class="nav1">';

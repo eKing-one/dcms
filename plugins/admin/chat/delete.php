@@ -19,7 +19,7 @@ $ank['level']=0;
 $ank['nick']='Гость';
 }
 else
-$ank=get_user($post['id_user']);
+$ank=user::get_user($post['id_user']);
 if (user_access('guest_delete'))
 {
 admin_log('Гостевая','Удаление сообщения',"Удаление сообщения от $ank[nick]");
@@ -29,4 +29,3 @@ $_SESSION['message'] = 'Сообщение успешно удалено';
 header("Location: index.php?");
 exit;
 }
-?>

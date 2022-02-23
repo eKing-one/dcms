@@ -12,7 +12,7 @@ function user_collision($massive, $im = 0)
 					$coll = $collision['id_user2'];
 				else 
 					$coll = $collision['id_user'];
-				$ank_coll2 = get_user($coll);
+				$ank_coll2 = user::get_user($coll);
 				if (!in_array ($coll, $massive) && ($user['level'] > $ank_coll2['level']) && ($im == 0 || $user['id'] != $ank_coll2['id'])) 
 				{
 					$massive[] = $coll;
@@ -31,4 +31,3 @@ if(isset($_GET))
 		$_GET[$key] = fiera($value);
 	}
 }
-?>

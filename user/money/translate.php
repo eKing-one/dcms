@@ -10,7 +10,7 @@ include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 only_reg();
 if (isset($user))$ank['id'] = intval($_GET['id']);
-$ank=get_user($ank['id']);
+$ank=user::get_user($ank['id']);
 if(!$ank || $user['id'] == $ank['id']){header("Location: /index.php?".SID);exit;}
 if (isset($_GET['act']) && $_POST['money'])
 {
@@ -61,4 +61,3 @@ echo "<div class='foot'>";
 echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | 赠送<br />";
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';
-?>

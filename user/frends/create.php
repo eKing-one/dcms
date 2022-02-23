@@ -59,7 +59,7 @@ if (isset($_GET['ok']))
 	$q = dbquery("SELECT * FROM `frends` WHERE `user` = '".$user['id']."' AND `i` = '1'");
 	/* Список друзей принимающего заявку */
 	while ($f = dbarray($q)){
-		$a=get_user($f['frend']);
+		$a=user::get_user($f['frend']);
 		$lentaSet = dbarray(dbquery("SELECT * FROM `tape_set` WHERE `id_user` = '".$a['id']."' LIMIT 1")); // Общая настройка ленты
 		if ($f['lenta_frends']==1 && $lenaSet['lenta_frends']==1) /* Фильтр рассылки */
 		{	
@@ -72,7 +72,7 @@ if (isset($_GET['ok']))
 		$q = dbquery("SELECT * FROM `frends` WHERE `user` = '$ok' AND `i` = '1'");
 			/* Список друзей подавщего заявку */
 			while ($f = dbarray($q)){
-			$a=get_user($f['frend']);
+			$a=user::get_user($f['frend']);
 			$lentaSet = dbarray(dbquery("SELECT * FROM `tape_set` WHERE `id_user` = '".$a['id']."' LIMIT 1")); // Общая настройка ленты
 				if ($f['lenta_frends']==1 && $lentaSet['lenta_frends']==1) /* Фильтр рассылки */
 				{	
@@ -164,4 +164,3 @@ header("location:  " . htmlspecialchars($_SERVER['HTTP_REFERER']) . "");
 exit;
 }
 include_once '../../sys/inc/tfoot.php';
-?>

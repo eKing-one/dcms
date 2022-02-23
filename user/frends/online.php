@@ -10,7 +10,7 @@ include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 if (isset($_GET['id'])) $sid = intval($_GET['id']);
 else $sid = $user['id'];
-$ank = get_user($sid);
+$ank = user::get_user($sid);
 /*
 ==================================
 Приватность станички пользователя
@@ -112,7 +112,7 @@ if ($k_post == 0) {
 	echo '</div>';
 }
 while ($frend = dbassoc($q)) {
-	$frend = get_user($frend['frend']);
+	$frend = user::get_user($frend['frend']);
 	/*-----------代码-----------*/
 	if ($num == 0) {
 		echo '<div class="nav1">';

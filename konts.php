@@ -38,7 +38,7 @@ $set['title'] = $type_name . '中的联系人';
 include_once 'sys/inc/thead.php';
 title();
 if (isset($_GET['id'])) {
-	$ank = get_user($_GET['id']);
+	$ank = user::get_user($_GET['id']);
 	if ($ank) {
 		if (isset($_GET['act'])) {
 			switch ($_GET['act']) {
@@ -69,7 +69,7 @@ if (isset($_GET['id'])) {
 		$err[] = '未找到用户';
 }
 if (isset($_GET['act']) && $_GET['act'] == 'edit_ok' && isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1"), 0) == 1) {
-	$ank = get_user(intval($_GET['id']));
+	$ank = user::get_user(intval($_GET['id']));
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"), 0) == 1) {
 		$kont = dbarray(dbquery("SELECT * FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"));
 		if (isset($_POST['name']) && $_POST['name'] != ($kont['name'] != null ? $kont['name'] : $ank['nick'])) {
@@ -115,7 +115,7 @@ if (isset($_POST['ignor'])) {
 			else {
 				dbquery("UPDATE `users_konts` SET `type` = 'ignor', `time` = '$time' WHERE `id_user` = '$user[id]' AND `id_kont` = '$delpost[$q]' LIMIT 1");
 			}
-			$ank_del = get_user($delpost[$q]);
+			$ank_del = user::get_user($delpost[$q]);
 			echo '<font color="#395aff"><b>' . $ank_del['nick'] . '</b></font>, ';
 		}
 		echo ' 已加入黑名单</div>';
@@ -133,7 +133,7 @@ if (isset($_POST['common'])) {
 			else {
 				dbquery("UPDATE `users_konts` SET `type` = 'common', `time` = '$time' WHERE `id_user` = '$user[id]' AND `id_kont` = '$delpost[$q]' LIMIT 1");
 			}
-			$ank_del = get_user($delpost[$q]);
+			$ank_del = user::get_user($delpost[$q]);
 			echo '<font color="#395aff"><b>' . $ank_del['nick'] . '</b></font>, ';
 		}
 		echo ' 成功转移到活动联系人</div>';
@@ -151,7 +151,7 @@ if (isset($_POST['favorite'])) {
 			else {
 				dbquery("UPDATE `users_konts` SET `type` = 'favorite', `time` = '$time' WHERE `id_user` = '$user[id]' AND `id_kont` = '$delpost[$q]' LIMIT 1");
 			}
-			$ank_del = get_user($delpost[$q]);
+			$ank_del = user::get_user($delpost[$q]);
 			echo '<font color="#395aff"><b>' . $ank_del['nick'] . '</b></font>, ';
 		}
 		echo ' 成功移动到收藏夹</div>';
@@ -169,7 +169,7 @@ if (isset($_POST['deleted'])) {
 			else {
 				dbquery("UPDATE `users_konts` SET `type` = 'deleted', `time` = '$time' WHERE `id_user` = '$user[id]' AND `id_kont` = '$delpost[$q]' LIMIT 1");
 			}
-			$ank_del = get_user($delpost[$q]);
+			$ank_del = user::get_user($delpost[$q]);
 			echo '<font color="#395aff"><b>' . $ank_del['nick'] . '</b></font>, ';
 		}
 		echo ' 成功转移至垃圾桶</div>';
@@ -188,7 +188,7 @@ if ($k_post) {
 	$q = dbquery("SELECT * FROM `users_konts` WHERE `id_user` = '$user[id]' AND `type` = '$type' ORDER BY `time` DESC, `new_msg` DESC LIMIT $start, $set[p_str]");
 	echo '<form method="post" action="">';
 	while ($post = dbarray($q)) {
-		$ank_kont = get_user($post['id_kont']);
+		$ank_kont = user::get_user($post['id_kont']);
 		$k_mess = dbresult(dbquery("SELECT COUNT(*) FROM `mail` WHERE `unlink` != '$user[id]' AND `id_user` = '$ank_kont[id]' AND `id_kont` = '$user[id]'"), 0);
 		$k_mess2 = dbresult(dbquery("SELECT COUNT(*) FROM `mail` WHERE `unlink` != '$user[id]' AND `id_user` = '$user[id]' AND `id_kont` = '$ank_kont[id]'"), 0);
 		$k_mess_to = dbresult(dbquery("SELECT COUNT(*) FROM `mail` WHERE `unlink` != '$user[id]' AND `id_user` = '$user[id]' AND `id_kont` = '$ank_kont[id]' AND `read` = '0'"), 0);

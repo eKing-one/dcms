@@ -26,7 +26,7 @@ include_once '../../sys/inc/user.php';
 only_reg();
 $width = ($webbrowser == 'web' ? '100' : '70'); // Размер подарков при выводе в браузер
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
-$ank = get_user($ank['id']);
+$ank = user::get_user($ank['id']);
 if (!$ank || $ank['id'] == 0 || $ank['id'] == $user['id']) {
 	header("Location: /index.php?" . SID);
 	exit;

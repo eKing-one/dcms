@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
     include_once '../../sys/inc/ipua.php';
     include_once '../../sys/inc/fnc.php';
     include_once '../../sys/inc/user.php';
-    $ank = get_user(intval($_GET['id']));
+    $ank = user::get_user(intval($_GET['id']));
     echo ' <a onclick="anketaClose.submit()" name="myForm"><div class="form_info">隐藏详细信息</div></a>';
     /*=====================================用户配置文件，如果作者，我们输出链接到编辑字段，如果没有，那么没有=）=====================================*/
     if (isset($user) && $ank['id'] == $user['id']) {

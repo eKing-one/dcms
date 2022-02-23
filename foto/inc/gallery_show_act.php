@@ -67,7 +67,7 @@ dbquery("UPDATE `tape` SET `count` = '0' WHERE  `type` = 'album' AND `read` = '1
 $q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $gallery['id_user'] . "' AND `i` = '1'");
 while ($f = dbarray($q))
 {
-	$a = get_user($f['frend']);
+	$a = user::get_user($f['frend']);
 	// Общая настройка ленты
 	$lentaSet = dbarray(dbquery("SELECT * FROM `tape_set` WHERE `id_user` = '".$a['id']."' LIMIT 1")); 
 	/* Фильтр рассылки */	
@@ -221,4 +221,3 @@ if (isset($_GET['edit']) && $_GET['edit'] == 'rename' && isset($_GET['ok']) && (
 		exit;
 	}
 }
-?>

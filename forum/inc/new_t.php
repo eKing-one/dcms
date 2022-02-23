@@ -24,7 +24,7 @@ if (isset($_POST['name']) && isset($_POST['msg'])) {
       }
       $q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $user['id'] . "' AND `i` = '1'");
       while ($f = dbarray($q)) {
-         $a = get_user($f['frend']);
+         $a = user::get_user($f['frend']);
          $lentaSet = dbarray(dbquery("SELECT * FROM `tape_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // Общая настройка ленты
          if ($f['lenta_forum'] == 1 && $lentaSet['lenta_forum'] == 1)
             dbquery("INSERT INTO `tape` (`id_user`, `avtor`, `type`, `time`, `id_file`) values('$a[id]', '$user[id]', 'them', '$time', '$them[id]')");

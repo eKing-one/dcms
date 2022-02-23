@@ -12,7 +12,7 @@ include_once '../../sys//inc/user.php';
 if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
 if ($ank['id'] == 0) {
-	$ank = get_user($ank['id']);
+	$ank = user::get_user($ank['id']);
 	$set['title'] = $ank['nick'] . ' - 个人资料 '; //网页标题
 	include_once '../../sys/inc/thead.php';
 	title();
@@ -73,7 +73,7 @@ if ($ank['id'] == 0) {
 	include_once '../../sys//inc/tfoot.php';
 	exit;
 }
-$ank = get_user($ank['id']);
+$ank = user::get_user($ank['id']);
 if (!$ank) {
 	header("Location: /index.php?" . SID);
 	exit;

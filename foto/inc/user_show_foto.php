@@ -5,7 +5,7 @@ if (!isset($user) && !isset($_GET['id_user'])) {
 }
 if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id_user'])) $ank['id'] = intval($_GET['id_user']);
-$ank = get_user($ank['id']);
+$ank = user::get_user($ank['id']);
 if (!$ank) {
 	header("Location: /foto/?" . SID);
 	exit;
@@ -117,7 +117,7 @@ if (isset($_POST['msg']) && isset($user)) {
 		// Отправляем друзьям
 		$q = query("SELECT * FROM `frends` WHERE `user` = '" . $gallery['id_user'] . "' AND `i` = '1'");
 		while ($f = dbarray($q)) {
-			$a = get_user($f['frend']);
+			$a = user::get_user($f['frend']);
 			$discSet = dbarray(query("SELECT * FROM `discussions_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // Общая настройка обсуждений
 			if ($f['disc_foto'] == 1 && $discSet['disc_foto'] == 1) {
 				if (dbresult(query("SELECT COUNT(*) FROM `discussions` WHERE `id_user` = '$a[id]' AND `type` = 'foto' AND `id_sim` = '$foto[id]' LIMIT 1"), 0) == 0) {

@@ -18,7 +18,7 @@ if (!isset($_GET['id'])) {
 	header("Location: /konts.php?" . SID);
 	exit;
 }
-$ank = get_user($_GET['id']);
+$ank = user::get_user($_GET['id']);
 if (!$ank) {
 	header("Location: /konts.php?" . SID);
 	exit;
@@ -30,7 +30,7 @@ include_once 'sys/inc/thead.php';
 title();
 /* Бан пользователя */
 if ($user['group_access'] < 1 && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'all' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `view` = '0')"), 0) != 0) {
-	$ank = get_user($ank['id']);
+	$ank = user::get_user($ank['id']);
 	$set['title'] = $ank['nick'] . ' -  '; //网页标题
 	include_once 'sys/inc/thead.php';
 	title();
@@ -50,7 +50,7 @@ if ($user['group_access'] < 1 && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WH
 */
 if (isset($_GET['spam'])  &&  $ank['id'] != 0) {
 	$mess = dbassoc(dbquery("SELECT * FROM `mail` WHERE `id` = '" . intval($_GET['spam']) . "' limit 1"));
-	$spamer = get_user($mess['id_user']);
+	$spamer = user::get_user($mess['id_user']);
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'mail'"), 0) == 0) {
 		if (isset($_POST['msg'])) {
 			if ($mess['id_kont'] == $user['id']) {
@@ -249,7 +249,7 @@ while ($post = dbarray($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	$ank2 = get_user($post['id_user']);
+	$ank2 = user::get_user($post['id_user']);
 	if ($set['set_show_icon'] == 2) {
 		user::avatar($ank2['id']);
 	} elseif ($set['set_show_icon'] == 1) {

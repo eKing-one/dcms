@@ -30,9 +30,9 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'notes' AND `i
 }
 if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
-$ank = get_user($ank['id']);
+$ank = user::get_user($ank['id']);
 if ($ank['id'] == 0) {
-	$ank = get_user($ank['id']);
+	$ank = user::get_user($ank['id']);
 	echo "<span class=\"status\">禁止访问！</span><br />";
 	exit;
 }

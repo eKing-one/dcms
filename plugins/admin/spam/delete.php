@@ -12,8 +12,8 @@ include_once '../../../sys/inc/user.php';
 if (isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id` = '".intval($_GET['id'])."'"),0)==1)
 {
 $post=dbassoc(dbquery("SELECT * FROM `spamus` WHERE `id` = '".intval($_GET['id'])."' LIMIT 1"));
-$spamer = get_user($post['id_spam']);
-$ank=get_user($post['id_user']);
+$spamer = user::get_user($post['id_spam']);
+$ank=user::get_user($post['id_user']);
 if ($user['group_access'] == 2)
 $adm = 'Модератором чата';
 elseif ($user['group_access'] == 3)
@@ -88,4 +88,3 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']!=NULL)
 header("Location: ".$_SERVER['HTTP_REFERER']);
 else
 header("Location: index.php?".SID);
-?>

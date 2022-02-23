@@ -22,7 +22,7 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '$ank[id]' LIMIT 
     header("Location: /index.php?" . SID);
     exit;
 }
-$ank = get_user($ank['id']);
+$ank = user::get_user($ank['id']);
 if ($user['level'] <= $ank['level']) {
     header("Location: /index.php?" . SID);
     exit;

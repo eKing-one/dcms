@@ -71,7 +71,7 @@ $k_lider = dbresult(dbquery("SELECT COUNT(*) FROM `liders` WHERE `time` > '$time
 $liders = dbassoc(dbquery("SELECT * FROM `liders` WHERE `time` > '$time' ORDER BY rand() LIMIT 1"));
 if ($k_lider > 0) {
 	echo '<div class="main">';
-	$lider = get_user($liders['id_user']);
+	$lider = user::get_user($liders['id_user']);
 	echo user::avatar($lider['id']);
 	echo group($lider['id']), ' <a href="/info.php?id=' . $lider['id'] . '">' . $lider['nick'] . '</a> ';
 	echo medal($lider['id']), online($lider['id']), '<br />';
@@ -91,7 +91,7 @@ if ($k_post == 0) {
 	echo '</div>';
 }
 while ($ank = dbassoc($q)) {
-	$ank = get_user($ank['id']);
+	$ank = user::get_user($ank['id']);
 	/*-----------代码-----------*/
 	if ($num == 0) {
 		echo '<div class="nav1">';

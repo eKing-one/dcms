@@ -10,7 +10,7 @@ include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
-$ank = get_user($ank['id']);
+$ank = user::get_user($ank['id']);
 if ($ank['id'] == 0) {
 	header("Location: /index.php?" . SID);
 	exit;
@@ -59,7 +59,7 @@ while ($post = dbassoc($q)) {
 	$f = $post['id_object'];
 	$foto = dbassoc(dbquery("SELECT * FROM `gallery_foto` WHERE `id` = '" . $f . "'  LIMIT 1"));
 	$gallery = dbassoc(dbquery("SELECT * FROM `gallery` WHERE `id`='" . $foto['id_gallery'] . "'  LIMIT 1"));
-	$ank_p = get_user($gallery['id_user']);
+	$ank_p = user::get_user($gallery['id_user']);
 	echo '<a href="/foto/' . $ank_p['id'] . '/' . $gallery['id'] . '/' . $foto['id'] . '/" title="转到照片"><img style=" padding: 2px; height: 45px; width: 45px;" src="/foto/foto48/' . $foto['id'] . '.' . $foto['ras'] . '" alt="*" /> ' . htmlspecialchars($foto['name']) . '</a>  (' . vremja($post['time']) . ')';
 	if ($ank['id'] == $user['id'])
 		echo '<div style="text-align:right;"><a href="?delete=' . $post['id'] . '&amp;page=' . $page . '"><img src="/style/icons/delete.gif" alt="*" /></a></div>';

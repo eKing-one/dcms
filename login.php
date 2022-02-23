@@ -16,7 +16,7 @@ if (isset($_GET['id']) && isset($_GET['pass']))
 {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '".intval($_GET['id'])."' AND `pass` = '".shif($_GET['pass'])."' LIMIT 1"), 0)==1)
 	{
-		$user = get_user($_GET['id']);
+		$user = user::get_user($_GET['id']);
 		$_SESSION['id_user'] = $user['id'];
 		dbquery("UPDATE `user` SET `date_aut` = ".time()." WHERE `id` = '$user[id]' LIMIT 1");
 		dbquery("UPDATE `user` SET `date_last` = ".time()." WHERE `id` = '$user[id]' LIMIT 1");
@@ -30,7 +30,7 @@ elseif (isset($_POST['nick']) && isset($_POST['pass']))
 	{
 		$user = dbassoc(dbquery("SELECT `id` FROM `user` WHERE `nick` = '".my_esc($_POST['nick'])."' AND `pass` = '".shif($_POST['pass'])."' LIMIT 1"));
 		$_SESSION['id_user'] = $user['id'];
-		$user = get_user($user['id']);
+		$user = user::get_user($user['id']);
 		// сохранение данных в COOKIE
 		if (isset($_POST['aut_save']) && $_POST['aut_save'])
 		{
@@ -46,7 +46,7 @@ elseif (isset($_COOKIE['id_user']) && isset($_COOKIE['pass']) && $_COOKIE['id_us
 {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = ".intval($_COOKIE['id_user'])." AND `pass` = '".shif(cookie_decrypt($_COOKIE['pass'],intval($_COOKIE['id_user'])))."' LIMIT 1"), 0)==1)
 	{
-		$user = get_user($_COOKIE['id_user']);
+		$user = user::get_user($_COOKIE['id_user']);
 		$_SESSION['id_user'] = $user['id'];
 		dbquery("UPDATE `user` SET `date_aut` = '$time', `date_last` = '$time' WHERE `id` = '$user[id]' LIMIT 1");
 		$user['type_input'] = 'cookie';
@@ -109,4 +109,3 @@ if (isset($_GET['return']))
 header('Location: '.urldecode($_GET['return']));
 else header("Location: /my_aut.php?".SID);
 exit;
-?>

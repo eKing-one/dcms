@@ -35,7 +35,7 @@ if ($k_post == 0) {
 $q = dbquery("SELECT * FROM `my_guests` WHERE `id_ank` = '$user[id]' ORDER BY `id` DESC  LIMIT $start, $set[p_str]");
 echo '<table class="post">';
 while ($post = dbarray($q)) {
-	$ank = get_user($post['id_user']);
+	$ank = user::get_user($post['id_user']);
 	/*-----------代码-----------*/
 	if ($num == 0) {
 		echo '<div class="nav1">';

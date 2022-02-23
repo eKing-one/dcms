@@ -11,7 +11,7 @@ if ($k_post > 0) {
 	echo '<table>';
 	echo '<tr>';
 	while ($ank = dbassoc($q)) {
-		$ank = get_user($ank['id']);
+		$ank = user::get_user($ank['id']);
 
 		echo '<td style="width:60px; height:70px; vertical-align:top; border:1px solid black; text-align:center; display:inline-table; margin:2px;">';
 

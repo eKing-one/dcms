@@ -52,7 +52,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id']) && dbresult(dbquery("SELECT CO
      $post = dbassoc(dbquery("SELECT * FROM `stena` WHERE `id` = '" . abs(intval($_GET['id'])) . "' LIMIT 1"));
      echo "  <div class='nav2'>";
      echo "<table><td style='width:15%;vertical-align:top;'>";
-     echo user::user::avatar($post['id_user']);
+     echo user::avatar($post['id_user']);
      echo "</td><td style='vertical-align:top;'>";
      echo  group($post['id_user']) . " ";
      echo user::nick($post['id_user'], 1, 1, 1);

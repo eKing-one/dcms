@@ -72,7 +72,7 @@ if (user_access('adm_panel_show')) {
 			$num = 0;
 		}
 		/*---------------------------*/
-		$ank = get_user($post['id_user']);
+		$ank = user::get_user($post['id_user']);
 		if ($set['set_show_icon'] == 2) {
 			user::avatar($ank['id']);
 		}

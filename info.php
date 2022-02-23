@@ -10,13 +10,13 @@ include_once 'sys/inc/fnc.php';
 include_once 'sys/inc/user.php';
 if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
-$ank = get_user($ank['id']);
+$ank = user::get_user($ank['id']);
 if (!$ank) {
 	header("Location: /index.php?" . SID);
 	exit;
 }
 if ($ank['id'] == 0) {
-	$ank = get_user($ank['id']);
+	$ank = user::get_user($ank['id']);
 	$set['title'] = $ank['nick'] . ' - 页面 '; //网页标题
 	include_once 'sys/inc/thead.php';
 	title();
@@ -145,7 +145,7 @@ if (isset($_POST['status']) && isset($user) && $user['id'] == $ank['id']) {
 		######################Лента
 		$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $user['id'] . "' AND `i` = '1'");
 		while ($f = dbarray($q)) {
-			$a = get_user($f['frend']);
+			$a = user::get_user($f['frend']);
 			$lentaSet = dbarray(dbquery("SELECT * FROM `tape_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // 一般饲料设置
 			if ($f['lenta_status'] == 1 && $lentaSet['lenta_status'] == 1)
 				dbquery("INSERT INTO `tape` (`id_user`,`ot_kogo`,  `avtor`, `type`, `time`, `id_file`) values('$a[id]', '$user[id]', '$status[id_user]', 'status', '$time', '$status[id]')");
@@ -173,7 +173,7 @@ if (isset($_GET['like']) && $user['id'] != $ank['id'] && dbresult(dbquery("SELEC
 	######################Лента
 	$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $user['id'] . "' AND `i` = '1'");
 	while ($f = dbarray($q)) {
-		$a = get_user($f['frend']);
+		$a = user::get_user($f['frend']);
 		$lentaSet = dbarray(dbquery("SELECT * FROM `tape_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // Общая настройка ленты
 		if ($a['id'] != $ank['id'] && $f['lenta_status_like'] == 1 && $lentaSet['lenta_status_like'] == 1)
 			dbquery("INSERT INTO `tape` (`id_user`,`ot_kogo`,  `avtor`, `type`, `time`, `id_file`) values('$a[id]', '$user[id]', '$status[id_user]', 'status_like', '$time', '$status[id]')");
@@ -214,7 +214,7 @@ if (isset($user) && isset($_GET['like']) && ($_GET['like'] == 0 || $_GET['like']
 */
 if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 	$mess = dbassoc(dbquery("SELECT * FROM `stena` WHERE `id` = '" . intval($_GET['spam']) . "' limit 1"));
-	$spamer = get_user($mess['id_user']);
+	$spamer = user::get_user($mess['id_user']);
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'stena'"), 0) == 0) {
 		if (isset($_POST['spamus'])) {
 			if ($mess['id_user'] != $user['id']) {
@@ -289,7 +289,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 		echo medal($ank['id']) . " " . online($ank['id']) . " ";
 		echo "</div>";
 		echo "<div class='nav2'>";
-		echo user::avatar($ank['id'], true, 128, false);
+		echo user::avatar($ank['id'], 1);
 		echo "<br />";
 	}
 	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей

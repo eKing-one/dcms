@@ -27,7 +27,7 @@ only_reg();
 $width = ($webbrowser == 'web' ? '100' : '70'); // Размер подарков при выводе в браузер
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
 else $ank['id'] = $user['id']; // Определяем юзера
-$ank = get_user($ank['id']);
+$ank = user::get_user($ank['id']);
 if (!$ank || $ank['id'] == 0) {
 	header("Location: /index.php?" . SID);
 	exit;
@@ -57,7 +57,7 @@ $start = $set['p_str'] * $page - $set['p_str'];
 $q = dbquery("SELECT id,status,coment,id_gift,id_ank,time FROM `gifts_user` WHERE `id_user` = '$ank[id]'" . ($ank['id'] != $user['id'] ? " AND `status` = '1' " : "") . " ORDER BY `time` DESC LIMIT $start, $set[p_str]");
 while ($post = dbassoc($q)) {
 	$gift = dbassoc(dbquery("SELECT id,name FROM `gift_list` WHERE `id` = '$post[id_gift]' LIMIT 1"));
-	$anketa = get_user($post['id_ank']);
+	$anketa = user::get_user($post['id_ank']);
 	/*-----------代码-----------*/
 	if ($num == 0) {
 		echo '<div class="nav1">';

@@ -15,7 +15,7 @@ if ($type == 'status_like' && $post['avtor'] != $user['id']) // статус lik
 */
 if ($type == 'status_like' || $type == 'status') {
 	$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '" . $post['id_file'] . "' LIMIT 1"));
-	$otkogo = get_user($post['ot_kogo']);
+	$otkogo = user::get_user($post['ot_kogo']);
 	if ($status['id']) {
 		echo '<div class="nav1">';
 		if ($post['ot_kogo']) {

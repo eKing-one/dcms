@@ -51,7 +51,7 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'all') {
 //------------------------like к статусу-------------------------//
 if (isset($_GET['likestatus'])) {
 	$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '" . intval($_GET['likestatus']) . "' LIMIT 1"));
-	$ank = get_user(intval($_GET['likestatus']));
+	$ank = user::get_user(intval($_GET['likestatus']));
 
 	if (
 		isset($user) && $user['id'] != $ank['id'] &&
@@ -62,7 +62,7 @@ if (isset($_GET['likestatus'])) {
 		$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $user['id'] . "' AND `i` = '1'");
 
 		while ($f = dbarray($q)) {
-			$a = get_user($f['frend']);
+			$a = user::get_user($f['frend']);
 			dbquery("INSERT INTO `tape` (`id_user`,`ot_kogo`,  `avtor`, `type`, `time`, `id_file`) 
 			values('$a[id]', '$user[id]', '$status[id_user]', 'status_like', '$time', '$status[id]')");
 		}

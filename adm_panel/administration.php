@@ -29,7 +29,7 @@ if ($k_post == 0) {
 }
 $q = dbquery("SELECT `user`.`id` FROM `user` LEFT JOIN `user_group` ON `user`.`group_access` = `user_group`.`id` WHERE `user_group`.`level` != 0 AND `user_group`.`level` IS NOT NULL ORDER BY `user_group`.`level` DESC LIMIT $start, $set[p_str]");
 while ($ank = dbassoc($q)) {
-    $ank = get_user($ank['id']);
+    $ank = user::get_user($ank['id']);
     echo "   <tr>";
     if ($set['set_show_icon'] == 2) {
         echo "  <td class='icon48' rowspan='2'>";
