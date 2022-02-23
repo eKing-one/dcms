@@ -37,7 +37,7 @@ if (strlen2($nick)>32)$err[]='昵称超过32字';
 else $err[]='用户名 "'.stripcslashes(htmlspecialchars($_POST['nick'])).'" 已登记。';
 if (isset($_POST['nick']) && !isset($err))
 {
-$user['nick']=$_POST['nick'];
+$user['nick'] = $_POST['nick'];
 dbquery("UPDATE `user` SET `nick` = '".my_esc($user['nick'])."' , `set_nick` = '0' WHERE `id` = '$user[id]' LIMIT 1");
 }
 }

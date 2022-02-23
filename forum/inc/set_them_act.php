@@ -63,7 +63,7 @@ if (isset($_POST['up']) && $_POST['up']==1 AND $them['up']!=1)
 if ($ank2['id']!=$user['id'])admin_log('论坛','主题参数',"固定主题'[url=/forum/$forum[id]/$razdel[id]/$them[id]/]$them[name][/url]' (作者 '[url=/info.php?id=$ank2[id]]$ank2[nick][/url]', раздел '$razdel[name]')");
 $up=1;
 /* PluginS Dcms-Social.Ru */
-$msgg='[red]Тему закрепил '.$user['group_name'].' '.$user['nick'].'[/red]';
+$msgg='[red]主题已固定 '.$user['group_name'].' '.$user['nick'].'[/red]';
 dbquery("INSERT INTO `forum_p` (`id_forum`, `id_razdel`, `id_them`, `id_user`, `msg`, `time`) values('$forum[id]', '$razdel[id]', '$them[id]', '0', '".my_esc($msgg)."', '$time')");
 /*тут конец*/
 }

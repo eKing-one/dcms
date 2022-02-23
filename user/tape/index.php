@@ -1,8 +1,8 @@
 <?
 /*
 =======================================
-Лента друзей для Dcms-Social
-Автор: Искатель
+Dcms-Social用朋友蝴蝶结
+作者:с author author author author
 ---------------------------------------
 此脚本在许可下被破坏
 DCMS-Social 引擎。
@@ -187,7 +187,7 @@ echo '<a href="?page=' . $page . '&amp;delete=all"><img src="/style/icons/delete
 echo '</div>';
 
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> <a href="/info.php?id=' . $user['id'] . '">' . $user['nick'] . '</a> | ';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($user['id'],0,0,0) . '</a> | ';
 echo '<b>消息</b>';
 echo '</div>';
 

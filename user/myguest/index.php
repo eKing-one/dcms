@@ -20,7 +20,7 @@ include_once '../../sys/inc/thead.php';
 title();
 aut();
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> <a href="/info.php?id=' . $user['id'] . '">' . $user['nick'] . '</a> | ';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($user['id'],1,0,0) . ' | ';
 echo '<b>谁来看我？</b>';
 echo '</div>';
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `my_guests` WHERE `id_ank` = '$user[id]'"), 0);
@@ -45,14 +45,14 @@ while ($post = dbarray($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	echo user::avatar($ank['id']) . group($ank['id']) . ' <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> ' . medal($ank['id']) . ' ' . online($ank['id']) . ' ';
+	echo user::nick($ank['id'],1,1,0);
 	if ($post['read'] == 1)
 		echo ' <span class="time" style="color:red">' . vremja($post['time']) . '</span><br />';
 	else
 		echo ' <span>' . vremja($post['time']) . '</span><br />';
 	echo '<a href="/mail.php?id=' . $ank['id'] . '"><img src="/style/icons/pochta.gif" alt="*" /> 信息</a> ';
 	echo '</div>';
-	// Помечаем пост прочитанным
+	// 帖子显示为已读
 	dbquery("UPDATE `my_guests` SET `read` = '0' WHERE `id` = '$post[id]' LIMIT 1");
 }
 echo '</table>';
@@ -61,7 +61,7 @@ echo '<div class="foot">';
 echo '<img src="/style/icons/delete.gif" alt="*"> <a href="?truncate">清除列表</a><br />';
 echo '</div>';
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> <a href="/info.php?id=' . $user['id'] . '">' . $user['nick'] . '</a> | ';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($user['id'],1,0,0) .' | ';
 echo '<b>谁来看我？</b>';
 echo '</div>';
 include_once '../../sys/inc/tfoot.php';

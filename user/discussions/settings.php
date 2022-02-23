@@ -107,7 +107,7 @@ aut();
 	</div>
 </form>
 <div class="foot">
-	<img src="/style/icons/str2.gif" alt="*"> <a href="/id<?= $user['id'] ?>"><?= $user['nick'] ?></a> | <b>讨论情况</b>
+	<img src="/style/icons/str2.gif" alt="*"> <?= user::nick($user['id'],1,0,0) ?></a> | <b>讨论情况</b>
 </div>
 <?
 include_once '../../sys/inc/tfoot.php';

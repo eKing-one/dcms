@@ -1,4 +1,9 @@
-<?
+<?php
+/*
+ *
+ * 检测登录与退出
+ * 
+ */
 function user_access($access, $u_id = null, $exit = false)
 {
     if ($u_id == null)
