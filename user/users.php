@@ -19,7 +19,7 @@ if (isset($_GET['DESC'])) $por = 'DESC'; // обратный порядок
 switch (@$_GET['sort']) {
 	case 'balls':
 		$sql_sort = '`user`.`balls`';
-		$sort = 'balls'; // 评分
+		$sort = 'balls'; // 积分
 		break;
 	case 'level':
 		$sql_sort = '`user_group`.`level`';
@@ -47,7 +47,7 @@ if (!isset($_GET['go'])) {
 	按顺序排序: <br />
 	<select name='menu' onchange='top.location.href = this.options[this.selectedIndex].value;'> 
 	<option selected>-选择-
-	<option value='?sort=balls&amp;DESC&amp;page=$page'>评分</option>
+	<option value='?sort=balls&amp;DESC&amp;page=$page'>积分</option>
 	<option value='?sort=level&amp;DESC&amp;page=$page'>等级</option>
 	<option value='?sort=rating&amp;DESC&amp;page=$page'>评级</option>
 	<option value='?sort=id&amp;ASC&amp;page=$page'>id</option>
@@ -78,7 +78,7 @@ if (!isset($_GET['go'])) {
 		if ($sort == 'rating')
 			echo "<span class=\"ank_n\">评级:</span> <span class=\"ank_d\">$ank[rating]</span><br />";
 		if ($sort == 'balls')
-			echo "<span class=\"ank_n\">评分:</span> <span class=\"ank_d\">$ank[balls]</span><br />";
+			echo "<span class=\"ank_n\">积分:</span> <span class=\"ank_d\">$ank[balls]</span><br />";
 		if ($sort == 'pol')
 			echo "<span class=\"ank_n\">性别:</span> <span class=\"ank_d\">" . (($ank['pol'] == 1) ? '男' : '女') . "</span><br />";
 		if ($sort == 'id')
@@ -110,7 +110,7 @@ if (isset($_GET['go']) && $usearch != NULL) {
 	按顺序排序: <br />
 	 <select name='menu' onchange='top.location.href = this.options[this.selectedIndex].value;'> 
 	<option selected>-选择-
-	<option value='?sort=balls&amp;DESC&amp;page=$page'>评分</option>
+	<option value='?sort=balls&amp;DESC&amp;page=$page'>积分</option>
 	<option value='?sort=level&amp;DESC&amp;page=$page'>等级</option>
 	<option value='?sort=rating&amp;DESC&amp;page=$page'>评级</option>
 	<option value='?sort=id&amp;ASC&amp;page=$page'>id</option>
@@ -142,7 +142,7 @@ if (isset($_GET['go']) && $usearch != NULL) {
 		if ($sort == 'rating')
 			echo "<span class=\"ank_n\">评级:</span> <span class=\"ank_d\">$ank[rating]</span><br />";
 		if ($sort == 'balls')
-			echo "<span class=\"ank_n\">评分</span> <span class=\"ank_d\">$ank[balls]</span><br />";
+			echo "<span class=\"ank_n\">积分</span> <span class=\"ank_d\">$ank[balls]</span><br />";
 		if ($sort == 'pol')
 			echo "<span class=\"ank_n\">性别:</span> <span class=\"ank_d\">" . (($ank['pol'] == 1) ? '男' : '女') . "</span><br />";
 		if ($sort == 'id')

@@ -77,7 +77,7 @@ if (isset($user) && $user['id'] != $ank['id'] && dbresult(query("SELECT COUNT(*)
 		}
 		query("INSERT INTO `gallery_rating` (`id_user`, `id_foto`, `like`, `time`, `avtor`) values('$user[id]', '$foto[id]', '" . intval($_GET['rating']) . "', '$time', $foto[id_user])", $db);
 		query("UPDATE `gallery_foto` SET `rating` = '" . ($foto['rating'] + intval($_GET['rating'])) . "' WHERE `id` = '$foto[id]' LIMIT 1", $db);
-		$_SESSION['message'] = '你的评分被接受';
+		$_SESSION['message'] = '你的积分被接受';
 		header("Location: ?");
 		exit;
 	}

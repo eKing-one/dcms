@@ -37,7 +37,7 @@ $anketa = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $status[id_user] LI
 err();
 aut(); // форма авторизации
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <a href='index.php?id=" . $anketa['id'] . "'>状态</a> | <b>评分</b>";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <a href='index.php?id=" . $anketa['id'] . "'>状态</a> | <b>积分</b>";
 echo "</div>";
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '" . intval($_GET['id']) . "'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
@@ -75,6 +75,6 @@ while ($post = dbassoc($q)) {
 echo "</table>";
 if ($k_page > 1) str("like.php?id=" . intval($_GET['id']) . '&amp;', $k_page, $page); // 输出页数
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <a href='index.php?id=" . $anketa['id'] . "'>状态</a> | <b>评分</b>";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <a href='index.php?id=" . $anketa['id'] . "'>状态</a> | <b>积分</b>";
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';

@@ -9,7 +9,7 @@ include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/adm_check.php';
 include_once '../../sys/inc/user.php';
-$set['title']='评分 5+';
+$set['title']='积分 5+';
 include_once '../../sys/inc/thead.php';
 title();
 if (!isset($user))
@@ -68,7 +68,7 @@ $err='你没有足够的资金';
 }
 err();
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 服务 \"评分 5+\"<br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 服务 \"积分 5+\"<br />";
 echo "</div>";
 echo"<div class='nav1'>";
 echo "服务 <img src='/style/icons/6.png' alt='*'><br /> 1 $sMonet[1] = 1 使用特权的日子.";
@@ -95,6 +95,6 @@ echo"</div>";
 }
 }
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 服务 \"评分 5+\"<br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 服务 \"积分 5+\"<br />";
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';

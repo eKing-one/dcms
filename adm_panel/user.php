@@ -227,7 +227,7 @@ echo "<option value=\"0\"$sel>隐藏</option>";
 echo "</select><br />";
 if ($user['level'] < 3) $dis = ' disabled="disabled"';
 else $dis = NULL;
-echo "评分:<br /><input type='text'$dis name='balls' value='$ank[balls]' /><br />";
+echo "积分:<br /><input type='text'$dis name='balls' value='$ank[balls]' /><br />";
 echo "团体:<br /><select name='group_access'" . (user_access('user_change_group') ? null : ' disabled="disabled"') . "><br />";
 $q = dbquery("SELECT * FROM `user_group` ORDER BY `level`,`id` ASC");
 while ($post = dbassoc($q)) {

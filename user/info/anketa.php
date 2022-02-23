@@ -264,7 +264,7 @@ echo "</div>";
 //-----------------инфо----------------//
 echo "<div class='nav2'>";
 echo "<b>ID: $ank[id]</b><br /> ";
-echo "评分 (";
+echo "积分 (";
 echo "<font color='green'>$ank[balls]</font>)<br /> ";
 echo $sMonet[2] . ' (' . $ank['money'] . ')<br />';
 echo "<img src='/style/icons/time.png' alt='*' width='14'/> ($displaystring)<br />  ";

@@ -36,7 +36,7 @@ echo '&rarr; <a href="liders.php">网站排名</a> ' . ($c == 0 ? '<span class="
 echo '</div>';
 echo '<div class="nav2">';
 $c2 = dbresult(dbquery("SELECT COUNT(*) FROM `user_set` WHERE `id_user` = '$user[id]' AND `ocenka` > '$time'"), 0);
-echo "&rarr; <a href='plus5.php'>评分</a> <img src='/style/icons/6.png' alt='*'> " . ($c2 == 0 ? '<span class="off">[已关闭]</span> ' : '<span class="on">[已启用]</span>') . "";
+echo "&rarr; <a href='plus5.php'>积分</a> <img src='/style/icons/6.png' alt='*'> " . ($c2 == 0 ? '<span class="off">[已关闭]</span> ' : '<span class="on">[已启用]</span>') . "";
 echo "</div>";
 echo "<div class='foot'>";
 echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 额外服务<br />";
