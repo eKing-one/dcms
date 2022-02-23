@@ -253,11 +253,11 @@ if ($k_page > 1) str("?id=$notes[id]&amp;", $k_page, $page); // 输出页数
 $listr = dbassoc(dbquery("SELECT * FROM `notes` WHERE `id` < '$notes[id]' ORDER BY `id` DESC LIMIT 1"));
 $list = dbassoc(dbquery("SELECT * FROM `notes` WHERE `id` > '$notes[id]' ORDER BY `id`  ASC LIMIT 1"));
 echo '<div class="c2" style="text-align: center;">';
-if (isset($list['id'])) echo '<span class="page">' . ($list['id'] ? '<a href="list.php?id=' . $list['id'] . '">&laquo; 上一页.</a> ' : '&laquo; 上一页. ') . '</span>';
+if (isset($list['id'])) echo '<span class="page">' . ($list['id'] ? '<a href="list.php?id=' . $list['id'] . '">&laquo; 上一页</a> ' : '&laquo; 上一页') . '</span>';
 $k_1 = dbresult(dbquery("SELECT COUNT(*) FROM `notes` WHERE `id` > '$notes[id]'"), 0) + 1;
 $k_2 = dbresult(dbquery("SELECT COUNT(*) FROM `notes`"), 0);
 echo ' (第' . $k_1 . '页 共' . $k_2 . '页) ';
-if (isset($listr['id'])) echo '<span class="page">' . ($listr['id'] ? '<a href="list.php?id=' . $listr['id'] . '">下一页. &raquo;</a>' : ' 下一页. &raquo;') . '</span>';
+if (isset($listr['id'])) echo '<span class="page">' . ($listr['id'] ? '<a href="list.php?id=' . $listr['id'] . '">下一页 &raquo;</a>' : ' 下一页 &raquo;') . '</span>';
 echo '</div>';
 /*----------------------plugins---------------*/
 echo "<div class='main2'>";

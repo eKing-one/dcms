@@ -65,7 +65,7 @@ while ($them = dbarray($q))
 	// Автор последнего поста
     if ($post['id'])  {
 	$ank2 = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
-	if ($ank2['id'])echo 'Посл.: <a href="/info.php?id=' . $ank2['id'] . '">' . $ank2['nick'] . '</a> (' . vremja($post['time']) . ')<br />'; }
+	if ($ank2['id'])echo '大使: <a href="/info.php?id=' . $ank2['id'] . '">' . $ank2['nick'] . '</a> (' . vremja($post['time']) . ')<br />'; }
 	echo '</div>';
 }
 echo '</table>';

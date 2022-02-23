@@ -25,7 +25,7 @@ if (!$ank) {
 }
 // помечаем сообщения как прочитанные
 dbquery("UPDATE `mail` SET `read` = '1' WHERE `id_kont` = '$user[id]' AND `id_user` = '$ank[id]'");
-$set['title'] = 'Почта: ' . $ank['nick'];
+$set['title'] = '邮局: ' . $ank['nick'];
 include_once 'sys/inc/thead.php';
 title();
 /* Бан пользователя */
@@ -192,7 +192,7 @@ if ($user['group_access'] == 0) {
 	}
 }
 echo "<div class='nav2'>";
-echo "Переписка с " . group($ank['id']) . "
+echo "与…通信 " . group($ank['id']) . "
  <a href='/id" . $ank['id'] . "'>" . $ank['nick'] . "</a> " . medal($ank['id']) . online($ank['id']) . " <span style='float:right;'>";
 if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"), 0) == 1) {
 	$kont = dbarray(dbquery("SELECT * FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"));
