@@ -10,7 +10,7 @@
 define('H', $_SERVER['DOCUMENT_ROOT'] . '/');
 session_name('SESS');
 session_start();
-$show_all = true; //为大家展示, в противном случае невозможно будет пройти регистрацию
+$show_all = true; //为大家展示, 否则无法完成注册。
 //include_once 'sys/inc/user.php';
 require H . 'sys/inc/captcha.php';
 $_SESSION['captcha'] = '';
@@ -20,6 +20,6 @@ for ($i = 0; $i < 5; $i++) {
 }
 $captcha = new captcha($_SESSION['captcha']);
 $captcha->create();
-//$captcha->MultiWave(); // искажение изображения
+//$captcha->MultiWave(); // 图像失真
 $captcha->colorize();
 $captcha->output();

@@ -73,9 +73,7 @@ if (!isset($_GET['go'])) {
 			$num = 0;
 		}
 		/*---------------------------*/
-		echo user::avatar($ank['id']), group($ank['id']);
-		echo " <a href='/info.php?id=$ank[id]'>$ank[nick]</a> ";
-		echo "" . medal($ank['id']) . " " . online($ank['id']) . "<br />";
+		echo user::avatar($ank['id'],0) . user::nick($ank['id']);//输出头像及用户名
 		if ($ank['group_access'] > 1) echo "<span class='status'>$ank[group_name]</span><br />";
 		if ($sort == 'rating')
 			echo "<span class=\"ank_n\">评级:</span> <span class=\"ank_d\">$ank[rating]</span><br />";
@@ -139,9 +137,7 @@ if (isset($_GET['go']) && $usearch != NULL) {
 			$num = 0;
 		}
 		/*---------------------------*/
-		echo "" . user::avatar($ank['id']) . " " . group($ank['id']) . "";
-		echo "<a href='/info.php?id=$ank[id]'>$ank[nick]</a>";
-		echo "" . medal($ank['id']) . " " . online($ank['id']) . "";
+		echo user::avatar($ank['id'],0) . user::nick($ank['id']);//输出头像及用户名
 		if ($ank['level'] != 0) echo "<span class=\"status\">$ank[group_name]</span><br />";
 		if ($sort == 'rating')
 			echo "<span class=\"ank_n\">评级:</span> <span class=\"ank_d\">$ank[rating]</span><br />";

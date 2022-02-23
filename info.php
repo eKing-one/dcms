@@ -28,7 +28,7 @@ if ($ank['id'] == 0) {
 	include_once 'sys/inc/tfoot.php';
 	exit;
 }
-/* Бан пользователя */
+/* 用户厢式货车 */
 if ((!isset($user) || $user['group_access'] == 0) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'all' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0) != 0) {
 	$set['title'] = $ank['nick'] . ' - 页面 '; //网页标题
 	include_once 'sys/inc/thead.php';
@@ -40,7 +40,7 @@ if ((!isset($user) || $user['group_access'] == 0) && dbresult(dbquery("SELECT CO
 	include_once 'sys/inc/tfoot.php';
 	exit;
 }
-// Удаление комментариев
+// 删除注释
 if (isset($_GET['delete_post']) && dbresult(dbquery("SELECT COUNT(*) FROM `stena` WHERE `id` = '" . intval($_GET['delete_post']) . "'"), 0) == 1) {
 	$post = dbassoc(dbquery("SELECT * FROM `stena` WHERE `id` = '" . intval($_GET['delete_post']) . "' LIMIT 1"));
 	if (user_access('guest_delete') || $ank['id'] == $user['id']) {
@@ -165,9 +165,9 @@ if (isset($_GET['off'])) {
 	}
 }
 //-------------------------------------// 
-// Статус пользователя
+// 用户状态
 $status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id_user` = '$ank[id]' AND `pokaz` = '1' LIMIT 1"));
-/* Класс к статусу */
+/* 状态类 */
 if (isset($_GET['like']) && $user['id'] != $ank['id'] && dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
 	dbquery("INSERT INTO `status_like` (`id_user`, `time`, `id_status`) values('$user[id]', '$time', '$status[id]')");
 	######################Лента
@@ -178,7 +178,7 @@ if (isset($_GET['like']) && $user['id'] != $ank['id'] && dbresult(dbquery("SELEC
 		if ($a['id'] != $ank['id'] && $f['lenta_status_like'] == 1 && $lentaSet['lenta_status_like'] == 1)
 			dbquery("INSERT INTO `tape` (`id_user`,`ot_kogo`,  `avtor`, `type`, `time`, `id_file`) values('$a[id]', '$user[id]', '$status[id_user]', 'status_like', '$time', '$status[id]')");
 	}
-	#######################Конец
+	#######################终极
 	header("Location: ?id=$ank[id]");
 	exit;
 }
@@ -232,7 +232,7 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 			}
 		}
 	}
-	$set['title'] = $ank['nick'] . ' - жалоба '; //网页标题
+	$set['title'] = $ank['nick'] . ' - 不满事项 '; //网页标题
 	include_once 'sys/inc/thead.php';
 	title();
 	aut();
@@ -242,8 +242,7 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 		如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
 		echo "<form class='nav1' method='post' action='/info.php?id=$ank[id]&amp;spam=$mess[id]&amp;page=" . intval($_GET['page']) . "'>";
 		echo "<b>用户:</b> ";
-		echo " " . user::avatar($spamer['id']) . " <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>";
-		echo "" . medal($spamer['id']) . " " . online($spamer['id']) . " (" . vremja($mess['time']) . ")<br />";
+		echo " " . user::avatar($spamer['id']) . user::nick($spamer['id']) . " (" . vremja($mess['time']) . ")<br />";
 		echo "<b>违规行为:</b> <font color='green'>" . output_text($mess['msg']) . "</font><br />";
 		echo "原因:<br /><select name='types'>";
 		echo "<option value='1' selected='selected'>垃圾邮件/广告</option>";
@@ -281,18 +280,17 @@ $uSet = dbarray(dbquery("SELECT * FROM `user_set` WHERE `id_user` = '$ank[id]'  
 $frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$ank[id]') OR (`user` = '$ank[id]' AND `frend` = '$user[id]') LIMIT 1"), 0);
 $frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[id]' AND `to` = '$ank[id]') OR (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"), 0);
 if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
-	if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) // Начинаем вывод если стр имеет приват настройки
+	if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) // 页面有个人设置时开始打印
 	{
 		if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
 		echo "<div class='nav1'>";
-		echo group($ank['id']) . " $ank[nick] ";
-		echo medal($ank['id']) . " " . online($ank['id']) . " ";
+		echo user::get_user($ank['id']);
 		echo "</div>";
 		echo "<div class='nav2'>";
 		echo user::avatar($ank['id'], 1);
 		echo "<br />";
 	}
-	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей
+	if ($uSet['privat_str'] == 2 && $frend != 2) // 只要有朋友的话
 	{
 		echo '<div class="mess">';
 		echo '只有他的朋友才能查看用户的页面！';
@@ -312,7 +310,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 		include_once 'sys/inc/tfoot.php';
 		exit;
 	}
-	if ($uSet['privat_str'] == 0) // Если закрыта
+	if ($uSet['privat_str'] == 0) // 关闭时
 	{
 		echo '<div class="mess">';
 		echo '用户已禁止查看他的页面！';

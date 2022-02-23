@@ -76,7 +76,7 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 		$user = dbassoc(dbquery("SELECT * FROM `user` WHERE `nick` = '" . my_esc($_SESSION['reg_nick']) . "' AND `pass` = '" . shif($_POST['pass1']) . "' LIMIT 1"));
 		/*
 ========================================
-Создание настроек юзера 
+创建用户设置 
 ========================================
 */
 		dbquery("INSERT INTO `user_set` (`id_user`) VALUES ('$user[id]')");

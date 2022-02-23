@@ -46,15 +46,15 @@ if (!$set['web'])
 		<?
 	}
 	?></div><?
-	// новости 
+	// 新闻&事件 
 	include_once 'sys/inc/news_main.php'; 
-	// главное меню
+	// 主菜单
 	include_once 'sys/inc/main_menu.php'; 
 	include_once H.'sys/inc/main_notes.php';
 }
 else
 {
-	// главная web темы
+	// 主要网页主题
 	include_once 'style/themes/' . $set['set_them'] . '/index.php'; 
 }
 include_once 'sys/inc/tfoot.php';

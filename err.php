@@ -12,16 +12,16 @@ function compress_output_deflate($output)
 {
 return gzdeflate($output, 9);
 }
-// сжатие по умолчанию
+// 默认压缩
 $Content_Encoding['deflate']=false;
 $Content_Encoding['gzip']=false;
-// включение сжатия, если поддерживается браузером
+// 浏览器支持时使用压缩
 if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) && preg_match('#deflate#',$_SERVER['HTTP_ACCEPT_ENCODING']))$Content_Encoding['deflate']=true;
 if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) && preg_match('#gzip#',$_SERVER['HTTP_ACCEPT_ENCODING']))$Content_Encoding['gzip']=true;
-// Непосредственное включение сжатия
+// 直接压缩使用
 if ($Content_Encoding['deflate']){header("Content-Encoding: deflate");ob_start("compress_output_deflate");}
 elseif($Content_Encoding['gzip']){header("Content-Encoding: gzip");ob_start("compress_output_gzip");}
-else ob_start(); // если нет сжатия, то просто буферизация данных
+else ob_start(); // 没有压缩时，只需进行数据缓冲即可。
 session_name('SESS');
 session_start();
 $sess=mysql_real_escape_string(session_id());

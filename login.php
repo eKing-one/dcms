@@ -31,7 +31,7 @@ elseif (isset($_POST['nick']) && isset($_POST['pass']))
 		$user = dbassoc(dbquery("SELECT `id` FROM `user` WHERE `nick` = '".my_esc($_POST['nick'])."' AND `pass` = '".shif($_POST['pass'])."' LIMIT 1"));
 		$_SESSION['id_user'] = $user['id'];
 		$user = user::get_user($user['id']);
-		// сохранение данных в COOKIE
+		// 在COOKIE中保存数据
 		if (isset($_POST['aut_save']) && $_POST['aut_save'])
 		{
 			setcookie('id_user', $user['id'], time()+60*60*24*365);
@@ -85,24 +85,24 @@ while ($collision = dbassoc($collision_q))
 }
 /*
 ========================================
-Рейтинг
+等级: 0
 ========================================
 */
 if (isset($user) && $user['rating_tmp']>1000)
 {
-	// Счетчик активности
+	// 活动柜台
 	$col = $user['rating_tmp']; 
-	// Делим на 100 что бы получить процент
+	// 百分比除以百分比
 	$col = $col / 1000; 
-	// Округляем
+	// 四舍五入
 	$col = intval($col); 
-	// Прибавляем % рейтинга
+	// 添加% 级别
 	dbquery("update `user` set `rating` = '" . ($user['rating'] + $col) . "' where `id` = '$user[id]' limit 1");
-	// Оповещаем
+	// 通知
 	$_SESSION['message'] = "祝贺你！你的活动是值得的 $col% 评级!"; 
-	// Вычисляем остаток счетчика активности
+	// 活动柜台余额计算
 	$col = $user['rating_tmp'] - ($col * 1000); 
-	// Сбрасываем
+	// 重新设定
 	dbquery("update `user` set `rating_tmp` = '$col' where `id` = '$user[id]' limit 1");
 }
 if (isset($_GET['return']))

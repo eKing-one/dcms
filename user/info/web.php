@@ -171,7 +171,7 @@ if ($ank['group_access'] > 1) {
 			echo "<div class='main2'>";
 			echo "<img src='/style/my_menu/who_rating.png' alt='*' /> <a href='/user/info/who_rating.php?id=$ank[id]'><b>反馈意见</b></a> (" . dbresult(dbquery("SELECT COUNT(*) FROM `user_voice2` WHERE `id_kont` = '" . $ank['id'] . "'"), 0) . ")<br />";
 			echo "</div>";
-			/*-----------------------------в друзья-------------------------*/
+			/*-----------------------------交朋友-------------------------*/
 			if (isset($user) && $user['id'] != $ank['id']) {
 				echo "<div class='main'>";
 				if ($frend_new == 0 && $frend == 0) {
@@ -183,14 +183,14 @@ if ($ank['group_access'] > 1) {
 				}
 				echo "</div>";
 				/*-------------------------------------------------------------*/
-				/*--------------------Сообщение-----------------------------------*/
+				/*--------------------消息 -----------------------------------*/
 				echo "<div class='main'>";
 				echo " <a href=\"/mail.php?id=$ank[id]\"><img src='/style/icons/pochta.gif' alt='*' /> 通信</a> ";
 				echo "</div>";
 				/*----------------------------------------------------------------*/
 				/*
 ========================================
-Монеты перевод
+硬币翻译
 ========================================
 */
 				echo "<div class='main2'>";
@@ -198,14 +198,14 @@ if ($ank['group_access'] > 1) {
 				echo "</div>";
 				/*
 ========================================
-Сделать подарок
+做礼物
 ========================================
 */
 				echo "<div class='main2'>";
 				echo "<img src='/style/icons/present.gif' alt='*' /> <a href=\"/user/gift/categories.php?id=$ank[id]\">送礼物</a><br />";
 				echo "</div>";
 			}
-			/*-----------------------------настройки-----------------------*/
+			/*-----------------------------设置-----------------------*/
 			if (isset($user) && $ank['id'] == $user['id']) {
 				echo "<div class='main2'>";
 				echo "<img src='/style/icons/uslugi.gif' alt='*' /> <a href=\"/user/money/index.php\">附加服务</a><br /> ";
@@ -331,10 +331,10 @@ if ($ank['group_access'] > 1) {
 					echo "<a href='/user/status/like.php?id=$status[id]'> $like 人. </a>";
 					echo '</div>';
 				}
-				/* Общее колличество статусов */
+				/* 总状态数 */
 				$st = dbresult(dbquery("SELECT COUNT(*) FROM `status` WHERE `id_user` = '$ank[id]'"), 0);
 				if ($st > 0) {
-					echo "<div class='main2'>"; // пишем свой див
+					echo "<div class='main2'>"; // 使用我们自己的Diva
 					echo " &rarr; <a href='/user/status/index.php?id=$ank[id]'>所有状态</a> (" . $st . ")";
 					echo "</div>";
 				}

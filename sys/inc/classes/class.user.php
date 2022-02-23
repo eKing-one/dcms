@@ -23,8 +23,8 @@ class user
 	public static function nick($user = 0, $url = 1, $on = 0, $medal = 0)
 	{
 		/*
-		* $url == 0		只输出尼克
-		* $url == 1		输出引用到用户页的 Nick
+		* $url == 0		只输出昵称
+		* $url == 1		输出昵称并链接到用户页的
 		* $on  == 1		在线显示 Nick 旁边的图标
 		* $medal == 1	在线输出图标旁边的奖牌
 		*/
@@ -43,7 +43,7 @@ class user
 			$nick = ' <a href="/id' . $user . '">' . text($ank['nick']) . '</a> ';
 		else
 			$nick = text($ank['nick']);
-		// 联机图标输出
+		// 在线图标输出
 		if ($user != 0 && $ank['date_last'] > time() - 600 && $on == true) {
 			if ($ank['browser'] == 'wap')
 				$online = ' <img src="/style/icons/online.gif" alt="WAP" /> ';
@@ -73,7 +73,7 @@ class user
 		return $nick . $icon_medal . $online;
 	}
 	/**
-	 * / 化身，用户组图标
+	 * / 本身，用户组图标
 	 */
 	public static function avatar($user = 0, $type = 1)
 	{
@@ -101,7 +101,7 @@ class user
 				$AVATAR = '<img class="avatar" src="/style/user/avatar.gif" height= "50" width="50" alt="No Avatar" />';
 		}
 		static $icons = [];
-		// Иконка пользователя
+		// 用户组图标
 		if ($type == 0 || $type == 2) {
 			if (empty($icons[$user])) {
 				$result = dbresult(query("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$user' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
@@ -186,7 +186,7 @@ class user
 			else
 				$ank['avatar'] = ' <img class="avatar" src="/style/user/avatar.gif" width="50" alt="No Avatar" /> ';
 		}
-		// 联机图标输出
+		// 在线图标输出
 		if (isset($ank['date_last']) && $ID != 0 && $ank['date_last'] > time() - 600) {
 			if ($ank['browser'] == 'wap')
 				$ank['online'] = ' <img src="/style/icons/online.gif" alt="WAP" /> ';

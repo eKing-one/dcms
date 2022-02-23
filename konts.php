@@ -1,4 +1,7 @@
 <?php
+/**
+ * 联系人
+ */
 include_once 'sys/inc/start.php';
 include_once 'sys/inc/compress.php';
 include_once 'sys/inc/sess.php';
@@ -108,7 +111,7 @@ if (is_array($_POST)) {
 // игнор 
 if (isset($_POST['ignor'])) {
 	if (isset($delpost) && is_array($delpost)) {
-		echo '<div class="mess">联系我们(ы): ';
+		echo '<div class="mess">联系我们: ';
 		for ($q = 0; $q <= count($delpost) - 1; $q++) {
 			if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$delpost[$q]'"), 0) == 0)
 				$warn[] = '此用户不在您的联系人列表中';
@@ -162,7 +165,7 @@ if (isset($_POST['favorite'])) {
 // удаляем
 if (isset($_POST['deleted'])) {
 	if (isset($delpost) && is_array($delpost)) {
-		echo '<div class="mess">联系人: ';
+		echo '<div class="mess">联系人';
 		for ($q = 0; $q <= count($delpost) - 1; $q++) {
 			if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$delpost[$q]'"), 0) == 0)
 				$warn[] = '此用户不在您的联系人列表中';
@@ -204,13 +207,7 @@ if ($k_post) {
 			$num = 0;
 		}
 		/*---------------------------*/
-		if ($set['set_show_icon'] == 2) {
-			user::avatar($ank_kont['id']);
-		} elseif ($set['set_show_icon'] == 1) {
-			echo user::avatar($ank_kont['id']);
-		}
-		echo group($ank_kont['id']) . ' <a href="/info.php?id=' . $ank_kont['id'] . '">' . $ank_kont['nick'] . '</a>';
-		echo online($ank_kont['id']) . medal($ank_kont['id']) . '<br />';
+		echo user::avatar($ank['id'],0) . user::nick($ank['id']);//输出头像及用户名
 		echo '<input type="checkbox" name="post_' . $post['id_kont'] . '" value="1" />';
 		echo ($k_new_mess != 0 ? '<img src="/style/icons/new_mess.gif" alt="*" /> ' : '<img src="/style/icons/msg.gif" alt="*" /> ') . '<a href="/mail.php?id=' . $ank_kont['id'] . '">' . ($post['name'] != null ? $post['name'] : '信息') . '</a> ';
 		echo ($k_new_mess != 0 ? '<font color="red">' : null) . ($k_new_mess != 0 ? '+' . $k_new_mess : '(' . $k_mess . '/' . $k_mess2 . ')' . $k_mess_to) . ($k_new_mess != 0 ? '</font> ' : null);

@@ -73,3 +73,12 @@ PHP4.2及以上（推荐PHP5）、MySQL、mod_rewrite支持、服务器。
 项目官方网站：http://dcms-social.ru
 
 支持：http://dcms-social.ru/forum/
+
+
+plugins 全新设计
+//是否显示图片
+if ($set['set_show_icon'] == 2) {
+    user::avatar($ank_kont['id']);
+} elseif ($set['set_show_icon'] == 1) {
+    echo user::avatar($ank_kont['id']);
+}

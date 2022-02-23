@@ -9,7 +9,7 @@ include_once H.'sys/inc/ipua.php';
 include_once H.'sys/inc/fnc.php';
 include_once H.'sys/inc/user.php';
 only_reg();
-$set['title'] = '输入的历史';
+$set['title'] = '登录历史';
 include_once H.'sys/inc/thead.php';
 title();
 aut();
