@@ -15,14 +15,13 @@ if (isset($user) && isset($_GET['status'])) {
 /*-----------------------------------------------------------*/
 if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
 echo "<div class='nav1'>";
-echo group($ank['id']) . " $ank[nick] ";
-echo medal($ank['id']) . " " . online($ank['id']) . " ";
+echo user::nick($ank['id'],0,1,1);
 if ((user_access('user_ban_set') || user_access('user_ban_set_h') || user_access('user_ban_unset')) && $ank['id'] != $user['id'])
 	echo "<a href='/adm_panel/ban.php?id=$ank[id]'><font color=red>[禁止]</font></a>";
 echo "</div>";
 // Аватар
 echo "<div class='nav2'>";
-echo user::avatar($ank['id'], true, 128, false);
+echo user::avatar($ank['id']);
 echo "<br />";
 if (isset($user) && isset($_GET['like']) && $user['id'] != $ank['id'] && dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
 	dbquery("INSERT INTO `status_like` (`id_user`, `id_status`) values('$user[id]', '$status[id]')");

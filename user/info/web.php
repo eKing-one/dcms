@@ -33,7 +33,7 @@ if ($ank['group_access'] > 1) {
 			<?
 			// Аватар 
 			echo "<div class='mains'>";
-			echo user::avatar($ank['id'], false, 640, 200);
+			echo user::avatar($ank['id']);
 			echo "</div>";
 			// Рейтинг
 			echo "<div class='main'>";
@@ -298,7 +298,7 @@ if ($ank['group_access'] > 1) {
 */
 			echo "<div class='accordion-group'>
 <div class='accordion-heading'>";
-			echo user::nick($ank['id'], 1, 1, 0) . " <span style='float:right;color:#666;'>进来了" . ($ank['pol'] == 0 ? 'a' : null) . " " . vremja($ank['date_last']) . "</span> ";
+			echo user::nick($ank['id'], 0, 0, 0) . " <span style='float:right;color:#666;'>进来了" . ($ank['pol'] == 0 ? 'a' : null) . " " . vremja($ank['date_last']) . "</span> ";
 			if ((user_access('user_ban_set') || user_access('user_ban_set_h') || user_access('user_ban_unset')) && $ank['id'] != $user['id'])
 				echo "<a href='/adm_panel/ban.php?id=$ank[id]'><font color=red>[禁止]</font></a>";
 			echo "</div></div>";

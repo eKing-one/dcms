@@ -284,10 +284,10 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 	{
 		if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
 		echo "<div class='nav1'>";
-		echo user::avatar($ank['id']);
+		echo user::nick($ank['id'],1,1,1);
 		echo "</div>";
 		echo "<div class='nav2'>";
-		echo user::nick($ank['id'],1,1,1);
+		echo user::avatar($ank['id']);
 		echo "<br />";
 	}
 	if ($uSet['privat_str'] == 2 && $frend != 2) // 只要有朋友的话
