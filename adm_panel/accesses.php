@@ -1,4 +1,5 @@
-<?//网页标题
+<?php
+//网页标题
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -14,7 +15,7 @@ adm_check();
 if (isset($_GET['id_group']) && dbresult(dbquery("SELECT COUNT(*) FROM `user_group` WHERE `id` = '".intval($_GET['id_group'])."'"), 0))
 {
 $group=dbassoc(dbquery("SELECT * FROM `user_group` WHERE `id` = '".intval($_GET['id_group'])."'"));
-$set['title']=output_text('团体 "'.$group['name'].'" - 特权'); // заголовок страницы
+$set['title']=output_text('团体 "'.$group['name'].'" - 特权'); // 页面标题
 include_once '../sys/inc/thead.php';
 title();
 if (isset($_POST['accesses']))
