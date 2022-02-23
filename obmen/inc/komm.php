@@ -37,9 +37,9 @@ while ($post = dbassoc($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	echo " " . group($ank['id']) . " <a href='/info.php?id=$ank[id]'>$ank[nick]</a>";
+	echo user::nick($user['id'],1,1,0);
 	if (isset($user) && $user['id'] != $ank['id']) echo " <a href='?showinfo&amp;page=$page&amp;response=$ank[id]'>[*]</a> ";
-	echo "" . online($ank['id']) . " (" . vremja($post['time']) . ")<br />";
+	echo " (" . vremja($post['time']) . ")<br />";
 	$postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'files') AND `post` = '1' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
 	if ($postBan == 0) // Блок сообщения
 	{

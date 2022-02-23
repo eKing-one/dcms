@@ -253,10 +253,9 @@ while ($post = dbassoc($q)) {
 	}
 	/*---------------------------*/
 	$ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
-	group($ank['id']);
-	echo " <a href='/info.php?id=$ank[id]'>$ank[nick]</a> ";
+	echo user::nick($ank['id'],1,1,0);
 	if (isset($user) && $ank['id'] != $user['id']) echo "<a href='?id=$status[id]&amp;response=$ank[id]'>[*]</a> ";
-	echo "" . medal($ank['id']) . " " . online($ank['id']) . " (" . vremja($post['time']) . ")<br />";
+	echo " (" . vremja($post['time']) . ")<br />";
 	$postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all') AND `post` = '1' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
 	if ($postBan == 0) // Блок сообщения
 	{

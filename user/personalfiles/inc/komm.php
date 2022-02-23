@@ -52,9 +52,9 @@ while ($post = dbassoc($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	echo " " . group($anketa['id']) . " <a href='/info.php?id=$anketa[id]'>$anketa[nick]</a>";
+	echo user::nick($anketa['id'],1,1,0);
 	if (isset($user) && $anketa['id'] != $user['id']) echo ' <a href="?id_file=' . $file_id['id'] . '&amp;page=' . $page . '&amp;response=' . $anketa['id'] . '">[*]</a> ';
-	echo "" . online($anketa['id']) . " (" . vremja($post['time']) . ")<br />";
+	echo " (" . vremja($post['time']) . ")<br />";
 	$postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'files') AND `post` = '1' AND `id_user` = '$anketa[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
 	if ($postBan == 0) // Блок сообщения
 	{

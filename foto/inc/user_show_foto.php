@@ -315,8 +315,8 @@ if (!isset($block_foto)) {
 		$num++;
 		echo user::nick($ank2['id'],1,1,0);
 		if (isset($user) && $user['id'] != $ank2['id'])
-			echo ' <a href="?response=' . $ank2['id'] . '&amp;page=' . $page . '">[*]</a> ';
-		echo medal($ank2['id']) . online($ank2['id']) . ' (' . vremja($post['time']) . ')<br />';
+			{echo ' <a href="?response=' . $ank2['id'] . '&amp;page=' . $page . '">[*]</a> ';}
+		echo ' (' . vremja($post['time']) . ')<br />';
 		$postBan = dbresult(query("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'foto') AND `post` = '1' AND `id_user` = '$ank2[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
 		// Блок сообщения
 		if ($postBan == 0) {
