@@ -288,7 +288,7 @@ if (isset($user)) {
 		echo "<a href='list.php?id=$notes[id]&amp;fav=1'>添加到书签</a><br />";
 	else
 		echo "<a href='list.php?id=$notes[id]&amp;fav=0'>从书签中删除</a><br />";
-	echo "在书签中 <a href='list.php?id=$notes[id]&amp;markinfo'>$markinfo</a> 伙计.";
+	echo "在书签中 <a href='list.php?id=$notes[id]&amp;markinfo'>$markinfo</a> 用户.";
 	echo "</div>";
 	echo "</div>";
 }

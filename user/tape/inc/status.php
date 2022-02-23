@@ -64,7 +64,7 @@ if ($type == 'status_like' || $type == 'status')
 			echo ' <img src="/style/icons/like.gif" alt=""/> ';
 			$like = $l;
 		}
-		echo '<a href="/user/status/like.php?id=' . $status['id'] . '">' . $like . ' 伙计.</a>';
+		echo '<a href="/user/status/like.php?id=' . $status['id'] . '">' . $like . ' 用户.</a>';
 	}
 	else
 	{
@@ -74,4 +74,3 @@ if ($type == 'status_like' || $type == 'status')
 		echo '状态已被删除 =(';
 	}
 }
-?>

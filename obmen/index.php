@@ -342,7 +342,7 @@ if (isset($user)){
     echo "<a href='?showinfo&fav=1'>添加到书签</a>"; 
     else 
     echo "<a href='?showinfo&fav=0'>从书签中删除</a>"; 
-    echo "<br/><img src='/style/icons/add_fav.gif' alt='*' /'> 在书签中 <a href='?showinfo&markinfo'>$markinfo</a> 伙计."; 
+    echo "<br/><img src='/style/icons/add_fav.gif' alt='*' /'> 在书签中 <a href='?showinfo&markinfo'>$markinfo</a> 用户."; 
     echo "</div>"; 
 } 
 echo '<div class="main">'; 
@@ -384,5 +384,4 @@ include_once '../sys/inc/tfoot.php';
 } 
 } 
 include_once 'inc/dir.php'; 
-include_once '../sys/inc/tfoot.php'; 
-?>
+include_once '../sys/inc/tfoot.php';

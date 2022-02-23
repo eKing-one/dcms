@@ -51,7 +51,7 @@ aut();
 		<a href="/user/info/settings.php">常见的</a>
 	</div>
 	<div class="webmenu">
-		<a href="/user/tape/settings.php">录音带</a>
+		<a href="/user/tape/settings.php">信息中心</a>
 	</div>
 	<div class="webmenu">
 		<a href="/user/discussions/settings.php" class="activ">讨论情况</a>

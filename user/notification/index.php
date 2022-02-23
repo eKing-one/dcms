@@ -56,7 +56,7 @@ if ($lenta > 0) $lenta = '<font color=red>(' . $lenta . ')</font>';
 else $lenta = null;
 echo "<div id='comments' class='menus'>";
 echo "<div class='webmenu'>";
-echo "<a href='/user/tape/'>录音带 $lenta</a>";
+echo "<a href='/user/tape/'>信息中心 $lenta</a>";
 echo "</div>";
 echo "<div class='webmenu'>";
 echo "<a href='/user/discussions/' >讨论 $discuss</a>";

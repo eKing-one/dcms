@@ -124,7 +124,7 @@ else $lenta = null;
 ?>
 <div id="comments" class="menus">
 	<div class="webmenu">
-		<a href="/user/tape/">录音带<?= $lenta ?></a>
+		<a href="/user/tape/">信息中心<?= $lenta ?></a>
 	</div>
 	<div class="webmenu">
 		<a href="/user/discussions/" class="activ">讨论 <?= $discuss ?></a>

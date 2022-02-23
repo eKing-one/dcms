@@ -67,7 +67,7 @@ if (isset($_GET['likestatus']))
 }
 
 
-$set['title']='录音带';
+$set['title']='信息中心';
 include_once '../../sys/inc/thead.php';
 
 /*
@@ -123,7 +123,7 @@ else $lenta = null;
 
 echo "<div id='comments' class='menus'>";
 echo "<div class='webmenu'>";
-echo "<a href='/user/tape/' class='activ'>录音带 $lenta</a>";
+echo "<a href='/user/tape/' class='activ'>信息中心 $lenta</a>";
 echo "</div>"; 
 echo "<div class='webmenu'>";
 echo "<a href='/user/discussions/' >讨论  $discuss</a>";
@@ -207,4 +207,3 @@ echo '<b>消息</b>';
 echo '</div>';
 
 include_once '../../sys/inc/tfoot.php';
-?>

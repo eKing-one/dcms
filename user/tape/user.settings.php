@@ -478,7 +478,7 @@ echo "<div class='webmenu'>";
 
 
 
-echo "<a href='index.php'>录音带</a>";
+echo "<a href='index.php'>信息中心</a>";
 
 
 
@@ -954,8 +954,3 @@ echo "</form>";
 
 
 include_once '../../sys/inc/tfoot.php';
-
-
-
-
-?>

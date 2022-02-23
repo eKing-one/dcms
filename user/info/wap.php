@@ -52,7 +52,7 @@ if (isset($status['id']) && ($status['id'] || $ank['id'] == $user['id'])) {
 			echo " <img src='/style/icons/like.gif' alt=''/> ";
 			$like = $l;
 		}
-		echo "<a href='/user/status/like.php?id=$status[id]'> $like 伙计. </a>";
+		echo "<a href='/user/status/like.php?id=$status[id]'> $like 用户. </a>";
 	}
 	/* Общее колличество статусов */
 	$st = dbresult(dbquery("SELECT COUNT(*) FROM `status` WHERE `id_user` = '$ank[id]'"), 0);
@@ -179,7 +179,7 @@ if (isset($user) && $user['id'] == $ank['id']) {
 			$color = null;
 			$color2 = null;
 		}
-		echo "<img src='/style/icons/lenta.gif' alt='*' /> <a href='/user/tape/'>" . $color . "录音带" . $color2 . "</a> ";
+		echo "<img src='/style/icons/lenta.gif' alt='*' /> <a href='/user/tape/'>" . $color . "信息中心" . $color2 . "</a> ";
 		if ($k_l != 0) echo "<font color=\"red\">+$k_l</font>";
 		echo "<br />";
 	}

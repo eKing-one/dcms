@@ -56,7 +56,7 @@ $notes=dbarray(dbquery("select * from `notes` where `id`='".intval($_GET['id']).
 echo "<form method='post' name='message' action='?id=".intval($_GET['id'])."&amp;edit'>";
 echo "标题:<br /><input type=\"text\" name=\"name\" value=\""  . text($notes['name']) . "\" /><br />";
 $msg2 = text($notes['msg']);
-if ($set['web'] && is_file(H.'style/themes/'.$set['set_them'].'/altername_post_form.php')){include_once H.'style/themes/'.$set['set_them'].'/altername_post_form.php';}else{echo "Сообщение:$tPanel<textarea name=\"msg\">"  . text($notes['msg']) . "</textarea><br />";}
+if ($set['web'] && is_file(H.'style/themes/'.$set['set_them'].'/altername_post_form.php')){include_once H.'style/themes/'.$set['set_them'].'/altername_post_form.php';}else{echo "消息:$tPanel<textarea name=\"msg\">"  . text($notes['msg']) . "</textarea><br />";}
 echo "类别:<br /><select name='id_dir'>";
 $q=dbquery("SELECT * FROM `notes_dir` ORDER BY `id` DESC");
 echo "<option value='0'".(!$notes['id_dir'] ? " selected='selected'":null)."><b>无类别</b></option>";
@@ -79,4 +79,3 @@ echo " | <a href='list.php?id=$notes[id]'>" . text($notes['name']) . "</a> | <b>
 echo "</div>";
 }
 include_once '../../sys/inc/tfoot.php';
-?>

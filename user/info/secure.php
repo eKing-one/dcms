@@ -44,7 +44,7 @@ echo "<div class='webmenu'>";
 echo "<a href='/user/info/settings.php'>普通</a>";
 echo "</div>"; 
 echo "<div class='webmenu last'>";
-echo "<a href='/user/tape/settings.php'>录音带</a>";
+echo "<a href='/user/tape/settings.php'>信息中心</a>";
 echo "</div>"; 
 echo "<div class='webmenu last'>";
 echo "<a href='/user/discussions/settings.php'>讨论</a>";
@@ -66,4 +66,3 @@ echo "确认密码:<br /><input type='password' name='pass2' value='' /><br />";
 echo "<input type='submit' name='save' value='修改' />";
 echo "</form>";
 include_once '../../sys/inc/tfoot.php';
-?>

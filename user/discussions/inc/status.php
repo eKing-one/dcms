@@ -45,16 +45,17 @@ if ($type == 'status') {
 					dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0
 				) {
 			?><a href="?likestatus=<?= $status['id'] ?>&amp;page=<?= $page ?>"><img src="/style/icons/like.gif" alt="*" />班级!</a> &bull; <?
-			$like = $l;
-		} else {
-			?><img src="/style/icons/like.gif" alt="*" /> 你和 <?
-$like = $l - 1;}
-} else {
-?><img src="/style/icons/like.gif" alt="*" /> <?
-$like = $l;
-}
-?>
-			<a href="/user/status/like.php?id=<?= $status['id'] ?>"><?= $like ?> 伙计</a>
+																																			$like = $l;
+																																		} else {
+																																			?><img src="/style/icons/like.gif" alt="*" /> 你和 <?
+																																			$like = $l - 1;
+																																		}
+																																	} else {
+																?><img src="/style/icons/like.gif" alt="*" /> <?
+																																		$like = $l;
+																																	}
+												?>
+			<a href="/user/status/like.php?id=<?= $status['id'] ?>"><?= $like ?> 用户</a>
 		</div>
 	<?
 	} else {
