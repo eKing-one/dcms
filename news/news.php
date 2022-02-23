@@ -146,7 +146,7 @@ while ($post = dbassoc($q)) {
 	// Лесенка
 	echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 	$num++;
-	echo user::nick($ank['id']);
+	echo user::nick($ank['id'],1,1,0);
 	if (isset($user) && $user['id'] != $ank['id']){
 		echo ' <a href="?id=' . $news['id'] . '&amp;page=' . $page . '&amp;response=' . $ank['id'] . '">[*]</a> ';
 	}
