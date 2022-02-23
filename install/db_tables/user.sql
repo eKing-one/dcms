@@ -51,7 +51,6 @@ CREATE TABLE IF NOT EXISTS `user` (
   `ank_telosl` int(1) DEFAULT NULL,
   `ank_cvet_glas` varchar(11) DEFAULT NULL,
   `ank_volos` varchar(11) DEFAULT NULL,
-  `ank_orien` int(1) DEFAULT '0',
   `ank_lov_1` int(11) DEFAULT '0',
   `ank_lov_2` int(11) DEFAULT '0',
   `ank_lov_3` int(11) DEFAULT '0',

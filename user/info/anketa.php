@@ -139,7 +139,6 @@ if (isset($user) && $ank['id'] == $user['id']) {
 	$name = "<a href='/user/info/edit.php?act=ank&amp;set=name'>";
 	$date = "<a href='/user/info/edit.php?act=ank&amp;set=date'>";
 	$gorod = "<a href='/user/info/edit.php?act=ank&amp;set=gorod'>";
-	$orien = "<a href='/user/info/edit.php?act=ank&amp;set=orien'>";
 	$loves = "<a href='/user/info/edit.php?act=ank&amp;set=loves'>";
 	$opar = "<a href='/user/info/edit.php?act=ank&amp;set=opar'>";
 	$volos = "<a href='/user/info/edit.php?act=ank&amp;set=volos'>";
@@ -164,7 +163,6 @@ if (isset($user) && $ank['id'] == $user['id']) {
 	$name = "<font style='color : #005ba8; padding:1px;'>";
 	$date =  "<font style='color : #005ba8; padding:1px;'>";
 	$gorod =  "<font style='color : #005ba8; padding:1px;'>";
-	$orien = "<font style='color : #005ba8; padding:1px;'>";
 	$loves = "<font style='color : #005ba8; padding:1px;'>";
 	$opar = "<font style='color : #005ba8; padding:1px;'>";
 	$avto = "<font style='color : #005ba8; padding:1px;'>";
@@ -406,17 +404,8 @@ if ($ank['ank_telosl'] == 0)
 	echo "<br />";
 echo "</div>";
 //-----------------------------------------------------//
-//--------------Знакомства---------------//
+//--------------相识---------------//
 echo "<div class='nav1'>";
-echo "$orien<span class=\"ank_n\">方向感:</span>$a";
-if ($ank['ank_orien'] == 0)
-	echo "<br />";
-if ($ank['ank_orien'] == 1)
-	echo " <span class=\"ank_d\">杂种</span><br />";
-if ($ank['ank_orien'] == 2)
-	echo " <span class=\"ank_d\">毕</span><br />";
-if ($ank['ank_orien'] == 3)
-	echo " <span class=\"ank_d\">同性恋/女同性恋</span><br />";
 echo "$loves<span class=\"ank_n\">约会目标:</span>$a<br />";
 if ($ank['ank_lov_1'] == 1) echo "<img src='/style/icons/str.gif' alt='*' />  友谊与沟通<br />";
 if ($ank['ank_lov_2'] == 1) echo "<img src='/style/icons/str.gif' alt='*' />  通信<br />";

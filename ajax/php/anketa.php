@@ -13,7 +13,6 @@ if (isset($_GET['id'])) {
     echo ' <a onclick="anketaClose.submit()" name="myForm"><div class="form_info">隐藏详细信息</div></a>';
     /*=====================================用户配置文件，如果作者，我们输出链接到编辑字段，如果没有，那么没有=）=====================================*/
     if (isset($user) && $ank['id'] == $user['id']) {
-        $orien = "<a href='/user/info/edit.php?act=ank_web&amp;set=orien'>";
         $loves = "<a href='/user/info/edit.php?act=ank_web&amp;set=loves'>";
         $opar = "<a href='/user/info/edit.php?act=ank_web&amp;set=opar'>";
         $volos = "<a href='/user/info/edit.php?act=ank_web&amp;set=volos'>";
@@ -34,7 +33,6 @@ if (isset($_GET['id'])) {
         $mobile = "<a href='/user/info/edit.php?act=ank_web&amp;set=mobile'>";
         $a = "</a>";
     } else {
-        $orien = "<font style='padding:1px; color : #005ba8; padding:1px;'>";
         $loves = "<font style='padding:1px; color : #005ba8; padding:1px;'>";
         $opar = "<font style='padding:1px; color : #005ba8; padding:1px;'>";
         $avto = "<font style='padding:1px; color : #005ba8; padding:1px;'>";
@@ -106,19 +104,6 @@ if (isset($_GET['id'])) {
     echo '</div>';
     /*=====================================约会用=====================================*/
     echo "<div class='nav1'>";
-    echo "$orien<span class=\"ank_n\">方向感:</span>$a";
-    if ($ank['ank_orien'] == 0) {
-        echo "<br />";
-    }
-    if ($ank['ank_orien'] == 1) {
-        echo " <span class=\"ank_d\">杂种</span><br />";
-    }
-    if ($ank['ank_orien'] == 2) {
-        echo " <span class=\"ank_d\">毕</span><br />";
-    }
-    if ($ank['ank_orien'] == 3) {
-        echo " <span class=\"ank_d\">同性恋</span><br />";
-    }
     echo "$loves<span class=\"ank_n\">约会目标:</span>$a<br />";
     if ($ank['ank_lov_1'] == 1) {
         echo "&raquo; 友谊与沟通<br />";

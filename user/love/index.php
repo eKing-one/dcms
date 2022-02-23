@@ -49,11 +49,6 @@ $cel = "(
 	`ank_lov_13` = '1' OR 
 	`ank_lov_14` = '1'
 	)";
-$orien = "(
-	`ank_orien` = '1' OR 
-	`ank_orien` = '2' OR 
-	`ank_orien` = '3'
-	)";
 $opar = "(
 	`ank_o_par` IS NOT NULL 
 	)";
@@ -84,11 +79,11 @@ if ($k_lider > 0) {
 	echo '<img src="/style/icons/lider.gif" alt="S"/> <a href="/user/liders/">所有领导人</a> (' . $k_lider . ')';
 	echo '</div>';
 }
-$k_post = dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE $cel AND $orien AND $opar AND $osebe $_SESSION[orders] AND `date_last` > '" . (time() - 259200) . "'"), 0);
+$k_post = dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE $cel AND $opar AND $osebe $_SESSION[orders] AND `date_last` > '" . (time() - 259200) . "'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
-$q = dbquery("SELECT ank_o_sebe,nick,id FROM `user` WHERE $cel AND $orien AND $opar AND $osebe $_SESSION[orders] AND `date_last` > '" . (time() - 259200) . "' order BY `date_last` DESC LIMIT $start, $set[p_str]");
+$q = dbquery("SELECT ank_o_sebe,nick,id FROM `user` WHERE $cel AND $opar AND $osebe $_SESSION[orders] AND `date_last` > '" . (time() - 259200) . "' order BY `date_last` DESC LIMIT $start, $set[p_str]");
 echo '<table class="post">';
 if ($k_post == 0) {
 	echo '<div class="mess">';

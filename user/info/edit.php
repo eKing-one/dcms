@@ -329,7 +329,7 @@ if (isset($_POST['ank_n_tel']) && (is_numeric($_POST['ank_n_tel']) && strlen($_P
 $user['ank_n_tel']=$_POST['ank_n_tel'];
 dbquery("UPDATE `user` SET `ank_n_tel` = '$user[ank_n_tel]' WHERE `id` = '$user[id]' LIMIT 1");
 }
-else $err[]='Неверный формат номера телефона';
+else $err[]= '电话号码格式不正确';
 }
 //-----------------телосложение-----------------//
 if (isset($_GET['set']) && $_GET['set']=='telo'){
@@ -372,29 +372,6 @@ if (isset($_POST['ank_telosl']) && $_POST['ank_telosl']==7)
 {
 $user['ank_telosl']=7;
 dbquery("UPDATE `user` SET `ank_telosl` = '7' WHERE `id` = '$user[id]' LIMIT 1");
-}
-}
-//-----------------Ориентация-----------------//
-if (isset($_GET['set']) && $_GET['set']=='orien'){
-if (isset($_POST['ank_orien']) && $_POST['ank_orien']==1)
-{
-$user['ank_orien']=1;
-dbquery("UPDATE `user` SET `ank_orien` = '1' WHERE `id` = '$user[id]' LIMIT 1");
-}
-if (isset($_POST['ank_orien']) && $_POST['ank_orien']==0)
-{
-$user['ank_orien']=0;
-dbquery("UPDATE `user` SET `ank_orien` = '0' WHERE `id` = '$user[id]' LIMIT 1");
-}
-if (isset($_POST['ank_orien']) && $_POST['ank_orien']==2)
-{
-$user['ank_orien']=2;
-dbquery("UPDATE `user` SET `ank_orien` = '2' WHERE `id` = '$user[id]' LIMIT 1");
-}
-if (isset($_POST['ank_orien']) && $_POST['ank_orien']==3)
-{
-$user['ank_orien']=3;
-dbquery("UPDATE `user` SET `ank_orien` = '3' WHERE `id` = '$user[id]' LIMIT 1");
 }
 }
 //-----------------есть ли дети-----------------//
@@ -604,7 +581,7 @@ $user['ank_alko']=$_POST['ank_alko'];
 dbquery("UPDATE `user` SET `ank_alko` = '".my_esc($user['ank_alko'])."' WHERE `id` = '$user[id]' LIMIT 1");
 }
 }
-else $err[]='О любимом напитке нужно писать меньше :)';
+else $err[]= '你最喜欢的饮料应该少写 :)';
 }
 //----------------о себе-------------//
 if (isset($_GET['set']) && $_GET['set']=='osebe'){
@@ -616,7 +593,7 @@ $user['ank_o_sebe']=$_POST['ank_o_sebe'];
 dbquery("UPDATE `user` SET `ank_o_sebe` = '".my_esc($user['ank_o_sebe'])."' WHERE `id` = '$user[id]' LIMIT 1");
 }
 }
-else $err[]='О себе нужно писать меньше :)';
+else $err[]= '你应该少写一些关于你自己的东西 :)';
 }
 //----------------о партнере-------------//
 if (isset($_GET['set']) && $_GET['set']=='opar'){
@@ -757,13 +734,6 @@ err();
 	<input name='ank_alko_n' type='radio' ".($user['ank_alko_n']==2?' checked="checked"':null)." value='2' />很少，在节假日<br />
 	<input name='ank_alko_n' type='radio' ".($user['ank_alko_n']==3?' checked="checked"':null)." value='3' />不，我绝对不能接受<br />";
 	echo "饮料:<br /><input type='text' name='ank_alko' value='".htmlspecialchars($user['ank_alko'],false)."' maxlength='215' /><br />";
-	}
-	if (isset($_GET['set']) && $_GET['set']=='orien'){
-	echo "方向感:<br /> 
-	<input name='ank_orien' type='radio' ".($user['ank_orien']==0?' checked="checked"':null)." value='0' />未指定<br />
-	<input name='ank_orien' type='radio' ".($user['ank_orien']==1?' checked="checked"':null)." value='1' />杂种<br />
-	<input name='ank_orien' type='radio' ".($user['ank_orien']==2?' checked="checked"':null)." value='2' />比<br />
-	<input name='ank_orien' type='radio' ".($user['ank_orien']==3?' checked="checked"':null)." value='3' />男女同性恋<br />";
 	}
 	if (isset($_GET['set']) && $_GET['set']=='mat_pol'){
 	echo "财务状况:<br /> 
@@ -919,15 +889,6 @@ echo "<div class='nav2'>";
 echo "约会用";
 echo "</div>";
 echo "<div class='nav1'>";
-echo "<a href='?set=orien'> <img src='/style/icons/str.gif' alt='*'>  方向感</a> ";
-if ($user['ank_orien']==0)
-echo "<br />";
-if ($user['ank_orien']==1)
-echo " &#62;  杂种<br />";
-if ($user['ank_orien']==2)
-echo " &#62;  毕<br />";
-if ($user['ank_orien']==3)
-echo " &#62;  同性恋<br />";
 echo "<a href='?set=loves'> <img src='/style/icons/str.gif' alt='*'>  约会目标</a><br />";
 if ($user['ank_lov_1']==1)echo " &#62; 友谊与沟通<br />";
 if ($user['ank_lov_2']==1)echo " &#62; 通信<br />";
