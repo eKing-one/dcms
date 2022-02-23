@@ -55,6 +55,6 @@ if ($k_post == 0) {
 echo "</table>";
 if ($k_page > 1) str('?', $k_page, $page); // 输出页数
 echo "<div class='foot'>";
-echo "<img src='/style/icons/konts.png' alt='*' /> <a href='/konts.php?$passgen'>联络人</a><br />";
+echo "<img src='/style/icons/konts.png' alt='*' /> <a href='/konts.php?$passgen'>联系人</a><br />";
 echo "</div>";
 include_once 'sys/inc/tfoot.php';

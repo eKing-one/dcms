@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -51,8 +51,8 @@ if (!isset($_GET['go'])) {
 	<option value='?sort=level&amp;DESC&amp;page=$page'>状况</option>
 	<option value='?sort=rating&amp;DESC&amp;page=$page'>评级</option>
 	<option value='?sort=id&amp;ASC&amp;page=$page'>id</option>
-	<option value='?sort=pol&amp;ASC&amp;page=$page>楼层</option>
-	<option value='?sort=id&amp;DESC&amp;page=$page>新的</option>
+	<option value='?sort=pol&amp;ASC&amp;page=$page'>楼层</option>
+	<option value='?sort=id&amp;DESC&amp;page=$page'>新的</option>
 	</select></option>
 	</div>
 	<table class='post'>";
@@ -116,8 +116,8 @@ if (isset($_GET['go']) && $usearch != NULL) {
 	<option value='?sort=level&amp;DESC&amp;page=$page'>状况</option>
 	<option value='?sort=rating&amp;DESC&amp;page=$page'>评级</option>
 	<option value='?sort=id&amp;ASC&amp;page=$page'>id</option>
-	<option value='?sort=pol&amp;ASC&amp;page=$page>楼层</option>
-	<option value='?sort=id&amp;DESC&amp;page=$page>新的</option>
+	<option value='?sort=pol&amp;ASC&amp;page=$page'>楼层</option>
+	<option value='?sort=id&amp;DESC&amp;page=$page'>新的</option>
 	</select></option>
 	</div>";
 	if ($k_post == 0) {

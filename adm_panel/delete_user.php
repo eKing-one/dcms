@@ -199,7 +199,7 @@ $konts_coll+=dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user
 if ($konts_coll!=0)
 $konts="$konts +$konts_coll*";
 }
-echo "<span class=\"ank_n\">联络人:</span> <span class=\"ank_d\">$konts</span><br />";
+echo "<span class=\"ank_n\">联系人:</span> <span class=\"ank_d\">$konts</span><br />";
 $mail=dbresult(dbquery("SELECT COUNT(*) FROM `mail` WHERE `id_user` = '$ank[id]' OR `id_kont` = '$ank[id]'"),0);
 if (count($collisions)>1 && isset($_GET['all']))
 {
@@ -285,4 +285,3 @@ echo "&laquo;<a href='/info.php?id=$ank[id]'>返回资料</a><br />";
 echo "&laquo;<a href='/users.php'>用户</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
-?>

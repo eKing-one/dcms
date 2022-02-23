@@ -271,7 +271,7 @@ if (isset($_GET['id'])) {
     if ($ank['ank_alko_n'] == 0) echo "<br />";
     if ($ank['ank_alko'] && $ank['ank_alko_n'] != 3 && $ank['ank_alko_n'] != 0) echo "&raquo; <span class=\"ank_d\">" . output_text($ank['ank_alko']) . "</span><br />";
     echo "</div>";
-    /*=====================================联络人=====================================*/
+    /*=====================================联系人=====================================*/
     echo "<div class='nav2'>";
     if ($ank['ank_icq'] != NULL && $ank['ank_icq'] != 0) {
         echo "$icq<span class=\"ank_n\">ICQ:</span>$a <span class=\"ank_d\">$ank[ank_icq]</span><br />";

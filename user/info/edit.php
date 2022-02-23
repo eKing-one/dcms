@@ -1002,7 +1002,7 @@ echo "<br />";
 if ($user['ank_alko'] && $user['ank_alko_n']!=3 && $user['ank_alko_n']!=0)
 echo "<img src='/style/icons/str.gif' alt='*'>  ".htmlspecialchars($user['ank_alko'])."<br />";
 echo "<div class='nav2'>";
-echo "联络人";
+echo "联系人";
 echo "</div>";
 echo "<div class='nav1'>";
 echo "<a href='?set=mobile'> <img src='/style/icons/str.gif' alt='*'>  移动电话</a> ";
@@ -1028,4 +1028,3 @@ if(isset($_SESSION['refer']) && $_SESSION['refer']!=NULL && otkuda($_SESSION['re
 echo "<img src='/style/icons/str2.gif' alt='*'> <a href='$_SESSION[refer]'>".otkuda($_SESSION['refer'])."</a><br />";
 echo '</div>';
 include_once '../../sys/inc/tfoot.php';
-?>

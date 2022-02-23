@@ -65,10 +65,10 @@ while ($post = dbassoc($q))
 echo "<option value='$post[id]'".($notes['id_dir'] == $post['id'] ?" selected='selected'":null).">" . text($post['name']) . "</option>";
 }
 echo "</select><br />";
-echo "<div class='main'>可以看。:<br /><input name='private' type='radio' ".($notes['private']==0?' checked="checked"':null)." value='0' />所有人 ";
+echo "<div class='main'>谁可以看:<br /><input name='private' type='radio' ".($notes['private']==0?' checked="checked"':null)." value='0' />所有人 ";
 echo "<input name='private' type='radio' ".($notes['private']==1?' checked="checked"':null)." value='1' />朋友 ";
 echo "<input name='private' type='radio' ".($notes['private']==2?' checked="checked"':null)." value='2' />只有我。</div>";
-echo "<div class='main'>可以评论。:<br /><input name='private_komm' type='radio' ".($notes['private_komm']==0?' checked="checked"':null)." value='0' />所有人 ";
+echo "<div class='main'>谁可以评论:<br /><input name='private_komm' type='radio' ".($notes['private_komm']==0?' checked="checked"':null)." value='0' />所有人 ";
 echo "<input name='private_komm' type='radio' ".($notes['private_komm']==1?' checked="checked"':null)." value='1' />朋友 ";
 echo "<input name='private_komm' type='radio' ".($notes['private_komm']==2?' checked="checked"':null)." value='2' />只有我。</div>";
 echo "<input value=\"应用\" type=\"submit\" />";

@@ -31,10 +31,10 @@ switch (@$_GET['type']) {
 		break;
 	default:
 		$type = 'common';
-		$type_name = '活动中';
+		$type_name = '活动';
 		break;
 }
-$set['title'] = $type_name . '联络人';
+$set['title'] = $type_name . '中的联系人';
 include_once 'sys/inc/thead.php';
 title();
 if (isset($_GET['id'])) {
@@ -89,12 +89,12 @@ if (isset($_GET['act']) && $_GET['act'] == 'edit_ok' && isset($_GET['id']) && db
 				$lol = $time;
 			}
 			dbquery("UPDATE `users_konts` SET `type` = '$_POST[type]', `time` = '$lol' WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]' LIMIT 1");
-			$_SESSION['message'] = '联络人成功转移';
+			$_SESSION['message'] = '联系人成功转移';
 			header("Location: ?");
 			exit;
 		}
 	} else
-		$err[] = '未找到联络人';
+		$err[] = '未找到联系人';
 }
 aut();
 /*========================================标记========================================*/
@@ -126,7 +126,7 @@ if (isset($_POST['ignor'])) {
 // активные 
 if (isset($_POST['common'])) {
 	if (isset($delpost) && is_array($delpost)) {
-		echo '<div class="mess">联络人: ';
+		echo '<div class="mess">联系人: ';
 		for ($q = 0; $q <= count($delpost) - 1; $q++) {
 			if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$delpost[$q]'"), 0) == 0)
 				$warn[] = '此用户不在您的联系人列表中';
@@ -144,7 +144,7 @@ if (isset($_POST['common'])) {
 // избранное
 if (isset($_POST['favorite'])) {
 	if (isset($delpost) && is_array($delpost)) {
-		echo '<div class="mess">联络人:';
+		echo '<div class="mess">联系人:';
 		for ($q = 0; $q <= count($delpost) - 1; $q++) {
 			if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$delpost[$q]'"), 0) == 0)
 				$warn[] = '此用户不在您的联系人列表中';
@@ -162,7 +162,7 @@ if (isset($_POST['favorite'])) {
 // удаляем
 if (isset($_POST['deleted'])) {
 	if (isset($delpost) && is_array($delpost)) {
-		echo '<div class="mess">联络人: ';
+		echo '<div class="mess">联系人: ';
 		for ($q = 0; $q <= count($delpost) - 1; $q++) {
 			if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$delpost[$q]'"), 0) == 0)
 				$warn[] = '此用户不在您的联系人列表中';
