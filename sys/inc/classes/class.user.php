@@ -5,6 +5,7 @@
  *  nick()-显示昵称和在线图标
  * 头像-显示头像和用户图标
  * 所有函数都有参数输出什么和不输出什么
+ * 2022年2月23日23点42分修改nick()方法用户组输出
  */
 class user
 {
@@ -30,7 +31,7 @@ class user
 		*/
 		static $nicks = [];
 		if (empty($nicks[$user])) {
-			$ank = dbassoc(query('SELECT `nick`, `date_last`, `rating`, `browser` FROM `user` WHERE `id` = "' . $user . '" LIMIT 1 '));
+			$ank = dbassoc(query('SELECT `group_access`, `pol`, `nick`, `date_last`, `rating`, `browser` FROM `user` WHERE `id` = "' . $user . '" LIMIT 1 '));
 			$nicks[$user] = $ank;
 		} else $ank = $nicks[$user];
 		$icon = null;
@@ -55,7 +56,7 @@ class user
 					if ($ank['pol'] == 1) {
 						$icon = '<img src="/style/user/1.png" alt="*" class="icon" id="icon_group" /> ';
 					} else {
-						$icon = '<img src="/style/user/2.png" alt="" class="icon" id="icon_group" /> ';
+						$icon = '<img src="/style/user/2.png" alt="" class="icon" id="icon_group"/> ';
 					}
 				} elseif (isset($ank['group_access']) && (($ank['group_access'] > 1 && $ank['group_access'] <= 7) || ($ank['group_access'] > 10 && $ank['group_access'] <= 14))) {
 					if ($ank['pol'] == 1) {
