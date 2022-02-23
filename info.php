@@ -49,7 +49,7 @@ if (isset($_GET['delete_post']) && dbresult(dbquery("SELECT COUNT(*) FROM `stena
 		$_SESSION['message'] = '邮件已成功删除';
 	}
 }
-/*-------------------------гости----------------------*/
+/*-------------------------客人们----------------------*/
 if (isset($user) && $user['id'] != $ank['id'] && !isset($_SESSION['guest_' . $ank['id']])) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `my_guests` WHERE `id_ank` = '$ank[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
 		dbquery("INSERT INTO `my_guests` (`id_ank`, `id_user`, `time`) VALUES ('$ank[id]', '$user[id]', '$time')");
@@ -63,7 +63,7 @@ if (isset($user) && $user['id'] != $ank['id'] && !isset($_SESSION['guest_' . $an
 	}
 }
 /*----------------------------------------------------*/
-/*------------------------стена-----------------------*/
+/*------------------------墙面-----------------------*/
 if (isset($user) && isset($_GET['wall']) && $_GET['wall'] == 1) {
 	dbquery("UPDATE `user` SET `wall` = '1' WHERE `id` = '$user[id]'");
 	header("Location: /info.php?id=$ank[id]");
@@ -284,10 +284,10 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 	{
 		if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
 		echo "<div class='nav1'>";
-		echo user::get_user($ank['id']);
+		echo user::avatar($ank['id']);
 		echo "</div>";
 		echo "<div class='nav2'>";
-		echo user::avatar($ank['id'], 1);
+		echo user::nick($ank['id'],1,1,1);
 		echo "<br />";
 	}
 	if ($uSet['privat_str'] == 2 && $frend != 2) // 只要有朋友的话
