@@ -41,9 +41,9 @@ while ($them = dbassoc($q)) {
 	echo '<a href="/forum/' . $forum['id'] . '/' . $razdel['id'] . '/' . $them['id'] . '/">' . text($them['name']) . '</a> <font color="#666">(' . dbresult(dbquery("SELECT COUNT(*) FROM `forum_p` WHERE `id_forum` = '$forum[id]' AND `id_razdel` = '$razdel[id]' AND `id_them` = '$them[id]'"), 0) . ')';
 	echo ' ' . $closed . ' ';
 	echo '<span style="float:right;">' . vremja($them['time_create']) . '</span></font><br/>';
-	echo user::nick($them['id_user']) . '';
+	echo user::nick($them['id_user'],1,1,0) . '';
 	$post2 = dbassoc(dbquery("SELECT `id_user`,`time` FROM `forum_p` WHERE `id_them` = '$them[id]' AND `id_razdel` = '$razdel[id]' AND `id_forum` = '$forum[id]' ORDER BY `time` DESC LIMIT 1"));
-	if (!empty($post2['id_user'])) echo ' / ' . user::nick($post2['id_user']) . ' (' . vremja($post2['time']) . ')';
+	if (!empty($post2['id_user'])) echo ' / ' . user::nick($post2['id_user'],1,1,0) . ' (' . vremja($post2['time']) . ')';
 	echo '</div>';
 }
 echo '</table>';

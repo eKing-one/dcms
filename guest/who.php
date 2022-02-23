@@ -38,7 +38,7 @@ while ($ank = dbassoc($q))
 	// Лесенка
 	echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 	$num++;
-	echo user::avatar($ank['id'], 0) . user::nick($ank['id'], 1, 1, 1) . '<br />';
+	echo user::nick($ank['id'], 1, 1, 0) . '<br />';
 	echo '</div>';
 }
 echo '</table>';

@@ -91,14 +91,13 @@ if ($k_post > 0) {
 	(' . dbresult(dbquery("SELECT COUNT(`id`) FROM `forum_p` WHERE `id_forum` = '" . $them['id_forum'] . "' AND `id_razdel` = '" . $them['id_razdel'] . "' AND `id_them` = '" . $them['id'] . "'"), 0) . ')</a><br/>';
 		echo rez_text($them['text'], 112) . '<br/>';
 		//主题作者
-		echo group($them['id_user']) . ' ';
-		echo user::nick($them['id_user'], 1, 1, 1) . ' (' . vremja($them['time_create']) . ') ';
+		echo user::nick($them['id_user'], 1, 1, 0) . ' (' . vremja($them['time_create']) . ') ';
 
 		// 最后一个岗位
 		$post = dbarray(dbquery("SELECT `id`,`time`,`id_user` FROM `forum_p` WHERE `id_them` = '$them[id]' AND `id_forum` = '" . $them['id_forum'] . "' AND `id_razdel` = '" . $them['id_razdel'] . "'  ORDER BY `time` DESC LIMIT 1"));
 		if (isset($post['id'])) {
 			// 最后一篇文章的作者
-			echo '/ ' . user::nick($post['id_user'], 1, 1, 1) . ' (' . vremja($post['time']) . ')<br />';
+			echo '/ ' . user::nick($post['id_user'], 1, 1, 0) . ' (' . vremja($post['time']) . ')<br />';
 		}
 
 		echo '</div>';

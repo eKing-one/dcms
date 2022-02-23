@@ -1,21 +1,20 @@
 <?
 /*
 ==================================
-Приватность станички пользователя
-При использовании в других модулях
-определяйте переменную $ank
-::
+个人信息保护政策
+用于其他模块时
+定义变数 $ank
 $ank = user::get_user(object);
 include H.'sys/add/user.privace.php';
 ==================================
 */
-// Настройки юзера
+// 用户设置
 $uSet = dbarray(dbquery("SELECT * FROM `user_set` WHERE `id_user` = '$ank[id]'  LIMIT 1"));
-// Статус друг ли вы
+// 是朋友状态吗？
 $frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE 
  (`user` = '$user[id]' AND `frend` = '$ank[id]') OR 
  (`user` = '$ank[id]' AND `frend` = '$user[id]') LIMIT 1"), 0);
-// Проверка завки в друзья
+// 朋友确认
 $frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE 
  (`user` = '$user[id]' AND `to` = '$ank[id]') OR 
  (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"), 0);
@@ -30,14 +29,13 @@ if ($ank['id'] != $user['id'] && ($user['group_access'] == 0 || $user['group_acc
 	if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) {
 		if ($ank['group_access'] > 1)
 			echo '<div class="err">' . $ank['group_name'] . '</div>';
-		echo '<div class="nav1">';
-		echo group($ank['id']) . user::nick($ank['id'], 0) . medal($ank['id']) . online($ank['id']);
+		echo '<div class="nav1">'. user::nick($ank['id'],1,1,0);
 		echo '</div>';
 		echo '<div class="nav2">';
 		echo user::avatar($ank['id']);
 		echo '</div>';
 	}
-	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей
+	if ($uSet['privat_str'] == 2 && $frend != 2) // 只要有朋友的话
 	{
 		echo '<div class="mess">';
 		echo '只有用户的朋友才能查看用户的页面！';

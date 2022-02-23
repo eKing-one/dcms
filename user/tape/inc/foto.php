@@ -24,8 +24,7 @@ if ($type  ==  'album')
 	if ($gallery['id'])
 	{
 		echo '<div class="nav1">';
-		echo user::avatar($avtor['id']) . group($avtor['id']) . user::nick($avtor['id']);
-		echo medal($avtor['id']) . online($avtor['id']) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a> ' . $name . ' <img src="/style/icons/camera.png" alt=""/>  <a href="/foto/' . $avtor['id'] . '/' . $gallery['id'] . '/"><b>' . text($gallery['name']) . '</b></a> ';
+		echo user::nick($avtor['id'],0,0,0) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a> ' . $name . ' <img src="/style/icons/camera.png" alt=""/>  <a href="/foto/' . $avtor['id'] . '/' . $gallery['id'] . '/"><b>' . text($gallery['name']) . '</b></a> ';
 		echo $s1 . vremja($post['time']) . $s2;
 		echo '</div>';
 		echo '<div class="nav2">';

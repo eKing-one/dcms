@@ -89,12 +89,7 @@ if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `like_object` WHERE `
 }
 echo '<br />';
 // Автор 
-echo '作者' . ($author['pol'] == 0 ? 'а' : null) . ': '
-	. group($author['id'])
-	. user::nick($author['id'])
-	. medal($author['id'])
-	. online($author['id']);
-echo '</div>';
+echo '作者: '. user::nick($author['id'],1,1,0).'</div>';
 // Кнопки соц сетей
 echo '<div class="nav2" id="news_share">';
 echo '分享:';
@@ -151,7 +146,7 @@ while ($post = dbassoc($q)) {
 	// Лесенка
 	echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 	$num++;
-	echo group($ank['id']) . user::nick($ank['id']);
+	echo user::nick($ank['id'],1,1,0);
 	if (isset($user) && $user['id'] != $ank['id'])
 		echo ' <a href="?id=' . $news['id'] . '&amp;page=' . $page . '&amp;response=' . $ank['id'] . '">[*]</a> ';
 	echo medal($ank['id']) . online($ank['id']) . ' (' . vremja($post['time']) . ')<br />';

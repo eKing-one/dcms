@@ -96,38 +96,40 @@ if (isset($user) || (isset($set['write_guest']) && $set['write_guest'] == 1 && (
 	echo '<input value="发送" type="submit" />';
 	echo '</form>';
 } elseif (!isset($user) && isset($set['write_guest']) && $set['write_guest'] == 1) {
-	?><div class="mess">您将能够通过 <span class="on"><?= abs($time - $_SESSION['antiflood'] - 300) ?> сек.</span></div><?
-																												}
-																												echo '<table class="post">';
-																												if ($k_post == 0) {
-																													echo '<div class="mess" id="no_object">';
-																													echo '没有留言';
-																													echo '</div>';
-																												}
-																												$q = dbquery("SELECT * FROM `guest` ORDER BY id DESC LIMIT $start, $set[p_str]");
-																												while ($post = dbassoc($q)) {
-																													$ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
-																													// Лесенка
-																													echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
-																													$num++;
-																													echo ($post['id_user'] != '0' ? user::avatar($ank['id'], 0) . user::nick($ank['id'], 1, 1, 1) : user::avatar(0, 0) . ' <b>' . 'Гость' . '</b> ');
-																													if (isset($user) && $user['id'] != $ank['id'])
-																														echo ' <a href="?page=' . $page . '&amp;response=' . $ank['id'] . '">[*]</a> (' . vremja($post['time']) . ')<br />';
-																													echo ' (' . vremja($post['time']) . ') <br />';
-																													echo output_text($post['msg']) . '<br />';
-																													if (isset($user) && ($user['level'] > $ank['level'] || $user['level'] != 0 && $user['id'] == $ank['id']) && user_access('guest_delete')) {
-																														echo '<div class="right">';
-																														echo '<a href="delete.php?id=' . $post['id'] . '"><img src="/style/icons/delete.gif" alt="*"></a>';
-																														echo '</div>';
-																													}
-																													echo '</div>';
-																												}
-																												echo '</table>';
-																												if ($k_page > 1) str('index.php?', $k_page, $page); // 输出页数
-																												echo '<div class="foot">';
-																												echo '<img src="/style/icons/str.gif" alt="*"> <a href="who.php">在客人中 (' . dbresult(dbquery("SELECT COUNT(id) FROM `user` WHERE `date_last` > '" . (time() - 100) . "' AND `url` like '/guest/%'"), 0) . ' 人.)</a><br />';
-																												echo '</div>';
-																												// Форма очистки комментов
-																												include 'inc/admin_form.php';
-																												include_once '../sys/inc/tfoot.php';
-																													?>
+	?>
+	<div class="mess">您将能够通过 <span class="on"><?= abs($time - $_SESSION['antiflood'] - 300) ?> сек.</span></div>
+	<?
+	}
+	echo '<table class="post">';
+	if ($k_post == 0) {
+		echo '<div class="mess" id="no_object">';
+		echo '没有留言';
+		echo '</div>';
+	}
+	$q = dbquery("SELECT * FROM `guest` ORDER BY id DESC LIMIT $start, $set[p_str]");
+	while ($post = dbassoc($q)) {
+		$ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
+		// Лесенка
+		echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
+		$num++;
+		echo ($post['id_user'] != '0' ? user::avatar($ank['id'], 0) . user::nick($ank['id'], 1, 1, 0) : user::avatar(0, 0) . ' <b>' . '游客' . '</b> ');
+		if (isset($user) && $user['id'] != $ank['id'])
+			echo ' <a href="?page=' . $page . '&amp;response=' . $ank['id'] . '">[*]</a> (' . vremja($post['time']) . ')<br />';
+		echo ' (' . vremja($post['time']) . ') <br />';
+		echo output_text($post['msg']) . '<br />';
+		if (isset($user) && ($user['level'] > $ank['level'] || $user['level'] != 0 && $user['id'] == $ank['id']) && user_access('guest_delete')) {
+			echo '<div class="right">';
+			echo '<a href="delete.php?id=' . $post['id'] . '"><img src="/style/icons/delete.gif" alt="*"></a>';
+			echo '</div>';
+		}
+		echo '</div>';
+	}
+	echo '</table>';
+	if ($k_page > 1) str('index.php?', $k_page, $page); // 输出页数
+	echo '<div class="foot">';
+	echo '<img src="/style/icons/str.gif" alt="*"> <a href="who.php">在客人中 (' . dbresult(dbquery("SELECT COUNT(id) FROM `user` WHERE `date_last` > '" . (time() - 100) . "' AND `url` like '/guest/%'"), 0) . ' 人.)</a><br />';
+	echo '</div>';
+	// Форма очистки комментов
+	include 'inc/admin_form.php';
+	include_once '../sys/inc/tfoot.php';
+		?>

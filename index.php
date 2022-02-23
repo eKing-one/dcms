@@ -14,36 +14,37 @@ title();
 err();
 if (!$set['web'])
 {
-	?>
-	<div class="title">
+	$ol_user = dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `date_last` > ".(time()-600).""), 0);
+	//在线用户数量
+	$ol_guest = dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `date_last` > ".(time()-600)." AND `pereh` > '0'"), 0);
+	//在线游客
+	echo '<div class="title">
 	<center>
 	<a href="/online.php" title="在线" style="color:#cdcecf; text-decoration: none">
 	<font color="#fee300" size="2">在线 </font>
-	<font color="#ffffff"><?=dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `date_last` > ".(time()-600).""), 0)?></font>
+	<font color="#ffffff">'.$ol_user.'</font>
 	</a>
 	<font color="#fee300" size="2"> (</font>
-	<font color="#ffffff">+<?=dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `date_last` > ".(time()-600)." AND `pereh` > '0'"), 0)?></font>
+	<font color="#ffffff">+'.$ol_guest.'</font>
 	<font color="#fee300" size="2"> 在线游客 )</font>
 	</center>
 	</div>
-	<div class='main_menu'>
-	<?php
+	<div class="main_menu">';
+
 	if (isset($user))
 	{
-		?>
-		<div align="right">
+		echo '<div align="right">
 		<img src="/style/icons/icon_stranica.gif" alt="DS" />
-		<?=user::nick($user['id'])?> | <a href="exit.php"><font color="#ff0000">退出</font></a>
-		</div>
-		<?php
+		'.user::nick($user['id'],1,0,0).' | <a href="exit.php"><font color="#ff0000">退出</font></a>
+		</div>';
+	
 	}
 	else
 	{
-		?>
-		<div align="right">
+		echo '<div align="right">
 		<a href="/aut.php">登录</a> | <a href="/reg.php">注册</a>
-		</div>
-		<?
+		</div>';
+		
 	}
 	?></div><?
 	// 新闻&事件 

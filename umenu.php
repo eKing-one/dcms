@@ -73,7 +73,7 @@ if (user_access('adm_panel_show'))
 if ($set['web'] == false)
 {
 	echo '<div class="main" id="umenu">';
-	echo '<a href="/exit.php"><img src="/style/icons/delete.gif" /> 退出登录 ' . user::nick($user['id'], 0) . '</a><br />';
+	echo '<a href="/exit.php"><img src="/style/icons/delete.gif" /> 退出登录 ' . user::nick($user['id'],0,0,0) . '</a><br />';
 	echo '</div>';
 }
 include_once 'sys/inc/tfoot.php';

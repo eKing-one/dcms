@@ -1,12 +1,12 @@
 <?
 /*
-* $name описание действий объекта 
+* $name 个体操作描述 
 */
 if ($type == 'obmen' && $post['avtor'] != $user['id']) {
 	$name = '文件夹中的新文件';
 }
 /*
-* Вывод блока с содержимым 
+* 内容块输出 
 */
 if ($type == 'obmen') {
 	$dir = dbassoc(dbquery("SELECT * FROM `user_files` WHERE `id` = '" . $post['id_file'] . "' LIMIT 1"));
@@ -17,7 +17,7 @@ if ($type == 'obmen') {
 		$kol = $post['count'];
 	}
 	echo '<div class="nav1">';
-	echo user::avatar($avtor['id']) . group($avtor['id']) . user::nick($avtor['id']) . medal($avtor['id']) . online($avtor['id']) .
+	echo  user::nick($avtor['id'],0,0,0) .
 		' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a> ' . $name . ' <img src="/style/themes/' . $set['set_them'] . '/loads/14/dir.png" alt="*"/> <a href="/user/personalfiles/' . $dir['id_user'] . '/' . $dir['id'] . '/">' . text($dir['name']) . '</a>  ' . $s1 . vremja($post['time']) . $s2;
 	echo '</div>';
 	echo '<div class="nav2">';
@@ -31,8 +31,8 @@ if ($type == 'obmen') {
 				echo '<img src="/style/themes/' . $set['set_them'] . '/loads/14/file.png" alt="*" /> ';
 			echo '<a href="/user/personalfiles/' . $file['id_user'] . '/' . $dir['id'] . '/?id_file=' . $file['id'] . '&amp;page=1"><b>' . text($file['name']) . '.' . $ras . '</b></a> (' . size_file($file['size']) . ')<br />';
 		} else {
-			echo user::avatar($avtor['id']) . group($avtor['id']) . user::nick($avtor['id']) . '  <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>';
-			echo medal($avtor['id']) . online($avtor['id']) . '<br />';
+			echo user::nick($avtor['id'],0,0,0) . '  <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>';
+			echo '<br />';
 			echo '该文件已被删除 =(<br />';
 		}
 	}

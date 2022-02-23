@@ -5,7 +5,7 @@ if ($user['level'] > $ank['level'] || $user['id'] == $ank['id'])
 	{
 		?>
 		<div class="foot">
-		<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'])?> | 
+		<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'],0,0,0)?> | 
 		<a href="/foto/<?=$ank['id']?>/">相册</a> | 
 		<a href="/foto/<?=$ank['id']?>/<?=$gallery['id']?>/"><?=text($gallery['name'])?></a> | 
 		<b>编辑</b>
@@ -30,7 +30,7 @@ if ($user['level'] > $ank['level'] || $user['id'] == $ank['id'])
 		<input class="submit" type="submit" value="保存" />
 		</form>
 		<div class="foot">
-		<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'])?> | 
+		<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'],0,0,0)?> | 
 		<a href="/foto/<?=$ank['id']?>/">相册</a> | 
 		<a href="/foto/<?=$ank['id']?>/<?=$gallery['id']?>/"><?=text($gallery['name'])?></a> | 
 		<b>编辑</b>
@@ -56,7 +56,7 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_GET['act']) && $_GET['a
 {
 	?>
 	<div class="foot">
-	<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'])?> | 
+	<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'],0,0,0)?> | 
 	<a href="/foto/<?=$ank['id']?>/">相册</a> | 
 	<a href="/foto/<?=$ank['id']?>/<?=$gallery['id']?>/"><?=text($gallery['name'])?></a> | 
 	<b>上传照片</b>
@@ -82,7 +82,7 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_GET['act']) && $_GET['a
 	* 包含任何形式的商业广告。<br />
 	</div>
 	<div class="foot">
-	<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'])?> | 
+	<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'],0,0,0)?> | 
 	<a href="/foto/<?=$ank['id']?>/">相册</a> | 
 	<a href="/foto/<?=$ank['id']?>/<?=$gallery['id']?>/"><?=text($gallery['name'])?></a> | 
 	<b>上传照片</b>

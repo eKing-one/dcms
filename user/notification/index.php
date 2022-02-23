@@ -10,10 +10,10 @@ include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/adm_check.php';
 include_once '../../sys/inc/user.php';
 only_reg();
-$width = ($webbrowser == 'web' ? '100' : '70'); // Размер подарков при выводе в браузер
+$width = ($webbrowser == 'web' ? '100' : '70'); // 要在浏览器上显示的礼物大小
 /*
 ===============================
-Полная очистка уведомлений
+删除全部通知
 ===============================
 */
 if (isset($_GET['delete']) && $_GET['delete'] == 'all') {
@@ -24,7 +24,7 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'all') {
 		exit;
 	}
 }
-if (isset($_GET['del'])) // удаление уведомления
+if (isset($_GET['del'])) // 删除通知
 {
 	if (isset($user)) {
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `notification`  WHERE `id_user` = '$user[id]' AND `id` = '" . intval($_GET['del']) . "'"), 0) == 1) {
@@ -42,7 +42,7 @@ err();
 aut();
 /*
 ======
-Панель
+面板
 ======
 */
 $k_notif = dbresult(dbquery("SELECT COUNT(`read`) FROM `notification` WHERE `id_user` = '$user[id]' AND `read` = '0'"), 0); // Уведомления
@@ -67,7 +67,7 @@ echo "</div>";
 echo "</div>";
 /*
 ==========
-Список уведомлений
+通知列表
 ==========
 */
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `notification`  WHERE `id_user` = '$user[id]' "), 0);
@@ -75,7 +75,7 @@ $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
 $q = dbquery("SELECT * FROM `notification` WHERE `id_user` = '$user[id]' ORDER BY `time` DESC LIMIT $start, $set[p_str]");
-if ($k_post == 0) //Если нет уведомлений, то...
+if ($k_post == 0) //如果没有通知的话...
 {
 	echo "  <div class='mess'>";
 	echo "没有新通知";
@@ -92,9 +92,9 @@ while ($post = dbassoc($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	$type = $post['type']; //Тип уведомления
-	$avtor = user::get_user($post['avtor']); //От кого уведомление
-	if ($post['read'] == 0) //Если не прочитано
+	$type = $post['type']; //通知类型
+	$avtor = user::get_user($post['avtor']); //谁的通知
+	if ($post['read'] == 0) //未读时
 	{
 		$s1 = "<font color='red'>";
 		$s2 = "</font>";
@@ -104,11 +104,11 @@ while ($post = dbassoc($q)) {
 	}
 	/*
 ===============================
-Значение переменной $name для 
-определенного типа сообщения
+$name 变量值 
+特定消息类型
 ===============================
 */
-	if ($type == 'ok_gift') // Принимаем подарок
+	if ($type == 'ok_gift') // 请收下礼物。
 	{
 		$name = '已接受' . ($avtor['pol'] == 1 ? "" : "а") . ' 你的礼物 ';
 	} elseif ($type == 'no_gift') // Отказ от подарка
@@ -145,19 +145,19 @@ while ($post = dbassoc($q)) {
 			$sT = null;
 		}
 		$name = '回答说' . ($avtor['pol'] == 1 ? "" : "а") . ' 你在 ' . $sT;
-	} elseif ($type == 'guest' || $type == 'adm_komm') // Гостевая, админ чат
+	} elseif ($type == 'guest' || $type == 'adm_komm') // 嘉宾， 管理员聊天
 	{
 		$name = '回答说' . ($avtor['pol'] == 1 ? "" : "а") . ' 你在 ';
-	} elseif ($type == 'del_frend') // Уведомления о удаленных друзьях
+	} elseif ($type == 'del_frend') // 远程朋友通知
 	{
 		$name = ' 不幸的是我删除了它' . ($avtor['pol'] == 1 ? "" : "а") . ' 你来自朋友名单';
-	} elseif ($type == 'no_frend') // Уведомления о отклоненных заявках в друзья
+	} elseif ($type == 'no_frend') // 被朋友拒绝申请的通知
 	{
 		$name = ' 不幸的是我拒绝了' . ($avtor['pol'] == 1 ? "" : "а") . ' 在友谊中献给你';
-	} elseif ($type == 'ok_frend') // Уведомления о принятых заявках в друзья
+	} elseif ($type == 'ok_frend') // 申请朋友的通知
 	{
 		$name = ' 已成为' . ($avtor['pol'] == 1 ? "" : "а") . ' 你的朋友';
-	} elseif ($type == 'otm_frend') // Уведомления о отмененных заявках в друзья
+	} elseif ($type == 'otm_frend') // 关于取消预约的朋友通知
 	{
 		$name = ' 取消' . ($avtor['pol'] == 1 ? "" : "а") . ' 您的应用程序将您添加为好友';
 	} elseif ($type == 'stena_komm2') {
@@ -165,7 +165,7 @@ while ($post = dbassoc($q)) {
 	}
 	/*
 ===============================
-Подарки
+送礼
 ===============================
 */
 	if ($type == 'new_gift' || $type == 'no_gift' || $type == 'ok_gift') {
@@ -176,8 +176,7 @@ while ($post = dbassoc($q)) {
 			$gift =  dbassoc(dbquery("SELECT * FROM `gift_list` WHERE `id` = '$post[id_object]' LIMIT 1"));
 		}
 		if ($avtor['id']) {
-			echo  group($avtor['id']) . " ";
-			echo user::nick($avtor['id'], 1, 1, 1) . " " . $name;
+			echo user::nick($avtor['id'], 1, 0, 0) . " " . $name;
 			if ($type == 'new_gift') echo '<a href="/user/gift/gift.php?id=' . $id_gift['id'] . '"><img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:60px;" alt="*" /> ' . htmlspecialchars($gift['name']) . '</a>';
 			else echo '<img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:60px;" alt="*" /> ' . htmlspecialchars($gift['name']);
 			echo "  $s1 " . vremja($post['time']) . " $s2";
@@ -187,13 +186,12 @@ while ($post = dbassoc($q)) {
 	}
 	/*
 ===============================
-Друзья/Заявки
+朋友/申请书
 ===============================
 */
 	if ($type == 'no_frend' || $type == 'ok_frend' || $type == 'del_frend' || $type == 'otm_frend') {
 		if ($avtor['id']) {
-			echo user::avatar($avtor['id']) .  group($avtor['id']) . " <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>";
-			echo "  " . medal($avtor['id']) . " " . online($avtor['id']) . " $name ";
+			echo user::nick($avtor['id'],1,0,0) . " $name ";
 			echo "  $s1 " . vremja($post['time']) . " $s2";
 		} else {
 			echo " 这个朋友已经从网站上删除了=）  $s1 " . vremja($post['time']) . " $s2";
@@ -210,7 +208,7 @@ while ($post = dbassoc($q)) {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		$notes = dbassoc(dbquery("SELECT * FROM `notes` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
 		if ($notes['id']) {
-			echo user::avatar($avtor['id']) .  group($avtor['id']) . " <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>  " . medal($avtor['id']) . " " . online($avtor['id']) . " $name ";
+			echo user::nick($avtor['id'],1,1,0) . " $name ";
 			echo " <img src='/style/icons/zametki.gif' alt='*'> ";
 			echo '<a href="/plugins/notes/list.php?id=' . $notes['id'] . '&amp;page=' . $pageEnd . '"><b>' . htmlspecialchars($notes['name']) . '</b></a> ';
 			echo "  $s1 " . vremja($post['time']) . " $s2";
@@ -230,7 +228,7 @@ while ($post = dbassoc($q)) {
 		$dir = dbassoc(dbquery("SELECT * FROM `user_files` WHERE `id` = '" . $file['my_dir'] . "' LIMIT 1"));
 		$ras = $file['ras'];
 		if ($file['id'] && $avtor['id']) {
-			echo user::avatar($avtor['id']) .  group($avtor['id']) . " <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>  " . medal($avtor['id']) . " " . online($avtor['id']) . " $name ";
+			echo user::nick($avtor['id'],1,1,0) . " $name ";
 			echo " <img src='/style/icons/d.gif' alt='*'> ";
 			echo '<a href="/user/personalfiles/' . $file['id_user'] . '/' . $dir['id'] . '/?id_file=' . $file['id'] . '&amp;page=' . $pageEnd . '"><b>' . htmlspecialchars($file['name']) . '.' . $ras . '</b></a> ';
 			echo "  $s1 " . vremja($post['time']) . " $s2";
@@ -248,7 +246,7 @@ while ($post = dbassoc($q)) {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		$foto = dbassoc(dbquery("SELECT * FROM `gallery_foto` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
 		if ($foto['id']) {
-			echo user::avatar($avtor['id']) .  group($avtor['id']) . " <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>  " . medal($avtor['id']) . " " . online($avtor['id']) . " $name ";
+			echo user::nick($avtor['id'],1,1,0) . " $name ";
 			echo " <img src='/style/icons/foto.png' alt='*'> ";
 			echo " <a href='/foto/$foto[id_user]/$foto[id_gallery]/$foto[id]/?page=$pageEnd'>" . htmlspecialchars($foto['name']) . "</a> ";
 			echo "  $s1 " . vremja($post['time']) . " $s2";
@@ -266,7 +264,7 @@ while ($post = dbassoc($q)) {
 		$them = dbassoc(dbquery("SELECT * FROM `forum_t` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		if ($them['id']) {
-			echo user::avatar($avtor['id']) .  group($avtor['id']) . " <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>  " . medal($avtor['id']) . " " . online($avtor['id']) . " $name ";
+			echo user::nick($avtor['id'],1,1,0) . " $name ";
 			echo "<img src='/style/themes/$set[set_them]/forum/14/them_$them[up]$them[close].png' alt='*' /> ";
 			echo " <a href='/forum/$them[id_forum]/$them[id_razdel]/$them[id]/?page=$pageEnd'>" . htmlspecialchars($them['name']) . "</a>  $s1 " . vremja($post['time']) . " $s2";
 		} else {
@@ -287,15 +285,13 @@ while ($post = dbassoc($q)) {
 	}
 	if ($type == 'stena_komm2') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
-		echo user::avatar($avtor['id']) . group($avtor['id']) . ' ';
-		echo user::nick($avtor['id'], 1, 1, 1) . ' ' . $name . ' ';
+		echo user::nick($avtor['id'], 1, 1, 0) . ' ' . $name . ' ';
 		echo '' . $s1 . vremja($post['time']) . $s2 . ' ';
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
 	if ($type == 'stena') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
-		echo user::avatar($avtor['id']) . group($avtor['id']) . ' ';
-		echo user::nick($avtor['id'], 1, 1, 1) . ' 写道' . ($avtor['pol'] == 0 ? 'a' : null) . ' 在你的墙上';
+		echo user::nick($avtor['id'], 1, 1, 0) . ' 写道' . ($avtor['pol'] == 0 ? 'a' : null) . ' 在你的墙上';
 		echo '' . $s1 . vremja($post['time']) . $s2 . ' ';
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
@@ -308,7 +304,7 @@ while ($post = dbassoc($q)) {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		if ($status['id']) {
 			$ankS = user::get_user($status['id_user']);
-			echo user::avatar($avtor['id']) .  group($avtor['id']) . " <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>  " . medal($avtor['id']) . " " . online($avtor['id']) . " $name ";
+			echo user::nick($avtor['id'],1,1,0) . " $name ";
 			echo "<img src='/style/icons/comment.png' alt='*'> <a href='/user/status/komm.php?id=$status[id]&amp;page=$pageEnd'>状况</a>  $s1 " . vremja($post['time']) . " $s2";
 		} else {
 			echo '状态已被删除 =(';
@@ -323,7 +319,7 @@ while ($post = dbassoc($q)) {
 	if ($type == 'news_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		$news = dbassoc(dbquery("SELECT * FROM `news` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
-		echo user::avatar($avtor['id']) .  group($avtor['id']) . " <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>  " . medal($avtor['id']) . " " . online($avtor['id']) . " $name ";
+		echo user::nick($avtor['id'],1,1,0) . " $name ";
 		echo "<img src='/style/icons/news.png' alt='*'> <a href='/news/news.php?id=$news[id]&amp;page=$pageEnd'>" . htmlspecialchars($news['title']) . "</a>   $s1 " . vremja($post['time']) . " $s2";
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
@@ -335,7 +331,7 @@ while ($post = dbassoc($q)) {
 	if ($type == 'guest') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		if ($avtor['id']) {
-			echo user::avatar($avtor['id']) .  group($avtor['id']) . " <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>  " . medal($avtor['id']) . " " . online($avtor['id']) . " $name ";
+			echo user::nick($avtor['id'],1,1,0) . " $name ";
 			echo "<img src='/style/icons/guest.png' alt='*'> <a href='/guest/?page=$pageEnd'>客人</a>  $s1 " . vremja($post['time']) . " $s2";
 		} else {
 			echo '此用户用户已被删除 =(';
@@ -349,7 +345,7 @@ while ($post = dbassoc($q)) {
 */
 	if ($type == 'adm_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
-		echo user::avatar($avtor['id']) .  group($avtor['id']) . " <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>  " . medal($avtor['id']) . " " . online($avtor['id']) . " $name ";
+		echo user::nick($avtor['id'],1,1,0) . " $name ";
 		echo "<img src='/style/icons/chat.gif' alt='S' /> <a href='/plugins/admin/chat/?page=$pageEnd'>管理员聊天</a>  $s1 " . vremja($post['time']) . " $s2";
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
@@ -359,6 +355,6 @@ if ($k_page > 1) str('?', $k_page, $page); // 输出页数
 echo '<div class="mess"><img src="/style/icons/delete.gif"> <a href="?delete=all">删除所有通知</a></div>';
 echo "<div class=\"foot\">";
 echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$user[id]'>$user[nick]</a> | ";
-echo '<b>通知书</b> | <a href="settings.php">设置</a>';
+echo '<b>系统通知</b> | <a href="settings.php">设置</a>';
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';

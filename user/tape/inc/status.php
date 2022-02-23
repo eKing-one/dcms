@@ -1,6 +1,6 @@
 <?
 /*
-* $name описание действий объекта 
+* $name 个体操作描述 
 */
 if ($type == 'status_like' && $post['avtor'] != $user['id']) // статус like
 {
@@ -11,7 +11,7 @@ if ($type == 'status_like' && $post['avtor'] != $user['id']) // статус lik
 	$name = '已安装' . ($avtor['pol'] == 1 ? null : "а") . ' 新状态';
 }
 /*
-* Вывод блока с содержимым 
+* 内容块输出 
 */
 if ($type == 'status_like' || $type == 'status') {
 	$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '" . $post['id_file'] . "' LIMIT 1"));
@@ -19,16 +19,13 @@ if ($type == 'status_like' || $type == 'status') {
 	if ($status['id']) {
 		echo '<div class="nav1">';
 		if ($post['ot_kogo']) {
-			echo user::avatar($otkogo['id']) . group($otkogo['id']);
-			echo user::nick($otkogo['id']) . medal($otkogo['id']) . online($otkogo['id']) . '  <a href="user.settings.php?id=' . $otkogo['id'] . '">[!]</a>';
+			echo user::nick($otkogo['id'],0,0,0) . '  <a href="user.settings.php?id=' . $otkogo['id'] . '">[!]</a>';
 		} else {
-			echo user::avatar($avtor['id']) . group($avtor['id']);
-			echo user::nick($avtor['id']) . medal($avtor['id']) . online($avtor['id']) . '  <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>';
+			echo user::nick($avtor['id'],0,0,0) . '  <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>';
 		}
 		echo $name;
 		if ($type != 'status') {
-			echo user::avatar($avtor['id']) . group($avtor['id']);
-			echo '<a href="/info.php?id=' . $avtor['id'] . '">' . $avtor['nick'] . '</a>  ' . medal($avtor['id']) . online($avtor['id']) . ' ';
+			echo user::nick($avtor['id'],1,1,0). ' ';
 		}
 		echo $s1 . vremja($post['time']) . $s2;
 		echo '</div>';
@@ -54,8 +51,7 @@ if ($type == 'status_like' || $type == 'status') {
 		echo '<a href="/user/status/like.php?id=' . $status['id'] . '">' . $like . ' 用户.</a>';
 	} else {
 		echo '<div class="nav1">';
-		echo user::avatar($avtor['id']) . group($avtor['id']) . user::nick($avtor['id']);
-		echo medal($avtor['id']) . online($avtor['id']) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a><br />';
+		echo user::nick($avtor['id'],0,0,0).' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a><br />';
 		echo '状态已被删除 =(';
 	}
 }

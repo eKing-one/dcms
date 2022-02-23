@@ -82,3 +82,7 @@ if ($set['set_show_icon'] == 2) {
 } elseif ($set['set_show_icon'] == 1) {
     echo user::avatar($ank_kont['id']);
 }
+
+user::nick()
+user::get_user(,1,1,0)
+user::avatar()       

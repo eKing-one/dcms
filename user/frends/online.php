@@ -13,8 +13,8 @@ else $sid = $user['id'];
 $ank = user::get_user($sid);
 /*
 ==================================
-Приватность станички пользователя
-Запрещаем просмотр друзей
+个人信息保护政策
+禁止看朋友
 ==================================
 */
 $uSet = dbarray(dbquery("SELECT * FROM `user_set` WHERE `id_user` = '$ank[id]'  LIMIT 1"));
@@ -25,8 +25,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 	{
 		if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
 		echo "<div class='nav1'>";
-		echo group($ank['id']) . " ";
-		echo user::nick($ank['id'], 1, 1, 1);
+		echo user::nick($ank['id'], 1, 1, 0);
 		echo "</div>";
 		echo "<div class='nav2'>";
 		user::avatar($ank['id']);
@@ -71,7 +70,7 @@ $f = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' A
 $add = dbresult(dbquery("SELECT COUNT(id) FROM `frends_new` WHERE `to` = '$ank[id]' LIMIT 1"), 0);
 echo '<div style="background:white;"><div class="pnl2H">';
 echo '<div class="linecd"><span style="margin:9px;">';
-echo '' . ($ank['id'] == $user['id'] ? '我的朋友们' : ' 朋友 ' . group($ank['id']) . ' ' . user::nick($ank['id'], 1, 1, 1) . '') . '';
+echo '' . ($ank['id'] == $user['id'] ? '我的朋友们' : ' 朋友 '. user::nick($ank['id'], 0, 0, 0) . '') . '';
 echo '</span> </div></div>';
 if ($set['web'] == true) {
 	echo '<div class="mb4">
@@ -132,8 +131,7 @@ while ($frend = dbassoc($q)) {
 	}
 	echo '</td><td style="width:80%;">';
 	if (isset($user) && $user['id'] == $ank['id']) echo " <input type='checkbox' name='post_$frend[id]' value='1' /> ";
-	echo " " . group($frend['id']) . " ";
-	echo user::nick($frend['id'], 1, 1, 1);
+	echo user::nick($frend['id'], 1, 1, 0);
 	echo '<br/><img src="/style/icons/alarm.png"> ' . ($webbrowser ? '邮政活动:' : null) . ' ' . vremja($frend['date_last']) . ' </td><td style="width:18px;">';
 	if (isset($user)) {
 		echo "<a href=\"/mail.php?id=$frend[id]\"><img src='/style/icons/pochta.gif' alt='*' /></a><br/>";

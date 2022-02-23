@@ -147,7 +147,7 @@ if (isset($_POST['msg']) && isset($user)) {
 }
 if ((user_access('foto_komm_del') || $ank['id'] == $user['id']) && isset($_GET['delete']) && dbresult(query("SELECT COUNT(*) FROM `gallery_komm` WHERE `id`='" . intval($_GET['delete']) . "' AND `id_foto`='$foto[id]' LIMIT 1"), 0) != 0) {
 	query("DELETE FROM `gallery_komm` WHERE `id`='" . intval($_GET['delete']) . "' LIMIT 1");
-	admin_log('照片廊', '照片', "删除照片上的评论 [url=/id$ank[id]]" . user::nick($ank['id'], 0) . "[/url]");
+	admin_log('照片廊', '照片', "删除照片上的评论 [url=/id$ank[id]]" . user::nick($ank['id'],0,0,0) . "[/url]");
 	$_SESSION['message'] = '评论成功删除';
 	header("Location: ?page=" . intval($_GET['page']));
 	exit;
@@ -158,7 +158,7 @@ title();
 err();
 aut();
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">专辑</a> | ';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'],0,0,0) . ' | <a href="/foto/' . $ank['id'] . '/">专辑</a> | ';
 echo '<a href="/foto/' . $ank['id'] . '/' . $gallery['id'] . '/">' . text($gallery['name']) . '</a> | ';
 echo '<b>' . text($foto['name']) . '</b>';
 if ($foto['metka'] == 1) echo ' <font color=red>(18+)</font>';
@@ -193,7 +193,7 @@ if ($user['id'] != $ank['id'] && $gallery['pass'] != NULL) {
 		echo '<form action="?" method="POST">密码:<br /><input type="pass" name="password" value="" /><br />		
 		<input type="submit" value="登录"/></form>';
 		echo '<div class="foot">';
-		echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">专辑</a> | <b>' . text($gallery['name']) . '</b>';
+		echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'],0,0,0) . ' | <a href="/foto/' . $ank['id'] . '/">专辑</a> | <b>' . text($gallery['name']) . '</b>';
 		echo '</div>';
 		include_once '../sys/inc/tfoot.php';
 		exit;
@@ -313,7 +313,7 @@ if (!isset($block_foto)) {
 		// Лесенка
 		echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 		$num++;
-		echo group($ank2['id']) . user::nick($ank2['id']);
+		echo user::nick($ank2['id'],1,1,0);
 		if (isset($user) && $user['id'] != $ank2['id'])
 			echo ' <a href="?response=' . $ank2['id'] . '&amp;page=' . $page . '">[*]</a> ';
 		echo medal($ank2['id']) . online($ank2['id']) . ' (' . vremja($post['time']) . ')<br />';
@@ -344,7 +344,7 @@ if (!isset($block_foto)) {
 	}
 }
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">专辑</a> | ';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'],0,0,0) . ' | <a href="/foto/' . $ank['id'] . '/">专辑</a> | ';
 echo '<a href="/foto/' . $ank['id'] . '/' . $gallery['id'] . '/">' . text($gallery['name']) . '</a> | ';
 echo '<b>' . text($foto['name']) . '</b>';
 if ($foto['metka'] == 1) echo ' <font color=red>(18+)</font>';

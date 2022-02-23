@@ -1,6 +1,6 @@
 <?
 /*
-* $name описание действий объекта 
+* $name 个体操作描述 
 */
 if ($type=='avatar' && $post['avtor'] != $user['id']) // аватар
 {
@@ -10,7 +10,7 @@ if ($type=='avatar' && $post['avtor'] != $user['id']) // аватар
 	$name = '已安装' . ($avtor['pol'] == 1 ? null : "а") . ' 主页上的照片';	
 }
 /*
-* Вывод блока с содержимым 
+* 内容块输出 
 */
 if ($type == 'avatar')
 {
@@ -19,7 +19,7 @@ if ($type == 'avatar')
 	$gallery = dbassoc(dbquery("SELECT * FROM `gallery` WHERE `id` = '".$foto['id_gallery']."' LIMIT 1"));
 	$gallery2 = dbassoc(dbquery("SELECT * FROM `gallery` WHERE `id` = '".$avatar['id_gallery']."' LIMIT 1"));
 	echo '<div class="nav1">';
-	echo user::avatar($avtor['id']) . group($avtor['id']) . user::nick($avtor['id']);
+	echo  user::nick($avtor['id'],1,1,0);
 	echo medal($avtor['id']) . online($avtor['id']) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a> ' . $name;
 	echo $s1 . vremja($post['time']) . $s2;
 	echo '</div>';

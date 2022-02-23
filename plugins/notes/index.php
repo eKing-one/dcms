@@ -94,8 +94,7 @@ while ($post = dbassoc($q)) {
                 $num = 0;
         }
         /*---------------------------*/
-        echo group($post['id_user']) . " ";
-        echo user::nick($post['id_user'], 1, 1, 1) . " : <a href='/plugins/notes/list.php?id=" . $post['id'] . "'>" . text($post['name']) . "</a>";
+        echo user::nick($post['id_user'], 1, 1, 0) . " : <a href='/plugins/notes/list.php?id=" . $post['id'] . "'>" . text($post['name']) . "</a>";
         echo '<span style="float:right;color:#666;">' . vremja($post['time']) . '</span><br/>';
         echo rez_text($post['msg'], 80) . " <br/>";
         notes_sh($post['id']);

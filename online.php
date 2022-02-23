@@ -30,7 +30,7 @@ $liders = dbassoc(dbquery("SELECT * FROM `liders` WHERE `time` > '$time' ORDER B
 if ($k_lider > 0) {
 	echo '<div class="main">';
 	$lider = user::get_user($liders['id_user']);
-	echo user::avatar($lider['id'], 0) . user::nick($lider['id'], 1, 1, 1) . '<br />';
+	echo user::nick($lider['id'], 1, 1, 0) . '<br />';//输出用户名
 	if ($liders['msg'])
 		echo output_text($liders['msg']) . '<br />';
 	echo '<img src="/style/icons/lider.gif" alt="S"/> <a href="/user/liders/">所有管理员</a> (' . $k_lider . ')';
@@ -56,11 +56,11 @@ while ($ank = dbassoc($q)) {
 		elseif (date("n") == $ank['ank_m_r'] && date("j") < $ank['ank_d_r'])
 			$ank['ank_age'] = $ank['ank_age'] - 1;
 	}
-	// Лесенка
+	// 莱森卡
 	echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 	$num++;
-	echo user::avatar($ank['id'], 0) . user::nick($ank['id'], 1, 1, 1) . otkuda($ank['url']) . ' <br />';
-	// Расширенный режим
+	echo user::nick($ank['id'], 1, 1, 0) .' <br />';//输出用户名
+	// 高级模式
 	if (isset($user) && isset($_SESSION['admin'])) {
 		// Возможные ники
 		$mass[0] = $ank['id'];
@@ -69,7 +69,7 @@ while ($ank = dbassoc($q)) {
 			echo '<span class="ank_n">可能的昵称</span> ';
 			echo '<span class="ank_d">';
 			for ($i = 1; $i < count($collisions); $i++) {
-				echo ' :: ' . user::nick($collisions[$i]);
+				echo ' :: ' . user::nick($collisions[$i],1,1,0);//输出用户名
 			}
 			echo '</span><br />';
 		}

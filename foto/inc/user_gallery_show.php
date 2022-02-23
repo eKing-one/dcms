@@ -31,7 +31,7 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `gallery` WHERE `id` = '$gallery[id]'
 $gallery = dbassoc(dbquery("SELECT * FROM `gallery` WHERE `id` = '$gallery[id]' AND `id_user` = '$ank[id]' LIMIT 1"));
 
 //网页标题
-$set['title'] = user::nick($ank['id'], 0) . ' - ' . text($gallery['name']);
+$set['title'] = $ank['nick'] . ' - ' . text($gallery['name']);
 
 // Редактирование альбома и загрузка фото
 include 'inc/gallery_show_act.php';
@@ -45,7 +45,7 @@ err();
 include 'inc/gallery_show_form.php';
 
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">相册</a> | <b>' . text($gallery['name']) . '</b></div>';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'],0,0,0) . ' | <a href="/foto/' . $ank['id'] . '/">相册</a> | <b>' . text($gallery['name']) . '</b></div>';
 
 
 // Подключаем приватность стр. 
@@ -85,7 +85,7 @@ if ($user['id'] != $ank['id'] && $gallery['pass'] != NULL) {
 		<input type="submit" value="登录"/></form>';
 
 		echo '<div class="foot">';
-		echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">相册</a> | <b>' . text($gallery['name']) . '</b>';
+		echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'],0,0,0) . ' | <a href="/foto/' . $ank['id'] . '/">相册</a> | <b>' . text($gallery['name']) . '</b>';
 		echo '</div>';
 
 		include_once '../sys/inc/tfoot.php';
@@ -145,7 +145,7 @@ if (isset($user) && (user_access('foto_alb_del') || $ank['id'] == $user['id'])) 
 	echo '<img src="/style/icons/delete.gif" width="16"> <a href="/foto/' . $ank['id'] . '/' . $gallery['id'] . '/?act=delete"">删除相册</a></div>';
 }
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id']) . ' | <a href="/foto/' . $ank['id'] . '/">相册</a> | <b>' . text($gallery['name']) . '</b>';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'],0,0,0) . ' | <a href="/foto/' . $ank['id'] . '/">相册</a> | <b>' . text($gallery['name']) . '</b>';
 echo '</div>';
 
 include_once '../sys/inc/tfoot.php';

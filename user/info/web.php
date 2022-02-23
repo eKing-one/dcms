@@ -298,8 +298,7 @@ if ($ank['group_access'] > 1) {
 */
 			echo "<div class='accordion-group'>
 <div class='accordion-heading'>";
-			echo " " . group($ank['id']) . " ";
-			echo user::nick($ank['id'], 1, 1, 1) . " <span style='float:right;color:#666;'>进来了" . ($ank['pol'] == 0 ? 'a' : null) . " " . vremja($ank['date_last']) . "</span> ";
+			echo user::nick($ank['id'], 1, 1, 0) . " <span style='float:right;color:#666;'>进来了" . ($ank['pol'] == 0 ? 'a' : null) . " " . vremja($ank['date_last']) . "</span> ";
 			if ((user_access('user_ban_set') || user_access('user_ban_set_h') || user_access('user_ban_unset')) && $ank['id'] != $user['id'])
 				echo "<a href='/adm_panel/ban.php?id=$ank[id]'><font color=red>[禁止]</font></a>";
 			echo "</div></div>";

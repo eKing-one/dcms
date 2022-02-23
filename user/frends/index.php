@@ -29,8 +29,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 	{
 		if ($ank['group_access'] > 1) echo "<div class='err'>" . $ank['group_name'] . "</div>";
 		echo "<div class='nav1'>";
-		echo group($ank['id']) . " ";
-		echo user::nick($ank['id'], 1, 1, 1);
+		echo user::nick($ank['id'], 1, 1, 0);
 		echo "</div>";
 		echo "<div class='nav2'>";
 		user::avatar($ank['id']);
@@ -113,7 +112,7 @@ $f = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' A
 $add = dbresult(dbquery("SELECT COUNT(id) FROM `frends_new` WHERE `to` = '$ank[id]' LIMIT 1"), 0);
 /*echo '<div style="background:white;"><div class="pnl2H">';
 echo '<div class="linecd"><span style="margin:9px;">';
-echo ''.($ank['id']==$user['id'] ? 'Мои друзья' : ' Друзья '.group($ank['id']).' '.user::nick($ank['id'],1,1,1).'').''; 
+echo ''.($ank['id']==$user['id'] ? '我的朋友们' : ' 友人 '.group($ank['id']).' '.user::nick($ank['id'],1,1,1).'').''; 
 echo '</span> </div></div>';*/
 /*
 if ($set['web']==true) {
@@ -178,8 +177,7 @@ while ($frend = dbassoc($q)) {
 	}
 	echo '</td><td style="width:80%;">';
 	if (isset($user) && $user['id'] == $ank['id']) echo " <input type='checkbox' name='post_$frend[id]' value='1' /> ";
-	echo " " . group($frend['id']) . " ";
-	echo user::nick($frend['id'], 1, 1, 1);
+	echo user::nick($frend['id'], 1, 1, 0);
 	echo '<br/><img src="/style/icons/alarm.png"> ' . ($webbrowser ? '大使. 活动:' : null) . ' ' . vremja($frend['date_last']) . ' </td><td style="width:18px;">';
 	if (isset($user)) {
 		echo "<a href=\"/mail.php?id=$frend[id]\"><img src='/style/icons/pochta.gif' alt='*' /></a><br/>";

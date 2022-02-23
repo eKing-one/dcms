@@ -31,9 +31,7 @@ if (dbresult(dbquery("SELECT COUNT(*)FROM `notes` WHERE `id`='" . intval($_GET['
 	} else {
 		$q = dbquery("SELECT*FROM `bookmarks` WHERE `id_object`='" . intval($_GET['id']) . "' AND `type`='notes' LIMIT $start,$set[p_str]");
 		while ($post = dbassoc($q)) {
-			echo "<div class='nav2'>";
-			echo group($post['id_user']) . " ";
-			echo user::nick($post['id_user'], 1, 1, 1) . " ";
+			echo "<div class='nav2'>". user::nick($post['id_user'], 1, 1, 0) . " ";
 			echo "增加 " . vremja($post['time']) . "</div>";
 		}
 		if ($k_page > 1) str("?id=" . intval($_GET['id']) . "&amp;", $k_page, $page); // 输出页数

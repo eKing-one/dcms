@@ -19,9 +19,7 @@ $set['title'] = '帖子与评论 ' . $ank['nick'];
 include_once '../../sys/inc/thead.php';
 title();
 aut();
-echo "<div class='nav1'>作者: ";
-echo group($ank['id']);
-echo " " . user::nick($ank['id'], 1, 1, 1) . "</div>";
+echo "<div class='nav1'>作者: ". user::nick($ank['id'],1,1,0) . "</div>";
 /* Sort (Thems OR Komments) */
 echo "<div class='nav1'>";
 if (isset($_GET['komm'])) echo "<a href='?id=" . $ank['id'] . "'>主题</a> | <b>评论</b>";

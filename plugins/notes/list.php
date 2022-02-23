@@ -8,7 +8,7 @@ include_once '../../sys/inc/db_connect.php';
 include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
-/* Бан пользователя */
+/* 用户厢式货车 */
 if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'notes' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0')"), 0) != 0) {
 	header('Location: /ban.php?' . SID);
 	exit;
@@ -21,15 +21,15 @@ if (!isset($notes['id'])) {
 $avtor = user::get_user($notes['id_user']);
 if (isset($user))
 	$count = dbresult(dbquery("SELECT COUNT(*) FROM `notes_count` WHERE `id_user` = '" . $user['id'] . "' AND `id_notes` = '" . $notes['id'] . "' LIMIT 1"), 0);
-// Закладки
+// 书签
 $markinfo = dbresult(dbquery("SELECT COUNT(*) FROM `bookmarks` WHERE `id_object` = '" . $notes['id'] . "' AND `type`='notes'"), 0);
 if (isset($user))
 	dbquery("UPDATE `notification` SET `read` = '1' WHERE `type` = 'notes_komm' AND `id_user` = '$user[id]' AND `id_object` = '$notes[id]'");
 /*
 ================================
-Модуль жалобы на пользователя
-и его сообщение либо контент
-в зависимости от раздела
+用户投诉模块
+信件或内容
+因分区不同而不同
 ================================
 */
 if (isset($_GET['spam'])  &&  isset($user)) {
@@ -129,9 +129,11 @@ if (isset($_POST['msg']) && isset($user)) {
 		$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $notes['id_user'] . "' AND `i` = '1'");
 		while ($f = dbarray($q)) {
 			$a = user::get_user($f['frend']);
-			$discSet = dbarray(dbquery("SELECT * FROM `discussions_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // Общая настройка обсуждений
-			if ($f['disc_notes'] == 1 && $discSet['disc_notes'] == 1) /* Фильтр рассылки */ {
-				//---------друзьям автора--------------//
+			$discSet = dbarray(dbquery("SELECT * FROM `discussions_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // 设置全部讨论
+			if ($f['disc_notes'] == 1 && $discSet['disc_notes'] == 1) 
+			/* 邮件列表 */ 
+			{
+				//---------作者朋友--------------//
 				if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions` WHERE `id_user` = '$a[id]' AND `type` = 'notes' AND `id_sim` = '$notes[id]' LIMIT 1"), 0) == 0) {
 					if ($notes['id_user'] != $a['id']  || $a['id'] != $user['id'])
 						dbquery("INSERT INTO `discussions` (`id_user`, `avtor`, `type`, `time`, `id_sim`, `count`) values('$a[id]', '$notes[id_user]', 'notes', '$time', '$notes[id]', '1')");
@@ -143,7 +145,7 @@ if (isset($_POST['msg']) && isset($user)) {
 				//-------------------------------------//
 			}
 		}
-		//-------------отправляем автору------------//
+		//-------------发送给作者------------//
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions` WHERE `id_user` = '$notes[id_user]' AND `type` = 'notes' AND `id_sim` = '$notes[id]' LIMIT 1"), 0) == 0) {
 			if ($notes['id_user'] != $user['id'])
 				dbquery("INSERT INTO `discussions` (`id_user`, `avtor`, `type`, `time`, `id_sim`, `count`) values('$notes[id_user]', '$notes[id_user]', 'notes', '$time', '$notes[id]', '1')");
@@ -183,7 +185,7 @@ if ($notes['private'] == 2 && $user['id'] != $avtor['id']  && !user_access('note
 if (isset($_GET['delete']) && ($user['id'] == $avtor['id'] || user_access('notes_delete'))) {
 	echo "<center>";
 	echo "你真的想删除日记吗 " . output_text($notes['name']) . "?<br />";
-	echo "[<a href='delete.php?id=$notes[id]'><img src='/style/icons/ok.gif'> 删除</a>] [<a href='list.php?id=$notes[id]'><img src='/style/icons/delete.gif'> отмена</a>] ";
+	echo "[<a href='delete.php?id=$notes[id]'><img src='/style/icons/ok.gif'> 删除</a>] [<a href='list.php?id=$notes[id]'><img src='/style/icons/delete.gif'> 取消</a>] ";
 	echo "</center>";
 	include_once '../../sys/inc/tfoot.php';
 }
@@ -229,15 +231,13 @@ echo ' | <b>' . output_text($notes['name']) . '</b>';
 echo "</div>";
 echo "<div class='main'>";
 echo "<table style='width:110%;'><td style='width:4%;'>" . user::avatar($avtor['id']) . "</td>";
-echo "<td style='width:96%;'> 作者: ";
-echo group($avtor['id']);
-echo " " . user::nick($avtor['id'], 1, 1, 1) . " ";
+echo "<td style='width:96%;'> 作者: " . user::nick($avtor['id'], 1, 1, 0) . " ";
 echo "(<img src='/style/icons/them_00.png'>  " . vremja($notes['time']) . ")<br/>";
 echo "<img src='/style/icons/eye.png'> 预览: " . $notes['count'] . "</td></table></div>";
 $stat1 = $notes['msg'];
 if (!$set['web']) $mn = 20;
-else $mn = 90; // количество слов выводится в зависимости от браузера
-$stat = explode(' ', $stat1); // деление статьи на отдельные слова
+else $mn = 90; // 按浏览器显示的词数
+$stat = explode(' ', $stat1); // 把报道分成一个词
 $k_page = k_page(count($stat), $set['p_str'] * $mn);
 $page = page($k_page);
 $start = $set['p_str'] * $mn * ($page - 1);
@@ -245,7 +245,7 @@ $stat_1 = NULL;
 for ($i = $start; $i < $set['p_str'] * $mn * $page && $i < count($stat); $i++) {
 	$stat_1 .= $stat[$i] . ' ';
 }
-echo '<div class="mess">' . output_text($stat_1), ''; // вывод статьи со всем форматированием
+echo '<div class="mess">' . output_text($stat_1), ''; // 打印所有格式的文档 。
 notes_share($notes['id']);
 echo '</div>';
 if ($k_page > 1) str("?id=$notes[id]&amp;", $k_page, $page); // 输出页数
@@ -281,7 +281,7 @@ if (isset($user) && $user['id'] != $avtor['id']) {
 } else {
 	echo " <img src='/style/icons/thumbu.png' alt='*' />  (" . ($l2 - $l1) . ") <img src='/style/icons/thumbd.png' alt='*' /> ";
 }
-//--------------------------В закладки-----------------------------//
+//--------------------------移至书签-----------------------------//
 if (isset($user)) {
 	echo "" . ($webbrowser ? "&bull;" : null) . " <img src='/style/icons/add_fav.gif' alt='*' /> ";
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `bookmarks` WHERE `id_user` = '" . $user['id'] . "' AND `id_object` = '" . $notes['id'] . "' AND `type`='notes' LIMIT 1"), 0) == 0)
@@ -297,7 +297,7 @@ echo '在社交网络：';
 echo "</div>";
 /*
 ===================================
-Комментарии дневников
+日记评论
 ===================================
 */
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `notes_komm` WHERE `id_notes` = '" . intval($_GET['id']) . "'"), 0);
@@ -312,7 +312,7 @@ if ($k_post == 0) {
 	echo "没有留言";
 	echo '</div>';
 } else if (isset($user)) {
-	/*------------сортировка по времени--------------*/
+	/*------------按时间排列--------------*/
 	if (isset($user)) {
 		echo "<div id='comments' class='menus'>";
 		echo "<div class='webmenu'>";
@@ -323,7 +323,7 @@ if ($k_post == 0) {
 		echo "</div>";
 		echo "</div>";
 	}
-	/*---------------alex-borisi---------------------*/
+	/*-----------------------------------*/
 }
 $q = dbquery("SELECT * FROM `notes_komm` WHERE `id_notes` = '" . intval($_GET['id']) . "' ORDER BY `time` $sort LIMIT $start, $set[p_str]");
 echo "<table class='post'>";
@@ -342,7 +342,7 @@ while ($post = dbassoc($q)) {
 	if (isset($user) && $ank['id'] != $user['id']) echo "<a href='?id=$notes[id]&amp;response=$ank[id]'>[*]</a> ";
 	echo "" . medal($ank['id']) . " " . online($ank['id']) . " (" . vremja($post['time']) . ")<br />";
 	$postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'notes') AND `post` = '1' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
-	if ($postBan == 0) // Блок сообщения
+	if ($postBan == 0) // 消息块
 	{
 		echo output_text($post['msg']) . "<br />";
 	} else {

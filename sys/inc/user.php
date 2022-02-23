@@ -131,7 +131,7 @@ if (isset($user)) {
 
 	/*
 	========================================
-	Ответы в комм > v.1.7.4
+	回复内核 > v.1.7.4
 	========================================
 	*/
 
@@ -140,20 +140,20 @@ if (isset($user)) {
 
 	if (isset($_GET['response']) && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '" . intval($_GET['response']) . "'"), 0) == 1) {
 		$ank_reply = dbassoc(dbquery("SELECT nick,id FROM `user` WHERE `id` = '" . intval($_GET['response']) . "' LIMIT 1"));
-		$insert = user::nick($ank_reply['id'], 0) . ', ';
+		$insert = user::nick($ank_reply['id'],0,0,0) . ', ';
 		$go_link = '?' . $passgen . '&amp;response=' . $ank_reply['id'];
 	} else {
 		$go_link = NULL;
 	}
 
-	// Ссылка при ответе
+	// 响应时链接
 	define("REPLY", $go_link);
 } else {
-	// Тема для гостя
+	// 嘉宾主题
 	if ($webbrowser)
 		$set['set_them'] = $set['set_them2'];
 
-	// Гость
+	// 嘉宾:
 	if ($ip && $ua) {
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `ip` = '$iplong' AND `ua` = '" . my_esc($ua) . "' LIMIT 1"), 0) == 1) {
 			$guests = dbassoc(dbquery("SELECT * FROM `guests` WHERE `ip` = '$iplong' AND `ua` = '" . my_esc($ua) . "' LIMIT 1"));

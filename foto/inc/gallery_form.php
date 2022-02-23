@@ -1,11 +1,11 @@
-<?
+<?php
 if (isset($user) && $user['id'] == $ank['id'])
 {
 	if (isset($_GET['act']) && $_GET['act'] == 'create')
 	{
 		?>
 		<div class="foot">
-		<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'])?> | 
+		<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'],0,0,0)?> | 
 		<a href="/foto/<?=$ank['id']?>/">相册</a> | 
 		<b>创建</b>
 		</div>
@@ -29,7 +29,7 @@ if (isset($user) && $user['id'] == $ank['id'])
 		<input class="submit" type="submit" value="创建" />
 		</form>
 		<div class="foot">
-		<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'])?> | 
+		<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'],0,0,0)?> | 
 		<a href="/foto/<?=$ank['id']?>/">相册</a> | 
 		<b>创建</b>
 		</div>

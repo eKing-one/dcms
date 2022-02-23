@@ -14,8 +14,8 @@ $note_name = '<a href="/plugins/notes/list.php?id='.$post['id'].'"><span style="
 $note_text =output_text($post['msg']);
 $count_comm =dbresult(dbquery("SELECT COUNT(`id`) FROM `notes_komm` WHERE `id_notes`='".$post['id']."'"),0);
 echo "<div style='border-bottom:1px #d5dde5 solid;' class='nav2'>";
-?><?=group($post['id_user']);?> 
-<?=user::nick($post['id_user'],1,1,1);?> : <?=$note_name;?>
+?>
+<?=user::nick($post['id_user'],1,1,0);?> : <?=$note_name;?>
 <br/>
 <?=rez_text($note_text,80);?><br/><?php
 echo ($post['share']==1 ? "(!!) <i>转贴条目</i><br/>" : null);

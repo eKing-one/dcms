@@ -333,9 +333,7 @@ if (isset($_GET['f'])) {
             echo '</div>';
         }
         echo '<div class="main">';
-        echo '上传人: ';
-        echo group($avtor['id']) . ' ';
-        echo user::nick($avtor['id'], 1, 1, 1);
+        echo '上传人: '. user::nick($avtor['id'], 1, 1, 0);
         echo ' <span style="color:#666;">' . vremja($file_id['time']) . '</span><br/>';
         echo '返回文件夹: <a href="/user/personalfiles/' . $avtor['id'] . '/' . $my_dir['id'] . '/">' . text($my_dir['name']) . '</a>';
         echo '</div>';

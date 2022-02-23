@@ -207,7 +207,7 @@ if ($k_post) {
 			$num = 0;
 		}
 		/*---------------------------*/
-		echo user::avatar($ank['id'],0) . user::nick($ank['id']);//输出头像及用户名
+		echo user::nick($ank['id'],1,1,0);//输出用户名
 		echo '<input type="checkbox" name="post_' . $post['id_kont'] . '" value="1" />';
 		echo ($k_new_mess != 0 ? '<img src="/style/icons/new_mess.gif" alt="*" /> ' : '<img src="/style/icons/msg.gif" alt="*" /> ') . '<a href="/mail.php?id=' . $ank_kont['id'] . '">' . ($post['name'] != null ? $post['name'] : '信息') . '</a> ';
 		echo ($k_new_mess != 0 ? '<font color="red">' : null) . ($k_new_mess != 0 ? '+' . $k_new_mess : '(' . $k_mess . '/' . $k_mess2 . ')' . $k_mess_to) . ($k_new_mess != 0 ? '</font> ' : null);

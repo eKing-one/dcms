@@ -24,7 +24,7 @@ $f = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' A
 $add = dbresult(dbquery("SELECT COUNT(id) FROM `frends_new` WHERE `to` = '$ank[id]' LIMIT 1"), 0);
 echo '<div style="background:white;"><div class="pnl2H">';
 echo '<div class="linecd"><span style="margin:9px;">';
-echo '' . ($ank['id'] == $user['id'] ? '我的朋友们' : ' 朋友 ' . group($ank['id']) . ' ' . user::nick($ank['id'], 1, 1, 1) . '') . '';
+echo '' . ($ank['id'] == $user['id'] ? '我的朋友们' : ' 朋友 '.user::nick($ank['id'], 0, 0, 0)) . '';
 echo '</span> </div></div>';
 if ($set['web'] == true) {
 	echo '<div class="mb4">

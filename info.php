@@ -242,7 +242,7 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 		如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
 		echo "<form class='nav1' method='post' action='/info.php?id=$ank[id]&amp;spam=$mess[id]&amp;page=" . intval($_GET['page']) . "'>";
 		echo "<b>用户:</b> ";
-		echo " " . user::avatar($spamer['id']) . user::nick($spamer['id']) . " (" . vremja($mess['time']) . ")<br />";
+		echo " " . user::nick($spamer['id'],1,1,0) . " (" . vremja($mess['time']) . ")<br />";
 		echo "<b>违规行为:</b> <font color='green'>" . output_text($mess['msg']) . "</font><br />";
 		echo "原因:<br /><select name='types'>";
 		echo "<option value='1' selected='selected'>垃圾邮件/广告</option>";

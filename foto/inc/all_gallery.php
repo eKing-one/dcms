@@ -31,9 +31,7 @@ while ($post = dbassoc($q)) {
 	else
 		echo output_text($post['opis']) . '<br />';
 	echo '已创建: ' . vremja($post['time_create']) . '<br />';
-	echo '作者: ';
-	echo user::avatar($ank['id'], 2) . user::nick($ank['id'], 1, 1, 1);
-	echo '</div>';
+	echo '作者: ' . user::nick($ank['id'], 1, 1, 0). '</div>';
 }
 echo '</table>';
 if ($k_page > 1) str('?', $k_page, $page); // 输出页数

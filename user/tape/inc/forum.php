@@ -14,14 +14,14 @@ if ($type == 'them') {
 	$forum = dbassoc(dbquery("SELECT * FROM `forum_f` WHERE `id` = '$razdel[id_forum]' LIMIT 1"));
 	if ($them['id']) {
 		echo '<div class="nav1">';
-		echo user::avatar($avtor['id']) . group($avtor['id']) . user::nick($avtor['id']) . medal($avtor['id']) . online($avtor['id']) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a> ' . $name .  $s1 . vremja($post['time']) . $s2 . '<br />';
+		echo user::nick($avtor['id'],0,0,0) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a> ' . $name .  $s1 . vremja($post['time']) . $s2 . '<br />';
 		echo '</div>';
 		echo '<div class="nav2">';
 		echo ' <a href="/forum/' . $forum['id'] . '/' . $razdel['id'] . '/' . $them['id'] . '/"> ' . text($them['name']) . '</a> ';
 		echo '<div class="text">' . output_text($them['text']) . '<br /></div>';
 	} else {
 		echo '<div class="nav1">';
-		echo user::avatar($avtor['id']) . group($avtor['id']) . user::nick($avtor['id']) . " <a href='user.settings.php?id=$avtor[id]'>[!]</a>";
+		echo user::nick($avtor['id'],0,0,0) . " <a href='user.settings.php?id=$avtor[id]'>[!]</a>";
 		echo medal($avtor['id']) . online($avtor['id']);
 		echo '</div>';
 		echo '<div class="nav2">';

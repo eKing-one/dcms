@@ -54,8 +54,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id']) && dbresult(dbquery("SELECT CO
      echo "<table><td style='width:15%;vertical-align:top;'>";
      echo user::avatar($post['id_user']);
      echo "</td><td style='vertical-align:top;'>";
-     echo  group($post['id_user']) . " ";
-     echo user::nick($post['id_user'], 1, 1, 1);
+     echo  user::nick($post['id_user'], 1, 1, 0);
      echo " <span style='color:#666'>" . vremja($post['time']) . "</span><br/>";
      stena($post['id_user'], $post['id']);
      echo output_text($post['msg']) . "<br />";
@@ -73,8 +72,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id']) && dbresult(dbquery("SELECT CO
      }
      while ($komm = dbassoc($q)) {
           echo '<div class="nav1">';
-          echo group($komm['id_user']) . ' ';
-          echo user::nick($komm['id_user'], 1, 1, 1);
+          echo user::nick($komm['id_user'], 1, 1, 0);
           echo ' (' . vremja($komm['time']) . ')';
           echo "<br />";
           echo output_text($komm['msg']) . "<br />";
