@@ -15,27 +15,27 @@ $post=dbassoc(dbquery("SELECT * FROM `spamus` WHERE `id` = '".intval($_GET['id']
 $spamer = user::get_user($post['id_spam']);
 $ank=user::get_user($post['id_user']);
 if ($user['group_access'] == 2)
-$adm = 'Модератором чата';
+$adm = '聊天主持人';
 elseif ($user['group_access'] == 3)
-$adm = 'Модератором форума';
+$adm = '论坛主持人';
 elseif ($user['group_access'] == 4)
-$adm = 'Модератором зоны обмена';
+$adm = '交换区域主持人';
 elseif ($user['group_access'] == 5)
-$adm = 'Модератором библиотеки';
+$adm = '库主持人';
 elseif ($user['group_access'] == 6)
-$adm = 'Модератором фотографий';
+$adm = '摄影主持人';
 elseif ($user['group_access'] == 7)
-$adm = 'Модератором';
+$adm = '主持人';
 elseif ($user['group_access'] == 8)
-$adm = 'Администратором';
+$adm = '管理员';
 elseif ($user['group_access'] == 9)
-$adm = 'Главным администратором';
+$adm = '最高管理者';
 elseif ($user['group_access'] == 11)
-$adm = 'Модератором дневников';
+$adm = '日志主持人';
 elseif ($user['group_access'] == 12)
-$adm = 'Модератором гостевой';
+$adm = '嘉宾主持人';
 elseif ($user['group_access'] == 15)
-$adm = 'Создателем';
+$adm = '站长';
 if ($user['group_access']==2)
 {
 $types = "chat";
@@ -74,12 +74,12 @@ $types = false;
 }
 if ($types == $post['types'] || $types == true)
 {
-admin_log('Жалобы','Удаление жалобы',"Удаление жалобы от $ank[nick] на $spamer[nick]");
+admin_log('不满事项','消除投诉',"消除投诉 $ank[nick] 关于 $spamer[nick]");
 // отправка сообщения
 if (isset($_GET['otkl']))
-$msg = "Ваша жалоба на пользователя [b]$spamer[nick][/b] отклонена $adm [b]$user[nick][/b] [br][red]Будьте внимательней, в следующий раз это может привести к блокировке вашего аккаунта![/red]";
+$msg = "用户投诉事项 [b]$spamer[nick][/b] 被拒绝 $adm [b]$user[nick][/b] [br][red]下次账号可能会被切断，请注意！[/red]";
 else
-$msg = "Ваша жалоба на пользователя [b]$spamer[nick][/b] рассмотрена $adm [b]$user[nick][/b]. [br][b]$ank[nick][/b] спасибо вам за вашу бдительность! .дружба.";
+$msg = "用户投诉事项 [b]$spamer[nick][/b] 考虑的 $adm [b]$user[nick][/b]. [br][b]$ank[nick][/b] 谢谢你的注意！";
 dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '".my_esc($msg)."', '$time')");
 dbquery("DELETE FROM `spamus` WHERE `id` = '$post[id]'");
 }

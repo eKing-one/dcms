@@ -1,10 +1,10 @@
 <?
 
 /**
-* 主要用户功能
-*  nick()-显示昵称和在线图标
-* 头像-显示头像和用户图标
-* 所有函数都有参数输出什么和不输出什么
+ * 主要用户功能
+ *  nick()-显示昵称和在线图标
+ * 头像-显示头像和用户图标
+ * 所有函数都有参数输出什么和不输出什么
  */
 class user
 {
@@ -25,7 +25,7 @@ class user
 		/*
 		* $url == 0		只输出昵称
 		* $url == 1		输出昵称并链接到用户页的
-		* $on  == 1		在线显示 Nick 旁边的图标
+		* $on  == 1		显示 Nick 旁边的在线图标和用户组图标
 		* $medal == 1	在线输出图标旁边的奖牌
 		*/
 		static $nicks = [];
@@ -33,6 +33,7 @@ class user
 			$ank = dbassoc(query('SELECT `nick`, `date_last`, `rating`, `browser` FROM `user` WHERE `id` = "' . $user . '" LIMIT 1 '));
 			$nicks[$user] = $ank;
 		} else $ank = $nicks[$user];
+		$icon = null;
 		$nick = null;
 		$online = null;
 		$icon_medal = null;
@@ -43,9 +44,38 @@ class user
 			$nick = ' <a href="/id' . $user . '">' . text($ank['nick']) . '</a> ';
 		else
 			$nick = text($ank['nick']);
+
+		// 用户组图标
+		if ($on == true) {
+			$is_ban = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$user' AND (`time` > 'time()' OR `navsegda` = '1')"), 0);
+			if ($is_ban != 0) {
+				$icon = ' <img src="/style/user/ban.png" alt="*" class="icon" id="icon_group" /> ';
+			} else {
+				if (isset($ank['group_access']) && ($ank['group_access'] > 7 && ($ank['group_access'] < 10 || $ank['group_access'] > 14))) {
+					if ($ank['pol'] == 1) {
+						$icon = '<img src="/style/user/1.png" alt="*" class="icon" id="icon_group" /> ';
+					} else {
+						$icon = '<img src="/style/user/2.png" alt="" class="icon" id="icon_group" /> ';
+					}
+				} elseif (isset($ank['group_access']) && (($ank['group_access'] > 1 && $ank['group_access'] <= 7) || ($ank['group_access'] > 10 && $ank['group_access'] <= 14))) {
+					if ($ank['pol'] == 1) {
+						$icon = '<img src="/style/user/3.png" alt="*" class="icon" id="icon_group" /> ';
+					} else {
+						$icon = '<img src="/style/user/4.png" alt="*" class="icon" id="icon_group" /> ';
+					}
+				} else {
+					if (isset($ank['pol']) && $ank['pol'] == 1) {
+						$icon = '<img src="/style/user/5.png" alt="" class="icon" id="icon_group" /> ';
+					} else {
+						$icon = '<img src="/style/user/6.png" alt="" class="icon" id="icon_group" /> ';
+					}
+				}
+			}
+		}
 		// 在线图标输出
 		if ($user != 0 && $ank['date_last'] > time() - 600 && $on == true) {
 			if ($ank['browser'] == 'wap')
+
 				$online = ' <img src="/style/icons/online.gif" alt="WAP" /> ';
 			else
 				$online = ' <img src="/style/icons/online_web.gif" alt="WEB" /> ';
@@ -70,7 +100,7 @@ class user
 			}
 			$icon_medal = ' <img src="/style/medal/' . $img . '.png" alt="*" /> ';
 		}
-		return $nick . $icon_medal . $online;
+		return $icon . $nick . $icon_medal . $online;
 	}
 	/**
 	 * / 本身，用户组图标
@@ -100,35 +130,7 @@ class user
 			else
 				$AVATAR = '<img class="avatar" src="/style/user/avatar.gif" height= "50" width="50" alt="No Avatar" />';
 		}
-		static $icons = [];
-		// 用户组图标
-		if ($type == 0 || $type == 2) {
-			if (empty($icons[$user])) {
-				$result = dbresult(query("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$user' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
-				$icons[$user] = $result;
-			} else $result = $icons[$user];
-			if ($result != 0) {
-				$icon = ' <img src="/style/user/ban.png" alt="*" class="icon" id="icon_group" /> ';
-			} else {
-				if ($ank['group_access'] > 7 && ($ank['group_access'] < 10 || $ank['group_access'] > 14)) {
-					if ($ank['pol'] == 1)
-						$icon = '<img src="/style/user/1.png" alt="*" class="icon" id="icon_group" /> ';
-					else
-						$icon = '<img src="/style/user/2.png" alt="" class="icon"/> ';
-				} elseif (($ank['group_access'] > 1 && $ank['group_access'] <= 7) || ($ank['group_access'] > 10 && $ank['group_access'] <= 14)) {
-					if ($ank['pol'] == 1)
-						$icon = '<img src="/style/user/3.png" alt="*" class="icon" id="icon_group" /> ';
-					else
-						$icon = '<img src="/style/user/4.png" alt="*" class="icon" id="icon_group" /> ';
-				} elseif (isset($ank['status']) == 0) {
-					if ($ank['pol'] == 1)
-						$icon = '<img src="/style/user/5.png" alt="" class="icon" id="icon_group" /> ';
-					else
-						$icon = '<img src="/style/user/6.png" alt="" class="icon" id="icon_group" /> ';
-				}
-			}
-		}
-		return $AVATAR . $icon;
+		return $AVATAR;
 	}
 	/**
 	 * / 用户数据采样功能
@@ -161,7 +163,7 @@ class user
 		}
 		// 如果系统或未定义用户
 		if ($ID == 0) {
-			$ank = array('id' => '0','nick' => '系统','level' => '999','pol' => '1','group_name' => '系统机器人','ank_o_sebe' => '为通知创建');
+			$ank = array('id' => '0', 'nick' => '系统', 'level' => '999', 'pol' => '1', 'group_name' => '系统机器人', 'ank_o_sebe' => '为通知创建');
 		} elseif (!$ank) {
 			$ank = array('id' => '0', 'nick' => '未知用户', 'level' => '0', 'pol' => '1', 'group_name' => '未知用户', 'ank_o_sebe' => '未知用户');
 		} else {
