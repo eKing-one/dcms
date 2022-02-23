@@ -20,13 +20,13 @@ $frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE
  (`user` = '$user[id]' AND `to` = '$ank[id]') OR 
  (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"), 0);
 /*
-* Если вы не выше по должности хозяина альбома, 
-* и вы не являетесь хозяином альбома
-* и ваша должность равна или меньше должности хозяина альбома
-* то приватность работает, либо она игнорируется
+* 如果你不是专辑主持人，
+* 你不是专辑的主人
+* 你的职位等于或小于专辑主持人的职位
+* 是隐私起作用，还是被忽视
 */
 if ($ank['id'] != $user['id'] && ($user['group_access'] == 0 || $user['group_access'] <= $ank['group_access'])) {
-	// Начинаем вывод если стр имеет приват настройки
+	// 如果 pp 具有私有配置，则开始输出
 	if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) {
 		if ($ank['group_access'] > 1)
 			echo '<div class="err">' . $ank['group_name'] . '</div>';
@@ -58,7 +58,7 @@ if ($ank['id'] != $user['id'] && ($user['group_access'] == 0 || $user['group_acc
 		include_once H . 'sys/inc/tfoot.php';
 		exit;
 	}
-	// Если cтраница закрыта
+	// 如果页面关闭
 	if ($uSet['privat_str'] == 0) {
 		echo '<div class="mess">';
 		echo '用户完全限制了对其页面的访问!';

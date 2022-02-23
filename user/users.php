@@ -23,7 +23,7 @@ switch (@$_GET['sort']) {
 		break;
 	case 'level':
 		$sql_sort = '`user_group`.`level`';
-		$sort = 'level'; // уровень
+		$sort = 'level'; // 水平
 		break;
 	case 'rating':
 		$sql_sort = '`user`.`rating`';
@@ -31,7 +31,7 @@ switch (@$_GET['sort']) {
 		break;
 	case 'pol':
 		$sql_sort = '`user`.`pol`';
-		$sort = 'pol'; // 楼层
+		$sort = 'pol'; // 性别
 		break;
 	default:
 		$sql_sort = '`user`.`id`';
@@ -48,10 +48,10 @@ if (!isset($_GET['go'])) {
 	<select name='menu' onchange='top.location.href = this.options[this.selectedIndex].value;'> 
 	<option selected>-选择-
 	<option value='?sort=balls&amp;DESC&amp;page=$page'>评分</option>
-	<option value='?sort=level&amp;DESC&amp;page=$page'>状况</option>
+	<option value='?sort=level&amp;DESC&amp;page=$page'>等级</option>
 	<option value='?sort=rating&amp;DESC&amp;page=$page'>评级</option>
 	<option value='?sort=id&amp;ASC&amp;page=$page'>id</option>
-	<option value='?sort=pol&amp;ASC&amp;page=$page'>楼层</option>
+	<option value='?sort=pol&amp;ASC&amp;page=$page'>性别</option>
 	<option value='?sort=id&amp;DESC&amp;page=$page'>新的</option>
 	</select></option>
 	</div>
@@ -82,7 +82,7 @@ if (!isset($_GET['go'])) {
 		if ($sort == 'balls')
 			echo "<span class=\"ank_n\">评分:</span> <span class=\"ank_d\">$ank[balls]</span><br />";
 		if ($sort == 'pol')
-			echo "<span class=\"ank_n\">楼层:</span> <span class=\"ank_d\">" . (($ank['pol'] == 1) ? '男' : '女') . "</span><br />";
+			echo "<span class=\"ank_n\">性别:</span> <span class=\"ank_d\">" . (($ank['pol'] == 1) ? '男' : '女') . "</span><br />";
 		if ($sort == 'id')
 			echo "<span class=\"ank_n\">注册时间:</span> <span class=\"ank_d\">" . vremja($ank['date_reg']) . "</span><br />";
 		echo "<span class=\"ank_n\">最后登录:</span> <span class=\"ank_d\">" . vremja($ank['date_last']) . "</span><br />";
@@ -113,10 +113,10 @@ if (isset($_GET['go']) && $usearch != NULL) {
 	 <select name='menu' onchange='top.location.href = this.options[this.selectedIndex].value;'> 
 	<option selected>-选择-
 	<option value='?sort=balls&amp;DESC&amp;page=$page'>评分</option>
-	<option value='?sort=level&amp;DESC&amp;page=$page'>状况</option>
+	<option value='?sort=level&amp;DESC&amp;page=$page'>等级</option>
 	<option value='?sort=rating&amp;DESC&amp;page=$page'>评级</option>
 	<option value='?sort=id&amp;ASC&amp;page=$page'>id</option>
-	<option value='?sort=pol&amp;ASC&amp;page=$page'>楼层</option>
+	<option value='?sort=pol&amp;ASC&amp;page=$page'>性别</option>
 	<option value='?sort=id&amp;DESC&amp;page=$page'>新的</option>
 	</select></option>
 	</div>";
@@ -148,7 +148,7 @@ if (isset($_GET['go']) && $usearch != NULL) {
 		if ($sort == 'balls')
 			echo "<span class=\"ank_n\">评分</span> <span class=\"ank_d\">$ank[balls]</span><br />";
 		if ($sort == 'pol')
-			echo "<span class=\"ank_n\">楼层:</span> <span class=\"ank_d\">" . (($ank['pol'] == 1) ? '男' : '女') . "</span><br />";
+			echo "<span class=\"ank_n\">性别:</span> <span class=\"ank_d\">" . (($ank['pol'] == 1) ? '男' : '女') . "</span><br />";
 		if ($sort == 'id')
 			echo "<span class=\"ank_n\">注册时间:</span> <span class=\"ank_d\">" . vremja($ank['date_reg']) . "</span><br />";
 		echo "<span class=\"ank_n\">最后登录:</span> <span class=\"ank_d\">" . vremja($ank['date_last']) . "</span><br />";
@@ -164,7 +164,7 @@ if (isset($_GET['go']) && $usearch != NULL) {
 echo "<form method=\"post\" action=\"?go&amp;sort=$sort&amp;$por\">";
 // ShaMan
 $usearch = stripcslashes(htmlspecialchars($usearch));
-// Тут конец моих дум
+// 这是我的末日
 echo "<input type=\"text\" name=\"usearch\" maxlength=\"16\" value=\"$usearch\" /><br />";
 echo "<input type=\"submit\" value=\"查找用户\" />";
 echo "</form>";

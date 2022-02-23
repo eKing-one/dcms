@@ -36,21 +36,21 @@ class user
 		$nick = null;
 		$online = null;
 		$icon_medal = null;
-		// Вывод ника 
+		// 尼克引线
 		if ($user == 0) $ank = array('id' => '0', 'nick' => '系统', 'pol' => '1', 'rating' => '0', 'browser' => 'wap', 'date_last' => time());
 		elseif (!$ank) $ank = array('id' => '0', 'nick' => '[已删除]', 'pol' => '1', 'rating' => '0', 'browser' => 'wap', 'date_last' => time());
 		if ($url == true)
 			$nick = ' <a href="/id' . $user . '">' . text($ank['nick']) . '</a> ';
 		else
 			$nick = text($ank['nick']);
-		// Вывод значка онлайн
+		// 联机图标输出
 		if ($user != 0 && $ank['date_last'] > time() - 600 && $on == true) {
 			if ($ank['browser'] == 'wap')
 				$online = ' <img src="/style/icons/online.gif" alt="WAP" /> ';
 			else
 				$online = ' <img src="/style/icons/online_web.gif" alt="WEB" /> ';
 		}
-		// Вывод медали
+		// 奖牌输出
 		$R = $ank['rating'];
 		if ($medal == 1 && $R >= 6) {
 			if ($R >= 6 && $R <= 11) {
