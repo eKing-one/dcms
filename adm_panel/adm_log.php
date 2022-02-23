@@ -53,11 +53,11 @@ if (isset($_GET['id_mod']) && isset($_GET['id_act']) && dbresult(dbquery("SELECT
         echo "   <tr>";
         if ($set['set_show_icon'] == 2) {
             echo "  <td class='icon48' rowspan='2'>";
-            avatar($ank2['id']);
+            user::avatar($ank2['id']);
             echo "  </td>";
         } elseif ($set['set_show_icon'] == 1) {
             echo "  <td class='icon14'>";
-            echo "" . avatar($ank2['id']) . "";
+            echo "" . user::avatar($ank2['id']) . "";
             echo "  </td>";
         }
         echo "  <td class='p_t'>";

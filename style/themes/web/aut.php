@@ -54,7 +54,7 @@ echo "<div class='avatar'>";
 
 
 
-avatar($ank['id']);
+user::avatar($ank['id']);
 
 
 

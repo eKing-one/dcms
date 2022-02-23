@@ -73,7 +73,7 @@ if (!isset($_GET['go'])) {
 			$num = 0;
 		}
 		/*---------------------------*/
-		echo avatar($ank['id']), group($ank['id']);
+		echo user::avatar($ank['id']), group($ank['id']);
 		echo " <a href='/info.php?id=$ank[id]'>$ank[nick]</a> ";
 		echo "" . medal($ank['id']) . " " . online($ank['id']) . "<br />";
 		if ($ank['group_access'] > 1) echo "<span class='status'>$ank[group_name]</span><br />";
@@ -139,7 +139,7 @@ if (isset($_GET['go']) && $usearch != NULL) {
 			$num = 0;
 		}
 		/*---------------------------*/
-		echo "" . avatar($ank['id']) . " " . group($ank['id']) . "";
+		echo "" . user::avatar($ank['id']) . " " . group($ank['id']) . "";
 		echo "<a href='/info.php?id=$ank[id]'>$ank[nick]</a>";
 		echo "" . medal($ank['id']) . " " . online($ank['id']) . "";
 		if ($ank['level'] != 0) echo "<span class=\"status\">$ank[group_name]</span><br />";

@@ -31,11 +31,11 @@ if (user_access('adm_panel_show')) {
         echo "   <tr>";
         if ($set['set_show_icon'] == 2) {
             echo "  <td class='icon48' rowspan='2'>";
-            avatar($guest['id']);
+            user::avatar($guest['id']);
             echo "  </td>";
         } elseif ($set['set_show_icon'] == 1) {
             echo "  <td class='icon14'>";
-            echo "" . avatar($guest['id']) . "";
+            echo "" . user::avatar($guest['id']) . "";
             echo "  </td>";
         }
         echo "  <td class='p_t'>";

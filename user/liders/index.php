@@ -38,7 +38,7 @@ while ($post = dbassoc($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	echo avatar($ank['id']); // Аватарка
+	echo user::avatar($ank['id']); // Аватарка
 	echo group($ank['id']), ' <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> ';
 	echo medal($ank['id']), online($ank['id']) . ' (' . vremja($post['time']) . ')<br />';
 	echo '花费: <b style="color:red;">' . $post['stav'] . '</b> <b style="color:green;">' . $sMonet[0] . '</b><br />';

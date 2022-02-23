@@ -58,7 +58,7 @@ if (isset($_GET['spam'])  &&  isset($user)) {
 如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
 		echo "<form class='nav1' method='post' action='?id=$notes[id]&amp;page=" . intval($_GET['page']) . "&amp;spam=$mess[id]'>";
 		echo "<b>用户:</b> ";
-		echo " " . avatar($spamer['id']) . "  " . group($spamer['id']) . " <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>";
+		echo " " . user::avatar($spamer['id']) . "  " . group($spamer['id']) . " <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>";
 		echo "" . medal($spamer['id']) . " " . online($spamer['id']) . " (" . vremja($mess['time']) . ")<br />";
 		echo "<b>违规：</b> <font color='green'>" . output_text($mess['msg']) . "</font><br />";
 		echo "原因：<br /><select name='types'>";

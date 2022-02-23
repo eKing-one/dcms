@@ -151,7 +151,7 @@ if (isset($_GET['f'])) {
     如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
                 echo "<form class='nav1' method='post' action='/obmen$dir_id[dir]$file_id[id].$file_id[ras]?showinfo&spam=$mess[id]&page=" . intval($_GET['page']) . "'>";
                 echo "<b>用户:</b> ";
-                echo " " . avatar($spamer['id']) . "  " . group($spamer['id']) . " <a href='/info.php?id=$spamer[id]>$spamer[nick]</a>";
+                echo " " . user::avatar($spamer['id']) . "  " . group($spamer['id']) . " <a href='/info.php?id=$spamer[id]>$spamer[nick]</a>";
                 echo "" . medal($spamer['id']) . " " . online($spamer['id']) . " (" . vremja($mess['time']) . ") ";
                 echo "<b>违规行为:</b> <font color='green'>" . output_text($mess['msg']) . "</font> ";
                 echo "原因:<select name='types'>";

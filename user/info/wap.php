@@ -22,7 +22,7 @@ if ((user_access('user_ban_set') || user_access('user_ban_set_h') || user_access
 echo "</div>";
 // Аватар
 echo "<div class='nav2'>";
-echo avatar($ank['id'], true, 128, false);
+echo user::avatar($ank['id'], true, 128, false);
 echo "<br />";
 if (isset($user) && isset($_GET['like']) && $user['id'] != $ank['id'] && dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
 	dbquery("INSERT INTO `status_like` (`id_user`, `id_status`) values('$user[id]', '$status[id]')");

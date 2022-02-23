@@ -35,11 +35,11 @@ while ($chat = dbarray($q)) {
     echo "   <tr>";
     if ($set['set_show_icon'] == 2) {
         echo "  <td class='icon48' rowspan='2'>";
-        avatar($chat['id']);
+        user::avatar($chat['id']);
         echo "  </td>";
     } elseif ($set['set_show_icon'] == 1) {
         echo "  <td class='icon14'>";
-        echo "" . avatar($chat['id']) . "";
+        echo "" . user::avatar($chat['id']) . "";
         echo "  </td>";
     }
     echo "  <td class='p_t'>";

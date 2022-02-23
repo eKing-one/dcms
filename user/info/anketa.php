@@ -34,7 +34,7 @@ if ($ank['id'] == 0) {
 			echo medal($ank['id']) . " " . online($ank['id']) . " ";
 			echo "</div>";
 			echo "<div class='nav2'>";
-			echo avatar($ank['id'], true, 128, 128);
+			echo user::avatar($ank['id'], true, 128, 128);
 			echo "<br />";
 		}
 		if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей
@@ -189,7 +189,7 @@ echo "<div class='nav2'>";
 echo "<span class=\"ank_n\">最后登录:</span> <span class=\"ank_d\">" . vremja($ank['date_last']) . "</span><br />";
 echo "</div>";
 echo "<div class='nav1'>";
-echo avatar($ank['id'], true, 128, 128);
+echo user::avatar($ank['id'], true, 128, 128);
 echo "</div>";
 //-------------alex-borisi---------------//
 if ($ank['rating'] >= 0 && $ank['rating'] <= 100) {

@@ -125,7 +125,7 @@ if (isset($_POST['rating']) && isset($user)  && $user['id'] != $ank['id'] && $us
 	if ($new_r == 0)
 		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 留下了中立的评论 [url=/who_rating.php]你的个人资料[/url]', '$time')");
 	msg('您对用户的看法已成功更改');
-} 
+}
 //-------------状态记录-----------//
 if (isset($_POST['status']) && isset($user) && $user['id'] == $ank['id']) {
 	$msg = $_POST['status'];
@@ -169,7 +169,7 @@ if (isset($_GET['off'])) {
 $status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id_user` = '$ank[id]' AND `pokaz` = '1' LIMIT 1"));
 /* Класс к статусу */
 if (isset($_GET['like']) && $user['id'] != $ank['id'] && dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
-	dbquery("INSERT INTO `status_like` (`id_user`, `time`, `id_status`) values('$user[id]', '$time', '$status[id]')"); 
+	dbquery("INSERT INTO `status_like` (`id_user`, `time`, `id_status`) values('$user[id]', '$time', '$status[id]')");
 	######################Лента
 	$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $user['id'] . "' AND `i` = '1'");
 	while ($f = dbarray($q)) {
@@ -242,7 +242,7 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 		如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
 		echo "<form class='nav1' method='post' action='/info.php?id=$ank[id]&amp;spam=$mess[id]&amp;page=" . intval($_GET['page']) . "'>";
 		echo "<b>用户:</b> ";
-		echo " " . avatar($spamer['id']) . " <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>";
+		echo " " . user::avatar($spamer['id']) . " <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>";
 		echo "" . medal($spamer['id']) . " " . online($spamer['id']) . " (" . vremja($mess['time']) . ")<br />";
 		echo "<b>违规行为:</b> <font color='green'>" . output_text($mess['msg']) . "</font><br />";
 		echo "原因:<br /><select name='types'>";
@@ -289,7 +289,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 		echo medal($ank['id']) . " " . online($ank['id']) . " ";
 		echo "</div>";
 		echo "<div class='nav2'>";
-		echo avatar($ank['id'], true, 128, false);
+		echo user::avatar($ank['id'], true, 128, false);
 		echo "<br />";
 	}
 	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей

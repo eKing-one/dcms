@@ -19,7 +19,7 @@ if ($type == 'avatar')
 	$gallery = dbassoc(dbquery("SELECT * FROM `gallery` WHERE `id` = '".$foto['id_gallery']."' LIMIT 1"));
 	$gallery2 = dbassoc(dbquery("SELECT * FROM `gallery` WHERE `id` = '".$avatar['id_gallery']."' LIMIT 1"));
 	echo '<div class="nav1">';
-	echo avatar($avtor['id']) . group($avtor['id']) . user::nick($avtor['id']);
+	echo user::avatar($avtor['id']) . group($avtor['id']) . user::nick($avtor['id']);
 	echo medal($avtor['id']) . online($avtor['id']) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a> ' . $name;
 	echo $s1 . vremja($post['time']) . $s2;
 	echo '</div>';
@@ -41,4 +41,3 @@ if ($type == 'avatar')
 	if ($foto['id'])
 	echo '<a href="/foto/' . $avtor['id'] . '/' . $gallery['id'] . '/' . $foto['id'] . '/"><img src="/style/icons/bbl5.png" alt="*"/> (' . dbresult(dbquery("SELECT COUNT(*) FROM `gallery_komm` WHERE `id_foto` = '$foto[id]'"),0) . ')</a> ';
 }
-?>

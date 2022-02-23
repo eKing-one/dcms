@@ -15,7 +15,7 @@ if ($k_post > 0) {
 
 		echo '<td style="width:60px; height:70px; vertical-align:top; border:1px solid black; text-align:center; display:inline-table; margin:2px;">';
 
-		echo "<a href='/info.php?id=$ank[id]'>" . avatar($ank['id']) . '<br />';
+		echo "<a href='/info.php?id=$ank[id]'>" . user::avatar($ank['id']) . '<br />';
 		echo "<b><small>$ank[nick]</small></b></a>";
 
 		echo '</td>';

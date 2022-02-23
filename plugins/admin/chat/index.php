@@ -74,7 +74,7 @@ if (user_access('adm_panel_show')) {
 		/*---------------------------*/
 		$ank = get_user($post['id_user']);
 		if ($set['set_show_icon'] == 2) {
-			avatar($ank['id']);
+			user::avatar($ank['id']);
 		}
 		echo " " . group($ank['id']) . " <a href='/info.php?id=$ank[id]'>$ank[nick]</a> <a href='?response=$ank[id]'>[*]</a>";
 		echo " " . medal($ank['id']) . " " . online($ank['id']) . " (" . vremja($post['time']) . ")<br />";

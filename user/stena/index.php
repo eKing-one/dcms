@@ -46,7 +46,7 @@ while ($post = dbassoc($q)) {
     /*---------------------------*/
     $ank_stena = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
     if ($set['set_show_icon'] == 2) {
-        avatar($ank_stena['id']);
+        user::avatar($ank_stena['id']);
     } elseif ($set['set_show_icon'] == 1) {
         echo "" . group($ank_stena['id']) . "";
     }

@@ -33,7 +33,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 		echo user::nick($ank['id'], 1, 1, 1);
 		echo "</div>";
 		echo "<div class='nav2'>";
-		user::avatar($ank['id']);
+		user::user::avatar($ank['id']);
 		echo "</div>";
 	}
 	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей

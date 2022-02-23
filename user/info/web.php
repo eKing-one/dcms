@@ -33,7 +33,7 @@ if ($ank['group_access'] > 1) {
 			<?
 			// Аватар 
 			echo "<div class='mains'>";
-			echo avatar($ank['id'], false, 640, 200);
+			echo user::avatar($ank['id'], false, 640, 200);
 			echo "</div>";
 			// Рейтинг
 			echo "<div class='main'>";
@@ -234,7 +234,7 @@ if ($ank['group_access'] > 1) {
 					$num = 0;
 				}
 				/*-----------------------*/
-				echo avatar($ank3['id']);
+				echo user::avatar($ank3['id']);
 				echo ' <a href="/info.php?id=' . $ank3['id'] . '">' . $ank3['nick'] . '</a>' . medal($ank3['id']) . ' ' . online($ank3['id']) . ' (' . (($ank3['pol'] == 1) ? '男' : '女') . ')<br />';
 				echo '<a href="/mail.php?id=' . $ank3['id'] . '"><img src="/style/icons/pochta.gif" alt="*" /> 通信</a> ';
 				echo "</div>";
@@ -339,7 +339,7 @@ if ($ank['group_access'] > 1) {
 					echo "</div>";
 				}
 			}
-/*
+			/*
 ===============================
 最近添加的照片
 ===============================
@@ -483,7 +483,7 @@ if ($ank['group_access'] > 1) {
 	var anketa = new DHTMLSuite.form({ formRef:'myForm',action:'/ajax/php/anketa.php?id=$ank[id]',responseEl:'formResponse'});	
 	var anketaClose = new DHTMLSuite.form({ formRef:'myForm',action:'/ajax/php/anketa.php',responseEl:'formResponse'});
 		</script>";
-/*
+			/*
 ========================================
 礼物
 ========================================
@@ -502,7 +502,7 @@ if ($ank['group_access'] > 1) {
 				}
 				echo '</div>';
 			}
-/*
+			/*
 =====================================
 尤兹韦尔墙
 =====================================

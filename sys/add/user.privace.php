@@ -36,7 +36,7 @@ if ($ank['id'] != $user['id'] && ($user['group_access'] == 0 || $user['group_acc
 		echo group($ank['id']) . user::nick($ank['id'], 0) . medal($ank['id']) . online($ank['id']);
 		echo '</div>';		
 		echo '<div class="nav2">';
-		echo avatar($ank['id']);
+		echo user::avatar($ank['id']);
 		echo '</div>';	
 	}
 	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей
@@ -76,4 +76,3 @@ if ($ank['id'] != $user['id'] && ($user['group_access'] == 0 || $user['group_acc
 		exit;
 	}
 }
-?>

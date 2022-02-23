@@ -75,7 +75,7 @@ if (isset($_GET['spam'])  &&  $ank['id'] != 0) {
 如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
 		echo "<form class='nav1' method='post' action='/mail.php?id=$ank[id]&amp;spam=$mess[id]'>";
 		echo "<b>用户:</b> ";
-		echo " " . avatar($spamer['id']) . " <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>";
+		echo " " . user::avatar($spamer['id']) . " <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>";
 		echo "" . medal($spamer['id']) . " " . online($spamer['id']) . " (" . vremja($mess['time']) . ")<br />";
 		echo "<b>违规：</b> <font color='green'>" . output_text($mess['msg']) . "</font><br />";
 		echo "原因：<br /><select name='types'>";
@@ -251,9 +251,9 @@ while ($post = dbarray($q)) {
 	/*---------------------------*/
 	$ank2 = get_user($post['id_user']);
 	if ($set['set_show_icon'] == 2) {
-		avatar($ank2['id']);
+		user::avatar($ank2['id']);
 	} elseif ($set['set_show_icon'] == 1) {
-		//echo "".avatar($ank2['id'])."";
+		//echo "".user::avatar($ank2['id'])."";
 	}
 	if ($ank2 && $ank2['id']) {
 		if ($ank2['id'] == $user['id']) {

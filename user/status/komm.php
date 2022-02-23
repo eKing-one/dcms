@@ -52,7 +52,7 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0) {
 		echo medal($anketa['id']) . " " . online($anketa['id']) . " ";
 		echo "</div>";
 		echo "<div class='nav2'>";
-		avatar($anketa['id']);
+		user::avatar($anketa['id']);
 		echo "</div>";
 	}
 	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей
@@ -118,7 +118,7 @@ if (isset($_GET['spam'])  && isset($user)) {
 如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
 		echo "<form class='nav1' method='post' action='?id=$status[id]&amp;spam=$mess[id]&amp;page=" . intval($_GET['page']) . "'>";
 		echo "<b>用户:</b> ";
-		echo " " . avatar($spamer['id']) . "  " . group($spamer['id']) . " <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>";
+		echo " " . user::avatar($spamer['id']) . "  " . group($spamer['id']) . " <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>";
 		echo "" . medal($spamer['id']) . " " . online($spamer['id']) . " (" . vremja($mess['time']) . ")<br />";
 		echo "<b>违规：</b> <font color='green'>" . output_text($mess['msg']) . "</font><br />";
 		echo "原因：<br /><select name='types'>";
@@ -217,7 +217,7 @@ echo "<div class='foot'>";
 echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <a href='index.php?id=" . $status['id_user'] . "'>状态</a> | <b>评论</b>";
 echo "</div>";
 echo '<div class="main">';
-avatar($anketa['id']);
+user::avatar($anketa['id']);
 group($anketa['id']);
 echo " <a href='/info.php?id=$anketa[id]'>$anketa[nick]</a>";
 echo " " . medal($anketa['id']) . " " . online($anketa['id']) . " <br />";

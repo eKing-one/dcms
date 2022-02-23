@@ -65,7 +65,7 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0) {
 		echo medal($anketa['id']) . " " . online($anketa['id']) . " ";
 		echo "</div>";
 		echo "<div class='nav2'>";
-		avatar($anketa['id']);
+		user::avatar($anketa['id']);
 		echo "</div>";
 	}
 	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей

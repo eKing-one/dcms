@@ -57,7 +57,7 @@ while ($post = dbassoc($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	echo avatar($ank_p['id']) . group($ank_p['id']);
+	echo user::avatar($ank_p['id']) . group($ank_p['id']);
 	echo ' <a href="/info.php?id=' . $ank_p['id'] . '">' . $ank_p['nick'] . '</a> ';
 	echo ' ' . medal($ank_p['id']) . ' ' . online($ank_p['id']) . ' (' . vremja($post['time']) . ') ';
 	if ($ank['id'] == $user['id'])

@@ -18,7 +18,7 @@ title();
 err();
 aut();
 	echo "<div class='main'>";
-	echo avatar($ank['id'], true, 128, false);
+	echo user::avatar($ank['id']);
 	echo "</div>";
 	echo "<div class='main'>";
 	echo "为了在你的页面上安装一个头像，上传一张照片到你的相册，然后点击链接 \"让它成为网站主页\"";
@@ -30,4 +30,3 @@ aut();
 	echo "</div>";
 	//------------------------------------------------------------------// 
 include_once 'sys/inc/tfoot.php';
-?>
