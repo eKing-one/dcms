@@ -19,22 +19,22 @@ if (dbrows($kont) > 0) {
 switch (@$_GET['type']) {
 	case 'favorite':
 		$type = 'favorite';
-		$type_name = '收藏品';
+		$type_name = '特别关注';
 		break;
 	case 'ignor':
 		$type = 'ignor';
-		$type_name = '被忽略';
+		$type_name = '忽略';
 		break;
 	case 'deleted':
 		$type = 'deleted';
-		$type_name = '篮子';
+		$type_name = '垃圾箱';
 		break;
 	default:
 		$type = 'common';
 		$type_name = '活动中';
 		break;
 }
-$set['title'] = $type_name . ' 联络人';
+$set['title'] = $type_name . '联络人';
 include_once 'sys/inc/thead.php';
 title();
 if (isset($_GET['id'])) {
@@ -97,7 +97,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'edit_ok' && isset($_GET['id']) && db
 		$err[] = '未找到联络人';
 }
 aut();
-/*========================================Отмеченные========================================*/
+/*========================================标记========================================*/
 if (is_array($_POST)) {
 	foreach ($_POST as $key => $value) {
 		if (preg_match('#^post_([0-9]*)$#', $key, $postnum) && $value = '1') {
@@ -144,7 +144,7 @@ if (isset($_POST['common'])) {
 // избранное
 if (isset($_POST['favorite'])) {
 	if (isset($delpost) && is_array($delpost)) {
-		echo '<div class="mess">联络人: ';
+		echo '<div class="mess">联络人:';
 		for ($q = 0; $q <= count($delpost) - 1; $q++) {
 			if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$delpost[$q]'"), 0) == 0)
 				$warn[] = '此用户不在您的联系人列表中';
@@ -217,10 +217,10 @@ if ($k_post) {
 		echo '</div>';
 	}
 	echo '<div class="nav2">';
-	if ($type != 'deleted') echo '<input value="Удалить" type="submit" name="deleted" /> ';
-	if ($type != 'common') echo '<input value="Активные" type="submit" name="common" /> ';
-	if ($type != 'favorite') echo '<input value="Избранное" type="submit" name="favorite" /> ';
-	if ($type != 'ignor') echo '<input value="Игнор" type="submit" name="ignor" /> ';
+	if ($type != 'deleted') echo '<input value="垃圾箱" type="submit" name="deleted" /> ';
+	if ($type != 'common') echo '<input value="忽略" type="submit" name="common" /> ';
+	if ($type != 'favorite') echo '<input value="特别关注" type="submit" name="favorite" /> ';
+	if ($type != 'ignor') echo '<input value="不经常联系" type="submit" name="ignor" /> ';
 	echo '</form>';
 	echo '</div>';
 	if ($k_page > 1) str("?type=$type&amp;", $k_page, $page); // 输出页数
@@ -229,13 +229,13 @@ if ($k_post) {
 	echo '您的联系人列表为空';
 	echo '</div>';
 }
-if ($type == 'deleted') echo '<div class="mess">注意。联系人存储在篮子里不超过1个月。<br />之后，它们被完全移除。</div>';
+if ($type == 'deleted') echo '<div class="mess">注意。联系人存储在垃圾箱里不超过1个月。<br />之后，它们被完全移除。</div>';
 if ($type == 'ignor') echo '<div class="mess">关于来自这些联系人的消息的通知不会出现</div>';
 if ($type == 'favorite') echo '<div class="mess">来自这些联系人的消息通知将突出显示</div>';
 echo '<div class="main">';
-echo ($type == 'common' ? '<b>' : null) . '<img style="padding:2px;" src="/style/icons/activ.gif" alt="*" /> <a href="?type=common">活动中</a>' . ($type == 'common' ? '</b>' : null) . ' (' . dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `type` = 'common'"), 0) . ')<br />';
-echo ($type == 'favorite' ? '<b>' : null) . '<img style="padding:2px;" src="/style/icons/star_fav.gif" alt="*" /> <a href="?type=favorite">收藏品</a>' . ($type == 'favorite' ? '</b>' : null) . ' (' . dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `type` = 'favorite'"), 0) . ')<br />';
-echo ($type == 'ignor' ? '<b>' : null) . '<img style="padding:2px;" src="/style/icons/spam.gif" alt="*" /> <a href="?type=ignor">被忽略</a>' . ($type == 'ignor' ? '</b>' : null) . ' (' . dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `type` = 'ignor'"), 0) . ')<br />';
-echo ($type == 'deleted' ? '<b>' : null) . '<img style="padding:2px;" src="/style/icons/trash.gif" alt="*" /> <a href="?type=deleted">篮子；篮子</a>' . ($type == 'deleted' ? '</b>' : null) . ' (' . dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `type` = 'deleted'"), 0) . ')<br />';
+echo ($type == 'common' ? '<b>' : null) . '<img style="padding:2px;" src="/style/icons/activ.gif" alt="*" /> <a href="?type=common">正常联系</a>' . ($type == 'common' ? '</b>' : null) . ' (' . dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `type` = 'common'"), 0) . ')<br />';
+echo ($type == 'favorite' ? '<b>' : null) . '<img style="padding:2px;" src="/style/icons/star_fav.gif" alt="*" /> <a href="?type=favorite">特别关注</a>' . ($type == 'favorite' ? '</b>' : null) . ' (' . dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `type` = 'favorite'"), 0) . ')<br />';
+echo ($type == 'ignor' ? '<b>' : null) . '<img style="padding:2px;" src="/style/icons/spam.gif" alt="*" /> <a href="?type=ignor">忽略</a>' . ($type == 'ignor' ? '</b>' : null) . ' (' . dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `type` = 'ignor'"), 0) . ')<br />';
+echo ($type == 'deleted' ? '<b>' : null) . '<img style="padding:2px;" src="/style/icons/trash.gif" alt="*" /> <a href="?type=deleted">垃圾箱</a>' . ($type == 'deleted' ? '</b>' : null) . ' (' . dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `type` = 'deleted'"), 0) . ')<br />';
 echo '</div>';
 include_once 'sys/inc/tfoot.php';

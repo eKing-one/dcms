@@ -279,7 +279,7 @@ echo '.'; else echo '; ';
 }
 echo "<br />";
 }
-echo "无法恢复已删除的数据ь<br />";
+echo "无法恢复已删除的数据<br />";
 echo "<div class='foot'>";
 echo "&laquo;<a href='/info.php?id=$ank[id]'>返回资料</a><br />";
 echo "&laquo;<a href='/users.php'>用户</a><br />";
