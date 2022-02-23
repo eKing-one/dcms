@@ -207,7 +207,7 @@ if ($k_post) {
 		if ($set['set_show_icon'] == 2) {
 			avatar($ank_kont['id']);
 		} elseif ($set['set_show_icon'] == 1) {
-			echo status($ank_kont['id']);
+			echo avatar($ank_kont['id']);
 		}
 		echo group($ank_kont['id']) . ' <a href="/info.php?id=' . $ank_kont['id'] . '">' . $ank_kont['nick'] . '</a>';
 		echo online($ank_kont['id']) . medal($ank_kont['id']) . '<br />';

@@ -72,7 +72,7 @@ $liders = dbassoc(dbquery("SELECT * FROM `liders` WHERE `time` > '$time' ORDER B
 if ($k_lider > 0) {
 	echo '<div class="main">';
 	$lider = get_user($liders['id_user']);
-	echo status($lider['id']);
+	echo avatar($lider['id']);
 	echo group($lider['id']), ' <a href="/info.php?id=' . $lider['id'] . '">' . $lider['nick'] . '</a> ';
 	echo medal($lider['id']), online($lider['id']), '<br />';
 	if ($liders['msg']) echo output_text($liders['msg']) . '<br />';
@@ -101,7 +101,7 @@ while ($ank = dbassoc($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	echo status($ank['id']);
+	echo avatar($ank['id']);
 	echo group($ank['id']) . ' <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> ';
 	echo medal($ank['id']) . online($ank['id']) . '<br />';
 	echo output_text($ank['ank_o_sebe']);

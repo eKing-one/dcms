@@ -71,7 +71,7 @@ if (isset($_GET['gift']) && isset($_GET['category'])) {
 	echo '<form action="?category=' . $category['id'] . '&amp;gift=' . $gift['id'] . '&amp;id=' . $ank['id'] . '&amp;ok" method="post">';
 	echo '<div class="mess">';
 	echo '礼物 <img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:' . $width . 'px;" alt="*" /> для ';
-	echo status($ank['id']), group($ank['id']), $ank['nick'], medal($ank['id']), online($ank['id']) . '<br />';
+	echo avatar($ank['id']), group($ank['id']), $ank['nick'], medal($ank['id']), online($ank['id']) . '<br />';
 	echo '成本 <b><font color=red>' . intval($gift['money']) . '</font> <font color=green>' . $sMonet[0] . '</font></b> 在你 <b><font color=red>' . $user['money'] . '</font>  <font color=green>' . $sMonet[0] . '</font></b><br />';
 	echo '</div>';
 	echo '<div class="mess">';

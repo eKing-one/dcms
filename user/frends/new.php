@@ -79,7 +79,7 @@ while ($frend = dbassoc($q)) {
 	if ($set['set_show_icon'] == 2) {
 		avatar($frend['id']);
 	} elseif ($set['set_show_icon'] == 1) {
-		echo "" . status($frend['id']) . "";
+		echo "" . avatar($frend['id']) . "";
 	}
 	echo " " . group($frend['id']) . " <a href='/info.php?id=$frend[id]'>$frend[nick]</a>";
 	echo "" . medal($frend['id']) . " " . online($frend['id']) . " <br />";

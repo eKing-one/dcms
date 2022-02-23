@@ -108,7 +108,7 @@ while ($post = dbassoc($q)) {
     if ($set['set_show_icon'] == 2) {
         avatar($ank2['id']);
     } elseif ($set['set_show_icon'] == 1) {
-        echo status($ank2['id']) . " ";
+        echo avatar($ank2['id']) . " ";
     }
     echo "<a href='/info.php?id=$ank2[id]'>$ank2[nick]</a> " . online($ank2['id']) . ": ";
     if ($post['navsegda'] == 1) {

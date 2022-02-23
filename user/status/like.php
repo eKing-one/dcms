@@ -61,7 +61,7 @@ while ($post = dbassoc($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	echo status($ank['id']) . " <a href='/info.php?id=$ank[id]'>$ank[nick]</a> ";
+	echo avatar($ank['id']) . " <a href='/info.php?id=$ank[id]'>$ank[nick]</a> ";
 	echo medal($ank['id']) . online($ank['id']) . " (" . vremja($post['time']) . ")";
 	$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id_user` = '$ank[id]' AND `pokaz` = '1' LIMIT 1"));
 	if ($status['id']) {

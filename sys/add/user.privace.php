@@ -42,7 +42,7 @@ if ($ank['id'] != $user['id'] && ($user['group_access'] == 0 || $user['group_acc
 	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей
 	{
 		echo '<div class="mess">';
-		echo 'Просматривать страницу пользователя могут только его друзья!';
+		echo '只有用户的朋友才能查看用户的页面！';
 		echo '</div>';
 		// В друзья
 		if (isset($user))
@@ -51,15 +51,15 @@ if ($ank['id'] != $user['id'] && ($user['group_access'] == 0 || $user['group_acc
 			echo '<img src="/style/icons/druzya.png" alt="*"/>';
 			if ($frend_new == 0 && $frend==0)
 			{
-				echo '<a href="/user/frends/create.php?add=' . $ank['id'] . '">Добавить в друзья</a><br />';
+				echo '<a href="/user/frends/create.php?add=' . $ank['id'] . '">添加为好友</a><br />';
 			}
 			elseif ($frend_new == 1)
 			{
-				echo '<a href="/user/frends/create.php?otm=' . $ank['id'] . '">Отклонить заявку</a><br />';
+				echo '<a href="/user/frends/create.php?otm=' . $ank['id'] . '">拒绝申请</a><br />';
 			}
 			elseif ($frend == 2)
 			{
-				echo '<a href="/user/frends/create.php?del=' . $ank['id'] . '">Удалить из друзей</a><br />';
+				echo '<a href="/user/frends/create.php?del=' . $ank['id'] . '">把...从朋友中除名</a><br />';
 			}
 			echo '</div>';
 		}
@@ -70,7 +70,7 @@ if ($ank['id'] != $user['id'] && ($user['group_access'] == 0 || $user['group_acc
 	if ($uSet['privat_str'] == 0) 
 	{
 		echo '<div class="mess">';
-		echo 'Пользователь полностью ограничил доступ к своей странице!';
+		echo '用户完全限制了对其页面的访问!';
 		echo '</div>';
 		include_once H.'sys/inc/tfoot.php';
 		exit;

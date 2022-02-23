@@ -39,7 +39,7 @@ while ($chat = dbarray($q)) {
         echo "  </td>";
     } elseif ($set['set_show_icon'] == 1) {
         echo "  <td class='icon14'>";
-        echo "" . status($chat['id']) . "";
+        echo "" . avatar($chat['id']) . "";
         echo "  </td>";
     }
     echo "  <td class='p_t'>";

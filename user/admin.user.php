@@ -90,7 +90,7 @@ while ($ank = dbassoc($q)) {
 	if ($set['set_show_icon'] == 2) {
 		avatar($ank['id']);
 	} elseif ($set['set_show_icon'] == 1) {
-		echo "" . status($ank['id']) . "";
+		echo "" . avatar($ank['id']) . "";
 	}
 	echo "<a href='/info.php?id=$ank[id]'>$ank[nick]</a>";
 	echo "" . medal($ank['id']) . " " . online($ank['id']) . " <br />";

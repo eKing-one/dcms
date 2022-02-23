@@ -95,7 +95,7 @@ only_reg();
 	echo '</div>'; 	
 	// Автор подарка
 	echo '<div class="nav1">';
-	echo status($anketa['id']) , group($anketa['id']) , '<a href="/info.php?id=' . $anketa['id'] . '">' . $anketa['nick'] . '</a>' , medal($anketa['id']) , online($anketa['id']) . '<br />';
+	echo avatar($anketa['id']) , group($anketa['id']) , '<a href="/info.php?id=' . $anketa['id'] . '">' . $anketa['nick'] . '</a>' , medal($anketa['id']) , online($anketa['id']) . '<br />';
 	if ($post['coment'])echo '评论: <br />' . output_text($post['coment']);
 	echo '</div>'; 
 if ($ank['id'] == $user['id'])
@@ -116,4 +116,3 @@ if ($post['status'] == 0)
 	echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> | <a href="/user/gift/index.php?id=' . $ank['id'] . '">Подарки</a> | <b>' . htmlspecialchars($gift['name']) . '</b>';
 	echo '</div>';
 include_once '../../sys/inc/tfoot.php';
-?>

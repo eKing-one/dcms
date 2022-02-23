@@ -1,5 +1,5 @@
 <?
-function status($ID)
+function avatar($ID)
 {
 	$avatar = dbarray(dbquery("SELECT id,id_gallery,ras FROM `gallery_foto` WHERE `id_user` = '$ID' AND `avatar` = '1' LIMIT 1"));
 	if (isset($avatar['id'])&&test_file(H."sys/gallery/50/$avatar[id].$avatar[ras]"))
@@ -11,4 +11,3 @@ function status($ID)
 		echo '<img class="avatar" src="/style/user/avatar.gif" width="50" alt="No Avatar" />';
 	}
 }
-?>
