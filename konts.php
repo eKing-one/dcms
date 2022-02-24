@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 联系人
  */
@@ -79,7 +80,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'edit_ok' && isset($_GET['id']) && db
 			if (preg_match('#[^A-z0-9\-_\.,\[\]\(\) ]#i', $_POST['name'])) $err[] = '联系人的名称包含禁止的字符';
 			if (strlen($_POST['name']) > 64) $err[] = '联系人姓名的长度超过64个字符';
 			if (!isset($err)) {
-				dbquery("UPDATE `users_konts` SET `name` = '" . mysql_real_escape_string(htmlspecialchars($_POST['name'])) . "' WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]' LIMIT 1");
+				dbquery("UPDATE `users_konts` SET `name` = '" . my_esc(htmlspecialchars($_POST['name'])) . "' WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]' LIMIT 1");
 				$_SESSION['message'] = '联系人成功重命名';
 				header("Location: ?");
 				exit;
@@ -207,7 +208,7 @@ if ($k_post) {
 			$num = 0;
 		}
 		/*---------------------------*/
-		echo user::nick($ank['id'],1,1,0);//输出用户名
+		echo user::nick($ank['id'], 1, 1, 0); //输出用户名
 		echo '<input type="checkbox" name="post_' . $post['id_kont'] . '" value="1" />';
 		echo ($k_new_mess != 0 ? '<img src="/style/icons/new_mess.gif" alt="*" /> ' : '<img src="/style/icons/msg.gif" alt="*" /> ') . '<a href="/mail.php?id=' . $ank_kont['id'] . '">' . ($post['name'] != null ? $post['name'] : '信息') . '</a> ';
 		echo ($k_new_mess != 0 ? '<font color="red">' : null) . ($k_new_mess != 0 ? '+' . $k_new_mess : '(' . $k_mess . '/' . $k_mess2 . ')' . $k_mess_to) . ($k_new_mess != 0 ? '</font> ' : null);

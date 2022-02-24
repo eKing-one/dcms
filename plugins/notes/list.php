@@ -38,7 +38,7 @@ if (isset($_GET['spam'])  &&  isset($user)) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'notes_komm' AND `spam` = '" . $mess['msg'] . "'"), 0) == 0) {
 		if (isset($_POST['msg'])) {
 			if ($mess['id_user'] != $user['id']) {
-				$msg = mysql_real_escape_string($_POST['msg']);
+				$msg = my_esc($_POST['msg']);
 				if (strlen2($msg) < 3) $err = '更详细地说明投诉的原因';
 				if (strlen2($msg) > 1512) $err = '文本的长度超过512个字符的限制';
 				if (isset($_POST['types'])) $types = intval($_POST['types']);
@@ -130,9 +130,8 @@ if (isset($_POST['msg']) && isset($user)) {
 		while ($f = dbarray($q)) {
 			$a = user::get_user($f['frend']);
 			$discSet = dbarray(dbquery("SELECT * FROM `discussions_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // 设置全部讨论
-			if ($f['disc_notes'] == 1 && $discSet['disc_notes'] == 1) 
-			/* 邮件列表 */ 
-			{
+			if ($f['disc_notes'] == 1 && $discSet['disc_notes'] == 1)
+			/* 邮件列表 */ {
 				//---------作者朋友--------------//
 				if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions` WHERE `id_user` = '$a[id]' AND `type` = 'notes' AND `id_sim` = '$notes[id]' LIMIT 1"), 0) == 0) {
 					if ($notes['id_user'] != $a['id']  || $a['id'] != $user['id'])

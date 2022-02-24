@@ -97,7 +97,7 @@ if (isset($_GET['spam'])  && isset($user)) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'status_komm' AND `spam` = '" . $mess['msg'] . "'"), 0) == 0) {
 		if (isset($_POST['msg'])) {
 			if ($mess['id_user'] != $user['id']) {
-				$msg = mysql_real_escape_string($_POST['msg']);
+				$msg = my_esc($_POST['msg']);
 				if (strlen2($msg) < 3) $err = '更详细地说明投诉的原因';
 				if (strlen2($msg) > 1512) $err = '文本的长度超过512个字符的限制';
 				if (isset($_POST['types'])) $types = intval($_POST['types']);
@@ -253,7 +253,7 @@ while ($post = dbassoc($q)) {
 	}
 	/*---------------------------*/
 	$ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
-	echo user::nick($ank['id'],1,1,0);
+	echo user::nick($ank['id'], 1, 1, 0);
 	if (isset($user) && $ank['id'] != $user['id']) echo "<a href='?id=$status[id]&amp;response=$ank[id]'>[*]</a> ";
 	echo " (" . vremja($post['time']) . ")<br />";
 	$postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all') AND `post` = '1' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);

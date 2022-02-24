@@ -1,9 +1,9 @@
 <?php
 function br($msg, $br = '<br />')
 {
-    return eregi_replace("((<br( ?/?)>)|\n|\r)+", $br, $msg);
+    return preg_replace("#((<br( ?/?)>)|\n|\r)+#i", $br, $msg);
 } // 换行符
-function esc($text, $br = NULL)
+function my_esc($text, $br = NULL)
 { // 剪切所有不可读字符
     if ($br != NULL)
         for ($i = 0; $i <= 31; $i++) $text = str_replace(chr($i), NULL, $text);
@@ -20,10 +20,10 @@ function output_text($str, $br = true, $html = true, $smiles = true, $links = tr
         $str = htmlentities($str, ENT_QUOTES, 'UTF-8'); // 将所有操作转换为正常的浏览器消化
     if ($br == true) {
         $str = br($str); // 换行符
-        $str = esc($str); // 我们删除了所有无法读取的字符，这些字符会破坏我们的标记:)
+        $str = my_esc($str); // 我们删除了所有无法读取的字符，这些字符会破坏我们的标记:)
     } else {
         //$str=br($str, ' '); // 空格代替进位
-        $str = esc($str); // 我们删除了所有无法读取的字符，这些字符会破坏我们的标记:)
+        $str = my_esc($str); // 我们删除了所有无法读取的字符，这些字符会破坏我们的标记:)
     }
     return $str; // 返回已处理的字符串
 }

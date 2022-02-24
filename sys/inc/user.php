@@ -41,7 +41,6 @@ if (isset($user)) {
 	if ($timeactiv < 120) {
 		$newtimeactiv = $user['time'] + $timeactiv;
 		dbquery("UPDATE `user` SET `time` ='$newtimeactiv' WHERE `id` = '$user[id]' LIMIT 1");
-		echo mysql_error();
 	}
 
 	if (isset($user['type_input']) && isset($_SERVER['HTTP_REFERER']) && !preg_match('#' . preg_quote($_SERVER['HTTP_HOST']) . '#', $_SERVER['HTTP_REFERER']) && preg_match('#^https?://#i', $_SERVER['HTTP_REFERER']) && $ref = @parse_url($_SERVER['HTTP_REFERER'])) {

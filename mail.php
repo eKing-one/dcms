@@ -54,7 +54,7 @@ if (isset($_GET['spam'])  &&  $ank['id'] != 0) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'mail'"), 0) == 0) {
 		if (isset($_POST['msg'])) {
 			if ($mess['id_kont'] == $user['id']) {
-				$msg = mysql_real_escape_string($_POST['msg']);
+				$msg = my_esc($_POST['msg']);
 				if (strlen2($msg) < 3) $err = '更详细地说明投诉的原因';
 				if (strlen2($msg) > 1512) $err = '文本的长度超过512个字符的限制';
 				if (isset($_POST['types'])) $types = intval($_POST['types']);

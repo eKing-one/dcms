@@ -3,7 +3,7 @@ if (user_access('forum_for_edit') && isset($_GET['act']) && isset($_GET['ok']) &
 	$name = esc(stripcslashes(htmlspecialchars($_POST['name'])));
 	if (strlen2($name) < 3) $err = '名字太短了';
 	if (strlen2($name) > 32) $err = '名字太低了';
-	$name = mysql_real_escape_string($name);
+	$name = my_esc($name);
 	if (!isset($_POST['icon']) || $_POST['icon'] == null)
 		$FIcon = 'default';
 	else
@@ -11,7 +11,7 @@ if (user_access('forum_for_edit') && isset($_GET['act']) && isset($_GET['ok']) &
 	$opis = esc(stripcslashes(htmlspecialchars($_POST['opis'])));
 	if (isset($_POST['translit2']) && $_POST['translit2'] == 1) $opis = translit($opis);
 	if (strlen2($opis) > 512) $err = '描述太长';
-	$opis = mysql_real_escape_string($opis);
+	$opis = my_esc($opis);
 	$pos = intval($_POST['pos']);
 	if (!isset($err)) {
 		if ($user['level'] >= 3) {

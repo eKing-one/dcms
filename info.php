@@ -218,7 +218,7 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'stena'"), 0) == 0) {
 		if (isset($_POST['spamus'])) {
 			if ($mess['id_user'] != $user['id']) {
-				$msg = mysql_real_escape_string($_POST['spamus']);
+				$msg = my_esc($_POST['spamus']);
 				if (strlen2($msg) < 3) $err = '更详细地说明投诉的原因';
 				if (strlen2($msg) > 1512) $err = '文本的长度超过512个字符的限制';
 				if (isset($_POST['types'])) $types = intval($_POST['types']);
@@ -242,7 +242,7 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 		如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
 		echo "<form class='nav1' method='post' action='/info.php?id=$ank[id]&amp;spam=$mess[id]&amp;page=" . intval($_GET['page']) . "'>";
 		echo "<b>用户:</b> ";
-		echo " " . user::nick($spamer['id'],1,1,0) . " (" . vremja($mess['time']) . ")<br />";
+		echo " " . user::nick($spamer['id'], 1, 1, 0) . " (" . vremja($mess['time']) . ")<br />";
 		echo "<b>违规行为:</b> <font color='green'>" . output_text($mess['msg']) . "</font><br />";
 		echo "原因:<br /><select name='types'>";
 		echo "<option value='1' selected='selected'>垃圾邮件/广告</option>";
@@ -284,7 +284,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 	{
 		if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
 		echo "<div class='nav1'>";
-		echo user::nick($ank['id'],1,1,1);
+		echo user::nick($ank['id'], 1, 1, 1);
 		echo "</div>";
 		echo "<div class='nav2'>";
 		echo user::avatar($ank['id']);

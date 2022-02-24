@@ -137,8 +137,7 @@ class user
 	 * / 用户数据采样功能
 	 * / 从用户表输出数据
 	 * / 并生成一个头像，奖章图标和在线阵列
-	 * $ank['link'], $ank['avatar'], $ank['online'], 
-	 * $ank['medal'], $ank['icon']
+	 * 返回return
 	 */
 	static function get_user($ID = 0)
 	{

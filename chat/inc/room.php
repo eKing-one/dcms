@@ -8,8 +8,8 @@ if (isset($_POST['msg']) && isset($user)) {
 		$err[] = '信息太长了';
 	} elseif (strlen2($msg) < 2) {
 		$err[] = '短消息';
-	} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `chat_post` WHERE `id_user` = '$user[id]' AND `msg` = '" . mysql_escape_string($msg) . "' AND `time` > '" . ($time - 300) . "' LIMIT 1"), 0) != 0) {
-		$err = 'Ваше сообщение повторяет предыдущее';
+	} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `chat_post` WHERE `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' AND `time` > '" . ($time - 300) . "' LIMIT 1"), 0) != 0) {
+		$err = '你的留言重复了前面的';
 	} elseif (!isset($err)) {
 		if (isset($_POST['privat'])) {
 			$priv = abs(intval($_POST['privat']));

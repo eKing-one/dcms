@@ -1,4 +1,4 @@
-<?
+<?php
 $set['title']='平台验证';
 include_once 'inc/head.php'; // 设计主题的顶部
 echo "<form method='post' action='?".passgen()."'>";

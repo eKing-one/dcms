@@ -130,7 +130,7 @@ if (isset($_GET['f'])) {
             if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'obmen_komm' AND `spam` = '" . $mess['msg'] . "'"), 0) == 0) {
                 if (isset($_POST['msg'])) {
                     if ($mess['id_user'] != $user['id']) {
-                        $msg = mysql_real_escape_string($_POST['msg']);
+                        $msg = my_esc($_POST['msg']);
                         if (strlen2($msg) < 3) $err = '更详细地说明投诉的原因';
                         if (strlen2($msg) > 1512) $err = '文本的长度超过512个字符的限制';
                         if (isset($_POST['types'])) $types = intval($_POST['types']);
@@ -184,7 +184,7 @@ if (isset($_GET['f'])) {
                 $err[] = '信息太长了';
             } elseif (strlen2($msg) < 2) {
                 $err[] = '短消息';
-            } elseif (dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_komm` WHERE `id_file` = '$file_id[id]' AND `id_user` = '$user[id]' AND `msg` = '" . mysql_escape_string($msg) . "' LIMIT 1"), 0) != 0) {
+            } elseif (dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_komm` WHERE `id_file` = '$file_id[id]' AND `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
                 $err = '您的消息重复前一个';
             } elseif (!isset($err)) {
                 $ank = user::get_user($file_id['id_user']);

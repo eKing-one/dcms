@@ -35,12 +35,12 @@ if (isset($_GET['go']) && $search != NULL) {
     }
     $q_search = str_replace('%', '', $search);
     $q_search = str_replace(' ', '%', $q_search);
-    $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_files` WHERE `opis` like '%" . mysql_escape_string($q_search) . "%' OR `name` like '%" . mysql_escape_string($q_search) . "%'"), 0);
+    $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_files` WHERE `opis` like '%" . my_esc($q_search) . "%' OR `name` like '%" . my_esc($q_search) . "%'"), 0);
     $k_page = k_page($k_post, $set['p_str']);
     $page = page($k_page);
     $start = $set['p_str'] * $page - $set['p_str'];
     if ($k_post == 0) echo "<div class=\"p_t\">没有结果</div>";
-    $q = dbquery("SELECT * FROM `obmennik_files` WHERE `opis` like '%" . mysql_escape_string($q_search) . "%' OR `name` like '%" . mysql_escape_string($q_search) . "%' ORDER BY `time` DESC LIMIT $start, $set[p_str]");
+    $q = dbquery("SELECT * FROM `obmennik_files` WHERE `opis` like '%" . my_esc($q_search) . "%' OR `name` like '%" . my_esc($q_search) . "%' ORDER BY `time` DESC LIMIT $start, $set[p_str]");
     $i = 0;
     while ($post = dbassoc($q)) {
         $k_p = dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_komm` WHERE `id_file` = '$post[id]'"), 0);

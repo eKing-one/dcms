@@ -43,11 +43,11 @@ echo "<input type=\"text\" name=\"usearch\" maxlength=\"16\" value=\"$usearch\" 
 echo "<input type=\"submit\" value=\"寻找\" />";
 echo "</form>";
 if (isset($_GET['go'])) {
-	$k_post = dbresult(dbquery("SELECT COUNT(*) FROM `notes` where `name` like '%" . mysql_real_escape_string($usearch) . "%'"), 0);
+	$k_post = dbresult(dbquery("SELECT COUNT(*) FROM `notes` where `name` like '%" . my_esc($usearch) . "%'"), 0);
 	$k_page = k_page($k_post, $set['p_str']);
 	$page = page($k_page);
 	$start = $set['p_str'] * $page - $set['p_str'];
-	$q = dbquery("SELECT * FROM `notes` WHERE `name` like '%" . mysql_real_escape_string($usearch) . "%' $order LIMIT $start, $set[p_str]");
+	$q = dbquery("SELECT * FROM `notes` WHERE `name` like '%" . my_esc($usearch) . "%' $order LIMIT $start, $set[p_str]");
 	echo "<table class='post'>";
 	if ($k_post == 0) {
 		echo "<div class='mess'>";

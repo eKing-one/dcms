@@ -42,7 +42,7 @@ if(isset($_GET['id']))
 			isset($_POST["smile_$i"]))
 			{
 				$file = text($_FILES["file_$i"]['name']);
-				$smile = mysql_real_escape_string($_POST["smile_$i"]);
+				$smile = my_esc($_POST["smile_$i"]);
 				dbquery("INSERT INTO `smile` (`smile`,`dir`) values('$smile','" . intval($_GET['id']) . "')");
 				$ID = mysql_insert_id();
 				if (@copy($_FILES["file_$i"]['tmp_name'], H.'style/smiles/' . $ID . '.gif'))
@@ -189,7 +189,7 @@ if(isset($_GET['act']) && $_GET['act'] == 'add_kat')
 {
 	if(isset($_POST['save']))
 	{
-		$name = mysql_real_escape_string($_POST['name']);
+		$name = my_esc($_POST['name']);
 		if(strlen2($name) < 1)
 		$err = '名字太短了';
 		if(!isset($err))

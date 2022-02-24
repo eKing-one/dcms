@@ -73,7 +73,7 @@ if (!isset($_GET['go'])) {
 			$num = 0;
 		}
 		/*---------------------------*/
-		echo user::nick($ank['id'],1,1,0);//输出用户名
+		echo user::nick($ank['id'], 1, 1, 0); //输出用户名
 		if ($ank['group_access'] > 1) echo "<span class='status'>$ank[group_name]</span><br />";
 		if ($sort == 'rating')
 			echo "<span class=\"ank_n\">评级:</span> <span class=\"ank_d\">$ank[rating]</span><br />";
@@ -101,7 +101,7 @@ else
 	$_SESSION['usearch'] = $usearch;
 $usearch = preg_replace("#( ){1,}#", "", $usearch);
 if (isset($_GET['go']) && $usearch != NULL) {
-	$k_post = dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` like '%" . mysql_real_escape_string($usearch) . "%' OR `id` = '" . intval($usearch) . "'"), 0);
+	$k_post = dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` like '%" . my_esc($usearch) . "%' OR `id` = '" . intval($usearch) . "'"), 0);
 	$k_page = k_page($k_post, $set['p_str']);
 	$page = page($k_page);
 	$start = $set['p_str'] * $page - $set['p_str'];
@@ -125,7 +125,7 @@ if (isset($_GET['go']) && $usearch != NULL) {
 	</td>
 	</tr>";
 	}
-	$q = dbquery("SELECT `id` FROM `user` WHERE `nick` like '%" . mysql_real_escape_string($usearch) . "%' OR `id` = '" . intval($usearch) . "' ORDER BY `$sort` $por LIMIT $start, $set[p_str]");
+	$q = dbquery("SELECT `id` FROM `user` WHERE `nick` like '%" . my_esc($usearch) . "%' OR `id` = '" . intval($usearch) . "' ORDER BY `$sort` $por LIMIT $start, $set[p_str]");
 	while ($ank = dbassoc($q)) {
 		$ank = user::get_user($ank['id']);
 		/*-----------代码-----------*/
@@ -137,7 +137,7 @@ if (isset($_GET['go']) && $usearch != NULL) {
 			$num = 0;
 		}
 		/*---------------------------*/
-		echo user::nick($ank['id'],1,1,0);//输出用户名
+		echo user::nick($ank['id'], 1, 1, 0); //输出用户名
 		if ($ank['level'] != 0) echo "<span class=\"status\">$ank[group_name]</span><br />";
 		if ($sort == 'rating')
 			echo "<span class=\"ank_n\">评级:</span> <span class=\"ank_d\">$ank[rating]</span><br />";

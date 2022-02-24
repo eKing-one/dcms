@@ -22,7 +22,7 @@ if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL)
 )
 	$_SESSION['refer'] = str_replace('&', '&amp;', preg_replace('#^http://[^/]*/#', '/', $_SERVER['HTTP_REFERER']));
 if (isset($_POST['rating']) && isset($user) && isset($_POST['msg']) && $user['id'] != $ank['id'] && $user['rating'] >= 2 && dbresult(dbquery("SELECT SUM(`rating`) FROM `user_voice2` WHERE `id_kont` = '$user[id]'"), 0) >= 0) {
-	$msg = mysql_real_escape_string($_POST['msg']);
+	$msg = my_esc($_POST['msg']);
 	if (strlen($msg) < 3) $err = 'Короткий Отзыв';
 	if (strlen($msg) > 1024) $err = 'Длиный Отзыв';
 	elseif (dbresult(dbquery("SELECT COUNT(*) FROM `user_voice2` WHERE `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {

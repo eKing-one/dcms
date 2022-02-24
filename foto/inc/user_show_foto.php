@@ -94,7 +94,7 @@ if (isset($_POST['msg']) && isset($user)) {
 		$err = '信息太长了';
 	} elseif (strlen2($msg) < 2) {
 		$err = '短消息';
-	} elseif (dbresult(query("SELECT COUNT(*) FROM `gallery_komm` WHERE `id_foto` = '$foto[id]' AND `id_user` = '$user[id]' AND `msg` = '" . mysql_real_escape_string($msg) . "' LIMIT 1"), 0) != 0) {
+	} elseif (dbresult(query("SELECT COUNT(*) FROM `gallery_komm` WHERE `id_foto` = '$foto[id]' AND `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
 		$err = '您的消息重复前一个';
 	} elseif (!isset($err)) {
 		// Начисление баллов за активность

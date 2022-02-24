@@ -150,14 +150,14 @@ if (isset($_GET['spam']) && isset($user)) {
     if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'forum' AND `spam` = '" . $mess['msg'] . "'"), 0) == 0) {
         if (isset($_POST['spamus'])) {
             if ($mess['id_user'] != $user['id']) {
-                $msg = mysql_real_escape_string($_POST['spamus']);
+                $msg = my_esc($_POST['spamus']);
                 if (strlen2($msg) < 3) $err = '更详细地说明投诉的原因';
                 if (strlen2($msg) > 1512) $err = '文本的长度超过512个字符的限制';
                 if (isset($_POST['types'])) $types = intval($_POST['types']);
                 else $types = '0';
                 if (!isset($err)) {
                     dbquery("INSERT INTO `spamus` (`id_object`, `id_user`, `msg`, `id_spam`, `time`, `types`, `razdel`, `spam`) values('$them[id]', '$user[id]', '$msg', '$spamer[id]', '$time', '$types', 'forum', '" . my_esc($mess['msg']) . "')");
-                    $_SESSION['message'] = 'Заявка на рассмотрение отправлена';
+                    $_SESSION['message'] = '提交审查的申请';
                     header("Location: /forum/$forum[id]/$razdel[id]/$them[id]/?spam=$mess[id]&page=$pageEnd");
                     exit;
                 }

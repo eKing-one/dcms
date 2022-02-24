@@ -2,7 +2,7 @@
 // 函数别名
 function my_esc($str)
 {
-	return mysql_real_escape_string($str);
+	return my_esc($str);
 }
 
 // 对于php4（替代file_put_contents）

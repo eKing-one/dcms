@@ -24,7 +24,7 @@ elseif($Content_Encoding['gzip']){header("Content-Encoding: gzip");ob_start("com
 else ob_start(); // 没有压缩时，只需进行数据缓冲即可。
 session_name('SESS');
 session_start();
-$sess=mysql_real_escape_string(session_id());
+$sess=my_esc(session_id());
 header("HTTP/1.0 404 Not Found");
 header("Status: 404 Not Found");
 header("Refresh: 3; url=/index.php");
@@ -53,4 +53,3 @@ exit;
 else
 header ("Location: /index.php?".SID);
 exit;
-?>
