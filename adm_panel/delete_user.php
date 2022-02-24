@@ -117,10 +117,15 @@ if (isset($_POST['delete'])) {
 		admin_log('用户', '删除', "删除用户 '$ank[nick]' (id#$ank[id])");
 		msg("所有用户数据 $ank[nick] 已删除");
 	}
-	$tab = mysql_list_tables($set['mysql_db_name']);
-	for ($i = 0; $i < dbrows($tab); $i++) {
-		dbquery("OPTIMIZE TABLE `" . mysql_tablename($tab, $i) . "`");
+	$tab = dbquery("SHOW TABLES");
+
+	while ($name = mysqli_fetch_array($tab)) {
+  	  //就是table 名字，接下去就用mysqi 的写法写下去就是了
+		dbquery("OPTIMIZE TABLE `" . $name[0] . "`");
 	}
+	// for ($i = 0; $i < dbrows($tab); $i++) {
+	// 	dbquery("OPTIMIZE TABLE `" . mysql_tablename($tab, $i) . "`");
+	// }
 	echo "<div class='foot'>";
 	echo "&laquo;<a href='/users.php'>用户</a><br />";
 	echo "</div>";

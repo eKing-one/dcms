@@ -5,4 +5,4 @@ CREATE TABLE IF NOT EXISTS `visit_today` (
   KEY `ip` (`ip`),
   KEY `ua` (`ua`),
   KEY `time` (`time`)
-) ENGINE=MyISAM DEFAULT CHARSET  utf8mb4 COLLATE  utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET utf8mb4 COLLATE  utf8mb4_unicode_ci;

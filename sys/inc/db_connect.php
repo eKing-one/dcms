@@ -34,6 +34,7 @@ function dbassoc($result)
 {
   return mysql_fetch_assoc($result);
 }
+
 // Псевдоним dbquery
 function query($query) 
 {

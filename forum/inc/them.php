@@ -55,14 +55,14 @@ if (isset($user) && isset($_GET['act']) && $_GET['act'] == 'new' && isset($_FILE
 if (isset($user) && ($them['close'] == 0 || $them['close'] == 1 && user_access('forum_post_close')) && isset($_GET['act']) && $_GET['act'] == 'new' && isset($_POST['msg']) && !isset($_POST['file_s'])) {
     $msg = $_POST['msg'];
     if (strlen2($msg) < 2)
-        $err = 'Короткое сообщение';
+        $err = '短消息';
     if (strlen2($msg) > 1024)
-        $err = 'Длина сообщения превышает предел в 1024 символа';
+        $err = '消息长度超过 1024 字符限制';
     $mat = antimat($msg);
     if ($mat)
-        $err[] = 'В тексте сообщения обнаружен мат: ' . $mat;
+        $err[] = '在邮件文本中检测到 MAT： ' . $mat;
     if (dbresult(dbquery("SELECT COUNT(*) FROM `forum_p` WHERE `id_them` = '$them[id]' AND `id_forum` = '$forum[id]' AND `id_razdel` = '$razdel[id]' AND `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0)
-        $err = 'Ваше сообщение повторяет предыдущее';
+        $err = '你的留言重复了前面的';
     if (!isset($err)) {
         if (isset($_POST['cit']) && is_numeric($_POST['cit']) && dbresult(dbquery("SELECT COUNT(*) FROM `forum_p` WHERE `id` = '" . intval($_POST['cit']) . "' AND `id_them` = '" . intval($_GET['id_them']) . "' AND `id_razdel` = '" . intval($_GET['id_razdel']) . "' AND `id_forum` = '" . intval($_GET['id_forum']) . "'"), 0) == 1)
             $cit = intval($_POST['cit']);

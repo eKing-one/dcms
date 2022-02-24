@@ -13,14 +13,14 @@ if (!isset($hard_process))
 		@set_time_limit(600); // 我们设定了10分钟的限制
 		@unlink(H."sys/tmp/MySQL.sql.gz");
 		$list_tables = NULL;
-		$tab = @mysql_list_tables($set['mysql_db_name']);
-		for($i = 0; $i < dbrows($tab); $i++)
+		$tab = dbquery("SHOW TABLES");
+		while ($tablename = mysqli_fetch_array($tab)) 
 		{
 			$sql = NULL;
-			$table = mysql_tablename($tab,$i);
+			$table = $tablename[0];
 			$sql .= "DROP TABLE IF EXISTS `$table`;\r\n";
 			$res = @dbquery("SHOW CREATE TABLE `$table`");
-			$row = @mysql_fetch_row($res);
+			$row = @dbassoc($res);
 			$sql .= $row[1].";\r\n\r\n";
 			$res = @dbquery("SELECT * FROM `$table`");
 			if (@dbrows($res) > 0)
@@ -76,4 +76,3 @@ if (!isset($hard_process))
 		unlink(H."sys/tmp/MySQL.sql.gz");
 	}
 }
-?>
