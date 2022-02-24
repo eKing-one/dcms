@@ -27,12 +27,12 @@ if (isset($_SESSION['adm_reg_ok']) && $_SESSION['adm_reg_ok'] == true) {
 } elseif (isset($_POST['reg'])) {
     // проверка ника
     if (!preg_match("#^([A-z0-9\-\_\ ])+$#ui", $_POST['nick'])) $err[] = '昵称中有禁字';
-    if (preg_match("#[a-z]+#ui", $_POST['nick']) ) $err[] = '只允许使用英文字母字符';
+    if (!preg_match("#[a-z]+#ui", $_POST['nick'])) $err[] = '只允许使用英文字母字符';
     if (preg_match("#(^\ )|(\ $)#ui", $_POST['nick'])) $err[] = '禁止在昵称的开头和结尾使用空格';
     else {
         if (strlen2($_POST['nick']) < 3) $err[] = '短于 3 个字符的尼克';
         elseif (strlen2($_POST['nick']) > 16) $err[] = '长于 16 个字符的尼克';
-        elseif (mysqli_fetch_assoc(mysqli_query($db,"SELECT COUNT(*) FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "' LIMIT 1"), 0) != 0)
+        elseif (mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "' LIMIT 1"), 0) != 0)
             $err[] = '所选的尼克已经被另一个用户占用了';
         else $nick = $_POST['nick'];
     }
@@ -58,7 +58,7 @@ VALUES('$nick', '" . shif($password) . "', $time, $time, $time, '$pol', '4', '15
         }
         /*
 ========================================
-正在创建用户配置
+Создание настроек юзера
 ========================================
 */
         mysqli_query($db, "INSERT INTO `user_set` (`id_user`) VALUES ('$user[id]')");
