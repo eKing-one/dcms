@@ -148,43 +148,7 @@ function esc($text, $br = NULL)
 	return $text;
 }
 
-// 获取用户数据和权限级别（+ 缓存）
-function get_user($user_id = 0)
-{
-	static $users; // 调用函数后不删除变量
-	if ($user_id == 0) {
-		// бот
-		$ank2['id'] = 0;
-		$ank2['nick'] = '系统';
-		$ank2['level'] = 999;
-		$ank2['pol'] = 1;
-		$ank2['group_name'] = '系统机器人';
-		$ank2['ank_o_sebe'] = '为通知创建';
-		return $ank2;
-	} else {
 
-		$user_id = intval($user_id);
-		$users[0] = FALSE;
-		if (!isset($users[$user_id])) {
-			$users[$user_id] = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$user_id' LIMIT 1"));
-
-			if ($users[$user_id]['id'] != 0) {
-
-
-				$tmp_us = dbassoc(dbquery("SELECT `level`,`name` AS `group_name` FROM `user_group` WHERE `id` = '" . $users[$user_id]['group_access'] . "' LIMIT 1"));
-
-				if (!isset($tmp_us) or empty($tmp_us['group_name'])) {
-					$users[$user_id]['level'] = 0;
-					$users[$user_id]['group_name'] = '用户';
-				} else {
-					$users[$user_id]['level'] = $tmp_us['level'];
-					$users[$user_id]['group_name'] = $tmp_us['group_name'];
-				}
-			} else $users[$user_id] = FALSE;
-		}
-		return $users[$user_id];
-	}
-}
 
 // 语句定义
 function opsos($ips = NULL)

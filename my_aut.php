@@ -27,7 +27,7 @@ if (empty($k_post))
 $q = dbquery("SELECT * FROM `user_log` WHERE `id_user` = '".$user['id']."' ORDER BY `id` DESC  LIMIT $start, $set[p_str]");
 while ($post = dbassoc($q))
 {
-	$ank = dbarray(dbquery("SELECT * FROM `user` WHERE `id` = '$user[id]' LIMIT 1"));
+	$ank = user::get_user($user['id']);
 	// Лесенка
 	echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 	$num++;
@@ -35,7 +35,7 @@ while ($post = dbassoc($q))
 	if ($post['method'] != 1)
 		echo ' 登录信息<br />';
 	else
-		echo ' 登入及密码输入 (' . vremja($post['time']) . ')<br />';
+		echo ' 用户名及密码登录 (' . vremja($post['time']) . ')<br />';
 	echo 'IP: ' . long2ip($post['ip']) . '<br />';
 	echo '浏览器: ' . output_text($post['ua']);
 	echo '</div>';
