@@ -461,11 +461,14 @@ else return mysqli_fetch_assoc($result);
   public static function mysql_pconnect($host = '', $username = '', $passwd = '', $new_link = FALSE, $client_flags = 0)
   {
 
+
     $link = mysqli_connect('p:' . $host, $username, $passwd);
     if (!$link) {
       echo mysqli_error($link) . '<br>';
     }
     self::$currObj = $link;
+
+
 
     return $link;
 

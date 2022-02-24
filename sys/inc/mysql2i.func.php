@@ -278,6 +278,7 @@ function mysql_num_rows($result)
 function mysql_pconnect($host = '', $username = '', $passwd = '', $new_link = FALSE, $client_flags = 0)
 {
 
+
   return mysql2i::mysql_pconnect($host, $username, $passwd, $new_link, $client_flags);
 
 }
