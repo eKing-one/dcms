@@ -46,24 +46,25 @@ if ($set['antidos']) { // 来自单个 IP 的频繁请求保护
 function antimat($str)
 {
 	global $user, $time, $set;
-	if ($set['antimat']) {
-		$antimat = &$_SESSION['antimat'];
-		include_once H . 'sys/inc/censure.php';
-		$censure = censure($str);
-		if ($censure) {
-			$antimat[$censure] = $time;
-			if (count($antimat) > 3 && isset($user) && $user['level']) // 如果发出超过3次警告
-			{
-				$prich = "检测到禁止文字: $censure";
-				$timeban = $time + 60 * 60; // бан на час
-				dbquery("INSERT INTO `ban` (`id_user`, `id_ban`, `prich`, `time`) VALUES ('$user[id]', '0', '$prich', '$timeban')");
-				admin_log('用户', '禁令', "用户禁令 '[url=/amd_panel/ban.php?id=$user[id]]$user[nick][/url]' (id#$user[id]) 以前 " . vremja($timeban) . " 这是有原因的 '$prich'");
-				header('Location: /ban.php?' . SID);
-				exit;
-			}
-			return $censure;
-		} else return false;
-	} else return false;
+	// if ($set['antimat']) {
+	// 	$antimat = &$_SESSION['antimat'];
+	// 	include_once H . 'sys/inc/censure.php';
+	// 	$censure = censure($str);
+	// 	if ($censure) {
+	// 		$antimat[$censure] = $time;
+	// 		if (count($antimat) > 3 && isset($user) && $user['level']) // 如果发出超过3次警告
+	// 		{
+	// 			$prich = "检测到禁止文字: $censure";
+	// 			$timeban = $time + 60 * 60; // бан на час
+	// 			dbquery("INSERT INTO `ban` (`id_user`, `id_ban`, `prich`, `time`) VALUES ('$user[id]', '0', '$prich', '$timeban')");
+	// 			admin_log('用户', '禁令', "用户禁令 '[url=/amd_panel/ban.php?id=$user[id]]$user[nick][/url]' (id#$user[id]) 以前 " . vremja($timeban) . " 这是有原因的 '$prich'");
+	// 			header('Location: /ban.php?' . SID);
+	// 			exit;
+	// 		}
+	// 		return $censure;
+	// 	} else return false;
+	// } else return false;
+	return $str;
 }
 
 // 递归删除文件夹

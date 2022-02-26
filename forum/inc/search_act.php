@@ -1,6 +1,6 @@
-<?
-include_once '../sys/inc/stemmer.php';
-$stemmer = new Lingua_Stem_Ru();
+<?php
+//不知道干啥的
+
 if (isset($_POST['in']) && $_POST['in'] != null && preg_match('#^(r|f)([0-9]+)$#', $_POST['in'], $in))
 {
 	if ($in[1] == 'f' && dbresult(dbquery("SELECT COUNT(*) FROM `forum_f` WHERE `id` = '$in[2]' " . ((!isset($user) || $user['level'] == 0) ? "AND `adm` = '0'" : null)),0) == 1)
@@ -14,16 +14,16 @@ if (isset($_POST['in']) && $_POST['in'] != null && preg_match('#^(r|f)([0-9]+)$#
 		$searched['in']['id'] = $in[2];
 	}
 }
-if (!isset($_POST['text']) || strlen2($_POST['text']) < 3)$err[] = 'Ошибочный запрос';
+if (!isset($_POST['text']) || strlen2($_POST['text']) < 3)$err[] = '错误查询';
 else
 {
 	$s_arr = preg_split("/[\s,]+/", $_POST['text']);;
 	$searched['text'] = implode(' ',$s_arr);
 	for ($i = 0; $i < count($s_arr); $i++ )
 	{
-		$st = $stemmer->stem_word($s_arr[$i]);
+		$st = $s_arr[$i];
 		if (strlen2($st)<3)continue;
-		$searched['mark'][$i]='#('.$st.'[a-zа-я0-9]*)#uim';
+		$searched['mark'][$i]='#('.$st.'[a-z0-9]*)#uim';
 		$s_arr_mysql[$i] = my_esc('+'.$st.'*');
 	}
 }
@@ -64,4 +64,3 @@ if (isset($s_arr_mysql))
 		$searched['result'][] = $result;
 	}
 }
-?>

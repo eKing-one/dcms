@@ -14,7 +14,7 @@ if (isset($user) && dbresult(dbquery("SELECT COUNT(id) FROM `ban` WHERE `razdel`
 	header('Location: /ban.php?' . SID);
 	exit;
 }
-$set['title'] = '客人 - 谁在这里？'; //网页标题
+$set['title'] = '在线游客'; //网页标题
 include_once '../sys/inc/thead.php';
 title();
 aut();
@@ -23,13 +23,13 @@ $k_page = k_page($k_post,$set['p_str']);
 $page = page($k_page);
 $start = $set['p_str']*$page-$set['p_str'];
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" /> <a href="index.php">客人</a> | <b>谁是客人？</b>';
+echo '<img src="/style/icons/str2.gif" /> <a href="index.php">在线游客</a>';
 echo '</div>';
 echo '<table class="post">';
 if ($k_post == 0)
 {
 	echo '<div class="mess" id="no_object">';
-	echo '这里没人';
+	echo '这里没有人';
 	echo '</div>';
 }
 $q = dbquery("SELECT id FROM `user` WHERE `date_last` > '".(time()-100)."' AND `url` like '/guest/%' ORDER BY `date_last` DESC LIMIT $start, $set[p_str]");
@@ -43,7 +43,7 @@ while ($ank = dbassoc($q))
 }
 echo '</table>';
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" /> <a href="index.php">客人</a> | <b>谁是客人？</b>';
+echo '<img src="/style/icons/str2.gif" /> <a href="index.php">在线游客</a></b>';
 echo '</div>';
 if ($k_page > 1)str('who.php?', $k_page, $page); // 输出页数
 include_once '../sys/inc/tfoot.php';
