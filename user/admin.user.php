@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -39,22 +39,22 @@ if (isset($_GET['guest'])) {
 }
 if (!isset($_GET['adm']) && !isset($_GET['mod']) && !isset($_GET['zone']) && !isset($_GET['forum']) && !isset($_GET['chat']) && !isset($_GET['notes'])  && !isset($_GET['guest'])) {
 	echo "<div class = 'nav2'>";
-	echo "<img src='/style/icons/adm.gif' alt='S' /> <a href='?guest'>嘉宾主持人</a>";
+	echo "<img src='/style/icons/adm.gif' alt='S' /> <a href='?guest'>嘉宾版主</a>";
 	echo "</div>";
 	echo "<div class = 'nav1'>";
-	echo "<img src='/style/icons/adm.gif' alt='S' /> <a href='?notes'>日记主持人</a>";
+	echo "<img src='/style/icons/adm.gif' alt='S' /> <a href='?notes'>日记版主</a>";
 	echo "</div>";
 	echo "<div class = 'nav2'>";
-	echo "<img src='/style/icons/adm.gif' alt='S' /> <a href='?chat'>聊天主持人</a>";
+	echo "<img src='/style/icons/adm.gif' alt='S' /> <a href='?chat'>聊天版主</a>";
 	echo "</div>";
 	echo "<div class = 'nav1'>";
-	echo "<img src='/style/icons/adm.gif' alt='S' /> <a href='?forum'>论坛主持人</a>";
+	echo "<img src='/style/icons/adm.gif' alt='S' /> <a href='?forum'>论坛版主</a>";
 	echo "</div>";
 	echo "<div class = 'nav2'>";
-	echo "<img src='/style/icons/adm.gif' alt='S' /> <a href='?zone'>交流区主持人</a>";
+	echo "<img src='/style/icons/adm.gif' alt='S' /> <a href='?zone'>交流区版主</a>";
 	echo "</div>";
 	echo "<div class = 'nav1'>";
-	echo "<img src='/style/icons/adm.gif' alt='S' /> <a href='?mod'>主持人</a>";
+	echo "<img src='/style/icons/adm.gif' alt='S' /> <a href='?mod'>总版主</a>";
 	echo "</div>";
 	echo "<div class = 'nav1'>";
 	echo "<img src='/style/icons/adm.gif' alt='S' /> <a href='?adm'>管理员</a>";

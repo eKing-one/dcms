@@ -19,9 +19,9 @@ $frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE
  (`user` = '$user[id]' AND `to` = '$ank[id]') OR 
  (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"), 0);
 /*
-* 如果你不是专辑主持人，
+* 如果你不是专辑版主，
 * 你不是专辑的主人
-* 你的职位等于或小于专辑主持人的职位
+* 你的职位等于或小于专辑版主的职位
 * 是隐私起作用，还是被忽视
 */
 if ($ank['id'] != $user['id'] && ($user['group_access'] == 0 || $user['group_access'] <= $ank['group_access'])) {

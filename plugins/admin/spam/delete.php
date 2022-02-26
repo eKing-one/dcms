@@ -15,25 +15,25 @@ $post=dbassoc(dbquery("SELECT * FROM `spamus` WHERE `id` = '".intval($_GET['id']
 $spamer = user::get_user($post['id_spam']);
 $ank=user::get_user($post['id_user']);
 if ($user['group_access'] == 2)
-$adm = '聊天主持人';
+$adm = '聊天室版主';
 elseif ($user['group_access'] == 3)
-$adm = '论坛主持人';
+$adm = '论坛版主';
 elseif ($user['group_access'] == 4)
-$adm = '交换区域主持人';
+$adm = '下载中心版主';
 elseif ($user['group_access'] == 5)
-$adm = '库主持人';
+$adm = '库版主';
 elseif ($user['group_access'] == 6)
-$adm = '摄影主持人';
+$adm = '摄影版主';
 elseif ($user['group_access'] == 7)
-$adm = '主持人';
+$adm = '版主';
 elseif ($user['group_access'] == 8)
 $adm = '管理员';
 elseif ($user['group_access'] == 9)
 $adm = '最高管理者';
 elseif ($user['group_access'] == 11)
-$adm = '日志主持人';
+$adm = '日志版主';
 elseif ($user['group_access'] == 12)
-$adm = '嘉宾主持人';
+$adm = '嘉宾版主';
 elseif ($user['group_access'] == 15)
 $adm = '站长';
 if ($user['group_access']==2)
