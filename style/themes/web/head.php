@@ -26,7 +26,7 @@ header("Content-type: text/html");
         </script>
 
         <script type="text/javascript" src="/ajax/ajax.js"></script><script type="text/javascript" src="/ajax/form-submit.js"></script>
-        <link rel="alternate" title="Новости RSS" href="/news/rss.php" type="application/rss+xml" />
+        <link rel="alternate" title="新闻 RSS" href="/news/rss.php" type="application/rss+xml" />
         <script src="/style/themes/<? echo $set['set_them']; ?>/js.js" type="text/javascript" language="JavaScript" charset="utf-8"></script>
         <!-- Диалоговое окно -->
         <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
@@ -87,7 +87,7 @@ header("Content-type: text/html");
             <table class="nav">
                 <tr>
                     <td class="logo">
-                        <a href="/index.php" title="На главную"><img src="/style/themes/<? echo $set['set_them']; ?>/logo.png" alt="Logotype" /></a>
+                        <a href="/index.php" title="到主页"><img src="/style/themes/<? echo $set['set_them']; ?>/logo.png" alt="Logotype" /></a>
                     </td>
                     <td class="head_menu">
                         <?php include_once H . 'style/themes/' . $set['set_them'] . '/navigation.php'; ?>

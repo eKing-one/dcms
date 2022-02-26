@@ -18,7 +18,7 @@ else
 
 
 
-echo "<div class='user_nick'>Гость</div>";
+echo "<div class='user_nick'>客人</div>";
 
 
 
@@ -98,11 +98,11 @@ echo "
 
 
 
-<span class=\"ank_n\">Баллы:</span> <span class=\"ank_d\">$user[balls]</span><br />";
+<span class=\"ank_n\">分数:</span> <span class=\"ank_d\">$user[balls]</span><br />";
 
 
 
-echo "<span class=\"ank_n\">Рейтинг:</span> <span class=\"ank_d\">$user[rating]</span><br />";
+echo "<span class=\"ank_n\">评级:</span> <span class=\"ank_d\">$user[rating]</span><br />";
 
 
 
@@ -122,7 +122,7 @@ if ($user['ua']!=NULL)echo "<span class=\"ank_n\">UA:</span> <span class=\"ank_d
 
 
 
-if (opsos($user['ip']))echo "<span class=\"ank_n\">Пров:</span> <span class=\"ank_d\">".opsos($user['ip'])."</span></div><br />";
+if (opsos($user['ip']))echo "<span class=\"ank_n\">普罗旺斯:</span> <span class=\"ank_d\">".opsos($user['ip'])."</span></div><br />";
 
 
 
