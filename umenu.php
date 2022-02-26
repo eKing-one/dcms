@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * & CMS Name :: DCMS-Social
  * & Author   :: Alexandr Andrushkin

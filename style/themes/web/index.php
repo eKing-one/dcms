@@ -25,20 +25,6 @@ if ($k_post > 0) {
 	echo '</div>';
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* 新闻 */
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `news`"), 0);
 $q = dbquery("SELECT * FROM `news` ORDER BY `id` DESC LIMIT 2");
