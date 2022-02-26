@@ -68,7 +68,6 @@ function make_pre($dir_loads2, $file2)
 							$var = preg_replace('/[a-z]{3,4}$/i', 'thm.JPG', $var);
 							//header('Content-type: image/jpeg');
 							$var = $dir['scr'] . $var;
-							@chmod($var, 0777);
 							//imagejpeg($i_pre, $var);
 							$i_pre = img_copyright($i_pre); // копирайт
 							imagejpeg($i_pre, $dir_loads2 . '/' . $file2 . '.JPG', 100);

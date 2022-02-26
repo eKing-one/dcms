@@ -29,7 +29,7 @@ if ($dir_id['upload'] == 1) {
 			$file = preg_replace('(\#|\?)', NULL, $file);
 			$name = preg_replace('#\.[^\.]*$#', NULL, $file); // имя файла без расширения
 			$ras = strtolower(preg_replace('#^.*\.#', NULL, $file));
-			$type = $_FILES['file']['type'];
+			$type = my_esc($_FILES['file']['type']);
 			$size = filesize($_FILES['file']['tmp_name']);
 			$rasss = explode(';', $dir_id['ras']);
 			$ras_ok = false;

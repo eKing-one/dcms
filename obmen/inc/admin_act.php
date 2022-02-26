@@ -42,7 +42,7 @@ if (user_access('obmen_dir_edit') && isset($_GET['act']) && $_GET['act']=='mesto
 			$new_dir=$new_dir_osn.$post['name'];
 			dbquery("UPDATE `obmennik_dir` SET `dir`='$new_dir/', `dir_osn`='$new_dir_osn' WHERE `id` = '$post[id]' LIMIT 1");
 		}
-		$l=$_POST['dir_osn'];
+		$l=my_esc($_POST['dir_osn']);
 		dbquery("UPDATE `obmennik_dir` SET `dir`='".$l."$dir_id[name]/', `dir_osn`='".$l."' WHERE `id` = '$dir_id[id]' LIMIT 1");
 		admin_log('下载中心','编辑文件夹',"文件夹 '$dir_id[name]' 移动");
 		msg('文件夹已成功移动');

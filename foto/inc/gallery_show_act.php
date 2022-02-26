@@ -29,7 +29,7 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 		if (strlen2($name) > 32) $err = '标题不得超过 32 个字符！';
 		$name = my_esc($name);
 		if (isset($_POST['metka']) && ($_POST['metka'] == 0 || $_POST['metka'] == 1))
-			$metka = $_POST['metka'];
+			$metka = my_esc($_POST['metka']);
 		else {
 			$metka = 0;
 		}

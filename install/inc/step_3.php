@@ -24,7 +24,7 @@ if (isset($_SESSION['mysql_ok']) && $_SESSION['mysql_ok'] == true) {
     mysqli_query($db, 'set character_set_connection="utf8mb4"');
     mysqli_query($db, 'set character_set_result="utf8mb4"');
     $db_tables = array();
-    $res = mysqli_query($db,'SHOW TABLES FROM '.$_SESSION['db']);
+    $res = mysqli_query($db,'SHOW TABLES');
   while($name = mysqli_fetch_array($res))
   {
      $db_tables[] = $name[0];  //就是table 名字，接下去就用mysqi 的写法写下去就是了
