@@ -96,7 +96,7 @@ if (user_access('adm_panel_show')) {
 		}
 		if ($post['razdel'] == 'stena') // Стена юзера
 		{
-			echo "<font color='red'>墙</font> | ";
+			echo "<font color='red'>动态</font> | ";
 			$anketa = user::get_user($post['id_object']);
 			echo user::nick($anketa['id']) . "<br />";
 		}

@@ -161,7 +161,7 @@ $name 变量值
 	{
 		$name = ' 取消' . ($avtor['pol'] == 1 ? "" : "а") . ' 您的应用程序将您添加为好友';
 	} elseif ($type == 'stena_komm2') {
-		$name = ' 写道 ' . ($avtor['pol'] == 1 ? ' ' : 'a') . ' 在你 <a href="/user/komm.php?id=' . $post['id_object'] . '">在墙上的入口</a>';
+		$name = ' 写道 ' . ($avtor['pol'] == 1 ? ' ' : 'a') . ' 在你 <a href="/user/komm.php?id=' . $post['id_object'] . '">在动态上的入口</a>';
 	}
 	/*
 ===============================
@@ -280,7 +280,7 @@ $name 变量值
 	if ($type == 'stena_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		echo user::avatar($avtor['id']) .  user::nick($avtor['id'], 1, 1, 0) . " $name ";
-		echo "<img src='/style/icons/stena.gif' alt='*'> <a href='/info.php?id=$stena[id]&amp;page=$pageEnd'>墙</a> " . ($sT == null ? "$stena[nick]" : "") . "  $s1 " . vremja($post['time']) . " $s2";
+		echo "<img src='/style/icons/stena.gif' alt='*'> <a href='/info.php?id=$stena[id]&amp;page=$pageEnd'>动态</a> " . ($sT == null ? "$stena[nick]" : "") . "  $s1 " . vremja($post['time']) . " $s2";
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
 	if ($type == 'stena_komm2') {
@@ -291,7 +291,7 @@ $name 变量值
 	}
 	if ($type == 'stena') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
-		echo user::nick($avtor['id'], 1, 1, 0) . ' 写道' . ($avtor['pol'] == 0 ? 'a' : null) . ' 在你的墙上';
+		echo user::nick($avtor['id'], 1, 1, 0) . ' 写道' . ($avtor['pol'] == 0 ? 'a' : null) . ' 在你的动态上';
 		echo '' . $s1 . vremja($post['time']) . $s2 . ' ';
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
@@ -313,7 +313,7 @@ $name 变量值
 	}
 	/*
 ===============================
-Новости коментарии
+新闻评论
 ===============================
 */
 	if ($type == 'news_komm') {
@@ -325,7 +325,7 @@ $name 变量值
 	}
 	/*
 ===============================
-Гостевая коментарии
+客人的评论
 ===============================
 */
 	if ($type == 'guest') {

@@ -294,7 +294,7 @@ if ($ank['group_access'] > 1) {
 			echo "</a><br />";
 			echo '</table>';
 			/*
-调查问卷、照片和墙壁的输出
+调查问卷、照片和动态壁的输出
 */
 			echo "<div class='accordion-group'>
 <div class='accordion-heading'>";
@@ -503,17 +503,17 @@ if ($ank['group_access'] > 1) {
 			}
 			/*
 =====================================
-尤兹韦尔墙
+尤兹韦尔动态
 =====================================
 */
 			if (isset($user)) {
 				echo "<div class='accordion-group'>
 <div class='accordion-heading'>";
 				if ($user['wall'] == 1) {
-					echo '<a class="accordion-toggle decoration-none collapsed" href="/info.php?id=' . $ank['id'] . '&amp;wall=0"><img src="/style/icons/stena.gif" alt="*" /> 墙</a>';
+					echo '<a class="accordion-toggle decoration-none collapsed" href="/info.php?id=' . $ank['id'] . '&amp;wall=0"><img src="/style/icons/stena.gif" alt="*" /> 动态</a>';
 					include_once 'user/stena/index.php';
 				} else {
-					echo '<a class="accordion-toggle decoration-none collapsed" href="/info.php?id=' . $ank['id'] . '&amp;wall=1"><img src="/style/icons/stena.gif" alt="*" /> 墙</a>';
+					echo '<a class="accordion-toggle decoration-none collapsed" href="/info.php?id=' . $ank['id'] . '&amp;wall=1"><img src="/style/icons/stena.gif" alt="*" /> 动态</a>';
 				}
 				echo '</div></div>';
 			}

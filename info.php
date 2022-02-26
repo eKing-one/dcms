@@ -63,7 +63,7 @@ if (isset($user) && $user['id'] != $ank['id'] && !isset($_SESSION['guest_' . $an
 	}
 }
 /*----------------------------------------------------*/
-/*------------------------墙面-----------------------*/
+/*------------------------动态-----------------------*/
 if (isset($user) && isset($_GET['wall']) && $_GET['wall'] == 1) {
 	dbquery("UPDATE `user` SET `wall` = '1' WHERE `id` = '$user[id]'");
 	header("Location: /info.php?id=$ank[id]");
