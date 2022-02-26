@@ -27,7 +27,7 @@ err();
 // Создание альбомов
 include 'inc/gallery_form.php';
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'],0,0,0) . ' | <b>相册</b></div>';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'],1,0,0) . ' | <b>相册</b></div>';
 if ($ank['id'] == $user['id'])
 	echo '<div class="mess"><a href="/foto/' . $ank['id'] . '/?act=create"><img src="/style/icons/apply14.png"> 新专辑</a></div>';
 // Подключаем приватность стр. 
@@ -67,7 +67,7 @@ echo '</table>';
 // 输出页数
 if ($k_page > 1) str('?', $k_page, $page);
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'],0,0,0) . ' | <b>专辑</b>';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'],1,0,0) . ' | <b>专辑</b>';
 echo '</div>';
 include_once '../sys/inc/tfoot.php';
 exit;

@@ -65,7 +65,7 @@ while ($them = dbarray($q))
 	// Автор последнего поста
     if ($post['id'])  {
 	$ank2 = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
-	if ($ank2['id'])echo '大使: <a href="/info.php?id=' . $ank2['id'] . '">' . $ank2['nick'] . '</a> (' . vremja($post['time']) . ')<br />'; }
+	if ($ank2['id']) echo user::nick($ank2['id'],1,1,0) .'  ('. vremja($post['time']).')<br />'; }
 	echo '</div>';
 }
 echo '</table>';
@@ -76,4 +76,3 @@ echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" /> <a href="/forum/">论坛</a> | <b>我的主题</b>';
 echo '</div>';
 include_once '../sys/inc/tfoot.php';
-?>

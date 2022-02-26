@@ -13,7 +13,7 @@ if ($type  ==  'notes') {
 	$notes = dbassoc(dbquery("SELECT * FROM `notes` WHERE `id` = '" . $post['id_file'] . "' LIMIT 1"));
 	if ($notes['id']) {
 		echo '<div class="nav1">';
-		echo user::nick($avtor['id'],0,0,0) .' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a> ' . $name . '
+		echo user::nick($avtor['id'], 0, 0, 0) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a> ' . $name . '
 		<b>' . text($notes['name']) . '</b> ' . $s1 . vremja($post['time']) . $s2 . '<br />';
 		echo '</div>';
 		echo '<div class="nav2" ><div class="text" >';
@@ -22,7 +22,7 @@ if ($type  ==  'notes') {
 		(' . dbresult(dbquery("SELECT COUNT(*) FROM `notes_komm` WHERE `id_notes` = '$notes[id]'"), 0) . ')</a>';
 	} else {
 		echo '<div class="nav1">';
-		echo user::nick($avtor['id'],0,0,0) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>';
+		echo user::nick($avtor['id'], 1, 0, 0) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>';
 		echo "</div>";
 		echo '<div class="nav2">';
 		echo "日记已被删除 =( $s1 " . vremja($post['time']) . " $s2";

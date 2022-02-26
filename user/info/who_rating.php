@@ -100,9 +100,8 @@ while ($post = dbassoc($q)) {
 		echo '<div class="nav2">';
 		$num = 0;
 	}
-	echo group($ank['id']) . " <a href='/info.php?id=$ank[id]'>$ank[nick]</a> ";
-	echo "" . medal($ank['id']) . " " . online($ank['id']) . " (" . vremja($post['time']) . ") <br />";
-	echo "Отзыв:<br />";
+	echo user::nick($ank['id'],1,1,0) . " (" . vremja($post['time']) . ") <br />";
+	echo "召回:<br />";
 	switch ($post['rating']) {
 		case 2:
 			echo "很赞<br />";

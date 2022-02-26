@@ -98,16 +98,14 @@ if (user_access('adm_panel_show')) {
 		{
 			echo "<font color='red'>墙</font> | ";
 			$anketa = user::get_user($post['id_object']);
-			echo " <a href='/info.php?id=$anketa[id]'>$anketa[nick]</a>";
-			echo " " . medal($anketa['id']) . " " . online($anketa['id']) . "<br />";
+			echo user::nick($anketa['id']) . "<br />";
 		}
 		if ($post['razdel'] == 'status_komm')	// Статус
 		{
 			$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '$post[id_object]' LIMIT 1"));
 			echo "<a href='/user/status/komm.php?id=$status[id]'><font color='red'>现状</font></a> | ";
 			$anketa = user::get_user($status['id_user']);
-			echo " <a href='/info.php?id=$anketa[id]'>$anketa[nick]</a>";
-			echo " " . medal($anketa['id']) . " " . online($anketa['id']) . "<br />";
+			echo user::nick($anketa['id'])  . "<br />";
 		}
 		echo "<b>申诉:</b> <a href='/info.php?id=$ank[id]'>$ank[nick]</a>";
 		echo " " . medal($ank['id']) . " " . online($ank['id']) . " (" . vremja($post['time']) . ")<br />";

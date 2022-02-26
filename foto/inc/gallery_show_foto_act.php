@@ -28,7 +28,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'avatar') {
 */
 if ((user_access('foto_foto_edit') || isset($user) && $user['id'] == $ank['id']) && isset($_GET['act']) && $_GET['act'] == 'delete' && isset($_GET['ok'])) {
 	if ($user['id'] != $ank['id'])
-		admin_log('图片集锦', '照片', "删除用户的照片 '[url=/id$ank[id]]" . user::nick($ank['id'],0,0,0) . "[/url]'");
+		admin_log('图片集锦', '照片', "删除用户的照片 '[url=/id$ank[id]]" . user::nick($ank['id'], 1, 0, 0) . "[/url]'");
 	@unlink(H . "sys/gallery/48/$foto[id].jpg");
 	@unlink(H . "sys/gallery/128/$foto[id].jpg");
 	@unlink(H . "sys/gallery/640/$foto[id].jpg");
@@ -54,7 +54,7 @@ if ((user_access('foto_foto_edit') || isset($user) && $user['id'] == $ank['id'])
 	else $metka = 0;
 	if (!isset($err)) {
 		if ($user['id'] != $ank['id'])
-			admin_log('图片集锦', '照片', "重命名用户照片 '[url=/id$ank[id]]" . user::nick($ank['id'],0,0,0) . "[/url]'");
+			admin_log('图片集锦', '照片', "重命名用户照片 '[url=/id$ank[id]]" . user::nick($ank['id'], 1, 0, 0) . "[/url]'");
 		dbquery("UPDATE `gallery_foto` SET `name` = '$name', `metka` = '$metka', `opis` = '$msg' WHERE `id` = '$foto[id]' LIMIT 1");
 		$foto = dbassoc(dbquery("SELECT * FROM `gallery_foto` WHERE `id` = '$foto[id]'  LIMIT 1"));
 		$_SESSION['message'] = '照片已成功重命名';

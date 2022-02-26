@@ -91,7 +91,7 @@ aut();
 <div id="ajaxsPlayer">
 	<?
 	echo "<div class=\"foot\">";
-	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | ";
+	echo "<img src='/style/icons/str2.gif' alt='*'> ".user::nick($ank['id'],1,0,0)." | ";
 	echo '<b>音乐</b>';
 	echo "</div>";
 	if ($set['web']) $set['p_str'] = 100;
@@ -141,7 +141,7 @@ aut();
 <?
 if ($k_page > 1) str('index.php?id=' . $ank['id'] . '&amp;', $k_page, $page); // 输出页数
 echo "<div class=\"foot\">";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | ";
+echo "<img src='/style/icons/str2.gif' alt='*'> ". user::nick($ank['id'], 1, 0, 0)."</a> | ";
 echo '<b>音乐</b>';
 echo "</div>";
 // (c) Искатель

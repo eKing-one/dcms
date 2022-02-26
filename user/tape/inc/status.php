@@ -19,13 +19,13 @@ if ($type == 'status_like' || $type == 'status') {
 	if ($status['id']) {
 		echo '<div class="nav1">';
 		if ($post['ot_kogo']) {
-			echo user::nick($otkogo['id'],0,0,0) . '  <a href="user.settings.php?id=' . $otkogo['id'] . '">[!]</a>';
+			echo user::nick($otkogo['id'], 0, 0, 0) . '  <a href="user.settings.php?id=' . $otkogo['id'] . '">[!]</a>';
 		} else {
-			echo user::nick($avtor['id'],0,0,0) . '  <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>';
+			echo user::nick($avtor['id'], 0, 0, 0) . '  <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>';
 		}
 		echo $name;
 		if ($type != 'status') {
-			echo user::nick($avtor['id'],1,1,0). ' ';
+			echo user::nick($avtor['id'], 1, 1, 0) . ' ';
 		}
 		echo $s1 . vremja($post['time']) . $s2;
 		echo '</div>';
@@ -51,7 +51,7 @@ if ($type == 'status_like' || $type == 'status') {
 		echo '<a href="/user/status/like.php?id=' . $status['id'] . '">' . $like . ' 用户.</a>';
 	} else {
 		echo '<div class="nav1">';
-		echo user::nick($avtor['id'],0,0,0).' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a><br />';
+		echo user::nick($avtor['id'], 1, 0, 0) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a><br />';
 		echo '状态已被删除 =(';
 	}
 }

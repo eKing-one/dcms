@@ -39,8 +39,7 @@ if (user_access('adm_panel_show')) {
             echo "  </td>";
         }
         echo "  <td class='p_t'>";
-        echo "<a href='/info.php?id=$guest[id]'>$guest[nick]</a>";
-        echo "  " . medal($guest['id']) . " " . online($guest['id']) . "";
+        echo "  " . user::nick($guest['id'],1,1,0);
         echo "   </td>";
         echo "   </tr>";
     }

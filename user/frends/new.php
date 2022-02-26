@@ -24,7 +24,7 @@ $f = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' A
 $add = dbresult(dbquery("SELECT COUNT(id) FROM `frends_new` WHERE `to` = '$ank[id]' LIMIT 1"), 0);
 echo '<div style="background:white;"><div class="pnl2H">';
 echo '<div class="linecd"><span style="margin:9px;">';
-echo '' . ($ank['id'] == $user['id'] ? '我的朋友们' : ' 朋友 '.user::nick($ank['id'], 0, 0, 0)) . '';
+echo '' . ($ank['id'] == $user['id'] ? '我的朋友们' : ' 朋友 ' . user::nick($ank['id'], 0, 0, 0)) . '';
 echo '</span> </div></div>';
 if ($set['web'] == true) {
 	echo '<div class="mb4">
@@ -81,8 +81,7 @@ while ($frend = dbassoc($q)) {
 	} elseif ($set['set_show_icon'] == 1) {
 		echo "" . user::avatar($frend['id']) . "";
 	}
-	echo " " . group($frend['id']) . " <a href='/info.php?id=$frend[id]'>$frend[nick]</a>";
-	echo "" . medal($frend['id']) . " " . online($frend['id']) . " <br />";
+	echo user::nick($frend['id'], 1, 0, 0) . " <br />";
 	echo "[<img src='/style/icons/ok.gif' alt='*'/> <a href='/user/frends/create.php?ok=$frend[id]'>接受</a>] ";
 	echo "[<img src='/style/icons/delete.gif' alt='*'/> <a href='create.php?no=$frend[id]'>拒绝</a>]";
 	echo "   </div>";

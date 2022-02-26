@@ -73,8 +73,7 @@ if ($k_lider > 0) {
 	echo '<div class="main">';
 	$lider = user::get_user($liders['id_user']);
 	echo user::avatar($lider['id']);
-	echo group($lider['id']), ' <a href="/info.php?id=' . $lider['id'] . '">' . $lider['nick'] . '</a> ';
-	echo medal($lider['id']), online($lider['id']), '<br />';
+	echo user::nick($lider['id'],1,1,0), '<br />';
 	if ($liders['msg']) echo output_text($liders['msg']) . '<br />';
 	echo '<img src="/style/icons/lider.gif" alt="S"/> <a href="/user/liders/">所有领导人</a> (' . $k_lider . ')';
 	echo '</div>';
@@ -102,8 +101,7 @@ while ($ank = dbassoc($q)) {
 	}
 	/*---------------------------*/
 	echo user::avatar($ank['id']);
-	echo group($ank['id']) . ' <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> ';
-	echo medal($ank['id']) . online($ank['id']) . '<br />';
+	echo user::nick($ank['id'],1,1,0) . '<br />';
 	echo output_text($ank['ank_o_sebe']);
 	echo '</div>';
 }

@@ -59,8 +59,8 @@ while ($post = dbassoc($q)) {
         echo "<table>";
         echo "   <tr>";
         echo "  <td style='vertical-align:top;'>";
-        user::avatar($ank2['id']) . group($ank2['id']);
-        echo "<a href='/info.php?id=$ank2[id]'>$ank2[nick]</a> " . medal($ank2['id']) . " " . online($ank2['id']) . "<br />";
+        user::avatar($ank2['id']);
+        echo user::nick($ank2['id']) . "<br />";
         echo "<img src='/style/icons/$post[like].png' alt=''/> $color" . vremja($post['time']) . "$color2";
         echo "  </td>";
         echo "  <td style='vertical-align:top;'>";

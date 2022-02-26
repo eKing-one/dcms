@@ -98,7 +98,7 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0) {
 	}
 }
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <b>状态</b>";
+echo "<img src='/style/icons/str2.gif' alt='*'> " . user::nick($anketa['id'], 1, 0, 0) . " | <b>状态</b>";
 echo "</div>";
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `status` WHERE `id_user` = '" . $anketa['id'] . "'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
@@ -143,6 +143,6 @@ while ($post = dbassoc($q)) {
 echo "</table>";
 if ($k_page > 1) str("index.php?id=" . $anketa['id'] . '&amp;', $k_page, $page); // 输出页数
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <b>状态</b>";
+echo "<img src='/style/icons/str2.gif' alt='*'> " . user::nick($anketa['id'], 1, 0, 0) . " | <b>状态</b>";
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';

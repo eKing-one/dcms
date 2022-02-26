@@ -19,7 +19,7 @@ aut();
 if (isset($_GET['id'])) $ank = user::get_user($_GET['id']);
 else $ank = false;
 if ($ank && user_access('adm_log_read') && ($ank['id'] == $user['id'] || $ank['level'] < $user['level'])) {
-    echo "<a href='/info.php?id=$ank[id]'>$ank[nick]</a> ($ank[group_name])<br />";
+    echo user::nick($ank['id'],1,0,0)."($ank[group_name])<br />";
     $adm_log_c_all = dbresult(dbquery("SELECT COUNT(*) FROM `admin_log` WHERE `id_user` = '$ank[id]'"), 0);
     $mes = mktime(0, 0, 0, date('m') - 1); // время месяц назад
     $adm_log_c_mes = dbresult(dbquery("SELECT COUNT(*) FROM `admin_log` WHERE `id_user` = '$ank[id]' AND `time` > '$mes'"), 0);
@@ -61,7 +61,7 @@ if (isset($_GET['id_mod']) && isset($_GET['id_act']) && dbresult(dbquery("SELECT
             echo "  </td>";
         }
         echo "  <td class='p_t'>";
-        echo "<a href='/info.php?id=$ank2[id]'>$ank2[nick]</a>" . online($ank2['id']) . " (" . vremja($post['time']) . ")";
+        echo "" . user::nick($ank2['id'],1,1,0) . " (" . vremja($post['time']) . ")";
         echo "  </td>";
         echo "   </tr>";
         echo "   <tr>";

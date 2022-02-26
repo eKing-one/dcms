@@ -133,11 +133,11 @@ if (isset($_GET['gift']) && isset($_GET['category'])) {
 	} else
 	/*
 ==================================
-Вывод категорий
+类别推断
 ==================================
 */ {
 		echo '<div class="foot">';
-		echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> | <b>类别</b>';
+		echo '<img src="/style/icons/str2.gif" alt="*" /> '.user::nick($ank['id'],1,0,0).' | <b>类别</b>';
 		echo '</div>';
 		$k_post = dbresult(dbquery("SELECT COUNT(id) FROM `gift_categories`"), 0);
 		if ($k_post == 0) {
@@ -161,7 +161,7 @@ if (isset($_GET['gift']) && isset($_GET['category'])) {
 			echo '</div>';
 		}
 		echo '<div class="foot">';
-		echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> | <b>分类</b>';
+		echo '<img src="/style/icons/str2.gif" alt="*" /> ' . user::nick($ank['id'], 1, 0, 0) . '</a> | <b>分类</b>';
 		echo '</div>';
 	}
 include_once '../../sys/inc/tfoot.php';

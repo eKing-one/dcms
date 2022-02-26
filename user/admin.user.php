@@ -92,8 +92,7 @@ while ($ank = dbassoc($q)) {
 	} elseif ($set['set_show_icon'] == 1) {
 		echo "" . user::avatar($ank['id']) . "";
 	}
-	echo "<a href='/info.php?id=$ank[id]'>$ank[nick]</a>";
-	echo "" . medal($ank['id']) . " " . online($ank['id']) . " <br />";
+	echo "" . user::nick($ank['id'],1,1,0) .  " <br />";
 	echo "$ank[group_name]";
 	if ($ank['id'] != $user['id']) {
 		echo "<br /> <a href=\"/mail.php?id=$ank[id]\"><img src='/style/icons/pochta.gif' alt='*' /> 信息</a> ";

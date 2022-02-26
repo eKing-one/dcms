@@ -59,8 +59,7 @@ while ($post = dbassoc($q)) {
 	}
 	/*---------------------------*/
 	echo '<img src="/style/icons/dnev.png" alt="S" /> <a href="/plugins/notes/list.php?id=' . $notes['id'] . '">' . htmlspecialchars($notes['name']) . '</a> ' . vremja($post['time']) . '<br />';
-	echo group($ank_p['id']), '<a href="/info.php?id=' . $ank_p['id'] . '">' . $ank_p['nick'] . '</a> ';
-	echo medal($ank_p['id']), online($ank_p['id']);
+	echo user::nick($ank_p['id'], 1, 1, 0);
 	if ($ank['id'] == $user['id'])
 		echo '<div style="text-align:right;"><a href="?delete=' . $post['id'] . '&amp;page=' . $page . '"><img src="/style/icons/delete.gif" alt="*" /></a></div>';
 	echo '</div>';

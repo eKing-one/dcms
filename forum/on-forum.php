@@ -33,9 +33,7 @@ if ($k_post == 0) {
 while ($forum = dbarray($q)) {
 	echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 	$num++;
-	echo user::avatar($forum['id']) . group($forum['id']);
-	echo " <a href='/info.php?id=$forum[id]'>$forum[nick]</a>";
-	echo " " . medal($forum['id']) . "  " . online($forum['id']) . "</td>";
+	echo user::nick($forum['id'],1,1,0). "</td>";
 	echo "</div>";
 }
 echo "</table>";

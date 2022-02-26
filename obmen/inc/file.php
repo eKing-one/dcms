@@ -14,5 +14,5 @@ echo "<img src='/sys/obmen/screens/128/$file_id[id].gif' alt='筛网...' /><br /
 	$ank=dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$file_id[id_user]' LIMIT 1"));
 	echo "
 	大小: ".size_file($file_id['size'])."<br />
-	上传者: <a href='/info.php?id=$ank[id]'>$ank[nick]</a>
+	上传者: ".user::nick($ank['id'],1,1,0)."
 		  ".vremja($file_id['time'])."";

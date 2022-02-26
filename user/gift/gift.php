@@ -85,7 +85,7 @@ aut();
 ==================================
 */
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> | <a href="/user/gift/index.php?id=' . $ank['id'] . '">礼物</a> | <b>' . htmlspecialchars($gift['name']) . '</b>';
+echo '<img src="/style/icons/str2.gif" alt="*" /> ' . user::nick($ank['id'], 1, 0, 0) . '</a> | <a href="/user/gift/index.php?id=' . $ank['id'] . '">礼物</a> | <b>' . htmlspecialchars($gift['name']) . '</b>';
 echo '</div>';
 // Подарок
 echo '<div class="nav2">';
@@ -94,7 +94,7 @@ echo htmlspecialchars($gift['name']) . ' :: ' . vremja($post['time']) . '<br />'
 echo '</div>';
 // Автор подарка
 echo '<div class="nav1">';
-echo user::avatar($anketa['id']), group($anketa['id']), '<a href="/info.php?id=' . $anketa['id'] . '">' . $anketa['nick'] . '</a>', medal($anketa['id']), online($anketa['id']) . '<br />';
+echo user::nick($anketa['id'],1,1,0);
 if ($post['coment']) echo '评论: <br />' . output_text($post['coment']);
 echo '</div>';
 if ($ank['id'] == $user['id']) {
@@ -110,6 +110,6 @@ if ($ank['id'] == $user['id']) {
 	echo '</div>';
 }
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> | <a href="/user/gift/index.php?id=' . $ank['id'] . '">Подарки</a> | <b>' . htmlspecialchars($gift['name']) . '</b>';
+echo '<img src="/style/icons/str2.gif" alt="*" /> ' . user::nick($ank['nick'],1,0,0) . '</a> | <a href="/user/gift/index.php?id=' . $ank['id'] . '">Подарки</a> | <b>' . htmlspecialchars($gift['name']) . '</b>';
 echo '</div>';
 include_once '../../sys/inc/tfoot.php';

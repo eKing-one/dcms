@@ -37,7 +37,7 @@ $anketa = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $status[id_user] LI
 err();
 aut(); // форма авторизации
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <a href='index.php?id=" . $anketa['id'] . "'>状态</a> | <b>积分</b>";
+echo "<img src='/style/icons/str2.gif' alt='*'> " . user::nick($anketa['id'], 1, 0, 0) . " | <a href='index.php?id=" . $anketa['id'] . "'>状态</a> | <b>积分</b>";
 echo "</div>";
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '" . intval($_GET['id']) . "'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
@@ -61,8 +61,7 @@ while ($post = dbassoc($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	echo user::avatar($ank['id']) . " <a href='/info.php?id=$ank[id]'>$ank[nick]</a> ";
-	echo medal($ank['id']) . online($ank['id']) . " (" . vremja($post['time']) . ")";
+	echo user::avatar($ank['id']) . user::nick($ank['id'],1,1,0) . " (" . vremja($post['time']) . ")";
 	$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id_user` = '$ank[id]' AND `pokaz` = '1' LIMIT 1"));
 	if ($status['id']) {
 		echo '<div class="st_1"></div>';
@@ -75,6 +74,6 @@ while ($post = dbassoc($q)) {
 echo "</table>";
 if ($k_page > 1) str("like.php?id=" . intval($_GET['id']) . '&amp;', $k_page, $page); // 输出页数
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/info.php?id=$anketa[id]\">$anketa[nick]</a> | <a href='index.php?id=" . $anketa['id'] . "'>状态</a> | <b>积分</b>";
+echo "<img src='/style/icons/str2.gif' alt='*'> " . user::nick($anketa['id'], 1, 0, 0) . " | <a href='index.php?id=" . $anketa['id'] . "'>状态</a> | <b>积分</b>";
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';

@@ -17,7 +17,7 @@ if ($type == 'obmen') {
 		$kol = $post['count'];
 	}
 	echo '<div class="nav1">';
-	echo  user::nick($avtor['id'],0,0,0) .
+	echo  user::nick($avtor['id'], 1, 0, 0) .
 		' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a> ' . $name . ' <img src="/style/themes/' . $set['set_them'] . '/loads/14/dir.png" alt="*"/> <a href="/user/personalfiles/' . $dir['id_user'] . '/' . $dir['id'] . '/">' . text($dir['name']) . '</a>  ' . $s1 . vremja($post['time']) . $s2;
 	echo '</div>';
 	echo '<div class="nav2">';
@@ -31,7 +31,7 @@ if ($type == 'obmen') {
 				echo '<img src="/style/themes/' . $set['set_them'] . '/loads/14/file.png" alt="*" /> ';
 			echo '<a href="/user/personalfiles/' . $file['id_user'] . '/' . $dir['id'] . '/?id_file=' . $file['id'] . '&amp;page=1"><b>' . text($file['name']) . '.' . $ras . '</b></a> (' . size_file($file['size']) . ')<br />';
 		} else {
-			echo user::nick($avtor['id'],0,0,0) . '  <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>';
+			echo user::nick($avtor['id'], 0, 0, 0) . '  <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>';
 			echo '<br />';
 			echo '该文件已被删除 =(<br />';
 		}

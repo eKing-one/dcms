@@ -139,7 +139,7 @@ if (isset($user)) {
 
 	if (isset($_GET['response']) && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '" . intval($_GET['response']) . "'"), 0) == 1) {
 		$ank_reply = dbassoc(dbquery("SELECT nick,id FROM `user` WHERE `id` = '" . intval($_GET['response']) . "' LIMIT 1"));
-		$insert = user::nick($ank_reply['id'],0,0,0) . ', ';
+		$insert = user::nick($ank_reply['id'], 1, 0, 0) . ', ';
 		$go_link = '?' . $passgen . '&amp;response=' . $ank_reply['id'];
 	} else {
 		$go_link = NULL;

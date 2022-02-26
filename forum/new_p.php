@@ -75,13 +75,13 @@ while ($them = dbassoc($q))
 	echo '<a href="/forum/' . $forum['id'] . '/">' . text($forum['name']) . '</a> &gt; <a href="/forum/' . $forum['id'] . '/' . $razdel['id'] . '/">' . text($razdel['name']) . '</a><br />';
 	// Автор темы
 	$ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $them[id_user] LIMIT 1"));
-	echo 'Автор: <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> (' . vremja($them['time_create']) . ')<br />';
+	echo '作者: ' . user::nick($ank['id'],1,1,0) . ' (' . vremja($them['time_create']) . ')<br />';
 	// Последний пост 
 	$post = dbarray(dbquery("SELECT * FROM `forum_p` WHERE `id_them` = '$them[id]' AND `id_razdel` = '$razdel[id]' AND `id_forum` = '$forum[id]' ORDER BY `time` DESC LIMIT 1"));
 	// Автор последнего поста
 	if($post['id']) {
 	$ank2 = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
-	if ($ank2['id']) echo '大使: <a href="/info.php?id=' . $ank2['id'] . '">' . $ank2['nick'] . '</a> (' . vremja($post['time']) . ')<br />';
+	if ($ank2['id']) echo user::nick($ank2['id'], 1, 1, 0). '</a> (' . vremja($post['time']) . ')<br />';
 	}
 	echo '</div>';
 }

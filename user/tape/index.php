@@ -187,7 +187,7 @@ echo '<a href="?page=' . $page . '&amp;delete=all"><img src="/style/icons/delete
 echo '</div>';
 
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($user['id'],0,0,0) . '</a> | ';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($user['id'], 1, 0, 0) . '</a> | ';
 echo '<b>消息</b>';
 echo '</div>';
 

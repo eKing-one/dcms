@@ -39,8 +39,7 @@ while ($post = dbassoc($q)) {
 	}
 	/*---------------------------*/
 	echo user::avatar($ank['id']); // Аватарка
-	echo group($ank['id']), ' <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> ';
-	echo medal($ank['id']), online($ank['id']) . ' (' . vremja($post['time']) . ')<br />';
+	echo user::nick($ank['id'],1,1,0) . ' (' . vremja($post['time']) . ')<br />';
 	echo '花费: <b style="color:red;">' . $post['stav'] . '</b> <b style="color:green;">' . $sMonet[0] . '</b><br />';
 	echo output_text($post['msg']) . '<br />';
 	if (isset($user) && $user['level'] > 2)

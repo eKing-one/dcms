@@ -43,8 +43,7 @@ while ($chat = dbarray($q)) {
         echo "  </td>";
     }
     echo "  <td class='p_t'>";
-    echo "<a href='/info.php?id=$chat[id]'>$chat[nick]</a>";
-    echo "  " . medal($chat['id']) . " " . online($chat['id']) . "";
+    echo user::nick($chat['id'],1,1,0);
     echo "  </td>";
     echo "   </tr>";
 }

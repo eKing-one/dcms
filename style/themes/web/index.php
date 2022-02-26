@@ -1,5 +1,5 @@
 <?PHP
-/* Онлайн пользователи */
+/* 在线用户 */
 
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `date_last` > '" . (time() - 600) . "'"), 0);
 $q = dbquery("SELECT `id` FROM `user` WHERE `date_last` > '" . (time() - 600) . "' ORDER BY `rating` DESC LIMIT 10");

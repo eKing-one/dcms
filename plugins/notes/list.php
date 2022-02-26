@@ -62,8 +62,7 @@ if (isset($_GET['spam'])  &&  isset($user)) {
 如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单.</div>";
 		echo "<form class='nav1' method='post' action='?id=$notes[id]&amp;page=" . intval($_GET['page']) . "&amp;spam=$mess[id]'>";
 		echo "<b>用户:</b> ";
-		echo " " . user::avatar($spamer['id']) . "  " . group($spamer['id']) . " <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>";
-		echo "" . medal($spamer['id']) . " " . online($spamer['id']) . " (" . vremja($mess['time']) . ")<br />";
+		echo " " . user::nick($spamer['id'],1,1,0) . " (" . vremja($mess['time']) . ")<br />";
 		echo "<b>违规：</b> <font color='green'>" . output_text($mess['msg']) . "</font><br />";
 		echo "原因：<br /><select name='types'>";
 		echo "<option value='1' selected='selected'>垃圾邮件/广告</option>";
@@ -337,9 +336,9 @@ while ($post = dbassoc($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	echo group($ank['id']) . " <a href='/info.php?id=$ank[id]'>$ank[nick]</a> ";
+	echo user::nick($ank['id'], 1, 1, 0);
 	if (isset($user) && $ank['id'] != $user['id']) echo "<a href='?id=$notes[id]&amp;response=$ank[id]'>[*]</a> ";
-	echo "" . medal($ank['id']) . " " . online($ank['id']) . " (" . vremja($post['time']) . ")<br />";
+	echo " (" . vremja($post['time']) . ")<br />";
 	$postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'notes') AND `post` = '1' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
 	if ($postBan == 0) // 消息块
 	{
@@ -385,7 +384,7 @@ if (isset($user)) {
 	echo "</form>";
 }
 echo "<div class=\"foot\">";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a> | ". user::nick($avtor['id'], 1, 0, 0);
 echo ' | <b>' . output_text($notes['name']) . '</b>';
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';

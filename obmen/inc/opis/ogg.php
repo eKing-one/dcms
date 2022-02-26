@@ -22,4 +22,4 @@ if ($media != NULL) {
         dbquery("INSERT INTO `media_info` (`file`, `size`, `lenght`, `bit`, `codec`) values('" . my_esc($jfile) . "', '$size', '" . intval($media->getDuration()) . " сек', '" . ceil(($media->getBitRate()) / 1024) . "', 'mp3')");
 }
 $ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$post[id_user]' LIMIT 1"));
-echo "Выгрузил: <a href='/info.php?id=$ank[id]'>$ank[nick]</a><br />";
+echo "<br />";

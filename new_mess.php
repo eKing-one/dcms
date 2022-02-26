@@ -43,7 +43,7 @@ if ($k_post == 0) {
 		}
 		/*---------------------------*/
 		if ($ank)
-			echo user::avatar($ank['id']) . group($ank['id']) . " <a href='/info.php?id=$ank[id]'>" . ($kont['name'] ? $kont['name'] : $ank['nick']) . "</a> " . medal($ank['id']) . " " . online($ank['id']) . " ";
+			echo user::nick($ank['id'],1,1,0);
 		else
 			echo "<a href='/mail.php?id=$ank[id]'>[DELETED] (+$kont[count])";
 		echo "<font color='#1e00ff'>" . vremja($kont['last_time']) . "</font><br />";

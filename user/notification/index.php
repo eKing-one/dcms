@@ -191,7 +191,7 @@ $name 变量值
 */
 	if ($type == 'no_frend' || $type == 'ok_frend' || $type == 'del_frend' || $type == 'otm_frend') {
 		if ($avtor['id']) {
-			echo user::nick($avtor['id'],1,0,0) . " $name ";
+			echo user::nick($avtor['id'], 1, 0, 0) . " $name ";
 			echo "  $s1 " . vremja($post['time']) . " $s2";
 		} else {
 			echo " 这个朋友已经从网站上删除了=）  $s1 " . vremja($post['time']) . " $s2";
@@ -208,7 +208,7 @@ $name 变量值
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		$notes = dbassoc(dbquery("SELECT * FROM `notes` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
 		if ($notes['id']) {
-			echo user::nick($avtor['id'],1,1,0) . " $name ";
+			echo user::nick($avtor['id'], 1, 1, 0) . " $name ";
 			echo " <img src='/style/icons/zametki.gif' alt='*'> ";
 			echo '<a href="/plugins/notes/list.php?id=' . $notes['id'] . '&amp;page=' . $pageEnd . '"><b>' . htmlspecialchars($notes['name']) . '</b></a> ';
 			echo "  $s1 " . vremja($post['time']) . " $s2";
@@ -228,7 +228,7 @@ $name 变量值
 		$dir = dbassoc(dbquery("SELECT * FROM `user_files` WHERE `id` = '" . $file['my_dir'] . "' LIMIT 1"));
 		$ras = $file['ras'];
 		if ($file['id'] && $avtor['id']) {
-			echo user::nick($avtor['id'],1,1,0) . " $name ";
+			echo user::nick($avtor['id'], 1, 1, 0) . " $name ";
 			echo " <img src='/style/icons/d.gif' alt='*'> ";
 			echo '<a href="/user/personalfiles/' . $file['id_user'] . '/' . $dir['id'] . '/?id_file=' . $file['id'] . '&amp;page=' . $pageEnd . '"><b>' . htmlspecialchars($file['name']) . '.' . $ras . '</b></a> ';
 			echo "  $s1 " . vremja($post['time']) . " $s2";
@@ -246,7 +246,7 @@ $name 变量值
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		$foto = dbassoc(dbquery("SELECT * FROM `gallery_foto` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
 		if ($foto['id']) {
-			echo user::nick($avtor['id'],1,1,0) . " $name ";
+			echo user::nick($avtor['id'], 1, 1, 0) . " $name ";
 			echo " <img src='/style/icons/foto.png' alt='*'> ";
 			echo " <a href='/foto/$foto[id_user]/$foto[id_gallery]/$foto[id]/?page=$pageEnd'>" . htmlspecialchars($foto['name']) . "</a> ";
 			echo "  $s1 " . vremja($post['time']) . " $s2";
@@ -264,7 +264,7 @@ $name 变量值
 		$them = dbassoc(dbquery("SELECT * FROM `forum_t` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		if ($them['id']) {
-			echo user::nick($avtor['id'],1,1,0) . " $name ";
+			echo user::nick($avtor['id'], 1, 1, 0) . " $name ";
 			echo "<img src='/style/themes/$set[set_them]/forum/14/them_$them[up]$them[close].png' alt='*' /> ";
 			echo " <a href='/forum/$them[id_forum]/$them[id_razdel]/$them[id]/?page=$pageEnd'>" . htmlspecialchars($them['name']) . "</a>  $s1 " . vremja($post['time']) . " $s2";
 		} else {
@@ -279,7 +279,7 @@ $name 变量值
 */
 	if ($type == 'stena_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
-		echo user::avatar($avtor['id']) .  group($avtor['id']) . " <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>  " . medal($avtor['id']) . " " . online($avtor['id']) . " $name ";
+		echo user::avatar($avtor['id']) .  user::nick($avtor['id'], 1, 1, 0) . " $name ";
 		echo "<img src='/style/icons/stena.gif' alt='*'> <a href='/info.php?id=$stena[id]&amp;page=$pageEnd'>墙</a> " . ($sT == null ? "$stena[nick]" : "") . "  $s1 " . vremja($post['time']) . " $s2";
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
@@ -304,7 +304,7 @@ $name 变量值
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		if ($status['id']) {
 			$ankS = user::get_user($status['id_user']);
-			echo user::nick($avtor['id'],1,1,0) . " $name ";
+			echo user::nick($avtor['id'], 1, 1, 0) . " $name ";
 			echo "<img src='/style/icons/comment.png' alt='*'> <a href='/user/status/komm.php?id=$status[id]&amp;page=$pageEnd'>状况</a>  $s1 " . vremja($post['time']) . " $s2";
 		} else {
 			echo '状态已被删除 =(';
@@ -319,7 +319,7 @@ $name 变量值
 	if ($type == 'news_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		$news = dbassoc(dbquery("SELECT * FROM `news` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
-		echo user::nick($avtor['id'],1,1,0) . " $name ";
+		echo user::nick($avtor['id'], 1, 1, 0) . " $name ";
 		echo "<img src='/style/icons/news.png' alt='*'> <a href='/news/news.php?id=$news[id]&amp;page=$pageEnd'>" . htmlspecialchars($news['title']) . "</a>   $s1 " . vremja($post['time']) . " $s2";
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
@@ -331,7 +331,7 @@ $name 变量值
 	if ($type == 'guest') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		if ($avtor['id']) {
-			echo user::nick($avtor['id'],1,1,0) . " $name ";
+			echo user::nick($avtor['id'], 1, 1, 0) . " $name ";
 			echo "<img src='/style/icons/guest.png' alt='*'> <a href='/guest/?page=$pageEnd'>客人</a>  $s1 " . vremja($post['time']) . " $s2";
 		} else {
 			echo '此用户用户已被删除 =(';
@@ -345,7 +345,7 @@ $name 变量值
 */
 	if ($type == 'adm_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
-		echo user::nick($avtor['id'],1,1,0) . " $name ";
+		echo user::nick($avtor['id'], 1, 1, 0) . " $name ";
 		echo "<img src='/style/icons/chat.gif' alt='S' /> <a href='/plugins/admin/chat/?page=$pageEnd'>管理员聊天</a>  $s1 " . vremja($post['time']) . " $s2";
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
@@ -354,7 +354,7 @@ $name 变量值
 if ($k_page > 1) str('?', $k_page, $page); // 输出页数
 echo '<div class="mess"><img src="/style/icons/delete.gif"> <a href="?delete=all">删除所有通知</a></div>';
 echo "<div class=\"foot\">";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$user[id]'>$user[nick]</a> | ";
+echo "<img src='/style/icons/str2.gif' alt='*'> " . user::nick($user['id'], 1, 0, 0) . " | ";
 echo '<b>系统通知</b> | <a href="settings.php">设置</a>';
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';

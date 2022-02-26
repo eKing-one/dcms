@@ -157,7 +157,7 @@ echo "<input type='submit' name='save' value='保存' />";
 echo "</div>";
 echo "</form>";
 echo "<div class=\"foot\">";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$user[id]'>$user[nick]</a> | ";
+echo "<img src='/style/icons/str2.gif' alt='*'> ". user::nick($user['id'], 1, 0, 0)." | ";
 echo '<b>信息中心</b>';
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';

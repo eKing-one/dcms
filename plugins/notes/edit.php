@@ -46,7 +46,7 @@ if (user_access('notes_edit') || $user['id'] == $notes['id_user']) {
     }
     err();
     echo "<div class=\"foot\">";
-    echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>";
+    echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a> | " . user::nick($avtor['id'], 1, 0, 0);
     echo " | <a href='list.php?id=$notes[id]'>" . text($notes['name']) . "</a> | <b>编辑</b>";
     echo "</div>";
     $notes = dbarray(dbquery("select * from `notes` where `id`='" . intval($_GET['id']) . "';"));
@@ -74,7 +74,7 @@ if (user_access('notes_edit') || $user['id'] == $notes['id_user']) {
     echo "<input value=\"应用\" type=\"submit\" />";
     echo "</form>";
     echo "<div class=\"foot\">";
-    echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>";
+    echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a> | " . user::nick($avtor['id'], 1, 0, 0);
     echo " | <a href='list.php?id=$notes[id]'>" . text($notes['name']) . "</a> | <b>编辑</b>";
     echo "</div>";
 }

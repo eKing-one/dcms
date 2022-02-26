@@ -44,7 +44,7 @@ while ($ank = dbassoc($q)) {
     if (user_access('adm_log_read') && $ank['level'] != 0 && ($ank['id'] == $user['id'] || $ank['level'] < $user['level']))
         echo "<a href='adm_log.php?id=$ank[id]'>$ank[nick]</a> ($ank[group_name])" . online($ank['id']) . "";
     else
-        echo "<a href='/info.php?id=$ank[id]'>$ank[nick]</a> ($ank[group_name])" . online($ank['id']) . "";
+        echo user::nick($ank['id'],1,1,0)." ($ank[group_name])";
     echo "  </td>";
     echo "   </tr>";
     echo "   <tr>";

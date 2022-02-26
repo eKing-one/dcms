@@ -42,7 +42,7 @@ aut();
 ==================================
 */
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> | <b>礼物</b>';
+echo '<img src="/style/icons/str2.gif" alt="*" /> '.user::nick($ank['id'],1,0,0) .' | <b>礼物</b>';
 echo '</div>';
 // Список подарков
 $k_post = dbresult(dbquery("SELECT COUNT(id) FROM `gifts_user` WHERE `id_user` = '$ank[id]'" . ($ank['id'] != $user['id'] ? " AND `status` = '1' " : "") . ""), 0);
@@ -69,12 +69,12 @@ while ($post = dbassoc($q)) {
 	/*---------------------------*/
 	echo '<img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:' . $width . 'px;" alt="*" /><br />';
 	echo '<img src="/style/icons/present.gif" alt="*" /> <a href="gift.php?id=' . $post['id'] . '"><b>' . htmlspecialchars($gift['name']) . '</b></a> :: ';
-	echo '从 ' . group($anketa['id']), '<a href="/info.php?id=' . $anketa['id'] . '">' . $anketa['nick'] . '</a>',  medal($anketa['id']),  online($anketa['id']), ' ' . vremja($post['time']);
+	echo '在 ' . user::nick($anketa['id'], 1, 1, 0) . ' ' . vremja($post['time']);
 	if ($post['status'] == 0) echo ' <font color=red>NEW</font> ';
 	echo '</div>';
 }
 if ($k_page > 1) str('index.php?id=' . intval($_GET['id']) . '&amp;', $k_page, $page); // 输出页数
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> | <b>礼物</b>';
+echo '<img src="/style/icons/str2.gif" alt="*" /> ' . user::nick($ank['id'],1,0,0) . '</a> | <b>礼物</b>';
 echo '</div>';
 include_once '../../sys/inc/tfoot.php';

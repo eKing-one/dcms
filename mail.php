@@ -74,8 +74,7 @@ if (isset($_GET['spam'])  &&  $ank['id'] != 0) {
 		echo "<div class='mess'>虚假信息会导致昵称被屏蔽。
 如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
 		echo "<form class='nav1' method='post' action='/mail.php?id=$ank[id]&amp;spam=$mess[id]'>";
-		echo "<b>用户:</b> ";
-		echo " " . user::avatar($spamer['id']) . " <a href=\"/info.php?id=$spamer[id]\">$spamer[nick]</a>";
+		echo "<b>用户:</b> ". user::nick($spamer['id'],1,0,0);
 		echo "" . medal($spamer['id']) . " " . online($spamer['id']) . " (" . vremja($mess['time']) . ")<br />";
 		echo "<b>违规：</b> <font color='green'>" . output_text($mess['msg']) . "</font><br />";
 		echo "原因：<br /><select name='types'>";

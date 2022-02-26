@@ -28,7 +28,7 @@ title();
 err();
 aut(); // 批准格式
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> | <b>书签</b>';
+echo '<img src="/style/icons/str2.gif" alt="*" /> ' . user::nick($ank['id'], 1, 0, 0) . '| <b>书签</b>';
 echo '</div>';
 if (isset($user) && $ank['id'] == $user['id']) {
     echo '<div class="mess">';
@@ -69,7 +69,7 @@ if (isset($_GET['metki'])) {
     echo '<a href="/user/bookmark/notes.php?id=' . $ank['id'] . '">日记</a> (' . $notes . ')';
     echo '</div>';
     echo '<div class="foot">';
-    echo '<img src="/style/icons/str2.gif" alt="*" /> <a href="/info.php?id=' . $ank['id'] . '">' . $ank['nick'] . '</a> | <b>书签</b>';
+    echo '<img src="/style/icons/str2.gif" alt="*" /> ' . user::nick($ank['id'], 1, 0, 0) . '</a> | <b>书签</b>';
     echo '</div>';
 } else {
     $k_post = dbresult(dbquery("SELECT COUNT(id_object) FROM `bookmarks` WHERE `id_user` = '$ank[id]'"), 0);

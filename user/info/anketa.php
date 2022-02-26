@@ -612,7 +612,7 @@ if ($user['level'] > $ank['level']) {
 				echo "<span class=\"ank_d\">";
 				for ($i = 1; $i < count($collisions); $i++) {
 					$ank_coll = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$collisions[$i]' LIMIT 1"));
-					echo "\"<a href='/info.php?id=$ank_coll[id]'>$ank_coll[nick]</a>\"<br />";
+					echo user::nick($ank_coll['id'], 1, 0, 0) . "<br />";
 				}
 				echo "</span>";
 			}

@@ -50,8 +50,7 @@ while ($post = dbassoc($q)) {
     } elseif ($set['set_show_icon'] == 1) {
         echo "" . group($ank_stena['id']) . "";
     }
-    echo "<a href='/info.php?id=$ank_stena[id]'>$ank_stena[nick]</a>";
-    echo "" . medal($ank_stena['id']) . " " . online($ank_stena['id']) . "";
+    echo user::nick($ank_stena['id'],1,1,0) . "";
     if (isset($user)) echo " <a href='/info.php?id=$ank[id]&amp;response=$ank_stena[id]'>[*]</a>";
     echo " (" . vremja($post['time']) . ")<br />";
     echo stena($ank_stena['id'], $post['id']) . ' <br/>';
