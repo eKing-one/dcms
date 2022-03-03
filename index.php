@@ -46,12 +46,13 @@ if (!$set['web'])
 		</div>';
 		
 	}
-	?></div><?
+	echo '</div>';
+	
 	// 新闻&事件 
 	include_once 'sys/inc/news_main.php'; 
 	// 主菜单
 	include_once 'sys/inc/main_menu.php'; 
-	include_once H.'sys/inc/main_notes.php';
+	include_once 'sys/inc/main_notes.php';
 }
 else
 {
@@ -59,4 +60,3 @@ else
 	include_once 'style/themes/' . $set['set_them'] . '/index.php'; 
 }
 include_once 'sys/inc/tfoot.php';
-?>

@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `notes` (
   `type` int(1) DEFAULT '0',
   `share` enum('0','1') DEFAULT '0',
   `share_id` int(11) DEFAULT NULL,
-  `share_text` varchar(20000) DEFAULT NULL,
+  `share_text` varchar(2000) DEFAULT NULL,
   `share_name` varchar(60) DEFAULT NULL,
   `share_id_user` int(11) DEFAULT NULL,
   `share_type` varchar(10) DEFAULT 'notes',
