@@ -367,8 +367,8 @@ function ages($age)
 
 function version_stable()
 {
-	$content = file_get_contents("https://dcms-social.ru/launcher/social.json");
-	$data = json_decode($content, TRUE);
+	//$content = file_get_contents("https://dcms-social.ru/launcher/social.json");
+	//$data = json_decode($content, TRUE);
 	return $data['stable']['version'];
 }
 function t_toolbar_html()
@@ -469,10 +469,11 @@ function token_form()
 	echo '<input type="text" name="token" value="' . $_SESSION['token'] . '">';
 }
 //获取远程更新代码
+//影响网站效率
 function status_version()
 {
-	global $set;
-	$content = file_get_contents("https://dcms-social.ru/launcher/social.json");
-	$data = json_decode($content, TRUE);
-	return version_compare($set['dcms_version'], $data['stable']['version']);
+	// global $set;
+	// $content = file_get_contents("https://dcms-social.ru/launcher/social.json");
+	// $data = json_decode($content, TRUE);
+	// return version_compare($set['dcms_version'], $data['stable']['version']);
 }

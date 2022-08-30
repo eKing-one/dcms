@@ -107,8 +107,8 @@ aut();
 	$track = 0;
 	$q = dbquery("SELECT * FROM `user_music` WHERE `id_user` = '$ank[id]' ORDER BY `id` DESC LIMIT $start, $set[p_str]");
 	while ($post = dbassoc($q)) {
-		$mp3 = dbassoc(dbquery("SELECT * FROM `obmennik_files` WHERE `id` = '$post[id_file]' LIMIT 1"));
-		$dir = dbassoc(dbquery("SELECT * FROM `obmennik_dir` WHERE `id` = '$mp3[id_dir]' LIMIT 1"));
+		$mp3 = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id` = '$post[id_file]' LIMIT 1"));
+		$dir = dbassoc(dbquery("SELECT * FROM `downnik_dir` WHERE `id` = '$mp3[id_dir]' LIMIT 1"));
 		$ras = $mp3['ras'];
 		/*-----------代码-----------*/
 		if ($num == 0) {
@@ -122,15 +122,15 @@ aut();
 		if ($webbrowser == 'web') {
 			echo '<div class="track">';
 			echo '<div class="button">';
-			echo '<div class="play" id="' . $track . '" file="/obmen' . $dir['dir'] . '/' . $mp3['id'] . '.' . $ras . '"></div>';
+			echo '<div class="play" id="' . $track . '" file="/down' . $dir['dir'] . '/' . $mp3['id'] . '.' . $ras . '"></div>';
 			echo '<div class="pause"></div>';
 			echo '</div>';
-			echo '<div class="nameTrack"><a href="/obmen' . $dir['dir'] . $mp3['id'] . '.' . $ras . '">
+			echo '<div class="nameTrack"><a href="/down' . $dir['dir'] . $mp3['id'] . '.' . $ras . '">
 	<img src="/style/icons/d.gif" alt="*" title="下载曲目"></a> ' . htmlspecialchars($mp3['name']) . ' (' . size_file($mp3['size']) . ')</div>
 	<div class="clear"></div>';
 			echo '</div>';
 		} else {
-			echo '<a href="/obmen' . $dir['dir'] . $mp3['id'] . '.' . $ras . '">
+			echo '<a href="/down' . $dir['dir'] . $mp3['id'] . '.' . $ras . '">
 	<img src="/style/icons/d.gif" alt="*" title="下载曲目"></a> ' . htmlspecialchars($mp3['name']) . ' (' . size_file($mp3['size']) . ')';
 		}
 		echo '</div>';

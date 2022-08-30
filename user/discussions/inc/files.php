@@ -2,17 +2,17 @@
 /*
 * 讨论题目
 */
-if ($type == 'obmen' && $post['avtor'] != $user['id']) // обмен
+if ($type == 'down' && $post['avtor'] != $user['id']) // обмен
 {
 	$name = '档案 | 朋友档案';
-} else if ($type == 'obmen' && $post['avtor'] == $user['id']) {
+} else if ($type == 'down' && $post['avtor'] == $user['id']) {
 	$name = '档案 | 你的档案';
 }
 /*
 * Выводим на экран
 */
-if ($type == 'obmen') {
-	$file = dbassoc(dbquery("SELECT * FROM `obmennik_files` WHERE `id` = '" . $post['id_sim'] . "' LIMIT 1"));
+if ($type == 'down') {
+	$file = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id` = '" . $post['id_sim'] . "' LIMIT 1"));
 	if ($file['id']) {
 ?>
 		<div class="nav1">

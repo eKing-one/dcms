@@ -98,9 +98,9 @@ if (isset($_GET['metki'])) {
             echo "<img style='height:60px;' src='/foto/foto0/" . $foto['id'] . "." . $foto['ras'] . "'>";
             echo substr(htmlspecialchars($foto['opis']), 0, 40) . "[...] (添加时间 " . vremja($post['time']) . ")";
         } elseif ($post['type'] == 'file') {
-            $file_id = dbassoc(dbquery("SELECT id_dir,id,name,ras  FROM `obmennik_files` WHERE `id` = '" . $post['id_object'] . "'  LIMIT 1"));
-            $dir = dbarray(dbquery("SELECT `dir` FROM `obmennik_dir` WHERE `id` = '$file_id[id_dir]' LIMIT 1"));
-            echo '<img src="/style/icons/film.gif"> <a href="/obmen' . $dir['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '?showinfo">' . htmlspecialchars($file_id['name']) . '.' . $file_id['ras'] . '</a>';
+            $file_id = dbassoc(dbquery("SELECT id_dir,id,name,ras  FROM `downnik_files` WHERE `id` = '" . $post['id_object'] . "'  LIMIT 1"));
+            $dir = dbarray(dbquery("SELECT `dir` FROM `downnik_dir` WHERE `id` = '$file_id[id_dir]' LIMIT 1"));
+            echo '<img src="/style/icons/film.gif"> <a href="/down' . $dir['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '?showinfo">' . htmlspecialchars($file_id['name']) . '.' . $file_id['ras'] . '</a>';
             echo " (添加时间 " . vremja($post['time']) . ")";
         }
         echo "</div>";

@@ -9,7 +9,7 @@ $types =" where `types` = 'forum' ";
 }
 elseif ($user['group_access']==4)
 {
-$types = " where (`types` = 'obmen_komm' OR `types` = 'files_komm') ";
+$types = " where (`types` = 'down_komm' OR `types` = 'files_komm') ";
 }
 elseif ($user['group_access']==5)
 {

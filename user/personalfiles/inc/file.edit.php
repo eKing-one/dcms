@@ -23,7 +23,7 @@ if (isset($_GET['edit'])) {
 		if ($_POST['metka'] == 0 || $_POST['metka'] == 1) $metka = $_POST['metka'];
 		else $err = '标签错误 +18';
 		if (!isset($err)) {
-			dbquery("UPDATE `obmennik_files` SET `metka` = '" . my_esc($metka) . "', `name` = '" . $name . "',`opis` = '" . $opis . "' WHERE `id` = '$file_id[id]' LIMIT 1");
+			dbquery("UPDATE `downnik_files` SET `metka` = '" . my_esc($metka) . "', `name` = '" . $name . "',`opis` = '" . $opis . "' WHERE `id` = '$file_id[id]' LIMIT 1");
 			$_SESSION['message'] = '该文件已成功编辑';
 			header('Location: ?id_file=' . $file_id['id']);
 			exit;

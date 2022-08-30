@@ -2,13 +2,13 @@
 /*
 * $name 个体操作描述 
 */
-if ($type == 'obmen' && $post['avtor'] != $user['id']) {
+if ($type == 'down' && $post['avtor'] != $user['id']) {
 	$name = '文件夹中的新文件';
 }
 /*
 * 内容块输出 
 */
-if ($type == 'obmen') {
+if ($type == 'down') {
 	$dir = dbassoc(dbquery("SELECT * FROM `user_files` WHERE `id` = '" . $post['id_file'] . "' LIMIT 1"));
 	if ($post['count'] > 5) {
 		$kol = '5';
@@ -21,7 +21,7 @@ if ($type == 'obmen') {
 		' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a> ' . $name . ' <img src="/style/themes/' . $set['set_them'] . '/loads/14/dir.png" alt="*"/> <a href="/user/personalfiles/' . $dir['id_user'] . '/' . $dir['id'] . '/">' . text($dir['name']) . '</a>  ' . $s1 . vremja($post['time']) . $s2;
 	echo '</div>';
 	echo '<div class="nav2">';
-	$files = dbquery("SELECT * FROM `obmennik_files` WHERE `my_dir` = '$dir[id]' ORDER BY `id` DESC LIMIT $kol");
+	$files = dbquery("SELECT * FROM `downnik_files` WHERE `my_dir` = '$dir[id]' ORDER BY `id` DESC LIMIT $kol");
 	while ($file = dbassoc($files)) {
 		if ($file['id']) {
 			$ras = $file['ras'];

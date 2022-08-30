@@ -38,7 +38,7 @@ PHP4.2及以上（推荐PHP5）、MySQL、mod_rewrite支持、服务器。
 
 •附加到论坛的文件：sys/forum/files/（*.frf）
 
-•交换机文件：sys/obmen/files/（*.DAT）
+•交换机文件：sys/down/files/（*.DAT）
 
 •主题：style/themes/（主题文件夹）
 

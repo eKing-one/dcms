@@ -76,11 +76,11 @@ if (isset($_POST['delete'])) {
 	while ($filebase = @readdir($opdirbase))
 		if (preg_match('#\.php$#i', $filebase))
 			include_once(check_replace(H . 'sys/add/delete_user_act/' . $filebase));
-	$q5 = dbquery("SELECT * FROM `obmennik_files` WHERE `id_user` = '$ank[id]'");
+	$q5 = dbquery("SELECT * FROM `downnik_files` WHERE `id_user` = '$ank[id]'");
 	while ($post5 = dbassoc($q5)) {
-		unlink(H . 'sys/obmen/files/' . $post5['id'] . '.dat');
+		unlink(H . 'sys/down/files/' . $post5['id'] . '.dat');
 	}
-	dbquery("DELETE FROM `obmennik_files` WHERE `id_user` = '$ank[id]'");
+	dbquery("DELETE FROM `downnik_files` WHERE `id_user` = '$ank[id]'");
 	dbquery("DELETE FROM `users_konts` WHERE `id_user` = '$ank[id]' OR `id_kont` = '$ank[id]'");
 	dbquery("DELETE FROM `mail` WHERE `id_user` = '$ank[id]' OR `id_kont` = '$ank[id]'");
 	dbquery("DELETE FROM `user_voice` WHERE `id_user` = '$ank[id]' OR `id_kont` = '$ank[id]'");
@@ -100,11 +100,11 @@ if (isset($_POST['delete'])) {
 			dbquery("DELETE FROM `guest` WHERE `id_user` = '$collisions[$i]'");
 			dbquery("DELETE FROM `loads_komm` WHERE `id_user` = '$collisions[$i]'");
 			dbquery("DELETE FROM `news_komm` WHERE `id_user` = '$collisions[$i]'");
-			$q5 = dbquery("SELECT * FROM `obmennik_files` WHERE `id_user` = '$collisions[$i]'");
+			$q5 = dbquery("SELECT * FROM `downnik_files` WHERE `id_user` = '$collisions[$i]'");
 			while ($post5 = dbassoc($q5)) {
-				unlink(H . 'sys/obmen/files/' . $post5['id'] . '.dat');
+				unlink(H . 'sys/down/files/' . $post5['id'] . '.dat');
 			}
-			dbquery("DELETE FROM `obmennik_files` WHERE `id_user` = '$collisions[$i]'");
+			dbquery("DELETE FROM `downnik_files` WHERE `id_user` = '$collisions[$i]'");
 			dbquery("DELETE FROM `users_konts` WHERE `id_user` = '$collisions[$i]' OR `id_kont` = '$collisions[$i]'");
 			dbquery("DELETE FROM `mail` WHERE `id_user` = '$collisions[$i]' OR `id_kont` = '$collisions[$i]'");
 			dbquery("DELETE FROM `user_voice` WHERE `id_user` = '$collisions[$i]' OR `id_kont` = '$collisions[$i]'");
@@ -233,16 +233,16 @@ if (count($collisions) > 1 && isset($_GET['all'])) {
 		$user_voice = "$user_voice +$user_voice_coll*";
 }
 echo "<span class=\"ank_n\">评级结果:</span> <span class=\"ank_d\">$user_voice</span><br />";
-$obmennik = dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_files` WHERE `id_user` = '$ank[id]'"), 0);
+$downnik = dbresult(dbquery("SELECT COUNT(*) FROM `downnik_files` WHERE `id_user` = '$ank[id]'"), 0);
 if (count($collisions) > 1 && isset($_GET['all'])) {
-	$obmennik_coll = 0;
+	$downnik_coll = 0;
 	for ($i = 1; $i < count($collisions); $i++) {
-		$obmennik_coll += dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_files` WHERE `id_user` = '$collisions[$i]'"), 0);
+		$downnik_coll += dbresult(dbquery("SELECT COUNT(*) FROM `downnik_files` WHERE `id_user` = '$collisions[$i]'"), 0);
 	}
-	if ($obmennik_coll != 0)
-		$obmennik = "$obmennik +$obmennik_coll*";
+	if ($downnik_coll != 0)
+		$downnik = "$downnik +$downnik_coll*";
 }
-echo "<span class=\"ank_n\">下载中心中的文件:</span> <span class=\"ank_d\">$obmennik</span><br />";
+echo "<span class=\"ank_n\">下载中心中的文件:</span> <span class=\"ank_d\">$downnik</span><br />";
 $opdirbase = @opendir(H . 'sys/add/delete_user_info');
 while ($filebase = @readdir($opdirbase))
 	if (preg_match('#\.php$#i', $filebase))

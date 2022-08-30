@@ -16,7 +16,7 @@ http://dcms-social.ru
 */
 if (isset($_GET['edit_folder'])) {
 	$folder = dbassoc(dbquery("SELECT * FROM `user_files`  WHERE `id` = '" . intval($_GET['edit_folder']) . "' LIMIT 1"));
-	if ($folder['id_user'] != $user['id'] && !user_access('obmen_dir_edit')) {
+	if ($folder['id_user'] != $user['id'] && !user_access('down_dir_edit')) {
 		header("Location: /?" . SID);
 		exit;
 	}

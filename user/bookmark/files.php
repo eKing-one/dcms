@@ -57,9 +57,9 @@ while ($post = dbassoc($q)) {
 	}
 	/*---------------------------*/
 	$f = $post['id_object'];
-	$file_id = dbassoc(dbquery("SELECT id_dir,id,name,ras  FROM `obmennik_files` WHERE `id` = '" . $f . "'  LIMIT 1"));
-	$dir = dbarray(dbquery("SELECT `dir` FROM `obmennik_dir` WHERE `id` = '$file_id[id_dir]' LIMIT 1"));
-	echo '<a href="/obmen' . $dir['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '?showinfo">' . htmlspecialchars($file_id['name']) . '.' . $file_id['ras'] . '</a>';
+	$file_id = dbassoc(dbquery("SELECT id_dir,id,name,ras  FROM `downnik_files` WHERE `id` = '" . $f . "'  LIMIT 1"));
+	$dir = dbarray(dbquery("SELECT `dir` FROM `downnik_dir` WHERE `id` = '$file_id[id_dir]' LIMIT 1"));
+	echo '<a href="/down' . $dir['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '?showinfo">' . htmlspecialchars($file_id['name']) . '.' . $file_id['ras'] . '</a>';
 	if ($ank['id'] == $user['id'])
 		echo '<div style="text-align:right;"><a href="?delete=' . $post['id'] . '&amp;page=' . $page . '"><img src="/style/icons/delete.gif" alt="*" /></a></div>';
 	echo '</div>';

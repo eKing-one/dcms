@@ -17,7 +17,7 @@ echo "</form>";
 		<b>欢迎来到安装向导 DCMS-Social!</b><br />
 		</div>				<div class="nav2">
 		<font color='green'>当前版本: DCMS-Social v<?echo $set['dcms_version'];?> beta</font>		</div>		<div class="mess">
-		<font color='red'>在开始安装之前，我们建议您检查是否有较新版本。网站<a href="http://dcms-social.ru">Dcms-Social.Ru</a></font>
+		<font color='red'>在开始安装之前，我们建议您检查是否为最新版本。网站<a href="http://dcms-social.ru">Dcms-Social.Ru</a></font>
 		</div>				</center>		<div class="nav2">
 	-	官方支持网站 DCMS-Social - <a target="_blank" href="http://dcms-social.ru">Dcms-Social.Ru</a><br />
 	-  下载引擎的最安全来源被认为是上述官方网站<br />

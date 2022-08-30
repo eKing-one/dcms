@@ -268,7 +268,7 @@ if ($ank['group_access'] > 1) {
 			}
 			$dir_osn = dbassoc(dbquery("SELECT * FROM `user_files` WHERE `id_user` = '$ank[id]' AND `osn` = '1' LIMIT 1"));
 			if (isset($dir_osn['id'])) echo "<a class='top_nav' href='/user/personalfiles/$ank[id]/$dir_osn[id]/'>文件";
-			echo "(" . dbresult(dbquery("SELECT COUNT(*) FROM `user_files` WHERE `id_user` = '$ank[id]' AND `osn` > '1'"), 0) . "/" . dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_files` WHERE `id_user` = '$ank[id]'"), 0) . ")";
+			echo "(" . dbresult(dbquery("SELECT COUNT(*) FROM `user_files` WHERE `id_user` = '$ank[id]' AND `osn` > '1'"), 0) . "/" . dbresult(dbquery("SELECT COUNT(*) FROM `downnik_files` WHERE `id_user` = '$ank[id]'"), 0) . ")";
 			echo "</a>";
 			/*----------------------------------------------------------------*/
 			echo "<a class='top_nav' href='/user/info/them_p.php?id=" . $ank['id'] . "'>专题和评论</a> ";

@@ -28,9 +28,9 @@ if (isset($_POST['save'])) {
 		dbquery("UPDATE `frends` SET `disc_foto` = '" . $disc . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
 	}
 	// Обсуждения файлов
-	if (isset($_POST['disc_obmen']) && ($_POST['disc_obmen'] == 0 || $_POST['disc_obmen'] == 1)) {
-		$disc = (int) $_POST['disc_obmen'];
-		dbquery("UPDATE `frends` SET `disc_obmen` = '" . $disc . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
+	if (isset($_POST['disc_down']) && ($_POST['disc_down'] == 0 || $_POST['disc_down'] == 1)) {
+		$disc = (int) $_POST['disc_down'];
+		dbquery("UPDATE `frends` SET `disc_down` = '" . $disc . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
 	}
 	// Обсуждения статусов
 	if (isset($_POST['disc_status']) && ($_POST['disc_status'] == 0 || $_POST['disc_status'] == 1)) {
@@ -91,8 +91,8 @@ aut();
 		关于文件中讨论的通知 <?= $ank['nick'] ?>.
 	</div>
 	<div class="nav1">
-		<input name="disc_obmen" type="radio" <?= ($frend['disc_obmen'] == 1 ? ' checked="checked"' : null) ?> value="1" /> 是的
-		<input name="disc_obmen" type="radio" <?= ($frend['disc_obmen'] == 0 ? ' checked="checked"' : null) ?> value="0" /> 否定
+		<input name="disc_down" type="radio" <?= ($frend['disc_down'] == 1 ? ' checked="checked"' : null) ?> value="1" /> 是的
+		<input name="disc_down" type="radio" <?= ($frend['disc_down'] == 0 ? ' checked="checked"' : null) ?> value="0" /> 否定
 	</div>
 	<div class="mess">
 		关于状态讨论的通知 <?= $ank['nick'] ?>.

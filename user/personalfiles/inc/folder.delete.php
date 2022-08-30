@@ -30,20 +30,20 @@ if (isset($_GET['delete_folder']) && isset($_GET['ok'])) {
     $q = dbquery("SELECT * FROM `user_files` WHERE `id_dires` like '%/$dir[id]/" . intval($_GET['delete_folder']) . "/%'");
     while ($post = dbassoc($q)) {
         $a++;
-        $q2 = dbquery("SELECT * FROM `obmennik_files` WHERE `my_dir` = '$post[id]'");
+        $q2 = dbquery("SELECT * FROM `downnik_files` WHERE `my_dir` = '$post[id]'");
         while ($post2 = dbassoc($q2)) {
             echo $post2['name'] . '<br />';
-            unlink(H . 'sys/obmen/files/' . $post2['id'] . '.dat');
-            unlink(H . 'sys/obmen/screens/128/' . $post2['id'] . '.gif');
-            unlink(H . 'sys/obmen/screens/128/' . $post2['id'] . '.png');
-            unlink(H . 'sys/obmen/screens/128/' . $post2['id'] . '.jpg');
-            unlink(H . 'sys/obmen/screens/128/' . $post2['id'] . '.jpeg');
-            unlink(H . 'sys/obmen/screens/48/' . $post2['id'] . '.gif');
-            unlink(H . 'sys/obmen/screens/48/' . $post2['id'] . '.png');
-            unlink(H . 'sys/obmen/screens/48/' . $post2['id'] . '.jpg');
-            unlink(H . 'sys/obmen/screens/48/' . $post2['id'] . '.jpeg');
-            dbquery("DELETE FROM `user_music` WHERE `id_file` = '$post2[id]' AND `dir` = 'obmen'");
-            dbquery("DELETE FROM `obmennik_files` WHERE `id` = '$post2[id]'");
+            unlink(H . 'sys/down/files/' . $post2['id'] . '.dat');
+            unlink(H . 'sys/down/screens/128/' . $post2['id'] . '.gif');
+            unlink(H . 'sys/down/screens/128/' . $post2['id'] . '.png');
+            unlink(H . 'sys/down/screens/128/' . $post2['id'] . '.jpg');
+            unlink(H . 'sys/down/screens/128/' . $post2['id'] . '.jpeg');
+            unlink(H . 'sys/down/screens/48/' . $post2['id'] . '.gif');
+            unlink(H . 'sys/down/screens/48/' . $post2['id'] . '.png');
+            unlink(H . 'sys/down/screens/48/' . $post2['id'] . '.jpg');
+            unlink(H . 'sys/down/screens/48/' . $post2['id'] . '.jpeg');
+            dbquery("DELETE FROM `user_music` WHERE `id_file` = '$post2[id]' AND `dir` = 'down'");
+            dbquery("DELETE FROM `downnik_files` WHERE `id` = '$post2[id]'");
             $b++;
         }
         echo $post['name'] . '<br />';
@@ -52,20 +52,20 @@ if (isset($_GET['delete_folder']) && isset($_GET['ok'])) {
     $q2 = dbquery("SELECT * FROM `user_files` WHERE `id` = '" . intval($_GET['delete_folder']) . "'");
     while ($post = dbassoc($q2)) {
         $a++;
-        $q3 = dbquery("SELECT * FROM `obmennik_files` WHERE `my_dir` = '$post[id]'");
+        $q3 = dbquery("SELECT * FROM `downnik_files` WHERE `my_dir` = '$post[id]'");
         while ($post2 = dbassoc($q3)) {
             echo $post2['name'] . '<br />';
-            unlink(H . 'sys/obmen/files/' . $post2['id'] . '.dat');
-            unlink(H . 'sys/obmen/screens/128/' . $post2['id'] . '.gif');
-            unlink(H . 'sys/obmen/screens/128/' . $post2['id'] . '.png');
-            unlink(H . 'sys/obmen/screens/128/' . $post2['id'] . '.jpg');
-            unlink(H . 'sys/obmen/screens/128/' . $post2['id'] . '.jpeg');
-            unlink(H . 'sys/obmen/screens/48/' . $post2['id'] . '.gif');
-            unlink(H . 'sys/obmen/screens/48/' . $post2['id'] . '.png');
-            unlink(H . 'sys/obmen/screens/48/' . $post2['id'] . '.jpg');
-            unlink(H . 'sys/obmen/screens/48/' . $post2['id'] . '.jpeg');
-            dbquery("DELETE FROM `user_music` WHERE `id_file` = '$post2[id]' AND `dir` = 'obmen'");
-            dbquery("DELETE FROM `obmennik_files` WHERE `id` = '$post2[id]'");
+            unlink(H . 'sys/down/files/' . $post2['id'] . '.dat');
+            unlink(H . 'sys/down/screens/128/' . $post2['id'] . '.gif');
+            unlink(H . 'sys/down/screens/128/' . $post2['id'] . '.png');
+            unlink(H . 'sys/down/screens/128/' . $post2['id'] . '.jpg');
+            unlink(H . 'sys/down/screens/128/' . $post2['id'] . '.jpeg');
+            unlink(H . 'sys/down/screens/48/' . $post2['id'] . '.gif');
+            unlink(H . 'sys/down/screens/48/' . $post2['id'] . '.png');
+            unlink(H . 'sys/down/screens/48/' . $post2['id'] . '.jpg');
+            unlink(H . 'sys/down/screens/48/' . $post2['id'] . '.jpeg');
+            dbquery("DELETE FROM `user_music` WHERE `id_file` = '$post2[id]' AND `dir` = 'down'");
+            dbquery("DELETE FROM `downnik_files` WHERE `id` = '$post2[id]'");
             $b++;
         }
         dbquery("DELETE FROM `user_files` WHERE `id` = '$post[id]' LIMIT 1");

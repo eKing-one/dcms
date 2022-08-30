@@ -117,7 +117,7 @@ $name 变量值
 	} elseif ($type == 'new_gift') // Подарки новые
 	{
 		$name = '有' . ($avtor['pol'] == 1 ? "" : "а") . ' 给你的礼物 ';
-	} elseif ($type == 'files_komm' || $type == 'obmen_komm') // 文件
+	} elseif ($type == 'files_komm' || $type == 'down_komm') // 文件
 	{
 		$name = '回答说' . ($avtor['pol'] == 1 ? "" : "а") . ' 在文件的注释中给你 ';
 	} elseif ($type == 'news_komm') // Новости 
@@ -222,9 +222,9 @@ $name 变量值
 Файлы коментарии
 ===============================
 */
-	if ($type == 'files_komm' || $type == 'obmen_komm') {
+	if ($type == 'files_komm' || $type == 'down_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
-		$file = dbassoc(dbquery("SELECT * FROM `obmennik_files` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
+		$file = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
 		$dir = dbassoc(dbquery("SELECT * FROM `user_files` WHERE `id` = '" . $file['my_dir'] . "' LIMIT 1"));
 		$ras = $file['ras'];
 		if ($file['id'] && $avtor['id']) {

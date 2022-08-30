@@ -21,7 +21,7 @@ PHP4.2及以上（推荐PHP5）、MySQL、mod\u rewrite支持、付费托管。
 8）表决
 主文件夹和引擎文件：
 •附加到论坛的文件：SYS/Forum/Files/（*.frf）
-•交换机文件：SYS/OBMEN/FILES/（*.DAT）
+•交换机文件：SYS/down/FILES/（*.DAT）
 •主题：风格/主题/（主题文件夹）
 •网站规则：SYS/ADD/RULES.txt
 •默认主题存档：sys/add/them.zip（用于通过管理员安装主题时替换丢失的主题文件）

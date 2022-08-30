@@ -46,7 +46,7 @@ $types ="forum";
 }
 elseif ($user['group_access']==4)
 {
-$types = "obmen_komm";
+$types = "down_komm";
 }
 elseif ($user['group_access']==5)
 {

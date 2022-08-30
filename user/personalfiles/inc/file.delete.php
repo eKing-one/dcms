@@ -18,18 +18,18 @@ http://dcms-social.ru
 if (isset($_GET['delete'])) {
 	if (!isset($_GET['page'])) $_GET['page'] = 1;
 	if (isset($_GET['ok'])) {
-		dbquery("DELETE FROM `user_music` WHERE `id_file` = '$file_id[id]' AND `dir` = 'obmen'");
-		dbquery("DELETE FROM `obmennik_files` WHERE `id` = '$file_id[id]'");
-		unlink(H . 'sys/obmen/files/' . $file_id['id'] . '.dat');
-		unlink(H . 'sys/obmen/screens/128/' . $file_id['id'] . '.gif');
-		unlink(H . 'sys/obmen/screens/128/' . $file_id['id'] . '.png');
-		unlink(H . 'sys/obmen/screens/128/' . $file_id['id'] . '.jpg');
-		unlink(H . 'sys/obmen/screens/128/' . $file_id['id'] . '.jpeg');
-		unlink(H . 'sys/obmen/screens/48/' . $file_id['id'] . '.gif');
-		unlink(H . 'sys/obmen/screens/48/' . $file_id['id'] . '.png');
-		unlink(H . 'sys/obmen/screens/48/' . $file_id['id'] . '.jpg');
-		unlink(H . 'sys/obmen/screens/48/' . $file_id['id'] . '.jpeg');
-		unlink(H . 'sys/obmen/files/' . $file_id['id'] . '.dat');
+		dbquery("DELETE FROM `user_music` WHERE `id_file` = '$file_id[id]' AND `dir` = 'down'");
+		dbquery("DELETE FROM `downnik_files` WHERE `id` = '$file_id[id]'");
+		unlink(H . 'sys/down/files/' . $file_id['id'] . '.dat');
+		unlink(H . 'sys/down/screens/128/' . $file_id['id'] . '.gif');
+		unlink(H . 'sys/down/screens/128/' . $file_id['id'] . '.png');
+		unlink(H . 'sys/down/screens/128/' . $file_id['id'] . '.jpg');
+		unlink(H . 'sys/down/screens/128/' . $file_id['id'] . '.jpeg');
+		unlink(H . 'sys/down/screens/48/' . $file_id['id'] . '.gif');
+		unlink(H . 'sys/down/screens/48/' . $file_id['id'] . '.png');
+		unlink(H . 'sys/down/screens/48/' . $file_id['id'] . '.jpg');
+		unlink(H . 'sys/down/screens/48/' . $file_id['id'] . '.jpeg');
+		unlink(H . 'sys/down/files/' . $file_id['id'] . '.dat');
 		$_SESSION['message'] = '该文件已成功删除';
 		header("Location: ?page=" . intval($_GET['page']) . "");
 		exit;

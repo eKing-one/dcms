@@ -45,12 +45,12 @@ $opdirbase=@opendir(H.'sys/add/delete_user_act');
 while ($filebase=@readdir($opdirbase))
 if (preg_match('#\.php$#',$filebase))
 include_once(H.'sys/add/delete_user_act/'.$filebase);
-$q5=dbquery("SELECT * FROM `obmennik_files` WHERE `id_user` = '$ank[id]'");
+$q5=dbquery("SELECT * FROM `downnik_files` WHERE `id_user` = '$ank[id]'");
 while ($post5 = dbassoc($q5))
 {
-unlink(H.'sys/obmen/files/'.$post5['id'].'.dat');
+unlink(H.'sys/down/files/'.$post5['id'].'.dat');
 }
-dbquery("DELETE FROM `obmennik_files` WHERE `id_user` = '$ank[id]'");
+dbquery("DELETE FROM `downnik_files` WHERE `id_user` = '$ank[id]'");
 dbquery("DELETE FROM `users_konts` WHERE `id_user` = '$ank[id]' OR `id_kont` = '$ank[id]'");
 dbquery("DELETE FROM `mail` WHERE `id_user` = '$ank[id]' OR `id_kont` = '$ank[id]'");
 dbquery("DELETE FROM `user_voice` WHERE `id_user` = '$ank[id]' OR `id_kont` = '$ank[id]'");

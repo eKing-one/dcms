@@ -18,7 +18,8 @@ if (user_access('forum_for_edit') && (isset($_GET['act']) && $_GET['act']=='set'
     echo "<br>资料描述:<br>"; 
     echo "<textarea name='opis'>".esc(trim(stripcslashes(htmlspecialchars($forum['opis']))))."</textarea>"; 
     $icon=array(); 
-    $opendiricon=opendir(H.'style/forum'); 
+    
+    $opendiricon = opendir(H.'style/forum'); 
     while ($icons=readdir($opendiricon)) 
     { 
         if (preg_match('#^.|default.png#',$icons))continue; 

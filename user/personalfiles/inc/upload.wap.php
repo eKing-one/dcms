@@ -15,10 +15,10 @@ http://dcms-social.ru
 =======================================
 */
 if (!defined("USER")) die('No access');
-if (isset($_SESSION['obmen_dir'])) {
-	$dir_id = dbassoc(dbquery("SELECT * FROM `obmennik_dir` WHERE `id` = '" . intval($_SESSION['obmen_dir']) . "' LIMIT 1"));
+if (isset($_SESSION['down_dir'])) {
+	$dir_id = dbassoc(dbquery("SELECT * FROM `downnik_dir` WHERE `id` = '" . intval($_SESSION['down_dir']) . "' LIMIT 1"));
 } else {
-	$dir_id = dbassoc(dbquery("SELECT * FROM `obmennik_dir` WHERE `my` = '1' LIMIT 1"));
+	$dir_id = dbassoc(dbquery("SELECT * FROM `downnik_dir` WHERE `my` = '1' LIMIT 1"));
 }
 if ($dir_id['upload'] == 1) {
 	if (isset($_GET['upload']) && $_GET['upload'] == 'enter') {
@@ -45,7 +45,7 @@ if ($dir_id['upload'] == 1) {
 			$opis = stripslashes(htmlspecialchars(esc($_POST['msg'])));
 		if (!isset($err)) {
 			dbquery("UPDATE `user` SET `rating_tmp` = '" . ($user['rating_tmp'] + 3) . "' WHERE `id` = '$user[id]' LIMIT 1");
-			dbquery("INSERT INTO `obmennik_files` (`metka`, `id_dir`, `name`, `ras`, `type`, `size`, `time`, `time_last`, `id_user`, `opis`, `my_dir` )
+			dbquery("INSERT INTO `downnik_files` (`metka`, `id_dir`, `name`, `ras`, `type`, `size`, `time`, `time_last`, `id_user`, `opis`, `my_dir` )
 VALUES ('$metka', '$dir_id[id]', '$name', '$ras', '$type', '$size', '$time', '$time', '$user[id]', '$opis' , '$dir[id]')");
 			$id_file = mysql_insert_id();
 			/*----------------------Лента------------------------*/
@@ -54,30 +54,30 @@ VALUES ('$metka', '$dir_id[id]', '$name', '$ras', '$type', '$size', '$time', '$t
 				while ($f = dbarray($q)) {
 					$a = user::get_user($f['frend']);
 					$lentaSet = dbarray(dbquery("SELECT * FROM `tape_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // Общая настройка ленты
-					if ($f['lenta_obmen'] == 1 && $lentaSet['lenta_files'] == 1) /* Фильтр рассылки */ {
-						if (dbresult(dbquery("SELECT COUNT(*) FROM `tape` WHERE `id_user` = '$a[id]' AND `type` = 'obmen' AND `id_file` = '$dir[id]'"), 0) == 0) {
+					if ($f['lenta_down'] == 1 && $lentaSet['lenta_files'] == 1) /* Фильтр рассылки */ {
+						if (dbresult(dbquery("SELECT COUNT(*) FROM `tape` WHERE `id_user` = '$a[id]' AND `type` = 'down' AND `id_file` = '$dir[id]'"), 0) == 0) {
 							/* Если нет в ленте этой папки */
-							dbquery("INSERT INTO `tape` (`id_user`, `avtor`, `type`, `time`, `id_file`, `count`) values('$a[id]', '$dir[id_user]', 'obmen', '$time', '$dir[id]', '1')");
-						} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `tape` WHERE `id_user` = '$a[id]' AND `type` = 'obmen' AND `id_file` = '$dir[id]' AND `read` = '1'"), 0) > 0) {
+							dbquery("INSERT INTO `tape` (`id_user`, `avtor`, `type`, `time`, `id_file`, `count`) values('$a[id]', '$dir[id_user]', 'down', '$time', '$dir[id]', '1')");
+						} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `tape` WHERE `id_user` = '$a[id]' AND `type` = 'down' AND `id_file` = '$dir[id]' AND `read` = '1'"), 0) > 0) {
 							/* Если папка есть в ленте то удаляем запись и создаем новую */
-							dbquery("DELETE FROM `tape` WHERE `id_user` = '$a[id]' AND `type` = 'obmen' AND `id_file` = '$dir[id]'");
-							dbquery("INSERT INTO `tape` (`id_user`, `avtor`, `type`, `time`, `id_file`, `count`) values('$a[id]', '$dir[id_user]', 'obmen', '$time', '$dir[id]', '1')");
+							dbquery("DELETE FROM `tape` WHERE `id_user` = '$a[id]' AND `type` = 'down' AND `id_file` = '$dir[id]'");
+							dbquery("INSERT INTO `tape` (`id_user`, `avtor`, `type`, `time`, `id_file`, `count`) values('$a[id]', '$dir[id_user]', 'down', '$time', '$dir[id]', '1')");
 						} else {
 							/* Обновляем колличество новых файлов */
-							$tape = dbarray(dbquery("SELECT * FROM `tape` WHERE `id_user` = '$a[id]' AND `type` = 'obmen' AND `id_file` = '$dir[id]'"));
-							dbquery("UPDATE `tape` SET `count` = '" . ($tape['count'] + 1) . "', `read` = '0', `time` = '$time' WHERE `id_user` = '$a[id]' AND `type` = 'obmen' AND `id_file` = '$dir[id]' LIMIT 1");
+							$tape = dbarray(dbquery("SELECT * FROM `tape` WHERE `id_user` = '$a[id]' AND `type` = 'down' AND `id_file` = '$dir[id]'"));
+							dbquery("UPDATE `tape` SET `count` = '" . ($tape['count'] + 1) . "', `read` = '0', `time` = '$time' WHERE `id_user` = '$a[id]' AND `type` = 'down' AND `id_file` = '$dir[id]' LIMIT 1");
 						}
 					}
 				}
 			}
 			/*-------------------alex-borisi--------------------*/
-			if (!@copy($_FILES['file']['tmp_name'], H . "sys/obmen/files/$id_file.dat")) {
-				dbquery("DELETE FROM `obmennik_files` WHERE `id` = '$id_file' LIMIT 1");
+			if (!@copy($_FILES['file']['tmp_name'], H . "sys/down/files/$id_file.dat")) {
+				dbquery("DELETE FROM `downnik_files` WHERE `id` = '$id_file' LIMIT 1");
 				$err[] = '上传时出错';
 			}
 		}
 		if (!isset($err)) {
-			chmod(H . "sys/obmen/files/$id_file.dat", 0666);
+			chmod(H . "sys/down/files/$id_file.dat", 0666);
 			if (isset($_FILES['screen']) && $imgc = @imagecreatefromstring(file_get_contents($_FILES['screen']['tmp_name']))) {
 				$img_x = imagesx($imgc);
 				$img_y = imagesy($imgc);
@@ -97,7 +97,7 @@ VALUES ('$metka', '$dir_id[id]', '$name', '$ras', '$type', '$size', '$time', '$t
 				imagecopyresampled($screen, $imgc, 0, 0, 0, 0, $dstW, $dstH, $img_x, $img_y);
 				imagedestroy($imgc);
 				$screen = img_copyright($screen); // наложение копирайта
-				imagegif($screen, H . "sys/obmen/screens/320/$id_file.gif");
+				imagegif($screen, H . "sys/down/screens/320/$id_file.gif");
 				imagedestroy($screen);
 			}
 			if (isset($_FILES['screen']) && $imgc = @imagecreatefromstring(file_get_contents($_FILES['screen']['tmp_name']))) {
@@ -119,10 +119,10 @@ VALUES ('$metka', '$dir_id[id]', '$name', '$ras', '$type', '$size', '$time', '$t
 				imagecopyresampled($screen, $imgc, 0, 0, 0, 0, $dstW, $dstH, $img_x, $img_y);
 				imagedestroy($imgc);
 				$screen = img_copyright($screen); // наложение копирайта
-				imagegif($screen, H . "sys/obmen/screens/128/$id_file.gif");
+				imagegif($screen, H . "sys/down/screens/128/$id_file.gif");
 				imagedestroy($screen);
 			}
-			$_SESSION['obmen_dir'] = null;
+			$_SESSION['down_dir'] = null;
 			$_SESSION['message'] = '文件已成功上传';
 			header('Location: ?');
 			exit;
@@ -138,7 +138,7 @@ if ($dir_id['upload'] == 1 && isset($user)) {
 	echo "<div class='foot'>";
 	echo "<img src='/style/icons/up_dir.gif' alt='*'> " . ($dir['osn'] == 1 ? '<a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">档案</a>' : '') . " " . user_files($dir['id_dires']) . " " . ($dir['osn'] == 1 ? '' : '&gt; <a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">' . text($dir['name']) . '</a>') . "";
 	echo "</div>";
-	if (isset($_SESSION['obmen_dir'])) {
+	if (isset($_SESSION['down_dir'])) {
 		echo '<div class="mess">';
 		echo '该文件将被上传到该文件夹 <b>' . text($dir_id['name']) . '</b> 下载中心 ';
 		echo '</div>';

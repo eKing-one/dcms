@@ -13,10 +13,10 @@ if(isset($_GET['chmod_ok'])){
 @chmod(H.'sys/gallery/foto/',0777);
 @chmod(H.'sys/inc/',0777);
 @chmod(H.'sys/fnc/',0777);
-@chmod(H.'sys/obmen/files/',0777);
-@chmod(H.'sys/obmen/screens/14/',0777);
-@chmod(H.'sys/obmen/screens/48/',0777);
-@chmod(H.'sys/obmen/screens/128/',0777);
+@chmod(H.'sys/down/files/',0777);
+@chmod(H.'sys/down/screens/14/',0777);
+@chmod(H.'sys/down/screens/48/',0777);
+@chmod(H.'sys/down/screens/128/',0777);
 @chmod(H.'sys/update/',0777);
 @chmod(H.'sys/tmp/',0777);
 @chmod(H.'style/themes/',0777);

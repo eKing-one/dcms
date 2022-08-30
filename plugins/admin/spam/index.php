@@ -19,7 +19,7 @@ if (user_access('adm_panel_show')) {
 	} elseif ($user['group_access'] == 3) {
 		$types = " where `types` = 'forum' ";
 	} elseif ($user['group_access'] == 4) {
-		$types = " where (`types` = 'obmen_komm' OR `types` = 'files_komm') ";
+		$types = " where (`types` = 'down_komm' OR `types` = 'files_komm') ";
 	} elseif ($user['group_access'] == 5) {
 		$types = " where `types` = 'lib_komm' ";
 	} elseif ($user['group_access'] == 6) {
@@ -62,16 +62,16 @@ if (user_access('adm_panel_show')) {
 		if ($post['razdel'] == 'mail') echo "<font color='red'>邮件</font><br />";
 		if ($post['razdel'] == 'guest') echo "<a href='/guest/'><font color='red'>客人</font></a><br />";
 		if ($post['razdel'] == 'files_komm') {  // Файлы юзеров
-			$file_id = dbassoc(dbquery("SELECT * FROM `obmennik_files` WHERE `id` = '$post[id_object]' LIMIT 1"));
+			$file_id = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id` = '$post[id_object]' LIMIT 1"));
 			$dir = dbassoc(dbquery("SELECT * FROM `user_files` WHERE `id` = '$file_id[my_dir]' LIMIT 1"));
 			echo "<font color='red'>个人档案</font> | ";
 			echo " <a href='/user/personalfiles/$file_id[id_user]/$dir[id]/?id_file=$file_id[id]'>" . htmlspecialchars($file_id['name']) . "</a><br />";
 		}
-		if ($post['razdel'] == 'obmen_komm') {  // Обменник
-			$file_id = dbassoc(dbquery("SELECT * FROM `obmennik_files` WHERE `id` = '$post[id_object]' LIMIT 1"));
-			$dir_id = dbassoc(dbquery("SELECT * FROM `obmennik_dir` WHERE `id` = '$file_id[id_dir]' LIMIT 1"));
+		if ($post['razdel'] == 'down_komm') {  // Обменник
+			$file_id = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id` = '$post[id_object]' LIMIT 1"));
+			$dir_id = dbassoc(dbquery("SELECT * FROM `downnik_dir` WHERE `id` = '$file_id[id_dir]' LIMIT 1"));
 			echo "<font color='red'>下载中心</font> | ";
-			echo " <a href='/obmen$dir_id[dir]$file_id[id].$file_id[ras]?showinfo'>" . htmlspecialchars($file_id['name']) . "</a><br />";
+			echo " <a href='/down$dir_id[dir]$file_id[id].$file_id[ras]?showinfo'>" . htmlspecialchars($file_id['name']) . "</a><br />";
 		}
 		if ($post['razdel'] == 'notes_komm') {  // Дневники
 			$notes = dbassoc(dbquery("SELECT * FROM `notes` WHERE `id` = '$post[id_object]' LIMIT 1"));

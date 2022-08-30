@@ -14,7 +14,7 @@ ICQ：587863132
 http://dcms-social.ru
 =======================================
 */
-$k_post = dbresult(dbquery("SELECT COUNT(*) FROM `obmennik_komm` WHERE `id_file` = '$file_id[id]'"), 0);
+$k_post = dbresult(dbquery("SELECT COUNT(*) FROM `downnik_komm` WHERE `id_file` = '$file_id[id]'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
@@ -40,7 +40,7 @@ if ($k_post == 0) {
 	}
 	/*---------------alex-borisi---------------------*/
 }
-$q = dbquery("SELECT * FROM `obmennik_komm` WHERE `id_file` = '$file_id[id]' ORDER BY `id` $sort LIMIT $start, $set[p_str]");
+$q = dbquery("SELECT * FROM `downnik_komm` WHERE `id_file` = '$file_id[id]' ORDER BY `id` $sort LIMIT $start, $set[p_str]");
 while ($post = dbassoc($q)) {
 	$anketa = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$post[id_user]' LIMIT 1"));
 	/*-----------代码-----------*/
@@ -66,7 +66,7 @@ while ($post = dbassoc($q)) {
 		echo '<div style="text-align:right;">';
 		if ($anketa['id'] != $user['id'])
 			echo "<a href=\"?id_file=$file_id[id]&amp;page=$page&amp;spam=$post[id]\"><img src='/style/icons/blicon.gif' alt='*' title='Это спам'></a> ";
-		if (user_access('obmen_komm_del') || $anketa['id'] == $user['id'])
+		if (user_access('down_komm_del') || $anketa['id'] == $user['id'])
 			echo '<a href="?id_file=' . $file_id['id'] . '&amp;page=' . $page . '&amp;del_post=' . $post['id'] . '"><img src="/style/icons/delete.gif" alt="*"></a>';
 		echo "   </div>";
 	}
