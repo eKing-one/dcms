@@ -465,3 +465,4 @@ DCMS-Social 1.9.9.7
 ====================
 -修正status()为avatar()
 -修正avatar_ank()为avatar()
+-obmen改为down

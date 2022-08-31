@@ -89,6 +89,7 @@ if (isset($user) && $user['id'] != $ank['id'] && dbresult(query("SELECT COUNT(*)
 */
 if (isset($_POST['msg']) && isset($user)) {
 	$msg = $_POST['msg'];
+	$mat = antimat($msg);
 	if ($mat) $err[] = '在消息的文本中发现了一个将死者: ' . $mat;
 	if (strlen2($msg) > 1024) {
 		$err = '信息太长了';
@@ -147,7 +148,7 @@ if (isset($_POST['msg']) && isset($user)) {
 }
 if ((user_access('foto_komm_del') || $ank['id'] == $user['id']) && isset($_GET['delete']) && dbresult(query("SELECT COUNT(*) FROM `gallery_komm` WHERE `id`='" . intval($_GET['delete']) . "' AND `id_foto`='$foto[id]' LIMIT 1"), 0) != 0) {
 	query("DELETE FROM `gallery_komm` WHERE `id`='" . intval($_GET['delete']) . "' LIMIT 1");
-	admin_log('照片廊', '照片', "删除照片上的评论 [url=/id$ank[id]]" . user::nick($ank['id'], 1, 0, 0) . "[/url]");
+	admin_log('照片廊', '照片', "删除照片上的评论 [url=/info.php?id=$ank[id]]" . user::nick($ank['id'], 1, 0, 0) . "[/url]");
 	$_SESSION['message'] = '评论成功删除';
 	header("Location: ?page=" . intval($_GET['page']));
 	exit;

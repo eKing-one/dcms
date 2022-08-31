@@ -17,15 +17,14 @@ if (user_access('forum_for_edit') && (isset($_GET['act']) && $_GET['act']=='set'
     echo '<input name="name" type="text" maxlength="32" value="' . text($forum['name']) . '" />';   
     echo "<br>资料描述:<br>"; 
     echo "<textarea name='opis'>".esc(trim(stripcslashes(htmlspecialchars($forum['opis']))))."</textarea>"; 
-    $icon=array(); 
-    
-    $opendiricon = opendir(H.'style/forum'); 
-    while ($icons=readdir($opendiricon)) 
-    { 
-        if (preg_match('#^.|default.png#',$icons))continue; 
-        $icon[]=$icons; 
-    } 
-    closedir($opendiricon); 
+
+    $opendiricon = opendir(H . 'style/forum');
+    while ($icons = readdir($opendiricon)) {
+        // запись всех тем в массив
+        if (preg_match('#^\.|default.png#', $icons)) continue;
+        $icon[] = $icons;
+    }
+    closedir($opendiricon);
     echo "<br>图标:"; 
     echo "<select name='icon'>"; 
     echo "<option value='default.png'>默认情况下</option>"; 

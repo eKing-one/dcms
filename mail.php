@@ -192,7 +192,7 @@ if ($user['group_access'] == 0) {
 }
 echo "<div class='nav2'>";
 echo "与…通信 " . group($ank['id']) . "
- <a href='/id" . $ank['id'] . "'>" . $ank['nick'] . "</a> " . medal($ank['id']) . online($ank['id']) . " <span style='float:right;'>";
+ <a href='/info.php?id=" . $ank['id'] . "'>" . $ank['nick'] . "</a> " . medal($ank['id']) . online($ank['id']) . " <span style='float:right;'>";
 if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"), 0) == 1) {
 	$kont = dbarray(dbquery("SELECT * FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"));
 	echo "<a href='/konts.php?type=$kont[type]&amp;act=del&amp;id=$ank[id]'><img src='/style/icons/cross_r.gif' alt='*'></a></span><br/></div>";
@@ -256,7 +256,7 @@ while ($post = dbarray($q)) {
 	}
 	if ($ank2 && $ank2['id']) {
 		if ($ank2['id'] == $user['id']) {
-			echo ' <b><span style="color:green">来自我</span> к </b><a href="/id' . $ank2['id'] . '"><b>' . $ank['nick'] . '</b></a>';
+			echo ' <b><span style="color:green">来自于</span></b><a href="/info.php?id=' . $ank2['id'] . '"><b>' . $ank['nick'] . '</b></a>';
 		} else {
 			echo " " . group($ank2['id']) . " <a href=\"/info.php?id=$ank2[id]\">$ank2[nick]</a>";
 			echo "" . medal($ank2['id']) . " " . online($ank2['id']) . " ";
