@@ -30,7 +30,7 @@ if ($type == 'notes') {
 				<font color='green'><?= $avtor['nick'] ?></font>
 			</b>
 			<?= ($avtor['id'] != $user['id'] ? '<a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>' : '') ?>
-			<?= $avtor['medal'] ?> <?= $avtor['online'] ?> &raquo; <b><?= text($notes['name']) ?></b><br />
+			<?= medal($avtor['id']) ?> <?= online($avtor['id']) ?> &raquo; <b><?= text($foto['name']) ?></b><br />
 			<span class="text"><?= output_text($notes['msg']) ?></span>
 		</div>
 	<?

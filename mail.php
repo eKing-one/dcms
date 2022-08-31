@@ -267,7 +267,7 @@ while ($post = dbarray($q)) {
 		echo "[Удален!]";
 	}
 	echo '<span style="float:right;color:#666;font-size:small;"> ' . vremja($post['time']) . '</span> ';
-	if ($post['read'] == 0) echo "(не прочитано)<br />";
+	if ($post['read'] == 0) echo "(未读)<br />";
 	echo "<br/>" . output_text($post['msg']) . "";
 	echo "<div style='text-align:right;'>";
 	if ($ank2['id'] != $user['id']) echo "<a href=\"mail.php?id=$ank[id]&amp;page=$page&amp;spam=$post[id]\"><img src='/style/icons/blicon.gif' alt='*' title='Это спам'> 滥发电邮!</a>";

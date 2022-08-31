@@ -1,6 +1,6 @@
 <?
 /*
-* Заголовок обсуждения
+* 讨论标题
 */
 if ($type == 'them' && $post['avtor'] != $user['id']) {
 	$name = '论坛| 论坛主题';
@@ -8,7 +8,7 @@ if ($type == 'them' && $post['avtor'] != $user['id']) {
 	$name = '论坛| 你的主题';
 }
 /*
-* Выводим на экран
+* 显示在屏幕上
 */
 if ($type == 'them') {
 	$them = dbassoc(dbquery("SELECT * FROM `forum_t` WHERE `id` = '" . $post['id_sim'] . "' LIMIT 1"));
