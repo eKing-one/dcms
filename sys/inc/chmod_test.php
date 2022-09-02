@@ -31,7 +31,7 @@ test_chmod(H.'sys/gallery/48/',777);
 test_chmod(H.'sys/gallery/50/',777);
 test_chmod(H.'sys/gallery/128/',777);
 test_chmod(H.'sys/gallery/640/',777);
-test_chmod(H.'sys/gallery/foto/',777);
+test_chmod(H.'sys/gallery/photo/',777);
 test_chmod(H.'sys/inc/',777);
 test_chmod(H.'sys/fnc/',777);
 test_chmod(H.'sys/down/files/',777);

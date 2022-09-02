@@ -54,7 +54,7 @@ $types = "lib_komm";
 }
 elseif ($user['group_access']==6)
 {
-$types = "foto_komm";
+$types = "photo_komm";
 }
 elseif ($user['group_access']==11)
 {

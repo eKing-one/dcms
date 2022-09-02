@@ -67,7 +67,7 @@ if (isset($_POST['delete'])) {
 	dbquery("DELETE FROM `mark_notes` WHERE `id_user` = '$ank[id]'");
 	dbquery("DELETE FROM `mark_files` WHERE `id_user` = '$ank[id]'");
 	dbquery("DELETE FROM `mark_people` WHERE `id_user` = '$ank[id]'");
-	dbquery("DELETE FROM `mark_foto` WHERE `id_user` = '$ank[id]'");
+	dbquery("DELETE FROM `mark_photo` WHERE `id_user` = '$ank[id]'");
 	dbquery("DELETE FROM `tape_set` WHERE `id_user` = '$ank[id]'");
 	dbquery("DELETE FROM `tape` WHERE `id_user` = '$ank[id]'");
 	dbquery("DELETE FROM `tape` WHERE `avtor` = '$ank[id]'");

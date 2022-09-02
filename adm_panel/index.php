@@ -49,7 +49,7 @@ if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth'] > $time || isset($_SES
   if (user_access('adm_banlist')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='banlist.php'>禁止名单</a></div>";
   if (user_access('adm_set_loads')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_loads.php'>下载设置</a></div>";
   if (user_access('adm_set_chat')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_chat.php'>聊天设置</a></div>";
-  if (user_access('adm_set_foto')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_foto.php'>照片库设置</a></div>";
+  if (user_access('adm_set_photo')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_photo.php'>照片库设置</a></div>";
   if (user_access('adm_forum_sinc')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='forum_sinc.php'>论坛表的同步</a></div>";
   if (user_access('adm_ref')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='referals.php'>转介服务</a></div>";
   if (user_access('adm_ip_edit')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='opsos.php'>编辑IP运营商</a></div>";

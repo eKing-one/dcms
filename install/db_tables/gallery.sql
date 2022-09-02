@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `gallery` (
   `time` int(11) DEFAULT NULL,
   `opis` varchar(256) DEFAULT NULL,
   `set_password` int(11) DEFAULT NULL,
-  `foto_password` varchar(32) DEFAULT NULL,
+  `photo_password` varchar(32) DEFAULT NULL,
   `my` int(11) NOT NULL DEFAULT '0',
   `pass` varchar(11) DEFAULT NULL,
   `privat` enum('0','1','2') NOT NULL DEFAULT '0',

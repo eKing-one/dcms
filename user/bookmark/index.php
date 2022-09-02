@@ -54,9 +54,9 @@ if (isset($_GET['metki'])) {
     echo '<a href="/user/bookmark/files.php?id=' . $ank['id'] . '">档案</a> (' . $files . ')';
     echo '</div>';
     echo '<div class="nav1">';
-    $foto = dbresult(dbquery("SELECT COUNT(id_object) FROM `bookmarks` WHERE `id_user` = '" . $ank['id'] . "' AND `type`='foto'"), 0);
-    echo '<img src="/style/icons/foto.png" alt="*" /> ';
-    echo '<a href="/user/bookmark/foto.php?id=' . $ank['id'] . '">照片</a> (' . $foto . ')';
+    $photo = dbresult(dbquery("SELECT COUNT(id_object) FROM `bookmarks` WHERE `id_user` = '" . $ank['id'] . "' AND `type`='photo'"), 0);
+    echo '<img src="/style/icons/photo.png" alt="*" /> ';
+    echo '<a href="/user/bookmark/photo.php?id=' . $ank['id'] . '">照片</a> (' . $photo . ')';
     echo '</div>';
     echo '<div class="nav2">';
     $forum = dbresult(dbquery("SELECT COUNT(id_object) FROM `bookmarks` WHERE `id_user` = '" . $ank['id'] . "' AND `type`='forum'"), 0);
@@ -92,11 +92,11 @@ if (isset($_GET['metki'])) {
             echo "<img src='/style/icons/icon_readers.gif'> ";
             echo user::nick($people['id'], 1, 1, 0) . " <br/>";
             echo " (添加时间 " . vremja($post['time']) . ")";
-        } elseif ($post['type'] == 'foto') {
-            $foto = dbassoc(dbquery("SELECT * FROM `gallery_foto` WHERE `id`='$post[id_object]' LIMIT 1"));
-            echo "<a href='/foto/" . $foto['id_user'] . "/" . $foto['id_gallery'] . "/" . $foto['id'] . "/'><img src='/style/icons/PhotoIcon.gif'> " . htmlspecialchars($foto['name']) . "</a><br/>";
-            echo "<img style='height:60px;' src='/foto/foto0/" . $foto['id'] . "." . $foto['ras'] . "'>";
-            echo substr(htmlspecialchars($foto['opis']), 0, 40) . "[...] (添加时间 " . vremja($post['time']) . ")";
+        } elseif ($post['type'] == 'photo') {
+            $photo = dbassoc(dbquery("SELECT * FROM `gallery_photo` WHERE `id`='$post[id_object]' LIMIT 1"));
+            echo "<a href='/photo/" . $photo['id_user'] . "/" . $photo['id_gallery'] . "/" . $photo['id'] . "/'><img src='/style/icons/PhotoIcon.gif'> " . htmlspecialchars($photo['name']) . "</a><br/>";
+            echo "<img style='height:60px;' src='/photo/photo0/" . $photo['id'] . "." . $photo['ras'] . "'>";
+            echo substr(htmlspecialchars($photo['opis']), 0, 40) . "[...] (添加时间 " . vremja($post['time']) . ")";
         } elseif ($post['type'] == 'file') {
             $file_id = dbassoc(dbquery("SELECT id_dir,id,name,ras  FROM `downnik_files` WHERE `id` = '" . $post['id_object'] . "'  LIMIT 1"));
             $dir = dbarray(dbquery("SELECT `dir` FROM `downnik_dir` WHERE `id` = '$file_id[id_dir]' LIMIT 1"));

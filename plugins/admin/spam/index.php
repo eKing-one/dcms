@@ -23,7 +23,7 @@ if (user_access('adm_panel_show')) {
 	} elseif ($user['group_access'] == 5) {
 		$types = " where `types` = 'lib_komm' ";
 	} elseif ($user['group_access'] == 6) {
-		$types = " where `types` = 'foto_komm' ";
+		$types = " where `types` = 'photo_komm' ";
 	} elseif ($user['group_access'] == 11) {
 		$types = " where `types` = 'notes_komm' ";
 	} elseif ($user['group_access'] == 12) {
@@ -89,10 +89,10 @@ if (user_access('adm_panel_show')) {
 			echo "<font color='red'>装料</font> | ";
 			echo " <a href='/loads/?komm&d=$file[path]&f=$file[name]'>" . htmlspecialchars($file['name']) . "</a><br />";
 		}
-		if ($post['razdel'] == 'foto_komm') {  // Фотографии
-			$foto = dbassoc(dbquery("SELECT * FROM `gallery_foto` WHERE `id` = '$post[id_object]' LIMIT 1"));
+		if ($post['razdel'] == 'photo_komm') {  // Фотографии
+			$photo = dbassoc(dbquery("SELECT * FROM `gallery_photo` WHERE `id` = '$post[id_object]' LIMIT 1"));
 			echo "<font color='red'>照片</font> | ";
-			echo " <a href='/foto/$foto[id_user]/$foto[id_gallery]/$foto[id]/'>" . htmlspecialchars($foto['name']) . "</a><br />";
+			echo " <a href='/photo/$photo[id_user]/$photo[id_gallery]/$photo[id]/'>" . htmlspecialchars($photo['name']) . "</a><br />";
 		}
 		if ($post['razdel'] == 'stena') // Стена юзера
 		{

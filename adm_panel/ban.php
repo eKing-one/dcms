@@ -135,7 +135,7 @@ if (user_access('user_ban_set') || user_access('user_ban_set_h')) {
     if ($user['group_access'] == 4 || $user['level'] > 1) echo "<input name='razdel' type='radio'  value='files'  checked='checked'/>档案 <br />";
     if ($user['group_access'] == 2 || $user['level'] > 1) echo "<input name='razdel' type='radio'  value='chat'  checked='checked'/>聊天 <br />";
     if ($user['group_access'] == 5 || $user['level'] > 1) echo "<input name='razdel' type='radio'  value='lib'  checked='checked'/>图书馆<br />";
-    if ($user['group_access'] == 6 || $user['level'] > 1) echo "<input name='razdel' type='radio'  value='foto'  checked='checked'/>照片<br />";
+    if ($user['group_access'] == 6 || $user['level'] > 1) echo "<input name='razdel' type='radio'  value='photo'  checked='checked'/>照片<br />";
     if ($user['level'] > 1) echo "<input name='razdel' type='radio' value='all' checked='checked'/>整个网站 <br />";
     echo "<div class='nav1'>原因：</div>";
     echo "<input name='pochemu' type='radio' value='1' checked='checked'/>垃圾邮件/广告<br />";

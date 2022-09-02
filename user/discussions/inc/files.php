@@ -32,7 +32,7 @@ if ($type == 'down') {
 				<font color='green'><?= $avtor['nick'] ?></font>
 			</b>
 			<?= ($avtor['id'] != $user['id'] ? '<a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>' : '') ?>
-			<?= medal($avtor['id']) ?> <?= online($avtor['id']) ?> &raquo; <b><?= text($foto['name']) ?></b><br />
+			<?= medal($avtor['id']) ?> <?= online($avtor['id']) ?> &raquo; <b><?= text($photo['name']) ?></b><br />
 			<span class="text"><?= output_text($file['opis']) ?></span>
 		</div>
 	<?

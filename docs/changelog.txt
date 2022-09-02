@@ -370,7 +370,7 @@ echo user::avatar($user['id'], 2); // 返回 [图标]
 增加了2种模式：正常和高级（用于管理）
 正常-显示性别，年龄等。
 高级-显示IP,左昵称,和编辑和删除禁令按钮.
--更新的文件 /foto/inc/all_gallery.php
+-更新的文件 /photo/inc/all_gallery.php
 =========================
 DCMS-Social 1.7.8 beta
 =========================

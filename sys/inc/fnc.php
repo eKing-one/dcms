@@ -64,7 +64,7 @@ function antimat($str)
 	// 		return $censure;
 	// 	} else return false;
 	// } else return false;
-	return $str;
+	return false;
 }
 
 // 递归删除文件夹

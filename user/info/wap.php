@@ -190,9 +190,9 @@ echo "<div class='nav1'>";
 Фото
 ========================================
 */
-echo "<img src='/style/icons/foto.png' alt='*' /> ";
-echo "<a href='/foto/$ank[id]/'>照片</a> ";
-echo "(" . dbresult(dbquery("SELECT COUNT(*) FROM `gallery_foto` WHERE `id_user` = '$ank[id]'"), 0) . ")<br />";
+echo "<img src='/style/icons/photo.png' alt='*' /> ";
+echo "<a href='/photo/$ank[id]/'>照片</a> ";
+echo "(" . dbresult(dbquery("SELECT COUNT(*) FROM `gallery_photo` WHERE `id_user` = '$ank[id]'"), 0) . ")<br />";
 /*
 ========================================
 档案

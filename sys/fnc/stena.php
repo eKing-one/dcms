@@ -11,10 +11,10 @@
  $post=dbassoc(dbquery("SELECT * FROM `stena` WHERE `id`='".$id."' LIMIT 1"));
  if ($post)
  {
- if($post['type']=='foto'){ //Если смена аватара
+ if($post['type']=='photo'){ //Если смена аватара
  echo " <span style='color:darkgreen;'>已安装".($ank_stena['pol']==0 ? 'а' : null)." 页面上的新头像</span><br/>";
- $foto=dbassoc(dbquery("SELECT `id`,`id_gallery`,`ras` FROM `gallery_foto` WHERE `id`='".$post['info_1']."' LIMIT 1"));
- echo "<a href='/foto/".$ank_stena['id']."/".$foto['id_gallery']."/".$foto['id']."/'><img class='stenka' style='width:".($webbrowser ? '240px;' : '60px;')."' src='/foto/foto0/".$foto['id'].".".$foto['ras']."'></a>";
+ $photo=dbassoc(dbquery("SELECT `id`,`id_gallery`,`ras` FROM `gallery_photo` WHERE `id`='".$post['info_1']."' LIMIT 1"));
+ echo "<a href='/photo/".$ank_stena['id']."/".$photo['id_gallery']."/".$photo['id']."/'><img class='stenka' style='width:".($webbrowser ? '240px;' : '60px;')."' src='/photo/photo0/".$photo['id'].".".$photo['ras']."'></a>";
  }elseif($post['type']=='note'){ //Если новый дневник
  $note=dbquery("SELECT `id`,`name`,`msg` FROM `notes` WHERE `id`='".$post['info_1']."' LIMIT 1");
  if(dbrows($note)==0){ //Если такого дневника не существует, то...

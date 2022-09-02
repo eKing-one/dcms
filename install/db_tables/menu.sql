@@ -21,7 +21,7 @@ INSERT INTO `menu` (`id`, `type`, `name`, `url`, `counter`, `pos`, `icon`) VALUE
 (4, 'link', '客人', '/guest/', 'guest/count.php', 9, 'guest.png'),
 (5, 'link', '下载中心', '/down/', 'down/count.php', 5, 'down.png'),
 (6, 'link', '论坛', '/forum/', 'forum/count.php', 6, 'forum.png'),
-(7, 'link', '照片廊', '/foto/', 'foto/count.php', 10, 'foto.png'),
+(7, 'link', '照片廊', '/photo/', 'photo/count.php', 10, 'photo.png'),
 (11, 'link', '领导者', '/user/liders/', '/user/liders/count.php', 4, 'lider.gif'),
 (10, 'link', '日记', '/plugins/notes/', 'plugins/notes/count.php', 8, 'zametki.gif'),
 (12, 'link', '熟人', '/user/love/', '/user/love/count.php', 3, 'meets.gif'),

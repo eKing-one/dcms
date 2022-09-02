@@ -34,8 +34,8 @@ only_reg();
 $frend = dbarray(dbquery("SELECT * FROM `frends` WHERE `user` = '" . $user['id'] . "' AND `frend` = '$ank[id]' AND `i` = '1'"));
 if (isset($_POST['save'])) {
     // Лента фото
-    if (isset($_POST['lenta_foto']) && ($_POST['lenta_foto'] == 0 || $_POST['lenta_foto'] == 1)) {
-        dbquery("UPDATE `frends` SET `lenta_foto` = '" . intval($_POST['lenta_foto']) . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
+    if (isset($_POST['lenta_photo']) && ($_POST['lenta_photo'] == 0 || $_POST['lenta_photo'] == 1)) {
+        dbquery("UPDATE `frends` SET `lenta_photo` = '" . intval($_POST['lenta_photo']) . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
     }
     // Лента файлов
     if (isset($_POST['lenta_down']) && ($_POST['lenta_down'] == 0 || $_POST['lenta_down'] == 1)) {
@@ -112,8 +112,8 @@ echo "<div class='mess'>";
 echo "关于新照片的通知 $ank[nick].";
 echo "</div>";
 echo "<div class='nav1'>";
-echo "<input name='lenta_foto' type='radio' " . ($frend['lenta_foto'] == 1 ? ' checked="checked"' : null) . " value='1' /> 是的 ";
-echo "<input name='lenta_foto' type='radio' " . ($frend['lenta_foto'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
+echo "<input name='lenta_photo' type='radio' " . ($frend['lenta_photo'] == 1 ? ' checked="checked"' : null) . " value='1' /> 是的 ";
+echo "<input name='lenta_photo' type='radio' " . ($frend['lenta_photo'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
 echo "</div>";
 // Лента о смене аватара
 echo "<div class='mess'>";

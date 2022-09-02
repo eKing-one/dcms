@@ -127,7 +127,7 @@ $name 变量值
 	{
 		$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
 		$name = '回答说' . ($avtor['pol'] == 1 ? "" : "а") . ' 给你在这个评论 ';
-	} elseif ($type == 'foto_komm') // Фото 
+	} elseif ($type == 'photo_komm') // Фото 
 	{
 		$name = '回答说' . ($avtor['pol'] == 1 ? "" : "а") . ' 在照片的评论中给你 ';
 	} elseif ($type == 'notes_komm') // Дневники
@@ -242,13 +242,13 @@ $name 变量值
 Фото коментарии
 ===============================
 */
-	if ($type == 'foto_komm') {
+	if ($type == 'photo_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
-		$foto = dbassoc(dbquery("SELECT * FROM `gallery_foto` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
-		if ($foto['id']) {
+		$photo = dbassoc(dbquery("SELECT * FROM `gallery_photo` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
+		if ($photo['id']) {
 			echo user::nick($avtor['id'], 1, 1, 0) . " $name ";
-			echo " <img src='/style/icons/foto.png' alt='*'> ";
-			echo " <a href='/foto/$foto[id_user]/$foto[id_gallery]/$foto[id]/?page=$pageEnd'>" . htmlspecialchars($foto['name']) . "</a> ";
+			echo " <img src='/style/icons/photo.png' alt='*'> ";
+			echo " <a href='/photo/$photo[id_user]/$photo[id_gallery]/$photo[id]/?page=$pageEnd'>" . htmlspecialchars($photo['name']) . "</a> ";
 			echo "  $s1 " . vremja($post['time']) . " $s2";
 		} else {
 			echo " 这张照片已经被删除了 =(  $s1 " . vremja($post['time']) . " $s2";

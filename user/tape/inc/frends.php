@@ -18,12 +18,12 @@ if ($type == 'frends') {
 		echo $s1 . vremja($post['time']) . $s2;
 		echo '</div>';
 		echo '<div class="nav2">';
-		if (dbresult(dbquery("SELECT COUNT(*) FROM `gallery_foto` WHERE `id_user` = '$frend[id]'"), 0) > 0) {
+		if (dbresult(dbquery("SELECT COUNT(*) FROM `gallery_photo` WHERE `id_user` = '$frend[id]'"), 0) > 0) {
 			echo '最后添加的照片 ' . user::nick($frend['id'], 1, 0, 0) . '<br />';
-			$g = dbquery("SELECT * FROM `gallery_foto` WHERE `id_user` = '$frend[id]' ORDER BY `id` DESC LIMIT 4");
+			$g = dbquery("SELECT * FROM `gallery_photo` WHERE `id_user` = '$frend[id]' ORDER BY `id` DESC LIMIT 4");
 			while ($xx = dbassoc($g)) {
 				$gallery = dbassoc(dbquery("SELECT * FROM `gallery` WHERE `id` = '" . $xx['id_gallery'] . "' LIMIT 1"));
-				echo "<a href='/foto/$gallery[id_user]/$gallery[id]/$xx[id]/'><img style=' margin: 2px;' src='/foto/foto50/$xx[id].$xx[ras]' alt='*'/></a>";
+				echo "<a href='/photo/$gallery[id_user]/$gallery[id]/$xx[id]/'><img style=' margin: 2px;' src='/photo/photo50/$xx[id].$xx[ras]' alt='*'/></a>";
 			}
 		} else {
 			echo '用户' . user::nick($frend['id'], 1, 0, 0) . ' 还没有上传照片=(';

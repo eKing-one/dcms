@@ -13,12 +13,12 @@ $set['title'] = '我的个人资料';
 include_once '../../sys/inc/thead.php';
 title();
 if (isset($_POST['save'])) {
-	if (isset($_POST['stena_foto']) && $_POST['stena_foto'] == 0) {
-		$user['stena_foto'] = 0;
-		dbquery("UPDATE `user` SET `stena_foto` = '0' WHERE `id` = '$user[id]' LIMIT 1");
+	if (isset($_POST['stena_photo']) && $_POST['stena_photo'] == 0) {
+		$user['stena_photo'] = 0;
+		dbquery("UPDATE `user` SET `stena_photo` = '0' WHERE `id` = '$user[id]' LIMIT 1");
 	} else {
-		$user['stena_foto'] = 1;
-		dbquery("UPDATE `user` SET `stena_foto` = '1' WHERE `id` = '$user[id]' LIMIT 1");
+		$user['stena_photo'] = 1;
+		dbquery("UPDATE `user` SET `stena_photo` = '1' WHERE `id` = '$user[id]' LIMIT 1");
 	}
 	if (!isset($err)) msg('更改已成功接受');
 }
@@ -33,7 +33,7 @@ echo "<a href='stena.php' class='activ'>动态</a>";
 echo "</div>";
 echo "</div>";
 echo "<form method='post' action='?$passgen'>";
-echo "<label><input type='checkbox' name='stena_foto'" . ($user['stena_foto'] == 0 ? ' checked="checked"' : null) . " value='0' /> 照片</label><br />
+echo "<label><input type='checkbox' name='stena_photo'" . ($user['stena_photo'] == 0 ? ' checked="checked"' : null) . " value='0' /> 照片</label><br />
 	<input type='submit' name='save' value='保存' />
 	</form>
 	<div class='foot'>

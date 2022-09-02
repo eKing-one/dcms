@@ -259,8 +259,8 @@ if ($ank['group_access'] > 1) {
 			echo "</a>";
 			/*--------------------------------------------------------------*/
 			/*------------------------相片册---------------------------*/
-			echo "<a class='top_nav' href='/foto/$ank[id]/'>照片 ";
-			echo "(" . dbresult(dbquery("SELECT COUNT(*) FROM `gallery_foto` WHERE `id_user` = '$ank[id]'"), 0) . ")</a>";
+			echo "<a class='top_nav' href='/photo/$ank[id]/'>照片 ";
+			echo "(" . dbresult(dbquery("SELECT COUNT(*) FROM `gallery_photo` WHERE `id_user` = '$ank[id]'"), 0) . ")</a>";
 			/*--------------------------------------------------------------*/
 			/*-------------------------个人档案---------------------------*/
 			if (dbresult(dbquery("SELECT COUNT(*) FROM `user_files` WHERE `id_user` = '$ank[id]' AND `osn` = '1'"), 0) == 0) {
@@ -343,17 +343,17 @@ if ($ank['group_access'] > 1) {
 最近添加的照片
 ===============================
 */
-			$sql = dbquery("SELECT * FROM `gallery_foto` WHERE `id_user` = '$ank[id]' ORDER BY `id` DESC LIMIT 8");
-			$coll = dbresult(dbquery("SELECT COUNT(*) FROM `gallery_foto` WHERE `id_user` = '$ank[id]' ORDER BY `id` DESC"), 0);
+			$sql = dbquery("SELECT * FROM `gallery_photo` WHERE `id_user` = '$ank[id]' ORDER BY `id` DESC LIMIT 8");
+			$coll = dbresult(dbquery("SELECT COUNT(*) FROM `gallery_photo` WHERE `id_user` = '$ank[id]' ORDER BY `id` DESC"), 0);
 			if ($coll > 0) {
 				echo "<div class='slim_header'>";
 				echo "<img src='/style/icons/pht2.png' alt='*' /> ";
-				echo "<a href='/foto/$ank[id]/'><b>照片</b></a> ";
-				echo " <span class='mm_counter'>" . dbresult(dbquery("SELECT COUNT(*) FROM `gallery_foto` WHERE `id_user` = '$ank[id]'"), 0) . "</span>";
+				echo "<a href='/photo/$ank[id]/'><b>照片</b></a> ";
+				echo " <span class='mm_counter'>" . dbresult(dbquery("SELECT COUNT(*) FROM `gallery_photo` WHERE `id_user` = '$ank[id]'"), 0) . "</span>";
 				echo "</div>";
 				echo "<div class='nav3'>";
 				while ($photo = dbassoc($sql)) {
-					echo "<a href='/foto/$ank[id]/$photo[id_gallery]/$photo[id]/'><img class='sto500' style='width:103px; height:103px; background-image:url(/foto/foto0/$photo[id].$photo[ras]);' src=''/></a>";
+					echo "<a href='/photo/$ank[id]/$photo[id_gallery]/$photo[id]/'><img class='sto500' style='width:103px; height:103px; background-image:url(/photo/photo0/$photo[id].$photo[ras]);' src=''/></a>";
 				}
 				echo "</div>";
 			}

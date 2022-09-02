@@ -259,7 +259,7 @@ if (isset($user) && $user['id'] != $ank['id']) {
 	echo "</div>";
 }
 echo "<div class='nav2'>";
-echo "<img src='/style/icons/foto.png' alt='*' /> <a href='/foto/$ank[id]/'><b>相片册</b></a><br />";
+echo "<img src='/style/icons/photo.png' alt='*' /> <a href='/photo/$ank[id]/'><b>相片册</b></a><br />";
 echo "</div>";
 //-----------------инфо----------------//
 echo "<div class='nav2'>";

@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `tape_set` (
   `id_user` int(11) NOT NULL,
   `lenta_status_like` int(11) DEFAULT '1',
   `lenta_status` int(11) DEFAULT '1',
-  `lenta_foto` int(11) DEFAULT '1',
+  `lenta_photo` int(11) DEFAULT '1',
   `lenta_files` int(11) DEFAULT '1',
   `lenta_forum` int(11) DEFAULT '1',
   `lenta_notes` int(11) DEFAULT '1',

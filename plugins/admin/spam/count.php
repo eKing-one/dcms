@@ -17,7 +17,7 @@ $types = " where `types` = 'lib_komm' ";
 }
 elseif ($user['group_access']==6)
 {
-$types = " where `types` = 'foto_komm' ";
+$types = " where `types` = 'photo_komm' ";
 }
 elseif ($user['group_access']==11)
 {

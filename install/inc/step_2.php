@@ -10,7 +10,7 @@ if(isset($_GET['chmod_ok'])){
 @chmod(H.'sys/gallery/50/',0777);
 @chmod(H.'sys/gallery/128/',0777);
 @chmod(H.'sys/gallery/640/',0777);
-@chmod(H.'sys/gallery/foto/',0777);
+@chmod(H.'sys/gallery/photo/',0777);
 @chmod(H.'sys/inc/',0777);
 @chmod(H.'sys/fnc/',0777);
 @chmod(H.'sys/down/files/',0777);

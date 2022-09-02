@@ -168,10 +168,10 @@ while ($frend = dbassoc($q)) {
 	}
 	/*---------------------------*/
 	echo '<table><td style="width:' . ($webbrowser ? '85px;' : '55px;') . '">';
-	$sql = dbquery("SELECT `id`,`id_gallery`,`ras` FROM `gallery_foto` WHERE `id_user`='" . $frend['id'] . "' AND `avatar`='1' LIMIT 1");
+	$sql = dbquery("SELECT `id`,`id_gallery`,`ras` FROM `gallery_photo` WHERE `id_user`='" . $frend['id'] . "' AND `avatar`='1' LIMIT 1");
 	if (dbrows($sql) == 1) {
-		$foto = dbassoc($sql);
-		echo '<a href="/foto/' . $frend['id'] . '/' . $foto['id_gallery'] . '/' . $foto['id'] . '/"><img class="friends" style="width:' . ($webbrowser ? '110px;' : '50px;') . '" src="/foto/foto0/' . $foto['id'] . '.' . $foto['ras'] . '"></a>';
+		$photo = dbassoc($sql);
+		echo '<a href="/photo/' . $frend['id'] . '/' . $photo['id_gallery'] . '/' . $photo['id'] . '/"><img class="friends" style="width:' . ($webbrowser ? '110px;' : '50px;') . '" src="/photo/photo0/' . $photo['id'] . '.' . $photo['ras'] . '"></a>';
 	} else {
 		echo '<img class="friends" style="width:' . ($webbrowser ? '80px;' : '50px;') . '" src="/style/icons/avatar.png">';
 	}

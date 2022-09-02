@@ -123,11 +123,11 @@ class user
 		// Аватар
 		if ($type == 0 || $type == 1) {
 			if (empty($avatars[$user])) {
-				$avatar = dbarray(query("SELECT id,ras FROM `gallery_foto` WHERE `id_user` = '$user' AND `avatar` = '1' LIMIT 1"));
+				$avatar = dbarray(query("SELECT id,ras FROM `gallery_photo` WHERE `id_user` = '$user' AND `avatar` = '1' LIMIT 1"));
 				$avatars[$user] = $avatar;
 			} else $avatar = $avatars[$user];
 			if (isset($avatar['id']) && test_file(H . 'sys/gallery/50/' . $avatar['id'] . '.' . $avatar['ras']))
-				$AVATAR = ' <img class="avatar" src="/foto/foto50/' . $avatar['id'] . '.' . $avatar['ras'] . '" alt="Avatar" /> ';
+				$AVATAR = ' <img class="avatar" src="/photo/photo50/' . $avatar['id'] . '.' . $avatar['ras'] . '" alt="Avatar" /> ';
 			else
 				$AVATAR = '<img class="avatar" src="/style/user/avatar.gif" height= "50" width="50" alt="No Avatar" />';
 		}

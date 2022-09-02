@@ -24,9 +24,9 @@ aut();
 	echo "为了在你的页面上安装一个头像，上传一张照片到你的相册，然后点击链接 \"让它成为网站主页\"";
 	echo "</div>";
 	//--------------------------相片册-----------------------------//
-	echo "<div class='main'>";echo "<img src='/style/icons/foto.png' alt='*' /> ";
-	echo "<a href='/foto/$user[id]/'>照片</a> ";
-	echo "(" . dbresult(dbquery("SELECT COUNT(*) FROM `gallery_foto` WHERE `id_user` = '$user[id]'"),0) . ")";
+	echo "<div class='main'>";echo "<img src='/style/icons/photo.png' alt='*' /> ";
+	echo "<a href='/photo/$user[id]/'>照片</a> ";
+	echo "(" . dbresult(dbquery("SELECT COUNT(*) FROM `gallery_photo` WHERE `id_user` = '$user[id]'"),0) . ")";
 	echo "</div>";
 	//------------------------------------------------------------------// 
 include_once 'sys/inc/tfoot.php';

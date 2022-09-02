@@ -37,9 +37,9 @@ $num = 0;
 while ($post = dbassoc($q)) {
     //$ank=dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
     $ank2 = user::get_user($post['id_user']);
-    $foto = dbassoc(dbquery("SELECT * FROM `gallery_foto` WHERE `id` = $post[id_foto]"));
-    if ($foto['id'] && $ank2['id']) {
-        $gallery = dbassoc(dbquery("SELECT * FROM `gallery` WHERE `id` = $foto[id_gallery]"));
+    $photo = dbassoc(dbquery("SELECT * FROM `gallery_photo` WHERE `id` = $post[id_photo]"));
+    if ($photo['id'] && $ank2['id']) {
+        $gallery = dbassoc(dbquery("SELECT * FROM `gallery` WHERE `id` = $photo[id_gallery]"));
         //-----------代码-----------//
         if ($num == 0) {
             echo "  <div class='nav1'>";
@@ -64,13 +64,13 @@ while ($post = dbassoc($q)) {
         echo "<img src='/style/icons/$post[like].png' alt=''/> $color" . vremja($post['time']) . "$color2";
         echo "  </td>";
         echo "  <td style='vertical-align:top;'>";
-        echo "<a href='/foto/$user[id]/$gallery[id]/$foto[id]/'><img class='show_foto' src='/foto/foto" . ($set['web'] ? "128" : "50") . "/$foto[id].$foto[ras]' alt='$foto[name]' align='right'/></a>";
+        echo "<a href='/photo/$user[id]/$gallery[id]/$photo[id]/'><img class='show_photo' src='/photo/photo" . ($set['web'] ? "128" : "50") . "/$photo[id].$photo[ras]' alt='$photo[name]' align='right'/></a>";
         echo "  </td>";
         echo "   </tr>";
         echo "</table>";
         echo "</div>";
     } else {
-        dbquery("DELETE FROM `gallery_rating` WHERE `avtor` = '$post[avtor]' AND `id_foto` = '$post[id_foto]'");
+        dbquery("DELETE FROM `gallery_rating` WHERE `avtor` = '$post[avtor]' AND `id_photo` = '$post[id_photo]'");
     }
 }
 dbquery("UPDATE `gallery_rating` SET `read`='0' WHERE `avtor` = '$user[id]' AND `read`='1'");

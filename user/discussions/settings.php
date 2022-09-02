@@ -12,9 +12,9 @@ only_reg();
 $discSet = dbassoc(dbquery("SELECT * FROM `discussions_set` WHERE `id_user` = '" . $user['id'] . "' LIMIT 1"));
 if (isset($_POST['save'])) {
 	// Обсуждения фото
-	if (isset($_POST['disc_foto']) && ($_POST['disc_foto'] == 0 || $_POST['disc_foto'] == 1)) {
-		$disc = (int) $_POST['disc_foto'];
-		dbquery("UPDATE `discussions_set` SET `disc_foto` = '" . $disc . "' WHERE `id_user` = '$user[id]'");
+	if (isset($_POST['disc_photo']) && ($_POST['disc_photo'] == 0 || $_POST['disc_photo'] == 1)) {
+		$disc = (int) $_POST['disc_photo'];
+		dbquery("UPDATE `discussions_set` SET `disc_photo` = '" . $disc . "' WHERE `id_user` = '$user[id]'");
 	}
 	// Обсуждения файлов
 	if (isset($_POST['disc_files']) && ($_POST['disc_files'] == 0 || $_POST['disc_files'] == 1)) {
@@ -85,8 +85,8 @@ aut();
 		关于照片中讨论的通知.
 	</div>
 	<div class="nav1">
-		<input name="disc_foto" type="radio" <?= ($discSet['disc_foto'] == 1 ? ' checked="checked"' : null) ?> value="1" /> ON
-		<input name="disc_foto" type="radio" <?= ($discSet['disc_foto'] == 0 ? ' checked="checked"' : null) ?> value="0" /> OFF
+		<input name="disc_photo" type="radio" <?= ($discSet['disc_photo'] == 1 ? ' checked="checked"' : null) ?> value="1" /> ON
+		<input name="disc_photo" type="radio" <?= ($discSet['disc_photo'] == 0 ? ' checked="checked"' : null) ?> value="0" /> OFF
 	</div>
 	<div class="mess">
 		关于文件中讨论的通知.
