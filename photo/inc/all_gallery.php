@@ -30,7 +30,7 @@ while ($post = dbassoc($q)) {
 		echo '无描述<br />';
 	else
 		echo output_text($post['opis']) . '<br />';
-	echo '已创建: ' . vremja($post['time_create']) . '<br />';
+	echo '创建时间: ' . vremja($post['time_create']) . '<br />';
 	echo '作者: ' . user::nick($ank['id'], 1, 1, 0). '</div>';
 }
 echo '</table>';

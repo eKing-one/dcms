@@ -89,7 +89,7 @@ if (user_access('down_dir_create') && isset($_GET['act']) && $_GET['act']=='mkdi
 			dbquery("INSERT INTO `downnik_dir` (`name` , `ras` , `maxfilesize` , `dir` , `dir_osn` , `upload` ) 
 VALUES ('".esc($_POST['name'],1)."', '$ras', '$size', '".$l."$newdir/', '".$l."', '$upload')");
 			msg('文件夹 "'.esc($_POST['name'],1).'" 成功创建');
-			admin_log('下载中心','正在创建文件夹',"已创建文件夹 '".esc($_POST['name'],1)."'");
+			admin_log('下载中心','正在创建文件夹',"创建时间文件夹 '".esc($_POST['name'],1)."'");
 		}
 	}
 }
