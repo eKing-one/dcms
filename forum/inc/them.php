@@ -635,8 +635,8 @@ if ($vote_c != 0) {
                     if (isset($user)) {
                         if ($them['close'] == 0) {
                             if (isset($user) &&  $user['id'] != $ank['id'] && $ank['id'] != 0) {
-                                echo '<a href="/forum/' . $forum['id'] . '/' . $razdel['id'] . '/' . $them['id'] . '/?response=' . $ank['id'] . '&amp;page=' . $page . '" title="Ответить ' . $ank['nick'] . '">回答</a> | ';
-                                echo '<a href="/forum/' . $forum['id'] . '/' . $razdel['id'] . '/' . $them['id'] . '/' . $post['id'] . '/cit" title="引用 ' . $ank['nick'] . '">报价</a>';
+                                echo '<a href="/forum/' . $forum['id'] . '/' . $razdel['id'] . '/' . $them['id'] . '/?response=' . $ank['id'] . '&amp;page=' . $page . '" title="回复 ' . $ank['nick'] . '">回复</a> | ';
+                                echo '<a href="/forum/' . $forum['id'] . '/' . $razdel['id'] . '/' . $them['id'] . '/' . $post['id'] . '/cit" title="引用 ' . $ank['nick'] . '">引用</a>';
                             }
                         }
                         echo '<span style="float:right;">';

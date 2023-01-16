@@ -387,7 +387,7 @@ else
 	echo "$volos<span class=\"ank_n\">头发:</span>$a<br />";
 echo "$telo<span class=\"ank_n\">身体状况:</span>$a";
 if ($ank['ank_telosl'] == 1)
-	echo " <span class=\"ank_d\">没有人回答</span><br />";
+	echo " <span class=\"ank_d\">没有人回复</span><br />";
 if ($ank['ank_telosl'] == 2)
 	echo " <span class=\"ank_d\">瘦骨嶙峋</span><br />";
 if ($ank['ank_telosl'] == 3)

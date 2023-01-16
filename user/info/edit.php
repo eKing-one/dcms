@@ -710,7 +710,7 @@ err();
 	}
 	if (isset($_GET['set']) && $_GET['set']=='telo'){
 	echo "身体状况:<br /> 
-	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==1?' checked="checked"':null)." value='1' />没有人回答<br />
+	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==1?' checked="checked"':null)." value='1' />没有人回复<br />
 	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==2?' checked="checked"':null)." value='2' />瘦骨嶙峋<br />
 	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==3?' checked="checked"':null)." value='3' />平常的<br />
 	<input name='ank_telosl' type='radio' ".($user['ank_telosl']==4?' checked="checked"':null)." value='4' />运动项目<br />
@@ -869,7 +869,7 @@ else
 echo "<br />";
 echo "<a href='?set=telo'> <img src='/style/icons/str.gif' alt='*'>  身体状况</a> ";
 if ($user['ank_telosl']==1)
-echo " &#62; 没有人回答<br />";
+echo " &#62; 没有人回复<br />";
 if ($user['ank_telosl']==2)
 echo " &#62; 瘦骨嶙峋<br />";
 if ($user['ank_telosl']==3)

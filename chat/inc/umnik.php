@@ -19,7 +19,7 @@ $umnik_last1 = dbassoc(dbquery("SELECT * FROM `chat_post` WHERE `room` = '$room[
 if ($umnik_last1!=NULL && $umnik_last['umnik_st']!=4 && $umnik_last1['time']<time()-$set['umnik_time'])
 {
 $umnik_vopros = dbassoc(dbquery("SELECT * FROM `chat_vopros` WHERE `id` = '$umnik_last1[vopros]' LIMIT 1"));
-$msg="没有人回答这个问题。正确答案: $umnik_vopros[otvet].下一个问题通过 $set[umnik_new] sec.";
+$msg="没有人回复这个问题。正确答案: $umnik_vopros[otvet].下一个问题通过 $set[umnik_new] sec.";
 dbquery("INSERT INTO `chat_post` (`umnik_st`, `time`, `msg`, `room`, `vopros`, `privat`) values('4', '$time', '$msg', '$room[id]', '$umnik_vopros[id]', '0')");
 }
 $umnik_last = dbassoc(dbquery("SELECT * FROM `chat_post` WHERE `room` = '$room[id]' AND `umnik_st` <> '0' ORDER BY id DESC"));
@@ -28,7 +28,7 @@ if ($umnik_last==NULL || $umnik_last['umnik_st']==4 && $umnik_last['time']<time(
 // задается вопрос
 $k_vopr=dbresult(dbquery("SELECT COUNT(*) FROM `chat_vopros`"),0);
 $umnik_vopros = dbassoc(dbquery("SELECT * FROM `chat_vopros` LIMIT ".rand(0,$k_vopr).", 1"));
-$msg="[b]问题:[/b] \"$umnik_vopros[vopros]\"[b]回答:[/b] 字从".strlen2($umnik_vopros['otvet'])." 字母";
+$msg="[b]问题:[/b] \"$umnik_vopros[vopros]\"[b]回复:[/b] 字从".strlen2($umnik_vopros['otvet'])." 字母";
 dbquery("INSERT INTO `chat_post` (`umnik_st`, `time`, `msg`, `room`, `vopros`, `privat`) values('1', '$time', '$msg', '$room[id]', '$umnik_vopros[id]', '0')");
 }
 if ($umnik_last!=NULL && $umnik_last['umnik_st']==1 && $umnik_last['time']<time()-$set['umnik_help'])

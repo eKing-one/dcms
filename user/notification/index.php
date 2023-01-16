@@ -119,23 +119,23 @@ $name 变量值
 		$name = '有' . ($avtor['pol'] == 1 ? "" : "а") . ' 给你的礼物 ';
 	} elseif ($type == 'files_komm' || $type == 'down_komm') // 文件
 	{
-		$name = '回答说' . ($avtor['pol'] == 1 ? "" : "а") . ' 在文件的注释中给你 ';
+		$name = '回复说' . ($avtor['pol'] == 1 ? "" : "а") . ' 在文件的注释中给你 ';
 	} elseif ($type == 'news_komm') // Новости 
 	{
-		$name = '回答说' . ($avtor['pol'] == 1 ? "" : "а") . ' 在对新闻的评论中给你 ';
+		$name = '回复说' . ($avtor['pol'] == 1 ? "" : "а") . ' 在对新闻的评论中给你 ';
 	} elseif ($type == 'status_komm') // Статусы
 	{
 		$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
-		$name = '回答说' . ($avtor['pol'] == 1 ? "" : "а") . ' 给你在这个评论 ';
+		$name = '回复说' . ($avtor['pol'] == 1 ? "" : "а") . ' 给你在这个评论 ';
 	} elseif ($type == 'photo_komm') // Фото 
 	{
-		$name = '回答说' . ($avtor['pol'] == 1 ? "" : "а") . ' 在照片的评论中给你 ';
+		$name = '回复说' . ($avtor['pol'] == 1 ? "" : "а") . ' 在照片的评论中给你 ';
 	} elseif ($type == 'notes_komm') // Дневники
 	{
-		$name = '回答说' . ($avtor['pol'] == 1 ? "" : "а") . ' 在日记的评论中给你 ';
+		$name = '回复说' . ($avtor['pol'] == 1 ? "" : "а") . ' 在日记的评论中给你 ';
 	} elseif ($type == 'them_komm') // форум
 	{
-		$name = '回答说' . ($avtor['pol'] == 1 ? "" : "а") . ' 你在主题 ';
+		$name = '回复说' . ($avtor['pol'] == 1 ? "" : "а") . ' 你在主题 ';
 	} elseif ($type == 'stena_komm') // Стена
 	{
 		$stena = user::get_user($post['id_object']);
@@ -144,10 +144,10 @@ $name 变量值
 		else {
 			$sT = null;
 		}
-		$name = '回答说' . ($avtor['pol'] == 1 ? "" : "а") . ' 你在 ' . $sT;
+		$name = '回复说' . ($avtor['pol'] == 1 ? "" : "а") . ' 你在 ' . $sT;
 	} elseif ($type == 'guest' || $type == 'adm_komm') // 嘉宾， 管理员聊天
 	{
-		$name = '回答说' . ($avtor['pol'] == 1 ? "" : "а") . ' 你在 ';
+		$name = '回复说' . ($avtor['pol'] == 1 ? "" : "а") . ' 你在 ';
 	} elseif ($type == 'del_frend') // 远程朋友通知
 	{
 		$name = ' 不幸的是我删除了它' . ($avtor['pol'] == 1 ? "" : "а") . ' 你来自朋友名单';
