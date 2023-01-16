@@ -332,7 +332,7 @@ $name 变量值
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		if ($avtor['id']) {
 			echo user::nick($avtor['id'], 1, 1, 0) . " $name ";
-			echo "<img src='/style/icons/guest.png' alt='*'> <a href='/guest/?page=$pageEnd'>客人</a>  $s1 " . vremja($post['time']) . " $s2";
+			echo "<img src='/style/icons/guest.png' alt='*'> <a href='/guest/?page=$pageEnd'>留言板</a>  $s1 " . vremja($post['time']) . " $s2";
 		} else {
 			echo '此用户用户已被删除 =(';
 		}

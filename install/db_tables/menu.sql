@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
 INSERT INTO `menu` (`id`, `type`, `name`, `url`, `counter`, `pos`, `icon`) VALUES
 (1, 'link', '新闻中心', '/news/', 'news/count.php', 1, 'news.png'),
 (2, 'link', '聊天', '/chat/', 'chat/count.php', 7, 'chat.png'),
-(4, 'link', '客人', '/guest/', 'guest/count.php', 9, 'guest.png'),
+(4, 'link', '留言板', '/guest/', 'guest/count.php', 9, 'guest.png'),
 (5, 'link', '下载中心', '/down/', 'down/count.php', 5, 'down.png'),
 (6, 'link', '论坛', '/forum/', 'forum/count.php', 6, 'forum.png'),
 (7, 'link', '照片廊', '/photo/', 'photo/count.php', 10, 'photo.png'),

@@ -221,7 +221,7 @@ if ($ank['id'] != 0 && $block == true) {
 	if ($user['level'] == 0 && dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_kont` = '$user[id]' AND `id_user` = '$ank[id]'"), 0) == 0)
 		echo "<img src='/captcha.php?SESS=$sess' width='100' height='30' alt='核证号码' /><br /><input name='chislo' size='5' maxlength='5' value='' type='text' /><br/>";
 	echo "<input type='submit' name='send' value='发送' />";
-	echo "<input type='submit' name='refresh' value='下一步' />";
+	echo "<input type='submit' name='refresh' value='清空' />";
 	echo "</form>";
 
 }

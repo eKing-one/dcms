@@ -60,7 +60,7 @@ if (user_access('adm_panel_show')) {
 		$spamer = user::get_user($post['id_spam']);
 		echo "<b>分类:</b> ";
 		if ($post['razdel'] == 'mail') echo "<font color='red'>邮件</font><br />";
-		if ($post['razdel'] == 'guest') echo "<a href='/guest/'><font color='red'>客人</font></a><br />";
+		if ($post['razdel'] == 'guest') echo "<a href='/guest/'><font color='red'>留言板</font></a><br />";
 		if ($post['razdel'] == 'files_komm') {  // Файлы юзеров
 			$file_id = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id` = '$post[id_object]' LIMIT 1"));
 			$dir = dbassoc(dbquery("SELECT * FROM `user_files` WHERE `id` = '$file_id[my_dir]' LIMIT 1"));

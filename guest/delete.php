@@ -22,7 +22,7 @@ if (isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `guest` WHERE `
 	$ank = user::get_user($post['id_user']);
 	if (user_access('guest_delete'))
 	{
-		admin_log('客人', '删除邮件', '从中删除消息 ' . $ank['nick']);
+		admin_log('留言板', '删除邮件', '从中删除消息 ' . $ank['nick']);
 		dbquery("DELETE FROM `guest` WHERE `id` = '$post[id]'");
 	}
 }

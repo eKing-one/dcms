@@ -14,7 +14,7 @@ if (isset($user) && dbresult(dbquery("SELECT COUNT(id) FROM `ban` WHERE `razdel`
 	header('Location: /ban.php?' . SID);
 	exit;
 }
-$set['title'] = '在线游客'; //网页标题
+$set['title'] = '留言板'; //网页标题
 include_once '../sys/inc/thead.php';
 title();
 aut();
@@ -23,7 +23,7 @@ $k_page = k_page($k_post,$set['p_str']);
 $page = page($k_page);
 $start = $set['p_str']*$page-$set['p_str'];
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" /> <a href="index.php">在线游客</a>';
+echo '<img src="/style/icons/str2.gif" /> <a href="index.php">留言板</a>';
 echo '</div>';
 echo '<table class="post">';
 if ($k_post == 0)
@@ -43,7 +43,7 @@ while ($ank = dbassoc($q))
 }
 echo '</table>';
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" /> <a href="index.php">在线游客</a></b>';
+echo '<img src="/style/icons/str2.gif" /> <a href="index.php">在线</a></b>';
 echo '</div>';
 if ($k_page > 1)str('who.php?', $k_page, $page); // 输出页数
 include_once '../sys/inc/tfoot.php';

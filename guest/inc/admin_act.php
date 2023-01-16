@@ -15,7 +15,7 @@ if (user_access('guest_clear'))
 			dbquery("DELETE FROM `guest` WHERE `id` = '$post[id]'", $db);
 			$del_th++;
 		}
-		admin_log('客人', '清洁', '已删除 ' . $del_th . ' 帖子');
+		admin_log('留言板', '清洁', '已删除 ' . $del_th . ' 帖子');
 		dbquery("OPTIMIZE TABLE `guest`", $db);
 		$_SESSION['message'] = '已删除 ' . $del_th . ' 帖子';
 		header('Location: index.php' . SID);

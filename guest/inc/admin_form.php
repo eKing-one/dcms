@@ -18,7 +18,7 @@ if (user_access('guest_clear'))
 	}
 	?>
 	<div class="foot">
-	<img src='/style/icons/str.gif' alt='*'> <a href="?act=create">清除来宾</a><br />
+	<img src='/style/icons/str.gif' alt='*'> <a href="?act=create">清除留言</a><br />
 	</div>
 	<?
 }

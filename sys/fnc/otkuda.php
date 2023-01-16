@@ -6,13 +6,13 @@ function otkuda($ref)
 	if (preg_match('#^/forum/#', $ref))
 		$mesto = ' 正在 <a href="/forum/">论坛</a> ';
 	elseif (preg_match('#^/chat/#', $ref))
-		$mesto = ' 正在 <a href="/chat/">聊天</a> ';
+		$mesto = ' 正在 <a href="/chat/">聊天室</a> ';
 	elseif (preg_match('#^/news/#', $ref))
 		$mesto = ' 正在阅读 <a href="/news/">新闻中心</a> ';
 	elseif (preg_match('#^/guest/#', $ref))
-		$mesto = ' 写入 <a href="/guest/">客人</a> ';
+		$mesto = ' 正在查看 <a href="/guest/">留言板</a> ';
 	elseif (preg_match('#^/user/users\.php#', $ref))
-		$mesto = ' 正在查看 <a href="/user/users.php">居民</a> ';
+		$mesto = ' 正在查看 <a href="/user/users.php">用户</a> ';
 	elseif (preg_match('#^/online\.php#', $ref))
 		$mesto = ' 正在查看 <a href="/online.php">在线用户</a> ';
 	elseif (preg_match('#^/online_g\.php#', $ref))
@@ -28,7 +28,7 @@ function otkuda($ref)
 	elseif (preg_match('#^/\??$#', $ref))
 		$mesto = ' 访问 <a href="/index.php">网站主页</a> ';
 	else
-		$mesto = ' 某个地方 <a href="/index.php">在网站上</a> ';
+		$mesto = ' 从某个地方来到 <a href="/index.php">网站</a> ';
 	return $mesto;
 }
 ?>
