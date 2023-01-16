@@ -169,7 +169,7 @@ if ($ank['group_access'] > 1) {
 			}
 			/*---------------------------------------*/
 			echo "<div class='main2'>";
-			echo "<img src='/style/my_menu/who_rating.png' alt='*' /> <a href='/user/info/who_rating.php?id=$ank[id]'><b>反馈意见</b></a> (" . dbresult(dbquery("SELECT COUNT(*) FROM `user_voice2` WHERE `id_kont` = '" . $ank['id'] . "'"), 0) . ")<br />";
+			echo "<img src='/style/my_menu/who_rating.png' alt='*' /> <a href='/user/info/who_rating.php?id=$ank[id]'><b>评价</b></a> (" . dbresult(dbquery("SELECT COUNT(*) FROM `user_voice2` WHERE `id_kont` = '" . $ank['id'] . "'"), 0) . ")<br />";
 			echo "</div>";
 			/*-----------------------------交朋友-------------------------*/
 			if (isset($user) && $user['id'] != $ank['id']) {

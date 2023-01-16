@@ -50,7 +50,7 @@ if (isset($_POST['rating']) && isset($user) && isset($_POST['msg']) && $user['id
 		$_SESSION['message'] = '您对用户的看法已成功更改';
 	}
 }
-$set['title'] = $ank['nick'] . ' - 反馈意见 '; //网页标题
+$set['title'] = $ank['nick'] . ' - 评价 '; //网页标题
 include_once '../../sys/inc/thead.php';
 title();
 aut();
@@ -58,7 +58,7 @@ err();
 if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
 if (isset($user) && $user['id'] != $ank['id'] && $user['rating'] >= 2 && dbresult(dbquery("SELECT SUM(`rating`) FROM `user_voice2` WHERE `id_kont` = '$user[id]'"), 0) >= 0) {
-	echo "<b>你的态度:</b><br />";
+	echo "<b>你的评价:</b><br />";
 	// мое отношение к пользователю
 	$my_r = intval(@dbresult(dbquery("SELECT `rating` FROM `user_voice2` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"), 0));
 	echo "<form method='post' action='?id=$ank[id]&amp;$passgen'>";
@@ -69,7 +69,7 @@ if (isset($user) && $user['id'] != $ank['id'] && $user['rating'] >= 2 && dbresul
 	echo "<option value='-1' " . ($my_r == -1 ? 'selected="selected"' : null) . ">不是很好...</option>";
 	echo "<option value='-2' " . ($my_r == -2 ? 'selected="selected"' : null) . ">否定</option>";
 	echo "</select><br />";
-	echo "文本: <br />";
+	echo "理由: <br />";
 	echo "<textarea name=\"msg\"></textarea><br />";
 	echo "<input type='submit' value='GO' />";
 	echo "</form>";
@@ -101,7 +101,7 @@ while ($post = dbassoc($q)) {
 		$num = 0;
 	}
 	echo user::nick($ank['id'],1,1,0) . " (" . vremja($post['time']) . ") <br />";
-	echo "召回:<br />";
+	echo "对该用户表示:";
 	switch ($post['rating']) {
 		case 2:
 			echo "很赞<br />";

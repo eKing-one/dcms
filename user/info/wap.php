@@ -245,7 +245,7 @@ echo "<a href='/user/bookmark/index.php?id=$ank[id]'>书签</a> ($zakladki)<br /
 Отзывы
 ========================================
 */
-echo "<img src='/style/my_menu/who_rating.png' alt='*' /> <a href='/user/info/who_rating.php?id=$ank[id]'>检讨报告</a>
+echo "<img src='/style/my_menu/who_rating.png' alt='*' /> <a href='/user/info/who_rating.php?id=$ank[id]'>评价</a>
  (" . dbresult(dbquery("SELECT COUNT(*) FROM `user_voice2` WHERE `id_kont` = '" . $ank['id'] . "'"), 0) . ")<br />";
 echo "</div>";
 /*

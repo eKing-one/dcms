@@ -159,7 +159,7 @@ if (user_access('user_ban_set') || user_access('user_ban_set_h')) {
     echo "<option value='sut'>日</option>";
     echo "<option value='mes'" . (user_access('user_ban_set') ? null : ' disabled="disabled"') . ">个月</option>";
     echo "</select><br />";
-    echo "<label><input type='checkbox' name='navsegda' value='1' /> Навсег是的</label><br />";
+    echo "<label><input type='checkbox' name='navsegda' value='1' /> 永久停封</label><br />";
     echo "<input type='submit' value='禁令' />";
     echo "</form>";
 } else {
