@@ -26,11 +26,8 @@ if ($type == 'status') {
 					?>
 		</div>
 		<div class="nav2">
-			<b>
-				<font color='green'><?= $avtor['nick'] ?></font>
-			</b>
-			<?= ($avtor['id'] != $user['id'] ? '<a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>' : '') ?>
-			<?= $avtor['medal'] ?> <?= $avtor['online'] ?> <br />
+			<?php echo user::nick($avtor['id'], 1, 1, 0); ?>
+			 <br />
 			<div class="st_1"></div>
 			<div class="st_2">
 				<span class="text"><?= output_text($status['msg']) ?></span><br />
@@ -44,7 +41,7 @@ if ($type == 'status') {
 					$user['id'] != $avtor['id'] &&
 					dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0
 				) {
-			?><a href="?likestatus=<?= $status['id'] ?>&amp;page=<?= $page ?>"><img src="/style/icons/like.gif" alt="*" />班级!</a> &bull; <?
+			?><a href="?likestatus=<?= $status['id'] ?>&amp;page=<?= $page ?>"><img src="/style/icons/like.gif" alt="*" />赞!</a> &bull; <?
 																																			$like = $l;
 																																		} else {
 																																			?><img src="/style/icons/like.gif" alt="*" /> 你和 <?

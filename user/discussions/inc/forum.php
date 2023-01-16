@@ -26,11 +26,8 @@ if ($type == 'them') {
 			<span class="time"><?= $s1 . vremja($post['time']) . $s2 ?></span>
 		</div>
 		<div class="nav2">
-			<b>
-				<font color='green'><?= $avtor['nick'] ?></font>
-			</b>
-			<?= ($avtor['id'] != $user['id'] ? '<a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>' : '') ?>
-			<?= $avtor['medal'] ?> <?= $avtor['online'] ?> &raquo; <b><?= text($them['name']) ?></b><br />
+			<?php echo user::nick($avtor['id'], 1, 1, 0); ?>
+			 &raquo; <b><?= text($them['name']) ?></b><br />
 			<span class="text"><?= output_text($them['text']) ?></span>
 		</div>
 	<?

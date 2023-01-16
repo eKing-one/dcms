@@ -28,11 +28,8 @@ if ($type == 'down') {
 			<span class="time"><?= $s1 . vremja($post['time']) . $s2 ?></span>
 		</div>
 		<div class="nav2">
-			<b>
-				<font color='green'><?= $avtor['nick'] ?></font>
-			</b>
-			<?= ($avtor['id'] != $user['id'] ? '<a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>' : '') ?>
-			<?= medal($avtor['id']) ?> <?= online($avtor['id']) ?> &raquo; <b><?= text($photo['name']) ?></b><br />
+			
+			 &raquo; <b><?= text($file['name']) ?></b><br />
 			<span class="text"><?= output_text($file['opis']) ?></span>
 		</div>
 	<?

@@ -27,10 +27,9 @@ if ($type == 'notes') {
 		</div>
 		<div class="nav2">
 			<b>
-				<font color='green'><?= $avtor['nick'] ?></font>
-			</b>
-			<?= ($avtor['id'] != $user['id'] ? '<a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a>' : '') ?>
-			<?= medal($avtor['id']) ?> <?= online($avtor['id']) ?> &raquo; <b><?= text($photo['name']) ?></b><br />
+			<?php echo user::nick($avtor['id'], 1, 1, 0); ?>
+			
+			<br />
 			<span class="text"><?= output_text($notes['msg']) ?></span>
 		</div>
 	<?
