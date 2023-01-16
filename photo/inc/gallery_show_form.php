@@ -11,7 +11,7 @@ if ($user['level'] > $ank['level'] || $user['id'] == $ank['id'])
 		<b>编辑</b>
 		</div>
 		<form action="?edit=rename&amp;ok" method="post">
-		<div class="nav2">专辑名称：<br />
+		<div class="nav2">相册名称：<br />
 		<input type="text" name="name" value="<?=text($gallery['name'])?>" /><br />
 		描述:<?=$tPanel?>
 		<textarea name="opis"></textarea><br />

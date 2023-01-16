@@ -231,7 +231,7 @@ echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a> |
 echo ' | <b>' . output_text($notes['name']) . '</b>';
 echo "</div>";
 echo "<div class=\"main\">";
-echo "生成的: (" . vremja($notes['time']) . ")";
+echo "创建时间: (" . vremja($notes['time']) . ")";
 echo "</div>";
 $stat1 = $notes['msg'];
 if (!$set['web']) $mn = 10;

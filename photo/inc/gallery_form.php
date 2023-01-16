@@ -10,7 +10,7 @@ if (isset($user) && $user['id'] == $ank['id'])
 		<b>创建</b>
 		</div>
 		<form action="?act=create&amp;ok" method="post">
-		<div class="nav2">专辑名称：<br />
+		<div class="nav2">相册名称：<br />
 		<input type="text" name="name" value="" /><br />
 		描述:<?=$tPanel?>
 		<textarea name="opis"></textarea><br />

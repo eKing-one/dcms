@@ -29,7 +29,7 @@ include 'inc/gallery_form.php';
 echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'],1,0,0) . ' | <b>相册</b></div>';
 if ($ank['id'] == $user['id'])
-	echo '<div class="mess"><a href="/photo/' . $ank['id'] . '/?act=create"><img src="/style/icons/apply14.png"> 新专辑</a></div>';
+	echo '<div class="mess"><a href="/photo/' . $ank['id'] . '/?act=create"><img src="/style/icons/apply14.png"> 新相册</a></div>';
 // Подключаем приватность стр. 
 include H . 'sys/add/user.privace.php';
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `gallery` WHERE `id_user` = '$ank[id]'"), 0);
@@ -60,14 +60,14 @@ while ($post = dbassoc($q)) {
 		echo '没有描述<br />';
 	else
 		echo '<div class="text">' . output_text($post['opis']) . '</div>';
-	echo '生成的: ' . vremja($post['time_create']);
+	echo '创建时间: ' . vremja($post['time_create']);
 	echo '</div>';
 }
 echo '</table>';
 // 输出页数
 if ($k_page > 1) str('?', $k_page, $page);
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'],1,0,0) . ' | <b>专辑</b>';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'],1,0,0) . ' | <b>相册</b>';
 echo '</div>';
 include_once '../sys/inc/tfoot.php';
 exit;

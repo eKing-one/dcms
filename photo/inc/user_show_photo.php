@@ -159,7 +159,7 @@ title();
 err();
 aut();
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'], 1, 0, 0) . ' | <a href="/photo/' . $ank['id'] . '/">专辑</a> | ';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'], 1, 0, 0) . ' | <a href="/photo/' . $ank['id'] . '/">相册</a> | ';
 echo '<a href="/photo/' . $ank['id'] . '/' . $gallery['id'] . '/">' . text($gallery['name']) . '</a> | ';
 echo '<b>' . text($photo['name']) . '</b>';
 if ($photo['metka'] == 1) echo ' <font color=red>(18+)</font>';
@@ -176,7 +176,7 @@ if ($gallery['privat'] == 1 && ($frend != 2 || !isset($user)) && $user['level'] 
 	$block_photo = true;
 } elseif ($gallery['privat'] == 2 && $user['id'] != $ank['id'] && $user['level'] <= $ank['level']) {
 	echo '<div class="mess">';
-	echo '用户已禁止观看此专辑！';
+	echo '用户已禁止观看此相册！';
 	echo '</div>';
 	$block_photo = true;
 }
@@ -194,7 +194,7 @@ if ($user['id'] != $ank['id'] && $gallery['pass'] != NULL) {
 		echo '<form action="?" method="POST">密码:<br /><input type="pass" name="password" value="" /><br />		
 		<input type="submit" value="登录"/></form>';
 		echo '<div class="foot">';
-		echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'], 1, 0, 0) . ' | <a href="/photo/' . $ank['id'] . '/">专辑</a> | <b>' . text($gallery['name']) . '</b>';
+		echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'], 1, 0, 0) . ' | <a href="/photo/' . $ank['id'] . '/">相册</a> | <b>' . text($gallery['name']) . '</b>';
 		echo '</div>';
 		include_once '../sys/inc/tfoot.php';
 		exit;
@@ -346,7 +346,7 @@ if (!isset($block_photo)) {
 	}
 }
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'], 1, 0, 0) . ' | <a href="/photo/' . $ank['id'] . '/">专辑</a> | ';
+echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'], 1, 0, 0) . ' | <a href="/photo/' . $ank['id'] . '/">相册</a> | ';
 echo '<a href="/photo/' . $ank['id'] . '/' . $gallery['id'] . '/">' . text($gallery['name']) . '</a> | ';
 echo '<b>' . text($photo['name']) . '</b>';
 if ($photo['metka'] == 1) echo ' <font color=red>(18+)</font>';
