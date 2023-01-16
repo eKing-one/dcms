@@ -232,7 +232,7 @@ if (!isset($block_photo)) {
 			} else {
 				$rate = dbassoc(query("SELECT * FROM `gallery_rating` WHERE `id_photo` = $photo[id] AND `id_user` = '$user[id]' LIMIT 1"));
 				if (isset($user) && $user['id'] != $ank['id'])
-					echo '你的成绩。 <img src="/style/icons/' . $rate['like'] . '.png" alt=""/></a>';
+					echo '你的评价 <img src="/style/icons/' . $rate['like'] . '.png" alt=""/></a>';
 			}
 			echo '</div>';
 		}
