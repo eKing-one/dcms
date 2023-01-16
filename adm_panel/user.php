@@ -32,14 +32,14 @@ title();
 if (isset($_POST['save'])) {
 	if (isset($_POST['nick']) && $_POST['nick'] != $ank['nick']) {
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "'"), 0) == 1)
-			$err = '尼克 ' . $_POST['nick'] . ' 已经很忙了';
+			$err = '用户名 ' . $_POST['nick'] . ' 已经很忙了';
 		elseif (user_access('user_change_nick')) {
 			$nick = my_esc($_POST['nick']);
 			if (!preg_match("#^([A-zА-я0-9\-\_\ ])+$#ui", $nick)) $err[] = '昵称中有禁字';
 			if (strlen2($nick) < 3) $err[] = '短昵称';
 			if (strlen2($nick) > 32) $err[] = '昵称长度超过32个字符';
 			if (!isset($err)) {
-				admin_log('用户', '更改昵称', "尼克 $ank[nick] 改为 $nick");
+				admin_log('用户', '更改昵称', "用户名 $ank[nick] 改为 $nick");
 				$ank['nick'] = $nick;
 				dbquery("UPDATE `user` SET `nick` = '$nick' WHERE `id` = '$ank[id]' LIMIT 1");
 			}
@@ -194,7 +194,7 @@ echo '<select name="ank_g_r">
 	</select><br/>';
 echo "城市:<br /><input type='text' name='ank_city' value='$ank[ank_city]' maxlength='32' /><br />
 	ICQ:<br /><input type='text' name='ank_icq' value='$ank[ank_icq]' maxlength='9' /><br />
-	Skype 登入<br />
+	Skype 账号<br />
 		<input type='text' name='ank_skype' value='$ank[ank_skype]' maxlength='16' /><br />
 	E-mail:<br /><input type='text' name='ank_mail' value='$ank[ank_mail]' maxlength='32' /><br />
 	电话号码:<br /><input type='text' name='ank_n_tel' value='$ank[ank_n_tel]' maxlength='11' /><br />

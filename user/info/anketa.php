@@ -608,7 +608,7 @@ if ($user['level'] > $ank['level']) {
 			$mass[0] = $ank['id'];
 			$collisions = user_collision($mass);
 			if (count($collisions) > 1) {
-				echo "<span class=\"ank_n\">可能的尼克:</span><br />";
+				echo "<span class=\"ank_n\">可能的用户名:</span><br />";
 				echo "<span class=\"ank_d\">";
 				for ($i = 1; $i < count($collisions); $i++) {
 					$ank_coll = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$collisions[$i]' LIMIT 1"));

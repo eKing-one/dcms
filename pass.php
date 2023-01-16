@@ -59,7 +59,7 @@ if (
     err();
     aut();
     echo "<form action='/pass.php?id=$user2[id]&amp;set_new=" . esc($_GET['set_new'], 1) . "&amp;$passgen' method=\"post\">";
-    echo "登入:<br />";
+    echo "登录:<br />";
     echo "<input type=\"text\" disabled='disabled' value='$user2[nick]' maxlength=\"32\" size=\"16\" /><br />";
     echo "新密码:<br /><input type='password' name='pass1' value='' /><br />";
     echo "确认书:<br /><input type='password' name='pass2' value='' /><br />";
@@ -69,8 +69,8 @@ if (
     err();
     aut();
     echo "<form action=\"?$passgen\" method=\"post\">";
-    echo "登入:<br />";
-    echo "<input type=\"text\" name=\"nick\" title=\"登入\" value=\"\" maxlength=\"32\" size=\"16\" /><br />";
+    echo "账号:<br />";
+    echo "<input type=\"text\" name=\"nick\" title=\"登录\" value=\"\" maxlength=\"32\" size=\"16\" /><br />";
     echo "E-mail:<br />";
     echo "<input type=\"text\" name=\"mail\" title=\"E-mail\" value=\"\" maxlength=\"32\" size=\"16\" /><br />";
     echo "<input type=\"submit\" value=\"下一步\" title=\"下一步\" />";

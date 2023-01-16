@@ -111,11 +111,11 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 		if (preg_match("#(^\ )|(\ $)#ui", $_POST['nick'])) $err[] = '禁止在昵称的开头和结尾使用空格';
 		if (strlen2($nick) < 3) $err[] = '短昵称';
 		if (strlen2($nick) > 32) $err[] = '昵称长度超过32个字符';
-	} else $err[] = '尼克 "' . stripcslashes(htmlspecialchars($_POST['nick'])) . '"已登记';
+	} else $err[] = '用户名 "' . stripcslashes(htmlspecialchars($_POST['nick'])) . '"已登记';
 	if (!isset($err)) {
 		$_SESSION['reg_nick'] = $nick;
 		$_SESSION['step'] = 1;
-		msg("尼克 \"$nick\" 可以成功注册");
+		msg("用户名 \"$nick\" 可以成功注册");
 	}
 }
 err();

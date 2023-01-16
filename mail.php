@@ -257,7 +257,7 @@ while ($post = dbarray($q)) {
 	}
 	if ($ank2 && $ank2['id']) {
 		if ($ank2['id'] == $user['id']) {
-			echo ' <b><span style="color:green">来自于</span></b><a href="/info.php?id=' . $ank2['id'] . '"><b>' . $ank['nick'] . '</b></a>';
+			echo ' <b><span style="color:green">我发送给</span></b><a href="/info.php?id=' . $ank2['id'] . '"><b>' . $ank['nick'] . '</b></a>';
 		} else {
 			echo " " . group($ank2['id']) . " <a href=\"/info.php?id=$ank2[id]\">$ank2[nick]</a>";
 			echo "" . medal($ank2['id']) . " " . online($ank2['id']) . " ";

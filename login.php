@@ -22,7 +22,7 @@ if (isset($_GET['id']) && isset($_GET['pass']))
 		dbquery("UPDATE `user` SET `date_last` = ".time()." WHERE `id` = '$user[id]' LIMIT 1");
 		dbquery("INSERT INTO `user_log` (`id_user`, `time`, `ua`, `ip`, `method`) values('$user[id]', '$time', '$user[ua]' , '$user[ip]', '0')");
 	}
-	else $_SESSION['err'] = '登入或密码不正确';
+	else $_SESSION['err'] = '用户名或密码不正确';
 }
 elseif (isset($_POST['nick']) && isset($_POST['pass']))
 {
@@ -40,7 +40,7 @@ elseif (isset($_POST['nick']) && isset($_POST['pass']))
 		dbquery("UPDATE `user` SET `date_aut` = '$time', `date_last` = '$time' WHERE `id` = '$user[id]' LIMIT 1");
 		dbquery("INSERT INTO `user_log` (`id_user`, `time`, `ua`, `ip`, `method`) values('$user[id]', '$time', '$user[ua]' , '$user[ip]', '1')");
 	}
-	else $_SESSION['err'] = '登入或密码不正确';
+	else $_SESSION['err'] = '用户名或密码不正确';
 }
 elseif (isset($_COOKIE['id_user']) && isset($_COOKIE['pass']) && $_COOKIE['id_user'] && $_COOKIE['pass'])
 {

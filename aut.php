@@ -31,7 +31,7 @@ if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL) && isset($_SERVER
 	$_SESSION['refer'] = str_replace('&', '&amp;', preg_replace('#^http://[^/]*/#', '/', $_SERVER['HTTP_REFERER']));
 }
 echo '<form class="mess" method="post" action="/login.php">
-登入:<br /><input type="text" name="nick" maxlength="32" /><br />
+账号:<br /><input type="text" name="nick" maxlength="32" /><br />
 密码:<br /><input type="password" name="pass" maxlength="32" /><br />
 <label><input type="checkbox" name="aut_save" value="1" />记住我</label><br />
 <input type="submit" value="登录" />

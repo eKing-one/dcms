@@ -341,7 +341,7 @@ DCMS-Social 1.7.7 beta
 -更新文件/guest/who.php
 -升级自定义类 user()
 定型功能 nick() 
-现在你可以在线输出尼克，奖牌和徽章
+现在你可以在线输出用户名，奖牌和徽章
 参数
 nick($user = 0, $url = 1, $on = 0, $medal = 0)
 1 - ID юзера 
