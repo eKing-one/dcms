@@ -43,7 +43,7 @@ if (
       if (strlen2($msg) < 2) $err[] = '短消息';
       if (strlen2($msg) > 1024) $err[] = '邮件长度超过1024个字符的限制';
       $mat = antimat($msg);
-      if ($mat) $err[] = '在消息的文本中发现了一个将死者: ' . $mat;
+      if ($mat) $err[] = '在消息的文本中发现了一个非法字符: ' . $mat;
       if (!isset($err)) dbquery("UPDATE `forum_p` SET `msg` = '" . my_esc($msg) . "' WHERE `id` = '$post[id]' LIMIT 1");
     } elseif (isset($_GET['act']) && $_GET['act'] == 'edit' && (user_access('forum_post_ed') && ($ank['level'] < $user['level'] || $ank['level'] == $user['level'] && $ank['id'] == $user['id']) || isset($user) && $post['id'] == $post2['id'] && $post['id_user'] == $user['id'] && $post['time'] > time() - 600)) {
       $set['title'] = '论坛-帖子编辑'; //网页标题

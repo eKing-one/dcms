@@ -111,12 +111,12 @@ while ($ank = dbassoc($q)) {
 			echo '<span class="ank_n">IP (XFF):</span> <span class="ank_d">' . opsos($ank['ip_xff']) . '</span><br />';
 		if ($user['level'] > $ank['level'] && $user['id'] != $ank['id']) {
 			if (user_access('user_prof_edit'))
-				echo '[<a href="/adm_panel/user.php?id=' . $ank['id'] . '"><img src="/style/icons/edit.gif" alt="*" /> 编辑.</a>] ';
+				echo '[<a href="/adm_panel/user.php?id=' . $ank['id'] . '"><img src="/style/icons/edit.gif" alt="*" /> 编辑</a>] ';
 			if ($user['id'] != $ank['id']) {
 				if (user_access('user_ban_set') || user_access('user_ban_set_h') || user_access('user_ban_unset'))
 					echo '[<a href="/adm_panel/ban.php?id=' . $ank['id'] . '"><img src="/style/icons/blicon.gif" alt="*" /> 禁令</a>] ';
 				if (user_access('user_delete')) {
-					echo '[<a href="/adm_panel/delete_user.php?id=' . $ank['id'] . '"><img src="/style/icons/delete.gif" alt="*" /> 删除.</a>] ';
+					echo '[<a href="/adm_panel/delete_user.php?id=' . $ank['id'] . '"><img src="/style/icons/delete.gif" alt="*" /> 删除</a>] ';
 					echo '<br />';
 				}
 			}

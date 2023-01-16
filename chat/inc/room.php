@@ -3,7 +3,7 @@
 if (isset($_POST['msg']) && isset($user)) {
 	$msg = $_POST['msg'];
 	$mat = antimat($msg);
-	if ($mat) $err[] = '在消息的文本中发现了一个将死者: ' . $mat;
+	if ($mat) $err[] = '在消息的文本中发现了一个非法字符: ' . $mat;
 	if (strlen2($msg) > 512) {
 		$err[] = '信息太长了';
 	} elseif (strlen2($msg) < 2) {

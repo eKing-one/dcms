@@ -8,7 +8,7 @@ include_once 'sys/inc/db_connect.php';
 include_once 'sys/inc/ipua.php';
 include_once 'sys/inc/fnc.php';
 include_once 'sys/inc/user.php';
-$set['title'] = '网站上的客人'; // 页标题
+$set['title'] = '网站上的游客'; // 页标题
 include_once 'sys/inc/thead.php';
 title();
 aut();
@@ -21,7 +21,7 @@ echo "<table class='post'>";
 if ($k_post == 0) {
     echo "   <tr>";
     echo "  <td class='p_t'>";
-    echo "网站上没有客人";
+    echo "网站上没有游客";
     echo "  </td>";
     echo "   </tr>";
 }
@@ -33,7 +33,7 @@ while ($guest = dbassoc($q)) {
         echo "  </td>";
     }
     echo "  <td class='p_t'>";
-    echo "客人";
+    echo "游客";
     echo "  </td>";
     echo "   </tr>";
     echo "   <tr>";

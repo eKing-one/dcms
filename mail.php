@@ -25,7 +25,7 @@ if (!$ank) {
 }
 // помечаем сообщения как прочитанные
 dbquery("UPDATE `mail` SET `read` = '1' WHERE `id_kont` = '$user[id]' AND `id_user` = '$ank[id]'");
-$set['title'] = '邮局: ' . $ank['nick'];
+$set['title'] = '邮箱: ' . $ank['nick'];
 include_once 'sys/inc/thead.php';
 title();
 /* Бан пользователя */
@@ -61,7 +61,7 @@ if (isset($_GET['spam'])  &&  $ank['id'] != 0) {
 				else $types = '0';
 				if (!isset($err)) {
 					dbquery("INSERT INTO `spamus` (`id_user`, `msg`, `id_spam`, `time`, `types`, `razdel`, `spam`) values('$user[id]', '$msg', '$spamer[id]', '$time', '$types', 'mail', '" . my_esc($mess['msg']) . "')");
-					$_SESSION['message'] = '考虑申请已发出';
+					$_SESSION['message'] = '申请已发出';
 					header("Location: ?id=$ank[id]&spam=$mess[id]");
 					exit;
 				}
@@ -71,7 +71,7 @@ if (isset($_GET['spam'])  &&  $ank['id'] != 0) {
 	aut();
 	err();
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'mail'"), 0) == 0) {
-		echo "<div class='mess'>虚假信息会导致昵称被屏蔽。
+		echo "<div class='mess'>虚假信息会导致账号被屏蔽。
 如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
 		echo "<form class='nav1' method='post' action='/mail.php?id=$ank[id]&amp;spam=$mess[id]'>";
 		echo "<b>用户:</b> ". user::nick($spamer['id'],1,0,0);
@@ -80,7 +80,7 @@ if (isset($_GET['spam'])  &&  $ank['id'] != 0) {
 		echo "原因：<br /><select name='types'>";
 		echo "<option value='1' selected='selected'>垃圾邮件/广告</option>";
 		echo "<option value='2' selected='selected'>欺诈行为</option>";
-		echo "<option value='3' selected='selected'>进攻</option>";
+		echo "<option value='3' selected='selected'>语言攻击</option>";
 		echo "<option value='0' selected='selected'>其他</option>";
 		echo "</select><br />";
 		echo "评论:";
@@ -121,7 +121,7 @@ if (isset($_POST['msg']) && $ank['id'] != 0 && !isset($_GET['spam'])) {
 	if (strlen2($msg) > 1024) $err[] = '消息超过1024个字符';
 	if (strlen2($msg) < 2) $err[] = '信息太短了';
 	$mat = antimat($msg);
-	if ($mat) $err[] = '在消息的文本中发现了一个将死者: ' . $mat;
+	if ($mat) $err[] = '在消息的文本中发现了一个非法字符: ' . $mat;
 	if (!isset($err) && dbresult(dbquery("SELECT COUNT(*) FROM `mail` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]' AND `time` > '" . ($time - 360) . "' AND `msg` = '" . my_esc($msg) . "'"), 0) == 0) {
 		// отправка сообщения
 		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('$user[id]', '$ank[id]', '" . my_esc($msg) . "', '$time')");

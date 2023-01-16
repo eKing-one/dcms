@@ -8,12 +8,12 @@ if (isset($_POST['name']) && isset($_POST['msg'])) {
    if (strlen2($name) < 3) $err[] = '主题的短名称';
    if (strlen2($name) > 32) $err[] = '主题名称不应超过32个字符';
    $mat = antimat($name);
-   if ($mat) $err[] = '在主题的标题中发现了一个将死者: ' . $mat;
+   if ($mat) $err[] = '在主题的标题中发现了一个非法字符: ' . $mat;
    $msg = esc(stripslashes(htmlspecialchars($_POST['msg'])));
    if (strlen2($msg) < 10) $err[] = '短消息';
    if (strlen2($msg) > 30000) $err[] = '消息长度超过30,000个字符的限制';
    $mat = antimat($msg);
-   if ($mat) $err[] = '在消息的文本中发现了一个将死者: ' . $mat;
+   if ($mat) $err[] = '在消息的文本中发现了一个非法字符: ' . $mat;
    $msg = my_esc($msg);
    if (!isset($err)) {
       $_SESSION['time_c_t_forum'] = $time;

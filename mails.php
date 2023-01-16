@@ -16,7 +16,7 @@ only_reg();
 if(isset($_GET['send']) AND isset($_POST['send'])){
 if(dbresult(dbquery("SELECT COUNT(`id`)FROM `user` WHERE `nick`='".my_esc($_POST['komu'])."' LIMIT 1"),0)==0){
 /* 检查是否有这样一个昵称的性别 */
-?><div class="nav2">具有昵称的用户 <?=text($_POST['komu']);?> 不在网站上。你可能犯了一个错误。</div>
+?><div class="nav2">你可能犯了一个错误，该用户 <?=text($_POST['komu']);?> 不在网站上。</div>
 <div class="foot"> <a href="/mails.php">返回</a></div><?php
 include_once 'sys/inc/tfoot.php';
 exit;
