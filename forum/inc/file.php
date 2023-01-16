@@ -96,7 +96,7 @@ echo "&nbsp;$sum_vote/$k_vote&nbsp;";
 if (isset($user) && $user['balls']>=50 && $user['rating']>=0 && dbresult(dbquery("SELECT COUNT(*) FROM `forum_files_rating` WHERE `id_user` = '$user[id]' AND `id_file` = '$file[id]'"), 0)==0)
 echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?page=$page&amp;id_file=$file[id]&amp;rating=up\" title=\"给予积极的投票\">[+]</a>";
 echo " | ";
-echo "已下载: $file[count] раз(а) ";
+echo "已下载: $file[count] 次 ";
 echo "<br />";
 }
 }

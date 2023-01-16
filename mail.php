@@ -200,12 +200,19 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$use
 	echo "<a href='/konts.php?type=common&amp;act=add&amp;id=$ank[id]'><img src='/style/icons/lj.gif' alt='*'> 添加到联系人</a></span><br/></div>";
 }
 $rt = time() - 600;
-if ($ank['date_last'] < $rt) {
+if ($ank['id'] != 0 && $ank['date_last'] < $rt) {
 	echo "<div class='plug'>";
 	echo "用户 " . $ank['nick'] . " 不在在线。留下你的信息，他会稍后阅读。";
 	echo "</div>";
 }
 if ($ank['id'] != 0 && $block == true) {
+	if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"), 0) == 1) {
+		$kont = dbarray(dbquery("SELECT * FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"));
+		echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'>  <a href='/konts.php?type=$kont[type]&amp;act=del&amp;id=$ank[id]'>从列表中删除联系人</a></div>";
+	} else {
+		echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'> 
+	<a href='/konts.php?type=common&amp;act=add&amp;id=$ank[id]'>添加到联系人列表</a></div>";
+	}
 	echo "<form method='post' name='message' action='/mail.php?id=$ank[id]'>";
 	if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
 		include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
@@ -216,13 +223,7 @@ if ($ank['id'] != 0 && $block == true) {
 	echo "<input type='submit' name='send' value='发送' />";
 	echo "<input type='submit' name='refresh' value='下一步' />";
 	echo "</form>";
-	if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"), 0) == 1) {
-		$kont = dbarray(dbquery("SELECT * FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"));
-		echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'>  <a href='/konts.php?type=$kont[type]&amp;act=del&amp;id=$ank[id]'>从列表中删除联系人</a></div>";
-	} else {
-		echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'> 
-	<a href='/konts.php?type=common&amp;act=add&amp;id=$ank[id]'>添加到联系人列表</a></div>";
-	}
+
 }
 echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'> 
 	<a href='/konts.php?" . (isset($kont) ? 'type=' . $kont['type'] : null) . "'>所有联系人</a></div>";

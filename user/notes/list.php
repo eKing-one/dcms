@@ -339,7 +339,7 @@ while ($post = dbassoc($q)) {
 	}
 	/*---------------------------*/
 	echo user::nick($ank['id'], 1, 1, 0) . " ";
-	if (isset($user) && $ank['id'] != $user['id']) echo "<a href='?id=$notes[id]&amp;response=$ank[id]'>[*]</a> ";
+	if (isset($user) && $ank['id'] != $user['id']) echo "<a href='?id=$notes[id]&amp;response=$ank[id]'>[@]</a> ";
 	echo " (" . vremja($post['time']) . ")<br />";
 	$postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'notes') AND `post` = '1' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
 	if ($postBan == 0) // Блок сообщения

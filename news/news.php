@@ -148,7 +148,7 @@ while ($post = dbassoc($q)) {
 	$num++;
 	echo user::nick($ank['id'],1,1,0);
 	if (isset($user) && $user['id'] != $ank['id']){
-		echo ' <a href="?id=' . $news['id'] . '&amp;page=' . $page . '&amp;response=' . $ank['id'] . '">[*]</a> ';
+		echo ' <a href="?id=' . $news['id'] . '&amp;page=' . $page . '&amp;response=' . $ank['id'] . '">[@]</a> ';
 	}
 	echo '(' . vremja($post['time']) . ')<br />';
 	echo output_text($post['msg']) . '<br />';
@@ -163,7 +163,7 @@ while ($post = dbassoc($q)) {
 echo '</table>';
 // 输出页数
 if ($k_page > 1) str("news.php?id=" . intval($_GET['id']) . '&amp;', $k_page, $page);
-// Форма для комментариев
+// 征求意见表
 if (isset($user)) {
 	echo '<form method="post" name="message" action="?id=' . intval($_GET['id']) . '&amp;page=' . $page . REPLY . '">';
 	if (is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))

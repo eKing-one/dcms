@@ -45,8 +45,8 @@ if (user_access('forum_razd_create') && (isset($_GET['act']) && isset($_GET['ok'
 	if (strlen2($name) < 2) $err = '名字太短了';
 	if (strlen2($name) > 32) $err = '名字太低了';
 	if (!isset($err)) {
-		admin_log('论坛', '部分', "创建一个部分 '$name' 在子论坛 '$forum[name]'");
-		dbquery("INSERT INTO `forum_r` (`id_forum`, `opis`,`name`, `time`) values('$forum[id]', '" . my_esc($_POST['opis']) . "','" . my_esc($name) . "', '$time')");
+		admin_log('论坛', '部分', "创建一个部分 $name 在子论坛 $forum[name]");
+		dbquery("INSERT INTO `forum_r` (`id_forum`, `opis`,`name`, `time`) values ('$forum[id]', '" . my_esc($_POST['opis']) . "','" . my_esc($name) . "', '$time')");
 		msg('该部分已成功创建');
 	}
 }

@@ -76,7 +76,7 @@ if (user_access('adm_panel_show')) {
 		if ($set['set_show_icon'] == 2) {
 			user::avatar($ank['id']);
 		}
-		echo " " . user::nick($ank['id'],1,1,0) . "  <a href='?response=$ank[id]'>[*]</a> (" . vremja($post['time']) . ")<br />";
+		echo " " . user::nick($ank['id'],1,1,0) . "  <a href='?response=$ank[id]'>[@]</a> (" . vremja($post['time']) . ")<br />";
 		echo output_text($post['msg']) . "<br />";
 		if (user_access('guest_delete'))
 			echo '<div style="float:right;"><a href="delete.php?id=' . $post['id'] . '"><img src="/style/icons/delete.gif" alt="*"></a></div><br />';

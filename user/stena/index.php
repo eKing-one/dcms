@@ -48,10 +48,10 @@ while ($post = dbassoc($q)) {
     if ($set['set_show_icon'] == 2) {
         user::avatar($ank_stena['id']);
     } elseif ($set['set_show_icon'] == 1) {
-        echo "" . group($ank_stena['id']) . "";
+        // echo "" . group($ank_stena['id']) . "";
     }
     echo user::nick($ank_stena['id'],1,1,0) . "";
-    if (isset($user)) echo " <a href='/info.php?id=$ank[id]&amp;response=$ank_stena[id]'>[*]</a>";
+    if (isset($user)) echo " <a href='/info.php?id=$ank[id]&amp;response=$ank_stena[id]'>[@]</a>";
     echo " (" . vremja($post['time']) . ")<br />";
     echo stena($ank_stena['id'], $post['id']) . ' <br/>';
     echo output_text($post['msg']) . "<br />";

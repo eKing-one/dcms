@@ -114,7 +114,7 @@ if (isset($user) || (isset($set['write_guest']) && $set['write_guest'] == 1 && (
 		$num++;
 		echo ($post['id_user'] != '0' ? user::avatar($ank['id'], 0) . user::nick($ank['id'], 1, 1, 0) : user::avatar(0, 0) . ' <b>' . '游客' . '</b> ');
 		if (isset($user) && $user['id'] != $ank['id'])
-			echo ' <a href="?page=' . $page . '&amp;response=' . $ank['id'] . '">[*]</a> (' . vremja($post['time']) . ')<br />';
+			echo ' <a href="?page=' . $page . '&amp;response=' . $ank['id'] . '">[@]</a> (' . vremja($post['time']) . ')<br />';
 		echo ' (' . vremja($post['time']) . ') <br />';
 		echo output_text($post['msg']) . '<br />';
 		if (isset($user) && ($user['level'] > $ank['level'] || $user['level'] != 0 && $user['id'] == $ank['id']) && user_access('guest_delete')) {

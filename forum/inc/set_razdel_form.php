@@ -38,6 +38,6 @@ if (isset($_GET['act']) && $_GET['act']=='del')
 echo "<div class=\"foot\">";
 echo "<img src='/style/icons/str.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/?act=mesto'>移动一个部分</a><br />";
 echo "<img src='/style/icons/str.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/?act=del'>删除部分</a><br />";
-echo "<img src='/style/icons/str.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/?act=set'>节参数</a><br />";
+echo "<img src='/style/icons/str.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/?act=set'>论坛参数</a><br />";
 echo "</div>";
 ?>

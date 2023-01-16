@@ -89,11 +89,11 @@ $ras=".$file[ras]";
 }
 echo "<a href='/forum/files/$file[id]/$file[name].$file[ras]'>$file[name]$ras</a> (".size_file($file['size']).") ";
 echo "<br />";
-echo "Рейтинг: ";
+echo "评级: ";
 if ($file['rating']==null)$file['rating']=0;
 echo "&nbsp;$file[rating]/$file[c_rating]&nbsp;";
 echo " | ";
-echo "Скачано: $file[count] раз(а) ";
+echo "已下载: $file[count] 次 ";
 echo "<br />";
 }
 }

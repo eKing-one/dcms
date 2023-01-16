@@ -88,7 +88,7 @@ echo '  <option value="1" '.(isset($_POST['mn']) && $_POST['mn'] == 1 ? "selecte
 echo '  <option value="7" '.(isset($_POST['mn']) && $_POST['mn'] == 7 ? "selected='selected'" : null).'>星期</option>';
 echo '  <option value="31" '.(isset($_POST['mn']) && $_POST['mn'] == 31 ? "selected='selected'" : null).'>个月</option>';
 echo '</select><br />';
-echo '<input value="Просмотр" type="submit" name="view"/> ';
+echo '<input value="查看" type="submit" name="view"/> ';
 echo '<input value="完成" type="submit" name="ok"/>';
 echo '</form>';
 echo'<div class="foot">';

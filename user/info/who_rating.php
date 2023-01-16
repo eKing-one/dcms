@@ -23,8 +23,8 @@ if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL)
 	$_SESSION['refer'] = str_replace('&', '&amp;', preg_replace('#^http://[^/]*/#', '/', $_SERVER['HTTP_REFERER']));
 if (isset($_POST['rating']) && isset($user) && isset($_POST['msg']) && $user['id'] != $ank['id'] && $user['rating'] >= 2 && dbresult(dbquery("SELECT SUM(`rating`) FROM `user_voice2` WHERE `id_kont` = '$user[id]'"), 0) >= 0) {
 	$msg = my_esc($_POST['msg']);
-	if (strlen($msg) < 3) $err = 'Короткий Отзыв';
-	if (strlen($msg) > 1024) $err = 'Длиный Отзыв';
+	if (strlen($msg) < 3) $err = '短评';
+	if (strlen($msg) > 1024) $err = '长篇评论';
 	elseif (dbresult(dbquery("SELECT COUNT(*) FROM `user_voice2` WHERE `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
 		$err = '您的评论重复';
 	}
@@ -41,11 +41,11 @@ if (isset($_POST['rating']) && isset($user) && isset($_POST['msg']) && $user['id
 			}
 		}
 		if ($new_r > 0)
-			dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] оставил о Вас [url=/user/info/who_rating.php]积极的反馈[/url]', '$time')");
+			dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 关于你的事 [url=/user/info/who_rating.php]积极的反馈[/url]', '$time')");
 		if ($new_r < 0)
-			dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] оставил о Вас [url=/user/info/who_rating.php]негативный отзыв[/url]', '$time')");
+			dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 关于你的事 [url=/user/info/who_rating.php]негативный отзыв[/url]', '$time')");
 		if ($new_r == 0)
-			dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] оставил о Вас [url=/user/info/who_rating.php]нейтральный отзыв[/url]', '$time')");
+			dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 关于你的事 [url=/user/info/who_rating.php]нейтральный отзыв[/url]', '$time')");
 		dbquery("UPDATE `user` SET `rating_tmp` = '" . ($user['rating_tmp'] + 1) . "' WHERE `id` = '$user[id]' LIMIT 1");
 		$_SESSION['message'] = '您对用户的看法已成功更改';
 	}
