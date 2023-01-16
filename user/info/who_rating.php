@@ -23,8 +23,8 @@ if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL)
 	$_SESSION['refer'] = str_replace('&', '&amp;', preg_replace('#^http://[^/]*/#', '/', $_SERVER['HTTP_REFERER']));
 if (isset($_POST['rating']) && isset($user) && isset($_POST['msg']) && $user['id'] != $ank['id'] && $user['rating'] >= 2 && dbresult(dbquery("SELECT SUM(`rating`) FROM `user_voice2` WHERE `id_kont` = '$user[id]'"), 0) >= 0) {
 	$msg = my_esc($_POST['msg']);
-	if (strlen($msg) < 3) $err = '短评';
-	if (strlen($msg) > 1024) $err = '长篇评论';
+	if (strlen($msg) < 3) $err = '理由太短了最少3个字符';
+	if (strlen($msg) > 1024) $err = '理由太长了最多1024个字符';
 	elseif (dbresult(dbquery("SELECT COUNT(*) FROM `user_voice2` WHERE `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
 		$err = '您的评论重复';
 	}
