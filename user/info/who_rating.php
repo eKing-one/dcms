@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -26,7 +26,7 @@ if (isset($_POST['rating']) && isset($user) && isset($_POST['msg']) && $user['id
 	if (strlen($msg) < 3) $err = '理由太短了最少3个字符';
 	if (strlen($msg) > 1024) $err = '理由太长了最多1024个字符';
 	elseif (dbresult(dbquery("SELECT COUNT(*) FROM `user_voice2` WHERE `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
-		$err = '您的评论重复';
+		$err = '您的评价重复';
 	}
 	if (!isset($err)) {
 		$new_r = min(max(@intval($_POST['rating']), -2), 2);
@@ -41,13 +41,13 @@ if (isset($_POST['rating']) && isset($user) && isset($_POST['msg']) && $user['id
 			}
 		}
 		if ($new_r > 0)
-			dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 关于你的事 [url=/user/info/who_rating.php]积极的反馈[/url]', '$time')");
+			dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 给了你最新的 [url=/user/info/who_rating.php]评价[/url]', '$time')");
 		if ($new_r < 0)
-			dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 关于你的事 [url=/user/info/who_rating.php]негативный отзыв[/url]', '$time')");
+			dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 给了你最新的 [url=/user/info/who_rating.php]评价[/url]', '$time')");
 		if ($new_r == 0)
-			dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 关于你的事 [url=/user/info/who_rating.php]нейтральный отзыв[/url]', '$time')");
+			dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 给了你最新的 [url=/user/info/who_rating.php]评价[/url]', '$time')");
 		dbquery("UPDATE `user` SET `rating_tmp` = '" . ($user['rating_tmp'] + 1) . "' WHERE `id` = '$user[id]' LIMIT 1");
-		$_SESSION['message'] = '您对用户的看法已成功更改';
+		$_SESSION['message'] = '您对用户的评价已成功更改';
 	}
 }
 $set['title'] = $ank['nick'] . ' - 评价 '; //网页标题
