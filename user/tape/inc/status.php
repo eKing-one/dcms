@@ -8,7 +8,7 @@ if ($type == 'status_like' && $post['avtor'] != $user['id']) // статус lik
 } else if ($type == 'status_like' && $post['avtor'] == $user['id']) {
 	$name = '认为你的状态很酷';
 } else if ($type == 'status' && $post['avtor'] != $user['id']) {
-	$name = '已安装' . ($avtor['pol'] == 1 ? null : "а") . ' 新状态';
+	$name = '更新了' . ($avtor['pol'] == 1 ? null : "а") . ' 状态';
 }
 /*
 * 内容块输出 
@@ -38,7 +38,7 @@ if ($type == 'status_like' || $type == 'status') {
 		$l = dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]'"), 0);
 		if (isset($user) && $user['id'] != $avtor['id']) {
 			if ($user['id'] != $avtor['id'] && dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
-				echo ' <a href="?likestatus=' . $status['id'] . '&amp;page=$page"><img src="/style/icons/like.gif" alt=""/>班级!</a> &bull; ';
+				echo ' <a href="?likestatus=' . $status['id'] . '&amp;page=$page"><img src="/style/icons/like.gif" alt=""/>赞!</a> &bull; ';
 				$like = $l;
 			} else {
 				echo ' <img src="/style/icons/like.gif" alt=""/> 你和 ';
@@ -48,7 +48,7 @@ if ($type == 'status_like' || $type == 'status') {
 			echo ' <img src="/style/icons/like.gif" alt=""/> ';
 			$like = $l;
 		}
-		echo '<a href="/user/status/like.php?id=' . $status['id'] . '">' . $like . ' 用户.</a>';
+		echo '<a href="/user/status/like.php?id=' . $status['id'] . '">' . $like . ' 用户</a>觉得很赞！';
 	} else {
 		echo '<div class="nav1">';
 		echo user::nick($avtor['id'], 1, 0, 0) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a><br />';

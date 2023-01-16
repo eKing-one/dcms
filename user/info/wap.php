@@ -42,7 +42,7 @@ if (isset($status['id']) && ($status['id'] || $ank['id'] == $user['id'])) {
 		echo " <a href='/user/status/komm.php?id=$status[id]'><img src='/style/icons/bbl4.png' alt=''/> " . dbresult(dbquery("SELECT COUNT(*) FROM `status_komm` WHERE `id_status` = '$status[id]'"), 0) . " </a> ";
 		$l = dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]'"), 0);
 		if (isset($user) && $user['id'] != $ank['id'] && dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
-			echo " <a href='/info.php?id=$ank[id]&amp;like'><img src='/style/icons/like.gif' alt='*'/> 班级!</a> • ";
+			echo " <a href='/info.php?id=$ank[id]&amp;like'><img src='/style/icons/like.gif' alt='*'/> 点赞!</a> • ";
 			$like = $l;
 		} else if (isset($user) && $user['id'] != $ank['id']) {
 			echo " <img src='/style/icons/like.gif' alt=''/>你和 ";
@@ -51,7 +51,7 @@ if (isset($status['id']) && ($status['id'] || $ank['id'] == $user['id'])) {
 			echo " <img src='/style/icons/like.gif' alt=''/> ";
 			$like = $l;
 		}
-		echo "<a href='/user/status/like.php?id=$status[id]'> $like 用户. </a>";
+		echo "<a href='/user/status/like.php?id=$status[id]'> $like 用户</a>觉得很赞！";
 	}
 	/* Общее колличество статусов */
 	$st = dbresult(dbquery("SELECT COUNT(*) FROM `status` WHERE `id_user` = '$ank[id]'"), 0);
