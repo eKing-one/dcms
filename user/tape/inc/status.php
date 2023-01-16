@@ -48,7 +48,7 @@ if ($type == 'status_like' || $type == 'status') {
 			echo ' <img src="/style/icons/like.gif" alt=""/> ';
 			$like = $l;
 		}
-		echo '<a href="/user/status/like.php?id=' . $status['id'] . '">' . $like . ' 用户</a>觉得很赞！';
+		echo '<a href="/user/status/like.php?id=' . $status['id'] . '">' . $like . ' 个用户</a>觉得很赞！';
 	} else {
 		echo '<div class="nav1">';
 		echo user::nick($avtor['id'], 1, 0, 0) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a><br />';

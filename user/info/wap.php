@@ -51,7 +51,7 @@ if (isset($status['id']) && ($status['id'] || $ank['id'] == $user['id'])) {
 			echo " <img src='/style/icons/like.gif' alt=''/> ";
 			$like = $l;
 		}
-		echo "<a href='/user/status/like.php?id=$status[id]'> $like 用户</a>觉得很赞！";
+		echo "<a href='/user/status/like.php?id=$status[id]'> $like 个用户</a>觉得很赞！";
 	}
 	/* Общее колличество статусов */
 	$st = dbresult(dbquery("SELECT COUNT(*) FROM `status` WHERE `id_user` = '$ank[id]'"), 0);

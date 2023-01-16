@@ -174,6 +174,6 @@ if (isset($user)) {
 	echo '</form>';
 }
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> <a href="index.php">新闻报道</a><br />';
+echo '<img src="/style/icons/str2.gif" alt="*"> <a href="index.php">新闻中心</a><br />';
 echo '</div>';
 include_once '../sys/inc/tfoot.php';

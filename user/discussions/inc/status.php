@@ -52,7 +52,7 @@ if ($type == 'status') {
 																																		$like = $l;
 																																	}
 												?>
-			<a href="/user/status/like.php?id=<?= $status['id'] ?>"><?= $like ?> 用户</a>
+			<a href="/user/status/like.php?id=<?= $status['id'] ?>"><?= $like ?> 个用户</a>觉得很赞！
 		</div>
 	<?
 	} else {
