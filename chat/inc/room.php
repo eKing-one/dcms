@@ -1,5 +1,5 @@
 <?
-//没有留言
+//没有评论
 if (isset($_POST['msg']) && isset($user)) {
 	$msg = $_POST['msg'];
 	$mat = antimat($msg);
@@ -43,7 +43,7 @@ $start = $set['p_str'] * $page - $set['p_str'];
 echo "<table class='post'>";
 if ($k_post == 0) {
 	echo "<div class='mess'>";
-	echo "没有留言";
+	echo "没有评论";
 	echo "</div>";
 }
 $q = dbquery("SELECT * FROM `chat_post` WHERE `room` = '$room[id]' AND (`privat`='0'" . (isset($user) ? " OR `privat` = '$user[id]'" : null) . ") ORDER BY id DESC LIMIT $start, $set[p_str]");

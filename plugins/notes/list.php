@@ -307,7 +307,7 @@ echo "<b>评论</b>: (" . dbresult(dbquery("SELECT COUNT(`id`)FROM `notes_komm` 
 echo '</div>';
 if ($k_post == 0) {
 	echo '<div class="mess">';
-	echo "没有留言";
+	echo "没有评论";
 	echo '</div>';
 } else if (isset($user)) {
 	/*------------按时间排列--------------*/

@@ -57,7 +57,7 @@ if (user_access('adm_panel_show')) {
 	echo "<table class='post'>";
 	if ($k_post == 0) {
 		echo "  <div class='mess'>";
-		echo "没有留言。";
+		echo "没有评论。";
 		echo "  </div>";
 	}
 	$num = 0;

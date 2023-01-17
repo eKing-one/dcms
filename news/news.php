@@ -125,7 +125,7 @@ $q = dbquery("SELECT * FROM `news_komm` WHERE `id_news` = '" . intval($_GET['id'
 echo '<table class="post">';
 if ($k_post == 0) {
 	echo '<div class="mess" id="no_object">';
-	echo '没有留言';
+	echo '没有评论';
 	echo '</div>';
 } else {
 	/*------------сортировка по времени--------------*/

@@ -17,7 +17,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'txt') {
             $cit = dbassoc(dbquery("SELECT * FROM `forum_p` WHERE `id` = '$post[cit]' LIMIT 1"));
             $ank_c = user::get_user($cit['id_user']);
             echo "--报价--\r";
-            echo "$ank_c[nick] (" . date("Y m d в H:i", $cit['time']) . "):\r";
+            echo "$ank_c[nick] (" . date("Y m d H:i", $cit['time']) . "):\r";
             echo trim(br($cit['msg'], "\r")) . "\r";
             echo "----------\r";
         }
@@ -330,28 +330,28 @@ if (isset($_GET['act']) && $_GET['act'] == 'vote' && (user_access('forum_them_ed
             dbquery("UPDATE `forum_t` SET `vote`='',`vote_time`='',`vote_close` ='0' WHERE `id` = '$them[id]' LIMIT 1");
             dbquery("DELETE FROM `votes_forum` WHERE `them` = '$them[id]'  ");
             dbquery("DELETE FROM `votes_user` WHERE `them` = '$them[id]'  ");
-            $_SESSION['message'] = '调查被删除了！';
+            $_SESSION['message'] = '投票被删除了！';
             header("Location:/forum/$forum[id]/$razdel[id]/$them[id]/");
         }
         if (isset($_POST['send']) && isset($user)) {
             $close = (isset($_POST['close']) ? 1 : 0);
             $text = my_esc($_POST['text']);
-            if (strlen2($text) < 3) $err[] = '简短调查主题';
-            if (strlen2($text) > 42) $err[] = '调查主题必须少于40个字符';
+            if (strlen2($text) < 3) $err[] = '简短投票主题';
+            if (strlen2($text) > 42) $err[] = '投票主题必须少于40个字符';
             $mat = antimat($text);
-            if ($mat) $err[] = '在调查主题中发现了一个伴侣: ' . $mat;
+            if ($mat) $err[] = '在投票主题中发现了一个伴侣: ' . $mat;
             if (!isset($err)) {
                 dbquery("UPDATE `forum_t` SET `vote`='$text',`vote_close` ='$close' WHERE `id` = '$them[id]' LIMIT 1");
             }
             for ($x = 1; $x < 7; $x++) {
                 $add = my_esc($_POST['vote_' . $x . '']);
-                if (strlen2($add) > 23) $err = '调查选项 № ' . $x . ' 太久了';
+                if (strlen2($add) > 23) $err = '投票选项 № ' . $x . ' 太久了';
                 if ($_POST['vote_1'] == NULL || $_POST['vote_2'] == NULL) $err = '前两个选项必须填写';
                 $mat = antimat($add);
-                if ($mat) $err = '在调查版本中 № ' . $x . '  检测到配偶: ' . $mat;
+                if ($mat) $err = '在投票选项中 № ' . $x . '  检测到非法字符: ' . $mat;
                 if (!isset($err)) {
                     dbquery("UPDATE `votes_forum` SET `var`='$add' WHERE `num` = '$x' LIMIT 1");
-                    $_SESSION['message'] = '调查已更改！';
+                    $_SESSION['message'] = '投票已更改！';
                     header("Location:/forum/$forum[id]/$razdel[id]/$them[id]/");
                 }
             }
@@ -369,38 +369,38 @@ if (isset($_GET['act']) && $_GET['act'] == 'vote' && (user_access('forum_them_ed
         }
         echo "<form method='post' action='/forum/$forum[id]/$razdel[id]/$them[id]/?act=vote'>";
         echo "<div class='nav1'>";
-        echo "<img src='/style/icons/rating.png' alt='*'> 调查: <b>" . (mb_strlen($them['vote']) <= 15 ? output_text($them['vote']) : output_text(sub($them['vote'], 15))) . "</b><br/>";
+        echo "<img src='/style/icons/rating.png' alt='*'> 投票: <b>" . (mb_strlen($them['vote']) <= 15 ? output_text($them['vote']) : output_text(sub($them['vote'], 15))) . "</b><br/>";
         echo "</div>";
         echo "<div class='main'>";
-        echo "<b>Т调查电邮</b>: <div style='border-top: 1px dashed red; padding: 2px;'>" . $tPanel . "<textarea name='text'>" . output_text($them['vote']) . "</textarea></div><br/>";
+        echo "<b>投票内容</b>: <div style='border-top: 1px dashed red; padding: 2px;'>" . $tPanel . "<textarea name='text'>" . output_text($them['vote']) . "</textarea></div><br/>";
         $q = dbquery("SELECT * FROM `votes_forum` WHERE `them` = '" . abs(intval($them['id'])) . "' ORDER BY `id` ASC  LIMIT 6");
         while ($row = dbassoc($q)) {
             echo "选项№ $row[num] <div style='border-top: 1px dashed red; padding: 2px;'><input name='vote_$row[num]' type='text' value='" . (isset($row['var']) ? output_text($row['var']) : NULL) . "' maxlength='24' placeholder='未填写'  /></div>";
         }
-        echo "<label><input type='checkbox' name='close' " . ($them['vote_close'] == '1' ? "checked='checked' value='1' /> 打开调查" : "value='1'/> 关闭调查") . " </label>
+        echo "<label><input type='checkbox' name='close' " . ($them['vote_close'] == '1' ? "checked='checked' value='1' /> 打开投票" : "value='1'/> 关闭投票") . " </label>
 ";
         echo '<input value="更改" name="send" type="submit" />  
-<input value="删除调查" name="del" type="submit" /> 
+<input value="删除投票" name="del" type="submit" /> 
 </form>';
     } else {
         if (isset($_POST['send']) && isset($user)) {
             $text = my_esc($_POST['text']);
-            if (strlen2($text) < 3) $err[] = '简短调查主题';
-            if (strlen2($text) > 42) $err[] = '调查主题必须少于40个字符';
+            if (strlen2($text) < 3) $err[] = '简短投票主题';
+            if (strlen2($text) > 42) $err[] = '投票主题必须少于40个字符';
             $mat = antimat($text);
-            if ($mat) $err[] = '在调查主题中发现了一个伴侣: ' . $mat;
+            if ($mat) $err[] = '在投票主题中发现了一个伴侣: ' . $mat;
             if (!isset($err)) {
                 dbquery("UPDATE `forum_t` SET `vote`='$text',`vote_close` ='0' WHERE `id` = '$them[id]' LIMIT 1");
             }
             for ($x = 1; $x < 7; $x++) {
                 $add = my_esc($_POST['add_' . $x . '']);
-                if (strlen2($add) > 23) $err = '调查选项№ ' . $x . ' 太久了';
+                if (strlen2($add) > 23) $err = '投票选项№ ' . $x . ' 太久了';
                 if ($_POST['add_1'] == NULL || $_POST['add_2'] == NULL) $err = '前两个选项必须填写';
                 $mat = antimat($add);
-                if ($mat) $err = '在调查版本中 № ' . $x . '  检测到配偶: ' . $mat;
+                if ($mat) $err = '在投票版本中 № ' . $x . '  检测到配偶: ' . $mat;
                 if (!isset($err)) {
                     dbquery("INSERT INTO `votes_forum` (`them`,`var`,`num`) values('$them[id]','$add','$x')");
-                    $_SESSION['message'] = '调查已添加！';
+                    $_SESSION['message'] = '投票已添加！';
                     header("Location:/forum/$forum[id]/$razdel[id]/$them[id]/");
                 }
             }
@@ -408,7 +408,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'vote' && (user_access('forum_them_ed
         err();
         echo "<form method='post' action='/forum/$forum[id]/$razdel[id]/$them[id]/?act=vote'>";
         echo "<div class='main'>";
-        echo '调查主题:' . $tPanel . '<textarea name="text"></textarea><br/> 
+        echo '投票主题:' . $tPanel . '<textarea name="text"></textarea><br/> 
 ';
         for ($x = 1; $x < 7; $x++)
             echo "选项№ $x <div style='border-top: 1px dashed red; padding: 2px;'><input name='add_$x' type='text' maxlength='15' placeholder='未填写' /></div>";
@@ -427,7 +427,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'vote' && (user_access('forum_them_ed
 }
 if (isset($_GET['vote_user']) && dbresult(dbquery("SELECT * FROM `votes_user` WHERE `var` = '" . intval($_GET['vote_user']) . "' AND `them`='$them[id]' "), 0) != 0) {
     $us = intval($_GET['vote_user']);
-    $k_post = dbresult(dbquery("SELECT * FROM `votes_user` WHERE  `var` = '$us' AND `them`='$them[id]'"), 0);
+    $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `votes_user` WHERE  `var` = '$us' AND `them`='$them[id]'"), 0);
     $k_page = k_page($k_post, $set['p_str']);
     $page = page($k_page);
     $start = $set['p_str'] * $page - $set['p_str'];
@@ -445,12 +445,12 @@ if (isset($_GET['vote_user']) && dbresult(dbquery("SELECT * FROM `votes_user` WH
         }
         echo user::nick($ank['id'], 1, 1, 0) . ' ' . vremja($row['time']) . '</div>';
     }
-    if ($k_page > 1)
-        str("/forum/$forum[id]/$razdel[id]/$them[id]/?vote_user=$us&", $k_page, $page);
+    if ($k_page > 1){
+        str('/forum/'.$forum['id'].'/'.$razdel['id'].'/'.$them['id'].'/?vote_user='.$us.'&', $k_page, $page);
+    }
     echo '<div class="foot">
-                    <img src="/style/icons/fav.gif" alt="*"> <a href="/forum/' . $forum['id'] . '/' . $razdel['id'] . '/' . $them['id
-    '] . '/?">以...为主题</a>
-                </div>';
+    <img src="/style/icons/fav.gif" alt="*"> 
+    <a href="/forum/'.$forum['id'].'/'.$razdel['id'].'/'.$them['id'].'/?">返回主题</a></div>';
     include_once '../sys/inc/tfoot.php';
     exit;
 }
@@ -478,13 +478,13 @@ echo "<img src='/style/icons/kumr.gif'> 标题: <b>" . text($them['name']) . "</
 echo "<div class='nav2'>" . output_text($them['text']) . " ";
 /*
 ==========
-调查
+投票
 ==========
 */
 $vote_c = dbresult(dbquery("SELECT COUNT(*) FROM `votes_forum` WHERE `them` = '" . abs(intval($them['id'])) . "' LIMIT 1"), 0);
 if ($vote_c != 0) {
 ?><div class="round_corners poll_block stnd_padd">
-        <div style="font-size:14px;">调查: <b><?= output_text($them['vote']); ?></b></div>
+        <div style="font-size:14px;">投票: <b><?= output_text($them['vote']); ?></b></div>
         <?php
         $q = dbquery("SELECT * FROM `votes_forum` WHERE `them` = '" . abs(intval($them['id'])) . "' AND `var` != '' LIMIT 6");
         ?>
@@ -499,7 +499,7 @@ if ($vote_c != 0) {
                 $us = dbresult(dbquery("SELECT COUNT(*) FROM `votes_user` WHERE `them` = '" . abs(intval($them['id'])) . "'  AND `id_user`='$user[id]' LIMIT 1"), 0);
                 if ($us == '0' && isset($user)) {
             ?>
-                    <input type="radio" value="<?= $row['num']; ?>" name="vote" />&nbsp;<?= output_text($row['var']); ?></a> - <a href="?vote_user=<?= $row['num']; ?>"><?= $var; ?> чел.</a></br>
+                    <input type="radio" value="<?= $row['num']; ?>" name="vote" />&nbsp;<?= output_text($row['var']); ?></a> - <a href="?vote_user=<?= $row['num']; ?>"><?= $var; ?> 人</a></br>
                 <?php } else { ?>
                     <?= output_text($row['var']); ?> <a href="?vote_user=<?= $row['num']; ?>"><?= $var; ?></a></br><img src="/forum/img.php?img=<?= $poll; ?>" alt="*" /></br>
                 <?php }
@@ -553,10 +553,10 @@ if ($vote_c != 0) {
                 echo "<img src='/style/icons/glavnaya.gif' width='16'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?act=mesto'><font color='darkred'>移动</font></a>";
                 if ($vote_c == 0) {
                 ?><br /><img src="/style/icons/top10.png"> <a href="/forum/<?= $forum['id']; ?>/<?= $razdel['id']; ?>/<?= $them['id']; ?>/?act=vote">
-                        <font color="darkred">添加调查</font>
+                        <font color="darkred">添加投票</font>
                     </a> <?
                         } else {
-                            echo '<br/><img src="/style/icons/diary.gif"> <a href="?act=vote"><font color="darkred">编辑调查</font></a>';
+                            echo '<br/><img src="/style/icons/diary.gif"> <a href="?act=vote"><font color="darkred">编辑投票</font></a>';
                         }
                     }
                     if (user_access('forum_them_del') || $ank2['id'] == $user['id']) {
@@ -583,7 +583,7 @@ if ($vote_c != 0) {
                 $q = dbquery("SELECT * FROM `forum_p` WHERE `id_them` = '$them[id]' AND `id_forum` = '$forum[id]' AND `id_razdel` = '$razdel[id]' ORDER BY `time` $sort$lim");
                 if (dbrows($q) == 0) {
                     echo "<div class='mess'>";
-                    echo "没有留言在主题";
+                    echo "没有评论在主题";
                     echo "</div>";
                 }
                 while ($post = dbassoc($q)) {
@@ -666,7 +666,7 @@ if ($vote_c != 0) {
                 } elseif (isset($user) && ($them['close'] == 0 || $them['close'] == 1 && user_access('forum_post_close'))) {
                     if (isset($user)) {
                         echo "<div class='foot'>";
-                        echo '新讯息:';
+                        echo '评论:';
                         echo "</div>";
                     }
                     if ($user['set_files'] == 1)

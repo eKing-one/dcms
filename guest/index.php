@@ -103,7 +103,7 @@ if (isset($user) || (isset($set['write_guest']) && $set['write_guest'] == 1 && (
 	echo '<table class="post">';
 	if ($k_post == 0) {
 		echo '<div class="mess" id="no_object">';
-		echo '没有留言';
+		echo '没有评论';
 		echo '</div>';
 	}
 	$q = dbquery("SELECT * FROM `guest` ORDER BY id DESC LIMIT $start, $set[p_str]");
