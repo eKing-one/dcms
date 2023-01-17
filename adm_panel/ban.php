@@ -114,7 +114,7 @@ while ($post = dbassoc($q)) {
     if ($post['navsegda'] == 1) {
         echo " 浴池 <font color=red><b>所有是的</b></font><br />";
     } else {
-        echo " до " . vremja($post['time']) . "<br />";
+        echo " 直到 " . vremja($post['time']) . "<br />";
     }
     echo '<b>原因：</b> ' . $pBan[$post['pochemu']] . '<br />';
     echo '<b>说明:</b> ' . $rBan[$post['razdel']] . '<br />';
