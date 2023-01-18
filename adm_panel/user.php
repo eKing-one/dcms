@@ -200,7 +200,7 @@ echo "城市:<br /><input type='text' name='ank_city' value='$ank[ank_city]' max
 	电话号码:<br /><input type='text' name='ank_n_tel' value='$ank[ank_n_tel]' maxlength='11' /><br />
 	关于我:<br /><input type='text' name='ank_o_sebe' value='$ank[ank_o_sebe]' maxlength='512' /><br />";
 echo "聊天中自动更新:<br /><input type='text' name='set_time_chat' value='$ank[set_time_chat]' maxlength='3' /><br />";
-echo "每页积分:<br /><input type='text' name='set_p_str' value='$ank[set_p_str]' maxlength='3' /><br />";
+echo "每页显示:<br /><input type='text' name='set_p_str' value='$ank[set_p_str]' maxlength='3' /><br />";
 echo "图标:<br /><select name=\"set_show_icon\">";
 if ($ank['set_show_icon'] == 1) $sel = ' selected="selected"';
 else $sel = NULL;

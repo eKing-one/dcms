@@ -65,7 +65,7 @@ err();
 aut();
 echo "<form method=\"post\" action=\"?\">";
 echo "网站名称:<br /><input name=\"title\" value=\"$temp_set[title]\" type=\"text\" /><br />";
-echo "每页积分:<br /><input name=\"p_str\" value=\"$temp_set[p_str]\" type=\"text\" /><br />";
+echo "每页显示:<br /><input name=\"p_str\" value=\"$temp_set[p_str]\" type=\"text\" /><br />";
 echo "主页:<br /><input name=\"main\" value=\"".setget('main',"")."\" type=\"text\" /><br />";
 echo "Admin Toolbar:<br />
 <select name='toolbar'>

@@ -87,7 +87,7 @@ echo "</div>";
 echo "</div>";
 echo "<form method='post' action='?$passgen'>";
 echo "聊天中自动更新:<br /><input type='text' name='set_time_chat' value='$set[time_chat]' maxlength='3' /><br />";
-echo "每页积分:<br /><input type='text' name='set_p_str' value='$set[p_str]' maxlength='3' /><br />";
+echo "每页显示:<br /><input type='text' name='set_p_str' value='$set[p_str]' maxlength='3' /><br />";
 echo "主题 (" . ($webbrowser ? 'WEB' : 'WAP') . "):<br /><select name='set_them" . ($webbrowser ? '2' : null) . "'>";
 $opendirthem = opendir(H . 'style/themes');
 while ($themes = readdir($opendirthem)) {
