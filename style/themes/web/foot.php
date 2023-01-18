@@ -19,7 +19,7 @@ rekl(3);
        <a href="/?t=wap">Wap版本 </a>
             </span>
             <span id="language">
-    <a href="/index.php"><font style="text-transform: capitalize;">© <?=htmlspecialchars($_SERVER['HTTP_HOST']);?> - <?=date('Y');?> г.</font></a></span>
+    <a href="/index.php"><font style="text-transform: capitalize;">© <?=htmlspecialchars($_SERVER['HTTP_HOST']);?> - <?=date('Y');?> </font></a></span>
             <span id="generation">
 <?
 list($msec, $sec) = explode(chr(32), microtime());

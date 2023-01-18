@@ -11,7 +11,7 @@ if ($_SERVER['PHP_SELF'] != '/index.php')
 ?>
 <div class="copy">
 <center>
-&copy; <a href="http://<?=text($_SERVER['HTTP_HOST'])?>" style="text-transform: capitalize;"><?=text($_SERVER['HTTP_HOST'])?></a> - <?=date('Y');?> г.
+&copy; <a href="http://<?=text($_SERVER['HTTP_HOST'])?>" style="text-transform: capitalize;"><?=text($_SERVER['HTTP_HOST'])?></a> - <?=date('Y');?> 
 </center>
 </div>
 <div class="foot">
