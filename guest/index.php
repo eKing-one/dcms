@@ -127,7 +127,7 @@ if (isset($user) || (isset($set['write_guest']) && $set['write_guest'] == 1 && (
 	echo '</table>';
 	if ($k_page > 1) str('index.php?', $k_page, $page); // 输出页数
 	echo '<div class="foot">';
-	echo '<img src="/style/icons/str.gif" alt="*"> <a href="who.php">在线 (' . dbresult(dbquery("SELECT COUNT(id) FROM `user` WHERE `date_last` > '" . (time() - 100) . "' AND `url` like '/guest/%'"), 0) . ' 人.)</a><br />';
+	echo '<img src="/style/icons/str.gif" alt="*"> <a href="who.php">在线 (' . dbresult(dbquery("SELECT COUNT(id) FROM `user` WHERE `date_last` > '" . (time() - 100) . "' AND `url` like '/guest/%'"), 0) . ' 人)</a><br />';
 	echo '</div>';
 	// Форма очистки комментов
 	include 'inc/admin_form.php';

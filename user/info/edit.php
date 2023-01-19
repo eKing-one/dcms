@@ -23,7 +23,7 @@ if (isset($_GET['set']))
 	else
 	$get2 = null;
 if (isset($_POST['save']) && isset($_GET['set'])){
-//----------ник------------//
+//----------尼克------------//
 if (isset($_GET['set']) && $_GET['set']=='nick' && $user['set_nick'] == 1){
 if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '".my_esc($_POST['nick'])."'"),0)==0)
 {
@@ -41,7 +41,7 @@ $user['nick'] = $_POST['nick'];
 dbquery("UPDATE `user` SET `nick` = '".my_esc($user['nick'])."' , `set_nick` = '0' WHERE `id` = '$user[id]' LIMIT 1");
 }
 }
-//----------имя------------//
+//----------姓名------------//
 if (isset($_GET['set']) && $_GET['set']=='name'){
 if (isset($_POST['ank_name']) && preg_match('#^([A-zА-я \-]*)$#ui', $_POST['ank_name']))
 {
@@ -999,6 +999,7 @@ if ($user['ank_alko_n']==3)
 echo "&#62; 不，我断然不接受<br />";
 if ($user['ank_alko_n']==0)
 echo "<br />";
+echo "</div>";
 if ($user['ank_alko'] && $user['ank_alko_n']!=3 && $user['ank_alko_n']!=0)
 echo "<img src='/style/icons/str.gif' alt='*'>  ".htmlspecialchars($user['ank_alko'])."<br />";
 echo "<div class='nav2'>";
