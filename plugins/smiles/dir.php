@@ -45,7 +45,7 @@ while($post = dbarray($q))
 	// Лесенка
 	echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 	$num++;
-	echo '<img src="/style/smiles/'.$post['id'].'.gif" alt="'.$post['name'].'"/> '.text($post['smile']).'</div>';
+	echo '<img src="/style/smiles/'.$post['id'].'.gif" alt="'.$post['smile'].'"/> '.text($post['smile']).'</div>';
 }
 if($k_page>1)str('dir.php?id='.$id.'&amp;',$k_page,$page);
 if (isset($user) && $user['level'] > 3)
