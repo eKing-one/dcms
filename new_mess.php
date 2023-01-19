@@ -22,9 +22,9 @@ $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
 echo "<table class='post'>";
 if ($k_post == 0) {
-	echo "  <div class='mess'>";
+	echo "<div class='mess'>";
 	echo "没有新消息";
-	echo "  </div";
+	echo "</div>";
 } else {
 	$q = dbquery("SELECT MAX(`mail`.`time`) AS `last_time`, COUNT(`mail`.`id`) AS `count`, `mail`.`id_user`, `users_konts`.`name` FROM `mail`
  LEFT JOIN `users_konts` ON `mail`.`id_user` = `users_konts`.`id_kont` AND `users_konts`.`id_user` = '$user[id]'
@@ -43,12 +43,12 @@ if ($k_post == 0) {
 		}
 		/*---------------------------*/
 		if ($ank)
-			echo user::nick($ank['id'],1,1,0);
+			echo user::nick($ank['id'], 1, 1, 0);
 		else
 			echo "<a href='/mail.php?id=$ank[id]'>[DELETED] (+$kont[count])";
 		echo "<font color='#1e00ff'>" . vremja($kont['last_time']) . "</font><br />";
 		echo "<img src='/style/icons/new_mess.gif' alt='*' /> ";
-		echo "<a href='/mail.php?id=$ank[id]'>信息</a> <font color='red'>+$kont[count]</font><br />";
+		echo "<a href='/mail.php?id=$ank[id]'>查看信息</a> <font color='red'>+$kont[count]</font><br />";
 		echo "  </div>";
 	}
 }
