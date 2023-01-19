@@ -1,4 +1,4 @@
-<?
+<?php
 function img_preg($arr)
 {
   if (preg_match('#^https://' . preg_quote($_SERVER['HTTP_HOST']) . '#',$arr[1]) || !preg_match('#://#',$arr[1]))
@@ -14,7 +14,7 @@ function img_preg($arr)
   }
   else
   {
-    return '<a target="_blank" href="https://' . $_SERVER['HTTP_HOST'] . '/go.php?go='.base64_encode(html_entity_decode($arr[1])) . '">Ссылка на внешний сайт/изображение</a>';
+    return '<a target="_blank" href="https://' . $_SERVER['HTTP_HOST'] . '/go.php?go='.base64_encode(html_entity_decode($arr[1])) . '">链接到外部站点/图像</a>';
   }
 }
 function links_preg1($arr)
