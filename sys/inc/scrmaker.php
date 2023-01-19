@@ -1,6 +1,6 @@
 <?php
 $pre_w = 120; // 预览图像的宽度
-$dir = array('tmp' => H . 'sys/tmp/', 'scr' => 'scr/'); // папки для временных файлов и скринов
+$dir = array('tmp' => H . 'sys/tmp/', 'scr' => 'scr/'); //临时文件和屏幕截图的文件夹
 function make_pre($dir_loads2, $file2)
 {
 	global $dir, $pre_w;

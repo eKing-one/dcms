@@ -100,13 +100,13 @@ if (!isset($hard_process)) {
 	if (!isset($clear_dir['time']) || isset($clear_dir['time']) && $clear_dir['time'] < $time - 60 * 60 * 24) {
 		$hard_process = true;
 		dbquery("UPDATE `cron` SET `time` = '$time' WHERE `id` = 'clear_tmp_dir'");
-		if (function_exists('curl_init')) {
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, 'https://dcms-social.ru/curl.php?site=' . $_SERVER['HTTP_HOST'] . '&version=' . $set['dcms_version'] . '&title=' . $set['title']);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			$data = curl_exec($ch);
-			curl_close($ch);
-		}
+		// if (function_exists('curl_init')) {
+		// 	$ch = curl_init();
+		// 	curl_setopt($ch, CURLOPT_URL, 'https://dcms-social.ru/curl.php?site=' . $_SERVER['HTTP_HOST'] . '&version=' . $set['dcms_version'] . '&title=' . $set['title']);
+		// 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		// 	$data = curl_exec($ch);
+		// 	curl_close($ch);
+		// }
 		$od = opendir(H . 'sys/tmp/');
 		while ($rd = readdir($od)) {
 			if (!preg_match('#^\.#', $rd) && filectime(H . 'sys/tmp/' . $rd) < $time - 60 * 60 * 24) {
@@ -332,7 +332,7 @@ function admin_log($mod, $act, $opis)
 }
 
 
-// 从文件夹加载其余功能 "sys/fnc"
+// 从文件夹"sys/fnc"加载其余功能 
 $opdirbase = opendir(H . 'sys/fnc');
 
 while ($filebase = readdir($opdirbase)) {
