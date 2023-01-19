@@ -45,7 +45,7 @@ if (isset($_POST['msg']) && isset($user)) {
 	} elseif (strlen2($msg) < 2) {
 		$err = '短消息';
 	} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `news_komm` WHERE `id_news` = '" . intval($_GET['id']) . "' AND `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
-		$err = 'Ваше сообщение повторяет предыдущее';
+		$err = '你的留言重复了上一条';
 	} elseif (!isset($err)) {
 		dbquery("INSERT INTO `news_komm` (`id_user`, `time`, `msg`, `id_news`) values('$user[id]', '$time', '" . my_esc($msg) . "', '" . intval($_GET['id']) . "')");
 		// Начисление баллов за активность
