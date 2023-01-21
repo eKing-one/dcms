@@ -91,6 +91,24 @@ function delete_dir($dir)
 	}
 }
 
+if (!defined("ADMIN")) {
+
+	$hackparam = $_SERVER['QUERY_STRING'];
+	$hackparam = htmlspecialchars($hackparam);
+
+	$hackcmd = array('chr(', 'r57shell', 'remview', '%27', 'config=', 'OUTFILE%20', 'spnuke_authors', 'spnuke_admins', 'uname%20', 'netstat%20', 'rpm%20', 'passwd', '%20', 'del%20', 'deltree%20', 'format%20', 'start%20', 'wget', 'group_access', '%3E', '%3С',  'select%20', 'SELECT', 'cmd=', 'rush=', 'union', 'javascript:', 'UNION', 'echr(', 'esystem(', 'cp%20', 'mdir%20', 'mcd%20', 'mrd%20', 'rm%20', 'mv%20', 'rmdir%20', 'chmod(', 'chmod%20', 'chown%20', 'chgrp%20', 'locate%20', 'diff%20', 'kill%20', 'kill(', 'killall', 'cmd', 'command', 'fetch', 'whereis', 'grep%20', 'ls -', 'lynx', 'su%20root', 'test', 'etc/passwd',  "'", '%60', '%00', '%F20', 'echo', 'write(', 'killall', 'passwd%20', 'telnet%20', 'vi(', 'vi%20', 'INSERT%20INTO', 'SELECT%20', 'javascript', 'fopen', 'fwrite', '$_REQUEST', '$_GET', '<script>', 'alert', '&lt', '&gt'); //запрещенные параметры и значения
+
+	$checkcmd = str_replace($hackcmd, 'X', $hackparam);
+
+	if ($hackparam != $checkcmd) {
+		$sqlsession = $db; {
+
+			dbquery("INSERT INTO ban_ip (min, max) VALUES(\"$iplong\", \"$iplong\");", $sqlsession);
+			dbquery("INSERT INTO mail (id_user, id_kont, msg, time) VALUES(\"0\", \"1\", \"IP: $iplong UA: $cuseragent 正在进行黑客攻击\", \"$time\");", $sqlsession);
+		}
+		die("<h2>攻击失败！</h2><br>你的浏览器： <b>$cuseragent</b><br>你的IP： <b>$iplong</b><br><b>已被记录，不要尝试违法操作！</b><br><br>有着时间多休息吧！！！！");
+	}
+}
 
 // 正在清除临时文件夹
 if (!isset($hard_process)) {
@@ -117,6 +135,7 @@ if (!isset($hard_process)) {
 	}
 }
 // 统计数据汇总
+
 if (!isset($hard_process)) {
 	$q = dbquery("SELECT * FROM `cron` WHERE `id` = 'visit' LIMIT 1");
 	if (dbrows($q) == 0) dbquery("INSERT INTO `cron` (`id`, `time`) VALUES ('visit', '$time')");
