@@ -90,23 +90,85 @@ function delete_dir($dir)
 		@unlink("$dir");
 	}
 }
-
+//curl支持函数
+function get_curl($url, $post=0, $referer=0, $cookie=0, $header=0, $ua=0, $nobaody=0, $addheader=0)
+{
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+	$httpheader[] = "Accept: */*";
+	$httpheader[] = "Accept-Encoding: gzip,deflate,sdch";
+	$httpheader[] = "Accept-Language: zh-CN,zh;q=0.8";
+	$httpheader[] = "Connection: close";
+	if($addheader){
+		$httpheader = array_merge($httpheader, $addheader);
+	}
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
+	if ($post) {
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+	}
+	if ($header) {
+		curl_setopt($ch, CURLOPT_HEADER, true);
+	}
+	if ($cookie) {
+		curl_setopt($ch, CURLOPT_COOKIE, $cookie);
+	}
+	if($referer){
+		if($referer==1){
+			curl_setopt($ch, CURLOPT_REFERER, 'http://m.qzone.com/infocenter?g_f=');
+		}else{
+			curl_setopt($ch, CURLOPT_REFERER, $referer);
+		}
+	}
+	if ($ua) {
+		curl_setopt($ch, CURLOPT_USERAGENT, $ua);
+	}
+	else {
+		curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Linux; U; Android 4.0.4; es-mx; HTC_One_X Build/IMM76D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0");
+	}
+	if ($nobaody) {
+		curl_setopt($ch, CURLOPT_NOBODY, 1);
+	}
+	curl_setopt($ch, CURLOPT_ENCODING, "gzip");
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	$ret = curl_exec($ch);
+	curl_close($ch);
+	return $ret;
+}
+//获取ip位置信息
+function get_ip_city($ip)
+{
+    $url = 'http://whois.pconline.com.cn/ipJson.jsp?json=true&ip=';
+    $city = get_curl($url . $ip);
+	$city = mb_convert_encoding($city, "UTF-8", "GB2312");
+    $city = json_decode($city, true);
+    if ($city['city']) {
+        $location = $city['pro'].$city['city'];
+    } else {
+        $location = $city['pro'];
+    }
+	if($location){
+		return $location;
+	}else{
+		return false;
+	}
+}
+//反黑客攻击行为
 if (!defined("ADMIN")) {
 
 	$hackparam = $_SERVER['QUERY_STRING'];
 	$hackparam = htmlspecialchars($hackparam);
 
-	$hackcmd = array('chr(', 'r57shell', 'remview', '%27', 'config=', 'OUTFILE%20', 'spnuke_authors', 'spnuke_admins', 'uname%20', 'netstat%20', 'rpm%20', 'passwd', '%20', 'del%20', 'deltree%20', 'format%20', 'start%20', 'wget', 'group_access', '%3E', '%3С',  'select%20', 'SELECT', 'cmd=', 'rush=', 'union', 'javascript:', 'UNION', 'echr(', 'esystem(', 'cp%20', 'mdir%20', 'mcd%20', 'mrd%20', 'rm%20', 'mv%20', 'rmdir%20', 'chmod(', 'chmod%20', 'chown%20', 'chgrp%20', 'locate%20', 'diff%20', 'kill%20', 'kill(', 'killall', 'cmd', 'command', 'fetch', 'whereis', 'grep%20', 'ls -', 'lynx', 'su%20root', 'test', 'etc/passwd',  "'", '%60', '%00', '%F20', 'echo', 'write(', 'killall', 'passwd%20', 'telnet%20', 'vi(', 'vi%20', 'INSERT%20INTO', 'SELECT%20', 'javascript', 'fopen', 'fwrite', '$_REQUEST', '$_GET', '<script>', 'alert', '&lt', '&gt'); //запрещенные параметры и значения
+	$hackcmd = array('chr(', 'r57shell', 'remview', '%27', 'config=', 'OUTFILE%20', 'spnuke_authors', 'spnuke_admins', 'uname%20', 'netstat%20', 'rpm%20', 'passwd', '%20', 'del%20', 'deltree%20', 'format%20', 'start%20', 'wget', 'group_access', '%3E', '%3С',  'select%20', 'SELECT', 'cmd=', 'rush=', 'union', 'javascript:', 'UNION', 'echr(', 'esystem(', 'cp%20', 'mdir%20', 'mcd%20', 'mrd%20', 'rm%20', 'mv%20', 'rmdir%20', 'chmod(', 'chmod%20', 'chown%20', 'chgrp%20', 'locate%20', 'diff%20', 'kill%20', 'kill(', 'killall', 'cmd', 'command', 'fetch', 'whereis', 'grep%20', 'ls -', 'lynx', 'su%20root', 'test', 'etc/passwd',  "'", '%60', '%00', '%F20', 'echo', 'write(', 'killall', 'passwd%20', 'telnet%20', 'vi(', 'vi%20', 'INSERT%20INTO', 'SELECT%20', 'javascript', 'fopen', 'fwrite', '$_REQUEST', '$_GET', '<script>', 'alert', '&lt', '&gt'); //禁用参数和值
 
 	$checkcmd = str_replace($hackcmd, 'X', $hackparam);
 
 	if ($hackparam != $checkcmd) {
-		$sqlsession = $db; {
-
-			dbquery("INSERT INTO ban_ip (min, max) VALUES(\"$iplong\", \"$iplong\");", $sqlsession);
-			dbquery("INSERT INTO mail (id_user, id_kont, msg, time) VALUES(\"0\", \"1\", \"IP: $iplong UA: $cuseragent 正在进行黑客攻击\", \"$time\");", $sqlsession);
-		}
-		die("<h2>攻击失败！</h2><br>你的浏览器： <b>$cuseragent</b><br>你的IP： <b>$iplong</b><br><b>已被记录，不要尝试违法操作！</b><br><br>有着时间多休息吧！！！！");
+		dbquery("INSERT INTO ban_ip (min, max) VALUES(\"$iplong\", \"$iplong\");");
+		dbquery("INSERT INTO mail (id_user, id_kont, msg, time) VALUES(\"0\", \"1\", \"IP: $iplong UA: $ua 正在进行黑客攻击\", \"$time\");");
+		die('<h2>攻击失败！</h2><br>你的浏览器：<b>'.$ua.'</b><br>你的IP： <b>'.$ip.'</b><br>位置：<b>'.get_ip_city($ip).'</b><br><b>已被记录，不要尝试违法操作！</b><br><br>有这时间多休息吧！！！！');
 	}
 }
 
