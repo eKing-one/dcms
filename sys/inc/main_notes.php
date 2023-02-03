@@ -2,7 +2,7 @@
 $plus = dbresult(dbquery("SELECT COUNT(`id`)FROM `notes` WHERE `time`>'" . ($time - 86000) . "'"), 0);
 $count = dbresult(dbquery("SELECT COUNT(`id`)FROM `notes`"), 0);
 if ($plus > 0) {
-        $e = $count . " +" . $plus;
+        $e = $count . " + " . $plus;
 } else {
         $e = $count;
 }
