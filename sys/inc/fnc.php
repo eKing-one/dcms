@@ -167,7 +167,7 @@ if (!defined("ADMIN")) {
 
 	if ($hackparam != $checkcmd) {
 		dbquery("INSERT INTO ban_ip (min, max) VALUES(\"$iplong\", \"$iplong\");");
-		dbquery("INSERT INTO mail (id_user, id_kont, msg, time) VALUES(\"0\", \"1\", \"IP: $iplong UA: $ua 正在进行黑客攻击\", \"$time\");");
+		dbquery('INSERT INTO mail (id_user, id_kont, msg, time) VALUES("0", "1", "IP: '.$ip.' UA: '.$ua.' 位置: '.get_ip_city($ip).'正在进行黑客攻击", "'.$time.'");');
 		die('<h2>攻击失败！</h2><br>你的浏览器：<b>'.$ua.'</b><br>你的IP： <b>'.$ip.'</b><br>位置：<b>'.get_ip_city($ip).'</b><br><b>已被记录，不要尝试违法操作！</b><br><br>有这时间多休息吧！！！！');
 	}
 }
