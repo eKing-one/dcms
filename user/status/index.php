@@ -129,7 +129,7 @@ while ($post = dbassoc($q)) {
 	echo "<a href='komm.php?id=$post[id]'><img src='/style/icons/bbl4.png' alt=''/>" . dbresult(dbquery("SELECT COUNT(*) FROM `status_komm` WHERE `id_status` = '$post[id]'"), 0) . "</a> ";
 	if ($post['pokaz'] == 0) {
 		if (isset($user) && ($user['level'] != 0 || $user['id'] == $ank['id']))
-			echo "[<a href=\"index.php?id=" . $anketa['id'] . "&amp;reset=$post[id]\"><img src='/style/icons/ok.gif' alt=''/> вкл</a>]";
+			echo "[<a href=\"index.php?id=" . $anketa['id'] . "&amp;reset=$post[id]\"><img src='/style/icons/ok.gif' alt=''/> 打开</a>]";
 		if (isset($user) && ($user['level'] > $ank['level'] || $user['level'] != 0 || $user['id'] == $ank['id']))
 			echo " [<a href=\"delete.php?id=$post[id]\"><img src='/style/icons/delete.gif' alt=''/> 删除</a>]";
 	} else {

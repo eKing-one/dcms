@@ -264,8 +264,7 @@ echo "</div>";
 //-----------------инфо----------------//
 echo "<div class='nav2'>";
 echo "<b>ID: $ank[id]</b><br /> ";
-echo "积分 (";
-echo "<font color='green'>$ank[balls]</font>)<br /> ";
+echo "积分 (<font color='green'>$ank[balls]</font>)<br /> ";
 echo $sMonet[2] . ' (' . $ank['money'] . ')<br />';
 echo "<img src='/style/icons/time.png' alt='*' width='14'/> ($displaystring)<br />  ";
 echo "</div>";
@@ -641,10 +640,10 @@ echo "<div class='foot'>";
 if (isset($user) && $user['id'] == $ank['id']) echo "<img src='/style/icons/str.gif' alt='*' /> <a href=\"edit.php\">修改资料</a><br />";
 if ($user['level'] > $ank['level']) {
 	if (user_access('user_prof_edit'))
-		echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/user.php?id=$ank[id]'>编辑配置文件</a><br />";
+		echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/user.php?id=$ank[id]'>编辑资料</a><br />";
 	if ($user['id'] != $ank['id']) {
 		if (user_access('user_ban_set') || user_access('user_ban_set_h') || user_access('user_ban_unset'))
-			echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/ban.php?id=$ank[id]'>违反行为（禁止酷刑）</a><br />";
+			echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/ban.php?id=$ank[id]'>加入黑名单</a><br />";
 		if (user_access('user_delete')) {
 			echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/delete_user.php?id=$ank[id]'>删除用户</a>";
 			echo "<br />";

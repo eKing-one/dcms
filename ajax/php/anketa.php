@@ -109,7 +109,7 @@ if (isset($_GET['id'])) {
         echo "&raquo; 友谊与沟通<br />";
     }
     if ($ank['ank_lov_2'] == 1) {
-        echo "&raquo; 通信;通信<br />";
+        echo "&raquo; 通信<br />";
     }
     if ($ank['ank_lov_3'] == 1) {
         echo "&raquo; 爱情，关系<br />";

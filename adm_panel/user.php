@@ -26,6 +26,7 @@ if ($user['level'] <= $ank['level']) {
 	header("Location: /index.php?" . SID);
 	exit;
 }
+echo "test".$user['level']."->".$ank['level'] ;
 $set['title'] = '用户个人资料 ' . $ank['nick'];
 include_once '../sys/inc/thead.php';
 title();
@@ -125,6 +126,8 @@ if (isset($_POST['save'])) {
 				$ank['group_access'] = intval($_POST['group_access']);
 				dbquery("UPDATE `user` SET `group_access` = '$ank[group_access]' WHERE `id` = '$ank[id]' LIMIT 1");
 			}
+		}else{
+			msg("权限不足！");
 		}
 	}
 	if (($user['level'] >= 3 || $ank['id'] == $user['id']) && isset($_POST['balls']) && is_numeric($_POST['balls'])) {
@@ -228,18 +231,19 @@ echo "</select><br />";
 if ($user['level'] < 3) $dis = ' disabled="disabled"';
 else $dis = NULL;
 echo "积分:<br /><input type='text'$dis name='balls' value='$ank[balls]' /><br />";
+
 echo "团体:<br /><select name='group_access'" . (user_access('user_change_group') ? null : ' disabled="disabled"') . "><br />";
 $q = dbquery("SELECT * FROM `user_group` ORDER BY `level`,`id` ASC");
 while ($post = dbassoc($q)) {
 	echo "<option value='$post[id]'" . ($post['level'] >= $user['level'] ? " disabled='disabled'" : null) . "" . ($post['id'] == $ank['group_access'] ? " selected='selected'" : null) . ">" . $post['name'] . "</option>";
 }
 echo "</select><br />";
-echo "附加组:<br />\n<select name='group_access2'" . (user_access('user_change_group') ? null : ' disabled="disabled"') . "><br />";
-$q = dbquery("SELECT * FROM `user_group` ORDER BY `level`,`id` ASC");
-while ($post = dbassoc($q)) {
-	echo "<option value='$post[id]'" . ($post['level'] >= $user['level'] ? " disabled='disabled'" : null) . "" . ($post['id'] == $ank['group_access'] ? " selected='selected'" : null) . ">" . $post['name'] . "</option>";
-}
-echo "</select><br />";
+// echo "附加组:<br />\n<select name='group_access2'" . (user_access('user_change_group') ? null : ' disabled="disabled"') . "><br />";
+// $q = dbquery("SELECT * FROM `user_group` ORDER BY `level`,`id` ASC");
+// while ($post = dbassoc($q)) {
+// 	echo "<option value='$post[id]'" . ($post['level'] >= $user['level'] ? " disabled='disabled'" : null) . "" . ($post['id'] == $ank['group_access'] ? " selected='selected'" : null) . ">" . $post['name'] . "</option>";
+// }
+// echo "</select><br />";
 echo "新密码:<br /><input type='text' name='new_pass' value='' /><br />";
 echo "<input type='submit' name='save' value='保存' />";
 echo "</form>";

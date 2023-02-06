@@ -161,7 +161,7 @@ class user
 				if ($ank[$user_id]['id'] != 0) {
 
 
-					$tmp_us = dbassoc(dbquery("SELECT `level`,`name` AS `group_name` FROM `user_group` WHERE `id` = '" . $users[$user_id]['group_access'] . "' LIMIT 1"));
+					$tmp_us = dbassoc(dbquery("SELECT `level`,`name` AS `group_name` FROM `user_group` WHERE `id` = '" . $ank[$user_id]['group_access'] . "' LIMIT 1"));
 
 					if (!isset($tmp_us) or empty($tmp_us['group_name'])) {
 						$ank[$user_id]['level'] = 0;

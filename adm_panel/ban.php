@@ -27,7 +27,7 @@ if ($user['level'] <= $ank['level']) {
     header("Location: /index.php?" . SID);
     exit;
 }
-$set['title'] = '用户禁令 ' . $ank['nick'];
+$set['title'] = '用户黑名单 ' . $ank['nick'];
 include_once '../sys/inc/thead.php';
 title();
 if (isset($_GET['delete']) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$ank[id]' AND `id` = '" . intval($_GET['delete']) . "'"), 0) && user_access('user_ban_unset')) {
@@ -76,7 +76,7 @@ if (isset($_POST['ban_pr']) && isset($_POST['time']) && isset($_POST['vremja']) 
     $prich = my_esc($prich);
     if (!isset($err)) {
         dbquery("INSERT INTO `ban` (`id_user`, `id_ban`, `prich`, `time`, `pochemu`, `razdel`, `post`, `navsegda`) VALUES ('$ank[id]', '$user[id]', '$prich', '$timeban', '$pochemu', '$razdel', '$post', '$navsegda')");
-        admin_log('用户', '禁令', "用户禁令 '[url=/adm_panel/ban.php?id=$ank[id]]$ank[nick][/url]' до " . vremja($timeban) . " по причине '$prich'");
+        admin_log('用户', '禁令', "用户禁令 '[url=/adm_panel/ban.php?id=$ank[id]]$ank[nick][/url]' 直到 " . vremja($timeban) . " 由于 '$prich'");
         $_SESSION['message'] = '用户已成功被禁止';
         header("Location: ?id=$ank[id]");
         exit;
@@ -126,6 +126,7 @@ while ($post = dbassoc($q)) {
 }
 echo "</table>";
 if ($k_page > 1) str('?id=' . $ank['id'] . '&amp;', $k_page, $page); // 输出页数
+
 if (user_access('user_ban_set') || user_access('user_ban_set_h')) {
     echo "<form action=\"ban.php?id=$ank[id]&amp;$passgen\" method=\"post\">";
     echo "<div class='nav1'>说明:</div>";
