@@ -13,7 +13,7 @@ if (isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `liders` WHERE 
 	if (isset($user) && $user['level'] > 2)
 	{
 		dbquery("DELETE FROM `liders` WHERE `id_user` = '" . intval($_GET['id']) . "'");
-		$_SESSION['message'] = '删除成功1111';
+		$_SESSION['message'] = '删除成功';
 	}
 }
 if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']!=NULL)

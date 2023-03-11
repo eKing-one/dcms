@@ -19,7 +19,7 @@ if ($k_post == 0) {
     echo "没有评论";
     echo "  </div>";
 } else {
-    /*------------сортировка по времени--------------*/
+    /*------------时间排序--------------*/
     if (isset($user)) {
         echo "<div id='comments' class='menus'>";
         echo "<div class='webmenu'>";

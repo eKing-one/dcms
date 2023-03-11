@@ -68,7 +68,7 @@ include_once '../../sys/inc/thead.php';
 
 /*
 ===============================
-Очищение списка непрочитанных
+清除未读列表
 ===============================
 */
 if (isset($_GET['read']) && $_GET['read'] == 'all') {
@@ -83,13 +83,13 @@ if (isset($_GET['read']) && $_GET['read'] == 'all') {
 
 /*
 ===============================
-Полная очистка ленты
+全胶带清洗
 ===============================
 */
 if (isset($_GET['delete']) && $_GET['delete'] == 'all') {
 	if (isset($user)) {
 		dbquery("DELETE FROM `tape` WHERE `id_user` = '$user[id]'");
-		$_SESSION['message'] = '磁带已成功清洁';
+		$_SESSION['message'] = '成功清洁';
 		header("Location: ?");
 		exit;
 	}

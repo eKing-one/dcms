@@ -247,7 +247,7 @@ while ($forum = dbassoc($q)) {
 }
 echo "</table>";
 echo "<div class='foot'>";
-echo "<img src='/style/icons/soob114.gif'> <a href='on-forum.php'>谁在论坛？</a> | <a href='/user/admin.user.php?forum'>适度</a>";
+echo "<img src='/style/icons/soob114.gif'> <a href='on-forum.php'>谁在论坛？</a> | <a href='/user/admin.user.php?forum'>版主</a>";
 echo "</div>";
 if (user_access('forum_for_create') && (isset($_GET['act']) && $_GET['act'] == 'new' || dbresult(dbquery("SELECT COUNT(*) FROM `forum_f`"), 0) == 0)) {
   echo "<form method=\"post\" action=\"/forum/index.php?act=new&amp;ok\">";

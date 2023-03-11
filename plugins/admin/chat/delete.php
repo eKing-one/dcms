@@ -16,16 +16,16 @@ if ($post['id_user']==0)
 $ank['id']=0;
 $ank['pol']='guest';
 $ank['level']=0;
-$ank['nick']='Гость';
+$ank['nick']='客人';
 }
 else
 $ank=user::get_user($post['id_user']);
 if (user_access('guest_delete'))
 {
-admin_log('Гостевая','Удаление сообщения',"Удаление сообщения от $ank[nick]");
+admin_log('客座','删除消息',"将消息从 $ank[nick]");
 dbquery("DELETE FROM `adm_chat` WHERE `id` = '$post[id]'");
 }
-$_SESSION['message'] = 'Сообщение успешно удалено';
+$_SESSION['message'] = '邮件已成功删除';
 header("Location: index.php?");
 exit;
 }
