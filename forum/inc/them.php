@@ -303,10 +303,11 @@ if (user_access('forum_post_ed') && isset($_GET['del'])) // удаление п�
 }
 /*
 ======================================
-Удаление темы
+删除主题
 ======================================
 */
-if (isset($_GET['act']) && $_GET['act'] == 'del' && user_access('forum_them_del') && ($ank2['level'] <= $user['level'] || $ank2['id'] == $user['id'])) {
+//鉴权有BUG&& user_access('forum_them_del') 
+if (isset($_GET['act']) && $_GET['act'] == 'del' && ($ank2['level'] <= $user['level'] || $ank2['id'] == $user['id'])) {
     echo "<div class=\"mess\">";
     echo "确认删除主题 <b>" . output_text($them['name']) . "</b><br />";
     echo "</div>";
@@ -314,14 +315,14 @@ if (isset($_GET['act']) && $_GET['act'] == 'del' && user_access('forum_them_del'
     echo "[<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?act=delete&amp;ok\"><img src='/style/icons/ok.gif' alt='*'> 是的</a>] [<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/\"><img src='/style/icons/delete.gif' alt='*'> 取消</a>]<br />";
     echo "</div>";
     echo "<div class='foot'>";
-    echo "<img src='/style/icons/fav.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?'>在主题</a><br />";
+    echo "<img src='/style/icons/fav.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?'>返回主题</a><br />";
     echo "</div>";
     include_once '../sys/inc/tfoot.php';
     exit;
 }
 /*
 =========
-Опрос от VoronoZ
+来自 Voronoz 的调查
 =========
 */
 if (isset($_GET['act']) && $_GET['act'] == 'vote' && (user_access('forum_them_edit') || $ank2['id'] == $user['id'])) {
@@ -541,7 +542,7 @@ if ($vote_c != 0) {
         echo "</div>";
         /*
 ======================================
-Кнопки действия с темой
+带有主题的操作按钮
 ======================================
 */
         if (isset($user) && (((!isset($_GET['act']) || $_GET['act'] != 'post_delete') && (user_access('forum_post_ed') || $ank2['id'] == $user['id']))
@@ -565,7 +566,7 @@ if ($vote_c != 0) {
                     echo "</div>";
                 }
                 echo "<div class='foot'>评论：</div>";
-                /*------------сортировка по времени--------------*/
+                /*------------时间排序--------------*/
                 if (isset($user)) {
                     echo "<div id='comments' class='menus'>";
                     echo "<div class='webmenu'>";
@@ -603,9 +604,9 @@ if ($vote_c != 0) {
                     echo user::avatar($post['id_user']);
                     echo user::nick($ank['id'], 1, 1, 0) . ' <span style="float:right;color:#666;">' . vremja($post['time']) . '</span><br/>';
                     $postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'forum') AND `post` = '1' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
-                    if ($postBan == 0) // Блок сообщения
+                    if ($postBan == 0) // 报文部分
                     {
-                        if ($them['id_user'] == $post['id_user']) // Отмечаем автора темы
+                        if ($them['id_user'] == $post['id_user']) // 标记主题作者
                             echo '<font color="#999">主题作者</font><br />';
                         /*------------Вывод статуса-------------*/
                         $status = dbassoc(dbquery("SELECT * FROM `status` WHERE `pokaz` = '1' AND `id_user` = '$ank[id]' LIMIT 1"));
