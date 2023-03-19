@@ -6,7 +6,7 @@ if (isset($user) && $user['id'] == $ank['id'])
 		$name = my_esc($_POST['name']);
 		if (strlen2($name) < 3)$err = '短标题';
 		if (strlen2($name) > 32)$err = '标题不得超过 32 个字符';
-		$pass = my_esc($pass);
+		@$pass = my_esc($pass);
 		$privat = intval($_POST['privat']);
 		$privat_komm = intval($_POST['privat_komm']);
 		$msg = $_POST['opis'];
