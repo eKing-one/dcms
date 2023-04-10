@@ -1,0 +1,20 @@
+function dbresult($result, $row, $field = 0)
+{
+ return mysql_result($result, $row, $field);
+}
+function dbquery($query)
+{
+  return query($query);
+}
+function dbrows($result)
+{
+  return mysql_num_rows($result);
+}
+function dbarray($result)
+{
+  return mysql_fetch_array($result);
+}
+function dbassoc($result)
+{
+  return mysql_fetch_assoc($result);
+}

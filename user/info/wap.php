@@ -26,8 +26,8 @@ echo "<br />";
 if (isset($user) && isset($_GET['like']) && $user['id'] != $ank['id'] && dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
 	dbquery("INSERT INTO `status_like` (`id_user`, `id_status`) values('$user[id]', '$status[id]')");
 }
-if (isset($status['id']) && ($status['id'] || $ank['id'] == $user['id'])) {
-	echo "<div class='st_1'></div>";
+if (isset($user) && $user['id'] == $ank['id']) {
+	echo "<div class='st_1'>状态</div>";
 	echo "<div class='st_2'>";
 	if ($status['id']) {
 		echo output_text($status['msg']) . ' <font style="font-size:11px; color:gray;">' . vremja($status['time']) . '</font>';
@@ -37,7 +37,7 @@ if (isset($status['id']) && ($status['id'] || $ank['id'] == $user['id'])) {
 		echo "您的状态 [<a href='?id=$ank[id]&status'><img src='/style/icons/edit.gif' alt='*'> 编辑</a>]";
 	}
 	echo "</div>";
-	// Если статус установлен
+	// 如果已设置
 	if ($status['id']) {
 		echo " <a href='/user/status/komm.php?id=$status[id]'><img src='/style/icons/bbl4.png' alt=''/> " . dbresult(dbquery("SELECT COUNT(*) FROM `status_komm` WHERE `id_status` = '$status[id]'"), 0) . " </a> ";
 		$l = dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]'"), 0);
