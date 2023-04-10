@@ -17,7 +17,6 @@ function dbresult($result, $row, $field = 0)
       return $resrow[$field];
     }
   }
-  return FALSE;
 }
 function dbquery($query)
 {

@@ -37,7 +37,7 @@ while ($post = dbassoc($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	echo user::nick($user['id'],1,1,0);
+	echo user::nick($ank['id'],1,1,0);
 	if (isset($user) && $user['id'] != $ank['id']) echo " <a href='?showinfo&amp;page=$page&amp;response=$ank[id]'>[@]</a> ";
 	echo " (" . vremja($post['time']) . ")<br />";
 	$postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'files') AND `post` = '1' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
@@ -50,7 +50,7 @@ while ($post = dbassoc($q)) {
 	if (isset($user)) {
 		echo '<div style="text-align:right;">';
 		if ($ank['id'] != $user['id'])
-			echo "<a href=\"?showinfo&amp;page=$page&amp;spam=$post[id]\"><img src='/style/icons/blicon.gif' alt='*' title='是垃圾邮件。'></a> ";
+			echo "<a href=\"?showinfo&amp;page=$page&amp;spam=$post[id]\"><img src='/style/icons/blicon.gif' alt='*' title='举报垃圾邮件'></a> ";
 		if (user_access('down_komm_del') || $avtor['id'] == $user['id'])
 			echo '<a href="?showinfo&amp;page=' . $page . '&amp;del_post=' . $post['id'] . '"><img src="/style/icons/delete.gif" alt="*"></a>';
 		echo "   </div>";
