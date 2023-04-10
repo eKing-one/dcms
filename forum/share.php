@@ -36,7 +36,7 @@ if (dbresult(dbquery("SELECT COUNT(`id`)FROM `notes` WHERE `id_user`='" . $user[
     $avtor = user::get_user($notes['id_user']);
     if (isset($_POST['ok'])) {
         dbquery("INSERT INTO `notes`(`id_user`,`name`,`msg`,`share`,`share_text`,`share_id`,`share_id_user`,`share_name`,`time`,`share_type`) values('" . $user['id'] . "','" . text($notes['name']) . "','" . my_esc($_POST['share_text']) . "','1','" . my_esc($notes['text']) . "','" . $notes['id'] . "','" . $notes['id_user'] . "','" . my_esc($notes['name']) . "','" . $time . "','forum')");
-        $id = mysql_insert_id();
+        $id = dbinsertid();
         msg('一切顺利');
         header('Location:/plugins/notes/list.php?id=' . $id);
         exit;

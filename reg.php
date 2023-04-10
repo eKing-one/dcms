@@ -58,11 +58,11 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 		if ($set['reg_select'] == 'open_mail') {
 			$activation = md5(passgen());
 			dbquery("INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_last`, `pol`, `activation`, `ank_mail`) values('" . $_SESSION['reg_nick'] . "', '" . shif($_POST['pass1']) . "', '$time', '$time', '" . intval($_POST['pol']) . "', '$activation', '" . my_esc($_POST['ank_mail']) . "')", $db);
-			$id_reg = mysql_insert_id();
+			$id_reg = dbinsertid();
 			$subject = "帐户激活";
 			$regmail = "你好！ $_SESSION[reg_nick]<br />
 			要激活您的帐户，请点击链接:<br />
-<a href='http://$_SERVER[HTTP_HOST]/reg.php?id=$id_reg&amp;activation=$activation'>http://$_SERVER[HTTP_HOST]/reg.php?id=" . mysql_insert_id() . "&amp;activation=$activation</a><br />
+<a href='http://$_SERVER[HTTP_HOST]/reg.php?id=$id_reg&amp;activation=$activation'>http://$_SERVER[HTTP_HOST]/reg.php?id=" . dbinsertid() . "&amp;activation=$activation</a><br />
 如果帐户在24小时内未激活，它将被删除<br />
 真诚的，网站管理<br />
 ";

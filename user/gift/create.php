@@ -102,7 +102,7 @@ if (isset($_GET['edit_gift']) && isset($_GET['category'])) {
 			if (strlen2($name) > 128) $err = 'Длина названия превышает предел в 128 символов';
 			if (!isset($err)) {
 				dbquery("INSERT INTO `gift_list` (`name`, `money`, `id_category`) values('$name', '$money', '$category[id]')");
-				$file_id = mysql_insert_id();
+				$file_id = dbinsertid();
 				copy($_FILES['gift']['tmp_name'], H . 'sys/gift/' . $file_id . '.png');
 				@chmod(H . 'sys/gift/' . $file_id . '.png', 0777);
 				$_SESSION['message'] = 'Подарок успешно добавлен';

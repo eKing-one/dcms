@@ -52,7 +52,7 @@ if (strlen2($msg)>30000){$err='内容不能超过30,000个字符';}
 if (strlen2($msg)<2 && $type == 0){$err='内容太短';}
 if (!isset($err)){
 dbquery("INSERT INTO `notes` (`time`, `msg`, `name`, `id_user`, `private`, `private_komm`, `id_dir`, `type`) values('$time', '$msg', '$title', '{$user['id']}', '$privat', '$privat_komm', '$id_dir', '$type')");
-$st = mysql_insert_id();
+$st = dbinsertid();
 if($privat!=2){
 dbquery("insert into `stena`(`id_stena`,`id_user`,`time`,`info`,`info_1`,`type`) values('".$user['id']."','".$user['id']."','".$time."','новый дневник','".$st."','note')");
 }

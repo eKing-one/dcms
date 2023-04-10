@@ -77,11 +77,11 @@ if (function_exists('imagecreatefromstring') && function_exists('gd_info')) {
     echo "<span class='off'>GD: OFF</span><br />";
     $err[] = 'GD是正确运行所必需的';
 }
-if (function_exists('mysql_info')) {
-    echo "<span class='on'>MySQL: OK</span><br />";
+if (function_exists('mysqli_info')) {
+    echo "<span class='on'>MySQLi: OK</span><br />";
 } else {
-    echo "<span class='off'>MySQL: OFF</span><br />";
-    $err[] = '没有MySQL，工作是不可能的';
+    echo "<span class='off'>MySQLi: OFF</span><br />";
+    $err[] = '没有MySQLi，工作是不可能的';
 }
 if (function_exists('iconv')) {
     echo "<span class='on'>Iconv: OK</span><br />";

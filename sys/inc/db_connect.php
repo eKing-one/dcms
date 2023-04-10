@@ -39,6 +39,10 @@ function dbassoc($result)
   global $db;
   return mysqli_fetch_assoc($result);
 }
+function dbinsertid(){
+  global $db;
+  return mysqli_insert_id($db);
+}
 dbquery('set charset utf8mb4',$db);
 dbquery('SET names utf8mb4',$db);
 dbquery('set character_set_client="utf8mb4"',$db);

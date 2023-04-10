@@ -58,8 +58,8 @@ if ((user_access('photo_photo_edit')) || (isset($user) && $ank['id'] == $user['i
 	include 'inc/gallery_show_photo_act.php';
 /*------------очищаем счетчик этого обсуждения-------------*/
 if (isset($user)) {
-	query("UPDATE `discussions` SET `count` = '0' WHERE `id_user` = '$user[id]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1");
-	query("UPDATE `notification` SET `read` = '1' WHERE `type` = 'photo_komm' AND `id_user` = '$user[id]' AND `id_object` = '$photo[id]'");
+	dbquery("UPDATE `discussions` SET `count` = '0' WHERE `id_user` = '$user[id]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1");
+	dbquery("UPDATE `notification` SET `read` = '1' WHERE `type` = 'photo_komm' AND `id_user` = '$user[id]' AND `id_object` = '$photo[id]'");
 }
 /*---------------------------------------------------------*/
 /*
@@ -75,8 +75,8 @@ if (isset($user) && $user['id'] != $ank['id'] && dbresult(dbquery("SELECT COUNT(
 			header("Location: /user/money/plus5.php");
 			exit;
 		}
-		query("INSERT INTO `gallery_rating` (`id_user`, `id_photo`, `like`, `time`, `avtor`) values('$user[id]', '$photo[id]', '" . intval($_GET['rating']) . "', '$time', $photo[id_user])", $db);
-		query("UPDATE `gallery_photo` SET `rating` = '" . ($photo['rating'] + intval($_GET['rating'])) . "' WHERE `id` = '$photo[id]' LIMIT 1", $db);
+		dbquery("INSERT INTO `gallery_rating` (`id_user`, `id_photo`, `like`, `time`, `avtor`) values('$user[id]', '$photo[id]', '" . intval($_GET['rating']) . "', '$time', $photo[id_user])", $db);
+		dbquery("UPDATE `gallery_photo` SET `rating` = '" . ($photo['rating'] + intval($_GET['rating'])) . "' WHERE `id` = '$photo[id]' LIMIT 1", $db);
 		$_SESSION['message'] = '你的积分被接受';
 		header("Location: ?");
 		exit;
@@ -108,7 +108,7 @@ if (isset($_POST['msg']) && isset($user)) {
 		if (isset($ank_reply['id'])) {
 			$notifiacation = dbassoc(dbquery("SELECT * FROM `notification_set` WHERE `id_user` = '" . $ank_reply['id'] . "' LIMIT 1"));
 			if ($notifiacation['komm'] == 1 && $ank_reply['id'] != $user['id'])
-				query("INSERT INTO `notification` (`avtor`, `id_user`, `id_object`, `type`, `time`) VALUES ('$user[id]', '$ank_reply[id]', '$photo[id]', 'photo_komm', '$time')");
+				dbquery("INSERT INTO `notification` (`avtor`, `id_user`, `id_object`, `type`, `time`) VALUES ('$user[id]', '$ank_reply[id]', '$photo[id]', 'photo_komm', '$time')");
 		}
 		/*
 		====================================
@@ -116,38 +116,38 @@ if (isset($_POST['msg']) && isset($user)) {
 		====================================
 		*/
 		// Отправляем друзьям
-		$q = query("SELECT * FROM `frends` WHERE `user` = '" . $gallery['id_user'] . "' AND `i` = '1'");
+		$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $gallery['id_user'] . "' AND `i` = '1'");
 		while ($f = dbarray($q)) {
 			$a = user::get_user($f['frend']);
 			$discSet = dbarray(dbquery("SELECT * FROM `discussions_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // Общая настройка обсуждений
 			if ($f['disc_photo'] == 1 && $discSet['disc_photo'] == 1) {
 				if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions` WHERE `id_user` = '$a[id]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1"), 0) == 0) {
 					if ($a['id'] != $user['id'] || $a['id'] != $photo['id_user'])
-						query("INSERT INTO `discussions` (`id_user`, `avtor`, `type`, `time`, `id_sim`, `count`) values('$a[id]', '$gallery[id_user]', 'photo', '$time', '$photo[id]', '1')");
+						dbquery("INSERT INTO `discussions` (`id_user`, `avtor`, `type`, `time`, `id_sim`, `count`) values('$a[id]', '$gallery[id_user]', 'photo', '$time', '$photo[id]', '1')");
 				} else {
 					$disc = dbarray(dbquery("SELECT * FROM `discussions` WHERE `id_user` = '$a[id]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1"));
 					if ($gallery['id_user'] != $user['id'] || $a['id'] != $photo['id_user'])
-						query("UPDATE `discussions` SET `count` = '" . ($disc['count'] + 1) . "', `time` = '$time' WHERE `id_user` = '$a[id]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1");
+						dbquery("UPDATE `discussions` SET `count` = '" . ($disc['count'] + 1) . "', `time` = '$time' WHERE `id_user` = '$a[id]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1");
 				}
 			}
 		}
 		// Отправляем автору
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions` WHERE `id_user` = '$gallery[id_user]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1"), 0) == 0) {
 			if ($gallery['id_user'] != $user['id'])
-				query("INSERT INTO `discussions` (`id_user`, `avtor`, `type`, `time`, `id_sim`, `count`) values('$gallery[id_user]', '$gallery[id_user]', 'photo', '$time', '$photo[id]', '1')");
+				dbquery("INSERT INTO `discussions` (`id_user`, `avtor`, `type`, `time`, `id_sim`, `count`) values('$gallery[id_user]', '$gallery[id_user]', 'photo', '$time', '$photo[id]', '1')");
 		} else {
 			$disc2 = dbarray(dbquery("SELECT * FROM `discussions` WHERE `id_user` = '$gallery[id_user]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1"));
 			if ($gallery['id_user'] != $user['id'])
-				query("UPDATE `discussions` SET `count` = '" . ($disc2['count'] + 1) . "', `time` = '$time' WHERE `id_user` = '$gallery[id_user]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1");
+				dbquery("UPDATE `discussions` SET `count` = '" . ($disc2['count'] + 1) . "', `time` = '$time' WHERE `id_user` = '$gallery[id_user]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1");
 		}
-		query("INSERT INTO `gallery_komm` (`id_photo`, `id_user`, `time`, `msg`) values('$photo[id]', '$user[id]', '$time', '" . my_esc($msg) . "')");
+		dbquery("INSERT INTO `gallery_komm` (`id_photo`, `id_user`, `time`, `msg`) values('$photo[id]', '$user[id]', '$time', '" . my_esc($msg) . "')");
 		$_SESSION['message'] = '消息已成功添加';
 		header("Location: ?page=" . intval($_GET['page']));
 		exit;
 	}
 }
 if ((user_access('photo_komm_del') || $ank['id'] == $user['id']) && isset($_GET['delete']) && dbresult(dbquery("SELECT COUNT(*) FROM `gallery_komm` WHERE `id`='" . intval($_GET['delete']) . "' AND `id_photo`='$photo[id]' LIMIT 1"), 0) != 0) {
-	query("DELETE FROM `gallery_komm` WHERE `id`='" . intval($_GET['delete']) . "' LIMIT 1");
+	dbquery("DELETE FROM `gallery_komm` WHERE `id`='" . intval($_GET['delete']) . "' LIMIT 1");
 	admin_log('照片廊', '照片', "删除照片上的评论 [url=/info.php?id=$ank[id]]" . user::nick($ank['id'], 1, 0, 0) . "[/url]");
 	$_SESSION['message'] = '评论成功删除';
 	header("Location: ?page=" . intval($_GET['page']));
@@ -308,7 +308,7 @@ if (!isset($block_photo)) {
 		}
 		/*---------------alex-borisi---------------------*/
 	}
-	$q = query("SELECT * FROM `gallery_komm` WHERE `id_photo` = '$photo[id]' ORDER BY `id` $sort LIMIT $start, $set[p_str]");
+	$q = dbquery("SELECT * FROM `gallery_komm` WHERE `id_photo` = '$photo[id]' ORDER BY `id` $sort LIMIT $start, $set[p_str]");
 	while ($post = dbassoc($q)) {
 		$ank2 = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$post[id_user]' LIMIT 1"));
 		// Лесенка

@@ -18,7 +18,7 @@ if (isset($_POST['name']) && isset($_POST['msg'])) {
    if (!isset($err)) {
       $_SESSION['time_c_t_forum'] = $time;
       dbquery("INSERT INTO `forum_t` (`id_forum`, `id_razdel`, `time_create`, `id_user`, `name`, `time`, `text`) values('$forum[id]', '$razdel[id]', '$time', '$user[id]', '$name', '$time', '$msg')");
-      $them['id'] = mysql_insert_id();
+      $them['id'] = dbinsertid();
       if ($forum['adm'] != 1) {
          dbquery("insert into `stena`(`id_user`,`id_stena`,`time`,`info`,`info_1`,`type`) values('" . $user['id'] . "','" . $user['id'] . "','" . $time . "','new them in forum','" . $them['id'] . "','them')");
       }

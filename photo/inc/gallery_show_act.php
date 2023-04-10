@@ -47,7 +47,7 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 			} else {
 				dbquery("INSERT INTO `gallery_photo` (`id_gallery`, `name`, `ras`, `type`, `opis`, `id_user`, `metka`, `time`) values ('$gallery[id]', '$name', 'jpg', 'image/jpeg', '$msg', '$user[id]', '$metka', '$time')");
 			}
-			$id_photo = mysql_insert_id();
+			$id_photo = dbinsertid();
 			dbquery("UPDATE `gallery` SET `time` = '$time' WHERE `id` = '$gallery[id]' LIMIT 1");
 			$q = dbquery("SELECT * FROM `frends` WHERE `user` = '$user[id]' AND `lenta_photo` = '1' AND `i` = '1'");
 			$photo['id'] = $id_photo;

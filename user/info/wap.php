@@ -27,7 +27,7 @@ if (isset($user) && isset($_GET['like']) && $user['id'] != $ank['id'] && dbresul
 	dbquery("INSERT INTO `status_like` (`id_user`, `id_status`) values('$user[id]', '$status[id]')");
 }
 if (isset($user) && $user['id'] == $ank['id']) {
-	echo "<div class='st_1'>状态</div>";
+	echo "<div class='st_1'></div>";
 	echo "<div class='st_2'>";
 	if ($status['id']) {
 		echo output_text($status['msg']) . ' <font style="font-size:11px; color:gray;">' . vremja($status['time']) . '</font>';

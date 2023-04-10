@@ -50,7 +50,7 @@ if (isset($_GET['gift']) && isset($_GET['category'])) {
 			$msg = my_esc($_POST['msg']);  // Комментарий
 			dbquery("UPDATE `user` SET `money` = '" . ($user['money'] - $gift['money']) . "' WHERE `id` = '$user[id]'");
 			dbquery("INSERT INTO `gifts_user` (`id_user`, `id_ank`, `id_gift`, `coment`, `time`) values('$ank[id]', '$user[id]', '$gift[id]', '$msg', '$time')");
-			$id_gift = mysql_insert_id();
+			$id_gift = dbinsertid();
 			/*
 		==========================
 		Уведомления о подарках

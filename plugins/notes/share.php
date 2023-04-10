@@ -34,7 +34,7 @@ if (dbrows($not) == 0) {
         $avtor = user::get_user($notes['id_user']);
         if (isset($_POST['ok'])) {
             dbquery("INSERT INTO `notes`(`id_user`,`name`,`msg`,`share`,`share_text`,`share_id`,`share_id_user`,`share_name`,`time`) values('" . $user['id'] . "','" . text($notes['name']) . "','" . my_esc($_POST['share_text']) . "','1','" . my_esc($notes['msg']) . "','" . $notes['id'] . "','" . $notes['id_user'] . "','" . my_esc($notes['name']) . "','" . $time . "')");
-            $id = mysql_insert_id();
+            $id = dbinsertid();
             msg('Ок всё крч');
             header('Location: list.php?id=' . $id);
             exit;

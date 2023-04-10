@@ -44,7 +44,7 @@ if (isset($_POST['title']) && isset($_POST['msg']) && isset($_POST['link']) && i
 	$main_time = 0;
 	dbquery("INSERT INTO `news` (`id_user`,`time`, `msg`, `title`, `main_time`, `link`) values('".$user['id']."','$time', '".$msg."', '$title', '$main_time', '$link')");
 	dbquery("update `user` set `news_read` = '0'");
-	$news['id'] = mysql_insert_id();
+	$news['id'] = dbinsertid();
 	dbquery("OPTIMIZE TABLE `news`");
 	dbquery("UPDATE `user` SET `news_read` = '0'");
 	if (isset($_POST['mail'])) // Расслылка новостей на майл

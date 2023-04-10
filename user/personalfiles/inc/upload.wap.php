@@ -47,7 +47,7 @@ if ($dir_id['upload'] == 1) {
 			dbquery("UPDATE `user` SET `rating_tmp` = '" . ($user['rating_tmp'] + 3) . "' WHERE `id` = '$user[id]' LIMIT 1");
 			dbquery("INSERT INTO `downnik_files` (`metka`, `id_dir`, `name`, `ras`, `type`, `size`, `time`, `time_last`, `id_user`, `opis`, `my_dir` )
 VALUES ('$metka', '$dir_id[id]', '$name', '$ras', '$type', '$size', '$time', '$time', '$user[id]', '$opis' , '$dir[id]')");
-			$id_file = mysql_insert_id();
+			$id_file = dbinsertid();
 			/*----------------------Лента------------------------*/
 			if (!$dir['pass']) {
 				$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $dir['id_user'] . "' AND `i` = '1'"); /* Список друзей пользователя */

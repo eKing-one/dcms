@@ -71,12 +71,12 @@ if (isset($user) && ($them['close'] == 0 || $them['close'] == 1 && user_access('
         dbquery("UPDATE `user` SET `balls` = '" . ($user['balls'] + 1) . "' WHERE `id` = '$user[id]' LIMIT 1");
         dbquery("UPDATE `forum_zakl` SET `time_obn` = '$time' WHERE `id_them` = '$them[id]'");
         dbquery("INSERT INTO `forum_p` (`id_forum`, `id_razdel`, `id_them`, `id_user`, `msg`, `time`, `cit`) values('$forum[id]', '$razdel[id]', '$them[id]', '$user[id]', '" . my_esc($msg) . "', '$time', $cit)");
-        $post_id = mysql_insert_id();
+        $post_id = dbinsertid();
         if (isset($_SESSION['file']) && isset($user)) {
             for ($i = 0; $i < count($_SESSION['file']); $i++) {
                 if (isset($_SESSION['file'][$i]) && is_file($_SESSION['file'][$i]['tmp_name'])) {
                     dbquery("INSERT INTO `forum_files` (`id_post`, `name`, `ras`, `size`, `type`) values('$post_id', '" . $_SESSION['file'][$i]['name'] . "', '" . $_SESSION['file'][$i]['ras'] . "', '" . $_SESSION['file'][$i]['size'] . "', '" . $_SESSION['file'][$i]['type'] . "')");
-                    $file_id = mysql_insert_id();
+                    $file_id = dbinsertid();
                     copy($_SESSION['file'][$i]['tmp_name'], H . 'sys/forum/files/' . $file_id . '.frf');
                     unlink($_SESSION['file'][$i]['tmp_name']);
                 }

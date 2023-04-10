@@ -44,7 +44,7 @@ if(isset($_GET['id']))
 				$file = text($_FILES["file_$i"]['name']);
 				$smile = my_esc($_POST["smile_$i"]);
 				dbquery("INSERT INTO `smile` (`smile`,`dir`) values('$smile','" . intval($_GET['id']) . "')");
-				$ID = mysql_insert_id();
+				$ID = dbinsertid();
 				if (@copy($_FILES["file_$i"]['tmp_name'], H.'style/smiles/' . $ID . '.gif'))
 				{
 					@chmod(H.'style/smiles/' . $ID . '.gif', 0777);

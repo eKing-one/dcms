@@ -17,7 +17,7 @@ if (isset($user) && $user['id'] == $ank['id'])
 		if (!isset($err))
 		{
 			dbquery("INSERT INTO `gallery` (`opis`, `time_create`, `id_user`, `name`, `time`, `pass`, `privat`, `privat_komm`) values('$msg', '$time', '$ank[id]', '$name', '$time', '$pass', '$privat', '$privat_komm')");
-			$gallery_id = mysql_insert_id();
+			$gallery_id = dbinsertid();
 			$_SESSION['message'] = '成功创建相册';
 			header("Location: /photo/$ank[id]/$gallery_id/");
 			exit;

@@ -400,13 +400,13 @@ function admin_log($mod, $act, $opis)
 	$q = dbquery("SELECT * FROM `admin_log_mod` WHERE `name` = '" . my_esc($mod) . "' LIMIT 1");
 	if (dbrows($q) == 0) {
 		dbquery("INSERT INTO `admin_log_mod` (`name`) VALUES ('" . my_esc($mod) . "')");
-		$id_mod = mysql_insert_id();
+		$id_mod = dbinsertid();
 	} else $id_mod = dbresult($q, 0);
 
 	$q2 = dbquery("SELECT * FROM `admin_log_act` WHERE `name` = '" . my_esc($act) . "' AND `id_mod` = '$id_mod' LIMIT 1");
 	if (dbrows($q2) == 0) {
 		dbquery("INSERT INTO `admin_log_act` (`name`, `id_mod`) VALUES ('" . my_esc($act) . "', '$id_mod')");
-		$id_act = mysql_insert_id();
+		$id_act = dbinsertid();
 	} else $id_act = dbresult($q2, 0);
 	dbquery("INSERT INTO `admin_log` (`time`, `id_user`, `mod`, `act`, `opis`) VALUES
 ('" . time() . "','$user[id]', '$id_mod', '$id_act', '" . my_esc($opis) . "')");
