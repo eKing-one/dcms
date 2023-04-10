@@ -302,7 +302,7 @@ if ($ank['group_access'] > 1) {
 			if ((user_access('user_ban_set') || user_access('user_ban_set_h') || user_access('user_ban_unset')) && $ank['id'] != $user['id'])
 				echo "<a href='/adm_panel/ban.php?id=$ank[id]'><font color=red>[禁止]</font></a>";
 			echo "</div></div>";
-			//-------------статус вывод------------//
+			//-------------我的状态------------//
 			if (isset($status['id']) || $ank['id'] == $user['id']) {
 				echo '<div class="st_1"></div>';
 				echo '<div class="st_2">';
@@ -318,10 +318,10 @@ if ($ank['group_access'] > 1) {
 					echo " <a href='/user/status/komm.php?id=$status[id]'><img src='/style/icons/bbl4.png' alt=''/> " . dbresult(dbquery("SELECT COUNT(*) FROM `status_komm` WHERE `id_status` = '$status[id]'"), 0) . " </a> ";
 					$l = dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]'"), 0);
 					if (isset($user) && $user['id'] != $ank['id'] && dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
-						echo " <a href='/info.php?id=$ank[id]&amp;like'><img src='/style/icons/like.gif' alt='*'/> 等级!</a> • ";
+						echo " <a href='/info.php?id=$ank[id]&amp;like'><img src='/style/icons/like.gif' alt='*'/> 赞!</a> • ";
 						$like = $l;
 					} else if (isset($user) && $user['id'] != $ank['id']) {
-						echo " <img src='/style/icons/like.gif' alt=''/> 你和。 ";
+						echo " <img src='/style/icons/like.gif' alt=''/> 你和 ";
 						$like = $l - 1;
 					} else {
 						echo " <img src='/style/icons/like.gif' alt=''/> ";
