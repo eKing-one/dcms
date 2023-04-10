@@ -1,5 +1,4 @@
 <?php
-require 'mysql2i.class.php';
 $err = NULL;
 $db = NULL;
 $time = NULL;

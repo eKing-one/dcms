@@ -17,7 +17,7 @@ class user
 	{
 		static $nicks = [];
 		if (empty($nicks[$user])) {
-			$ank = dbassoc(query('SELECT `nick`, `date_last`, `rating`, `browser` FROM `user` WHERE `id` = "' . $user . '" LIMIT 1 '));
+			$ank = dbassoc(dbquery('SELECT `nick`, `date_last`, `rating`, `browser` FROM `user` WHERE `id` = "' . $user . '" LIMIT 1 '));
 			$nicks[$user] = $ank;
 		} else $ank = $nicks[$user];
 	}
@@ -31,7 +31,7 @@ class user
 		*/
 		static $nicks = [];
 		if (empty($nicks[$user])) {
-			$ank = dbassoc(query('SELECT `group_access`, `pol`, `nick`, `date_last`, `rating`, `browser` FROM `user` WHERE `id` = "' . $user . '" LIMIT 1 '));
+			$ank = dbassoc(dbquery('SELECT `group_access`, `pol`, `nick`, `date_last`, `rating`, `browser` FROM `user` WHERE `id` = "' . $user . '" LIMIT 1 '));
 			$nicks[$user] = $ank;
 		} else $ank = $nicks[$user];
 		$icon = null;
@@ -116,14 +116,14 @@ class user
 		global $time, $set;
 		$AVATAR = null;
 		$icon = null;
-		if ($user != 0) $ank = dbassoc(query('SELECT `pol`, `id`, `group_access` FROM `user` WHERE `id` = "' . $user . '" LIMIT 1 '));
+		if ($user != 0) $ank = dbassoc(dbquery('SELECT `pol`, `id`, `group_access` FROM `user` WHERE `id` = "' . $user . '" LIMIT 1 '));
 		if ($user == 0) $ank = array('id' => '0', 'pol' => '1', 'group_access' => '0');
 		elseif (!$ank)  $ank = array('id' => '0', 'pol' => '1', 'group_access' => '0');
 		static $avatars = [];
 		// Аватар
 		if ($type == 0 || $type == 1) {
 			if (empty($avatars[$user])) {
-				$avatar = dbarray(query("SELECT id,ras FROM `gallery_photo` WHERE `id_user` = '$user' AND `avatar` = '1' LIMIT 1"));
+				$avatar = dbarray(dbquery("SELECT id,ras FROM `gallery_photo` WHERE `id_user` = '$user' AND `avatar` = '1' LIMIT 1"));
 				$avatars[$user] = $avatar;
 			} else $avatar = $avatars[$user];
 			if (isset($avatar['id']) && test_file(H . 'sys/gallery/50/' . $avatar['id'] . '.' . $avatar['ras']))

@@ -11,12 +11,12 @@ if (!$ank) {
 	exit;
 }
 /* Бан пользователя */
-if (dbresult(query("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'photo' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
+if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'photo' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
 	header('Location: /ban.php?' . SID);
 	exit;
 }
 $gallery['id'] = intval($_GET['id_gallery']);
-if (dbresult(query("SELECT COUNT(*) FROM `gallery` WHERE `id` = '$gallery[id]' AND `id_user` = '$ank[id]' LIMIT 1"), 0) == 0) {
+if (dbresult(dbquery("SELECT COUNT(*) FROM `gallery` WHERE `id` = '$gallery[id]' AND `id_user` = '$ank[id]' LIMIT 1"), 0) == 0) {
 	header("Location: /photo/$ank[id]/?" . SID);
 	exit;
 }
@@ -67,9 +67,9 @@ if (isset($user)) {
 Оценка к фото
 ==========================
 */
-if (isset($user) && $user['id'] != $ank['id'] && dbresult(query("SELECT COUNT(*) FROM `gallery_rating` WHERE `id_user` = '$user[id]' AND `id_photo` = '$photo[id]'"), 0) == 0) {
+if (isset($user) && $user['id'] != $ank['id'] && dbresult(dbquery("SELECT COUNT(*) FROM `gallery_rating` WHERE `id_user` = '$user[id]' AND `id_photo` = '$photo[id]'"), 0) == 0) {
 	if (isset($_GET['rating']) && $_GET['rating'] > 0 && $_GET['rating'] < 7) {
-		$c = dbresult(query("SELECT COUNT(*) FROM `user_set` WHERE `id_user` = '$user[id]' AND `ocenka` > '$time'"), 0);
+		$c = dbresult(dbquery("SELECT COUNT(*) FROM `user_set` WHERE `id_user` = '$user[id]' AND `ocenka` > '$time'"), 0);
 		if ($c == 0 && $_GET['rating'] == 6) {
 			$_SESSION['message'] = '您需要激活服务';
 			header("Location: /user/money/plus5.php");
@@ -95,7 +95,7 @@ if (isset($_POST['msg']) && isset($user)) {
 		$err = '信息太长了';
 	} elseif (strlen2($msg) < 2) {
 		$err = '短消息';
-	} elseif (dbresult(query("SELECT COUNT(*) FROM `gallery_komm` WHERE `id_photo` = '$photo[id]' AND `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
+	} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `gallery_komm` WHERE `id_photo` = '$photo[id]' AND `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
 		$err = '您的消息重复前一个';
 	} elseif (!isset($err)) {
 		// Начисление баллов за активность
@@ -106,7 +106,7 @@ if (isset($_POST['msg']) && isset($user)) {
 		==========================
 		*/
 		if (isset($ank_reply['id'])) {
-			$notifiacation = dbassoc(query("SELECT * FROM `notification_set` WHERE `id_user` = '" . $ank_reply['id'] . "' LIMIT 1"));
+			$notifiacation = dbassoc(dbquery("SELECT * FROM `notification_set` WHERE `id_user` = '" . $ank_reply['id'] . "' LIMIT 1"));
 			if ($notifiacation['komm'] == 1 && $ank_reply['id'] != $user['id'])
 				query("INSERT INTO `notification` (`avtor`, `id_user`, `id_object`, `type`, `time`) VALUES ('$user[id]', '$ank_reply[id]', '$photo[id]', 'photo_komm', '$time')");
 		}
@@ -119,24 +119,24 @@ if (isset($_POST['msg']) && isset($user)) {
 		$q = query("SELECT * FROM `frends` WHERE `user` = '" . $gallery['id_user'] . "' AND `i` = '1'");
 		while ($f = dbarray($q)) {
 			$a = user::get_user($f['frend']);
-			$discSet = dbarray(query("SELECT * FROM `discussions_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // Общая настройка обсуждений
+			$discSet = dbarray(dbquery("SELECT * FROM `discussions_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // Общая настройка обсуждений
 			if ($f['disc_photo'] == 1 && $discSet['disc_photo'] == 1) {
-				if (dbresult(query("SELECT COUNT(*) FROM `discussions` WHERE `id_user` = '$a[id]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1"), 0) == 0) {
+				if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions` WHERE `id_user` = '$a[id]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1"), 0) == 0) {
 					if ($a['id'] != $user['id'] || $a['id'] != $photo['id_user'])
 						query("INSERT INTO `discussions` (`id_user`, `avtor`, `type`, `time`, `id_sim`, `count`) values('$a[id]', '$gallery[id_user]', 'photo', '$time', '$photo[id]', '1')");
 				} else {
-					$disc = dbarray(query("SELECT * FROM `discussions` WHERE `id_user` = '$a[id]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1"));
+					$disc = dbarray(dbquery("SELECT * FROM `discussions` WHERE `id_user` = '$a[id]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1"));
 					if ($gallery['id_user'] != $user['id'] || $a['id'] != $photo['id_user'])
 						query("UPDATE `discussions` SET `count` = '" . ($disc['count'] + 1) . "', `time` = '$time' WHERE `id_user` = '$a[id]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1");
 				}
 			}
 		}
 		// Отправляем автору
-		if (dbresult(query("SELECT COUNT(*) FROM `discussions` WHERE `id_user` = '$gallery[id_user]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1"), 0) == 0) {
+		if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions` WHERE `id_user` = '$gallery[id_user]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1"), 0) == 0) {
 			if ($gallery['id_user'] != $user['id'])
 				query("INSERT INTO `discussions` (`id_user`, `avtor`, `type`, `time`, `id_sim`, `count`) values('$gallery[id_user]', '$gallery[id_user]', 'photo', '$time', '$photo[id]', '1')");
 		} else {
-			$disc2 = dbarray(query("SELECT * FROM `discussions` WHERE `id_user` = '$gallery[id_user]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1"));
+			$disc2 = dbarray(dbquery("SELECT * FROM `discussions` WHERE `id_user` = '$gallery[id_user]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1"));
 			if ($gallery['id_user'] != $user['id'])
 				query("UPDATE `discussions` SET `count` = '" . ($disc2['count'] + 1) . "', `time` = '$time' WHERE `id_user` = '$gallery[id_user]' AND `type` = 'photo' AND `id_sim` = '$photo[id]' LIMIT 1");
 		}
@@ -146,7 +146,7 @@ if (isset($_POST['msg']) && isset($user)) {
 		exit;
 	}
 }
-if ((user_access('photo_komm_del') || $ank['id'] == $user['id']) && isset($_GET['delete']) && dbresult(query("SELECT COUNT(*) FROM `gallery_komm` WHERE `id`='" . intval($_GET['delete']) . "' AND `id_photo`='$photo[id]' LIMIT 1"), 0) != 0) {
+if ((user_access('photo_komm_del') || $ank['id'] == $user['id']) && isset($_GET['delete']) && dbresult(dbquery("SELECT COUNT(*) FROM `gallery_komm` WHERE `id`='" . intval($_GET['delete']) . "' AND `id_photo`='$photo[id]' LIMIT 1"), 0) != 0) {
 	query("DELETE FROM `gallery_komm` WHERE `id`='" . intval($_GET['delete']) . "' LIMIT 1");
 	admin_log('照片廊', '照片', "删除照片上的评论 [url=/info.php?id=$ank[id]]" . user::nick($ank['id'], 1, 0, 0) . "[/url]");
 	$_SESSION['message'] = '评论成功删除';
@@ -203,7 +203,7 @@ if ($user['id'] != $ank['id'] && $gallery['pass'] != NULL) {
 /*---------------------------------------------------------*/
 if (!isset($block_photo)) {
 	// +5 оценка 
-	$rat = dbresult(query("SELECT COUNT(*) FROM `gallery_rating` WHERE `id_photo` = $photo[id] AND `like` = '6'"), 0);
+	$rat = dbresult(dbquery("SELECT COUNT(*) FROM `gallery_rating` WHERE `id_photo` = $photo[id] AND `like` = '6'"), 0);
 	if (($user['abuld'] == 1 || $photo['metka'] == 0 || $photo['id_user'] == $user['id'])) // Метка 18+ 
 	{
 		echo '<div class="nav2">';
@@ -222,7 +222,7 @@ if (!isset($block_photo)) {
 		*/
 		if (isset($user) && $user['id'] != $ank['id']) {
 			echo '<div class="nav2">';
-			if ($user['id'] != $ank['id'] &&  dbresult(query("SELECT COUNT(*) FROM `gallery_rating` WHERE `id_user` = '$user[id]' AND `id_photo` = '$photo[id]'"), 0) == 0) {
+			if ($user['id'] != $ank['id'] &&  dbresult(dbquery("SELECT COUNT(*) FROM `gallery_rating` WHERE `id_user` = '$user[id]' AND `id_photo` = '$photo[id]'"), 0) == 0) {
 				echo "<a href=\"?rating=6\" title=\"5+\"><img src='/style/icons/6.png' alt=''/></a>";
 				echo "<a href=\"?rating=5\" title=\"5\"><img src='/style/icons/5.png' alt=''/></a>";
 				echo "<a href=\"?rating=4\" title=\"4\"><img src='/style/icons/4.png' alt=''/></a>";
@@ -230,7 +230,7 @@ if (!isset($block_photo)) {
 				echo "<a href=\"?rating=2\" title=\"2\"><img src='/style/icons/2.png' alt=''/></a>";
 				echo "<a href=\"?rating=1\" title=\"1\"><img src='/style/icons/1.png' alt=''/></a>";
 			} else {
-				$rate = dbassoc(query("SELECT * FROM `gallery_rating` WHERE `id_photo` = $photo[id] AND `id_user` = '$user[id]' LIMIT 1"));
+				$rate = dbassoc(dbquery("SELECT * FROM `gallery_rating` WHERE `id_photo` = $photo[id] AND `id_user` = '$user[id]' LIMIT 1"));
 				if (isset($user) && $user['id'] != $ank['id'])
 					echo '你的评价 <img src="/style/icons/' . $rate['like'] . '.png" alt=""/></a>';
 			}
@@ -250,12 +250,12 @@ if (!isset($block_photo)) {
 		echo '</div>';
 	}
 	/*----------------------листинг-------------------*/
-	$listr = dbassoc(query("SELECT * FROM `gallery_photo` WHERE `id_gallery` = '$gallery[id]' AND `id` < '$photo[id]' ORDER BY `id` DESC LIMIT 1"));
-	$list = dbassoc(query("SELECT * FROM `gallery_photo` WHERE `id_gallery` = '$gallery[id]' AND `id` > '$photo[id]' ORDER BY `id`  ASC LIMIT 1"));
+	$listr = dbassoc(dbquery("SELECT * FROM `gallery_photo` WHERE `id_gallery` = '$gallery[id]' AND `id` < '$photo[id]' ORDER BY `id` DESC LIMIT 1"));
+	$list = dbassoc(dbquery("SELECT * FROM `gallery_photo` WHERE `id_gallery` = '$gallery[id]' AND `id` > '$photo[id]' ORDER BY `id`  ASC LIMIT 1"));
 	echo '<div class="c2" style="text-align: center;">';
 	if (isset($list['id']))	echo '<span class="page">' . ($list['id'] ? "<a href='/photo/$ank[id]/$gallery[id]/$list[id]/'>&laquo; 上一页</a>" : "&laquo; 上一页") . '</span>';
-	$k_1 = dbresult(query("SELECT COUNT(*) FROM `gallery_photo` WHERE `id` > '$photo[id]' AND `id_gallery` = '$gallery[id]'"), 0) + 1;
-	$k_2 = dbresult(query("SELECT COUNT(*) FROM `gallery_photo` WHERE `id_gallery` = '$gallery[id]'"), 0);
+	$k_1 = dbresult(dbquery("SELECT COUNT(*) FROM `gallery_photo` WHERE `id` > '$photo[id]' AND `id_gallery` = '$gallery[id]'"), 0) + 1;
+	$k_2 = dbresult(dbquery("SELECT COUNT(*) FROM `gallery_photo` WHERE `id_gallery` = '$gallery[id]'"), 0);
 	echo ' (第' . $k_1 . '页 共' . $k_2 . '页) ';
 	if (isset($listr['id']))	echo '<span class="page">' . ($listr['id'] ? "<a href='/photo/$ank[id]/$gallery[id]/$listr[id]/'>下一页 &raquo;</a>" : "下一页 &raquo;") . '</span>';
 	echo '</div>';
@@ -264,11 +264,11 @@ if (!isset($block_photo)) {
 		if (isset($user)) {
 			echo '<div class="nav1">';
 			echo '<img src="/style/icons/fav.gif" alt="*" /> ';
-			if (dbresult(query("SELECT COUNT(*) FROM `bookmarks` WHERE `id_user` = '" . $user['id'] . "' AND `id_object` = '" . $photo['id'] . "' AND `type`='fot' LIMIT 1"), 0) == 0)
+			if (dbresult(dbquery("SELECT COUNT(*) FROM `bookmarks` WHERE `id_user` = '" . $user['id'] . "' AND `id_object` = '" . $photo['id'] . "' AND `type`='fot' LIMIT 1"), 0) == 0)
 				echo '<a href="?fav=1&amp;page=' . $pageEnd . '">添加到书签</a><br />';
 			else
 				echo '<a href="?fav=0&amp;page=' . $pageEnd . '">从书签中删除</a><br />';
-			echo '在书签中 (' . dbresult(query("SELECT COUNT(*) FROM `bookmarks` WHERE `id_user` = '" . $user['id'] . "' AND `id_object` = '" . $photo['id'] . "' AND `type`='photo' LIMIT 1"), 0) . ') 用户.';
+			echo '在书签中 (' . dbresult(dbquery("SELECT COUNT(*) FROM `bookmarks` WHERE `id_user` = '" . $user['id'] . "' AND `id_object` = '" . $photo['id'] . "' AND `type`='photo' LIMIT 1"), 0) . ') 用户.';
 			echo '</div>';
 		}
 		echo '<div class="main">';
@@ -283,7 +283,7 @@ if (!isset($block_photo)) {
 		if (user_access('photo_photo_edit') && $ank['level'] < $user['level'] || isset($user) && $ank['id'] == $user['id'])
 			include_once check_replace('inc/gallery_show_photo_form.php');
 	}
-	$k_post = dbresult(query("SELECT COUNT(*) FROM `gallery_komm` WHERE `id_photo` = '$photo[id]'"), 0);
+	$k_post = dbresult(dbquery("SELECT COUNT(*) FROM `gallery_komm` WHERE `id_photo` = '$photo[id]'"), 0);
 	$k_page = k_page($k_post, $set['p_str']);
 	$page = page($k_page);
 	$start = $set['p_str'] * $page - $set['p_str'];
@@ -310,7 +310,7 @@ if (!isset($block_photo)) {
 	}
 	$q = query("SELECT * FROM `gallery_komm` WHERE `id_photo` = '$photo[id]' ORDER BY `id` $sort LIMIT $start, $set[p_str]");
 	while ($post = dbassoc($q)) {
-		$ank2 = dbassoc(query("SELECT * FROM `user` WHERE `id` = '$post[id_user]' LIMIT 1"));
+		$ank2 = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$post[id_user]' LIMIT 1"));
 		// Лесенка
 		echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 		$num++;
@@ -319,7 +319,7 @@ if (!isset($block_photo)) {
 			echo ' <a href="?response=' . $ank2['id'] . '&amp;page=' . $page . '">[@]</a> ';
 		}
 		echo ' (' . vremja($post['time']) . ')<br />';
-		$postBan = dbresult(query("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'photo') AND `post` = '1' AND `id_user` = '$ank2[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
+		$postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'photo') AND `post` = '1' AND `id_user` = '$ank2[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
 		// Блок сообщения
 		if ($postBan == 0) {
 			echo output_text($post['msg']);
