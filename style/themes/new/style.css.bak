@@ -154,7 +154,7 @@ input, select{
 }
 
 
-/* Ошибка */
+/* 错误 */
 .err {
 	text-align: center;
 	font-weight: bold;

@@ -122,6 +122,7 @@ if ($lenta > 0) $lenta = '<font color=red>(' . $lenta . ')</font>';
 else $lenta = null;
 
 ?>
+
 <div id="comments" class="menus">
 	<div class="webmenu">
 		<a href="/user/tape/">信息中心<?= $lenta ?></a>
@@ -139,6 +140,9 @@ else $lenta = null;
 	<a href="?"> 全部</a> |
 	<a href="?order=my"> 我的 <?= $count_my ?> </a> |
 	<a href="?order=frends"> 朋友 <?= $count_f ?> </a>
+</div>
+<div class='foot'>
+<a href='?read=all'><img src='/style/icons/ok.gif'> 将所有内容标记为已读</a>
 </div>
 <?
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `discussions`  WHERE `id_user` = '$user[id]' $order"), 0);
@@ -182,9 +186,6 @@ while ($post = dbassoc($q)) {
 if ($k_page > 1) str('?' . $sort, $k_page, $page);
 
 ?>
-<div class='foot'>
-	<a href='?read=all'><img src='/style/icons/ok.gif'> 将所有内容标记为已读</a>
-</div>
 <div class='foot'>
 	<a href='?delete=all'><img src='/style/icons/delete.gif'> 删除所有讨论</a> | <a href='settings.php'>设置</a>
 </div>

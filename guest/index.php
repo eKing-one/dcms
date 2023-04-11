@@ -97,7 +97,7 @@ if (isset($user) || (isset($set['write_guest']) && $set['write_guest'] == 1 && (
 	echo '</form>';
 } elseif (!isset($user) && isset($set['write_guest']) && $set['write_guest'] == 1) {
 	?>
-	<div class="mess">您将能够通过 <span class="on"><?= abs($time - $_SESSION['antiflood'] - 300) ?> сек.</span></div>
+	<div class="mess">您将能够通过 <span class="on"><?= abs($time - $_SESSION['antiflood'] - 300) ?> 秒.</span></div>
 	<?
 	}
 	echo '<table class="post">';
