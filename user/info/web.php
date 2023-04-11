@@ -423,7 +423,7 @@ if ($ank['group_access'] > 1) {
 				elseif ($ank['ank_m_r'] == 10) $ank['mes'] = '10 月';
 				elseif ($ank['ank_m_r'] == 11) $ank['mes'] = '11 月';
 				else $ank['mes'] = '12 月';
-				echo "$date<span class=\"ank_n\">生日。:</span>$a $ank[ank_d_r] $ank[mes] ";
+				echo "$date<span class=\"ank_n\">生日:</span>$a $ank[ank_d_r] $ank[mes] ";
 			}
 			if ($ank['ank_d_r'] >= 19 && $ank['ank_m_r'] == 1) {
 				echo "| 水瓶座<br />";
@@ -442,9 +442,9 @@ if ($ank['group_access'] > 1) {
 			} elseif ($ank['ank_d_r'] <= 21 && $ank['ank_m_r'] == 5) {
 				echo "| 金牛座<br />";
 			} elseif ($ank['ank_d_r'] >= 20 && $ank['ank_m_r'] == 5) {
-				echo "| 双子胎<br />";
+				echo "| 双子座<br />";
 			} elseif ($ank['ank_d_r'] <= 22 && $ank['ank_m_r'] == 6) {
-				echo "| 双子胎<br />";
+				echo "| 双子座<br />";
 			} elseif ($ank['ank_d_r'] >= 21 && $ank['ank_m_r'] == 6) {
 				echo "| 巨蟹座<br />";
 			} elseif ($ank['ank_d_r'] <= 22 && $ank['ank_m_r'] == 7) {
