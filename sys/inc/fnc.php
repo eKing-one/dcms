@@ -116,11 +116,9 @@ function get_curl($url, $post=0, $referer=0, $cookie=0, $header=0, $ua=0, $nobao
 		curl_setopt($ch, CURLOPT_COOKIE, $cookie);
 	}
 	if($referer){
-		if($referer==1){
-			curl_setopt($ch, CURLOPT_REFERER, 'http://m.qzone.com/infocenter?g_f=');
-		}else{
-			curl_setopt($ch, CURLOPT_REFERER, $referer);
-		}
+
+		curl_setopt($ch, CURLOPT_REFERER, $referer);
+
 	}
 	if ($ua) {
 		curl_setopt($ch, CURLOPT_USERAGENT, $ua);
