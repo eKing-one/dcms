@@ -116,11 +116,9 @@ if (user_access('adm_panel_show')) {
 		echo "" . medal($spamer['id']) . " " . online($spamer['id']) . "<br />";
 		echo "   </div>";
 		if (($user['id'] != $spamer['id'] && $user['group_access'] >= $spamer['group_access']) || ($user['id'] == 1)) {
-			echo "<div class='mess'>[<a href='/adm_panel/ban.php?id=$spamer[id]'><img src='/style/icons/blicon.gif' alt='*'> 禁止</a>] 
-[<a href='delete.php?id=$post[id]&amp;otkl'><img src='/style/icons/delete.gif' alt='*'> 拒绝</a>] [<a href='delete.php?id=$post[id]'><img src='/style/icons/ok.gif' alt='*'> 已审议</a>] </div>";
+			echo "<div class='mess'>[<a href='/adm_panel/ban.php?id=$spamer[id]'><img src='/style/icons/blicon.gif' alt='*'> 举报</a>] [<a href='delete.php?id=$post[id]&amp;otkl'><img src='/style/icons/delete.gif' alt='*'> 拒绝</a>] [<a href='delete.php?id=$post[id]'><img src='/style/icons/ok.gif' alt='*'> 通过</a>] </div>";
 		} else if ($user['id'] == $spamer['id']) {
-			echo "<div class='mess'>你被投诉了 <font color='green'>$ank[nick]</font> 
-请等接待员知道情况。</div>";
+			echo "<div class='mess'>你被投诉了 <font color='green'>$ank[nick]</font> 请等接管理员查看情况。</div>";
 		} else {
 			echo "<div class='mess'>你没有足够的权力处理这个投诉。</div>";
 		}
@@ -128,7 +126,7 @@ if (user_access('adm_panel_show')) {
 	}
 	if ($k_page > 1) str('?', $k_page, $page); // 输出页数
 	echo "<div class='foot'>";
-	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/plugins/admin/'>行政款</a><br />";
+	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/plugins/admin/'>管理员</a><br />";
 	echo "</div>";
 }
 include_once '../../../sys/inc/tfoot.php';

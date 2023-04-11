@@ -43,7 +43,7 @@ else {
                 imagedestroy($imgc);
             } else
                 $screen = $imgc;
-            imagepng($screen, H . "sys/loads/screens/48/$size.$name.$ras.png");
+            @imagepng($screen, H . "sys/loads/screens/48/$size.$name.$ras.png");
             echo "<img src=\"/sys/loads/screens/48/$size.$name.$ras.png\" alt=\"$ras\" /><br />";
             @chmod(H . "sys/loads/screens/48/$size.$name.$ras.png", 0777);
             unlink(H . "sys/tmp/$sess.png");

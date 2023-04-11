@@ -262,8 +262,8 @@ while ($post = dbassoc($q)) {
 	}
 	if (isset($user) && ($user['level'] > $ank['level'] ||  $user['id'] == $ank['id'])) {
 		echo "<div style='text-align:right;'>";
-		if ($ank['id'] != $user['id']) echo "<a href=\"?id=$status[id]&amp;spam=$post[id]&amp;page=$page\"><img src='/style/icons/blicon.gif' alt='*' title='这是垃圾邮件'></a> ";
-		echo " <a href='delete_komm.php?id=$post[id]'><img src='/style/icons/delete.gif' alt='*'></a>";
+		if ($ank['id'] != $user['id']) echo "<a href=\"?id=$status[id]&amp;spam=$post[id]&amp;page=$page\"><img src='/style/icons/blicon.gif' alt='*'>举报</a> ";
+		echo " <a href='delete_komm.php?id=$post[id]'><img src='/style/icons/delete.gif' alt='*'>删除</a>";
 		echo "</div>";
 	}
 	echo "</div>";

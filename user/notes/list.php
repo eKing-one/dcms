@@ -351,9 +351,9 @@ while ($post = dbassoc($q)) {
 	if (isset($user)) {
 		echo '<div style="text-align:right;">';
 		if ($ank['id'] != $user['id'])
-			echo "<a href=\"?id=$notes[id]&amp;page=$page&amp;spam=$post[id]\"><img src='/style/icons/blicon.gif' alt='*' title='Это спам'></a> ";
+			echo "<a href=\"?id=$notes[id]&amp;page=$page&amp;spam=$post[id]\"><img src='/style/icons/blicon.gif' alt='*'>举报</a> ";
 		if (isset($user) && (user_access('notes_delete') || $user['id'] == $notes['id_user']))
-			echo '<a href="delete.php?komm=' . $post['id'] . '"><img src="/style/icons/delete.gif" alt="*"></a>';
+			echo '<a href="delete.php?komm=' . $post['id'] . '"><img src="/style/icons/delete.gif" alt="*">删除</a>';
 		echo "</div>";
 	}
 	echo "</div>";

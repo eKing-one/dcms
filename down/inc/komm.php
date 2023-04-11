@@ -50,9 +50,9 @@ while ($post = dbassoc($q)) {
 	if (isset($user)) {
 		echo '<div style="text-align:right;">';
 		if ($ank['id'] != $user['id'])
-			echo "<a href=\"?showinfo&amp;page=$page&amp;spam=$post[id]\"><img src='/style/icons/blicon.gif' alt='*' title='举报垃圾邮件'></a> ";
+			echo "<a href=\"?showinfo&amp;page=$page&amp;spam=$post[id]\"><img src='/style/icons/blicon.gif' alt='*' title='举报'>举报</a> ";
 		if (user_access('down_komm_del') || $avtor['id'] == $user['id'])
-			echo '<a href="?showinfo&amp;page=' . $page . '&amp;del_post=' . $post['id'] . '"><img src="/style/icons/delete.gif" alt="*"></a>';
+			echo '<a href="?showinfo&amp;page=' . $page . '&amp;del_post=' . $post['id'] . '"><img src="/style/icons/delete.gif" alt="*">删除</a>';
 		echo "   </div>";
 	}
 	echo "   </div>";

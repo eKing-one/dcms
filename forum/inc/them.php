@@ -649,12 +649,12 @@ if ($vote_c != 0) {
                                 echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit\" title='修改我的职位。'  class='link_s'><img src='/style/icons/edit.gif' alt='*'> (" . ($post['time'] + 600 - time()) . " sec)</a> ";
                             if ($user['id'] != $ank['id'] && $ank['id'] != 0) // 帖子制定者及系统除外 
                             {
-                                echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?spam=$post[id]&amp;page=$page\" title='是垃圾邮件。'  class='link_s'><img src='/style/icons/blicon.gif' alt='*' title='这是垃圾邮件'></a>";
+                                echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?spam=$post[id]&amp;page=$page\" title='垃圾邮件'  class='link_s'><img src='/style/icons/blicon.gif' alt='*'>举报</a>";
                             }
                         }
                         if (user_access('forum_post_ed')) // 删除帖子
                         {
-                            echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?del=$post[id]&amp;page=$page\" title='删除'  class='link_s'><img src='/style/icons/delete.gif' alt='*' title='删除'></a>";
+                            echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?del=$post[id]&amp;page=$page\" title='删除'  class='link_s'><img src='/style/icons/delete.gif' alt='*'>删除</a>";
                         }
                         echo "&nbsp;";
                         echo '</span><br/>';

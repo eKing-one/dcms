@@ -271,7 +271,7 @@ while ($post = dbarray($q)) {
 	if ($post['read'] == 0) echo "(未读)<br />";
 	echo "<br/>" . output_text($post['msg']) . "";
 	echo "<div style='text-align:right;'>";
-	if ($ank2['id'] != $user['id']) echo "<a href=\"mail.php?id=$ank[id]&amp;page=$page&amp;spam=$post[id]\"><img src='/style/icons/blicon.gif' alt='*' title='Это спам'> 滥发电邮!</a>";
+	if ($ank2['id'] != $user['id']) echo "<a href=\"mail.php?id=$ank[id]&amp;page=$page&amp;spam=$post[id]\"><img src='/style/icons/blicon.gif' alt='*' title='举报'>举报</a>";
 	echo "<a href=\"mail.php?id=$ank[id]&amp;page=$page&amp;delete=$post[id]\"><img src='/style/icons/delete.gif' alt='*' title='删除此消息'> 删除</a>";
 	echo "   </div>";
 	echo "   </div>";

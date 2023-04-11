@@ -65,9 +65,9 @@ while ($post = dbassoc($q)) {
 	if (isset($user)) {
 		echo '<div style="text-align:right;">';
 		if ($anketa['id'] != $user['id'])
-			echo "<a href=\"?id_file=$file_id[id]&amp;page=$page&amp;spam=$post[id]\"><img src='/style/icons/blicon.gif' alt='*' title='Это спам'></a> ";
+			echo "<a href=\"?id_file=$file_id[id]&amp;page=$page&amp;spam=$post[id]\"><img src='/style/icons/blicon.gif' alt='*' title='Это спам'>举报</a> ";
 		if (user_access('down_komm_del') || $anketa['id'] == $user['id'])
-			echo '<a href="?id_file=' . $file_id['id'] . '&amp;page=' . $page . '&amp;del_post=' . $post['id'] . '"><img src="/style/icons/delete.gif" alt="*"></a>';
+			echo '<a href="?id_file=' . $file_id['id'] . '&amp;page=' . $page . '&amp;del_post=' . $post['id'] . '"><img src="/style/icons/delete.gif" alt="*">删除</a>';
 		echo "   </div>";
 	}
 	echo "   </div>";

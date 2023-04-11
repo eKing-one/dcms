@@ -96,7 +96,7 @@ while ($ank = dbassoc($q)) {
 			if (user_access('user_show_ip') && $ank['ip_xff'] != 0) {
 				echo '<span class="ank_n">IP (XFF):</span> <span class="ank_d">' . long2ip($ank['ip_xff']) . '</span>';
 				if (user_access('adm_ban_ip'))
-					echo ' [<a href="/adm_panel/ban_ip.php?min=' . $ank['ip_xff'] . '">禁令</a>]';
+					echo ' [<a href="/adm_panel/ban_ip.php?min=' . $ank['ip_xff'] . '">举报</a>]';
 				echo '<br />';
 			}
 		}
@@ -114,7 +114,7 @@ while ($ank = dbassoc($q)) {
 				echo '[<a href="/adm_panel/user.php?id=' . $ank['id'] . '"><img src="/style/icons/edit.gif" alt="*" /> 编辑</a>] ';
 			if ($user['id'] != $ank['id']) {
 				if (user_access('user_ban_set') || user_access('user_ban_set_h') || user_access('user_ban_unset'))
-					echo '[<a href="/adm_panel/ban.php?id=' . $ank['id'] . '"><img src="/style/icons/blicon.gif" alt="*" /> 禁令</a>] ';
+					echo '[<a href="/adm_panel/ban.php?id=' . $ank['id'] . '"><img src="/style/icons/blicon.gif" alt="*" /> 举报</a>] ';
 				if (user_access('user_delete')) {
 					echo '[<a href="/adm_panel/delete_user.php?id=' . $ank['id'] . '"><img src="/style/icons/delete.gif" alt="*" /> 删除</a>] ';
 					echo '<br />';
