@@ -171,14 +171,14 @@ while ($frend = dbassoc($q)) {
 	$sql = dbquery("SELECT `id`,`id_gallery`,`ras` FROM `gallery_photo` WHERE `id_user`='" . $frend['id'] . "' AND `avatar`='1' LIMIT 1");
 	if (dbrows($sql) == 1) {
 		$photo = dbassoc($sql);
-		echo '<a href="/photo/' . $frend['id'] . '/' . $photo['id_gallery'] . '/' . $photo['id'] . '/"><img class="friends" style="width:' . ($webbrowser ? '110px;' : '50px;') . '" src="/photo/photo0/' . $photo['id'] . '.' . $photo['ras'] . '"></a>';
+		echo '<a href="/photo/' . $frend['id'] . '/' . $photo['id_gallery'] . '/' . $photo['id'] . '/"><img class="friends" style="width:' . ($webbrowser ? '110px;' : '50px;') . 'height:' . ($webbrowser ? '110px;' : '50px;') . '" src="/photo/photo0/' . $photo['id'] . '.' . $photo['ras'] . '"></a>';
 	} else {
 		echo '<img class="friends" style="width:' . ($webbrowser ? '80px;' : '50px;') . '" src="/style/icons/avatar.png">';
 	}
 	echo '</td><td style="width:80%;">';
 	if (isset($user) && $user['id'] == $ank['id']) echo " <input type='checkbox' name='post_$frend[id]' value='1' /> ";
 	echo user::nick($frend['id'], 1, 1, 0);
-	echo '<br/><img src="/style/icons/alarm.png"> ' . ($webbrowser ? '大使. 活动:' : null) . ' ' . vremja($frend['date_last']) . ' </td><td style="width:18px;">';
+	echo '<br/><img src="/style/icons/alarm.png"> ' . ($webbrowser ? '最后在线:' : null) . ' ' . vremja($frend['date_last']) . ' </td><td style="width:18px;">';
 	if (isset($user)) {
 		echo "<a href=\"/mail.php?id=$frend[id]\"><img src='/style/icons/pochta.gif' alt='*' /></a><br/>";
 		if ($ank['id'] == $user['id'])			echo "<a href='create.php?del=$frend[id]'><img src='/style/icons/delete.gif' alt='*' /></a>";
