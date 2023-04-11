@@ -11,7 +11,7 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('adm_ref',null,'index.php?'.SID);
 adm_check();
-$set['title']='转介服务'; // заголовок страницы
+$set['title']='链接服务'; // заголовок страницы
 include_once '../sys/inc/thead.php';
 title();
 aut();
@@ -24,7 +24,7 @@ if ($k_post==0)
 {
 echo "   <tr>";
 echo "  <td class='p_t'>";
-echo "没有转介";
+echo "没有链接";
 echo "  </td>";
 echo "   </tr>";
 }

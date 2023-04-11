@@ -41,7 +41,7 @@ if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth'] > $time || isset($_SES
   if (user_access('adm_news')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='/news/add.php'>新闻中心</a></div>";
   if (user_access('adm_set_sys')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_sys.php'>系统设置</a></div>";
   if (user_access('adm_set_sys')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_bbcode.php'>BBCode设置</a></div>";
-  if ($user['level'] > 3) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='/user/gift/create.php'>礼物</a></div>";
+  if ($user['level'] > 3) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='/user/gift/create.php'>网站礼物</a></div>";
   if ($user['level'] > 3) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='smiles.php'>表情符号</a></div>";
   if (user_access('adm_set_forum')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_forum.php'>论坛设置</a></div>";
   if (user_access('adm_set_user')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_user.php'>用户设置</a></div>";
