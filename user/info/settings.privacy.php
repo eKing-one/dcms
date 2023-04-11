@@ -8,10 +8,6 @@
 Dcms-社交引擎。
 使用时，指定一个链接到
 的。网站http://dcms-social.ru
----------------------------------------
-接点
-ICQ：587863132
-http://dcms-social.ru
 =======================================
 */
 include_once '../../sys/inc/start.php';
@@ -37,7 +33,7 @@ if (isset($_POST['save'])) {
     if (isset($_POST['privat_mail']) && ($_POST['privat_mail'] == 0 || $_POST['privat_mail'] == 1 || $_POST['privat_mail'] == 2)) {
         dbquery("UPDATE `user_set` SET `privat_mail` = '" . intval($_POST['privat_mail']) . "' WHERE `id_user` = '$user[id]'");
     }
-    $_SESSION['message'] = 'Изменения успешно приняты';
+    $_SESSION['message'] = '已成功接受更改';
     header('Location: settings.privacy.php');
     exit;
 }

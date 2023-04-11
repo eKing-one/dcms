@@ -2,7 +2,7 @@
 
 安装要求：
 
-PHP4.2及以上（推荐PHP5）、MySQL、mod_rewrite支持、服务器。
+PHP5.4-7.0及以上（推荐PHP5）、MySQLi、mod_rewrite支持
 
 •如果您能够在免费托管中安装和充分使用引擎，请在项目官方网站的论坛上报告：http://dcms-social.ru/forum/ 
 
@@ -62,30 +62,7 @@ PHP4.2及以上（推荐PHP5）、MySQL、mod_rewrite支持、服务器。
 
 如果您对开发引擎感兴趣，可以通过
 
-电子支付系统WebMoney。钱包：R289951892735。
-
 请向论坛申请编写模块的订单。
-
-时装设计师（CMS）“DCMS-Social”：探索者
-
-电子邮件：alex-borisi@ya.ru
-
-项目官方网站：http://dcms-social.ru
-
-支持：http://dcms-social.ru/forum/
-
-
-plugins 全新设计
-//是否显示图片
-if ($set['set_show_icon'] == 2) {
-    user::avatar($ank_kont['id']);
-} elseif ($set['set_show_icon'] == 1) {
-    echo user::avatar($ank_kont['id']);
-}
-
-user::nick()
-user::get_user(,1,1,0)
-user::avatar()       
 
 待办事项
 之前说过管理员能把站长改成普通用户还能禁言
