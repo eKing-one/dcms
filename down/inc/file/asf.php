@@ -47,7 +47,7 @@ if (class_exists('ffmpeg_movie'))
 	elseif (intval($media->getDuration())>59)
 	echo '时间: '.intval($media->getDuration()/60).":".date('s',fmod($media->getDuration(),60))."<br />";
 	else
-	echo '时间: '.intval($media->getDuration())." сек<br />";
+	echo '时间: '.intval($media->getDuration())." 秒<br />";
 	echo "比特率: ".ceil(($media->getBitRate())/1024)." KBPS<br />";
 }
 echo "上传时间: ".vremja($file_id['time'])."<br />";

@@ -232,7 +232,7 @@ else
 
 
 
-echo '时间: '.intval($media->getDuration())." сек<br />";
+echo '时间: '.intval($media->getDuration())." 秒<br />";
 
 
 
@@ -295,7 +295,7 @@ else
 
 
 
-dbquery("INSERT INTO `media_info` (`file`, `size`, `lenght`, `bit`, `codec`, `wh`) values('".my_esc($jfile)."', '$size', '".intval($media->getDuration())." сек', '".ceil(($media->getBitRate())/1024)."', '".$media->getVideoCodec()."', '".$media->GetFrameWidth().'x'.$media->GetFrameHeight()."')");
+dbquery("INSERT INTO `media_info` (`file`, `size`, `lenght`, `bit`, `codec`, `wh`) values('".my_esc($jfile)."', '$size', '".intval($media->getDuration())." 秒', '".ceil(($media->getBitRate())/1024)."', '".$media->getVideoCodec()."', '".$media->GetFrameWidth().'x'.$media->GetFrameHeight()."')");
 
 
 

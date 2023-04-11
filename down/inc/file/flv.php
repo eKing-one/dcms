@@ -1,20 +1,7 @@
-<?
+<?php
 if ($set['web'] && (!isset($set['downloads_select']) || $set['downloads_select']=='0'))
 {
-?>
-<center><p id='preview'>Install Flash Player</p>
-<script type='text/javascript' src='/sys/swfobject.js'></script>
-<script type='text/javascript'>
-var s1 = new SWFObject('/sys/player.swf','player','350','300','9');
-s1.addParam('allowfullscreen','true');
-s1.addParam('allowscriptaccess','always');
-//s1.addParam('flashvars','file=".$_GET['id'].".flv&amp;image=".$_GET['id'].".jpg');
-s1.addParam('flashvars','file=<? echo "/down$dir_id[dir]".urlencode($file_id['name']).".$file_id[ras]&amp;image=/sys/down/screens/128/$file_id[id].gif"; ?>');
-s1.write('preview');
-</script>
-</center>
-<br />
-<?
+
 }
 if (test_file(H."sys/down/screens/128/$file_id[id].gif"))
 {
@@ -64,7 +51,7 @@ if (class_exists('ffmpeg_movie'))
 	elseif (intval($media->getDuration())>59)
 	echo '时间: '.intval($media->getDuration()/60).":".date('s',fmod($media->getDuration(),60))."<br />";
 	else
-	echo '时间: '.intval($media->getDuration())." сек<br />";
+	echo '时间: '.intval($media->getDuration())." 秒<br />";
 	echo "比特率: ".ceil(($media->getBitRate())/1024)." KBPS<br />";
 }
 echo "上传时间: ".vremja($file_id['time'])."<br />";

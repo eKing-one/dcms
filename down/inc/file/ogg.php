@@ -22,7 +22,7 @@ if (class_exists('ffmpeg_movie'))
 	elseif (intval($media->getDuration())>59)
 	echo '时间: '.intval($media->getDuration()/60).":".date('s',fmod($media->getDuration(),60))."<br />";
 	else
-	echo '时间: '.intval($media->getDuration())." сек<br />";
+	echo '时间: '.intval($media->getDuration())." 秒<br />";
 	echo "比特率: ".ceil(($media->getBitRate())/1024)." KBPS<br />";
 	if($media->getAudioChannels()==1)echo "类型: Mono<br />";else echo "类型: Stereo<br />";
 	echo '抽样调查: '.$media->getAudioSampleRate()." 赫兹<br />";
