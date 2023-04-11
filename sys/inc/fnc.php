@@ -444,7 +444,7 @@ function ages($age)
 	return $age . ' ' . $str;
 }
 
-
+//删除更新代码
 
 function version_stable()
 {
