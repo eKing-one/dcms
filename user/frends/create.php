@@ -52,7 +52,7 @@ if (isset($_GET['ok']))
 	$as = dbarray(dbquery("SELECT * FROM `user` WHERE `id` = '".$ok."' LIMIT 1"));
 	if ($a==0)
 	{
-	die("Ошибка");
+	die("错误");
 	}
 	else{	
 	/*----------------------Лента------------------------*/
