@@ -360,7 +360,6 @@ function err()
 
 function msg($msg)
 {
-
 	echo "<div class='msg'>$msg</div>";
 } // 消息输出
 
@@ -423,10 +422,6 @@ while ($filebase = readdir($opdirbase)) {
 // 参观记录
 dbquery("INSERT INTO `visit_today` (`ip` , `ua`, `time`) VALUES ('$iplong', '" . @my_esc($_SERVER['HTTP_USER_AGENT']) . "', '$time')");
 
-function csrf_token_new()
-{
-	setcookie('token', random_bytes(), time() + 60 * 10);
-}
 
 function ages($age)
 {
@@ -463,50 +458,6 @@ function t_toolbar_html()
 	echo '</div>';
 }
 
-
-function new_token()
-{
-	$token = rand(10000, 100000);
-	return bin2hex($token); // ffa7a910ca2dfce501b0d548605aaf
-
-}
-
-function token_p($token)
-{
-	if ($token === $_SESSION['token']) return true;
-	else {
-		header("/");
-		exit("error token");
-	}
-}
-
-
-function set_token()
-{
-
-	if (empty($_SESSION['token']))  $_SESSION['token'] = new_token();
-}
-function reset_token()
-{
-
-	$_SESSION['token'] = new_token();
-}
-
-
-function check_token()
-{
-
-	add_header(token_js());
-
-	if (isset($_POST) && !empty($_POST)) {
-		if (isset($_POST['token'])) token_p($_POST['token']);
-		else {
-			header("/");
-			exit("error token");
-		}
-	}
-}
-
 function add_header($value)
 {
 	static $add;
@@ -522,31 +473,6 @@ function header_html($add = null)
 	} else $header = $add;
 }
 
-function token()
-{
-	return $_SESSION['token'];
-}
-function token_js()
-{
-	ob_start();
-	echo '<script>
-		window.onload = function() {
-			form = document.querySelector("form");
-			var x = document.createElement("input");
-			x.setAttribute("type", "text");
-			x.setAttribute("value", "' . token() . '");
-			x.setAttribute("name", "token");
-			form.appendChild(x);
-		}
-	</script>';
-	$page = ob_get_contents();
-	ob_end_clean();
-	return $page;
-}
-function token_form()
-{
-	echo '<input type="text" name="token" value="' . $_SESSION['token'] . '">';
-}
 //获取远程更新代码
 //影响网站效率
 function status_version()
