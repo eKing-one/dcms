@@ -11,7 +11,7 @@ mysqli_query($db, 'set character_set_connection="utf8mb4"');
 //mysql_query('set character_set_result="utf8mb4"');
 if (isset($_SESSION['adm_reg_ok']) && $_SESSION['adm_reg_ok'] == true) {
     if (isset($_GET['step']) && $_GET['step'] == '5') {
-        $tmp_set['title'] = strtoupper($_SERVER['HTTP_HOST']) . ' - 主';
+        $tmp_set['title'] = strtoupper($_SERVER['HTTP_HOST']) . ' - 社区系统';
         $tmp_set['mysql_host'] = $_SESSION['host'];
         $tmp_set['mysql_user'] = $_SESSION['user'];
         $tmp_set['mysql_pass'] = $_SESSION['pass'];
@@ -45,7 +45,7 @@ if (isset($_SESSION['adm_reg_ok']) && $_SESSION['adm_reg_ok'] == true) {
         elseif ($_POST['password'] !== $_POST['password_retry']) $err[] = '密码不匹配';
         else $password = $_POST['password'];
     }
-    if (!isset($_POST['pol']) || !is_numeric($_POST['pol']) || ($_POST['pol'] !== '0' && $_POST['pol'] !== '1')) $err[] = '选择楼层时出错';
+    if (!isset($_POST['pol']) || !is_numeric($_POST['pol']) || ($_POST['pol'] !== '0' && $_POST['pol'] !== '1')) $err[] = '选择性别时出错';
     else $pol = intval($_POST['pol']);
     if (!isset($err)) // если нет ошибок
     {
@@ -93,14 +93,14 @@ if (isset($_SESSION['adm_reg_ok']) && $_SESSION['adm_reg_ok'] == true) {
         echo "<hr />";
     }
     echo "<form action='index.php?$passgen' method='post'>";
-    echo "登录名 (3-16 字符):<br /><input type='text' name='nick'" . ((isset($nick)) ? " value='" . $nick . "'" : " value='Admin'") . " maxlength='16' /><br />";
+    echo "账号 (3-16 字符):<br /><input type='text' name='nick'" . ((isset($nick)) ? " value='" . $nick . "'" : " value='Admin'") . " maxlength='16' /><br />";
     echo "密码 (6-16 字符):<br /><input type='password'" . ((isset($password)) ? " value='" . $password . "'" : null) . " name='password' maxlength='16' /><br />";
     echo "* 使用简单的密码使黑客的生活更轻松<br />";
     echo "确认密码:<br /><input type='password'" . ((isset($password)) ? " value='" . $password . "'" : null) . " name='password_retry' maxlength='16' /><br />";
     echo "您的性别:<br />";
     echo "<select name='pol'>";
-    echo "<option value='1'" . ((isset($pol) && $pol === 1) ? " selected='selected'" : null) . ">男性的</option>";
-    echo "<option value='0'" . ((isset($pol) && $pol === 0) ? " selected='selected'" : null) . ">妇女的</option>";
+    echo "<option value='1'" . ((isset($pol) && $pol === 1) ? " selected='selected'" : null) . ">男</option>";
+    echo "<option value='0'" . ((isset($pol) && $pol === 0) ? " selected='selected'" : null) . ">女</option>";
     echo "</select><br />";
     echo "* 所有字段都必须填写<br />";
     echo "<input type='submit' name='reg' value='注册' /><br />";
