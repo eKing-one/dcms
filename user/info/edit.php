@@ -89,7 +89,7 @@ else $err[]='城市名称格式不正确';
 }
 //--------------icq----------------//
 if (isset($_GET['set']) && $_GET['set']=='icq'){
-if (isset($_POST['ank_icq']) && (is_numeric($_POST['ank_icq']) && strlen($_POST['ank_icq'])>=5 && strlen($_POST['ank_icq'])<=9 || $_POST['ank_icq']==NULL))
+if (isset($_POST['ank_icq']) && (is_numeric($_POST['ank_icq']) && strlen($_POST['ank_icq'])>=5 && strlen($_POST['ank_icq'])<=10 || $_POST['ank_icq']==NULL))
 {
 $user['ank_icq']=$_POST['ank_icq'];
 if ($user['ank_icq']==null)$user['ank_icq']='null';

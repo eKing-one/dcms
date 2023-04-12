@@ -18,15 +18,15 @@ if ($ank['id'] == 0) {
 	title();
 	aut();/*
 ==================================
-Приватность станички пользователя
-Запрещаем просмотр анкеты
+用户的页面隐私
+禁止查看个人资料
 ==================================
 */
 	$uSet = dbarray(dbquery("SELECT * FROM `user_set` WHERE `id_user` = '$ank[id]'  LIMIT 1"));
 	$frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$ank[id]') OR (`user` = '$ank[id]' AND `frend` = '$user[id]') LIMIT 1"), 0);
 	$frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[id]' AND `to` = '$ank[id]') OR (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"), 0);
 	if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
-		if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) // Начинаем вывод если стр имеет приват настройки
+		if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) // 如果页面有私人设置，则开始输出
 		{
 			if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
 			echo "<div class='nav1'>";
@@ -37,7 +37,7 @@ if ($ank['id'] == 0) {
 			echo user::avatar($ank['id'], true, 128, 128);
 			echo "<br />";
 		}
-		if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей
+		if ($uSet['privat_str'] == 2 && $frend != 2) // 如果只是为了朋友
 		{
 			echo '<div class="mess">';
 			echo '只有他的朋友才能查看用户的页面！';
@@ -67,7 +67,7 @@ if ($ank['id'] == 0) {
 		}
 	}
 	echo "<span class=\"err\">$ank[group_name]</span><br />";
-	// if ($ank['ank_o_sebe'] != NULL) echo "<span class=\"ank_n\">关于自己。:</span> <span class=\"ank_d\">$ank[ank_o_sebe]</span><br />";
+	if ($ank['ank_o_sebe'] != NULL) echo "<span class=\"ank_n\">关于自己:</span> <span class=\"ank_d\">$ank[ank_o_sebe]</span><br />";
 	if (isset($_SESSION['refer']) && $_SESSION['refer'] != NULL && otkuda($_SESSION['refer']))
 		echo "<div class='foot'>&laquo;<a href='$_SESSION[refer]'>" . otkuda($_SESSION['refer']) . "</a><br /></div>";
 	include_once '../../sys//inc/tfoot.php';
@@ -78,6 +78,7 @@ if (!$ank) {
 	header("Location: /index.php?" . SID);
 	exit;
 }
+//----------------------//
 $timediff = dbresult(dbquery("SELECT `time` FROM `user` WHERE `id` = '$ank[id]' LIMIT 1", $db), 0);
 $oneMinute = 60;
 $oneHour = 60 * 60;
@@ -139,7 +140,6 @@ if (isset($user) && $ank['id'] == $user['id']) {
 	$name = "<a href='/user/info/edit.php?act=ank&amp;set=name'>";
 	$date = "<a href='/user/info/edit.php?act=ank&amp;set=date'>";
 	$gorod = "<a href='/user/info/edit.php?act=ank&amp;set=gorod'>";
-
 	$osebe = "<a href='/user/info/edit.php?act=ank&amp;set=osebe'>";
 	$pol = "<a href='/user/info/edit.php?act=ank&amp;set=pol'>";
 	$mail = "<a href='/user/info/edit.php?act=ank&amp;set=mail'>";
@@ -230,21 +230,21 @@ if ($ank['rating'] >= 0 && $ank['rating'] <= 100) {
 //-------------alex-borisi---------------//
 if (isset($user) && $user['id'] != $ank['id']) {
 	echo "<div class='nav2'>";
-	echo "<img src='/style/icons/pochta.gif' alt='*' /> <a href=\"/mail.php?id=$ank[id]\"><b>私下写</b></a>";
+	echo "<img src='/style/icons/pochta.gif' alt='*' /> <a href=\"/mail.php?id=$ank[id]\"><b>私聊</b></a>";
 	echo "</div>";
 }
 echo "<div class='nav2'>";
 echo "<img src='/style/icons/photo.png' alt='*' /> <a href='/photo/$ank[id]/'><b>相片册</b></a><br />";
 echo "</div>";
-//-----------------инфо----------------//
+//-----------------积分、金币----------------//
 echo "<div class='nav2'>";
 echo "<b>ID: $ank[id]</b><br /> ";
 echo "积分 (<font color='green'>$ank[balls]</font>)<br /> ";
 echo $sMonet[2] . ' (' . $ank['money'] . ')<br />';
 echo "<img src='/style/icons/time.png' alt='*' width='14'/> ($displaystring)<br />  ";
 echo "</div>";
-//-------------------------------------------------------//
-//------------------основное-------------------//
+//---------------------------------------------//
+//------------------个人信息-------------------//
 echo "<div class='nav1'>";
 if ($ank['ank_name'] != NULL)
 	echo "$name<span class=\"ank_n\">姓名:</span>$a <span class=\"ank_d\">$ank[ank_name]</span><br />";
@@ -256,36 +256,36 @@ if ($ank['ank_city'] != NULL)
 else
 	echo "$gorod<span class=\"ank_n\">城市:</span>$a<br />";
 if ($ank['ank_d_r'] != NULL && $ank['ank_m_r'] != NULL && $ank['ank_g_r'] != NULL) {
-	if ($ank['ank_m_r'] == 1) $ank['mes'] = '1 月';
-	elseif ($ank['ank_m_r'] == 2) $ank['mes'] = '2 月';
-	elseif ($ank['ank_m_r'] == 3) $ank['mes'] = '3 月';
-	elseif ($ank['ank_m_r'] == 4) $ank['mes'] = '4 月';
-	elseif ($ank['ank_m_r'] == 5) $ank['mes'] = '5 月';
-	elseif ($ank['ank_m_r'] == 6) $ank['mes'] = '6 月';
-	elseif ($ank['ank_m_r'] == 7) $ank['mes'] = '7 月';
-	elseif ($ank['ank_m_r'] == 8) $ank['mes'] = '8 月';
-	elseif ($ank['ank_m_r'] == 9) $ank['mes'] = '9 月';
-	elseif ($ank['ank_m_r'] == 10) $ank['mes'] = '10 月';
-	elseif ($ank['ank_m_r'] == 11) $ank['mes'] = '11 月';
-	else $ank['mes'] = '12 月';
+	if ($ank['ank_m_r'] == 1) $ank['mes'] = '1';
+	elseif ($ank['ank_m_r'] == 2) $ank['mes'] = '2';
+	elseif ($ank['ank_m_r'] == 3) $ank['mes'] = '3';
+	elseif ($ank['ank_m_r'] == 4) $ank['mes'] = '4';
+	elseif ($ank['ank_m_r'] == 5) $ank['mes'] = '5';
+	elseif ($ank['ank_m_r'] == 6) $ank['mes'] = '6';
+	elseif ($ank['ank_m_r'] == 7) $ank['mes'] = '7';
+	elseif ($ank['ank_m_r'] == 8) $ank['mes'] = '8';
+	elseif ($ank['ank_m_r'] == 9) $ank['mes'] = '9';
+	elseif ($ank['ank_m_r'] == 10) $ank['mes'] = '10';
+	elseif ($ank['ank_m_r'] == 11) $ank['mes'] = '11';
+	else $ank['mes'] = '12';
 	echo "$date<span class=\"ank_n\">出生日期:</span>$a $ank[ank_g_r]/$ank[mes]/$ank[ank_d_r] <br />";
 	$ank['ank_age'] = date("Y") - $ank['ank_g_r'];
 	if (date("n") < $ank['ank_m_r']) $ank['ank_age'] = $ank['ank_age'] - 1;
 	elseif (date("n") == $ank['ank_m_r'] && date("j") < $ank['ank_d_r']) $ank['ank_age'] = $ank['ank_age'] - 1;
 	echo "<span class=\"ank_n\">年龄:</span> $ank[ank_age] ";
 } elseif ($ank['ank_d_r'] != NULL && $ank['ank_m_r'] != NULL) {
-	if ($ank['ank_m_r'] == 1) $ank['mes'] = '1 月';
-	elseif ($ank['ank_m_r'] == 2) $ank['mes'] = '2 月';
-	elseif ($ank['ank_m_r'] == 3) $ank['mes'] = '3 月';
-	elseif ($ank['ank_m_r'] == 4) $ank['mes'] = '4 月';
-	elseif ($ank['ank_m_r'] == 5) $ank['mes'] = '5 月';
-	elseif ($ank['ank_m_r'] == 6) $ank['mes'] = '6 月';
-	elseif ($ank['ank_m_r'] == 7) $ank['mes'] = '7 月';
-	elseif ($ank['ank_m_r'] == 8) $ank['mes'] = '8 月';
-	elseif ($ank['ank_m_r'] == 9) $ank['mes'] = '9 月';
-	elseif ($ank['ank_m_r'] == 10) $ank['mes'] = '10 月';
-	elseif ($ank['ank_m_r'] == 11) $ank['mes'] = '11 月';
-	else $ank['mes'] = '12 月';
+	if ($ank['ank_m_r'] == 1) $ank['mes'] = '1';
+	elseif ($ank['ank_m_r'] == 2) $ank['mes'] = '2';
+	elseif ($ank['ank_m_r'] == 3) $ank['mes'] = '3';
+	elseif ($ank['ank_m_r'] == 4) $ank['mes'] = '4';
+	elseif ($ank['ank_m_r'] == 5) $ank['mes'] = '5';
+	elseif ($ank['ank_m_r'] == 6) $ank['mes'] = '6';
+	elseif ($ank['ank_m_r'] == 7) $ank['mes'] = '7';
+	elseif ($ank['ank_m_r'] == 8) $ank['mes'] = '8';
+	elseif ($ank['ank_m_r'] == 9) $ank['mes'] = '9';
+	elseif ($ank['ank_m_r'] == 10) $ank['mes'] = '10';
+	elseif ($ank['ank_m_r'] == 11) $ank['mes'] = '11';
+	else $ank['mes'] = '12';
 	echo "$date<span class=\"ank_n\">生日:</span>$a $ank[mes] $ank[ank_d_r]";
 } else {
 	echo "$date<span class=\"ank_n\">出生日期:</span>$a";
@@ -373,7 +373,7 @@ if ($ank['ank_skype'] != NULL)
 else
 	echo "$skype<span class=\"ank_n\">微信:</span>$a<br />";
 echo "</div>";
-//------------------------------------------//
+//--------------------管理用户----------------------//
 echo "<div class='nav1'>";
 if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$ank[id]' AND `time` > '$time'"), 0) != 0) {
 	$q = dbquery("SELECT * FROM `ban` WHERE `id_user` = '$ank[id]' AND `time` > '$time' ORDER BY `time` DESC LIMIT 5");

@@ -15,8 +15,8 @@ if (isset($user) && $user['id'] != $ank['id']) {
 if (isset($user) && isset($_GET['frends'])  && $frend_new == 0 && $frend == 0) {
 	if ($user['id'] != $ank['id']) {
 		echo '<center>';
-		echo "<div class='err'>用户将需要确认你是朋友。</div><div class='foot'><form action='/user/frends/create.php?add=" . $ank['id'] . "' method=\"post\">";
-		echo "<input class=\"submit\" type=\"submit\" value=\"邀请\" />";
+		echo "<div class='err'>该用户需要确认添加你为好友。</div><div class='foot'><form action='/user/frends/create.php?add=" . $ank['id'] . "' method=\"post\">";
+		echo "<input class=\"submit\" type=\"submit\" value=\"申请\" />";
 		echo " <a href='/info.php?id=$ank[id]'>取消</a><br />";
 		echo "</form></div>";
 		echo '</center>';
@@ -393,36 +393,36 @@ if ($ank['group_access'] > 1) {
 			else
 				echo "$gorod<span class=\"ank_n\">城市:</span>$a<br />";
 			if ($ank['ank_d_r'] != NULL && $ank['ank_m_r'] != NULL && $ank['ank_g_r'] != NULL) {
-				if ($ank['ank_m_r'] == 1) $ank['mes'] = '1 月';
-				elseif ($ank['ank_m_r'] == 2) $ank['mes'] = '2 月';
-				elseif ($ank['ank_m_r'] == 3) $ank['mes'] = '3 月';
-				elseif ($ank['ank_m_r'] == 4) $ank['mes'] = '4 月';
-				elseif ($ank['ank_m_r'] == 5) $ank['mes'] = '5 月';
-				elseif ($ank['ank_m_r'] == 6) $ank['mes'] = '6 月';
-				elseif ($ank['ank_m_r'] == 7) $ank['mes'] = '7 月';
-				elseif ($ank['ank_m_r'] == 8) $ank['mes'] = '8 月';
-				elseif ($ank['ank_m_r'] == 9) $ank['mes'] = '9 月';
-				elseif ($ank['ank_m_r'] == 10) $ank['mes'] = '10 月';
-				elseif ($ank['ank_m_r'] == 11) $ank['mes'] = '11 月';
-				else $ank['mes'] = '12 月';
+				if ($ank['ank_m_r'] == 1) $ank['mes'] = '1';
+				elseif ($ank['ank_m_r'] == 2) $ank['mes'] = '2';
+				elseif ($ank['ank_m_r'] == 3) $ank['mes'] = '3';
+				elseif ($ank['ank_m_r'] == 4) $ank['mes'] = '4';
+				elseif ($ank['ank_m_r'] == 5) $ank['mes'] = '5';
+				elseif ($ank['ank_m_r'] == 6) $ank['mes'] = '6';
+				elseif ($ank['ank_m_r'] == 7) $ank['mes'] = '7';
+				elseif ($ank['ank_m_r'] == 8) $ank['mes'] = '8';
+				elseif ($ank['ank_m_r'] == 9) $ank['mes'] = '9';
+				elseif ($ank['ank_m_r'] == 10) $ank['mes'] = '10';
+				elseif ($ank['ank_m_r'] == 11) $ank['mes'] = '11';
+				else $ank['mes'] = '12';
 				echo "$date<span class=\"ank_n\">出生日期:</span>$a $ank[ank_g_r]/$ank[mes]/$ank[ank_d_r]<br />";
 				$ank['ank_age'] = date("Y") - $ank['ank_g_r'];
 				if (date("n") < $ank['ank_m_r']) $ank['ank_age'] = $ank['ank_age'] - 1;
 				elseif (date("n") == $ank['ank_m_r'] && date("j") < $ank['ank_d_r']) $ank['ank_age'] = $ank['ank_age'] - 1;
 				echo "<span class=\"ank_n\">年龄:</span> $ank[ank_age] ";
 			} elseif ($ank['ank_d_r'] != NULL && $ank['ank_m_r'] != NULL) {
-				if ($ank['ank_m_r'] == 1) $ank['mes'] = '1 月';
-				elseif ($ank['ank_m_r'] == 2) $ank['mes'] = '2 月';
-				elseif ($ank['ank_m_r'] == 3) $ank['mes'] = '3 月';
-				elseif ($ank['ank_m_r'] == 4) $ank['mes'] = '4 月';
-				elseif ($ank['ank_m_r'] == 5) $ank['mes'] = '5 月';
-				elseif ($ank['ank_m_r'] == 6) $ank['mes'] = '6 月';
-				elseif ($ank['ank_m_r'] == 7) $ank['mes'] = '7 月';
-				elseif ($ank['ank_m_r'] == 8) $ank['mes'] = '8 月';
-				elseif ($ank['ank_m_r'] == 9) $ank['mes'] = '9 月';
-				elseif ($ank['ank_m_r'] == 10) $ank['mes'] = '10 月';
-				elseif ($ank['ank_m_r'] == 11) $ank['mes'] = '11 月';
-				else $ank['mes'] = '12 月';
+				if ($ank['ank_m_r'] == 1) $ank['mes'] = '1';
+				elseif ($ank['ank_m_r'] == 2) $ank['mes'] = '2';
+				elseif ($ank['ank_m_r'] == 3) $ank['mes'] = '3';
+				elseif ($ank['ank_m_r'] == 4) $ank['mes'] = '4';
+				elseif ($ank['ank_m_r'] == 5) $ank['mes'] = '5';
+				elseif ($ank['ank_m_r'] == 6) $ank['mes'] = '6';
+				elseif ($ank['ank_m_r'] == 7) $ank['mes'] = '7';
+				elseif ($ank['ank_m_r'] == 8) $ank['mes'] = '8';
+				elseif ($ank['ank_m_r'] == 9) $ank['mes'] = '9';
+				elseif ($ank['ank_m_r'] == 10) $ank['mes'] = '10';
+				elseif ($ank['ank_m_r'] == 11) $ank['mes'] = '11';
+				else $ank['mes'] = '12';
 				echo "$date<span class=\"ank_n\">生日:</span>$a $ank[ank_d_r] $ank[mes] ";
 			}
 			if ($ank['ank_d_r'] >= 19 && $ank['ank_m_r'] == 1) {
