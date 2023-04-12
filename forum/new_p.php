@@ -18,10 +18,10 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'forum' AND `i
 $set['title']='论坛-新主题';
 include_once '../sys/inc/thead.php';
 title();
-aut(); // форма авторизации
-// Меню возврата
+aut(); // 授权表
+// 返回菜单
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" /> <a href="/forum/">论坛</a> | <b>新职位</b>';
+echo '<img src="/style/icons/str2.gif" /> <a href="/forum/">论坛</a> | <b>新回复</b>';
 echo '</div>';
 $adm_add = NULL;
 $adm_add2 = NULL;
@@ -90,7 +90,7 @@ echo '</table>';
 if ($k_page>1)str("?",$k_page,$page); 
 // Меню возврата
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" /> <a href="/forum/">论坛</a> | <b>新职位</b>';
+echo '<img src="/style/icons/str2.gif" /> <a href="/forum/">论坛</a> | <b>新回复</b>';
 echo '</div>';
 include_once '../sys/inc/tfoot.php';
 ?>

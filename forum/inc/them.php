@@ -276,11 +276,11 @@ if (isset($_GET['act']) && $_GET['act'] == 'set' && (user_access('forum_them_edi
     if ($user['level'] > 0) {
         if ($them['up'] == 1) $check = ' checked="checked"';
         else $check = NULL;
-        echo "<label><input type=\"checkbox\"$check name=\"up\" value=\"1\" /> 总是在楼上</label><br />";
+        echo "<label><input type=\"checkbox\"$check name=\"up\" value=\"1\" /> 主题置顶</label><br />";
     }
     if ($them['close'] == 1) $check = ' checked="checked"';
     else $check = NULL;
-    echo "<label><input type=\"checkbox\"$check name=\"close\" value=\"1\" /> 关闭</label><br />";
+    echo "<label><input type=\"checkbox\"$check name=\"close\" value=\"1\" /> 主题关闭</label><br />";
     if ($ank2['id'] != $user['id']) {
         echo "<label><input type=\"checkbox\" name=\"autor\" value=\"1\" /> 剥夺作者的权利</label><br />";
     }
@@ -289,7 +289,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'set' && (user_access('forum_them_edi
     echo "</form>";
     echo "</div>";
     echo "<div class='foot'>";
-    echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?'>在主题</a><br />";
+    echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?'>返回主题</a><br />";
     echo "</div>";
     include_once '../sys/inc/tfoot.php';
     exit;
@@ -297,7 +297,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'set' && (user_access('forum_them_edi
 if (user_access('forum_post_ed') && isset($_GET['del'])) // удаление поста
 {
     dbquery("DELETE FROM `forum_p` WHERE `id` = '" . intval($_GET['del']) . "' LIMIT 1");
-    $_SESSION['message'] = '邮件已成功删除';
+    $_SESSION['message'] = '已成功删除';
     header("Location: /forum/$forum[id]/$razdel[id]/$them[id]/?page=" . intval($_GET['page']) . "");
     exit;
 }
@@ -322,7 +322,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'del' && ($ank2['level'] <= $user['le
 }
 /*
 =========
-来自 Voronoz 的调查
+投票模块
 =========
 */
 if (isset($_GET['act']) && $_GET['act'] == 'vote' && (user_access('forum_them_edit') || $ank2['id'] == $user['id'])) {
@@ -346,7 +346,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'vote' && (user_access('forum_them_ed
             }
             for ($x = 1; $x < 7; $x++) {
                 $add = my_esc($_POST['vote_' . $x . '']);
-                if (strlen2($add) > 23) $err = '投票选项 № ' . $x . ' 太久了';
+                if (strlen2($add) > 23) $err = '投票选项 № ' . $x . ' 太多了';
                 if ($_POST['vote_1'] == NULL || $_POST['vote_2'] == NULL) $err = '前两个选项必须填写';
                 $mat = antimat($add);
                 if ($mat) $err = '在投票选项中 № ' . $x . '  检测到非法字符: ' . $mat;
@@ -386,7 +386,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'vote' && (user_access('forum_them_ed
     } else {
         if (isset($_POST['send']) && isset($user)) {
             $text = my_esc($_POST['text']);
-            if (strlen2($text) < 3) $err[] = '简短投票主题';
+            if (strlen2($text) < 3) $err[] = '投票主题简短';
             if (strlen2($text) > 42) $err[] = '投票主题必须少于40个字符';
             $mat = antimat($text);
             if ($mat) $err[] = '在投票主题中发现了一个伴侣: ' . $mat;
@@ -409,19 +409,16 @@ if (isset($_GET['act']) && $_GET['act'] == 'vote' && (user_access('forum_them_ed
         err();
         echo "<form method='post' action='/forum/$forum[id]/$razdel[id]/$them[id]/?act=vote'>";
         echo "<div class='main'>";
-        echo '投票主题:' . $tPanel . '<textarea name="text"></textarea><br/> 
-';
+        echo '投票主题:' . $tPanel . '<textarea name="text"></textarea><br/>';
         for ($x = 1; $x < 7; $x++)
             echo "选项№ $x <div style='border-top: 1px dashed red; padding: 2px;'><input name='add_$x' type='text' maxlength='15' placeholder='未填写' /></div>";
         echo '<input value="增加" type="submit" name="send" /> </form>';
     }
-    echo "<img src='/style/icons/delete.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/'>取消</a>
-";
+    echo "<img src='/style/icons/delete.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/'>取消</a>";
     echo "</form>";
     echo "</div>";
     echo "<div class='foot'>";
-    echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?'>在主题</a>
-";
+    echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/forum/$forum[id]/$razdel[id]/$them[id]/?'>在主题</a>";
     echo "</div>";
     include_once '../sys/inc/tfoot.php';
     exit;
@@ -513,7 +510,7 @@ if ($vote_c != 0) {
         echo "</div>";
         /*
 ======================================
-В закладки и поделиться
+收藏和分享
 ======================================
 */
         if (!empty($them['id_edit'])) {

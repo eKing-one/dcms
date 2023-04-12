@@ -83,7 +83,7 @@ if ($user['level'] > 2) {
 		echo '<input value="添加" type="submit" />';
 		echo '</form>';
 	}
-	echo '<div class="foot"><img src="/style/icons/ok.gif" alt="*"/> <a href="post.php?id=' . intval($_GET['id']) . '&new">新职位</a></div>';
+	echo '<div class="foot"><img src="/style/icons/ok.gif" alt="*"/> <a href="post.php?id=' . intval($_GET['id']) . '&new">新回复</a></div>';
 }
 echo '<div class="foot"><img src="/style/icons/str2.gif" alt="*"/> <a href="index.php">资料</a></div>';
 include_once '../../sys/inc/tfoot.php';

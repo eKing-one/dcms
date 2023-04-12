@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -159,7 +159,7 @@ $name 变量值
 		$name = ' 已成为' . ($avtor['pol'] == 1 ? "" : "а") . ' 你的朋友';
 	} elseif ($type == 'otm_frend') // 关于取消预约的朋友通知
 	{
-		$name = ' 取消' . ($avtor['pol'] == 1 ? "" : "а") . ' 您的应用程序将您添加为好友';
+		$name = ' 取消' . ($avtor['pol'] == 1 ? "" : "а") . ' 将您添加为好友';
 	} elseif ($type == 'stena_komm2') {
 		$name = ' 写道 ' . ($avtor['pol'] == 1 ? ' ' : 'a') . ' 在你 <a href="/user/komm.php?id=' . $post['id_object'] . '">在动态上的入口</a>';
 	}

@@ -58,7 +58,7 @@ if (
       echo "<input name='post' value='修改' type='submit' /><br />";
       echo "</form></div>";
       echo "<div class=\"foot\">";
-      echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?page=end\" title='返回在主题'>在主题</a><br />";
+      echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?page=end\" title='返回在主题'>返回主题</a><br />";
       echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/$razdel[id]/\" title='至该组'>" . text($razdel['name']) . "</a><br />";
       echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/\" title='到子论坛'>" . text($forum['name']) . "</a><br />";
       echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">论坛</a><br />";
@@ -215,11 +215,11 @@ echo "<div class=\"err\">";
 echo "<a href='/rules.php'>规则</a><br />";
 echo "</div>";
 echo "<div class=\"main\">";
-echo "<img src='/style/icons/New.gif'> 新的: <a href='/forum/new_t.php'>&bull; 主题</a> | ";
-echo "<a href='/forum/new_p.php'>&bull; 通讯</a><br />";
+echo "<img src='/style/icons/New.gif'> 新的: <a href='/forum/new_t.php'> 主题</a> | ";
+echo "<a href='/forum/new_p.php'> 回复</a><br />";
 if (isset($user)) {
-  echo "<img src='/style/icons/top.gif'> 我的: <a href='/user/info/them_p.php?id=" . $user['id'] . "'>&bull; 主题</a> | ";
-  echo "<a href='/user/bookmark/forum.php?id=" . $user['id'] . "'> &bull; 书签</a> | <a href='/user/info/them_p.php?id=" . $user['id'] . "&komm'> &bull; 职位</a><br/>";
+  echo "<img src='/style/icons/top.gif'> 我的: <a href='/user/info/them_p.php?id=" . $user['id'] . "'> 主题</a> | ";
+  echo "<a href='/user/bookmark/forum.php?id=" . $user['id'] . "'>  书签</a> | <a href='/user/info/them_p.php?id=" . $user['id'] . "&komm'> 回复</a><br/>";
 }
 echo "<img src='/style/icons/searcher.png'> <a href='/forum/search.php'>论坛搜索<br /></a>";
 echo "</div>";
