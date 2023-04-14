@@ -161,7 +161,7 @@ $name 变量值
 	{
 		$name = ' 取消' . ($avtor['pol'] == 1 ? "" : "а") . ' 将您添加为好友';
 	} elseif ($type == 'stena_komm2') {
-		$name = ' 写道 ' . ($avtor['pol'] == 1 ? ' ' : 'a') . ' 在你 <a href="/user/komm.php?id=' . $post['id_object'] . '">在动态上的入口</a>';
+		$name = ' 写道 ' . ($avtor['pol'] == 1 ? ' ' : 'a') . ' 在你 <a href="/user/comm.php?id=' . $post['id_object'] . '">在动态上的入口</a>';
 	}
 	/*
 ===============================

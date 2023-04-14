@@ -1,16 +1,16 @@
 <?php
-include_once 'sys/inc/start.php';
-include_once 'sys/inc/compress.php';
-include_once 'sys/inc/sess.php';
-include_once 'sys/inc/home.php';
-include_once 'sys/inc/settings.php';
-include_once 'sys/inc/db_connect.php';
-include_once 'sys/inc/ipua.php';
-include_once 'sys/inc/fnc.php';
-include_once 'sys/inc/user.php';
+include_once '../sys/inc/start.php';
+include_once '../sys/inc/compress.php';
+include_once '../sys/inc/sess.php';
+include_once '../sys/inc/home.php';
+include_once '../sys/inc/settings.php';
+include_once '../sys/inc/db_connect.php';
+include_once '../sys/inc/ipua.php';
+include_once '../sys/inc/fnc.php';
+include_once '../sys/inc/user.php';
 only_reg();
 $set['title'] = '新邮件';
-include_once 'sys/inc/thead.php';
+include_once '../sys/inc/thead.php';
 title();
 aut();
 $k_post = dbresult(dbquery("SELECT COUNT(DISTINCT `mail`.`id_user`) FROM `mail`
@@ -55,6 +55,6 @@ if ($k_post == 0) {
 echo "</table>";
 if ($k_page > 1) str('?', $k_page, $page); // 输出页数
 echo "<div class='foot'>";
-echo "<img src='/style/icons/konts.png' alt='*' /> <a href='/user/konts.php?$passgen'>联系人</a><br />";
+echo "<img src='/style/icons/konts.png' alt='*' /> <a href='/user/comm.php?$passgen'>联系人</a><br />";
 echo "</div>";
-include_once 'sys/inc/tfoot.php';
+include_once '../sys/inc/tfoot.php';

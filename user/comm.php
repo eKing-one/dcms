@@ -37,13 +37,13 @@ if (isset($_GET['id']) && is_numeric($_GET['id']) && dbresult(dbquery("SELECT CO
                          dbquery("INSERT INTO `notification` (`avtor`, `id_user`, `id_object`, `type`, `time`) VALUES ('$user[id]', '$post[id_user]', '$post[id]', 'stena_komm2', '$time')");
                }
                $_SESSION['message'] = '消息已成功添加';
-               header('Location: /user/komm.php?id=' . $id);
+               header('Location: /user/comm.php?id=' . $id);
           }
      } elseif (isset($_GET['del']) && dbresult(dbquery("SELECT COUNT(*) FROM `stena_komm` WHERE `id` = '" . intval($_GET['del']) . "' AND `id_stena` = '$post[id]'"), 0)) {
           if (isset($user) && ($user['level'] >= 3 || $user['id'] = $stena['id_user'])) {
                dbquery("DELETE FROM `stena_komm` WHERE `id` = '" . intval($_GET['del']) . "' LIMIT 1");
                $_SESSION['message'] = '评论成功删除';
-               header('Location: /user/komm.php?id=' . $id);
+               header('Location: /user/comm.php?id=' . $id);
           }
      }
      err();
