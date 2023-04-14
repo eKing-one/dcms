@@ -339,7 +339,7 @@ if (!isset($hard_process)) {
 		}
 		$tab = dbquery('SHOW TABLES FROM ' . $set['mysql_db_name']);
 		for ($i = 0; $i < dbrows($tab); $i++) {
-			dbquery("OPTIMIZE TABLE `" . mysql_tablename($tab, $i) . "`"); // 表的优化
+			dbquery("OPTIMIZE TABLE `" . $tab . "`"); // 表的优化
 		}
 	}
 }

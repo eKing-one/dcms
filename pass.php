@@ -80,10 +80,10 @@ if (
 }
     echo '<div class="foot">
         尚未登记？<br/>
-        <a href="/reg.php">注册账号</a><br/>
+        <a href="/user/reg.php">注册账号</a><br/>
     </div>
     <div class="foot">
         已经注册？ <br/>
-        <a href="/aut.php">登录账号</a><br/>
+        <a href="/user/aut.php">登录账号</a><br/>
     </div>';
 include_once 'sys/inc/tfoot.php';

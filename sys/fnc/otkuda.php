@@ -18,11 +18,11 @@ function otkuda($ref)
 	elseif (preg_match('#^/online_g\.php#', $ref))
 		$mesto = ' 看看谁进来了 <a href="/online_g.php">在线游客</a> ';
 	elseif (preg_match('#^/reg\.php#', $ref))
-		$mesto = ' 需要 <a href="/reg.php">登记册</a> ';
+		$mesto = ' 正在 <a href="/user/reg.php">注册</a> ';
 	elseif (preg_match('#^/down/#', $ref))
 		$mesto = ' 坐在 <a href="/down/">下载中心</a> ';
 	elseif (preg_match('#^/aut\.php#', $ref))
-		$mesto = ' 需要 <a href="/aut.php">登录网站</a> ';
+		$mesto = ' 正在 <a href="/user/aut.php">登录网站</a> ';
 	elseif (preg_match('#^/index\.php#', $ref))
 		$mesto = ' 访问 <a href="/index.php">网站主页</a> ';
 	elseif (preg_match('#^/\??$#', $ref))

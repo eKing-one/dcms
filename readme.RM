@@ -18,3 +18,6 @@ function dbassoc($result)
 {
   return mysql_fetch_assoc($result);
 }
+正在更新
+把网站根目录的关于用户文件统一放到user文件夹里面
+目前进度

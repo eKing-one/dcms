@@ -172,7 +172,7 @@ if (!isset($user) || $user['level']  ==  0) {
 }
 
 if (!isset($user) && $set['guest_select']  ==  '1' && !isset($show_all) && $_SERVER['PHP_SELF'] != '/index.php') {
-	header("Location: /aut.php");
+	header("Location: /user/aut.php");
 	exit;
 }
 
@@ -400,6 +400,6 @@ if ($_SERVER["REQUEST_URI"] == "/" or $_SERVER["REQUEST_URI"] == "/index.php") {
 }
 
 if (empty(setget('job', 1))) {
-	if (((isset($user) and $user['level'] < 5) or (!isset($user)))  and  $_SERVER["PHP_SELF"] != "/aut.php" and $_SERVER["PHP_SELF"] != "/login.php" and  $_SERVER["PHP_SELF"] != "/exit.php" and  $_SERVER["PHP_SELF"] != "/pass.php")
+	if (((isset($user) and $user['level'] < 5) or (!isset($user)))  and  $_SERVER["PHP_SELF"] != "/user/aut.php" and $_SERVER["PHP_SELF"] != "/user/login.php" and  $_SERVER["PHP_SELF"] != "/user/exit.php" and  $_SERVER["PHP_SELF"] != "/user/pass.php")
 		exit("技术工作正在进行中");
 }

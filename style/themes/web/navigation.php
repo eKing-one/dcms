@@ -237,7 +237,7 @@ echo '<a href="'.htmlspecialchars($_SERVER['REQUEST_URI']).'"><span class="link_
 <br/>更新</span></a>';
 
 
-}elseif ($_SERVER['PHP_SELF'] != '/aut.php' && $_SERVER['PHP_SELF'] != '/reg.php'){
+}elseif ($_SERVER['PHP_SELF'] != '/user/aut.php' && $_SERVER['PHP_SELF'] != '/user/reg.php'){
 
 echo '<a href="#user" rel="facebox"><span class="link_title2"><img src="/style/themes/web/images/key.png" alt=""/><br />授权/登记</span></a>';
 
@@ -247,7 +247,7 @@ echo '<div id="user" style="display:none;">';
 echo "<div class = 'foot'>授权</div>";
 
 
-	echo "<form class='mess' method='post' action='/login.php'>
+	echo "<form class='mess' method='post' action='/user/login.php'>
 
 
 	登录:<br /><input type='text' name='nick' maxlength='32' /><br />
@@ -268,7 +268,7 @@ echo "<div class = 'foot'>授权</div>";
 echo "<div class = 'foot'>登记</div>";
 
 
-echo "<form class='mess' method='post' action='/reg.php?$passgen'>";
+echo "<form class='mess' method='post' action='/user/reg.php?$passgen'>";
 
 
 echo "选择 Nick [A-z0-9 -_]:<br /><input type='text' name='nick' maxlength='32' /><br />";

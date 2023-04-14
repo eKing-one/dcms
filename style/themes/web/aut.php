@@ -182,7 +182,7 @@ echo "</form>";
 
 
 
-echo "<a href='/reg.php'><b>Регистрация</b></a><br /></div>";
+echo "<a href='/user/reg.php'><b>注册</b></a><br /></div>";
 
 
 

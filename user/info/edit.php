@@ -254,7 +254,7 @@ err();
 	if (isset($_GET['set']) && $_GET['set']=='gorod')
 	echo "城市:<br /><input type='text' name='ank_city' value='$user[ank_city]' maxlength='32' /><br />";
 	if (isset($_GET['set']) && $_GET['set']=='icq')
-	echo "QQ:<br /><input type='text' name='ank_icq' value='$user[ank_icq]' maxlength='9' /><br />";
+	echo "QQ:<br /><input type='text' name='ank_icq' value='$user[ank_icq]' maxlength='10' /><br />";
 	if (isset($_GET['set']) && $_GET['set']=='skype')
 	echo "微信<br /><input type='text' name='ank_skype' value='$user[ank_skype]' maxlength='16' /><br />";
 	if (isset($_GET['set']) && $_GET['set']=='mail'){

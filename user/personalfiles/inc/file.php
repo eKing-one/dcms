@@ -243,7 +243,7 @@ if (($user['abuld'] == 1 || $file_id['metka'] == 0 || $file_id['id_user'] == $us
 } elseif (!isset($user)) {
 	echo '<div class="mess">';
 	echo '<img src="/style/icons/small_adult.gif" alt="*"><br /> 该文件包含色情图像。只有 18 岁以上的注册用户才能查看此类文件。 <br />';
-	echo '<a href="/aut.php">登录</a> | <a href="/reg.php">注册</a>';
+	echo '<a href="/user/aut.php">登录</a> | <a href="/user/reg.php">注册</a>';
 	echo '</div>';
 } else {
 	echo '<div class="mess">';

@@ -60,7 +60,7 @@ header("Location: /mail.php?id=$ank[id]");
 $_SESSION['message']='消息发送成功';
 }}}
 /* Поле воода сообщения */
-?><form class="nav2" action="/mails.php?send" method="post">To（昵称）:<br/><input type="text" name="komu"><br/><?=$tPanel;?><textarea name="msg"></textarea>
+?><form class="nav2" action="/mails.php?send" method="post">To（账号）:<br/><input type="text" name="komu"><br/><?=$tPanel;?><textarea name="msg"></textarea>
 <br/><input type="submit" value="发送" name="send"></form><?php
 include_once 'sys/inc/tfoot.php';
 ?>

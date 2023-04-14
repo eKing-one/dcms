@@ -1,20 +1,20 @@
 <?php
-//include_once 'sys/inc/mp3.php';
-//include_once 'sys/inc/zip.php';
-include_once 'sys/inc/start.php';
-include_once 'sys/inc/compress.php';
-include_once 'sys/inc/sess.php';
-include_once 'sys/inc/home.php';
-include_once 'sys/inc/settings.php';
-include_once 'sys/inc/db_connect.php';
-include_once 'sys/inc/ipua.php';
-include_once 'sys/inc/fnc.php';
-include_once 'sys/inc/shif.php';
+//include_once '../sys/inc/mp3.php';
+//include_once '../sys/inc/zip.php';
+include_once '../sys/inc/start.php';
+include_once '../sys/inc/compress.php';
+include_once '../sys/inc/sess.php';
+include_once '../sys/inc/home.php';
+include_once '../sys/inc/settings.php';
+include_once '../sys/inc/db_connect.php';
+include_once '../sys/inc/ipua.php';
+include_once '../sys/inc/fnc.php';
+include_once '../sys/inc/shif.php';
 $show_all = true; // 给大家看
-include_once 'sys/inc/user.php';
+include_once '../sys/inc/user.php';
 only_unreg();
 $set['title'] = '注册账号';
-include_once 'sys/inc/thead.php';
+include_once '../sys/inc/thead.php';
 title();
 aut();
 if ($set['guest_select'] == '1') {
@@ -28,8 +28,8 @@ if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL)
 if ($set['reg_select'] == 'close') {
 	$err = '暂停登记';
 	err();
-	echo "<a href='/aut.php'>登录账号</a><br />";
-	include_once 'sys/inc/tfoot.php';
+	echo "<a href='/user/aut.php'>登录账号</a><br />";
+	include_once '../sys/inc/tfoot.php';
 } elseif ($set['reg_select'] == 'open_mail' && isset($_GET['id']) && isset($_GET['activation']) && $_GET['activation'] != NULL) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '" . intval($_GET['id']) . "' AND `activation` = '" . my_esc($_GET['activation']) . "'"), 0) == 1) {
 		dbquery("UPDATE `user` SET `activation` = null WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1");
@@ -37,7 +37,7 @@ if ($set['reg_select'] == 'close') {
 		dbquery("INSERT INTO `reg_mail` (`id_user`,`mail`) VALUES ('$user[id]','$user[ank_mail]')");
 		msg('您的帐户已成功启动');
 		$_SESSION['id_user'] = $user['id'];
-		include_once 'sys/inc/tfoot.php';
+		include_once '../sys/inc/tfoot.php';
 	}
 }
 if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '" . $_SESSION['reg_nick'] . "'"), 0) == 0 && isset($_POST['pass1']) && $_POST['pass1'] != NULL && $_POST['pass2'] && $_POST['pass2'] != NULL) {
@@ -62,7 +62,7 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 			$subject = "帐户激活";
 			$regmail = "你好！ $_SESSION[reg_nick]<br />
 			要激活您的帐户，请点击链接:<br />
-<a href='http://$_SERVER[HTTP_HOST]/reg.php?id=$id_reg&amp;activation=$activation'>http://$_SERVER[HTTP_HOST]/reg.php?id=" . dbinsertid() . "&amp;activation=$activation</a><br />
+<a href='http://$_SERVER[HTTP_HOST]/user/reg.php?id=$id_reg&amp;activation=$activation'>http://$_SERVER[HTTP_HOST]/user/reg.php?id=" . dbinsertid() . "&amp;activation=$activation</a><br />
 如果帐户在24小时内未激活，它将被删除<br />
 真诚的，网站管理<br />
 ";
@@ -101,7 +101,7 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 		echo "&raquo;<a href='settings.php'>我的设置</a><br />";
 		echo "&raquo;<a href='umenu.php'>我的菜单</a><br />";
 		echo "</div>";
-		include_once 'sys/inc/tfoot.php';
+		include_once '../sys/inc/tfoot.php';
 	}
 } elseif (isset($_POST['nick']) && $_POST['nick'] != NULL) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "'"), 0) == 0) {
@@ -120,11 +120,11 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 }
 err();
 if (isset($_SESSION['step']) && $_SESSION['step'] == 1) {
-	echo "<form method='post' action='/reg.php?$passgen'>";
+	echo "<form method='post' action='/user/reg.php?$passgen'>";
 	echo "你的昵称[A-zА-я0-9 -_]:<br /><input type='text' name='nick' maxlength='32' value='$_SESSION[reg_nick]' /><br />";
 	echo "<input type='submit' value='另一个' />";
 	echo "</form><br />";
-	echo "<form method='post' action='/reg.php?$passgen'>";
+	echo "<form method='post' action='/user/reg.php?$passgen'>";
 	echo "你的性别:<br /><select name='pol'><option value='1'>男</option><option value='0'>女</option></select><br />";
 	if ($set['reg_select'] == 'open_mail') {
 		echo "E-mail:<br /><input type='text' name='ank_mail' /><br />";
@@ -137,7 +137,7 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1) {
 	echo "<input type='submit' value='继续' />";
 	echo "</form><br />";
 } else {
-	echo "<form class='mess' method='post' action='/reg.php?$passgen'>";
+	echo "<form class='mess' method='post' action='/user/reg.php?$passgen'>";
 	echo "选择昵称 [A-z0-9 -_]:<br /><input type='text' name='nick' maxlength='32' /><br />";
 	echo "通过注册，您自动同意 <a href='/rules.php'>网站规则</a> <br />";
 	echo "<input type='submit' value='继续' />";
@@ -145,4 +145,4 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1) {
 }
 echo "<div class = 'foot'>已经注册？<br />&raquo;<a href='/aut.php'>登录账号</a></div>
 <div class = 'foot'>不记得密码？<br />&raquo;<a href='/pass.php'>恢复密码</a></div>";
-include_once 'sys/inc/tfoot.php';
+include_once '../sys/inc/tfoot.php';

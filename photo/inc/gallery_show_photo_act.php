@@ -43,7 +43,8 @@ if ((user_access('photo_photo_edit') || isset($user) && $user['id'] == $ank['id'
 */
 if ((user_access('photo_photo_edit') || isset($user) && $user['id'] == $ank['id']) && isset($_GET['act']) && $_GET['act'] == 'rename' && isset($_GET['ok']) && isset($_POST['name']) && isset($_POST['opis'])) {
 	$name = esc(stripcslashes(htmlspecialchars($_POST['name'])), 1);
-	if (!preg_match("#^([A-zА-я0-9\-\_\(\)\,\.\ ])+$#ui", $name)) $err = '主题标题中存在禁止的字符';
+	$mat = antimat($name);
+	if ($mat) $err = '标题中存在禁止的字符';
 	if (strlen2($name) < 3) $err = '短标题';
 	if (strlen2($name) > 32) $err = '标题不得超过 32 个字符';
 	$name = my_esc($name);

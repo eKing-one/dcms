@@ -42,7 +42,7 @@ if (!$set['web'])
 	else
 	{
 		echo '<div align="right">
-		<a href="/aut.php">登录</a> | <a href="/reg.php">注册</a>
+		<a href="/user/aut.php">登录</a> | <a href="/user/reg.php">注册</a>
 		</div>';
 		
 	}
