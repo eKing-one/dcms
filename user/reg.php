@@ -92,7 +92,7 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 			msg('您需要使用发送到电子邮件的链接激活您的帐户');
 		} else {
 			dbquery("update `user` set `wall` = '0' where `id` = '$user[id]' limit 1");
-			header('Location: /umenu.php?login=' . htmlspecialchars($_POST['reg_nick']) . '&pass=' . htmlspecialchars($_POST['pass1']));
+			header('Location: /user/my_aut.php?login=' . htmlspecialchars($_POST['reg_nick']) . '&pass=' . htmlspecialchars($_POST['pass1']));
 		}
 		echo "如果您的浏览器不支持Cookie，您可以创建一个自动登录书签<br />";
 		echo "<input type='text' value='http://$_SERVER[SERVER_NAME]/user/login.php?id=$user[id]&amp;pass=" . htmlspecialchars($_POST['pass1']) . "' /><br />";
@@ -143,6 +143,6 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1) {
 	echo "<input type='submit' value='继续' />";
 	echo "</form><br />";
 }
-echo "<div class = 'foot'>已经注册？<br />&raquo;<a href='/aut.php'>登录账号</a></div>
-<div class = 'foot'>不记得密码？<br />&raquo;<a href='/pass.php'>恢复密码</a></div>";
+echo "<div class = 'foot'>已经注册？<br />&raquo;<a href='/user/aut.php'>登录账号</a></div>
+<div class = 'foot'>不记得密码？<br />&raquo;<a href='/user/pass.php'>恢复密码</a></div>";
 include_once '../sys/inc/tfoot.php';

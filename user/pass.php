@@ -1,18 +1,18 @@
 <?php
-include_once 'sys/inc/start.php';
-include_once 'sys/inc/compress.php';
-include_once 'sys/inc/sess.php';
-include_once 'sys/inc/home.php';
-include_once 'sys/inc/settings.php';
-include_once 'sys/inc/db_connect.php';
-include_once 'sys/inc/ipua.php';
-include_once 'sys/inc/fnc.php';
-include_once 'sys/inc/shif.php';
+include_once '../sys/inc/start.php';
+include_once '../sys/inc/compress.php';
+include_once '../sys/inc/sess.php';
+include_once '../sys/inc/home.php';
+include_once '../sys/inc/settings.php';
+include_once '../sys/inc/db_connect.php';
+include_once '../sys/inc/ipua.php';
+include_once '../sys/inc/fnc.php';
+include_once '../sys/inc/shif.php';
 $show_all = true; //为大家展示
-include_once 'sys/inc/user.php';
+include_once '../sys/inc/user.php';
 only_unreg();
 $set['title'] = '密码恢复';
-include_once 'sys/inc/thead.php';
+include_once '../sys/inc/thead.php';
 title();
 if (isset($_POST['nick']) && isset($_POST['mail']) && $_POST['nick'] != NULL && $_POST['mail'] != NULL) {
     if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "'"), 0) == 0) {
@@ -27,7 +27,7 @@ if (isset($_POST['nick']) && isset($_POST['mail']) && $_POST['nick'] != NULL && 
         $regmail = "你好！ $user2[nick]<br />
 您已激活密码恢复<br />
 要设置新密码，请点击链接:<br />
-<a href='http://$_SERVER[HTTP_HOST]/pass.php?id=$user2[id]&amp;set_new=$new_sess'>http://$_SERVER[HTTP_HOST]/pass.php?id=$user2[id]&amp;set_new=$new_sess</a><br />
+<a href='http://$_SERVER[HTTP_HOST]/user/pass.php?id=$user2[id]&amp;set_new=$new_sess'>http://$_SERVER[HTTP_HOST]/user/pass.php?id=$user2[id]&amp;set_new=$new_sess</a><br />
 此链接有效，直到您的用户名下的第一个授权($user2[nick])<br />真诚的，网站管理<br />";
         $adds = "From: \"password@$_SERVER[HTTP_HOST]\" <password@$_SERVER[HTTP_HOST]>";
         //$adds = "From: <$set[reg_mail]>";
@@ -58,7 +58,7 @@ if (
     }
     err();
     aut();
-    echo "<form action='/pass.php?id=$user2[id]&amp;set_new=" . esc($_GET['set_new'], 1) . "&amp;$passgen' method=\"post\">";
+    echo "<form action='/user/pass.php?id=$user2[id]&amp;set_new=" . esc($_GET['set_new'], 1) . "&amp;$passgen' method=\"post\">";
     echo "登录:<br />";
     echo "<input type=\"text\" disabled='disabled' value='$user2[nick]' maxlength=\"32\" size=\"16\" /><br />";
     echo "新密码:<br /><input type='password' name='pass1' value='' /><br />";
@@ -86,4 +86,4 @@ if (
         已经注册？ <br/>
         <a href="/user/aut.php">登录账号</a><br/>
     </div>';
-include_once 'sys/inc/tfoot.php';
+include_once '../sys/inc/tfoot.php';

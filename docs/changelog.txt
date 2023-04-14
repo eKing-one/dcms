@@ -325,7 +325,7 @@ DCMS-Social 1.7.5 beta
 -修复了页面隐私设置的 bug
 -编写了一个新的算法来回复（到目前为止，只有新闻可以看到一个例子）
 - 更新 /my_aut.php
--重写 umenu.php 文件（/sys/inc/umenu.php 不再需要删除它）
+-重写 umenu.php 文件（/sys/inc/user/my_aut.php 不再需要删除它）
 =========================
 DCMS-Social 1.7.6 beta
 =========================

@@ -259,7 +259,7 @@ echo "<div class = 'foot'>授权</div>";
 		<label><input type='checkbox' name='aut_save' value='1' /> 记住我。</label><br />
 
 
-		<input type='submit' value='登录' /> <a href='/pass.php'>忘了密码？</a> <br />
+		<input type='submit' value='登录' /> <a href='/user/pass.php'>忘了密码？</a> <br />
 
 
 		</form><br />";

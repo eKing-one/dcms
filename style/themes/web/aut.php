@@ -62,7 +62,7 @@ echo "</div>";
 
 
 
-include_once H.'sys/inc/umenu.php';
+include_once H.'sys/inc/user/my_aut.php';
 
 
 
@@ -162,7 +162,7 @@ echo "Логин:<br /><input type='text' name='nick' maxlength='32' /><br />";
 
 
 
-echo "Пароль (<a href='/pass.php'>Забыли</a>):<br /><input type='password' name='pass' maxlength='32' /><br />";
+echo "Пароль (<a href='/user/pass.php'>Забыли</a>):<br /><input type='password' name='pass' maxlength='32' /><br />";
 
 
 

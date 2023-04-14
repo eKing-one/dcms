@@ -304,7 +304,7 @@ if (isset($user) && $ank['id'] != $user['id']) {
 if (isset($user) && $ank['id'] == $user['id']) {
 	echo "<div class='main'>";
 	echo "<img src='/style/icons/uslugi.gif' alt='*' /> <a href=\"/user/money/index.php\">额外服务</a><br /> ";
-	echo "<img src='/style/icons/settings.png' alt='*' /> <a href=\"/user/info/settings.php\">我的设置</a> | <a href=\"/umenu.php\">菜单</a>";
+	echo "<img src='/style/icons/settings.png' alt='*' /> <a href=\"/user/info/settings.php\">我的设置</a> | <a href=\"/user/my_aut.php\">菜单</a>";
 	echo "</div>";
 }
 /*

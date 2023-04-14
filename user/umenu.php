@@ -5,18 +5,18 @@
  * & Contacts :: ICQ 587863132
  * & Site     :: http://dcms-social.ru
  */
-include_once 'sys/inc/start.php';
-include_once 'sys/inc/compress.php';
-include_once 'sys/inc/sess.php';
-include_once 'sys/inc/home.php';
-include_once 'sys/inc/settings.php';
-include_once 'sys/inc/db_connect.php';
-include_once 'sys/inc/ipua.php';
-include_once 'sys/inc/fnc.php';
-include_once 'sys/inc/user.php';
+include_once '../sys/inc/start.php';
+include_once '../sys/inc/compress.php';
+include_once '../sys/inc/sess.php';
+include_once '../sys/inc/home.php';
+include_once '../sys/inc/settings.php';
+include_once '../sys/inc/db_connect.php';
+include_once '../sys/inc/ipua.php';
+include_once '../sys/inc/fnc.php';
+include_once '../sys/inc/user.php';
 only_reg();
 $set['title'] = '个人中心';
-include_once 'sys/inc/thead.php';
+include_once '../sys/inc/thead.php';
 title();
 aut();
 if (isset($_GET['login']) && isset($_GET['pass']))
@@ -39,13 +39,13 @@ if (isset($_GET['login']) && isset($_GET['pass']))
 </div>
 <?
 //从文件夹加载其余插件 "sys/add/umenu"
-$opdirbase = opendir(H.'sys/add/umenu');
+$opdirbase = opendir(H.'../sys/add/umenu');
 while ($filebase = readdir($opdirbase))
 {
 	if (preg_match('#\.php$#i', $filebase))
 	{
 		echo '<div class="main" id="umenu">';
-		include_once(H.'sys/add/umenu/' . $filebase);
+		include_once(H.'../sys/add/umenu/' . $filebase);
 		echo '</div>';
 	}
 }
@@ -76,6 +76,6 @@ if ($set['web'] == false)
 	echo '<a href="/user/exit.php"><img src="/style/icons/delete.gif" /> 退出登录 ' . user::nick($user['id'],0,0,0) . '</a><br />';
 	echo '</div>';
 }
-include_once 'sys/inc/tfoot.php';
+include_once '../sys/inc/tfoot.php';
 exit;
 ?>
