@@ -95,7 +95,7 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 			header('Location: /umenu.php?login=' . htmlspecialchars($_POST['reg_nick']) . '&pass=' . htmlspecialchars($_POST['pass1']));
 		}
 		echo "如果您的浏览器不支持Cookie，您可以创建一个自动登录书签<br />";
-		echo "<input type='text' value='http://$_SERVER[SERVER_NAME]/login.php?id=$user[id]&amp;pass=" . htmlspecialchars($_POST['pass1']) . "' /><br />";
+		echo "<input type='text' value='http://$_SERVER[SERVER_NAME]/user/login.php?id=$user[id]&amp;pass=" . htmlspecialchars($_POST['pass1']) . "' /><br />";
 		if ($set['reg_select'] == 'open_mail') unset($user);
 		echo "<div class='foot'>";
 		echo "&raquo;<a href='settings.php'>我的设置</a><br />";

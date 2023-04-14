@@ -16,7 +16,7 @@ if (isset($_SESSION['id_user']) && dbresult(dbquery("SELECT COUNT(*) FROM `user`
 	$user['type_input'] = 'session';
 } elseif (!isset($input_page) && isset($_COOKIE['id_user']) && isset($_COOKIE['pass']) && $_COOKIE['id_user'] && $_COOKIE['pass']) {
 	if (!isset($_POST['token'])) {
-		header("Location: /login.php?return=" . urlencode($_SERVER['REQUEST_URI']) . "&$passgen");
+		header("Location: /user/login.php?return=" . urlencode($_SERVER['REQUEST_URI']) . "&$passgen");
 		exit;
 	}
 }
