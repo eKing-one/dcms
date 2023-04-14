@@ -167,7 +167,7 @@ if (user_access('user_ban_set') || user_access('user_ban_set_h')) {
     echo "<div class='err'>没有禁止用户的权利</div>";
 }
 echo "<div class='foot'>";
-echo "&raquo;<a href=\"/mail.php?id=$ank[id]\">写一封信</a><br />";
+echo "&raquo;<a href=\"/user/mail.php?id=$ank[id]\">写一封信</a><br />";
 echo "&laquo;<a href=\"/user/info.php?id=$ank[id]\">返回资料</a><br />";
 if (user_access('adm_panel_show'))
     echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";

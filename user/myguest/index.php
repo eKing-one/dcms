@@ -50,7 +50,7 @@ while ($post = dbarray($q)) {
 		echo ' <span class="time" style="color:red">' . vremja($post['time']) . '</span><br />';
 	else
 		echo ' <span>' . vremja($post['time']) . '</span><br />';
-	echo '<a href="/mail.php?id=' . $ank['id'] . '"><img src="/style/icons/pochta.gif" alt="*" /> 信息</a> ';
+	echo '<a href="/user/mail.php?id=' . $ank['id'] . '"><img src="/style/icons/pochta.gif" alt="*" /> 信息</a> ';
 	echo '</div>';
 	// 帖子显示为已读
 	dbquery("UPDATE `my_guests` SET `read` = '0' WHERE `id` = '$post[id]' LIMIT 1");

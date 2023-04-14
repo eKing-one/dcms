@@ -230,7 +230,7 @@ if ($ank['rating'] >= 0 && $ank['rating'] <= 100) {
 //-------------alex-borisi---------------//
 if (isset($user) && $user['id'] != $ank['id']) {
 	echo "<div class='nav2'>";
-	echo "<img src='/style/icons/pochta.gif' alt='*' /> <a href=\"/mail.php?id=$ank[id]\"><b>私聊</b></a>";
+	echo "<img src='/style/icons/pochta.gif' alt='*' /> <a href=\"/user/mail.php?id=$ank[id]\"><b>私聊</b></a>";
 	echo "</div>";
 }
 echo "<div class='nav2'>";

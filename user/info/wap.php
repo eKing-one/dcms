@@ -258,7 +258,7 @@ echo "</div>";
 */
 if (isset($user) && $ank['id'] != $user['id']) {
 	echo "<div class='nav1'>";
-	echo " <a href=\"/mail.php?id=$ank[id]\"><img src='/style/icons/pochta.gif' alt='*' /> 信息</a><br />";/*
+	echo " <a href=\"/user/mail.php?id=$ank[id]\"><img src='/style/icons/pochta.gif' alt='*' /> 信息</a><br />";/*
 ========================================
 В друзья
 ========================================

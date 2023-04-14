@@ -1,15 +1,15 @@
 <?php
-include_once 'sys/inc/start.php';
-include_once 'sys/inc/compress.php';
-include_once 'sys/inc/home.php';
-include_once 'sys/inc/sess.php';
-include_once 'sys/inc/settings.php';
-include_once 'sys/inc/db_connect.php';
-include_once 'sys/inc/ipua.php';
-include_once 'sys/inc/fnc.php';
-include_once 'sys/inc/user.php';
+include_once '../sys/inc/start.php';
+include_once '../sys/inc/compress.php';
+include_once '../sys/inc/home.php';
+include_once '../sys/inc/sess.php';
+include_once '../sys/inc/settings.php';
+include_once '../sys/inc/db_connect.php';
+include_once '../sys/inc/ipua.php';
+include_once '../sys/inc/fnc.php';
+include_once '../sys/inc/user.php';
 $set['title']='写一封信';
-include_once 'sys/inc/thead.php';
+include_once '../sys/inc/thead.php';
 title();
 aut();
 only_reg();
@@ -17,14 +17,14 @@ if(isset($_GET['send']) AND isset($_POST['send'])){
 if(dbresult(dbquery("SELECT COUNT(`id`)FROM `user` WHERE `nick`='".my_esc($_POST['komu'])."' LIMIT 1"),0)==0){
 /* 检查是否有这样一个昵称的性别 */
 ?><div class="nav2">你可能犯了一个错误，该用户 <?=text($_POST['komu']);?> 不在网站上。</div>
-<div class="foot"> <a href="/mails.php">返回</a></div><?php
-include_once 'sys/inc/tfoot.php';
+<div class="foot"> <a href="/user/mails.php">返回</a></div><?php
+include_once '../sys/inc/tfoot.php';
 exit;
 }elseif((strlen2($_POST['msg'])<3) OR (strlen2($_POST['msg'])>1024)){
 /* Проверка кол-ва симоволов */
 ?><div class="nav2">消息中允许的字符数为2到1024。你已经进去了: <?=strlen2($_POST['msg']);?></div>
-<div class="foot"><a href="/mails.php">返回</a></div><?php
-include_once 'sys/inc/tfoot.php';
+<div class="foot"><a href="/user/mails.php">返回</a></div><?php
+include_once '../sys/inc/tfoot.php';
 }else{
 $ank=dbassoc(dbquery("SELECT `id` FROM `user` WHERE `nick`='".my_esc($_POST['komu'])."' LIMIT 1"));
 /* Если выше всё норм, то проверяем на приватнось почты */
@@ -56,11 +56,11 @@ if ($user['group_access'] == 0)
 if($block==true AND $ank['id']!=0){
 /* если вообще всё норм, то отправляем */
 dbquery("INSERT INTO `mail`(`id_user`,`id_kont`,`time`,`msg`) values('$user[id]','$ank[id]','$time','".my_esc($_POST['msg'])."')");
-header("Location: /mail.php?id=$ank[id]");
+header("Location: /user/mail.php?id=$ank[id]");
 $_SESSION['message']='消息发送成功';
 }}}
 /* Поле воода сообщения */
-?><form class="nav2" action="/mails.php?send" method="post">To（账号）:<br/><input type="text" name="komu"><br/><?=$tPanel;?><textarea name="msg"></textarea>
+?><form class="nav2" action="/user/mails.php?send" method="post">To（账号）:<br/><input type="text" name="komu"><br/><?=$tPanel;?><textarea name="msg"></textarea>
 <br/><input type="submit" value="发送" name="send"></form><?php
-include_once 'sys/inc/tfoot.php';
+include_once '../sys/inc/tfoot.php';
 ?>

@@ -45,16 +45,16 @@ if ($k_post == 0) {
 		if ($ank)
 			echo user::nick($ank['id'], 1, 1, 0);
 		else
-			echo "<a href='/mail.php?id=$ank[id]'>[DELETED] (+$kont[count])";
+			echo "<a href='/user/mail.php?id=$ank[id]'>[DELETED] (+$kont[count])";
 		echo "<font color='#1e00ff'>" . vremja($kont['last_time']) . "</font><br />";
 		echo "<img src='/style/icons/new_mess.gif' alt='*' /> ";
-		echo "<a href='/mail.php?id=$ank[id]'>查看信息</a> <font color='red'>+$kont[count]</font><br />";
+		echo "<a href='/user/mail.php?id=$ank[id]'>查看信息</a> <font color='red'>+$kont[count]</font><br />";
 		echo "  </div>";
 	}
 }
 echo "</table>";
 if ($k_page > 1) str('?', $k_page, $page); // 输出页数
 echo "<div class='foot'>";
-echo "<img src='/style/icons/konts.png' alt='*' /> <a href='/konts.php?$passgen'>联系人</a><br />";
+echo "<img src='/style/icons/konts.png' alt='*' /> <a href='/user/konts.php?$passgen'>联系人</a><br />";
 echo "</div>";
 include_once 'sys/inc/tfoot.php';

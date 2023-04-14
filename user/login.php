@@ -107,5 +107,5 @@ if (isset($user) && $user['rating_tmp']>1000)
 }
 if (isset($_GET['return']))
 header('Location: '.urldecode($_GET['return']));
-else header("Location: /my_aut.php?".SID);
+else header("Location: /user/my_aut.php?".SID);
 exit;

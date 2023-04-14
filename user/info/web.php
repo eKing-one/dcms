@@ -185,7 +185,7 @@ if ($ank['group_access'] > 1) {
 				/*-------------------------------------------------------------*/
 				/*--------------------消息 -----------------------------------*/
 				echo "<div class='main'>";
-				echo " <a href=\"/mail.php?id=$ank[id]\"><img src='/style/icons/pochta.gif' alt='*' /> 通信</a> ";
+				echo " <a href=\"/user/mail.php?id=$ank[id]\"><img src='/style/icons/pochta.gif' alt='*' /> 通信</a> ";
 				echo "</div>";
 				/*----------------------------------------------------------------*/
 				/*
@@ -236,7 +236,7 @@ if ($ank['group_access'] > 1) {
 				/*-----------------------*/
 				echo user::avatar($ank3['id']);
 				echo ' <a href="/user/info.php?id=' . $ank3['id'] . '">' . $ank3['nick'] . '</a>' . medal($ank3['id']) . ' ' . online($ank3['id']) . ' (' . (($ank3['pol'] == 1) ? '男' : '女') . ')<br />';
-				echo '<a href="/mail.php?id=' . $ank3['id'] . '"><img src="/style/icons/pochta.gif" alt="*" /> 通信</a> ';
+				echo '<a href="/user/mail.php?id=' . $ank3['id'] . '"><img src="/style/icons/pochta.gif" alt="*" /> 通信</a> ';
 				echo "</div>";
 			}
 			/*---------------------the end--------------------------*/

@@ -95,7 +95,7 @@ while ($ank = dbassoc($q)) {
 	echo "" . user::nick($ank['id'],1,1,0) .  " <br />";
 	echo "$ank[group_name]";
 	if ($ank['id'] != $user['id']) {
-		echo "<br /> <a href=\"/mail.php?id=$ank[id]\"><img src='/style/icons/pochta.gif' alt='*' /> 信息</a> ";
+		echo "<br /> <a href=\"/user/mail.php?id=$ank[id]\"><img src='/style/icons/pochta.gif' alt='*' /> 信息</a> ";
 	}
 	echo "</div>";
 }

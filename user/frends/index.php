@@ -180,7 +180,7 @@ while ($frend = dbassoc($q)) {
 	echo user::nick($frend['id'], 1, 1, 0);
 	echo '<br/><img src="/style/icons/alarm.png"> ' . ($webbrowser ? '最后在线:' : null) . ' ' . vremja($frend['date_last']) . ' </td><td style="width:18px;">';
 	if (isset($user)) {
-		echo "<a href=\"/mail.php?id=$frend[id]\"><img src='/style/icons/pochta.gif' alt='*' /></a><br/>";
+		echo "<a href=\"/user/mail.php?id=$frend[id]\"><img src='/style/icons/pochta.gif' alt='*' /></a><br/>";
 		if ($ank['id'] == $user['id'])			echo "<a href='create.php?del=$frend[id]'><img src='/style/icons/delete.gif' alt='*' /></a>";
 	}
 	echo '</td></table></div>';

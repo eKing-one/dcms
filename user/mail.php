@@ -1,13 +1,13 @@
 <?php
-include_once 'sys/inc/start.php';
-include_once 'sys/inc/compress.php';
-include_once 'sys/inc/sess.php';
-include_once 'sys/inc/home.php';
-include_once 'sys/inc/settings.php';
-include_once 'sys/inc/db_connect.php';
-include_once 'sys/inc/ipua.php';
-include_once 'sys/inc/fnc.php';
-include_once 'sys/inc/user.php';
+include_once '../sys/inc/start.php';
+include_once '../sys/inc/compress.php';
+include_once '../sys/inc/sess.php';
+include_once '../sys/inc/home.php';
+include_once '../sys/inc/settings.php';
+include_once '../sys/inc/db_connect.php';
+include_once '../sys/inc/ipua.php';
+include_once '../sys/inc/fnc.php';
+include_once '../sys/inc/user.php';
 only_reg();
 if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL)
 	&& isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != NULL &&
@@ -15,30 +15,30 @@ if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL)
 )
 	$_SESSION['refer'] = str_replace('&', '&amp;', preg_replace('#^http://[^/]*/#', '/', $_SERVER['HTTP_REFERER']));
 if (!isset($_GET['id'])) {
-	header("Location: /konts.php?" . SID);
+	header("Location: /user/konts.php?" . SID);
 	exit;
 }
 $ank = user::get_user($_GET['id']);
 if (!$ank) {
-	header("Location: /konts.php?" . SID);
+	header("Location: /user/konts.php?" . SID);
 	exit;
 }
 // помечаем сообщения как прочитанные
 dbquery("UPDATE `mail` SET `read` = '1' WHERE `id_kont` = '$user[id]' AND `id_user` = '$ank[id]'");
 $set['title'] = '邮箱: ' . $ank['nick'];
-include_once 'sys/inc/thead.php';
+include_once '../sys/inc/thead.php';
 title();
 /* Бан пользователя */
 if ($user['group_access'] < 1 && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'all' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `view` = '0')"), 0) != 0) {
 	$ank = user::get_user($ank['id']);
 	$set['title'] = $ank['nick'] . ' -  '; //网页标题
-	include_once 'sys/inc/thead.php';
+	include_once '../sys/inc/thead.php';
 	title();
 	aut();
 	echo "<div class='nav2'>";
 	echo "<b><font color=red>此用户被阻止！</font></b><br /> ";
 	echo "</div>";
-	include_once 'sys/inc/tfoot.php';
+	include_once '../sys/inc/tfoot.php';
 	exit;
 }
 /*
@@ -73,7 +73,7 @@ if (isset($_GET['spam'])  &&  $ank['id'] != 0) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'mail'"), 0) == 0) {
 		echo "<div class='mess'>虚假信息会导致账号被屏蔽。
 如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
-		echo "<form class='nav1' method='post' action='/mail.php?id=$ank[id]&amp;spam=$mess[id]'>";
+		echo "<form class='nav1' method='post' action='/user/mail.php?id=$ank[id]&amp;spam=$mess[id]'>";
 		echo "<b>用户:</b> ". user::nick($spamer['id'],1,0,0);
 		echo "" . medal($spamer['id']) . " " . online($spamer['id']) . " (" . vremja($mess['time']) . ")<br />";
 		echo "<b>违规：</b> <font color='green'>" . output_text($mess['msg']) . "</font><br />";
@@ -91,9 +91,9 @@ if (isset($_GET['spam'])  &&  $ank['id'] != 0) {
 		echo "<div class='mess'>投诉有关<font color='green'>$spamer[nick]</font> 它将在不久的将来考虑。</div>";
 	}
 	echo "<div class='foot'>";
-	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/mail.php?id=$ank[id]'>返回</a><br />";
+	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/user/mail.php?id=$ank[id]'>返回</a><br />";
 	echo "</div>";
-	include_once 'sys/inc/tfoot.php';
+	include_once '../sys/inc/tfoot.php';
 }
 /*
 ==================================
@@ -106,7 +106,7 @@ if ($user['add_konts'] == 2 && dbresult(dbquery("SELECT COUNT(*) FROM `users_kon
 // обновление сведений о контакте
 dbquery("UPDATE `users_konts` SET `new_msg` = '0' WHERE `id_kont` = '$ank[id]' AND `id_user` = '$user[id]' LIMIT 1");
 if (isset($_POST['refresh'])) {
-	header("Location: /mail.php?id=$ank[id]" . SID);
+	header("Location: /user/mail.php?id=$ank[id]" . SID);
 	exit;
 }
 if (isset($_POST['msg']) && $ank['id'] != 0 && !isset($_GET['spam'])) {
@@ -195,9 +195,9 @@ echo "与…通信 " . group($ank['id']) . "
  <a href='/user/info.php?id=" . $ank['id'] . "'>" . $ank['nick'] . "</a> " . medal($ank['id']) . online($ank['id']) . " <span style='float:right;'>";
 if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"), 0) == 1) {
 	$kont = dbarray(dbquery("SELECT * FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"));
-	echo "<a href='/konts.php?type=$kont[type]&amp;act=del&amp;id=$ank[id]'><img src='/style/icons/cross_r.gif' alt='*'></a></span><br/></div>";
+	echo "<a href='/user/konts.php?type=$kont[type]&amp;act=del&amp;id=$ank[id]'><img src='/style/icons/cross_r.gif' alt='*'></a></span><br/></div>";
 } else {
-	echo "<a href='/konts.php?type=common&amp;act=add&amp;id=$ank[id]'><img src='/style/icons/lj.gif' alt='*'> 添加到联系人</a></span><br/></div>";
+	echo "<a href='/user/konts.php?type=common&amp;act=add&amp;id=$ank[id]'><img src='/style/icons/lj.gif' alt='*'> 添加到联系人</a></span><br/></div>";
 }
 $rt = time() - 600;
 if ($ank['id'] != 0 && $ank['date_last'] < $rt) {
@@ -208,12 +208,12 @@ if ($ank['id'] != 0 && $ank['date_last'] < $rt) {
 if ($ank['id'] != 0 && $block == true) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"), 0) == 1) {
 		$kont = dbarray(dbquery("SELECT * FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"));
-		echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'>  <a href='/konts.php?type=$kont[type]&amp;act=del&amp;id=$ank[id]'>从列表中删除联系人</a></div>";
+		echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'>  <a href='/user/konts.php?type=$kont[type]&amp;act=del&amp;id=$ank[id]'>从列表中删除联系人</a></div>";
 	} else {
 		echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'> 
-	<a href='/konts.php?type=common&amp;act=add&amp;id=$ank[id]'>添加到联系人列表</a></div>";
+	<a href='/user/konts.php?type=common&amp;act=add&amp;id=$ank[id]'>添加到联系人列表</a></div>";
 	}
-	echo "<form method='post' name='message' action='/mail.php?id=$ank[id]'>";
+	echo "<form method='post' name='message' action='/user/mail.php?id=$ank[id]'>";
 	if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
 		include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
 	else
@@ -226,7 +226,7 @@ if ($ank['id'] != 0 && $block == true) {
 
 }
 echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'> 
-	<a href='/konts.php?" . (isset($kont) ? 'type=' . $kont['type'] : null) . "'>所有联系人</a></div>";
+	<a href='/user/konts.php?" . (isset($kont) ? 'type=' . $kont['type'] : null) . "'>所有联系人</a></div>";
 echo "<table class='post'>";
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `mail` WHERE `unlink` != '$user[id]' AND `id_user` = '$user[id]' AND `id_kont` = '$ank[id]' OR `id_user` = '$ank[id]' AND `id_kont` = '$user[id]' AND  `unlink` != '$user[id]'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
@@ -281,4 +281,4 @@ if ($k_page > 1) str("mail.php?id=$ank[id]&amp;", $k_page, $page); // 输出页�
 echo "<div class='foot'>";
 echo "<img src='/style/icons/str.gif' alt='*'> <a href='mail.php?id=$ank[id]&amp;page=$page&amp;delete=add'>清除邮件</a><br />";
 echo "</div>";
-include_once 'sys/inc/tfoot.php';
+include_once '../sys/inc/tfoot.php';

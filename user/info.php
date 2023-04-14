@@ -1,13 +1,13 @@
 <?php
-include_once 'sys/inc/start.php';
-include_once 'sys/inc/compress.php';
-include_once 'sys/inc/sess.php';
-include_once 'sys/inc/home.php';
-include_once 'sys/inc/settings.php';
-include_once 'sys/inc/db_connect.php';
-include_once 'sys/inc/ipua.php';
-include_once 'sys/inc/fnc.php';
-include_once 'sys/inc/user.php';
+include_once '../sys/inc/start.php';
+include_once '../sys/inc/compress.php';
+include_once '../sys/inc/sess.php';
+include_once '../sys/inc/home.php';
+include_once '../sys/inc/settings.php';
+include_once '../sys/inc/db_connect.php';
+include_once '../sys/inc/ipua.php';
+include_once '../sys/inc/fnc.php';
+include_once '../sys/inc/user.php';
 if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
 $ank = user::get_user($ank['id']);
@@ -18,26 +18,26 @@ if (!$ank) {
 if ($ank['id'] == 0) {
 	$ank = user::get_user($ank['id']);
 	$set['title'] = $ank['nick'] . ' - 页面 '; //网页标题
-	include_once 'sys/inc/thead.php';
+	include_once '../sys/inc/thead.php';
 	title();
 	aut();
 	echo "<span class=\"status\">$ank[group_name]</span><br />";
 	if ($ank['ank_o_sebe'] != NULL) echo "<span class=\"ank_n\">关于我:</span> <span class=\"ank_d\">$ank[ank_o_sebe]</span><br />";
 	if (isset($_SESSION['refer']) && $_SESSION['refer'] != NULL && otkuda($_SESSION['refer']))
 		echo "<div class='foot'>&laquo;<a href='$_SESSION[refer]'>" . otkuda($_SESSION['refer']) . "</a><br /></div>";
-	include_once 'sys/inc/tfoot.php';
+	include_once '../sys/inc/tfoot.php';
 	exit;
 }
 /* 用户厢式货车 */
 if ((!isset($user) || $user['group_access'] == 0) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'all' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0) != 0) {
 	$set['title'] = $ank['nick'] . ' - 页面 '; //网页标题
-	include_once 'sys/inc/thead.php';
+	include_once '../sys/inc/thead.php';
 	title();
 	aut();
 	echo '<div class="mess">';
 	echo '<b><font color=red>此用户被阻止!</font></b><br /> ';
 	echo '</div>';
-	include_once 'sys/inc/tfoot.php';
+	include_once '../sys/inc/tfoot.php';
 	exit;
 }
 // 删除注释
@@ -233,7 +233,7 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 		}
 	}
 	$set['title'] = $ank['nick'] . ' - 不满事项 '; //网页标题
-	include_once 'sys/inc/thead.php';
+	include_once '../sys/inc/thead.php';
 	title();
 	aut();
 	err();
@@ -260,7 +260,7 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 	echo "<div class='foot'>";
 	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/user/info.php?id=$ank[id]'>返回</a><br />";
 	echo "</div>";
-	include_once 'sys/inc/tfoot.php';
+	include_once '../sys/inc/tfoot.php';
 }
 /*
 ==================================
@@ -268,7 +268,7 @@ The End
 ==================================
 */
 $set['title'] = $ank['nick'] . ' - 页面 '; //网页标题
-include_once 'sys/inc/thead.php';
+include_once '../sys/inc/thead.php';
 title();
 aut();
 /*
@@ -307,7 +307,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 			}
 			echo "</div>";
 		}
-		include_once 'sys/inc/tfoot.php';
+		include_once '../sys/inc/tfoot.php';
 		exit;
 	}
 	if ($uSet['privat_str'] == 0) // 关闭时
@@ -315,7 +315,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 		echo '<div class="mess">';
 		echo '用户已禁止查看他的页面！';
 		echo '</div>';
-		include_once 'sys/inc/tfoot.php';
+		include_once '../sys/inc/tfoot.php';
 		exit;
 	}
 }
@@ -323,4 +323,4 @@ if ($set['web'] == true)
 	include_once H . "user/info/web.php";
 else
 	include_once H . "user/info/wap.php";
-include_once 'sys/inc/tfoot.php';
+include_once '../sys/inc/tfoot.php';
