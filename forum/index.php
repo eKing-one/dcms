@@ -11,7 +11,7 @@ include_once '../sys/inc/user.php';
 include_once '../sys/inc/icons.php';
 /* Бан пользователя */
 if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'forum' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-  header('Location: /ban.php?' . SID);
+  header('Location: /user/ban.php?' . SID);
   exit;
 }
 if (
@@ -73,7 +73,7 @@ if (
       title();
       aut();
       echo "<div class='nav2'><form method='post' name='message' action='/forum/$forum[id]/$razdel[id]/$them[id]/new'>";
-      echo "<a href='/info.php?id=$ank[id]'>查看资料</a><br />";
+      echo "<a href='/user/info.php?id=$ank[id]'>查看资料</a><br />";
       $msg2 = $ank['nick'] . ', ';
       if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
         include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';

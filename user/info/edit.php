@@ -172,7 +172,7 @@ $_SESSION['message'] = '更改已成功接受';
 		if (isset($_GET['act']) && $_GET['act']=='ank')
 			header("Location: /user/info/anketa.php?".SID);
 		elseif (isset($_GET['act']) && $_GET['act']=='ank_web')
-			header("Location: /info.php".SID);
+			header("Location: /user/info.php".SID);
 		else
 			header("Location: /user/info/edit.php?".SID);
 			exit;

@@ -150,7 +150,7 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 			@unlink(H . "sys/gallery/50/$id_photo.tmp.jpg");
 			if (isset($_GET['avatar'])) {
 				$_SESSION['message'] = '照片已成功安装';
-				header("Location: /info.php");
+				header("Location: /user/info.php");
 				exit;
 			}
 			$_SESSION['message'] = '照片已成功上传';
@@ -175,7 +175,7 @@ if (isset($_GET['edit']) && $_GET['edit'] == 'rename' && isset($_GET['ok']) && (
 	$msg = my_esc($msg);
 	if (!isset($err)) {
 		if ($user['id'] != $ank['id'])
-			admin_log('图片集锦', '照片', "重命名用户相册 '[url=/info.php?id=$ank[id]]" . user::nick($ank['id'], 1, 0, 0) . "[/url]'");
+			admin_log('图片集锦', '照片', "重命名用户相册 '[url=/user/info.php?id=$ank[id]]" . user::nick($ank['id'], 1, 0, 0) . "[/url]'");
 		dbquery("UPDATE `gallery` SET `name` = '$name', `privat` = '$privat', `privat_komm` = '$privat_komm', `pass` = '$pass', `opis` = '$msg' WHERE `id` = '$gallery[id]' LIMIT 1");
 		$_SESSION['message'] = '已成功接受更改';
 		header("Location: /photo/$ank[id]/?");

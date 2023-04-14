@@ -17,7 +17,7 @@ if (!isset($user))
 err();
 aut();
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 额外服务<br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/user/info.php'>$user[nick]</a> | 额外服务<br />";
 echo "</div>";
 echo "<div class='nav1'>";
 echo "<b>个人帐户:</b><br />
@@ -39,6 +39,6 @@ $c2 = dbresult(dbquery("SELECT COUNT(*) FROM `user_set` WHERE `id_user` = '$user
 echo "&rarr; <a href='plus5.php'>积分</a> <img src='/style/icons/6.png' alt='*'> " . ($c2 == 0 ? '<span class="off">[已关闭]</span> ' : '<span class="on">[已启用]</span>') . "";
 echo "</div>";
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 额外服务<br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/user/info.php'>$user[nick]</a> | 额外服务<br />";
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';

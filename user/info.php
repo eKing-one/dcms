@@ -66,10 +66,10 @@ if (isset($user) && $user['id'] != $ank['id'] && !isset($_SESSION['guest_' . $an
 /*------------------------动态-----------------------*/
 if (isset($user) && isset($_GET['wall']) && $_GET['wall'] == 1) {
 	dbquery("UPDATE `user` SET `wall` = '1' WHERE `id` = '$user[id]'");
-	header("Location: /info.php?id=$ank[id]");
+	header("Location: /user/info.php?id=$ank[id]");
 } elseif (isset($user) && isset($_GET['wall']) && $_GET['wall'] == 0) {
 	dbquery("UPDATE `user` SET `wall` = '0' WHERE `id` = '$user[id]'");
-	header("Location: /info.php?id=$ank[id]");
+	header("Location: /user/info.php?id=$ank[id]");
 }
 if (isset($user))
 	dbquery("UPDATE `notification` SET `read` = '1' WHERE `type` = 'stena_komm' AND `id_user` = '$user[id]' AND `id_object` = '$ank[id]'");
@@ -196,7 +196,7 @@ if (isset($_GET['fav']) && isset($user)) {
 		dbquery("DELETE FROM `mark_people` WHERE `id_user` = '$user[id]' AND  `id_object` = '$ank[id]' AND `type`='people'");
 		$_SESSION['message'] = $ank['nick'] . ' 从书签中删除';
 	}
-	header("Location: /info.php?id=$ank[id]");
+	header("Location: /user/info.php?id=$ank[id]");
 	exit;
 }
 /*------------------------статус like-----------------------*/
@@ -240,7 +240,7 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'stena'"), 0) == 0) {
 		echo "<div class='mess'>虚假信息会导致昵称被屏蔽。
 		如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
-		echo "<form class='nav1' method='post' action='/info.php?id=$ank[id]&amp;spam=$mess[id]&amp;page=" . intval($_GET['page']) . "'>";
+		echo "<form class='nav1' method='post' action='/user/info.php?id=$ank[id]&amp;spam=$mess[id]&amp;page=" . intval($_GET['page']) . "'>";
 		echo "<b>用户:</b> ";
 		echo " " . user::nick($spamer['id'], 1, 1, 0) . " (" . vremja($mess['time']) . ")<br />";
 		echo "<b>违规行为:</b> <font color='green'>" . output_text($mess['msg']) . "</font><br />";
@@ -258,7 +258,7 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 		echo "<div class='mess'>投诉有关 <font color='green'>$spamer[nick]</font> 它将在不久的将来考虑。</div>";
 	}
 	echo "<div class='foot'>";
-	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>返回</a><br />";
+	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/user/info.php?id=$ank[id]'>返回</a><br />";
 	echo "</div>";
 	include_once 'sys/inc/tfoot.php';
 }

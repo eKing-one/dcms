@@ -280,7 +280,7 @@ $name 变量值
 	if ($type == 'stena_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		echo user::avatar($avtor['id']) .  user::nick($avtor['id'], 1, 1, 0) . " $name ";
-		echo "<img src='/style/icons/stena.gif' alt='*'> <a href='/info.php?id=$stena[id]&amp;page=$pageEnd'>动态</a> " . ($sT == null ? "$stena[nick]" : "") . "  $s1 " . vremja($post['time']) . " $s2";
+		echo "<img src='/style/icons/stena.gif' alt='*'> <a href='/user/info.php?id=$stena[id]&amp;page=$pageEnd'>动态</a> " . ($sT == null ? "$stena[nick]" : "") . "  $s1 " . vremja($post['time']) . " $s2";
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
 	if ($type == 'stena_komm2') {

@@ -23,7 +23,7 @@ dbquery("UPDATE `user` SET `money` = '" . ($user['money'] - $money) . "' WHERE `
 $msg = "用户 [b]".$user['nick']."[/b] 我把钱转给你了 [b] $money [/b] $sMonet[0]! [br]别忘了说谢谢！";
 dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$msg', '$time')");
 $_SESSION['message'] = '转让成功完成';
-header("Location: /info.php?id=$ank[id]");
+header("Location: /user/info.php?id=$ank[id]");
 exit;
 }
 }
@@ -33,7 +33,7 @@ title();
 aut();
 err();
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | 赠送<br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/user/info.php?id=$ank[id]'>$ank[nick]</a> | 赠送<br />";
 echo "</div>";
 if (isset($user) & $user['money']<=1)
 {
@@ -58,6 +58,6 @@ echo "<input class='submit' type='submit' value='赠送' /><br />";
 echo "</form>";
 }
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php?id=$ank[id]'>$ank[nick]</a> | 赠送<br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/user/info.php?id=$ank[id]'>$ank[nick]</a> | 赠送<br />";
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';

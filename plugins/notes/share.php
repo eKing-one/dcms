@@ -15,7 +15,7 @@ include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 /* Ban user */
 if (isset($user) && dbresult(dbquery("SELECT COUNT(`id`) FROM `ban` WHERE `razdel` = 'notes' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-    header('Location: /ban.php?' . SID);
+    header('Location: /user/ban.php?' . SID);
     exit;
 }
 $set['title'] = '分享';
@@ -41,7 +41,7 @@ if (dbrows($not) == 0) {
         }
 ?>
         <div class='nav2'>
-            <div class="friends_access_list attach_block mt_0 grey"> <? echo group($avtor['id']) . " "; ?> <a href="/info.php?id=<?= $notes['id_user'] ?>"><span style="color:#79358c"><b><? echo " " . $avtor['nick'] . " "; ?> </b></span></a> : <a href="list.php?id=<?= $notes['id'] ?>">
+            <div class="friends_access_list attach_block mt_0 grey"> <? echo group($avtor['id']) . " "; ?> <a href="/user/info.php?id=<?= $notes['id_user'] ?>"><span style="color:#79358c"><b><? echo " " . $avtor['nick'] . " "; ?> </b></span></a> : <a href="list.php?id=<?= $notes['id'] ?>">
                     <span style="color:#06F;"><? echo $notes['name']; ?></span></a></div>
     <?
         echo "<form method='post' action='share.php?id=" . intval($_GET['id']) . "'>";

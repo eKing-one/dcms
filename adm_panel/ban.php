@@ -110,7 +110,7 @@ while ($post = dbassoc($q)) {
     } elseif ($set['set_show_icon'] == 1) {
         echo user::avatar($ank2['id']) . " ";
     }
-    echo "<a href='/info.php?id=$ank2[id]'>$ank2[nick]</a> " . online($ank2['id']) . ": ";
+    echo "<a href='/user/info.php?id=$ank2[id]'>$ank2[nick]</a> " . online($ank2['id']) . ": ";
     if ($post['navsegda'] == 1) {
         echo " 浴池 <font color=red><b>所有是的</b></font><br />";
     } else {
@@ -168,7 +168,7 @@ if (user_access('user_ban_set') || user_access('user_ban_set_h')) {
 }
 echo "<div class='foot'>";
 echo "&raquo;<a href=\"/mail.php?id=$ank[id]\">写一封信</a><br />";
-echo "&laquo;<a href=\"/info.php?id=$ank[id]\">返回资料</a><br />";
+echo "&laquo;<a href=\"/user/info.php?id=$ank[id]\">返回资料</a><br />";
 if (user_access('adm_panel_show'))
     echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
 echo "</div>";

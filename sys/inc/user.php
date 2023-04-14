@@ -67,7 +67,7 @@ if (isset($user)) {
 	if (!isset($banpage)) // бан пользователя
 	{
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'all' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-			header('Location: /ban.php?' . SID);
+			header('Location: /user/ban.php?' . SID);
 			exit;
 		}
 	}

@@ -10,7 +10,7 @@ include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
 /* 用户厢式货车 */
 if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'forum' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-    header('Location: /ban.php?' . SID);
+    header('Location: /user/ban.php?' . SID);
     exit;
 }
 $searched = &$_SESSION['searched'];

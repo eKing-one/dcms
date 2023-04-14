@@ -25,7 +25,7 @@ echo "管理员面板 ";
 include_once H."plugins/admin/count.php";
 echo "</div></a>";
 }
-if (isset($user))echo "<a href='/exit.php'><div class='main_menu'>退出</div></a>";
+if (isset($user))echo "<a href='/user/exit.php'><div class='main_menu'>退出</div></a>";
 echo "<div class='tof'></a>";
 echo "</div>";
 ?>

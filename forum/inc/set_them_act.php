@@ -40,7 +40,7 @@ if ((user_access('forum_them_del') || $ank2['id'] == $user['id']) &&  isset($_GE
 	}
 	dbquery("DELETE FROM `forum_t` WHERE `id` = '$them[id]'");
 	dbquery("DELETE FROM `forum_p` WHERE `id_them` = '$them[id]'");
-	if ($ank2['id'] != $user['id']) admin_log('论坛', '删除主题', "删除主题 '$them[name]' (作者 '[url=/info.php?id=$ank2[id]]$ank2[nick][/url]')");
+	if ($ank2['id'] != $user['id']) admin_log('论坛', '删除主题', "删除主题 '$them[name]' (作者 '[url=/user/info.php?id=$ank2[id]]$ank2[nick][/url]')");
 	$_SESSION['message'] = '主题已成功删除';
 	header("Location: /forum/$forum[id]/$razdel[id]/$them[id]/");
 	exit;
@@ -55,7 +55,7 @@ if (isset($_GET['act']) && isset($_GET['ok']) && $_GET['act'] == 'set' && isset(
 	$msg = my_esc($_POST['msg']);
 	if ($user['level'] > 0) {
 		if (isset($_POST['up']) && $_POST['up'] == 1 and $them['up'] != 1) {
-			if ($ank2['id'] != $user['id']) admin_log('论坛', '主题参数', "固定主题'[url=/forum/$forum[id]/$razdel[id]/$them[id]/]$them[name][/url]' (作者 '[url=/info.php?id=$ank2[id]]$ank2[nick][/url]', раздел '$razdel[name]')");
+			if ($ank2['id'] != $user['id']) admin_log('论坛', '主题参数', "固定主题'[url=/forum/$forum[id]/$razdel[id]/$them[id]/]$them[name][/url]' (作者 '[url=/user/info.php?id=$ank2[id]]$ank2[nick][/url]', раздел '$razdel[name]')");
 			$up = 1;
 			/* PluginS Dcms-Social.Ru */
 			$msgg = '[red]主题已固定 ' . $user['group_name'] . ' ' . $user['nick'] . '[/red]';
@@ -66,14 +66,14 @@ if (isset($_GET['act']) && isset($_GET['ok']) && $_GET['act'] == 'set' && isset(
 	} else $add_q = NULL;
 	if (isset($_POST['close']) && $_POST['close'] == 1 && $them['close'] == 0) {
 		$close = 1;
-		if ($ank2['id'] != $user['id']) admin_log('论坛', '主题参数', "结束主题 '[url=/forum/$forum[id]/$razdel[id]/$them[id]]$them[name][/url]' (作者 '[url=/info.php?id=$ank2[id]]$ank2[nick][/url]')");
+		if ($ank2['id'] != $user['id']) admin_log('论坛', '主题参数', "结束主题 '[url=/forum/$forum[id]/$razdel[id]/$them[id]]$them[name][/url]' (作者 '[url=/user/info.php?id=$ank2[id]]$ank2[nick][/url]')");
 		/* PluginS Dcms-Social.Ru */
 		$msgg = '[red]关闭主题 ' . $user['group_name'] . ' ' . $user['nick'] . '[/red]';
 		dbquery("INSERT INTO `forum_p` (`id_forum`, `id_razdel`, `id_them`, `id_user`, `msg`, `time`) values('$forum[id]', '$razdel[id]', '$them[id]', '0', '" . my_esc($msgg) . "', '$time')");
 		/*结束了*/
 	} elseif ($them['close'] == 1 && (!isset($_POST['close']) || $_POST['close'] == 0)) {
 		$close = 0;
-		if ($ank2['id'] != $user['id']) admin_log('论坛', '主题参数', "打开主题'[url=/forum/$forum[id]/$razdel[id]/$them[id]]$them[name][/url]' (作者 '[url=/info.php?id=$ank2[id]]$ank2[nick][/url]')");
+		if ($ank2['id'] != $user['id']) admin_log('论坛', '主题参数', "打开主题'[url=/forum/$forum[id]/$razdel[id]/$them[id]]$them[name][/url]' (作者 '[url=/user/info.php?id=$ank2[id]]$ank2[nick][/url]')");
 		$msgg = '[red]打开话题 ' . $user['group_name'] . ' ' . $user['nick'] . '[/red]';
 		dbquery("INSERT INTO `forum_p` (`id_forum`, `id_razdel`, `id_them`, `id_user`, `msg`, `time`) values('$forum[id]', '$razdel[id]', '$them[id]', '0', '" . my_esc($msgg) . "', '$time')");
 		/*结束了*/
@@ -106,7 +106,7 @@ if ((user_access('forum_post_ed') || isset($user) && $ank2['id'] == $user['id'])
 	if (isset($delpost) && is_array($delpost)) {
 		dbquery("DELETE FROM `forum_p` WHERE `id_them` = '$them[id]' AND (`id` = '" . implode("'" . ' OR `id` = ' . "'", $delpost) . "') LIMIT " . count($delpost));
 		if ($ank2['id'] != $user['id'])
-			admin_log('论坛', '清除主题', "清除主题 '[url=/forum/$forum[id]/$razdel[id]/$them[id]/]$them[name][/url]' (作者 '[url=/info.php?id=$ank2[id]]$ank2[nick][/url]', 已删除 '" . count($delpost) . "' 职位)");
+			admin_log('论坛', '清除主题', "清除主题 '[url=/forum/$forum[id]/$razdel[id]/$them[id]/]$them[name][/url]' (作者 '[url=/user/info.php?id=$ank2[id]]$ank2[nick][/url]', 已删除 '" . count($delpost) . "' 职位)");
 		$msgg = '[red]我清理了话题 ' . $user['group_name'] . ' ' . $user['nick'] . '[/red]';
 		dbquery("INSERT INTO `forum_p` (`id_forum`, `id_razdel`, `id_them`, `id_user`, `msg`, `time`) values('$forum[id]', '$razdel[id]', '$them[id]', '0', '" . my_esc($msgg) . "', '$time')");
 		$_SESSION['message'] = '成功删除 ' . count($delpost) . ' 职位';

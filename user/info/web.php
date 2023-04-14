@@ -6,7 +6,7 @@ $not_user = dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '$ank[id]
 if (isset($user) && $user['id'] != $ank['id']) {
 	if (isset($_GET['fok'])) {
 		echo '<center>';
-		echo "<div class='foot'><form action='/info.php?id=" . $ank['id'] . "' method=\"post\">";
+		echo "<div class='foot'><form action='/user/info.php?id=" . $ank['id'] . "' method=\"post\">";
 		echo "<input class=\"submit\" type=\"submit\" value=\"关闭\" />";
 		echo "</form></div>";
 		echo '</center>';
@@ -17,7 +17,7 @@ if (isset($user) && isset($_GET['frends'])  && $frend_new == 0 && $frend == 0) {
 		echo '<center>';
 		echo "<div class='err'>该用户需要确认添加你为好友。</div><div class='foot'><form action='/user/frends/create.php?add=" . $ank['id'] . "' method=\"post\">";
 		echo "<input class=\"submit\" type=\"submit\" value=\"申请\" />";
-		echo " <a href='/info.php?id=$ank[id]'>取消</a><br />";
+		echo " <a href='/user/info.php?id=$ank[id]'>取消</a><br />";
 		echo "</form></div>";
 		echo '</center>';
 	}
@@ -175,7 +175,7 @@ if ($ank['group_access'] > 1) {
 			if (isset($user) && $user['id'] != $ank['id']) {
 				echo "<div class='main'>";
 				if ($frend_new == 0 && $frend == 0) {
-					echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/info.php?id=$ank[id]&amp;frends'>添加为好友</a><br />";
+					echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/info.php?id=$ank[id]&amp;frends'>添加为好友</a><br />";
 				} elseif ($frend_new == 1) {
 					echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$ank[id]'>拒绝申请</a><br />";
 				} elseif ($frend == 2) {
@@ -235,7 +235,7 @@ if ($ank['group_access'] > 1) {
 				}
 				/*-----------------------*/
 				echo user::avatar($ank3['id']);
-				echo ' <a href="/info.php?id=' . $ank3['id'] . '">' . $ank3['nick'] . '</a>' . medal($ank3['id']) . ' ' . online($ank3['id']) . ' (' . (($ank3['pol'] == 1) ? '男' : '女') . ')<br />';
+				echo ' <a href="/user/info.php?id=' . $ank3['id'] . '">' . $ank3['nick'] . '</a>' . medal($ank3['id']) . ' ' . online($ank3['id']) . ' (' . (($ank3['pol'] == 1) ? '男' : '女') . ')<br />';
 				echo '<a href="/mail.php?id=' . $ank3['id'] . '"><img src="/style/icons/pochta.gif" alt="*" /> 通信</a> ';
 				echo "</div>";
 			}
@@ -318,7 +318,7 @@ if ($ank['group_access'] > 1) {
 					echo " <a href='/user/status/komm.php?id=$status[id]'><img src='/style/icons/bbl4.png' alt=''/> " . dbresult(dbquery("SELECT COUNT(*) FROM `status_komm` WHERE `id_status` = '$status[id]'"), 0) . " </a> ";
 					$l = dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]'"), 0);
 					if (isset($user) && $user['id'] != $ank['id'] && dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
-						echo " <a href='/info.php?id=$ank[id]&amp;like'><img src='/style/icons/like.gif' alt='*'/> 赞!</a> • ";
+						echo " <a href='/user/info.php?id=$ank[id]&amp;like'><img src='/style/icons/like.gif' alt='*'/> 赞!</a> • ";
 						$like = $l;
 					} else if (isset($user) && $user['id'] != $ank['id']) {
 						echo " <img src='/style/icons/like.gif' alt=''/> 你和 ";
@@ -510,10 +510,10 @@ if ($ank['group_access'] > 1) {
 				echo "<div class='accordion-group'>
 <div class='accordion-heading'>";
 				if ($user['wall'] == 1) {
-					echo '<a class="accordion-toggle decoration-none collapsed" href="/info.php?id=' . $ank['id'] . '&amp;wall=0"><img src="/style/icons/stena.gif" alt="*" /> 动态</a>';
+					echo '<a class="accordion-toggle decoration-none collapsed" href="/user/info.php?id=' . $ank['id'] . '&amp;wall=0"><img src="/style/icons/stena.gif" alt="*" /> 动态</a>';
 					include_once 'user/stena/index.php';
 				} else {
-					echo '<a class="accordion-toggle decoration-none collapsed" href="/info.php?id=' . $ank['id'] . '&amp;wall=1"><img src="/style/icons/stena.gif" alt="*" /> 动态</a>';
+					echo '<a class="accordion-toggle decoration-none collapsed" href="/user/info.php?id=' . $ank['id'] . '&amp;wall=1"><img src="/style/icons/stena.gif" alt="*" /> 动态</a>';
 				}
 				echo '</div></div>';
 			}

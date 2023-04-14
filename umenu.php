@@ -29,7 +29,7 @@ if (isset($_GET['login']) && isset($_GET['pass']))
 ?>
 <div class="main2" id="umenu_razd">我的个人资料</div>
 <div class="main" id="umenu">
-<img src='/style/my_menu/ank.png' alt='' /> <a href='/info.php'>我的页面</a><br />
+<img src='/style/my_menu/ank.png' alt='' /> <a href='/user/info.php'>我的页面</a><br />
 </div>
 <div class="main" id="umenu">
 <img src='/style/my_menu/ank.png' alt='' /> <a href='/user/info/anketa.php'>个人资料</a> [<a href='user/info/edit.php'>编辑.</a>]<br />
@@ -73,7 +73,7 @@ if (user_access('adm_panel_show'))
 if ($set['web'] == false)
 {
 	echo '<div class="main" id="umenu">';
-	echo '<a href="/exit.php"><img src="/style/icons/delete.gif" /> 退出登录 ' . user::nick($user['id'],0,0,0) . '</a><br />';
+	echo '<a href="/user/exit.php"><img src="/style/icons/delete.gif" /> 退出登录 ' . user::nick($user['id'],0,0,0) . '</a><br />';
 	echo '</div>';
 }
 include_once 'sys/inc/tfoot.php';

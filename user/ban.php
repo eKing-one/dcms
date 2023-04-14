@@ -1,17 +1,17 @@
 <?php
-include_once 'sys/inc/start.php';
-include_once 'sys/inc/compress.php';
-include_once 'sys/inc/sess.php';
-include_once 'sys/inc/home.php';
-include_once 'sys/inc/settings.php';
-include_once 'sys/inc/db_connect.php';
-include_once 'sys/inc/ipua.php';
-include_once 'sys/inc/fnc.php';
+include_once '../sys/inc/start.php';
+include_once '../sys/inc/compress.php';
+include_once '../sys/inc/sess.php';
+include_once '../sys/inc/home.php';
+include_once '../sys/inc/settings.php';
+include_once '../sys/inc/db_connect.php';
+include_once '../sys/inc/ipua.php';
+include_once '../sys/inc/fnc.php';
 $banpage = true;
-include_once 'sys/inc/user.php';
+include_once '../sys/inc/user.php';
 only_reg();
 $set['title'] = '禁止';
-include_once 'sys/inc/thead.php';
+include_once '../sys/inc/thead.php';
 title();
 err();
 aut();
@@ -56,4 +56,4 @@ while ($post = dbassoc($q)) {
 echo "</table>";
 if ($k_page > 1) str('?', $k_page, $page); // 输出页数
 echo "为了避免这种情况，我们建议您学习 <a href=\"/rules.php\">规则</a>我们的网站<br />";
-include_once 'sys/inc/tfoot.php';
+include_once '../sys/inc/tfoot.php';

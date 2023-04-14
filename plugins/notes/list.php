@@ -10,7 +10,7 @@ include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 /* 用户厢式货车 */
 if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'notes' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0')"), 0) != 0) {
-	header('Location: /ban.php?' . SID);
+	header('Location: /user/ban.php?' . SID);
 	exit;
 }
 $notes = dbassoc(dbquery("SELECT * FROM `notes` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1"));
@@ -224,7 +224,7 @@ if (isset($user)) {
 	}
 }
 echo "<div class=\"foot\">";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a> | <a href='/info.php?id=$avtor[id]'>$avtor[nick]</a>";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a> | <a href='/user/info.php?id=$avtor[id]'>$avtor[nick]</a>";
 echo ' | <b>' . output_text($notes['name']) . '</b>';
 echo "</div>";
 echo "<div class='main'>";

@@ -92,7 +92,7 @@ if (isset($user) && isset($_POST['title']) && $_POST['title'] > 0) {
 	}
 }
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 交换$sMonet[0]<br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/user/info.php'>$user[nick]</a> | 交换$sMonet[0]<br />";
 echo "</div>";
 echo "<div class='mess'>";
 echo "你有 <b>$user[balls]</b> 积分。";
@@ -120,7 +120,7 @@ if (isset($user) && $user['balls']>=500) {
 	echo "</div>";
 }
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 交换$sMonet[0]<br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/user/info.php'>$user[nick]</a> | 交换$sMonet[0]<br />";
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';
 ?>

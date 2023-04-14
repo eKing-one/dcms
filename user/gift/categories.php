@@ -54,7 +54,7 @@ if (isset($_GET['gift']) && isset($_GET['category'])) {
 		*/
 			dbquery("INSERT INTO `notification` (`avtor`, `id_user`, `id_object`, `type`, `time`) VALUES ('$user[id]', '$ank[id]', '$id_gift', 'new_gift', '$time')");
 			$_SESSION['message'] = '您的礼物已成功发送';
-			header("Location: /info.php?id=$ank[id]");
+			header("Location: /user/info.php?id=$ank[id]");
 			exit;
 		} else {
 			$err = '您的帐户中没有足够的资金';
@@ -73,7 +73,7 @@ if (isset($_GET['gift']) && isset($_GET['category'])) {
 	echo '<div class="mess">';
 	echo $tPanel . '<textarea type="text" name="msg" value=""/></textarea><br />';
 	echo '<input class="submit" type="submit" value="给予" /> ';
-	echo '<img src="/style/icons/delete.gif" alt="*" /> <a href="/info.php?id=' . $ank['id'] . '">取消</a> ';
+	echo '<img src="/style/icons/delete.gif" alt="*" /> <a href="/user/info.php?id=' . $ank['id'] . '">取消</a> ';
 	echo '</div>';
 	echo "</form>";
 	echo '<div class="foot">';

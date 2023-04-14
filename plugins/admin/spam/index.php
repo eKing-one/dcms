@@ -107,12 +107,12 @@ if (user_access('adm_panel_show')) {
 			$anketa = user::get_user($status['id_user']);
 			echo user::nick($anketa['id'])  . "<br />";
 		}
-		echo "<b>申诉:</b> <a href='/info.php?id=$ank[id]'>$ank[nick]</a>";
+		echo "<b>申诉:</b> <a href='/user/info.php?id=$ank[id]'>$ank[nick]</a>";
 		echo " " . medal($ank['id']) . " " . online($ank['id']) . " (" . vremja($post['time']) . ")<br />";
 		if ($post['razdel'] == 'mail' || $post['razdel'] == 'guest' || $post['razdel'] == 'forum' || $post['razdel'] == 'stena')
 			echo "<b>通信:</b> <font color='red' style='border-bottom: 1px solid green;'>" . output_text($post['spam']) . "<br /></font>";
 		echo "<b>评论:</b> " . output_text($post['msg']) . "<br />";
-		echo "<b>违法者:</b>  <a href='/info.php?id=$spamer[id]'>$spamer[nick]</a>";
+		echo "<b>违法者:</b>  <a href='/user/info.php?id=$spamer[id]'>$spamer[nick]</a>";
 		echo "" . medal($spamer['id']) . " " . online($spamer['id']) . "<br />";
 		echo "   </div>";
 		if (($user['id'] != $spamer['id'] && $user['group_access'] >= $spamer['group_access']) || ($user['id'] == 1)) {

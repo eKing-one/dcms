@@ -11,7 +11,7 @@ include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
 /* Бан пользователя */
 if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'chat' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-    header('Location: /ban.php?' . SID);
+    header('Location: /user/ban.php?' . SID);
     exit;
 }
 if (isset($user)) dbquery("DELETE FROM `chat_who` WHERE `id_user` = '$user[id]'");
@@ -27,7 +27,7 @@ if (
     $set['title'] = '聊天室 - ' . $room['name'] . ' (' . dbresult(dbquery("SELECT COUNT(*) FROM `chat_who` WHERE `room` = '$room[id]'"), 0) . ')'; // заголовок страницы
     include_once '../sys/inc/thead.php';
     title();
-    echo "<a href='/info.php?id=$ank[id]'>查看资料</a><br />";
+    echo "<a href='/user/info.php?id=$ank[id]'>查看资料</a><br />";
     echo "<form method=\"post\" action=\"/chat/room/$room[id]/" . rand(1000, 9999) . "/\">";
     echo "信息:<br /><textarea name=\"msg\">$ank[nick], </textarea><br />";
     echo "<label><input type=\"checkbox\" name=\"privat\" value=\"$ank[id]\" /> 私下里</label><br />";

@@ -58,7 +58,7 @@ function antimat($str)
 	// 			$timeban = $time + 60 * 60; // бан на час
 	// 			dbquery("INSERT INTO `ban` (`id_user`, `id_ban`, `prich`, `time`) VALUES ('$user[id]', '0', '$prich', '$timeban')");
 	// 			admin_log('用户', '禁令', "用户禁令 '[url=/amd_panel/ban.php?id=$user[id]]$user[nick][/url]' (id#$user[id]) 以前 " . vremja($timeban) . " 这是有原因的 '$prich'");
-	// 			header('Location: /ban.php?' . SID);
+	// 			header('Location: /user/ban.php?' . SID);
 	// 			exit;
 	// 		}
 	// 		return $censure;

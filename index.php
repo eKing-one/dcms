@@ -35,7 +35,7 @@ if (!$set['web'])
 	{
 		echo '<div align="right">
 		<img src="/style/icons/icon_stranica.gif" alt="DS" />
-		'.user::nick($user['id'],1,0,0).' | <a href="exit.php"><font color="#ff0000">退出</font></a>
+		'.user::nick($user['id'],1,0,0).' | <a href="/user/exit.php"><font color="#ff0000">退出</font></a>
 		</div>';
 	
 	}

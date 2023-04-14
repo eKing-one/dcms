@@ -24,7 +24,7 @@ function title()
 			*/			
 			?>
 			<td class="auts">
-			<a href="/info.php?id=<?=$user['id']?>"><center><img src="/style/icons/nav_stranica.gif" alt="DS" /></center></a>
+			<a href="/user/info.php?id=<?=$user['id']?>"><center><img src="/style/icons/nav_stranica.gif" alt="DS" /></center></a>
 			</td>
 			<?
 			/*

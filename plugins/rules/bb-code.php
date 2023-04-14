@@ -33,6 +33,6 @@ echo "<div class='foot'>";
 echo '链接:<br />';
 echo "</div>";
 echo "<input type='text' value='[url=http://网站]标题[/url]' /></a><br /><a href='bb-code.php'>链接</a><br />";
-echo "<input type='text' value='[u=用户id]用户昵称[/u]'/></a><br /><a href='/info.php?id=1'>用户</a><br />";
+echo "<input type='text' value='[u=用户id]用户昵称[/u]'/></a><br /><a href='/user/info.php?id=1'>用户</a><br />";
 include_once '../../sys/inc/tfoot.php';
 ?>

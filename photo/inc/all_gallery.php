@@ -1,7 +1,7 @@
 <?
 /* Бан пользователя */
 if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'photo' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-	header('Location: /ban.php?' . SID);
+	header('Location: /user/ban.php?' . SID);
 	exit;
 }
 $set['title'] = '相片册'; //网页标题

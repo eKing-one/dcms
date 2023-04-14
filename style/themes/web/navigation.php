@@ -19,7 +19,7 @@ if (isset($user)){
 */
 
 
-echo '<a href="/info.php?"><span class="link_title"><img src="/style/themes/web/images/user.png" alt=""/>
+echo '<a href="/user/info.php?"><span class="link_title"><img src="/style/themes/web/images/user.png" alt=""/>
 <br/>我的页</span></a>';
 
 

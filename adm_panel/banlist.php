@@ -42,7 +42,7 @@ while ($ban = dbassoc($q)) {
         echo "  </td>";
     }
     echo "  <td class='p_t'>";
-    echo "<a href='/info.php?id=$ank[id]'>$ank[nick]</a>" . online($ank['id']) . "";
+    echo "<a href='/user/info.php?id=$ank[id]'>$ank[nick]</a>" . online($ank['id']) . "";
     echo "  </td>";
     echo "   </tr>";
     echo "   <tr>";

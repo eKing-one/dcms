@@ -42,7 +42,7 @@ class user
 		if ($user == 0) $ank = array('id' => '0', 'nick' => '系统', 'pol' => '1', 'rating' => '0', 'browser' => 'wap', 'date_last' => time());
 		elseif (!$ank) $ank = array('id' => '0', 'nick' => '[已删除]', 'pol' => '1', 'rating' => '0', 'browser' => 'wap', 'date_last' => time());
 		if ($url == true)
-			$nick = ' <a href="/info.php?id=' . $user . '">' . text($ank['nick']) . '</a> ';
+			$nick = ' <a href="/user/info.php?id=' . $user . '">' . text($ank['nick']) . '</a> ';
 		else
 			$nick = text($ank['nick']);
 

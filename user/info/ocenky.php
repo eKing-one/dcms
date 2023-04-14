@@ -21,7 +21,7 @@ if (!$ank) {
 err();
 aut(); // форма авторизации
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 用户评价<br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/user/info.php'>$user[nick]</a> | 用户评价<br />";
 echo "</div>";
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `gallery_rating` WHERE `avtor` = '$ank[id]'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
@@ -76,6 +76,6 @@ while ($post = dbassoc($q)) {
 dbquery("UPDATE `gallery_rating` SET `read`='0' WHERE `avtor` = '$user[id]' AND `read`='1'");
 if ($k_page > 1) str("?", $k_page, $page); // 输出页数
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/info.php'>$user[nick]</a> | 用户评价<br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/user/info.php'>$user[nick]</a> | 用户评价<br />";
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';

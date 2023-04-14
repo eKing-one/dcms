@@ -12,7 +12,7 @@ if (!$ank) {
 }
 /* Бан пользователя */
 if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'photo' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-	header('Location: /ban.php?' . SID);
+	header('Location: /user/ban.php?' . SID);
 	exit;
 }
 $gallery['id'] = intval($_GET['id_gallery']);
@@ -148,7 +148,7 @@ if (isset($_POST['msg']) && isset($user)) {
 }
 if ((user_access('photo_komm_del') || $ank['id'] == $user['id']) && isset($_GET['delete']) && dbresult(dbquery("SELECT COUNT(*) FROM `gallery_komm` WHERE `id`='" . intval($_GET['delete']) . "' AND `id_photo`='$photo[id]' LIMIT 1"), 0) != 0) {
 	dbquery("DELETE FROM `gallery_komm` WHERE `id`='" . intval($_GET['delete']) . "' LIMIT 1");
-	admin_log('照片廊', '照片', "删除照片上的评论 [url=/info.php?id=$ank[id]]" . user::nick($ank['id'], 1, 0, 0) . "[/url]");
+	admin_log('照片廊', '照片', "删除照片上的评论 [url=/user/info.php?id=$ank[id]]" . user::nick($ank['id'], 1, 0, 0) . "[/url]");
 	$_SESSION['message'] = '评论成功删除';
 	header("Location: ?page=" . intval($_GET['page']));
 	exit;
