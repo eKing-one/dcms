@@ -4,7 +4,7 @@
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `date_last` > '" . (time() - 600) . "'"), 0);
 $q = dbquery("SELECT `id` FROM `user` WHERE `date_last` > '" . (time() - 600) . "' ORDER BY `rating` DESC LIMIT 10");
 if ($k_post > 0) {
-	echo "<a href='/online.php'><div class='main'>";
+	echo "<a href='/user/online.php'><div class='main'>";
 	echo "现在在网站上 ($k_post) 人.</div></a>";
 
 	echo "<div class='nav3'>";

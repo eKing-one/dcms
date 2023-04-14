@@ -83,7 +83,7 @@ if (
       echo "</form></div>";
       echo "<div class=\"foot\">";
       echo "<img src='/style/icons/str.gif' alt='*'> <a href=\"/smiles.php\">表情符号</a><br />";
-      echo "<img src='/style/icons/str.gif' alt='*'> <a href=\"/rules.php\">规则</a><br />";
+      echo "<img src='/style/icons/str.gif' alt='*'> <a href=\"/user/rules.php\">规则</a><br />";
       echo "</div>";
       echo "<div class=\"foot\">";
       echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?page=end\" title='返回在主题'>在主题</a><br />";
@@ -212,7 +212,7 @@ if (user_access('forum_for_create') && isset($_GET['act']) && isset($_GET['ok'])
 err();
 aut(); // форма авторизации
 echo "<div class=\"err\">";
-echo "<a href='/rules.php'>规则</a><br />";
+echo "<a href='/user/rules.php'>规则</a><br />";
 echo "</div>";
 echo "<div class=\"main\">";
 echo "<img src='/style/icons/New.gif'> 新的: <a href='/forum/new_t.php'> 主题</a> | ";

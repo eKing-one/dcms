@@ -55,10 +55,10 @@ while ($filebase = readdir($opdirbase))
 <img src="/style/my_menu/set.png" alt="" /> <a href="/user/info/settings.php">常规设置</a><br />
 </div>
 <div class="main" id="umenu">
-<img src="/style/my_menu/secure.png" alt="" /> <a href="/secure.php">更改密码</a><br />
+<img src="/style/my_menu/secure.png" alt="" /> <a href="/user/secure.php">更改密码</a><br />
 </div>
 <div class="main" id="umenu">
-<img src="/style/my_menu/rules.png" alt="" /> <a href="/rules.php">规则</a><br />
+<img src="/style/my_menu/rules.png" alt="" /> <a href="/user/rules.php">规则</a><br />
 </div>
 <?
 // 管理权限

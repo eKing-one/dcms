@@ -20,7 +20,7 @@ if (!$set['web'])
 	//在线游客
 	echo '<div class="title">
 	<center>
-	<a href="/online.php" title="在线" style="color:#cdcecf; text-decoration: none">
+	<a href="/user/online.php" title="在线" style="color:#cdcecf; text-decoration: none">
 	<font color="#fee300" size="2">在线 </font>
 	<font color="#ffffff">'.$ol_user.'</font>
 	</a>

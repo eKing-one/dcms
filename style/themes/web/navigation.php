@@ -65,7 +65,7 @@ $k_new_fav=dbresult(dbquery("SELECT COUNT(`mail`.`id`) FROM `mail`
  
 
 
-echo "<a href='/new_mess.php'><span class='link_title'><img src='/style/themes/web/images/mail.png' alt=''/>  <b class='count'>+$k_new</b>
+echo "<a href='/user/new_mess.php'><span class='link_title'><img src='/style/themes/web/images/mail.png' alt=''/>  <b class='count'>+$k_new</b>
 <br/> 邮件 </span></a>";
 
 
@@ -274,7 +274,7 @@ echo "<form class='mess' method='post' action='/user/reg.php?$passgen'>";
 echo "选择 Nick [A-z0-9 -_]:<br /><input type='text' name='nick' maxlength='32' /><br />";
 
 
-echo "注册时，你自动同意<a href='/rules.php'>规则</a> 网站<br />";
+echo "注册时，你自动同意<a href='/user/rules.php'>规则</a> 网站<br />";
 
 
 echo "<input type='submit' value='继续' />";

@@ -1,15 +1,15 @@
 <?php //网页标题
-include_once 'sys/inc/start.php';
-include_once 'sys/inc/compress.php';
-include_once 'sys/inc/sess.php';
-include_once 'sys/inc/home.php';
-include_once 'sys/inc/settings.php';
-include_once 'sys/inc/db_connect.php';
-include_once 'sys/inc/ipua.php';
-include_once 'sys/inc/fnc.php';
-include_once 'sys/inc/user.php';
+include_once '../sys/inc/start.php';
+include_once '../sys/inc/compress.php';
+include_once '../sys/inc/sess.php';
+include_once '../sys/inc/home.php';
+include_once '../sys/inc/settings.php';
+include_once '../sys/inc/db_connect.php';
+include_once '../sys/inc/ipua.php';
+include_once '../sys/inc/fnc.php';
+include_once '../sys/inc/user.php';
 $set['title'] = '网站上的游客'; // 页标题
-include_once 'sys/inc/thead.php';
+include_once '../sys/inc/thead.php';
 title();
 aut();
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `date_last` > '" . (time() - 600) . "' AND `pereh` > '0'"), 0);
@@ -51,4 +51,4 @@ while ($guest = dbassoc($q)) {
 }
 echo "</table>";
 if ($k_page > 1) str("?", $k_page, $page); // 输出页数
-include_once 'sys/inc/tfoot.php';
+include_once '../sys/inc/tfoot.php';

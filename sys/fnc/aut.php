@@ -35,7 +35,7 @@ function title()
 			?><td class="auts"><?
 			if ($k_new != 0 && $k_new_fav == 0)
 			{				
-				?><a href="/new_mess.php"><center><img src="/style/icons/icon_pochta22.gif" alt="DS" /><font color="#ff0000">(<?=$k_new?>)</font></center></a><?
+				?><a href="/user/new_mess.php"><center><img src="/style/icons/icon_pochta22.gif" alt="DS" /><font color="#ff0000">(<?=$k_new?>)</font></center></a><?
 			}
 			else
 			{

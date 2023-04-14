@@ -7,8 +7,8 @@ else
 	echo "<div class='foot'>";
 	echo "<a href='/'>主要的</a><br />";
 	echo "<a href='/users.php'>注册用户: ".dbresult(dbquery("SELECT COUNT(*) FROM `user`"), 0)."</a><br />";
-	echo "<a href='/online.php'>在线用户: ".dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `date_last` > ".(time()-600).""), 0)."</a><br />";
-	echo "<a href='/online_g.php'>在线游客: ".dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `date_last` > ".(time()-600)." AND `pereh` > '0'"), 0)."</a><br />";
+	echo "<a href='/user/online.php'>在线用户: ".dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `date_last` > ".(time()-600).""), 0)."</a><br />";
+	echo "<a href='/user/online_g.php'>在线游客: ".dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `date_last` > ".(time()-600)." AND `pereh` > '0'"), 0)."</a><br />";
 	$page_size = ob_get_length();
 	ob_end_flush();
 	if(!isset($_SESSION['traf']))

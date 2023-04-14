@@ -12,10 +12,10 @@ rekl(3);
 <a href="/user/users.php">已登记 (<?=dbresult(dbquery("SELECT COUNT(`id`)FROM `user`"),0);?>)</a>
             </span>
             <span id="copyright">
-<a href="/online.php">在线 (<?=dbresult(dbquery("SELECT COUNT(`id`) FROM `user` WHERE `date_last` > " . (time() - 600) . ""), 0);?>)</a>
+<a href="/user/online.php">在线 (<?=dbresult(dbquery("SELECT COUNT(`id`) FROM `user` WHERE `date_last` > " . (time() - 600) . ""), 0);?>)</a>
             </span>
             <span id="copyright">
-<a href="/online_g.php">在线游客 (<?=dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `date_last` > " . (time() - 600) . " AND `pereh` > '0'"), 0);?>)</a>
+<a href="/user/online_g.php">在线游客 (<?=dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `date_last` > " . (time() - 600) . " AND `pereh` > '0'"), 0);?>)</a>
        <a href="/?t=wap">Wap版本 </a>
             </span>
             <span id="language">

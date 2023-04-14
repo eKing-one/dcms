@@ -16,8 +16,8 @@ if ($_SERVER['PHP_SELF'] != '/index.php')
 </div>
 <div class="foot">
 在网站上: 
-<a href="/online.php"><?=dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `date_last` > ".(time()-600).""), 0)?></a> &amp;
-<a href="/online_g.php"><?=dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `date_last` > ".(time()-600)." AND `pereh` > '0'"), 0)?></a>
+<a href="/user/online.php"><?=dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `date_last` > ".(time()-600).""), 0)?></a> &amp;
+<a href="/user/online_g.php"><?=dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `date_last` > ".(time()-600)." AND `pereh` > '0'"), 0)?></a>
 </div>
 <div class="rekl">
 <?

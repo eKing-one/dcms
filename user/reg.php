@@ -133,13 +133,13 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1) {
 	echo "输入密码（6-32个字符）:<br /><input type='password' name='pass1' maxlength='32' /><br />";
 	echo "重复密码:<br /><input type='password' name='pass2' maxlength='32' /><br />";
 	echo "<img src='/captcha.php?$passgen&amp;SESS=$sess' width='100' height='30' alt='核证号码' /><br /><input name='chislo' size='5' maxlength='5' value='' type='text' /><br/>";
-	echo "通过注册，您自动同意 <a href='/rules.php'>规则</a> 网站<br />";
+	echo "通过注册，您自动同意 <a href='/user/rules.php'>规则</a> 网站<br />";
 	echo "<input type='submit' value='继续' />";
 	echo "</form><br />";
 } else {
 	echo "<form class='mess' method='post' action='/user/reg.php?$passgen'>";
 	echo "选择昵称 [A-z0-9 -_]:<br /><input type='text' name='nick' maxlength='32' /><br />";
-	echo "通过注册，您自动同意 <a href='/rules.php'>网站规则</a> <br />";
+	echo "通过注册，您自动同意 <a href='/user/rules.php'>网站规则</a> <br />";
 	echo "<input type='submit' value='继续' />";
 	echo "</form><br />";
 }

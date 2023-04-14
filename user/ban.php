@@ -55,5 +55,5 @@ while ($post = dbassoc($q)) {
 }
 echo "</table>";
 if ($k_page > 1) str('?', $k_page, $page); // 输出页数
-echo "为了避免这种情况，我们建议您学习 <a href=\"/rules.php\">规则</a>我们的网站<br />";
+echo "为了避免这种情况，我们建议您学习 <a href=\"/user/rules.php\">规则</a>我们的网站<br />";
 include_once '../sys/inc/tfoot.php';

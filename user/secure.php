@@ -1,17 +1,17 @@
 <?php
-include_once 'sys/inc/start.php';
-include_once 'sys/inc/compress.php';
-include_once 'sys/inc/sess.php';
-include_once 'sys/inc/home.php';
-include_once 'sys/inc/settings.php';
-include_once 'sys/inc/db_connect.php';
-include_once 'sys/inc/ipua.php';
-include_once 'sys/inc/fnc.php';
-include_once 'sys/inc/shif.php';
-include_once 'sys/inc/user.php';
+include_once '../sys/inc/start.php';
+include_once '../sys/inc/compress.php';
+include_once '../sys/inc/sess.php';
+include_once '../sys/inc/home.php';
+include_once '../sys/inc/settings.php';
+include_once '../sys/inc/db_connect.php';
+include_once '../sys/inc/ipua.php';
+include_once '../sys/inc/fnc.php';
+include_once '../sys/inc/shif.php';
+include_once '../sys/inc/user.php';
 only_reg();
 $set['title']='安全';
-include_once 'sys/inc/thead.php';
+include_once '../sys/inc/thead.php';
 title();
 if (isset($_POST['save'])){
 if (isset($_POST['pass']) && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = $user[id] AND `pass` = '".shif($_POST['pass'])."' LIMIT 1"), 0)==1)
@@ -43,5 +43,5 @@ echo "新密码:<br /><input type='password' name='pass1' value='' /><br />";
 echo "确认密码:<br /><input type='password' name='pass2' value='' /><br />";
 echo "<input type='submit' name='save' value='修改' />";
 echo "</form>";
-include_once 'sys/inc/tfoot.php';
+include_once '../sys/inc/tfoot.php';
 ?>
