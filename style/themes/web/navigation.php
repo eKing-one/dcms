@@ -72,7 +72,7 @@ echo "<a href='/user/new_mess.php'><span class='link_title'><img src='/style/the
 }else{
 
 
-echo "<a href='/user/comm.php'><span class='link_title'><img src='/style/themes/web/images/mail.png' alt=''/>
+echo "<a href='/user/conts.php'><span class='link_title'><img src='/style/themes/web/images/mail.png' alt=''/>
 <br/>邮件</span></a>";
 
 

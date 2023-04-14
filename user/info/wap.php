@@ -8,7 +8,7 @@ if (isset($user) && isset($_GET['status'])) {
 		echo "<input class=\"submit\" style='' type=\"submit\" value=\"安装\" />";
 		echo " <a href='/user/info.php?id=$ank[id]'>取消</a><br />";
 		echo "</form>";
-		include_once 'sys/inc/tfoot.php';
+		include_once '../sys/inc/tfoot.php';
 		exit;
 	}
 }

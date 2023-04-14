@@ -39,7 +39,7 @@ function title()
 			}
 			else
 			{
-				?><a href="/user/comm.php"><center><img src="/style/icons/nav_pochta.gif" alt="S" /></center></a><?
+				?><a href="/user/conts.php"><center><img src="/style/icons/nav_pochta.gif" alt="S" /></center></a><?
 			}
 			?></td><?
 			/*

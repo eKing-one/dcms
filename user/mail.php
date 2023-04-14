@@ -15,12 +15,12 @@ if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL)
 )
 	$_SESSION['refer'] = str_replace('&', '&amp;', preg_replace('#^http://[^/]*/#', '/', $_SERVER['HTTP_REFERER']));
 if (!isset($_GET['id'])) {
-	header("Location: /user/comm.php?" . SID);
+	header("Location: /user/conts.php?" . SID);
 	exit;
 }
 $ank = user::get_user($_GET['id']);
 if (!$ank) {
-	header("Location: /user/comm.php?" . SID);
+	header("Location: /user/conts.php?" . SID);
 	exit;
 }
 // помечаем сообщения как прочитанные
@@ -195,9 +195,9 @@ echo "与…通信 " . group($ank['id']) . "
  <a href='/user/info.php?id=" . $ank['id'] . "'>" . $ank['nick'] . "</a> " . medal($ank['id']) . online($ank['id']) . " <span style='float:right;'>";
 if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"), 0) == 1) {
 	$kont = dbarray(dbquery("SELECT * FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"));
-	echo "<a href='/user/comm.php?type=$kont[type]&amp;act=del&amp;id=$ank[id]'><img src='/style/icons/cross_r.gif' alt='*'></a></span><br/></div>";
+	echo "<a href='/user/conts.php?type=$kont[type]&amp;act=del&amp;id=$ank[id]'><img src='/style/icons/cross_r.gif' alt='*'></a></span><br/></div>";
 } else {
-	echo "<a href='/user/comm.php?type=common&amp;act=add&amp;id=$ank[id]'><img src='/style/icons/lj.gif' alt='*'> 添加到联系人</a></span><br/></div>";
+	echo "<a href='/user/conts.php?type=common&amp;act=add&amp;id=$ank[id]'><img src='/style/icons/lj.gif' alt='*'> 添加到联系人</a></span><br/></div>";
 }
 $rt = time() - 600;
 if ($ank['id'] != 0 && $ank['date_last'] < $rt) {
@@ -208,10 +208,10 @@ if ($ank['id'] != 0 && $ank['date_last'] < $rt) {
 if ($ank['id'] != 0 && $block == true) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"), 0) == 1) {
 		$kont = dbarray(dbquery("SELECT * FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"));
-		echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'>  <a href='/user/comm.php?type=$kont[type]&amp;act=del&amp;id=$ank[id]'>从列表中删除联系人</a></div>";
+		echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'>  <a href='/user/conts.php?type=$kont[type]&amp;act=del&amp;id=$ank[id]'>从列表中删除联系人</a></div>";
 	} else {
 		echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'> 
-	<a href='/user/comm.php?type=common&amp;act=add&amp;id=$ank[id]'>添加到联系人列表</a></div>";
+	<a href='/user/conts.php?type=common&amp;act=add&amp;id=$ank[id]'>添加到联系人列表</a></div>";
 	}
 	echo "<form method='post' name='message' action='/user/mail.php?id=$ank[id]'>";
 	if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
@@ -226,7 +226,7 @@ if ($ank['id'] != 0 && $block == true) {
 
 }
 echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'> 
-	<a href='/user/comm.php?" . (isset($kont) ? 'type=' . $kont['type'] : null) . "'>所有联系人</a></div>";
+	<a href='/user/conts.php?" . (isset($kont) ? 'type=' . $kont['type'] : null) . "'>所有联系人</a></div>";
 echo "<table class='post'>";
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `mail` WHERE `unlink` != '$user[id]' AND `id_user` = '$user[id]' AND `id_kont` = '$ank[id]' OR `id_user` = '$ank[id]' AND `id_kont` = '$user[id]' AND  `unlink` != '$user[id]'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
