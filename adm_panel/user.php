@@ -26,7 +26,7 @@ if ($user['level'] <= $ank['level']) {
 	header("Location: /index.php?" . SID);
 	exit;
 }
-echo "test".$user['level']."->".$ank['level'] ;
+
 $set['title'] = '用户个人资料 ' . $ank['nick'];
 include_once '../sys/inc/thead.php';
 title();

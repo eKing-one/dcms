@@ -94,7 +94,6 @@ function delete_dir($dir)
 function get_curl($url, $post=0, $referer=0, $cookie=0, $header=0, $ua=0, $nobaody=0, $addheader=0)
 {
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 	$httpheader[] = "Accept: */*";
@@ -265,18 +264,18 @@ function vremja($time = NULL)
 		if ($time_p[0] == date("Y m d")) $timep = date("H:i:s", $time);
 		if ($time_p[0] == date("Y m d", time() - 60 * 60 * 24)) $timep = "昨天$time_p[1]";
 	}
-	$timep = str_replace("Jan", "1月", $timep);
-	$timep = str_replace("Feb", "2月", $timep);
-	$timep = str_replace("Mar", "3月", $timep);
-	$timep = str_replace("May", "4月", $timep);
-	$timep = str_replace("Apr", "5月", $timep);
-	$timep = str_replace("Jun", "6月", $timep);
-	$timep = str_replace("Jul", "7月", $timep);
-	$timep = str_replace("Aug", "8月", $timep);
-	$timep = str_replace("Sep", "9月", $timep);
-	$timep = str_replace("Oct", "10月", $timep);
-	$timep = str_replace("Nov", "11月", $timep);
-	$timep = str_replace("Dec", "12月", $timep);
+	$timep = str_replace("Jan", "1", $timep);
+	$timep = str_replace("Feb", "2", $timep);
+	$timep = str_replace("Mar", "3", $timep);
+	$timep = str_replace("May", "4", $timep);
+	$timep = str_replace("Apr", "5", $timep);
+	$timep = str_replace("Jun", "6", $timep);
+	$timep = str_replace("Jul", "7", $timep);
+	$timep = str_replace("Aug", "8", $timep);
+	$timep = str_replace("Sep", "9", $timep);
+	$timep = str_replace("Oct", "10", $timep);
+	$timep = str_replace("Nov", "11", $timep);
+	$timep = str_replace("Dec", "12", $timep);
 	return $timep;
 }
 

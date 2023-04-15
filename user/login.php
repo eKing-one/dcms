@@ -61,7 +61,7 @@ elseif (isset($_COOKIE['id_user']) && isset($_COOKIE['pass']) && $_COOKIE['id_us
 else $_SESSION['err'] = '授权错误';
 if (!isset($user))
 {
-	header('Location: /aut.php');
+	header('Location: /user/aut.php');
 	exit;
 }
 // Пишем ip пользователя
