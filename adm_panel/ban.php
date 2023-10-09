@@ -170,6 +170,6 @@ echo "<div class='foot'>";
 echo "&raquo;<a href=\"/user/mail.php?id=$ank[id]\">写一封信</a><br />";
 echo "&laquo;<a href=\"/user/info.php?id=$ank[id]\">返回资料</a><br />";
 if (user_access('adm_panel_show'))
-    echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
+    echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';

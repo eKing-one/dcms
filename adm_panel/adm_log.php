@@ -97,7 +97,7 @@ if (isset($_GET['id_mod']) && isset($_GET['id_act']) && dbresult(dbquery("SELECT
 if (user_access('adm_panel_show')) {
     echo "<div class='foot'>";
     if (user_access('adm_show_adm')) echo "&raquo;<a href='administration.php'>管理工作</a><br />";
-    echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
+    echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
     echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';

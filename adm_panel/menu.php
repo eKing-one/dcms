@@ -1,4 +1,4 @@
-<? //到管理面板
+<? //返回管理面板
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -143,7 +143,7 @@ if (isset($_GET['add'])) {
 } else echo "<div class='foot'><a href='?add=$passgen'>添加项目</a></div>";
 if (user_access('adm_panel_show')) {
     echo "<div class='foot'>";
-    echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
+    echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
     echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';

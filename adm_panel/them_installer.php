@@ -72,7 +72,7 @@ echo "</form>";
 echo "<div class='foot'>";
 echo "&laquo;<a href='themes.php'>设计主题</a><br />";
 if (user_access('adm_panel_show'))
-echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
+echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
 ?>

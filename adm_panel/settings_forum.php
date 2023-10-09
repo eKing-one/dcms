@@ -65,7 +65,7 @@ if (user_access('adm_panel_show')){
 echo "<div class='foot'>";
 if (user_access('adm_forum_sinc'))
 echo "&raquo;<a href='/adm_panel/forum_sinc.php'>论坛表的同步</a><br />";
-echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
+echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
 echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';

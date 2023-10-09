@@ -38,7 +38,7 @@ echo "下载模式:<br /><select name=\"downloads_select\">";
 echo "<option value=\"0\">允许所有人</option>";
 if ($temp_set['downloads_select'] == '1') $sel = ' selected="selected"';
 else $sel = NULL;
-echo "<option value=\"1\"$sel>只获授权</option>";
+echo "<option value=\"1\"$sel>注册用户</option>";
 if ($temp_set['downloads_select'] == '2') $sel = ' selected="selected"';
 else $sel = NULL;
 echo "<option value=\"2\"$sel>授权+100积分</option>";
@@ -53,7 +53,7 @@ echo "<option value=\"0\"$sel>隐藏</option>";
 echo "</select><br />";
 echo "文件被视为新文件的时间（小时）:<br /><input type='text' name='loads_new_file_hour' value='$temp_set[loads_new_file_hour]' /><br />";
 echo "版权档案(图片):<br /><input type='text' name='copy_path' value='$temp_set[copy_path]' /><br />";
-echo "下载中心(上载档案的点数限制):<br /><input name=\"down_limit_up\" value=\"$temp_set[down_limit_up]\" type=\"text\" /><br />";
+echo "下载中心(上传文件最大限制):<br /><input name=\"down_limit_up\" value=\"$temp_set[down_limit_up]\" type=\"text\" /><br />";
 echo "<input value=\"修改\" name='save' type=\"submit\" />";
 echo "</form>";
 echo "<div class='foot'>";
@@ -61,7 +61,7 @@ echo "&raquo;<a href='loads_recount.php'>将文件重新计算为z-z</a><br />";
 echo "</div>";
 if (user_access('adm_panel_show')) {
     echo "<div class='foot'>";
-    echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
+    echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
     echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';

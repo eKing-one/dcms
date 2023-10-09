@@ -1,5 +1,5 @@
 <?php
-//到管理面板
+//返回管理面板
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -76,7 +76,7 @@ aut();
 echo "<div class='foot'>";
 echo "&laquo;<a href='mysql.php'>MySQL 请求</a><br />";
 if (user_access('adm_panel_show'))
-echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
+echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
 ?>

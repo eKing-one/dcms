@@ -1,4 +1,4 @@
-<?//到管理面板
+<?//返回管理面板
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -58,7 +58,7 @@ echo "* 根据消息和主题的数量，此操作可能需要很长时间。<br
 echo "** 建议仅在论坛计数器与真实数据不一致的情况下使用它<br />";
 if (user_access('adm_panel_show')){
 echo "<div class='foot'>";
-echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
+echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
 echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';

@@ -145,7 +145,7 @@ echo "<input value=\"保存\" name='save' type=\"submit\" />";
 echo "</form>";
 if (user_access('adm_panel_show')){
 echo "<div class='foot'>";
-echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
+echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
 echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';

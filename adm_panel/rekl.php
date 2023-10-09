@@ -130,7 +130,7 @@ echo "</form>";
 echo "<div class='foot'>";
 echo "<a href='rekl.php'>广告一览表</a><br />";
 if (user_access('adm_panel_show'))
-echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
+echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
 }
@@ -145,7 +145,7 @@ echo "<a href='rekl.php?sel=4'>网站的底部（其余）</a><br />";
 echo "</div>";
 if (user_access('adm_panel_show')){
 echo "<div class='foot'>";
-echo "&laquo;<a href='/adm_panel/'>到管理面板</a><br />";
+echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
 echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
