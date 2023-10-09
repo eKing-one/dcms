@@ -30,8 +30,8 @@ if (
     echo "<a href='/user/info.php?id=$ank[id]'>查看资料</a><br />";
     echo "<form method=\"post\" action=\"/chat/room/$room[id]/" . rand(1000, 9999) . "/\">";
     echo "信息:<br /><textarea name=\"msg\">$ank[nick], </textarea><br />";
-    echo "<label><input type=\"checkbox\" name=\"privat\" value=\"$ank[id]\" /> 私下里</label><br />";
-    if ($user['set_translit'] == 1) echo "<label><input type=\"checkbox\" name=\"translit\" value=\"1\" /> 音译</label><br />";
+    echo "<label><input type=\"checkbox\" name=\"privat\" value=\"$ank[id]\" /> 私聊</label><br />";
+    if ($user['set_translit'] == 1) echo "<label><input type=\"checkbox\" name=\"translit\" value=\"1\" /> 翻译</label><br />";
     echo "<input value=\"发送\" type=\"submit\" />";
     echo "</form>";
     echo "<div class=\"foot\">";
