@@ -108,60 +108,74 @@ $name 变量值
 特定消息类型
 ===============================
 */
-	if ($type == 'ok_gift') // 请收下礼物。
-	{
-		$name = '已接受' . ($avtor['pol'] == 1 ? "" : "а") . ' 你的礼物 ';
-	} elseif ($type == 'no_gift') // Отказ от подарка
-	{
-		$name = '被拒绝' . ($avtor['pol'] == 1 ? "" : "а") . ' 你的礼物 ';
-	} elseif ($type == 'new_gift') // Подарки новые
-	{
-		$name = '有' . ($avtor['pol'] == 1 ? "" : "а") . ' 给你的礼物 ';
-	} elseif ($type == 'files_komm' || $type == 'down_komm') // 文件
-	{
-		$name = '回复说' . ($avtor['pol'] == 1 ? "" : "а") . ' 在文件的注释中给你 ';
-	} elseif ($type == 'news_komm') // Новости 
-	{
-		$name = '回复说' . ($avtor['pol'] == 1 ? "" : "а") . ' 在对新闻的评论中给你 ';
-	} elseif ($type == 'status_komm') // Статусы
-	{
-		$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
-		$name = '回复说' . ($avtor['pol'] == 1 ? "" : "а") . ' 给你在这个评论 ';
-	} elseif ($type == 'photo_komm') // Фото 
-	{
-		$name = '回复说' . ($avtor['pol'] == 1 ? "" : "а") . ' 在照片的评论中给你 ';
-	} elseif ($type == 'notes_komm') // Дневники
-	{
-		$name = '回复说' . ($avtor['pol'] == 1 ? "" : "а") . ' 在日记的评论中给你 ';
-	} elseif ($type == 'them_komm') // форум
-	{
-		$name = '回复说' . ($avtor['pol'] == 1 ? "" : "а") . ' 你在主题 ';
-	} elseif ($type == 'stena_komm') // Стена
-	{
-		$stena = user::get_user($post['id_object']);
-		if ($stena['id'] == $user['id']) $sT = '你的';
-		elseif ($stena['id'] == $avtor['id']) $sT = '我的';
-		else {
-			$sT = null;
-		}
-		$name = '回复说' . ($avtor['pol'] == 1 ? "" : "а") . ' 你在 ' . $sT;
-	} elseif ($type == 'guest' || $type == 'adm_komm') // 嘉宾， 管理员聊天
-	{
-		$name = '回复说' . ($avtor['pol'] == 1 ? "" : "а") . ' 你在 ';
-	} elseif ($type == 'del_frend') // 远程朋友通知
-	{
-		$name = ' 不幸的是我删除了它' . ($avtor['pol'] == 1 ? "" : "а") . ' 你来自朋友名单';
-	} elseif ($type == 'no_frend') // 被朋友拒绝申请的通知
-	{
-		$name = ' 不幸的是我拒绝了' . ($avtor['pol'] == 1 ? "" : "а") . ' 在友谊中献给你';
-	} elseif ($type == 'ok_frend') // 申请朋友的通知
-	{
-		$name = ' 已成为' . ($avtor['pol'] == 1 ? "" : "а") . ' 你的朋友';
-	} elseif ($type == 'otm_frend') // 关于取消预约的朋友通知
-	{
-		$name = ' 取消' . ($avtor['pol'] == 1 ? "" : "а") . ' 将您添加为好友';
-	} elseif ($type == 'stena_komm2') {
-		$name = ' 写道 ' . ($avtor['pol'] == 1 ? ' ' : 'a') . ' 在你 <a href="/user/comm.php?id=' . $post['id_object'] . '">在动态上的入口</a>';
+	if ($type == 'ok_gift') // 接受礼物
+	{	
+		$name = '接受了您的礼物';
+	}
+	elseif ($type == 'no_gift') // 拒绝礼物
+	{	
+		$name = '拒绝了您的礼物';
+	}
+	elseif ($type == 'new_gift') // 新礼物
+	{	
+		$name = '给您送上了新的礼物';
+	}
+	elseif ($type == 'files_komm' || $type == 'obmen_komm') // 文件评论
+	{	
+		$name = '在您的文件评论中回复了您';
+	}
+
+	elseif ($type == 'news_komm') // 新闻评论
+	{	
+		$name = '在您的新闻评论中回复了您';
+	}
+	elseif ($type == 'status_komm') // 状态评论
+	{	
+		$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '".$post['id_object']."' LIMIT 1"));
+		$name = '在这个状态的评论中回复了您';
+	}
+	elseif ($type == 'foto_komm') // 照片评论
+	{	
+		$name = '在您的照片评论中回复了您';
+	}
+	elseif ($type == 'notes_komm') // 日记评论
+	{	
+		$name = '在您的日记评论中回复了您';
+	}
+	elseif ($type == 'them_komm') // 论坛回复
+	{	
+		$name = '在您的论坛主题中回复了您';
+	}
+	elseif ($type == 'stena_komm') // 留言板回复
+	{	
+		$stena = get_user($post['id_object']);
+		if ($stena['id'] == $user['id']) $sT = '您的';
+		elseif ($stena['id'] == $avtor['id']) $sT = '他的/她的';
+		else{ $sT = null; }
+		$name = '在'.$sT.'留言板中回复了您';
+	}
+	elseif ($type == 'guest' || $type == 'adm_komm') // 访客留言、管理员聊天
+	{	
+		$name = '在您的'.$type.'中回复了您';
+	}
+	elseif ($type == 'del_frend') // 删除好友通知
+	{	
+		$name = '很遗憾，将您从好友列表中删除了';
+	}
+	elseif ($type == 'no_frend') // 拒绝好友请求通知
+	{	
+		$name = '很遗憾，拒绝了您的好友请求';
+	}
+
+	elseif ($type == 'ok_frend') // 同意好友请求通知
+	{	
+		$name = '成为了您的好友';
+	}
+	elseif ($type == 'otm_frend') // 取消好友请求通知
+	{	
+		$name = '取消了添加您为好友的请求';
+	}elseif($type=='stena_komm2'){
+		$name='在您的留言板中写了评论';
 	}
 	/*
 ===============================
@@ -194,7 +208,7 @@ $name 变量值
 			echo user::nick($avtor['id'], 1, 0, 0) . " $name ";
 			echo "  $s1 " . vremja($post['time']) . " $s2";
 		} else {
-			echo " 这个朋友已经从网站上删除了=）  $s1 " . vremja($post['time']) . " $s2";
+			echo "这位朋友已经从网站上删除 =) $s1 " . vremja($post['time']) . " $s2";
 		}
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 		dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
@@ -233,7 +247,7 @@ $name 变量值
 			echo '<a href="/user/personalfiles/' . $file['id_user'] . '/' . $dir['id'] . '/?id_file=' . $file['id'] . '&amp;page=' . $pageEnd . '"><b>' . htmlspecialchars($file['name']) . '.' . $ras . '</b></a> ';
 			echo "  $s1 " . vremja($post['time']) . " $s2";
 		} else {
-			echo " 这 " . (!$file['id'] ? "档案" : "用户") . " 已删除=(  $s1 " . vremja($post['time']) . " $s2";
+			echo "这个" . (!$file['id'] ? "文件" : "用户" ) . "已经被删除 =( $s1 " . vremja($post['time']) . " $s2";
 		}
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
@@ -291,7 +305,7 @@ $name 变量值
 	}
 	if ($type == 'stena') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
-		echo user::nick($avtor['id'], 1, 1, 0) . ' 写道' . ($avtor['pol'] == 0 ? 'a' : null) . ' 在你的动态上';
+		echo user::nick($avtor['id'], 1, 1, 0) . '在您的留言板上留言了' . ($avtor['pol'] == 0 ? 'a' : null);
 		echo '' . $s1 . vremja($post['time']) . $s2 . ' ';
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}

@@ -333,11 +333,12 @@ $tPanel = "<div id='comments' class='tpanel'>
 $pBan[0] = "其他";
 $pBan[1] = "垃圾邮件/广告";
 $pBan[2] = "欺诈行为";
-$pBan[3] = "淫亵用语";
-$pBan[4] = "克隆昵称";
-$pBan[5] = "煽动、挑衅和煽动侵略";
-$pBan[6] = "洪水泛滥";
-$pBan[7] = "火焰";
+$pBan[3] = "不雅言论";
+$pBan[4] = "昵称克隆";
+$pBan[5] = "煽动、挑衅和煽动攻击";
+$pBan[6] = "灌水";
+$pBan[7] = "挑拨";
+
 
 /*
 ========================================
@@ -348,11 +349,11 @@ $pBan[7] = "火焰";
 $rBan['all'] = "整个网站";
 $rBan['notes'] = "日记";
 $rBan['forum'] = "论坛";
-$rBan['files'] = "档案";
+$rBan['files'] = "文件";
 $rBan['guest'] = "留言板";
 $rBan['chat'] = "聊天";
 $rBan['lib'] = "图书馆";
-$rBan['photo'] = "照片";
+$rBan['foto'] = "照片";
 
 /*
 ========================================
@@ -360,7 +361,7 @@ $rBan['photo'] = "照片";
 ========================================
 */
 
-$banMess = '[red]这条消息去蒸汽与作者在洗澡！[/red]';
+$banMess = '[red]这条消息已经随着作者一起被封禁了![/red]';
 
 if (isset($_POST['msg']) && !isset($user)) {
 	echo "您没有登录!";
@@ -401,5 +402,5 @@ if ($_SERVER["REQUEST_URI"] == "/" or $_SERVER["REQUEST_URI"] == "/index.php") {
 
 if (empty(setget('job', 1))) {
 	if (((isset($user) and $user['level'] < 5) or (!isset($user)))  and  $_SERVER["PHP_SELF"] != "/user/aut.php" and $_SERVER["PHP_SELF"] != "/user/login.php" and  $_SERVER["PHP_SELF"] != "/user/exit.php" and  $_SERVER["PHP_SELF"] != "/user/pass.php")
-		exit("技术工作正在进行中");
+		exit("正在进行技术维护");
 }

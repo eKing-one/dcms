@@ -31,33 +31,40 @@ if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth'] > $time || isset($_SES
     echo "<center>	 <font color='red'>有个新版本 - " . version_stable() . "! <a href='/adm_panel/update.php'>更详细</a></font>		</center>	";
   }
   echo "</div>";
-  if (user_access('adm_info')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a target='_blank' href='http://dcms-social.ru'>支持论坛</a></div>";
-  if (user_access('adm_info')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='info.php'>一般资料</a></div>";
-  if (user_access('adm_statistic')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='statistic.php'>网站统计</a></div>";
-  if (user_access('adm_show_adm')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='administration.php'>管理工作</a></div>";
-  if (user_access('adm_log_read')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='adm_log.php'>网站日志</a></div>";
-  if (user_access('adm_menu')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='menu.php'>主页设置</a></div>";
-  if (user_access('adm_rekl')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='rekl.php'>网站广告</a></div>";
-  if (user_access('adm_news')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='/news/add.php'>新闻中心</a></div>";
-  if (user_access('adm_set_sys')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_sys.php'>系统设置</a></div>";
-  if (user_access('adm_set_sys')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_bbcode.php'>BBCode设置</a></div>";
-  if ($user['level'] > 3) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='/user/gift/create.php'>网站礼物</a></div>";
-  if ($user['level'] > 3) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='smiles.php'>表情符号</a></div>";
-  if (user_access('adm_set_forum')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_forum.php'>论坛设置</a></div>";
-  if (user_access('adm_set_user')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_user.php'>用户设置</a></div>";
-  if (user_access('adm_accesses')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='accesses.php'>用户组权限</a></div>";
-  if (user_access('adm_banlist')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='banlist.php'>禁止名单</a></div>";
-  if (user_access('adm_set_loads')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_loads.php'>下载设置</a></div>";
-  if (user_access('adm_set_chat')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_chat.php'>聊天设置</a></div>";
-  if (user_access('adm_set_photo')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_photo.php'>照片库设置</a></div>";
-  if (user_access('adm_forum_sinc')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='forum_sinc.php'>论坛表的同步</a></div>";
-  if (user_access('adm_ref')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='referals.php'>转介服务</a></div>";
-  if (user_access('adm_ip_edit')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='opsos.php'>编辑IP运营商</a></div>";
-  if (user_access('adm_ban_ip')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='ban_ip.php'>禁止IP地址(范围)</a></div>";
-  if (user_access('adm_mysql')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='mysql.php'>MySQL查询</a></div>";
-  if (user_access('adm_mysql')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='tables.php'>导入SQL</a></div>";
-  if (user_access('adm_themes')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='themes.php'>设计主题</a></div>";
-  if (user_access('adm_themes')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='style.php'>编辑当前CSS</a></div>";
+  if (user_access('adm_info')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='update.php'>更新</a></div>\n";
+
+  if (user_access('adm_info')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='info.php'>总体信息</a></div>\n";
+  if (user_access('adm_statistic')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='statistic.php'>网站统计</a></div>\n";
+  if (user_access('adm_show_adm')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='administration.php'>管理人员</a></div>\n";
+  if (user_access('adm_log_read')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='adm_log.php'>管理操作日志</a></div>\n";
+  
+  if (user_access('adm_menu')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='menu.php'>主菜单</a></div>\n";
+  if (user_access('adm_rekl')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='rekl.php'>广告</a></div>\n";
+  if (user_access('adm_news')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='/news/add.php'>新闻</a></div>\n";
+  
+  if (user_access('adm_set_sys')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_sys.php'>系统设置</a></div>\n";
+  if (user_access('adm_set_sys')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='rights.php'>文件夹权限</a></div>\n";
+  if (user_access('adm_set_sys')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_bbcode.php'>BBcode设置</a></div>\n";
+  if ($user['level'] > 3) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='/user/gift/create.php'>礼物</a></div>\n";
+  if ($user['level'] > 3) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='smiles.php'>表情符号</a></div>\n";
+  if (user_access('adm_set_forum')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_forum.php'>论坛设置</a></div>\n";
+  
+  if (user_access('adm_set_user')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_user.php'>用户设置</a></div>\n";
+  if (user_access('adm_accesses')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='accesses.php'>用户组权限</a></div>\n";
+  if (user_access('adm_banlist')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='banlist.php'>封禁列表</a></div>\n";
+  if (user_access('adm_set_loads')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_loads.php'>下载设置</a></div>\n";
+  if (user_access('adm_set_chat')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_chat.php'>聊天设置</a></div>\n";
+  
+  if (user_access('adm_set_foto')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_foto.php'>相册设置</a></div>\n";
+  
+  if (user_access('adm_forum_sinc')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='forum_sinc.php'>论坛表格同步</a></div>\n";
+  if (user_access('adm_ref')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='referals.php'>推荐</a></div>\n";
+  if (user_access('adm_ip_edit')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='opsos.php'>编辑IP操作者</a></div>\n";
+  if (user_access('adm_ban_ip')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='ban_ip.php'>IP地址封禁（范围）</a></div>\n";
+  
+  if (user_access('adm_mysql')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='mysql.php'>MySQL查询</a></div>\n";
+  if (user_access('adm_mysql')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='tables.php'>上传表格</a></div>\n";
+  if (user_access('adm_themes')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='themes.php'>主题样式</a></div>\n";
   $opdirbase = @opendir(H . 'sys/add/admin');
   while ($filebase = @readdir($opdirbase))
     if (preg_match('#\.php$#i', $filebase))

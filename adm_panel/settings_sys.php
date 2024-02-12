@@ -80,23 +80,28 @@ echo '网站背景:<br />
            value="'.setget('background').'">
 <br />';
 */
-echo "网站开关:<br />
+echo "网站运行状态：<br />
 <select name='job'>
-  <option ".(setget('job',1)==1? " selected ":null)." value='1'>包括</option>
-  <option ".(setget('job',1)==0? " selected ":null)." value='0'>断开</option>
+  <option ".(setget('job',1)==1? " selected ":null)." value='1'>已启用</option>
+  <option ".(setget('job',1)==0? " selected ":null)." value='0'>已禁用</option>
 </select>
 <br />";
-echo "确认退出:<br />
+echo "带确认退出：<br />
+
 <select name='exit'>
   <option ".(setget('exit',1)==1? " selected ":null)." value='1'>是</option>
-  <option ".(setget('exit',1)==0? " selected ":null)." value='0'>没有</option>
+  <option ".(setget('exit',1)==0? " selected ":null)." value='0'>否</option>
 </select>
+
 <br />";
-echo "网站帽:<br />
+
+echo "网站标题栏：<br />
+
 <select name='header'>
-  <option ".(setget('header',"index")=="index"? " selected ":null)." value='index'>只在主要的</option>
-  <option ".(setget('header',"all")=="all"? " selected ":null)." value='all'>在所有的页面上</option>
+  <option ".(setget('header',"index")=="index"? " selected ":null)." value='index'>仅在首页</option>
+  <option ".(setget('header',"all")=="all"? " selected ":null)." value='all'>在所有页面上</option>
 </select>
+
 <br />";
 /*
 echo "  通过文件夹安装插件 /Replace/:<br />
@@ -106,7 +111,7 @@ echo "  通过文件夹安装插件 /Replace/:<br />
 </select>
 <br />";
 */
-echo "主题 (WAP):<br /><select name='set_them'>";
+echo "网站主题 (WAP):<br /><select name='set_them'>";
 $opendirthem=opendir(H.'style/themes');
 while ($themes=readdir($opendirthem)){
 // пропускаем корневые папки и файлы
@@ -117,7 +122,7 @@ echo "<option value='$themes'".($temp_set['set_them']==$themes?" selected='selec
 }
 closedir($opendirthem);
 echo "</select><br />";
-echo "题目 (WEB):<br /><select name='set_them2'>";
+echo "网站主题 (WEB):<br /><select name='set_them2'>";
 $opendirthem=opendir(H.'style/themes');
 while ($themes=readdir($opendirthem)){
 // пропускаем корневые папки и файлы
@@ -134,14 +139,14 @@ echo "资料描述 (META):<br />";
 echo "<textarea name='meta_description'>$temp_set[meta_description]</textarea><br />";
 echo "<label><input type='checkbox'".($temp_set['antidos']?" checked='checked'":null)." name='antidos' value='1' /> 反Dos*</label><br />";
 echo "<label><input type='checkbox'".($temp_set['antimat']?" checked='checked'":null)." name='antimat' value='1' /> 反CC</label><br />";
-echo "解释器错误:<br /><select name=\"show_err_php\">";
+echo "php解释器错误:<br /><select name=\"show_err_php\">";
 echo "<option value='0'".($temp_set['show_err_php']==0?" selected='selected'":null).">隐藏</option>";
-echo "<option value='1'".($temp_set['show_err_php']==1?" selected='selected'":null).">节目管理</option>";
+echo "<option value='1'".($temp_set['show_err_php']==1?" selected='selected'":null).">显示</option>";
 echo "</select><br />";
-echo "E-mail 为了 BackUp:<br /><input type='text' name='mail_backup' value='$temp_set[mail_backup]'  /><br />";
+echo "备份用电子邮件：<br /><input type='text' name='mail_backup' value='$temp_set[mail_backup]'  /><br />";
 echo "<br />";
-echo "* 反Dos-防止来自单个IP地址的频繁请求<br />";
-echo "<input value=\"保存\" name='save' type=\"submit\" />";
+echo "* 防止Dos攻击 - 防范来自同一IP地址的频繁请求<br />";
+echo "<input value=\"修改\" name='save' type=\"submit\" />";
 echo "</form>";
 if (user_access('adm_panel_show')){
 echo "<div class='foot'>";
