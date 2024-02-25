@@ -71,13 +71,13 @@ echo "<div class='foot'>";
 echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/user/info.php'>$user[nick]</a> | 服务 \"积分 5+\"<br />";
 echo "</div>";
 echo"<div class='nav1'>";
-echo "服务 <img src='/style/icons/6.png' alt='*'><br /> 1 $sMonet[1] = 1 使用特权的日子.";
+echo "服务 <img src='/style/icons/6.png' alt='*'><br /> 1 $sMonet[1] = 1 使用特权的日子。";
 echo"</div>";
 $c2 = dbresult(dbquery("SELECT COUNT(*) FROM `user_set` WHERE `id_user` = '$user[id]' AND `ocenka` > '$time'"), 0);
 if ($c2 == 0)
 {
 echo "<form method=\"post\" action=\"?\">";
-	echo '投币: <select name="stav">
+	echo '花费: <select name="stav">
 	<option value="1">1</option>
 	<option value="2">2</option>
 	<option value="3">3</option>

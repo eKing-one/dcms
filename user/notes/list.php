@@ -8,6 +8,10 @@ include_once '../../sys/inc/db_connect.php';
 include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
+/**
+ * 别看名字是 list，其实也有日记举报页。
+ * 举报页修改注解参见 ../user/info.php 被注释掉的大段代码。
+**/
 /* Бан пользователя */
 if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'notes' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0')"), 0) != 0) {
 	header('Location: /user/ban.php?' . SID);
@@ -63,15 +67,16 @@ if (isset($_GET['spam'])  &&  isset($user)) {
 		echo "原因：<br /><select name='types'>";
 		echo "<option value='1' selected='selected'>垃圾邮件/广告</option>";
 		echo "<option value='2' selected='selected'>欺诈行为</option>";
-		echo "<option value='3' selected='selected'>进攻</option>";
+		echo "<option value='3' selected='selected'>引战</option>";
+		echo "<option value='4' selected='selected'>网络暴力</option>";
 		echo "<option value='0' selected='selected'>其他</option>";
 		echo "</select><br />";
-		echo "评论:$tPanel";
+		echo "附加解释：$tPanel";
 		echo "<textarea name=\"msg\"></textarea><br />";
-		echo "<input value=\"发送\" type=\"submit\" />";
+		echo "<input value=\"提交投诉\" type=\"submit\" />";
 		echo "</form>";
 	} else {
-		echo "<div class='mess'>投诉有关<font color='green'>$spamer[nick]</font> 它将在不久的将来考虑。</div>";
+		echo "<div class='mess'>有关 <font color='green'>$spamer[nick]</font> 的投诉管理团队将尽快处理，请耐心等待。</div>";
 	}
 	echo "<div class='foot'>";
 	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='?id=$notes[id]&amp;page=" . intval($_GET['page']) . "'>返回</a><br />";
@@ -94,15 +99,15 @@ if (isset($user)) {
 	dbquery("UPDATE `discussions` SET `count` = '0' WHERE `id_user` = '$user[id]' AND `type` = 'notes' AND `id_sim` = '$notes[id]' LIMIT 1");
 }
 /*---------------------------------------------------------*/
-$set['title'] = 'Дневник - ' . htmlspecialchars($notes['name']) . '';
+$set['title'] = '日记 - ' . htmlspecialchars($notes['name']) . '';
 $set['meta_description'] = htmlspecialchars($notes['msg']);
 include_once '../../sys/inc/thead.php';
 if (isset($_POST['msg']) && isset($user)) {
 	$msg = $_POST['msg'];
 	if (strlen2($msg) > 1024) {
-		$err = '信息太长了';
+		$err = '信息长于 1024 字节。试着压缩一下？';
 	} elseif (strlen2($msg) < 2) {
-		$err = '短消息';
+		$err = '信息短于 2 字节。试着扩充一下？';
 	} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `notes_komm` WHERE `id_notes` = '" . intval($_GET['id']) . "' AND `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
 		$err = '你的留言重复了上一条';
 	} elseif (!isset($err)) {
@@ -149,7 +154,7 @@ if (isset($_POST['msg']) && isset($user)) {
 		}
 		dbquery("INSERT INTO `notes_komm` (`id_user`, `time`, `msg`, `id_notes`) values('$user[id]', '$time', '" . my_esc($msg) . "', '" . intval($_GET['id']) . "')");
 		dbquery("UPDATE `user` SET `balls` = '" . ($user['balls'] + 1) . "' WHERE `id` = '$user[id]' LIMIT 1");
-		$_SESSION['message'] = '消息发送成功';
+		$_SESSION['message'] = '信息发送成功';
 		header("Location: list.php?id=$notes[id]&page=" . intval($_GET['page']) . "");
 		exit;
 	}
@@ -160,7 +165,7 @@ title();
 aut(); // форма авторизации
 err();
 if ($notes['private'] == 1 && $user['id'] != $avtor['id'] && $frend != 2  && !user_access('notes_delete')) {
-	msg('日记只提供给朋友');
+	msg('根据用户的隐私设置，这篇日记只允许用户的朋友查看。');
 	echo "  <div class='foot'>";
 	echo "<a href='index.php'>返回</a><br />";
 	echo "   </div>";
@@ -168,7 +173,7 @@ if ($notes['private'] == 1 && $user['id'] != $avtor['id'] && $frend != 2  && !us
 	exit;
 }
 if ($notes['private'] == 2 && $user['id'] != $avtor['id']  && !user_access('notes_delete')) {
-	msg('用户已禁止查看日记');
+	msg('根据用户的隐私设置，已禁止查看这篇日记。');
 	echo "  <div class='foot'>";
 	echo "<a href='index.php'>返回</a><br />";
 	echo "   </div>";
@@ -178,7 +183,7 @@ if ($notes['private'] == 2 && $user['id'] != $avtor['id']  && !user_access('note
 if (isset($_GET['delete']) && ($user['id'] == $avtor['id'] || user_access('notes_delete'))) {
 	echo "<center>";
 	echo "你真的想删除日记吗 " . output_text($notes['name']) . "?<br />";
-	echo "[<a href='delete.php?id=$notes[id]'><img src='/style/icons/ok.gif'> 删除</a>] [<a href='list.php?id=$notes[id]'><img src='/style/icons/delete.gif'> 取消预约</a>] ";
+	echo "[<a href='delete.php?id=$notes[id]'><img src='/style/icons/ok.gif'> 删除</a>] [<a href='list.php?id=$notes[id]'><img src='/style/icons/delete.gif'> 取消</a>] ";
 	echo "</center>";
 	include_once '../../sys/inc/tfoot.php';
 }
@@ -188,7 +193,7 @@ if (isset($user)) {
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `id_user` = '" . $user['id'] . "' AND `id_notes` = '" . $notes['id'] . "' LIMIT 1"), 0) == 0) {
 			dbquery("INSERT INTO `notes_like` (`id_notes`, `id_user`, `like`) VALUES ('$notes[id]', '$user[id]', '1')");
 			dbquery("UPDATE `notes` SET `count` = '" . ($notes['count'] + 1) . "' WHERE `id` = '$notes[id]' LIMIT 1");
-			$_SESSION['message'] = '你的投票被计算在内';
+			$_SESSION['message'] = '你的表态已经计入统计';
 			header("Location: list.php?id=$notes[id]&page=" . intval($_GET['page']) . "");
 			exit;
 		}
@@ -199,7 +204,7 @@ if (isset($user)) {
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `id_user` = '" . $user['id'] . "' AND `id_notes` = '" . $notes['id'] . "' LIMIT 1"), 0) == 0) {
 			dbquery("INSERT INTO `notes_like` (`id_notes`, `id_user`, `like`) VALUES ('$notes[id]', '$user[id]', '0')");
 			dbquery("UPDATE `notes` SET `count` = '" . ($notes['count'] - 1) . "' WHERE `id` = '$notes[id]' LIMIT 1");
-			$_SESSION['message'] = '你的投票被计算在内';
+			$_SESSION['message'] = '你的表态已经计入统计';
 			header("Location: list.php?id=$notes[id]&page=" . intval($_GET['page']) . "");
 			exit;
 		}
@@ -219,7 +224,7 @@ if (isset($user)) {
 	if (isset($_GET['fav']) && $_GET['fav'] == 0) {
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `mark_notes` WHERE `id_user` = '" . $user['id'] . "' AND `id_list` = '" . $notes['id'] . "' LIMIT 1"), 0) == 1) {
 			dbquery("DELETE FROM `mark_notes` WHERE `id_user` = '$user[id]' AND  `id_list` = '$notes[id]' ");
-			$_SESSION['message'] = '从书签中删除的日记';
+			$_SESSION['message'] = '日记已从书签中删除';
 			header("Location: list.php?id=$notes[id]&page=" . intval($_GET['page']) . "");
 			exit;
 		}
@@ -269,7 +274,7 @@ echo "</div>";
 if (isset($user) && $user['id'] != $avtor['id']) {
 	echo "<div class='main'>";
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `id_user` = '" . $user['id'] . "' AND `id_notes` = '" . $notes['id'] . "' LIMIT 1"), 0) == 0)
-		echo "[<img src='/style/icons/like.gif' alt='*' /> <a href='list.php?id=$notes[id]&amp;like=1'>像</a>] [<a href='list.php?id=$notes[id]&amp;like=0'><img src='/style/icons/dlike.gif' alt='*' /></a>]<br />";
+		echo "[<img src='/style/icons/like.gif' alt='*' /> <a href='list.php?id=$notes[id]&amp;like=1'>喜欢</a>] [<a href='list.php?id=$notes[id]&amp;like=0'><img src='/style/icons/dlike.gif' alt='*' />不喜欢</a>]<br />";
 	else
 		echo "[<img src='/style/icons/like.gif' alt='*' /> " . dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `like` = '1' AND `id_notes` = '" . $notes['id'] . "' LIMIT 1"), 0) . "] [<img src='/style/icons/dlike.gif' alt='*' /> " . dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `like` = '0' AND `id_notes` = '" . $notes['id'] . "' LIMIT 1"), 0) . "]";
 	echo "</div>";
@@ -287,7 +292,7 @@ if (isset($user)) {
 		echo "<a href='list.php?id=$notes[id]&amp;fav=1'>添加到书签</a><br />";
 	else
 		echo "<a href='list.php?id=$notes[id]&amp;fav=0'>从书签中删除</a><br />";
-	echo "在书签中 <a href='list.php?id=$notes[id]&amp;markinfo'>$markinfo</a> 用户.";
+	echo "在书签中 <a href='list.php?id=$notes[id]&amp;markinfo'>$markinfo</a> 用户";
 	echo "</div>";
 	echo "</div>";
 }
@@ -361,7 +366,7 @@ while ($post = dbassoc($q)) {
 echo "</table>";
 if ($k_page > 1) str("list.php?id=" . intval($_GET['id']) . '&amp;', $k_page, $page); // 输出页数
 if ($notes['private_komm'] == 1 && $user['id'] != $avtor['id'] && $frend != 2  && !user_access('notes_delete')) {
-	msg('只有朋友可以评论');
+	msg('根据用户的隐私设置，这篇日记只允许用户的朋友评论。');
 	echo "  <div class='foot'>";
 	echo "<a href='index.php'>返回</a><br />";
 	echo "   </div>";
@@ -369,7 +374,7 @@ if ($notes['private_komm'] == 1 && $user['id'] != $avtor['id'] && $frend != 2  &
 	exit;
 }
 if ($notes['private_komm'] == 2 && $user['id'] != $avtor['id'] && !user_access('notes_delete')) {
-	msg('用户已禁止评论日记');
+	msg('根据用户的隐私设置，已禁止评论这篇日记。');
 	echo "  <div class='foot'>";
 	echo "<a href='index.php'>返回</a><br />";
 	echo "   </div>";

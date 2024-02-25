@@ -179,7 +179,7 @@ if ($ank['group_access'] > 1) {
 				} elseif ($frend_new == 1) {
 					echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$ank[id]'>拒绝申请</a><br />";
 				} elseif ($frend == 2) {
-					echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>把...从朋友中除名</a><br />";
+					echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>从朋友中删除</a><br />"; //统一 WAP 口径——Diamochang
 				}
 				echo "</div>";
 				/*-------------------------------------------------------------*/
@@ -209,7 +209,7 @@ if ($ank['group_access'] > 1) {
 			if (isset($user) && $ank['id'] == $user['id']) {
 				echo "<div class='main2'>";
 				echo "<img src='/style/icons/uslugi.gif' alt='*' /> <a href=\"/user/money/index.php\">附加服务</a><br /> ";
-				echo "<img src='/style/icons/settings.png' alt='*' /> <a href=\"/user/info/settings.php\">我的设置。</a> | <a href=\"/user/my_aut.php\">菜单</a>";
+				echo "<img src='/style/icons/settings.png' alt='*' /> <a href=\"/user/info/settings.php\">我的设置</a> | <a href=\"/user/my_aut.php\">登录历史</a>";
 				echo "</div>";
 			}
 			/*-------------------------------------------------------------*/
@@ -308,7 +308,7 @@ if ($ank['group_access'] > 1) {
 				echo '<div class="st_2">';
 				if (isset($user) && $user['id'] == $ank['id']) {
 					echo "<form style='border:none;' action='?id=" . $ank['id'] . "' method=\"post\">";
-					echo "<input type=\"text\" style='width:80%;' placeholder=''你有什么新鲜事？?' name=\"status\" value=\"\"/> ";
+					echo "<input type=\"text\" style='width:80%;' placeholder=''有什么新鲜事？' name=\"status\" value=\"\"/> ";
 					echo "<input class=\"submit\" style=' width:15%;' type=\"submit\" value=\"+\" />";
 					echo "</form>";
 				}
@@ -387,7 +387,7 @@ if ($ank['group_access'] > 1) {
 				echo "$name<span class=\"ank_n\">姓名:</span>$a <span class=\"ank_d\">$ank[ank_name]</span><br />";
 			else
 				echo "$name<span class=\"ank_n\">姓名:</span>$a<br />";
-			echo "$pol<span class=\"ank_n\">性别:</span>$a <span class=\"ank_d\">" . (($ank['pol'] == 1) ? '男' : '女') . "</span><br />";
+			echo "$pol<span class=\"ank_n\">性别:</span>$a <span class=\"ank_d\">" . (($ank['pol'] == 1) ? '男' : '女') . "</span><br />"; //提个醒：性别部分跨性别者（包括性别酷儿）可能会有选择困难，最好在支持文档中告诉 them 按着自己的心理性别或性别认同偏向选择就好。——Diamochang
 			if ($ank['ank_city'] != NULL)
 				echo "$gorod<span class=\"ank_n\">城市:</span>$a <span class=\"ank_d\">" . output_text($ank['ank_city']) . "</span><br />";
 			else

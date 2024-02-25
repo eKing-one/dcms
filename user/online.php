@@ -15,7 +15,7 @@ if (isset($_GET['admin']) && user_access('user_collisions')) {
 	else
 		$_SESSION['admin'] = true;
 }
-$set['title'] = '现在在网站上'; //网页标题
+$set['title'] = '在线用户'; //网页标题
 include_once '../sys/inc/thead.php';
 title();
 aut();
@@ -33,7 +33,7 @@ if ($k_lider > 0) {
 	echo user::nick($lider['id'], 1, 1, 0) . '<br />';//输出用户名
 	if ($liders['msg'])
 		echo output_text($liders['msg']) . '<br />';
-	echo '<img src="/style/icons/lider.gif" alt="S"/> <a href="/user/liders/">所有管理员</a> (' . $k_lider . ')';
+	echo '<img src="/style/icons/lider.gif" alt="S"/> <a href="/user/liders/">所有领导者</a> (' . $k_lider . ')';
 	echo '</div>';
 }
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `date_last` > '" . (time() - 600) . "'"), 0);

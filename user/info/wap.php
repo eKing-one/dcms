@@ -2,7 +2,7 @@
 /*-----------------------状况表格-----------------------*/
 if (isset($user) && isset($_GET['status'])) {
 	if ($user['id'] == $ank['id']) {
-		echo '<div class="main">状态[512个字符]</div>';
+		echo '<div class="main">状态 [最大 512 字节]</div>';
 		echo '<form action="/user/info.php?id=' . $ank['id'] . '" method="post">';
 		echo "$tPanel<textarea type=\"text\" style='' name=\"status\" value=\"\"/></textarea><br /> ";
 		echo "<input class=\"submit\" style='' type=\"submit\" value=\"安装\" />";
@@ -146,7 +146,7 @@ if (isset($user) && $user['id'] == $ank['id']) {
 		$k_notif = dbresult(dbquery("SELECT COUNT(`read`) FROM `notification` WHERE `id_user` = '$user[id]' AND `read` = '0'"), 0); // Уведомления
 		if ($k_notif > 0) {
 			echo "<img src='/style/icons/notif.png' alt='*' /> ";
-			echo "<a href='/user/notification/index.php'><font color='red'>通知书</font></a> ";
+			echo "<a href='/user/notification/index.php'><font color='red'>通知</font></a> ";
 			echo "<font color=\"red\">+$k_notif</font> ";
 			echo "<br />";
 		}
@@ -304,7 +304,7 @@ if (isset($user) && $ank['id'] != $user['id']) {
 if (isset($user) && $ank['id'] == $user['id']) {
 	echo "<div class='main'>";
 	echo "<img src='/style/icons/uslugi.gif' alt='*' /> <a href=\"/user/money/index.php\">额外服务</a><br /> ";
-	echo "<img src='/style/icons/settings.png' alt='*' /> <a href=\"/user/info/settings.php\">我的设置</a> | <a href=\"/user/my_aut.php\">菜单</a>";
+	echo "<img src='/style/icons/settings.png' alt='*' /> <a href=\"/user/info/settings.php\">我的设置</a> | <a href=\"/user/my_aut.php\">登录历史</a>";
 	echo "</div>";
 }
 /*

@@ -4,3 +4,7 @@ HELP.md
 /sys/dat/settings_6.2.dat
 /sys/dat/shif_iv.dat
 /sys/tmp/*
+/files/down/*
+/files/screens/14/*
+/files/screens/48/*
+/files/screens/128/*

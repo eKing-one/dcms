@@ -71,7 +71,7 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0) {
 	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей
 	{
 		echo '<div class="mess">';
-		echo '只有他的朋友可以查看用户的状态！';
+		echo '根据用户的隐私设置，只有成为该用户的朋友才能查看状态。';
 		echo '</div>';
 		// В друзья
 		if (isset($user)) {
@@ -91,7 +91,7 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0) {
 	if ($uSet['privat_str'] == 0) // Если закрыта
 	{
 		echo '<div class="mess">';
-		echo '用户已禁止查看他的状态！';
+		echo '根据用户的隐私设置，已禁止查看该用户的状态。';
 		echo '</div>';
 		include_once '../../sys/inc/tfoot.php';
 		exit;
@@ -108,7 +108,7 @@ $q = dbquery("SELECT * FROM `status` WHERE `id_user` = '" . $anketa['id'] . "' O
 echo "<table class='post'>";
 if ($k_post == 0) {
 	echo "<div class='mess'>";
-	echo "没有状态";
+	echo "该用户目前没有状态。";
 	echo "</div>";
 }
 while ($post = dbassoc($q)) {

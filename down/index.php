@@ -264,9 +264,7 @@ if (isset($_GET['f'])) {
             echo '</div>';
         } elseif (!isset($user)) {
             echo '<div class="mess">';
-            echo '<img src="/style/icons/small_adult.gif" alt="*"> 
-此文件包含色情性质的图像。只有18岁以上的注册用户才能查看此类文件。
-';
+            echo '<img src="/style/icons/small_adult.gif" alt="*"> 此文件包含色情性质的图像。只有18岁以上的注册用户才能查看此类文件。';
             echo '<a href="/user/aut.php">注册</a> | <a href="/user/reg.php">注册时间</a>';
             echo '</div>';
         } else {

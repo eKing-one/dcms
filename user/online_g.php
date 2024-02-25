@@ -21,7 +21,7 @@ echo "<table class='post'>";
 if ($k_post == 0) {
     echo "   <tr>";
     echo "  <td class='p_t'>";
-    echo "网站上没有游客";
+    echo "目前网站上没有游客";
     echo "  </td>";
     echo "   </tr>";
 }

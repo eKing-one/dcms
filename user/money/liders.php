@@ -74,16 +74,16 @@ exit;
 $err='你没有足够的资金';
 }
 }else{
-$err='消息字段不能为空';
+$err='信息字段不能为空';
 }
 err();
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="S"/> <a href="/user/money/">额外服务</a> | <b>成为领导者</b>';
+echo '<img src="/style/icons/str2.gif" alt="S"/> <a href="/user/money/">附加服务</a> | <b>成为领导者</b>';
 echo '</div>';
 echo '<div class="mess">';
-echo '为了进入领导者，你至少需要 <b style="color:red;">1</b> <b style="color:green;">' . $sMonet[1] . '</b>, 这项服务将提供1天 
-你在这上面的位置取决于数字 ' . $sMonet[0] . ' （总停留时间）！ 
-此外，您的个人资料将在约会和搜索页面上旋转！';
+echo '为了进入领导者，你至少需要 <b style="color:red;">1</b> <b style="color:green;">' . $sMonet[1] . '</b>, 这项服务将提供一定天 
+数在这上面的位置，具体取决于 ' . $sMonet[0] . ' 的数量（总停留时间）！ 
+此外，你的个人资料将在约会和搜索页面上展示！'; //“约会”是个什么东西？——Diamochang
 echo '</div>';
 echo '<form class="main" method="post" action="?">';
 	echo '花费: <select name="stav">
@@ -95,12 +95,12 @@ echo '<form class="main" method="post" action="?">';
 	<option value="6">6</option>
 	<option value="7">7</option>
 	</select> ' . $sMonet[0] . '<br />';
-echo '签名(215个字符)<textarea name="msg"></textarea><br />';
+echo '留言（215 字节）<textarea name="msg"></textarea><br />';
 echo '<input value="成为领导者" type="submit" />';
 echo '</form>';
 }
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="S"/> <a href="/user/money/">额外服务</a> | <b>成为领导者</b>';
+echo '<img src="/style/icons/str2.gif" alt="S"/> <a href="/user/money/">附加服务</a> | <b>成为领导者</b>';
 echo '</div>';
 include_once '../../sys/inc/tfoot.php';
 ?>

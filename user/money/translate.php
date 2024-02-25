@@ -20,7 +20,7 @@ if (!$err)
 {
 dbquery("UPDATE `user` SET `money` = '" . ($ank['money'] + $money) . "' WHERE `id` ='$ank[id]';");
 dbquery("UPDATE `user` SET `money` = '" . ($user['money'] - $money) . "' WHERE `id` ='$user[id]';");
-$msg = "用户 [b]".$user['nick']."[/b] 我把钱转给你了 [b] $money [/b] $sMonet[0]! [br]别忘了说谢谢！";
+$msg = "用户 [b]".$user['nick']."[/b] 我转给你了 [b] $money [/b] $sMonet[0]! [br]别忘了说谢谢！";
 dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$msg', '$time')");
 $_SESSION['message'] = '转让成功完成';
 header("Location: /user/info.php?id=$ank[id]");
@@ -39,11 +39,11 @@ if (isset($user) & $user['money']<=1)
 {
 echo '<div class="mess">';
 	if ($user['pol']==0){
-		echo "不好意思。。。 <b>美女,</b> ";
+		echo "<b>不好意思，美女，</b> ";
 	} else {
-		echo "<b>不好意思。。。 兄弟,</b> ";
+		echo "<b>不好意思，兄弟，</b> ";
 	}
-		echo "赠送$sMonet[2] 其他居民需要获得最低 <b>2</b> $sMonet[2]<br/>你的 <b>$user[money] </b>$sMonet[0]";
+		echo "赠送$sMonet[2]给其他用户需要获得最低 <b>2</b> $sMonet[2]。<br/>你目前只有 <b>$user[money] </b>$sMonet[0]。";
 echo '</div>';
 }
 else

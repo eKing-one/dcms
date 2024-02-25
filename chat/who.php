@@ -27,7 +27,7 @@ echo "<table class='post'>";
 if ($k_post == 0) {
     echo "   <tr>";
     echo "  <td class='p_t'>";
-    echo "没有人";
+    echo "这里并没有人。";
     echo "  </td>";
     echo "   </tr>";
 }

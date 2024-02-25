@@ -3,11 +3,11 @@
 if (isset($_POST['msg']) && isset($user)) {
 	$msg = $_POST['msg'];
 	$mat = antimat($msg);
-	if ($mat) $err[] = '在消息的文本中发现了一个非法字符: ' . $mat;
+	if ($mat) $err[] = '在信息的文本中发现了一个非法字符: ' . $mat;
 	if (strlen2($msg) > 512) {
-		$err[] = '信息太长了';
+		$err[] = '信息长于 512 字节。试着压缩一下？';
 	} elseif (strlen2($msg) < 2) {
-		$err[] = '短消息';
+		$err[] = '信息短于 2 字节。试着扩充一下？';
 	} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `chat_post` WHERE `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' AND `time` > '" . ($time - 300) . "' LIMIT 1"), 0) != 0) {
 		$err = '你的留言重复了前面的';
 	} elseif (!isset($err)) {
@@ -17,7 +17,7 @@ if (isset($_POST['msg']) && isset($user)) {
 			$priv = 0;
 		}
 		dbquery("INSERT INTO `chat_post` (`id_user`, `time`, `msg`, `room`, `privat`) values('$user[id]', '$time', '" . my_esc($msg) . "', '$room[id]', '$priv')");
-		$_SESSION['message'] = '消息已成功添加';
+		$_SESSION['message'] = '留言已成功添加';
 		header("Location: /chat/room/$room[id]/" . rand(1000, 9999) . "/");
 		exit;
 	}
@@ -33,7 +33,7 @@ if (isset($user)) {
 	else
 		echo "$tPanel<textarea name=\"msg\"></textarea><br />";
 	echo "<input value=\"发送\" type=\"submit\" />";
-	echo " <a href='/chat/room/$room[id]/" . rand(1000, 9999) . "/'>更新资料</a><br />";
+	echo " <a href='/chat/room/$room[id]/" . rand(1000, 9999) . "/'>刷新</a><br />";
 	echo "</form>";
 }
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `chat_post` WHERE `room` = '$room[id]' AND (`privat`='0'" . (isset($user) ? " OR `privat` = '$user[id]'" : null) . ")"), 0);
@@ -43,7 +43,7 @@ $start = $set['p_str'] * $page - $set['p_str'];
 echo "<table class='post'>";
 if ($k_post == 0) {
 	echo "<div class='mess'>";
-	echo "没有评论";
+	echo "目前没有信息。";
 	echo "</div>";
 }
 $q = dbquery("SELECT * FROM `chat_post` WHERE `room` = '$room[id]' AND (`privat`='0'" . (isset($user) ? " OR `privat` = '$user[id]'" : null) . ") ORDER BY id DESC LIMIT $start, $set[p_str]");

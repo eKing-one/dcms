@@ -8,6 +8,11 @@ include_once '../../sys/inc/db_connect.php';
 include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
+/**
+ * 有关领导者功能，我认为这个名字对于功能来说不太适合。
+ * 我的建议是把它改成“硬币上墙”。这个还需要进一步讨论。
+ * ——Diamochang
+**/
 $set['title'] = '领导者'; //网页标题
 include_once '../../sys/inc/thead.php';
 title();
@@ -23,7 +28,7 @@ $start = $set['p_str'] * $page - $set['p_str'];
 echo '<table class="post">';
 if ($k_post == 0) {
 	echo '<div class="mess">';
-	echo '没有领导者';
+	echo '目前没有领导者。';
 	echo '</div>';
 }
 $q = dbquery("SELECT * FROM `liders` WHERE `time` > '$time' ORDER BY stav DESC LIMIT $start, $set[p_str]");

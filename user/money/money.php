@@ -83,7 +83,7 @@ if (isset($user) && isset($_POST['title']) && $_POST['title'] > 0) {
 		if (!$err) {
 			dbquery("UPDATE `user` SET `balls` = '" . ($user['balls']-$money) . "' WHERE `id` = '$user[id]' LIMIT 1");
 			dbquery("UPDATE `user` SET `money` = '" . ($user['money']+$m) . "' WHERE `id` = '$user[id]' LIMIT 1");
-			$_SESSION['message'] = '恭喜，账户的补货已经顺利完成';
+			$_SESSION['message'] = '恭喜，积分转换已经顺利完成';
 			header("Location: ?");
 			exit;
 		}
