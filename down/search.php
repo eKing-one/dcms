@@ -1,4 +1,4 @@
-<?
+<?php
 //网页标题
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';

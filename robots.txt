@@ -5,3 +5,4 @@ Disallow: /style/
 Disallow: /sys/
 Disallow: /chat/
 Disallow: /docs/
+Disallow: /files/

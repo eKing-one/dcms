@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../sys/inc/start.php';
 if (isset($_GET['showinfo']) || !isset($_GET['f']) || isset($_GET['komm']))
     include_once '../sys/inc/compress.php';

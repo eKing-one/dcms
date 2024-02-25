@@ -1,5 +1,6 @@
-
+# git屏蔽代码
 HELP.md
 
 /sys/dat/settings_6.2.dat
 /sys/dat/shif_iv.dat
+/sys/tmp/*
