@@ -1,7 +1,7 @@
 <?
-if (test_file(H."sys/down/screens/48/$post[id].gif"))
+if (test_file(H."files/screens/48/$post[id].gif"))
 {
-echo "<img src='/sys/down/screens/48/$post[id].gif' alt='scr...' /><br />";
+echo "<img src='/files/screens/48/$post[id].gif' alt='scr...' /><br />";
 }
 elseif (class_exists('ffmpeg_movie')){
 $media = new ffmpeg_movie($file);
@@ -15,11 +15,11 @@ if ($gd_image) {
 $des_img = imagecreatetruecolor(48, 48);
 $s_img = $gd_image;
 imagecopyresampled($des_img, $s_img, 0, 0, 0, 0, 48, 48, $w, $h);
-imagegif($des_img,H."sys/down/screens/48/$post[id].gif");
-chmod(H."sys/down/screens/48/$post[id].gif", 0777);
+imagegif($des_img,H."files/screens/48/$post[id].gif");
+chmod(H."files/screens/48/$post[id].gif", 0777);
 imagedestroy($des_img);
 imagedestroy($s_img);
-echo "<img src='/sys/down/screens/48/$post[id].gif' alt='scr...' /><br />";
+echo "<img src='/files/screens/48/$post[id].gif' alt='scr...' /><br />";
 }
 }
 }

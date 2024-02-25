@@ -1,7 +1,7 @@
 <?
-if (test_file(H."sys/down/screens/128/$file_id[id].gif"))
+if (test_file(H."files/screens/128/$file_id[id].gif"))
 {
-	echo "<img src='/sys/down/screens/128/$file_id[id].gif' alt='屏幕...' /><br />";
+	echo "<img src='/files/screens/128/$file_id[id].gif' alt='屏幕...' /><br />";
 }
 
 if ($file_id['opis']!=NULL)

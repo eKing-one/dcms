@@ -134,7 +134,7 @@ if (!isset($_GET['go'])) {
 		$k_p = dbresult(dbquery("SELECT COUNT(*) FROM `downnik_komm` WHERE `id_file` = '$post[id]'"), 0);
 		$dir_id = dbassoc(dbquery("SELECT * FROM `downnik_dir` WHERE `id` = '$post[id_dir]' LIMIT 1"));
 		$ras = $post['ras'];
-		$file = H . "sys/down/files/$post[id].dat";
+		$file = H . "files/down/$post[id].dat";
 		$name = $post['name'];
 		$size = $post['size'];
 		/*-----------代码-----------*/

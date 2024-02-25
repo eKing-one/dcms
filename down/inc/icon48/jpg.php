@@ -3,7 +3,7 @@
 
 
 
-if (test_file(H."sys/down/screens/48/$post[id].$ras"))
+if (test_file(H."files/screens/48/$post[id].$ras"))
 
 
 
@@ -18,7 +18,7 @@ if (test_file(H."sys/down/screens/48/$post[id].$ras"))
 
 
 
-echo "<img src='/sys/down/screens/48/$post[id].$ras' alt='scr...' /><br />";
+echo "<img src='/files/screens/48/$post[id].$ras' alt='scr...' /><br />";
 
 
 
@@ -163,7 +163,7 @@ imagedestroy($imgc);
 
 
 
-imagejpeg($screen,H."sys/down/screens/48/$post[id].$ras",100);
+imagejpeg($screen,H."files/screens/48/$post[id].$ras",100);
 
 
 
@@ -173,7 +173,7 @@ imagedestroy($screen);
 
 
 
-echo "<img src='/sys/down/screens/48/$post[id].$ras' alt='scr...' /><br />";
+echo "<img src='/files/screens/48/$post[id].$ras' alt='scr...' /><br />";
 
 
 

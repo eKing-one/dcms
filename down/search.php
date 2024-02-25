@@ -45,7 +45,7 @@ if (isset($_GET['go']) && $search != NULL) {
     while ($post = dbassoc($q)) {
         $k_p = dbresult(dbquery("SELECT COUNT(*) FROM `downnik_komm` WHERE `id_file` = '$post[id]'"), 0);
         $ras = $post['ras'];
-        $file = H . "sys/down/files/$post[id].dat";
+        $file = H . "files/down/$post[id].dat";
         $name = $post['name'];
         $size = $post['size'];
         $dir_id = dbarray(dbquery("SELECT * FROM `downnik_dir` WHERE `id` = '$post[id_dir]' LIMIT 1"));

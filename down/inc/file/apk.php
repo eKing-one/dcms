@@ -1,5 +1,5 @@
 <?
-if (!test_file(H."sys/down/screens/128/$file_id[id].png"))
+if (!test_file(H."files/screens/128/$file_id[id].png"))
 {
 	$_SESSION['file_icon']=null;
 	include_once H.'sys/inc/zip.php';
@@ -37,14 +37,14 @@ if (!test_file(H."sys/down/screens/128/$file_id[id].png"))
 		@fwrite($j, $content[0]['content']);
 		@fclose($j);
 		@chmod(H."sys/tmp/$sess.png", 0777);
-		copy(H."sys/tmp/$sess.png", H."sys/down/screens/128/$file_id[id].png");
-		@chmod(H."sys/down/screens/128/$file_id[id].png", 0777);
+		copy(H."sys/tmp/$sess.png", H."files/screens/128/$file_id[id].png");
+		@chmod(H."files/screens/128/$file_id[id].png", 0777);
 		unlink(H."sys/tmp/$sess.png");
 	}
 	$_SESSION['file_icon']=null;
 }
-if (is_file(H."sys/down/screens/128/$file_id[id].png") && $file_id['ras']=='apk')
-echo "<img src='/sys/down/screens/128/$file_id[id].png' alt='*' /><br />";
+if (is_file(H."files/screens/128/$file_id[id].png") && $file_id['ras']=='apk')
+echo "<img src='/files/screens/128/$file_id[id].png' alt='*' /><br />";
 if ($file_id['opis']!=NULL)
 {
 	echo "资料描述: ";

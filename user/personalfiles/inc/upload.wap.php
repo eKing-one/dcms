@@ -71,13 +71,13 @@ VALUES ('$metka', '$dir_id[id]', '$name', '$ras', '$type', '$size', '$time', '$t
 				}
 			}
 			/*-------------------alex-borisi--------------------*/
-			if (!@copy($_FILES['file']['tmp_name'], H . "sys/down/files/$id_file.dat")) {
+			if (!@copy($_FILES['file']['tmp_name'], H . "files/down/$id_file.dat")) {
 				dbquery("DELETE FROM `downnik_files` WHERE `id` = '$id_file' LIMIT 1");
 				$err[] = '上传时出错';
 			}
 		}
 		if (!isset($err)) {
-			chmod(H . "sys/down/files/$id_file.dat", 0666);
+			chmod(H . "files/down/$id_file.dat", 0666);
 			if (isset($_FILES['screen']) && $imgc = @imagecreatefromstring(file_get_contents($_FILES['screen']['tmp_name']))) {
 				$img_x = imagesx($imgc);
 				$img_y = imagesy($imgc);
@@ -97,7 +97,7 @@ VALUES ('$metka', '$dir_id[id]', '$name', '$ras', '$type', '$size', '$time', '$t
 				imagecopyresampled($screen, $imgc, 0, 0, 0, 0, $dstW, $dstH, $img_x, $img_y);
 				imagedestroy($imgc);
 				$screen = img_copyright($screen); // наложение копирайта
-				imagegif($screen, H . "sys/down/screens/320/$id_file.gif");
+				imagegif($screen, H . "files/screens/320/$id_file.gif");
 				imagedestroy($screen);
 			}
 			if (isset($_FILES['screen']) && $imgc = @imagecreatefromstring(file_get_contents($_FILES['screen']['tmp_name']))) {
@@ -119,7 +119,7 @@ VALUES ('$metka', '$dir_id[id]', '$name', '$ras', '$type', '$size', '$time', '$t
 				imagecopyresampled($screen, $imgc, 0, 0, 0, 0, $dstW, $dstH, $img_x, $img_y);
 				imagedestroy($imgc);
 				$screen = img_copyright($screen); // наложение копирайта
-				imagegif($screen, H . "sys/down/screens/128/$id_file.gif");
+				imagegif($screen, H . "files/screens/128/$id_file.gif");
 				imagedestroy($screen);
 			}
 			$_SESSION['down_dir'] = null;

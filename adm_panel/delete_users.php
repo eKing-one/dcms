@@ -48,7 +48,7 @@ include_once(H.'sys/add/delete_user_act/'.$filebase);
 $q5=dbquery("SELECT * FROM `downnik_files` WHERE `id_user` = '$ank[id]'");
 while ($post5 = dbassoc($q5))
 {
-unlink(H.'sys/down/files/'.$post5['id'].'.dat');
+unlink(H.'files/down/'.$post5['id'].'.dat');
 }
 dbquery("DELETE FROM `downnik_files` WHERE `id_user` = '$ank[id]'");
 dbquery("DELETE FROM `users_konts` WHERE `id_user` = '$ank[id]' OR `id_kont` = '$ank[id]'");

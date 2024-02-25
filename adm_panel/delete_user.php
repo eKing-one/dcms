@@ -78,7 +78,7 @@ if (isset($_POST['delete'])) {
 			include_once(check_replace(H . 'sys/add/delete_user_act/' . $filebase));
 	$q5 = dbquery("SELECT * FROM `downnik_files` WHERE `id_user` = '$ank[id]'");
 	while ($post5 = dbassoc($q5)) {
-		unlink(H . 'sys/down/files/' . $post5['id'] . '.dat');
+		unlink(H . 'files/down/' . $post5['id'] . '.dat');
 	}
 	dbquery("DELETE FROM `downnik_files` WHERE `id_user` = '$ank[id]'");
 	dbquery("DELETE FROM `users_konts` WHERE `id_user` = '$ank[id]' OR `id_kont` = '$ank[id]'");
@@ -102,7 +102,7 @@ if (isset($_POST['delete'])) {
 			dbquery("DELETE FROM `news_komm` WHERE `id_user` = '$collisions[$i]'");
 			$q5 = dbquery("SELECT * FROM `downnik_files` WHERE `id_user` = '$collisions[$i]'");
 			while ($post5 = dbassoc($q5)) {
-				unlink(H . 'sys/down/files/' . $post5['id'] . '.dat');
+				unlink(H . 'files/down/' . $post5['id'] . '.dat');
 			}
 			dbquery("DELETE FROM `downnik_files` WHERE `id_user` = '$collisions[$i]'");
 			dbquery("DELETE FROM `users_konts` WHERE `id_user` = '$collisions[$i]' OR `id_kont` = '$collisions[$i]'");

@@ -1,7 +1,7 @@
 <?
-if (test_file(H."sys/down/screens/128/$file_id[id].gif"))
+if (test_file(H."files/screens/128/$file_id[id].gif"))
 {
-	echo "<img src='/sys/down/screens/128/$file_id[id].gif' alt='scr...' /><br />";
+	echo "<img src='/files/screens/128/$file_id[id].gif' alt='scr...' /><br />";
 }
 elseif (class_exists('ffmpeg_movie'))
 {
@@ -19,14 +19,14 @@ elseif (class_exists('ffmpeg_movie'))
 			$s_img = $gd_image;
 			imagecopyresampled($des_img, $s_img, 0, 0, 0, 0, 128, 128, $w, $h);
 			$des_img=img_copyright($des_img); // наложение копирайта
-			imagegif($des_img,H."sys/down/screens/128/$file_id[id].gif");
-			chmod(H."sys/down/screens/128/$file_id[id].gif", 0777);
+			imagegif($des_img,H."files/screens/128/$file_id[id].gif");
+			chmod(H."files/screens/128/$file_id[id].gif", 0777);
 			imagedestroy($des_img);
 			imagedestroy($s_img);
 			if (function_exists('iconv'))
-			echo "<img src='".iconv('windows-1251', 'utf-8',"/sys/down/screens/128/$file_id[id].gif")."' alt='scr...' /><br />";
+			echo "<img src='".iconv('windows-1251', 'utf-8',"/files/screens/128/$file_id[id].gif")."' alt='scr...' /><br />";
 			else
-			echo "<img src='/sys/down/screens/128/$file_id[id].gif' alt='scr...' /><br />";
+			echo "<img src='/files/screens/128/$file_id[id].gif' alt='scr...' /><br />";
 		}
 	}
 }

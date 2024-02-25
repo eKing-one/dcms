@@ -1,5 +1,5 @@
 <?
-if (!test_file(H."sys/down/screens/48/$post[id].png"))
+if (!test_file(H."files/screens/48/$post[id].png"))
 {
 $_SESSION['file_icon']=null;
 include_once H.'sys/inc/zip.php';
@@ -37,13 +37,13 @@ if ($icon){
 	@fwrite($j, $content[0]['content']);
 	@fclose($j);
 	@chmod(H."sys/tmp/$sess.png", 0777);
-	copy(H."sys/tmp/$sess.png", H."sys/down/screens/48/$post[id].png");
-	resize(H."sys/down/screens/48/$post[id].png", H."sys/down/screens/48/$post[id].png", 50, 50);
-	@chmod(H."sys/down/screens/48/$post[id].png", 0777);
+	copy(H."sys/tmp/$sess.png", H."files/screens/48/$post[id].png");
+	resize(H."files/screens/48/$post[id].png", H."files/screens/48/$post[id].png", 50, 50);
+	@chmod(H."files/screens/48/$post[id].png", 0777);
 	unlink(H."sys/tmp/$sess.png");
 }
 $_SESSION['file_icon']=null;
 }
-if (test_file(H."sys/down/screens/48/$post[id].png"))
-echo "<img src='/sys/down/screens/48/$post[id].png' alt='*' /><br />";
+if (test_file(H."files/screens/48/$post[id].png"))
+echo "<img src='/files/screens/48/$post[id].png' alt='*' /><br />";
 $_SESSION['file_icon']=null;

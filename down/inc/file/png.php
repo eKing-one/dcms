@@ -1,7 +1,7 @@
 <?
-if (test_file(H."sys/down/screens/128/$file_id[id].$ras"))
+if (test_file(H."files/screens/128/$file_id[id].$ras"))
 {
-	echo "<img src='/sys/down/screens/128/$file_id[id].$ras' alt='屏幕...' /><br />";
+	echo "<img src='/files/screens/128/$file_id[id].$ras' alt='屏幕...' /><br />";
 }
 elseif (function_exists('imagecreatefromstring'))
 {
@@ -31,9 +31,9 @@ elseif (function_exists('imagecreatefromstring'))
 	imagecopyresampled($screen, $imgc, 0, 0, 0, 0, $dstW, $dstH, $img_x, $img_y);
 	imagedestroy($imgc);
 	$screen = img_copyright($screen); // наложение копирайта
-	imagepng($screen,H."sys/down/screens/128/$file_id[id].$ras");
+	imagepng($screen,H."files/screens/128/$file_id[id].$ras");
 	imagedestroy($screen);
-	echo "<img src='/sys/down/screens/128/$file_id[id].$ras' alt='Скрин...' /><br />";
+	echo "<img src='/files/screens/128/$file_id[id].$ras' alt='Скрин...' /><br />";
 }
 if ($file_id['opis'] != NULL)
 {

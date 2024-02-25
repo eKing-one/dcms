@@ -19,7 +19,7 @@ if ((user_access('down_file_delete') or $user['id']==$file_id['id_user']) && iss
 {
 	dbquery("DELETE FROM `downnik_files` WHERE `id` = '$file_id[id]'");
 	dbquery("DELETE FROM `user_music` WHERE `id_file` = '$file_id[id]' AND `dir` = 'down'");
-	unlink(H.'sys/down/files/'.$file_id['id'].'.dat');	$_SESSION['message']= '文件已成功删除';
+	unlink(H.'files/down/'.$file_id['id'].'.dat');	$_SESSION['message']= '文件已成功删除';
 	header ("Location: /down$dir_id[dir]?".SID);
 	exit;
 }
