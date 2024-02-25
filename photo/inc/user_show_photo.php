@@ -148,7 +148,7 @@ if (isset($_POST['msg']) && isset($user)) {
 }
 if ((user_access('photo_komm_del') || $ank['id'] == $user['id']) && isset($_GET['delete']) && dbresult(dbquery("SELECT COUNT(*) FROM `gallery_komm` WHERE `id`='" . intval($_GET['delete']) . "' AND `id_photo`='$photo[id]' LIMIT 1"), 0) != 0) {
 	dbquery("DELETE FROM `gallery_komm` WHERE `id`='" . intval($_GET['delete']) . "' LIMIT 1");
-	admin_log('照片廊', '照片', "删除照片上的评论 [url=/user/info.php?id=$ank[id]]" . user::nick($ank['id'], 1, 0, 0) . "[/url]");
+	admin_log('相册', '照片', "删除照片上的评论 [url=/user/info.php?id=$ank[id]]" . user::nick($ank['id'], 1, 0, 0) . "[/url]");
 	$_SESSION['message'] = '评论成功删除';
 	header("Location: ?page=" . intval($_GET['page']));
 	exit;
@@ -292,7 +292,7 @@ if (!isset($block_photo)) {
 	echo '</div>';
 	if ($k_post == 0) {
 		echo '<div class="mess">';
-		echo '没有评论';
+		echo '目前没有评论。';
 		echo '</div>';
 	} else {
 		/*------------сортировка по времени--------------*/

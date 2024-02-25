@@ -17,7 +17,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'avatar') {
 			dbquery("UPDATE `gallery_photo` SET `avatar` = '0' WHERE `id_user` = '$user[id]'");
 			dbquery("UPDATE `gallery_photo` SET `avatar` = '1' WHERE `id` = '$photo[id]' LIMIT 1");
 			dbquery("INSERT INTO `stena` (`id_user`,`id_stena`,`time`,`info`,`info_1`,`type`) values('" . $user['id'] . "','" . $user['id'] . "','" . $time . "','новый аватар','" . $photo['id'] . "','photo')");
-			$_SESSION['message'] = '照片已成功安装在主照片上！';
+			$_SESSION['message'] = '已成功将照片设置为头像！';
 		}
 		header("Location: ?");
 		exit;
@@ -45,11 +45,11 @@ if ((user_access('photo_photo_edit') || isset($user) && $user['id'] == $ank['id'
 	$name = esc(stripcslashes(htmlspecialchars($_POST['name'])), 1);
 	$mat = antimat($name);
 	if ($mat) $err = '标题中存在禁止的字符';
-	if (strlen2($name) < 3) $err = '短标题';
-	if (strlen2($name) > 32) $err = '标题不得超过 32 个字符';
+	if (strlen2($name) < 3) $err = '标题太短了！要大于 3 字节！';
+	if (strlen2($name) > 32) $err = '标题不得超过 32 个字节';
 	$name = my_esc($name);
 	$msg = $_POST['opis'];
-	if (strlen2($msg) > 1024) $err = '描述长度超过 1024 个字符的限制';
+	if (strlen2($msg) > 1024) $err = '描述长度超过 1024 个字节的限制';
 	$msg = my_esc($msg);
 	if (isset($_POST['metka']) && $_POST['metka'] == 1) $metka = 1;
 	else $metka = 0;

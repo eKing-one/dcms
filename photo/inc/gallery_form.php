@@ -12,18 +12,18 @@ if (isset($user) && $user['id'] == $ank['id'])
 		<form action="?act=create&amp;ok" method="post">
 		<div class="nav2">相册名称：<br />
 		<input type="text" name="name" value="" /><br />
-		描述:<?=$tPanel?>
+		描述：<?=$tPanel?>
 		<textarea name="opis"></textarea><br />
-		密码:<br />
+		密码：<br />
 		<input type="text" name="pass" value="" /></div>
 		<div class="nav1">
-		可以观看:<br />
-		<input name="privat" type="radio" checked="checked" value="0" />全部 
+		谁可以观看？<br />
+		<input name="privat" type="radio" checked="checked" value="0" />所有人 
 		<input name="privat" type="radio" value="1" />朋友 
 		<input name="privat" type="radio" value="2" />只有我</div>
 		<div class="nav2">
-		可以评论:<br />
-		<input name="privat_komm" type="radio" checked="checked" value="0" />全部 
+		谁可以评论？<br />
+		<input name="privat_komm" type="radio" checked="checked" value="0" />所有人 
 		<input name="privat_komm" type="radio" value="1" />朋友 
 		<input name="privat_komm" type="radio" value="2" />只有我</div>
 		<input class="submit" type="submit" value="创建" />

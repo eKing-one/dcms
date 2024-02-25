@@ -27,7 +27,7 @@ if (!$ank || $ank['id'] == 0 || $ank['id'] == $user['id']) {
 	header("Location: /index.php?" . SID);
 	exit;
 }
-$set['title'] = "送给你的礼物。 $ank[nick]";
+$set['title'] = "送给 $ank[nick] 的礼物";
 include_once '../../sys/inc/thead.php';
 title();
 aut();
@@ -53,7 +53,7 @@ if (isset($_GET['gift']) && isset($_GET['category'])) {
 		==========================
 		*/
 			dbquery("INSERT INTO `notification` (`avtor`, `id_user`, `id_object`, `type`, `time`) VALUES ('$user[id]', '$ank[id]', '$id_gift', 'new_gift', '$time')");
-			$_SESSION['message'] = '您的礼物已成功发送';
+			$_SESSION['message'] = '您的礼物已成功送出';
 			header("Location: /user/info.php?id=$ank[id]");
 			exit;
 		} else {
@@ -68,16 +68,16 @@ if (isset($_GET['gift']) && isset($_GET['category'])) {
 	echo '<div class="mess">';
 	echo '赠送礼物 <img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:' . $width . 'px;" alt="*" /> 给 ';
 	echo user::avatar($ank['id']), group($ank['id']), $ank['nick'], medal($ank['id']), online($ank['id']) . '<br />';
-	echo '花费 <b><font color=red>' . intval($gift['money']) . '</font> <font color=green>' . $sMonet[0] . '</font></b> 在你 <b><font color=red>' . $user['money'] . '</font>  <font color=green>' . $sMonet[0] . '</font></b><br />';
+	echo '需要花费 <b><font color=red>' . intval($gift['money']) . '</font> <font color=green>' . $sMonet[0] . '</font></b>，你有 <b><font color=red>' . $user['money'] . '</font>  <font color=green>' . $sMonet[0] . '</font></b><br />';
 	echo '</div>';
 	echo '<div class="mess">';
 	echo $tPanel . '<textarea type="text" name="msg" value=""/></textarea><br />';
-	echo '<input class="submit" type="submit" value="给予" /> ';
+	echo '<input class="submit" type="submit" value="送出礼物" /> ';
 	echo '<img src="/style/icons/delete.gif" alt="*" /> <a href="/user/info.php?id=' . $ank['id'] . '">取消</a> ';
 	echo '</div>';
 	echo "</form>";
 	echo '<div class="foot">';
-	echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?id=' . $ank['id'] . '">类别</a> |  <a href="?category=' . $category['id'] . '&amp;id=' . $ank['id'] . '">' . htmlspecialchars($category['name']) . '</a> | <b>' . htmlspecialchars($gift['name']) . '</b><br />';
+	echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?id=' . $ank['id'] . '">分类</a> |  <a href="?category=' . $category['id'] . '&amp;id=' . $ank['id'] . '">' . htmlspecialchars($category['name']) . '</a> | <b>' . htmlspecialchars($gift['name']) . '</b><br />';
 	echo '</div>';
 } else
 	/*
@@ -89,18 +89,18 @@ if (isset($_GET['gift']) && isset($_GET['category'])) {
 		// Категория
 		$category = dbassoc(dbquery("SELECT * FROM `gift_categories` WHERE `id` = '" . intval($_GET['category']) . "' LIMIT 1"));
 		if (!$category) {
-			$_SESSION['message'] = '没有这样的类别';
+			$_SESSION['message'] = '没有这样的分类';
 			header("Location: ?");
 			exit;
 		}
 		echo '<div class="foot">';
-		echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?id=' . $ank['id'] . '">类别</a> | <b>' . htmlspecialchars($category['name']) . '</b><br />';
+		echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?id=' . $ank['id'] . '">分类</a> | <b>' . htmlspecialchars($category['name']) . '</b><br />';
 		echo '</div>';
 		// Список подарков
 		$k_post = dbresult(dbquery("SELECT COUNT(id) FROM `gift_list` WHERE `id_category` = '$category[id]'"), 0);
 		if ($k_post == 0) {
 			echo '<div class="mess">';
-			echo '没有礼物';
+			echo '该分类下没有礼物。';
 			echo '</div>';
 		}
 		$k_page = k_page($k_post, $set['p_str']);
@@ -124,7 +124,7 @@ if (isset($_GET['gift']) && isset($_GET['category'])) {
 		}
 		if ($k_page > 1) str('categories.php?id=' . intval($_GET['id']) . '&amp;category=' . intval($_GET['category']) . '&amp;', $k_page, $page); // 输出页数
 		echo '<div class="foot">';
-		echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?id=' . $ank['id'] . '">类别</a> | <b>' . htmlspecialchars($category['name']) . '</b><br />';
+		echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?id=' . $ank['id'] . '">分类</a> | <b>' . htmlspecialchars($category['name']) . '</b><br />';
 		echo '</div>';
 	} else
 	/*
@@ -138,7 +138,7 @@ if (isset($_GET['gift']) && isset($_GET['category'])) {
 		$k_post = dbresult(dbquery("SELECT COUNT(id) FROM `gift_categories`"), 0);
 		if ($k_post == 0) {
 			echo '<div class="mess">';
-			echo '没有分类';
+			echo '没有该礼物分类。';
 			echo '</div>';
 		}
 		$q = dbquery("SELECT name,id FROM `gift_categories` ORDER BY `id`");

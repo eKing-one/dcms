@@ -75,7 +75,7 @@ if (isset($_GET['delete']) && ($ank['id'] == $user['id']  || $user['level'] > 2)
 	exit;
 }
 //网页标题
-$set['title'] = '礼物 ' . $ank['nick'] . ' ' . htmlspecialchars($gift['name']);
+$set['title'] = '给 ' . $ank['nick'] . ' 的礼物：' . htmlspecialchars($gift['name']);
 include_once '../../sys/inc/thead.php';
 title();
 aut();

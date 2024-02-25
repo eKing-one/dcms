@@ -41,19 +41,19 @@ while ($post = dbassoc($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	echo "发出禁令" . ($ank['pol'] == 0 ? "а" : "") . " $ank[nick]: ";
+	echo "封禁通知：" . ($ank['pol'] == 0 ? "а" : "") . " $ank[nick]: ";
 	if ($post['navsegda'] == 1) {
-		echo " 禁止 <font color=red><b>永遠！</b></font><br />";
+		echo " 我们很遗憾的告诉你，你的账户因违反 CN_DCMS-Social 的相关规定，已经被<font color=red><b>永久封禁</b></font>。<br />";
 	} else {
-		echo " 直到 " . vremja($post['time']) . "<br />";
+		echo "我们很遗憾的告诉你，你的账户因违反 CN_DCMS-Social 的相关规定，已经被<b>封禁</b>。封禁将持续到 " . vremja($post['time']) . "。<br />";
 	}
-	echo '<b>原因:</b> ' . $pBan[$post['pochemu']] . '<br />';
-	echo '<b>章:</b> ' . $rBan[$post['razdel']] . '<br />';
-	echo '<b>评论:</b> ' . esc(trim(br(bbcode(smiles(links(stripcslashes(htmlspecialchars($post['prich'])))))))) . "<br />";
+	echo '<b>封禁原因：</b> ' . $pBan[$post['pochemu']] . '<br />';
+	echo '<b>章：</b> ' . $rBan[$post['razdel']] . '<br />';
+	echo '<b>附加解释：</b> ' . esc(trim(br(bbcode(smiles(links(stripcslashes(htmlspecialchars($post['prich'])))))))) . "<br />";
 	if ($post['time'] > $time) echo "<font color=red><b>活跃的</b></font><br />";
 	echo "   </div>";
 }
 echo "</table>";
 if ($k_page > 1) str('?', $k_page, $page); // 输出页数
-echo "为了避免这种情况，我们建议您学习 <a href=\"/user/rules.php\">规则</a>我们的网站<br />";
+echo "请遵守本站的<a href=\"/user/rules.php\">规则</a>，共同营造良好的网络环境。<br />";
 include_once '../sys/inc/tfoot.php';

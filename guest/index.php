@@ -22,13 +22,13 @@ include 'inc/admin_act.php';
 if (isset($_POST['msg']) && isset($user)) {
 	$msg = $_POST['msg'];
 	$mat = antimat($msg);
-	if ($mat) $err[] = '在消息文本中检测到MAT：' . $mat;
+	if ($mat) $err[] = '在信息文本中发现了一个禁止字符：' . $mat;
 	if (strlen2($msg) > 1024) {
-		$err[] = '消息太长了';
+		$err[] = '信息长于 1024 字节。试着压缩一下？';
 	} elseif (strlen2($msg) < 2) {
-		$err[] = '短信息';
+		$err[] = '信息短于 2 字节。试着扩充一下？';
 	} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `guest` WHERE `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
-		$err = '您的信息重复上一个';
+		$err = '您的信息重复上一条信息';
 	} elseif (!isset($err)) {
 		// Начисление баллов за активность
 		include_once H . 'sys/add/user.active.php';
@@ -43,7 +43,7 @@ if (isset($_POST['msg']) && isset($user)) {
 				dbquery("INSERT INTO `notification` (`avtor`, `id_user`, `type`, `time`) VALUES ('$user[id]', '$ank_reply[id]', 'guest', '$time')");
 		}
 		dbquery("INSERT INTO `guest` (id_user, time, msg) values('$user[id]', '$time', '" . my_esc($msg) . "')");
-		$_SESSION['message'] = '消息已成功添加';
+		$_SESSION['message'] = '信息已成功添加';
 		header("Location: index.php" . SID);
 		exit;
 	}
@@ -51,22 +51,22 @@ if (isset($_POST['msg']) && isset($user)) {
 	$msg = $_POST['msg'];
 	$mat = antimat($msg);
 	if ($mat) {
-		$err[] = '在消息正文中检测到一个垫子: ' . $mat;
+		$err[] = '在信息文本中发现了一个禁止字符: ' . $mat;
 	}
 	if (strlen2($msg) > 1024) {
-		$err = '消息太长';
+		$err = '信息长于 1024 字节。试着压缩一下？';
 	} elseif ($_SESSION['captcha'] != $_POST['chislo']) {
 		$err = '验证数字不正确';
 	} elseif (isset($_SESSION['antiflood']) && $_SESSION['antiflood'] > $time - 300) {
-		$err = '为了更频繁地写作，您需要授权';
+		$err = '为防止 SPAM 攻击，你需要完成人机认证。';
 	} elseif (strlen2($msg) < 2) {
-		$err = '短消息';
+		$err = '信息短于 2 字节。试着扩充一下？';
 	} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `guest` WHERE `id_user` = '0' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
-		$err = '您的消息重复上一条消息';
+		$err = '您的信息重复上一条信息';
 	} elseif (!isset($err)) {
 		$_SESSION['antiflood'] = $time;
 		dbquery("INSERT INTO `guest` (id_user, time, msg) values('0', '$time', '" . my_esc($msg) . "')");
-		$_SESSION['message'] = '消息已成功添加';
+		$_SESSION['message'] = '信息已成功添加';
 		header("Location: index.php" . SID);
 		exit;
 	}

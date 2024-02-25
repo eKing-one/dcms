@@ -25,8 +25,8 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 		$name = $_POST['name'];
 		if ($name == null)
 			$name = esc(stripcslashes(htmlspecialchars(preg_replace('#\.[^\.]*$#i', NULL, $_FILES['file']['name']))));
-		if (strlen2($name) < 3) $err = '标题太短了！要大于3个字符！';
-		if (strlen2($name) > 32) $err = '标题不得超过 32 个字符！';
+		if (strlen2($name) < 3) $err = '标题太短了！要大于 3 字节！';
+		if (strlen2($name) > 32) $err = '标题不得超过 32 字节！';
 		$name = my_esc($name);
 		if (isset($_POST['metka']) && ($_POST['metka'] == 0 || $_POST['metka'] == 1))
 			$metka = my_esc($_POST['metka']);
@@ -34,7 +34,7 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 			$metka = 0;
 		}
 		$msg = $_POST['opis'];
-		if (strlen2($msg) > 1024) $err = '描述长度超过 1024 个字符的限制';
+		if (strlen2($msg) > 1024) $err = '描述长度超过 1024 个字节的限制';
 		$msg = my_esc($msg);
 		$img_x = imagesx($imgc);
 		$img_y = imagesy($imgc);
@@ -149,7 +149,7 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 			@chmod(H . "sys/gallery/50/$id_photo.jpg", 0777);
 			@unlink(H . "sys/gallery/50/$id_photo.tmp.jpg");
 			if (isset($_GET['avatar'])) {
-				$_SESSION['message'] = '照片已成功安装';
+				$_SESSION['message'] = '已成功将照片设置为头像';
 				header("Location: /user/info.php");
 				exit;
 			}
@@ -166,7 +166,7 @@ if (isset($_GET['edit']) && $_GET['edit'] == 'rename' && isset($_GET['ok']) && (
 	$pass = $_POST['pass'];
 	$privat = intval($_POST['privat']);
 	$privat_komm = intval($_POST['privat_komm']);
-	if (strlen2($name) < 3) $err = '短标题';
+	if (strlen2($name) < 3) $err = '标题太短了！要大于 3 字节！';
 	if (strlen2($name) > 32) $err = '标题不得超过 32 个字符';
 	$name = my_esc($name);
 	$pass = my_esc($pass);

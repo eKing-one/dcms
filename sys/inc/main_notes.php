@@ -72,6 +72,6 @@ if (dbrows($q) == 0) {
 }
 echo '<div class="nav1">';
 if (isset($user)) {
-        echo '<a href="/plugins/notes/add.php">写作</a>';
+        echo '<a href="/plugins/notes/add.php">写日记</a>';
 }
 echo '<span style="float:right;"><a href="/plugins/notes/">所有日记&rarr;</a></span><br /></div>';

@@ -32,7 +32,7 @@ if (!$ank || $ank['id'] == 0) {
 	header("Location: /index.php?" . SID);
 	exit;
 }
-$set['title'] = '礼物 ' . $ank['nick'];
+$set['title'] = '送给 ' . $ank['nick'] . ' 的礼物';
 include_once '../../sys/inc/thead.php';
 title();
 aut();
@@ -48,7 +48,7 @@ echo '</div>';
 $k_post = dbresult(dbquery("SELECT COUNT(id) FROM `gifts_user` WHERE `id_user` = '$ank[id]'" . ($ank['id'] != $user['id'] ? " AND `status` = '1' " : "") . ""), 0);
 if ($k_post == 0) {
 	echo '<div class="mess">';
-	echo '没有礼物';
+	echo '目前没有人送礼物。';
 	echo '</div>';
 }
 $k_page = k_page($k_post, $set['p_str']);
@@ -69,7 +69,7 @@ while ($post = dbassoc($q)) {
 	/*---------------------------*/
 	echo '<img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:' . $width . 'px;" alt="*" /><br />';
 	echo '<img src="/style/icons/present.gif" alt="*" /> <a href="gift.php?id=' . $post['id'] . '"><b>' . htmlspecialchars($gift['name']) . '</b></a> :: ';
-	echo '在 ' . user::nick($anketa['id'], 1, 1, 0) . ' ' . vremja($post['time']);
+	echo '由 ' . user::nick($anketa['id'], 1, 1, 0) . ' 在 ' . vremja($post['time']) . ' 送出';
 	if ($post['status'] == 0) echo ' <font color=red>NEW</font> ';
 	echo '</div>';
 }

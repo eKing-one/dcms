@@ -17,7 +17,7 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'photo' AND `i
 	exit;
 }
 //网页标题
-$set['title'] = $ank['nick'] . ' - 相片册';
+$set['title'] = $ank['nick'] . ' - 相册';
 // Это при создании нового альбома
 include 'inc/gallery_act.php';
 include_once '../sys/inc/thead.php';
@@ -39,7 +39,7 @@ $start = $set['p_str'] * $page - $set['p_str'];
 echo '<table class="post">';
 if ($k_post == 0) {
 	echo '<div class="mess">';
-	echo '无相册';
+	echo '目前该用户没有相册。';
 	echo '</div>';
 }
 $q = dbquery("SELECT * FROM `gallery` WHERE `id_user` = '$ank[id]' ORDER BY `time` DESC LIMIT $start, $set[p_str]");

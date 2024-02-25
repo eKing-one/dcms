@@ -39,9 +39,9 @@ if (isset($_GET['edit_gift']) && isset($_GET['category'])) {
 	{
 		$name = my_esc($_POST['name']);
 		$money = intval($_POST['money']);
-		if ($money < 1) $err = '指定礼物的费用';
-		if (strlen2($name) < 2) $err = '短名';
-		if (strlen2($name) > 128) $err = '名称的长度超过128个字符的限制';
+		if ($money < 1) $err = '费用太少了';
+		if (strlen2($name) < 2) $err = '名称太短了！要大于 2 字节！';
+		if (strlen2($name) > 128) $err = '名称的长度超过 128 个字节的限制';
 		if (!isset($err)) {
 			dbquery("UPDATE `gift_list` SET `name` = '$name' , `money` = '$money', `id_category` = '$category[id]' WHERE `id` = '$gift[id]'");
 			$_SESSION['message'] = '礼物已成功编辑';
@@ -54,7 +54,7 @@ if (isset($_GET['edit_gift']) && isset($_GET['category'])) {
 		unlink(H . 'sys/gift/' . $gift['id'] . '.png');
 		dbquery("DELETE FROM `gift_list` WHERE `id` = '$gift[id]'");
 		dbquery("DELETE FROM `gifts_user` WHERE `id_gift` = '$gift[id]'");
-		$_SESSION['message'] = '礼物被成功删除';
+		$_SESSION['message'] = '礼物被成功撤回';
 		header("Location: ?category=$category[id]&page=" . intval($_GET['page']));
 		exit;
 	}
@@ -116,9 +116,9 @@ if (isset($_GET['edit_gift']) && isset($_GET['category'])) {
 		echo '</div>';
 		// Форма создания категории
 		echo '<form class="main" method="post" enctype="multipart/form-data"  action="?category=' . $category['id'] . '&amp;add_gift">';
-		echo '标题:<br /><input type="text" name="name" value="" /><br />';
-		echo '价格:<br /><input type="text" name="money" value="" style="width:30px;"/><br />';
-		echo '礼物:<br /><input name="gift" accept="image/*,image/png" type="file" /><br />';
+		echo '标题：<br /><input type="text" name="name" value="" /><br />';
+		echo '价格：<br /><input type="text" name="money" value="" style="width:30px;"/><br />';
+		echo '礼物：<br /><input name="gift" accept="image/*,image/png" type="file" /><br />';
 		echo '<input value="增加" type="submit" />';
 		echo '</form>';
 		echo '<div class="foot">';
