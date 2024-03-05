@@ -23,16 +23,14 @@ if (isset($_GET['set']))
 	else
 	$get2 = null;
 if (isset($_POST['save']) && isset($_GET['set'])){
-//----------账号------------//
+//----------昵称------------//
 if (isset($_GET['set']) && $_GET['set']=='nick' && $user['set_nick'] == 1){
 if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '".my_esc($_POST['nick'])."'"),0)==0)
 {
 $nick=my_esc($_POST['nick']);
-if( !preg_match("#^([A-z0-9\-\_\ ])+$#ui", $_POST['nick']))$err[]='输入的有禁止的符号。';
-if (preg_match("#[a-z]+#ui", $_POST['nick']))$err[]='只能使用英语字母。';
-if (preg_match("#(^\ )|(\ $)#ui", $_POST['nick']))$err[]='禁止使用昵称开头和结尾的空白';
-if (strlen2($nick)<3)$err[]='短昵';
-if (strlen2($nick)>32)$err[]='昵称超过32字';
+if(!preg_match("/^[a-zA-Z0-9\x{4e00}-\x{9fa5}]+$/u",$nick))$err = '不要在名字里面整些特殊符号，请只使用字母、数字和汉字';
+if (strlen2($nick)<2)$err[]='昵称长度小于2字符';
+if (strlen2($nick)>32)$err[]='昵称超过32字符';
 }
 else $err[]='账号 "'.stripcslashes(htmlspecialchars($_POST['nick'])).'" 已存在';
 if (isset($_POST['nick']) && !isset($err))
@@ -182,6 +180,7 @@ err();
 	echo "<form method='post' action='?".$get2."set=$get'>";
 	if (isset($_GET['set']) && $_GET['set']=='nick' && $user['set_nick'] == 1)
 	echo "<div class='mess'>注意！您只能更改一次昵称！</div> 账号:<br /><input type='text' name='nick' value='".htmlspecialchars($user['nick'],false)."' maxlength='32' /><br />";
+	
 	if (isset($_GET['set']) && $_GET['set']=='name')
 	echo "真实名字:<br /><input type='text' name='ank_name' value='".htmlspecialchars($user['ank_name'],false)."' maxlength='32' /><br />";
 
@@ -272,13 +271,16 @@ echo "<div class='nav2'>";
 echo "基本信息";
 echo "</div>";
 echo "<div class='nav1'>";
+echo "<img src='/style/icons/str.gif' alt='*'>  <b>用户名</b> &#62; $user[login]<br />";
 if ($user['set_nick'] == 1)
 {
-echo "<a href='?set=nick'> <img src='/style/icons/str.gif' alt='*'>  <b>账号</b></a>";
+echo "<a href='?set=nick'> <img src='/style/icons/str.gif' alt='*'>  <b>昵称</b></a>";
 if ($user['nick']!=NULL)
 echo " &#62; $user[nick]<br />";
 else
 echo "<br />";
+}else{
+	echo "<img src='/style/icons/str.gif' alt='*'>  <b>昵称</b> &#62; $user[nick]<br />";
 }
 echo "<a href='?set=name'> <img src='/style/icons/str.gif' alt='*'>  姓名</a>";
 if ($user['ank_name']!=NULL)
@@ -296,10 +298,12 @@ if($user['ank_d_r']!=NULL && $user['ank_m_r']!=NULL && $user['ank_g_r']!=NULL)
 echo " &#62;$user[ank_g_r]/$user[ank_m_r]/$user[ank_d_r]<br />";
 elseif($user['ank_d_r']!=NULL && $user['ank_m_r']!=NULL)
 echo " &#62; $user[ank_m_r]/$user[ank_d_r]<br />";
-
+else
+echo "<br />";
 echo "<a href='?set=osebe'> <img src='/style/icons/str.gif' alt='*'>  关于我</a>";
 if ($user['ank_o_sebe'])echo " > ".htmlspecialchars($user['ank_o_sebe'])."<br />";
-
+else
+echo "<br />";
 echo "<a href='?set=mobile'> <img src='/style/icons/str.gif' alt='*'>  移动电话</a> ";
 if ($user['ank_n_tel'])echo "&#62; $user[ank_n_tel]<br />";
 else

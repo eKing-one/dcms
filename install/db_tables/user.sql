@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(32) NOT NULL,
   `nick` varchar(32) NOT NULL,
   `pass` varchar(32) NOT NULL,
   `sess` varchar(32) DEFAULT NULL,
@@ -26,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `ank_d_r` int(2) DEFAULT NULL,
   `ank_city` varchar(32) DEFAULT NULL,
   `ank_o_sebe` varchar(512) DEFAULT NULL,
-  `ank_icq` int(10) DEFAULT NULL,
+  `ank_icq` varchar(10) DEFAULT NULL,
   `ank_skype` varchar(16) DEFAULT NULL,
   `ank_mail` varchar(32) DEFAULT NULL,
   `ank_n_tel` varchar(11) DEFAULT NULL,

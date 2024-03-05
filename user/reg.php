@@ -40,7 +40,7 @@ if ($set['reg_select'] == 'close') {
 		include_once '../sys/inc/tfoot.php';
 	}
 }
-if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '" . $_SESSION['reg_nick'] . "'"), 0) == 0 && isset($_POST['pass1']) && $_POST['pass1'] != NULL && $_POST['pass2'] && $_POST['pass2'] != NULL) {
+if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `login` = '" . $_SESSION['reg_nick'] . "'"), 0) == 0 && isset($_POST['pass1']) && $_POST['pass1'] != NULL && $_POST['pass2'] && $_POST['pass2'] != NULL) {
 	if ($set['reg_select'] == 'open_mail') {
 		if (!isset($_POST['ank_mail']) || $_POST['ank_mail'] == NULL) $err[] = '必须输入电子邮件';
 		elseif (!preg_match('#^[A-z0-9-\._]+@[A-z0-9]{2,}\.[A-z]{2,4}$#ui', $_POST['ank_mail'])) $err[] = '无效的电子邮件格式';
@@ -57,7 +57,7 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 	if (!isset($err)) {
 		if ($set['reg_select'] == 'open_mail') {
 			$activation = md5(passgen());
-			dbquery("INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_last`, `pol`, `activation`, `ank_mail`) values('" . $_SESSION['reg_nick'] . "', '" . shif($_POST['pass1']) . "', '$time', '$time', '" . intval($_POST['pol']) . "', '$activation', '" . my_esc($_POST['ank_mail']) . "')", $db);
+			dbquery("INSERT INTO `user` (`login`, `nick`, `pass`, `date_reg`, `date_last`, `pol`, `activation`, `ank_mail`) values('" . $_SESSION['reg_nick'] . "', '" . $_SESSION['reg_nick'] . "', '" . shif($_POST['pass1']) . "', '$time', '$time', '" . intval($_POST['pol']) . "', '$activation', '" . my_esc($_POST['ank_mail']) . "')", $db);
 			$id_reg = dbinsertid();
 			$subject = "帐户激活";
 			$regmail = "你好！ $_SESSION[reg_nick]<br />
@@ -72,8 +72,8 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 			$adds .= "Content-Type: text/html; charset=utf-8";
 			mail($_POST['ank_mail'], '=?utf-8?B?' . base64_encode($subject) . '?=', $regmail, $adds);
 		} else
-			dbquery("INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_last`, `pol`) values('" . $_SESSION['reg_nick'] . "', '" . shif($_POST['pass1']) . "', '$time', '$time', '" . intval($_POST['pol']) . "')", $db);
-		$user = dbassoc(dbquery("SELECT * FROM `user` WHERE `nick` = '" . my_esc($_SESSION['reg_nick']) . "' AND `pass` = '" . shif($_POST['pass1']) . "' LIMIT 1"));
+			dbquery("INSERT INTO `user` (`login`,`nick`, `pass`, `date_reg`, `date_last`, `pol`) values('" . $_SESSION['reg_nick'] . "', '" . shif($_POST['pass1']) . "', '$time', '$time', '" . intval($_POST['pol']) . "')", $db);
+		$user = dbassoc(dbquery("SELECT * FROM `user` WHERE `login`= '" . my_esc($_SESSION['reg_nick']) . "' AND `nick` = '" . my_esc($_SESSION['reg_nick']) . "' AND `pass` = '" . shif($_POST['pass1']) . "' LIMIT 1"));
 		/*
 ========================================
 创建用户设置 
@@ -103,25 +103,25 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 		echo "</div>";
 		include_once '../sys/inc/tfoot.php';
 	}
-} elseif (isset($_POST['nick']) && $_POST['nick'] != NULL) {
-	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "'"), 0) == 0) {
-		$nick = my_esc($_POST['nick']);
-		if (!preg_match("#^([A-zА-я0-9\-\_\ ])+$#ui", $_POST['nick'])) $err[] = '昵称中有禁字';
-		if (preg_match("#[a-z]+#ui", $_POST['nick']) && preg_match("#[а-я]+#ui", $_POST['nick'])) $err[] = '只允许使用俄文或英文字母字符а';
-		if (preg_match("#(^\ )|(\ $)#ui", $_POST['nick'])) $err[] = '禁止在昵称的开头和结尾使用空格';
-		if (strlen2($nick) < 3) $err[] = '短昵称';
-		if (strlen2($nick) > 32) $err[] = '昵称长度超过32个字符';
-	} else $err[] = '用户名 "' . stripcslashes(htmlspecialchars($_POST['nick'])) . '"已登记';
+} elseif (isset($_POST['login']) && $_POST['login'] != NULL) {
+	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `login` = '" . my_esc($_POST['login']) . "'"), 0) == 0) {
+		$login = my_esc($_POST['login']);
+		if (!preg_match("#^([A-z0-9\-\_\ ])+$#ui", $_POST['login'])) $err[] = '用户名中有禁字';
+		if (preg_match("#[a-z]+#ui", $_POST['login'])) $err[] = '只允许使用英文字母字符';
+		if (preg_match("#(^\ )|(\ $)#ui", $_POST['login'])) $err[] = '禁止在昵称的开头和结尾使用空格';
+		if (strlen2($login) < 3) $err[] = '短用户名';
+		if (strlen2($login) > 32) $err[] = '昵称长度超过32个字符';
+	} else $err[] = '用户名 "' . stripcslashes(htmlspecialchars($_POST['login'])) . '"已登记';
 	if (!isset($err)) {
-		$_SESSION['reg_nick'] = $nick;
+		$_SESSION['reg_nick'] = $login;
 		$_SESSION['step'] = 1;
-		msg("用户名 \"$nick\" 可以成功注册");
+		msg("用户名 \"$login\" 可以成功注册");
 	}
 }
 err();
 if (isset($_SESSION['step']) && $_SESSION['step'] == 1) {
 	echo "<form method='post' action='/user/reg.php?$passgen'>";
-	echo "你的昵称[A-zА-я0-9 -_]:<br /><input type='text' name='nick' maxlength='32' value='$_SESSION[reg_nick]' /><br />";
+	echo "你的用户名[A-z0-9 -_]:<br /><input type='text' name='login' maxlength='32' value='$_SESSION[reg_nick]' /><br />";
 	echo "<input type='submit' value='另一个' />";
 	echo "</form><br />";
 	echo "<form method='post' action='/user/reg.php?$passgen'>";
@@ -138,7 +138,7 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1) {
 	echo "</form><br />";
 } else {
 	echo "<form class='mess' method='post' action='/user/reg.php?$passgen'>";
-	echo "选择昵称 [A-z0-9 -_]:<br /><input type='text' name='nick' maxlength='32' /><br />";
+	echo "你的用户名 [A-z0-9 -_]:<br /><input type='text' name='login' maxlength='32' /><br />";
 	echo "通过注册，您自动同意 <a href='/user/rules.php'>网站规则</a> <br />";
 	echo "<input type='submit' value='继续' />";
 	echo "</form><br />";

@@ -24,11 +24,11 @@ if (isset($_GET['id']) && isset($_GET['pass']))
 	}
 	else $_SESSION['err'] = '用户名或密码不正确';
 }
-elseif (isset($_POST['nick']) && isset($_POST['pass']))
+elseif (isset($_POST['login']) && isset($_POST['pass']))
 {
-	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '".my_esc($_POST['nick'])."' AND `pass` = '".shif($_POST['pass'])."' LIMIT 1"), 0))
+	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `login` = '".my_esc($_POST['login'])."' AND `pass` = '".shif($_POST['pass'])."' LIMIT 1"), 0))
 	{
-		$user = dbassoc(dbquery("SELECT `id` FROM `user` WHERE `nick` = '".my_esc($_POST['nick'])."' AND `pass` = '".shif($_POST['pass'])."' LIMIT 1"));
+		$user = dbassoc(dbquery("SELECT `id` FROM `user` WHERE `login` = '".my_esc($_POST['login'])."' AND `pass` = '".shif($_POST['pass'])."' LIMIT 1"));
 		$_SESSION['id_user'] = $user['id'];
 		$user = user::get_user($user['id']);
 		// 在COOKIE中保存数据
