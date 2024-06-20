@@ -511,7 +511,7 @@ if ($ank['group_access'] > 1) {
 <div class='accordion-heading'>";
 				if ($user['wall'] == 1) {
 					echo '<a class="accordion-toggle decoration-none collapsed" href="/user/info.php?id=' . $ank['id'] . '&amp;wall=0"><img src="/style/icons/stena.gif" alt="*" /> 动态</a>';
-					include_once 'user/stena/index.php';
+					include_once H.'user/stena/index.php';
 				} else {
 					echo '<a class="accordion-toggle decoration-none collapsed" href="/user/info.php?id=' . $ank['id'] . '&amp;wall=1"><img src="/style/icons/stena.gif" alt="*" /> 动态</a>';
 				}

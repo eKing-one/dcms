@@ -72,7 +72,7 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 			$adds .= "Content-Type: text/html; charset=utf-8";
 			mail($_POST['ank_mail'], '=?utf-8?B?' . base64_encode($subject) . '?=', $regmail, $adds);
 		} else
-			dbquery("INSERT INTO `user` (`login`,`nick`, `pass`, `date_reg`, `date_last`, `pol`) values('" . $_SESSION['reg_nick'] . "', '" . shif($_POST['pass1']) . "', '$time', '$time', '" . intval($_POST['pol']) . "')", $db);
+			dbquery("INSERT INTO `user` (`login`,`nick`, `pass`, `date_reg`, `date_last`, `pol`) values('" . $_SESSION['reg_nick'] . "', '" . $_SESSION['reg_nick'] . "', '" . shif($_POST['pass1']) . "', '$time', '$time', '" . intval($_POST['pol']) . "')", $db);
 		$user = dbassoc(dbquery("SELECT * FROM `user` WHERE `login`= '" . my_esc($_SESSION['reg_nick']) . "' AND `nick` = '" . my_esc($_SESSION['reg_nick']) . "' AND `pass` = '" . shif($_POST['pass1']) . "' LIMIT 1"));
 		/*
 ========================================
@@ -107,7 +107,7 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `login` = '" . my_esc($_POST['login']) . "'"), 0) == 0) {
 		$login = my_esc($_POST['login']);
 		if (!preg_match("#^([A-z0-9\-\_\ ])+$#ui", $_POST['login'])) $err[] = '用户名中有禁字';
-		if (preg_match("#[a-z]+#ui", $_POST['login'])) $err[] = '只允许使用英文字母字符';
+		// if (preg_match("#[a-z]+#ui", $_POST['login'])) $err[] = '只允许使用英文字母字符';
 		if (preg_match("#(^\ )|(\ $)#ui", $_POST['login'])) $err[] = '禁止在昵称的开头和结尾使用空格';
 		if (strlen2($login) < 3) $err[] = '短用户名';
 		if (strlen2($login) > 32) $err[] = '昵称长度超过32个字符';

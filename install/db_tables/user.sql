@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `abuld` int(1) DEFAULT '0',
   `type_reg` varchar(100) DEFAULT NULL,
   `identity` varchar(100) DEFAULT NULL,
-  `set_nick` int(1) DEFAULT '0',
+  `set_nick` int(1) DEFAULT '1',
   `money` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `nick` (`nick`),
