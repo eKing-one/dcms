@@ -26,12 +26,12 @@ if (isset($_POST['title']) && isset($_POST['msg']) && isset($_POST['link']) && i
 	if ($link != NULL && !preg_match('#^https?://#',$link) && !preg_match('#^/#i',$link))
 	$link='/'.$link;
 	$msg = esc($_POST['msg']);
-	if (strlen2($title) > 50){$err='新闻标题太大了';}
-	if (strlen2($title) < 3){$err='短标题';}
+	if (strlen2($title) > 50){$err='新闻标题太长';}
+	if (strlen2($title) < 3){$err='标题太短了(三个字以上)';}
 	$mat = antimat($title);
-	if ($mat)$err[] = '在新闻标题中发现了一个禁止字符: '.$mat;
-	if (strlen2($msg)>10024){$err='新闻的内容太大了';}
-	if (strlen2($msg) < 2){$err='新闻的内容太小了';}
+	if ($mat)$err[] = '新闻标题中包含特殊字符: '.$mat;
+	if (strlen2($msg)>10024){$err='新闻内容太多(超过10024字)';}
+	if (strlen2($msg) < 2){$err='新闻的内容太少了';}
 	$mat = antimat($msg);
 	if ($mat)$err[] = '在内容里发现一个禁止的字符 '.$mat;
 	$title = my_esc($_POST['title']);
@@ -45,7 +45,7 @@ if (isset($_POST['title']) && isset($_POST['msg']) && isset($_POST['link']) && i
 		$main_time = 0;
 		dbquery("UPDATE `news` SET `title` = '$title', `msg` = '$msg', `link` = '$link', `main_time` = '$main_time', `time` = '$time' WHERE `id` = '$news[id]' LIMIT 1");
 		dbquery("UPDATE `user` SET `news_read` = '0'");
-		$_SESSION['message'] = '更改已成功接受';
+		$_SESSION['message'] = '成功更改';
 		header("Location: news.php?id=$news[id]");
 		exit;
 	}
@@ -66,7 +66,7 @@ if (isset($_POST['view']) && !isset($err))
 	if ($news['link'] != NULL)
 	{
 		echo '<div class="main">';
-		echo '<a href="' . htmlentities($news['link'], ENT_QUOTES, 'UTF-8') . '">详情 &rarr;</a><br />';
+		echo '<a href="' . htmlentities($news['link'], ENT_QUOTES, 'UTF-8') . '">查看详情 &rarr;</a><br />';
 		echo '</div>';
 	}
 }
@@ -84,11 +84,11 @@ echo '在主页显示时间:<br />';
 echo '<input type="text" name="ch" size="3" value="' . (isset($_POST['ch']) ? intval($_POST['ch']) : "1") . '" />';
 echo '<select name="mn">';
 echo '  <option value="0" '.(isset($_POST['mn']) && $_POST['mn'] == 0 ? "selected='selected'" : null).'>   </option>';
-echo '  <option value="1" '.(isset($_POST['mn']) && $_POST['mn'] == 1 ? "selected='selected'" : null).'>天数</option>';
+echo '  <option value="1" '.(isset($_POST['mn']) && $_POST['mn'] == 1 ? "selected='selected'" : null).'>天</option>';
 echo '  <option value="7" '.(isset($_POST['mn']) && $_POST['mn'] == 7 ? "selected='selected'" : null).'>星期</option>';
 echo '  <option value="31" '.(isset($_POST['mn']) && $_POST['mn'] == 31 ? "selected='selected'" : null).'>个月</option>';
 echo '</select><br />';
-echo '<input value="查看" type="submit" name="view"/> ';
+echo '<input value="预览" type="submit" name="view"/> ';
 echo '<input value="完成" type="submit" name="ok"/>';
 echo '</form>';
 echo'<div class="foot">';
