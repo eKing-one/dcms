@@ -28,11 +28,11 @@ if (isset($_GET['set']) && $_GET['set']=='nick' && $user['set_nick'] == 1){
 if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '".my_esc($_POST['nick'])."'"),0)==0)
 {
 $nick=my_esc($_POST['nick']);
-if(!preg_match("/^[a-zA-Z0-9\x{4e00}-\x{9fa5}]+$/u",$nick))$err = '不要在名字里面整些特殊符号，请只使用字母、数字和汉字';
-if (strlen2($nick)<2)$err[]='昵称长度小于2字符';
-if (strlen2($nick)>32)$err[]='昵称超过32字符';
+if(!preg_match("/^[a-zA-Z0-9\x{4e00}-\x{9fa5}]+$/u",$nick))$err = '不要在名字里面使用特殊符号，请只使用字母,数字与汉字';
+if (strlen2($nick)<2)$err[]='昵称字数少于2';
+if (strlen2($nick)>32)$err[]='昵称字数多于32';
 }
-else $err[]='账号 "'.stripcslashes(htmlspecialchars($_POST['nick'])).'" 已存在';
+else $err[]='用户名"'.stripcslashes(htmlspecialchars($_POST['nick'])).'"';
 if (isset($_POST['nick']) && !isset($err))
 {
 $user['nick'] = $_POST['nick'];
@@ -46,7 +46,7 @@ if (isset($_POST['ank_name']) && preg_match('/[\x{4e00}-\x{9fa5}]+/u', $_POST['a
 $user['ank_name']=$_POST['ank_name'];
 dbquery("UPDATE `user` SET `ank_name` = '".my_esc($user['ank_name'])."' WHERE `id` = '$user[id]' LIMIT 1");
 }
-else $err[]='无效的命名';
+else $err[]='无效命名';
 }
 
 //----------出生日期------------//
@@ -96,7 +96,7 @@ if ($user['ank_icq']=='null')$user['ank_icq']=NULL;
 }
 else $err[]='无效的QQ格式';
 }
-//-------------------skype---------------//
+//-------------------QQ---------------//
 if (isset($_GET['set']) && $_GET['set']=='skype'){
 if (isset($_POST['ank_skype']) && preg_match('#^([A-z0-9 \-]*)$#ui', $_POST['ank_skype']))
 {
@@ -158,14 +158,14 @@ $user['ank_o_sebe'] = $_POST['ank_o_sebe'];
 dbquery("UPDATE `user` SET `ank_o_sebe` = '".my_esc($user['ank_o_sebe'])."' WHERE `id` = '$user[id]' LIMIT 1");
 }
 }
-else $err[]= '你应该少写一些关于你自己的东西 :)';
+else $err[]= '少写一些吧';
 }
 
 //----------------чем занимаюсь-------------//
 
 if (!isset($err))
 {
-$_SESSION['message'] = '更改已成功接受';
+$_SESSION['message'] = '成功更改';
 	dbquery("UPDATE `user` SET `rating_tmp` = '".($user['rating_tmp']+1)."' WHERE `id` = '$user[id]' LIMIT 1");
 		if (isset($_GET['act']) && $_GET['act']=='ank')
 			header("Location: /user/info/anketa.php?".SID);
@@ -190,7 +190,7 @@ err();
 	echo '<select name="ank_g_r">';
     if (!empty($user['ank_g_r']))  echo '<option  value=""></option>';
 		echo '<option selected="'.$user['ank_g_r'].'" value="'.$user['ank_g_r'].'" >'.$user['ank_g_r'].'</option>';
-		for( $i = date("Y")-16; $i >= 1940; $i--) {
+		for( $i = date("Y")-1; $i >= 1960; $i--) {
 		echo '<option  value="' . $i . '">' . $i . '</option>';
 		}
 	echo '</select><br/>';
@@ -262,7 +262,7 @@ err();
 		<label><input type='checkbox' name='set_show_mail'".($user['set_show_mail']==1?' checked="checked"':null)." value='1' /> 在资料中显示电子邮件</label><br />";
 	}
 	if (isset($_GET['set']) && $_GET['set']=='mobile')
-	echo "电话号码:<br /><input type='text' name='ank_n_tel' value='$user[ank_n_tel]' maxlength='11' /><br />";
+	echo "手机号码:<br /><input type='text' name='ank_n_tel' value='$user[ank_n_tel]' maxlength='11' /><br />";
 	if (isset($_GET['set']) && $_GET['set']=='osebe')
 	echo "关于我:<br /><input type='text' name='ank_o_sebe' value='$user[ank_o_sebe]' maxlength='512' /><br />";
 	echo "<input type='submit' name='save' value='保存' /></form>";
@@ -300,23 +300,23 @@ elseif($user['ank_d_r']!=NULL && $user['ank_m_r']!=NULL)
 echo " &#62; $user[ank_m_r]/$user[ank_d_r]<br />";
 else
 echo "<br />";
-echo "<a href='?set=osebe'> <img src='/style/icons/str.gif' alt='*'>  关于我</a>";
+echo "<a href='?set=osebe'> <img src='/style/icons/str.gif' alt='*'>关于我</a>";
 if ($user['ank_o_sebe'])echo " > ".htmlspecialchars($user['ank_o_sebe'])."<br />";
 else
 echo "<br />";
-echo "<a href='?set=mobile'> <img src='/style/icons/str.gif' alt='*'>  移动电话</a> ";
+echo "<a href='?set=mobile'> <img src='/style/icons/str.gif' alt='*'>手机号码</a> ";
 if ($user['ank_n_tel'])echo "&#62; $user[ank_n_tel]<br />";
 else
 echo "<br />";
-echo "<a href='?set=icq'> <img src='/style/icons/str.gif' alt='*'>  QQ</a> ";
+echo "<a href='?set=icq'> <img src='/style/icons/str.gif' alt='*'>QQ</a> ";
 if ($user['ank_icq'])echo "&#62; $user[ank_icq]<br />";
 else
 echo "<br />";
-echo "<a href='?set=mail'> <img src='/style/icons/str.gif' alt='*'>  E-Mail</a> ";
+echo "<a href='?set=mail'> <img src='/style/icons/str.gif' alt='*'>E-Mail</a> ";
 if ($user['ank_mail'])echo "&#62; $user[ank_mail]<br />";
 else
 echo "<br />";
-echo "<a href='?set=skype'> <img src='/style/icons/str.gif' alt='*'>  微信</a> "; 
+echo "<a href='?set=skype'> <img src='/style/icons/str.gif' alt='*'>微信</a> "; 
 if ($user['ank_skype'])echo "&#62; $user[ank_skype]<br />";
 else
 echo "<br />";
