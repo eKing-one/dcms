@@ -85,25 +85,43 @@ dbquery("UPDATE `user` SET `ank_city` = '".my_esc($user['ank_city'])."' WHERE `i
 }
 else $err[]='城市名称格式不正确';
 }
-//--------------icq----------------//
-if (isset($_GET['set']) && $_GET['set']=='icq'){
-if (isset($_POST['ank_icq']) && (is_numeric($_POST['ank_icq']) && strlen($_POST['ank_icq'])>=5 && strlen($_POST['ank_icq'])<=10 || $_POST['ank_icq']==NULL))
+//--------------qq----------------//
+if (isset($_GET['set']) && $_GET['set']=='qq'){
+if (isset($_POST['ank_qq']) && (is_numeric($_POST['ank_qq']) && strlen($_POST['ank_qq'])>=5 && strlen($_POST['ank_qq'])<=10 || $_POST['ank_qq']==NULL))
 {
-$user['ank_icq']=$_POST['ank_icq'];
-if ($user['ank_icq']==null)$user['ank_icq']='null';
-dbquery("UPDATE `user` SET `ank_icq` = $user[ank_icq] WHERE `id` = '$user[id]' LIMIT 1");
-if ($user['ank_icq']=='null')$user['ank_icq']=NULL;
+$user['ank_qq']=$_POST['ank_qq'];
+if ($user['ank_qq']==null)$user['ank_qq']='null';
+dbquery("UPDATE `user` SET `ank_qq` = $user[ank_qq] WHERE `id` = '$user[id]' LIMIT 1");
+if ($user['ank_qq']=='null')$user['ank_qq']=NULL;
 }
-else $err[]='无效的QQ格式';
+else $err[]='无效的 QQ 账号格式';
 }
-//-------------------QQ---------------//
+//-------------------Skype---------------//
 if (isset($_GET['set']) && $_GET['set']=='skype'){
 if (isset($_POST['ank_skype']) && preg_match('#^([A-z0-9 \-]*)$#ui', $_POST['ank_skype']))
 {
 $user['ank_skype']=$_POST['ank_skype'];
 dbquery("UPDATE `user` SET `ank_skype` = '".my_esc($user['ank_skype'])."' WHERE `id` = '$user[id]' LIMIT 1");
 }
-else $err[]='无效的微信账号';
+else $err[]='无效的 Skype 账号格式';
+}
+//-------------------微信---------------//
+if (isset($_GET['set']) && $_GET['set']=='wechat'){
+if (isset($_POST['ank_wechat']) && preg_match('#^([A-z0-9 \-]*)$#ui', $_POST['ank_wechat']))
+{
+$user['ank_wechat']=$_POST['ank_wechat'];
+dbquery("UPDATE `user` SET `ank_wechat` = '".my_esc($user['ank_wechat'])."' WHERE `id` = '$user[id]' LIMIT 1");
+}
+else $err[]='无效的微信账号格式';
+}
+//-------------------Matrix---------------//
+if (isset($_GET['set']) && $_GET['set']=='matrix'){
+if (isset($_POST['ank_matrix']) && preg_match('#^([A-z0-9 \-]*)$#ui', $_POST['ank_matrix'])) //此处正则表达式待完善 --Diamochang
+{
+$user['ank_matrix']=$_POST['ank_matrix'];
+dbquery("UPDATE `user` SET `ank_matrix` = '".my_esc($user['ank_matrix'])."' WHERE `id` = '$user[id]' LIMIT 1");
+}
+else $err[]='无效的 Matrix 账号格式';
 }
 //----------------email------------------//
 if (isset($_GET['set']) && $_GET['set']=='mail'){
@@ -122,10 +140,10 @@ if (isset($_POST['ank_mail']) && ($_POST['ank_mail']==null || preg_match('#^[A-z
 $user['ank_mail']=$_POST['ank_mail'];
 dbquery("UPDATE `user` SET `ank_mail` = '$user[ank_mail]' WHERE `id` = '$user[id]' LIMIT 1");
 }
-else $err[]='无效的电子邮件';
+else $err[]='无效的电子邮件格式';
 }
 
-//----------------手机号码------------------//
+//----------------电话号码------------------//
 if (isset($_GET['set']) && $_GET['set']=='mobile'){
 if (isset($_POST['ank_n_tel']) && (is_numeric($_POST['ank_n_tel']) && strlen($_POST['ank_n_tel'])>=5 && strlen($_POST['ank_n_tel'])<=11 || $_POST['ank_n_tel']==NULL))
 {
@@ -182,10 +200,10 @@ err();
 	echo "<div class='mess'>注意！您只能更改一次昵称！</div> 账号:<br /><input type='text' name='nick' value='".htmlspecialchars($user['nick'],false)."' maxlength='32' /><br />";
 	
 	if (isset($_GET['set']) && $_GET['set']=='name')
-	echo "真实名字:<br /><input type='text' name='ank_name' value='".htmlspecialchars($user['ank_name'],false)."' maxlength='32' /><br />";
+	echo "真实姓名（用户设置）：<br /><input type='text' name='ank_name' value='".htmlspecialchars($user['ank_name'],false)."' maxlength='32' /><br />";
 
 	if (isset($_GET['set']) && $_GET['set']=='date'){
-	echo '出生日期:<br />';
+	echo '出生日期：<br />';
 	//年
 	echo '<select name="ank_g_r">';
     if (!empty($user['ank_g_r']))  echo '<option  value=""></option>';
@@ -247,24 +265,28 @@ err();
 	</select>';
 	}
 	if (isset($_GET['set']) && $_GET['set']=='pol'){
-	echo "性别:<br /> <input name='pol' type='radio' ".($user['pol']==1?' checked="checked"':null)." value='1' />男<br />
+	echo "性别：<br /> <input name='pol' type='radio' ".($user['pol']==1?' checked="checked"':null)." value='1' />男<br />
 	<input name='pol' type='radio' ".($user['pol']==0?' checked="checked"':null)." value='0' />女<br />";
 	}
 	if (isset($_GET['set']) && $_GET['set']=='gorod')
-	echo "城市:<br /><input type='text' name='ank_city' value='$user[ank_city]' maxlength='32' /><br />";
-	if (isset($_GET['set']) && $_GET['set']=='icq')
-	echo "QQ:<br /><input type='text' name='ank_icq' value='$user[ank_icq]' maxlength='10' /><br />";
+	echo "城市：<br /><input type='text' name='ank_city' value='$user[ank_city]' maxlength='32' /><br />";
+	if (isset($_GET['set']) && $_GET['set']=='qq')
+	echo "QQ：<br /><input type='text' name='ank_qq' value='$user[ank_qq]' maxlength='10' /><br />";
 	if (isset($_GET['set']) && $_GET['set']=='skype')
-	echo "微信<br /><input type='text' name='ank_skype' value='$user[ank_skype]' maxlength='16' /><br />";
+	echo "Skype：<br /><input type='text' name='ank_skype' value='$user[ank_skype]' maxlength='16' /><br />";
+	if (isset($_GET['set']) && $_GET['set']=='wechat')
+	echo "微信：<br /><input type='text' name='ank_wechat' value='$user[ank_wechat]' maxlength='20' /><br />";
+	if (isset($_GET['set']) && $_GET['set']=='matrix')
+	echo "Matrix：<br /><input type='text' name='ank_skype' value='$user[ank_matrix]' maxlength='50' /><br />";
 	if (isset($_GET['set']) && $_GET['set']=='mail'){
 	echo "E-mail:<br />
 		<input type='text' name='ank_mail' value='$user[ank_mail]' maxlength='32' /><br />
 		<label><input type='checkbox' name='set_show_mail'".($user['set_show_mail']==1?' checked="checked"':null)." value='1' /> 在资料中显示电子邮件</label><br />";
 	}
 	if (isset($_GET['set']) && $_GET['set']=='mobile')
-	echo "手机号码:<br /><input type='text' name='ank_n_tel' value='$user[ank_n_tel]' maxlength='11' /><br />";
+	echo "电话号码：<br /><input type='text' name='ank_n_tel' value='$user[ank_n_tel]' maxlength='11' /><br />";
 	if (isset($_GET['set']) && $_GET['set']=='osebe')
-	echo "关于我:<br /><input type='text' name='ank_o_sebe' value='$user[ank_o_sebe]' maxlength='512' /><br />";
+	echo "关于我：<br /><input type='text' name='ank_o_sebe' value='$user[ank_o_sebe]' maxlength='512' /><br />";
 	echo "<input type='submit' name='save' value='保存' /></form>";
 }else{
 echo "<div class='nav2'>";
@@ -308,16 +330,24 @@ echo "<a href='?set=mobile'> <img src='/style/icons/str.gif' alt='*'>手机号�
 if ($user['ank_n_tel'])echo "&#62; $user[ank_n_tel]<br />";
 else
 echo "<br />";
-echo "<a href='?set=icq'> <img src='/style/icons/str.gif' alt='*'>QQ</a> ";
-if ($user['ank_icq'])echo "&#62; $user[ank_icq]<br />";
+echo "<a href='?set=qq'> <img src='/style/icons/str.gif' alt='*'>QQ</a> ";
+if ($user['ank_qq'])echo "&#62; $user[ank_qq]<br />";
 else
 echo "<br />";
 echo "<a href='?set=mail'> <img src='/style/icons/str.gif' alt='*'>E-Mail</a> ";
 if ($user['ank_mail'])echo "&#62; $user[ank_mail]<br />";
 else
 echo "<br />";
-echo "<a href='?set=skype'> <img src='/style/icons/str.gif' alt='*'>微信</a> "; 
+echo "<a href='?set=skype'> <img src='/style/icons/str.gif' alt='*'>Skype</a> "; 
 if ($user['ank_skype'])echo "&#62; $user[ank_skype]<br />";
+else
+echo "<br />";
+echo "<a href='?set=wechat'> <img src='/style/icons/str.gif' alt='*'>微信</a> "; 
+if ($user['ank_wechat'])echo "&#62; $user[ank_wechat]<br />";
+else
+echo "<br />";
+echo "<a href='?set=matrix'> <img src='/style/icons/str.gif' alt='*'>Matrix</a> "; 
+if ($user['ank_matrix'])echo "&#62; $user[ank_matrix]<br />";
 else
 echo "<br />";
 echo "</div>";
