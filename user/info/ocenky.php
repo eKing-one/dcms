@@ -9,7 +9,7 @@ include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 only_reg();
-$set['title'] = '用户评价';
+$set['title'] = '对照片的评分';
 include_once '../../sys/inc/thead.php';
 title();
 if (isset($user)) $ank['id'] = $user['id'];
@@ -21,7 +21,7 @@ if (!$ank) {
 err();
 aut(); // форма авторизации
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/user/info.php'>$user[nick]</a> | 用户评价<br />";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/user/info.php'>$user[nick]</a> | 用户的评分<br />";
 echo "</div>";
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `gallery_rating` WHERE `avtor` = '$ank[id]'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
@@ -30,7 +30,7 @@ $start = $set['p_str'] * $page - $set['p_str'];
 $q = dbquery("SELECT * FROM `gallery_rating` WHERE `avtor` = '$ank[id]' ORDER BY `time` DESC LIMIT $start, $set[p_str]");
 if ($k_post == 0) {
     echo "  <div class='mess'>";
-    echo "没有评级";
+    echo "没有评分";
     echo "  </div>";
 }
 $num = 0;
