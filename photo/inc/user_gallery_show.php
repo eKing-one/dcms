@@ -56,7 +56,7 @@ include H . 'sys/add/user.privace.php';
 */
 if ($gallery['privat'] == 1 && ($frend != 2 || !isset($user)) && $user['level'] <= $ank['level'] && $user['id'] != $ank['id']) {
 	echo '<div class="mess">';
-	echo '只有他们的朋友才能查看用户的相册！';
+	echo '只有该用户的好友才能查看该用户的相册';
 	echo '</div>';
 
 	$block_photo = true;
