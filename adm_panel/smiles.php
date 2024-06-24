@@ -102,7 +102,7 @@ if (isset($_GET['id']))
 		for ($i=0; $i < $forms; $i++)
 		{
 			echo ($i+1) . ') 文件: <input name="file_' . $i . '" type="file" /><br />';
-			echo ($i+1) . ') 一个微笑(例如:)或:D....)<br /><input type="text" name="smile_' . $i . '" maxlength="32" /><br />';
+			echo ($i+1) . ') 一个表情包 例如: [mikumiku] <br /><input type="text" name="smile_' . $i . '" maxlength="32" /><br />';
 		}
 		?>
 		<input type="submit" value="添加" />
@@ -147,7 +147,7 @@ if (isset($_GET['id']))
 			{
 				$smile = my_esc($_POST['smile']);
 				if(strlen2($smile) < 1)
-				$err = '至少1个字符的名称'; 
+				$err = '名称不可以少于一个字'; 
 				if (!isset($err))
 				{
 					dbquery("UPDATE `smile` SET `smile` = '$smile' WHERE `id` = '$post[id]'");
