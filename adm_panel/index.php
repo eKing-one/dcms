@@ -53,7 +53,7 @@ if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth'] > $time || isset($_SES
   if (user_access('adm_accesses')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='accesses.php'>用户组权限</a></div>\n";
   if (user_access('adm_banlist')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='banlist.php'>封禁列表</a></div>\n";
   if (user_access('adm_set_loads')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_loads.php'>下载设置</a></div>\n";
-  if (user_access('adm_set_chat')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_chat.php'>聊天设置</a></div>\n";
+  if (user_access('adm_set_chat')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_chat.php'>聊天室设置</a></div>\n";
   
   if (user_access('adm_set_foto')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_foto.php'>相册设置</a></div>\n";
   
