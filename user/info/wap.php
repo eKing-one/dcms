@@ -2,7 +2,7 @@
 /*-----------------------状况表格-----------------------*/
 if (isset($user) && isset($_GET['status'])) {
 	if ($user['id'] == $ank['id']) {
-		echo '<div class="main">状态 [最大 512 字节]</div>';
+		echo '<div class="main">状态 [最多 512 字]</div>';
 		echo '<form action="/user/info.php?id=' . $ank['id'] . '" method="post">';
 		echo "$tPanel<textarea type=\"text\" style='' name=\"status\" value=\"\"/></textarea><br /> ";
 		echo "<input class=\"submit\" style='' type=\"submit\" value=\"安装\" />";
