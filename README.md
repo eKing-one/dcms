@@ -6,9 +6,9 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://gitee.com/sk
 
 ## 安装要求
 
-- PHP 5.4 至 7.0 或以上版本（推荐使用 PHP 5）
-- MySQLi 数据库支持
-- Apache mod_rewrite 模块支持
+- PHP 5.4 至 7.0 或以上版本（推荐使用 PHP 7）
+- MySQL 数据库支持
+- Apache `mod_rewrite` 模块支持
 
 ### 免费托管安装反馈
 如果您能在免费托管环境中成功安装并充分运行此引擎，请在[项目官方论坛（俄语）](http://dcms-social.ru/forum/)上报告。
@@ -56,6 +56,6 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://gitee.com/sk
 如果您对开发引擎有兴趣，可通过[论坛（俄文）](http://dcms-social.ru/forum/)申请编写模块的任务订单。
 
 ## 待办事项
-- [*] 移除代码 `version_stable()`
-- [*] 移除 token 相关代码
-- [*] 纠正翻译 翻译部分残留的文本
+- [ ] 移除代码 `version_stable()`
+- [ ] 移除 token 相关代码
+- [ ] 纠正翻译和翻译部分残留的文本
