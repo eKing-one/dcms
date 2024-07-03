@@ -29,8 +29,8 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '".my_esc($_POS
 {
 $nick=my_esc($_POST['nick']);
 if(!preg_match("/^[a-zA-Z0-9\x{4e00}-\x{9fa5}]+$/u",$nick))$err = '不要在名字里面使用特殊符号，请只使用字母,数字与汉字';
-if (strlen2($nick)<2)$err[]='昵称字数少于2';
-if (strlen2($nick)>32)$err[]='昵称字数多于32';
+if (strlen2($nick)<2)$err[]='昵称字数少于 2 字符';
+if (strlen2($nick)>32)$err[]='昵称字数多于 32 字符';
 }
 else $err[]='用户名"'.stripcslashes(htmlspecialchars($_POST['nick'])).'"';
 if (isset($_POST['nick']) && !isset($err))
@@ -116,7 +116,7 @@ else $err[]='无效的微信账号格式';
 }
 //-------------------Matrix---------------//
 if (isset($_GET['set']) && $_GET['set']=='matrix'){
-if (isset($_POST['ank_matrix']) && preg_match('#^([A-z0-9 \-]*)$#ui', $_POST['ank_matrix'])) //此处正则表达式待完善 --Diamochang
+if (isset($_POST['ank_matrix']) && preg_match('#^@([a-zA-Z0-9._-]+):([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$#ui', $_POST['ank_matrix']))
 {
 $user['ank_matrix']=$_POST['ank_matrix'];
 dbquery("UPDATE `user` SET `ank_matrix` = '".my_esc($user['ank_matrix'])."' WHERE `id` = '$user[id]' LIMIT 1");
