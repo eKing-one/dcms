@@ -1,8 +1,8 @@
 <?php
 $time=time();
-ini_set('register_globals', 0);
+ini_set('register_globals', 0); // 此项在 5.4.0 之后已废弃。--Diamochang
 ini_set('session.use_cookies', 1);
-ini_set('session.use_trans_sid', 1);
+ini_set('session.use_trans_sid', 0);
 ini_set('arg_separator.output', "&amp;");
 function compress_output_gzip($output)
 {
