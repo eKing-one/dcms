@@ -2,13 +2,13 @@
 
 DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://gitee.com/skyour) 进行简中翻译后，通过 [CN_DCMS-Social](http://dcms.net.cn/) 引入中文互联网，以几乎所有老旧手机都能访问闻名怀旧圈，迅速吸引一批 Z 世代扎根。现在，eKing 将 CN_DCMS-Social 的源代码公开，以获得更好的发展。
 
-（以下内容由 DCMS 原作者 [Alex Borisi](mailto:alex-borisi@ya.ru) 编写，eKing 初步翻译，经 [Diamochang](https://gitee.com/Diamochang)使用[通义千问](https://tongyi.aliyun.com/qianwen)优化翻译并规范 Markdown 格式）
+（以下内容由 DCMS 原作者 [Alex Borisi](mailto:alex-borisi@ya.ru) 编写，eKing 初步翻译，经 [Diamochang](https://gitee.com/Diamochang) 使用[通义千问](https://tongyi.aliyun.com/qianwen)优化翻译并规范 Markdown 格式）
 
 ## 安装要求
 
-- PHP 5.4 至 7.0 或以上版本（推荐使用 PHP 5）
-- MySQLi 数据库支持
-- Apache mod_rewrite 模块支持
+- PHP 5.4 至 7.0 或以上版本（推荐使用 PHP 7）
+- MySQL 数据库支持
+- Apache `mod_rewrite` 模块支持
 
 ### 免费托管安装反馈
 如果您能在免费托管环境中成功安装并充分运行此引擎，请在[项目官方论坛（俄语）](http://dcms-social.ru/forum/)上报告。
@@ -17,7 +17,7 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://gitee.com/sk
 以下库为可选但**强烈建议**安装，以确保所有功能的正常使用：
 
 1. iconv
-2. FFMPEG
+2. FFmpeg
 3. GD
 4. mcrypt
 
@@ -39,6 +39,7 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://gitee.com/sk
 - 主题样式文件：`style/themes/`（主题文件夹）
 - 网站规则文件：`sys/add/rules.txt`
 - 默认主题存档：`sys/add/theme.zip`（用于管理员安装或替换丢失的主题文件）
+- 爬虫管理：`robots.txt`（源代码默认屏蔽 MJ12Bot、AhrefsBot 和 SEMrushBot 三只垃圾爬虫，详见[该文章](https://itlanyan.com/common-bot-ua-and-block-bad-bots/)）
 
 ## 安装步骤
 
@@ -55,6 +56,6 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://gitee.com/sk
 如果您对开发引擎有兴趣，可通过[论坛（俄文）](http://dcms-social.ru/forum/)申请编写模块的任务订单。
 
 ## 待办事项
-- 移除代码 `version_stable()`
-- 移除 token 相关代码
-- 纠正翻译 翻译部分残留的文本
+- [ ] 移除代码 `version_stable()`
+- [ ] 移除 token 相关代码
+- [ ] 纠正翻译和翻译部分残留的文本
