@@ -17,18 +17,18 @@ if (isset($user) && dbresult(dbquery("SELECT COUNT(`id`) FROM `ban` WHERE `razde
     header('Location: /user/ban.php?' . SID);
     exit;
 }
-$set['title'] = '分享他们';
+$set['title'] = '分享给其他人';
 include_once '../sys/inc/thead.php';
 title();
 aut();
 $not = dbquery("SELECT * FROM `forum_t` WHERE `id`='" . intval($_GET['id']) . "' LIMIT 1");
 if (dbrows($not) == 0) {
-    echo "<div class='error'>没有这样的话题</div>";
+    echo "<div class='error'>这个帖子不存在</div>";
     include_once '../sys/inc/tfoot.php';
     exit;
 }
 if (dbresult(dbquery("SELECT COUNT(`id`)FROM `notes` WHERE `id_user`='" . $user['id'] . "' AND `share_id`='" . intval($_GET['id']) . "' AND `share_type`='forum' LIMIT 1"), 0) == 1) {
-    echo "<div class='error'>您已经分享了这个主题</div>";
+    echo "<div class='error'>你成功分享了这个帖子</div>";
     include_once '../sys/inc/tfoot.php';
     exit;
 } else {
@@ -37,7 +37,7 @@ if (dbresult(dbquery("SELECT COUNT(`id`)FROM `notes` WHERE `id_user`='" . $user[
     if (isset($_POST['ok'])) {
         dbquery("INSERT INTO `notes`(`id_user`,`name`,`msg`,`share`,`share_text`,`share_id`,`share_id_user`,`share_name`,`time`,`share_type`) values('" . $user['id'] . "','" . text($notes['name']) . "','" . my_esc($_POST['share_text']) . "','1','" . my_esc($notes['text']) . "','" . $notes['id'] . "','" . $notes['id_user'] . "','" . my_esc($notes['name']) . "','" . $time . "','forum')");
         $id = dbinsertid();
-        msg('一切顺利');
+        msg('分享成功!');
         header('Location:/plugins/notes/list.php?id=' . $id);
         exit;
     }
