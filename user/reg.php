@@ -26,9 +26,9 @@ if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL)
 )
 	$_SESSION['refer'] = str_replace('&', '&amp;', preg_replace('#^http://[^/]*/#', '/', $_SERVER['HTTP_REFERER']));
 if ($set['reg_select'] == 'close') {
-	$err = '注册已关闭';
+	$err = '已关闭注册';
 	err();
-	echo "<a href='/user/aut.php'>登录账号</a><br />";
+	echo "<a href='/user/aut.php'>已注册?点击此处登录账号</a><br />";
 	include_once '../sys/inc/tfoot.php';
 } elseif ($set['reg_select'] == 'open_mail' && isset($_GET['id']) && isset($_GET['activation']) && $_GET['activation'] != NULL) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '" . intval($_GET['id']) . "' AND `activation` = '" . my_esc($_GET['activation']) . "'"), 0) == 1) {
@@ -48,8 +48,8 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 			$err[] = "使用此电子邮件的用户已注册";
 		}
 	}
-	if (strlen2($_POST['pass1']) < 6) $err[] = '为了保证安全，密码不能短于6个字符';
-	if (strlen2($_POST['pass1']) > 32) $err[] = '密码长度超过32个字符';
+	if (strlen2($_POST['pass1']) < 6) $err[] = '为了安全，密码长度不能短于6字';
+	if (strlen2($_POST['pass1']) > 32) $err[] = '密码长度超过32字';
 	if ($_POST['pass1'] != $_POST['pass2']) $err[] = '两次输入的密码不匹配';
 	if (!isset($_SESSION['captcha']) || !isset($_POST['chislo']) || $_SESSION['captcha'] != $_POST['chislo']) {
 		$err[] = '验证码错误或无效';
