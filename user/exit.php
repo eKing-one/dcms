@@ -36,10 +36,10 @@ include_once '../sys/inc/thead.php';
 title();
 aut();
 echo '<form  method="post">
-你真的想退出吗？
+你确定退出登录吗?
   <input type="hidden" name="return" value="'.$_SERVER['HTTP_REFERER'].'">
-  <input type="submit" name="confirm_yes" value="是">
-  <input type="submit" name="confirm_no" value="否">
+  <input type="submit" name="confirm_yes" value="是的,我确定">
+  <input type="submit" name="confirm_no" value="不是,我手滑了">
 </form>
 ';
 include_once '../sys/inc/tfoot.php';
