@@ -16,11 +16,11 @@ function cookie_encrypt($str,$id=0)
 	if (function_exists('mcrypt_module_open') )
 	{
 		$td = mcrypt_module_open ('rijndael-256', '', 'ofb', '');
-		if (!$iv = @file_get_contents(H.'sys/dat/shif_iv.dat'))
+		if (!$iv = @file_get_contents(H.'sys/conf/shif_iv.dat'))
 		{
 			$iv=base64_encode( mcrypt_create_iv (mcrypt_enc_get_iv_size($td), MCRYPT_DEV_RANDOM));
-			file_put_contents(H.'sys/dat/shif_iv.dat', $iv);
-			chmod(H.'sys/dat/shif_iv.dat', 0777);
+			file_put_contents(H.'sys/conf/shif_iv.dat', $iv);
+			chmod(H.'sys/conf/shif_iv.dat', 0777);
 		}
 		$ks = @mcrypt_enc_get_key_size ($td);
 		/* Создать ключ */
@@ -34,10 +34,10 @@ function cookie_encrypt($str,$id=0)
   {
     $ks = openssl_cipher_iv_length($method = 'AES-256-CBC');
     $key = substr(md5($id.@$_SERVER['HTTP_USER_AGENT']), 0, $ks);
-    if (!$iv = @file_get_contents(H . 'sys/dat/shif_iv.dat')) {
+    if (!$iv = @file_get_contents(H . 'sys/conf/shif_iv.dat')) {
       $iv = openssl_random_pseudo_bytes($ks);
-      file_put_contents(H . 'sys/dat/shif_iv.dat', base64_encode($iv));
-      chmod(H . 'sys/dat/shif_iv.dat', 0644);
+      file_put_contents(H . 'sys/conf/shif_iv.dat', base64_encode($iv));
+      chmod(H . 'sys/conf/shif_iv.dat', 0644);
     }
     $str = openssl_encrypt($str, $method, $key, $options=OPENSSL_RAW_DATA, base64_decode($iv));
   }
@@ -50,11 +50,11 @@ function cookie_decrypt($str,$id=0)
 	if (function_exists('mcrypt_module_open'))
 	{
 		$td = mcrypt_module_open ('rijndael-256', '', 'ofb', '');
-		if (!$iv = @file_get_contents(H.'sys/dat/shif_iv.dat'))
+		if (!$iv = @file_get_contents(H.'sys/conf/shif_iv.dat'))
 		{
 			$iv = base64_encode( mcrypt_create_iv (mcrypt_enc_get_iv_size($td), MCRYPT_DEV_RANDOM));
-			file_put_contents(H.'sys/dat/shif_iv.dat', $iv);
-			chmod(H.'sys/dat/shif_iv.dat', 0777);
+			file_put_contents(H.'sys/conf/shif_iv.dat', $iv);
+			chmod(H.'sys/conf/shif_iv.dat', 0777);
 		}
 		$ks = @mcrypt_enc_get_key_size ($td);
 		/* Создать ключ */
@@ -68,10 +68,10 @@ function cookie_decrypt($str,$id=0)
   {
     $ks = openssl_cipher_iv_length($method = 'AES-256-CBC');
     $key = substr(md5($id.@$_SERVER['HTTP_USER_AGENT']), 0, $ks);
-    if (!$iv = file_get_contents(H . 'sys/dat/shif_iv.dat')) {
+    if (!$iv = file_get_contents(H . 'sys/conf/shif_iv.dat')) {
       $iv = openssl_random_pseudo_bytes($ks);
-      file_put_contents(H . 'sys/dat/shif_iv.dat', base64_encode($iv));
-      chmod(H . 'sys/dat/shif_iv.dat', 0644);
+      file_put_contents(H . 'sys/conf/shif_iv.dat', base64_encode($iv));
+      chmod(H . 'sys/conf/shif_iv.dat', 0644);
     }
     $str = openssl_decrypt($str, $method, $key, $options=OPENSSL_RAW_DATA, base64_decode($iv));
   }

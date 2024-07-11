@@ -59,14 +59,24 @@ $passgen = passgen();
 // 保存系统设置
 function save_settings($set)
 {
+    // 从数组中移除特定键
     unset($set['web']);
-    if ($fopen = @fopen(H . 'sys/dat/settings_6.2.dat', 'w')) {
-        @fputs($fopen, serialize($set));
+    
+    // 构建配置文件内容
+    $configContent = "<?php\nreturn " . var_export($set, true) . ";\n";
+
+    // 定义配置文件路径
+    $filePath = H . 'sys/dat/settings.php';
+
+    // 尝试打开文件写入内容
+    if ($fopen = @fopen($filePath, 'w')) {
+        @fputs($fopen, $configContent);
         @fclose($fopen);
-        @chmod(H . 'sys/dat/settings_6.2.dat', 0777);
+        @chmod($filePath, 0777);
         return true;
-    } else
+    } else {
         return false;
+    }
 }
 // 递归删除文件夹
 function delete_dir($dir)

@@ -9,9 +9,9 @@ $default = @parse_ini_file(H.'sys/dat/default.ini',true);
 $set_default = @$default['DEFAULT'];
 $set_replace = @$default['REPLACE'];
 
-if ($fset = @file_get_contents(H.'sys/dat/settings_6.2.dat'))
+if (file_exists(H.'sys/dat/settings.php'))
 {
-	$set_dinamic = unserialize($fset);
+	$set_dinamic = include_once(H.'sys/dat/settings.php');
 }
 elseif (file_exists(H.'install/index.php'))
 {
@@ -20,6 +20,7 @@ elseif (file_exists(H.'install/index.php'))
 }
 
 $set = @array_merge ($set_default, $set_dinamic, $set_replace);
+
 if ($set['show_err_php'])
 {
 	error_reporting(E_ALL); // включаем показ ошибок

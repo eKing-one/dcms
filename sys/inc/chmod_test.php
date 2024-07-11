@@ -43,6 +43,4 @@ test_chmod(H.'sys/tmp/',777);
 test_chmod(H.'style/themes/',777);
 test_chmod(H.'style/smiles/',777);
 test_chmod(H.'sys/gift/',777);
-if (file_exists(H.'sys/dat/settings_6.2.dat'))
-test_chmod(H.'sys/dat/settings_6.2.dat',666);
 ?>

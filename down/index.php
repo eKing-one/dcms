@@ -321,11 +321,9 @@ if (isset($_GET['f'])) {
             }
             echo '<div class="main">';
             if ($file_id['ras'] == 'jar')
-                echo '<img src="/style/icons/d.gif" alt="*"> <a href="/down' . $dir_id['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '">下载JAR (' . size_file($size) . ')</a> <a href="/down' . $dir_id['dir'] . $file_id['id'] . '.jad">JAD</a>  
-';
+                echo '<img src="/style/icons/d.gif" alt="*"> <a href="/down' . $dir_id['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '">下载JAR (' . size_file($size) . ')</a> <a href="/down' . $dir_id['dir'] . $file_id['id'] . '.jad">JAD</a>  ';
             else
-                echo '<img src="/style/icons/d.gif" alt="*"> <a href="/down' . $dir_id['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '">下载 (' . size_file($size) . ')</a> 
-';
+                echo '<img src="/style/icons/d.gif" alt="*"> <a href="/down' . $dir_id['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '">下载 (' . size_file($size) . ')</a> ';
             echo '<br/>已下载 (' . $file_id['k_loads'] . ')';
             echo '</div>';
         }
@@ -348,8 +346,7 @@ if (isset($_GET['f'])) {
         include_once '../sys/inc/thead.php';
         include_once 'inc/komm.php';
         echo '<div class="foot">';
-        echo '<img src="/style/icons/str2.gif" alt="*"> <a href="/down' . $dir_id['dir'] . '">到文件夹</a>
-';
+        echo '<img src="/style/icons/str2.gif" alt="*"> <a href="/down' . $dir_id['dir'] . '">到文件夹</a>';
         echo '</div>';
         include_once '../sys/inc/tfoot.php';
     }
