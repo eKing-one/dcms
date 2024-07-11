@@ -8,7 +8,7 @@ include_once '../../sys/inc/db_connect.php';
 include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
-$set['title']='资料';
+$set['title']='网站资料与帮助';
 include_once '../../sys/inc/thead.php';
 title();
 aut(); // форма авторизации
@@ -29,7 +29,7 @@ if (isset($_GET['id']) && isset($_GET['act']) && dbresult(dbquery("SELECT COUNT(
 	{
 		dbquery("UPDATE `rules` SET `pos` = '".($menu['pos'])."' WHERE `pos` = '".($menu['pos']-1)."' LIMIT 1");
 		dbquery("UPDATE `rules` SET `pos` = '".($menu['pos']-1)."' WHERE `id` = '".intval($_GET['id'])."' LIMIT 1");
-		$_SESSION['message'] = '菜单项已向上移动一个位置';
+		$_SESSION['message'] = '该项目已成功上移';
 		header("Location: ?");
 		exit;
 	}
@@ -37,7 +37,7 @@ if (isset($_GET['id']) && isset($_GET['act']) && dbresult(dbquery("SELECT COUNT(
 	{
 		dbquery("UPDATE `rules` SET `pos` = '".($menu['pos'])."' WHERE `pos` = '".($menu['pos']+1)."' LIMIT 1");
 		dbquery("UPDATE `rules` SET `pos` = '".($menu['pos']+1)."' WHERE `id` = '".intval($_GET['id'])."' LIMIT 1");
-		$_SESSION['message'] = '菜单项已向下移动一个位置';
+		$_SESSION['message'] = '该项目已成功下移';
 		header("Location: ?");
 		exit;
 	}
@@ -74,8 +74,8 @@ while ($post = dbassoc($q))
 }
 echo '</table>';
 if ($user['level'] > 2){
-	echo '<div class="foot"><img src="/style/icons/ok.gif" alt="*" /> <a href="new.php?msg">添加文本</a></div>';
-	echo '<div class="foot"><img src="/style/icons/ok.gif" alt="*" /> <a href="new.php?post">添加项目</a></div>';
-	echo '<div class="foot"><img src="/style/icons/ok.gif" alt="*" /> <a href="new.php?url">添加链接</a></div>';
+	echo '<div class="foot"><img src="/style/icons/ok.gif" alt="*" /> <a href="new.php?msg">添加一段文本</a></div>';
+	echo '<div class="foot"><img src="/style/icons/ok.gif" alt="*" /> <a href="new.php?post">添加一个项目</a></div>';
+	echo '<div class="foot"><img src="/style/icons/ok.gif" alt="*" /> <a href="new.php?url">添加一个链接</a></div>';
 }
 include_once '../../sys/inc/tfoot.php';

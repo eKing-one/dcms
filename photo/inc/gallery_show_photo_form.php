@@ -8,7 +8,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'rename')
 	描述:<?=$tPanel?>
 	<textarea name="opis"><?=text($photo['opis'])?></textarea><br />
 	<label><input type="checkbox" name="metka" value="1" <?=($photo['metka'] == 1 ? "checked='checked'" : null)?>/> 标签 <font color="red">18+</font></label><br />
-	<input class="submit" type="submit" value="应用" /><br />
+	<input class="submit" type="submit" value="更改" /><br />
 	<img src="/style/icons/str2.gif" alt="*"> <a href="?">取消</a><br />
 	</form>
 	<?
@@ -25,7 +25,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'delete')
 }
 echo '<div class="foot">';
 if ($ank['id'] == $user['id'])
-echo '<img src="/style/icons/pht2.png" alt="*"> <a href="?act=avatar">做一个主页</a><br />';
+echo '<img src="/style/icons/pht2.png" alt="*"> <a href="?act=avatar">设置为头像</a><br />';
 ?>
 <img src="/style/icons/pen2.png" alt="*"> <a href="?act=rename">重命名</a><br />
 <img src="/style/icons/crs2.png" alt="*"> <a href="?act=delete">删除</a><br />

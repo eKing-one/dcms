@@ -26,7 +26,7 @@ if(isset($_GET['id']))
 		$del = dbassoc(dbquery("SELECT * FROM `smile` WHERE `id` = '" . intval($_GET['del']) . "' LIMIT 1"));
 		@unlink(H.'style/smiles/' . $del['id'] . '.gif');
 		dbquery("DELETE FROM `smile` WHERE `id` = '".intval($_GET['del'])."'");
-		$_SESSION['message'] = '微笑被成功删除';
+		$_SESSION['message'] = '已删除此表情';
 		header('Location: ?id=' . intval($_GET['id']) . '&page=' . intval($_GET['page']));
 		exit;
 	}
@@ -53,7 +53,7 @@ if(isset($_GET['id']))
 			}
 			else
 			{
-				$err = '档案 (' . $i . ') 未上传';
+				$err = '文件 (' . $i . ') 上传失败';
 			}
 		}
 	}
@@ -72,11 +72,11 @@ if(isset($_GET['delete']))
 		dbquery("DELETE FROM `smile` WHERE `id` = '" . $post['id'] . "'");
 	}
 	dbquery("DELETE FROM `smile_dir` WHERE `id` = '" . intval($_GET['delete']) . "'");
-	$_SESSION['message'] = '类别已成功删除';
+	$_SESSION['message'] = '分类已成功删除';
 	header("Location: ?");
 	exit;
 }
-$set['title'] = '管理表情符号';
+$set['title'] = '管理表情';
 include_once H.'sys/inc/thead.php';
 err();
 title();
@@ -95,14 +95,14 @@ if (isset($_GET['id']))
 		$_SESSION['forms'] = $forms;
 		?>
 		<form enctype="multipart/form-data" action="?id=<?=intval($_GET['id'])?>&amp;act=add_smile&amp;ok" method="post">
-		档案数目:<br />
+		分类数量:<br />
 		<input type="text" name="forms" value="<?=$forms?>"/><br />
-		<input class="submit" type="submit" value="显示表格" /><br />
+		<input class="submit" type="submit" value="显示分类" /><br />
 		<?
 		for ($i=0; $i < $forms; $i++)
 		{
-			echo ($i+1) . ') 档案: <input name="file_' . $i . '" type="file" /><br />';
-			echo ($i+1) . ') 一个微笑(例如:)或:D....)<br /><input type="text" name="smile_' . $i . '" maxlength="32" /><br />';
+			echo ($i+1) . ') 文件: <input name="file_' . $i . '" type="file" /><br />';
+			echo ($i+1) . ') 一个表情包 例如: [mikumiku] <br /><input type="text" name="smile_' . $i . '" maxlength="32" /><br />';
 		}
 		?>
 		<input type="submit" value="添加" />
@@ -147,7 +147,7 @@ if (isset($_GET['id']))
 			{
 				$smile = my_esc($_POST['smile']);
 				if(strlen2($smile) < 1)
-				$err = '至少1个字符的名称'; 
+				$err = '名称不可以少于一个字'; 
 				if (!isset($err))
 				{
 					dbquery("UPDATE `smile` SET `smile` = '$smile' WHERE `id` = '$post[id]'");

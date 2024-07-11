@@ -18,7 +18,7 @@ include_once '../sys/inc/thead.php';
 title();
 aut();
 if ($set['guest_select'] == '1') {
-	msg("只有授权用户才能访问该网站");
+	msg("登录后才能访问该网站");
 }
 if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL)
 	&& isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != NULL &&
@@ -26,9 +26,9 @@ if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL)
 )
 	$_SESSION['refer'] = str_replace('&', '&amp;', preg_replace('#^http://[^/]*/#', '/', $_SERVER['HTTP_REFERER']));
 if ($set['reg_select'] == 'close') {
-	$err = '暂停登记';
+	$err = '已关闭注册';
 	err();
-	echo "<a href='/user/aut.php'>登录账号</a><br />";
+	echo "<a href='/user/aut.php'>已注册?点击此处登录账号</a><br />";
 	include_once '../sys/inc/tfoot.php';
 } elseif ($set['reg_select'] == 'open_mail' && isset($_GET['id']) && isset($_GET['activation']) && $_GET['activation'] != NULL) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '" . intval($_GET['id']) . "' AND `activation` = '" . my_esc($_GET['activation']) . "'"), 0) == 1) {
@@ -48,11 +48,11 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 			$err[] = "使用此电子邮件的用户已注册";
 		}
 	}
-	if (strlen2($_POST['pass1']) < 6) $err[] = '出于安全原因，密码不能短于6个字符';
-	if (strlen2($_POST['pass1']) > 32) $err[] = '密码长度超过32个字符';
-	if ($_POST['pass1'] != $_POST['pass2']) $err[] = '密码不匹配';
+	if (strlen2($_POST['pass1']) < 6) $err[] = '为了安全，密码长度不能短于6字';
+	if (strlen2($_POST['pass1']) > 32) $err[] = '密码长度超过32字';
+	if ($_POST['pass1'] != $_POST['pass2']) $err[] = '两次输入的密码不匹配';
 	if (!isset($_SESSION['captcha']) || !isset($_POST['chislo']) || $_SESSION['captcha'] != $_POST['chislo']) {
-		$err[] = '验证号码无效';
+		$err[] = '验证码错误或无效';
 	}
 	if (!isset($err)) {
 		if ($set['reg_select'] == 'open_mail') {
@@ -133,16 +133,16 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1) {
 	echo "输入密码（6-32个字符）:<br /><input type='password' name='pass1' maxlength='32' /><br />";
 	echo "重复密码:<br /><input type='password' name='pass2' maxlength='32' /><br />";
 	echo "<img src='/captcha.php?$passgen&amp;SESS=$sess' width='100' height='30' alt='核证号码' /><br /><input name='chislo' size='5' maxlength='5' value='' type='text' /><br/>";
-	echo "通过注册，您自动同意 <a href='/user/rules.php'>规则</a> 网站<br />";
+	echo "通过注册，即代表您同意网站管理条例</a><br />";
 	echo "<input type='submit' value='继续' />";
 	echo "</form><br />";
 } else {
 	echo "<form class='mess' method='post' action='/user/reg.php?$passgen'>";
 	echo "你的用户名 [A-z0-9 -_]:<br /><input type='text' name='login' maxlength='32' /><br />";
-	echo "通过注册，您自动同意 <a href='/user/rules.php'>网站规则</a> <br />";
+	echo "通过注册，即代表您同意网站管理条例</a> <br />";
 	echo "<input type='submit' value='继续' />";
 	echo "</form><br />";
 }
 echo "<div class = 'foot'>已经注册？<br />&raquo;<a href='/user/aut.php'>登录账号</a></div>
-<div class = 'foot'>不记得密码？<br />&raquo;<a href='/user/pass.php'>恢复密码</a></div>";
+<div class = 'foot'>不记得密码？<br />&raquo;<a href='/user/pass.php'>找回密码</a></div>";
 include_once '../sys/inc/tfoot.php';

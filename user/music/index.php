@@ -32,7 +32,7 @@ include_once '../../sys/inc/thead.php';
 if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
 if ($ank['id'] == 0) {
-	echo "搞错了！ 这是系统的音乐，这里没有曲目=）";
+	echo "你的播放列表还没有歌曲=）";
 	exit;
 }
 // Определяем id автора плейлиста

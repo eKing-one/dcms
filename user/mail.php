@@ -208,8 +208,7 @@ if ($ank['id'] != 0 && $ank['date_last'] < $rt) {
 if ($ank['id'] != 0 && $block == true) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"), 0) == 1) {
 		$kont = dbarray(dbquery("SELECT * FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"));
-		echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'>  <a href='/user/conts.php?type=$kont[type]&amp;act=del&amp;id=$ank[id]'>从列表中删除联系人</a></div>";
-	} else {
+	 else {
 		echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'> 
 	<a href='/user/conts.php?type=common&amp;act=add&amp;id=$ank[id]'>添加到联系人列表</a></div>";
 	}

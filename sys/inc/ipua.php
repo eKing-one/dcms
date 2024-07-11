@@ -20,9 +20,9 @@ $iplong = ip2long($ip);
 if (isset($_SERVER['HTTP_USER_AGENT']))
 {
 	$ua = $_SERVER['HTTP_USER_AGENT'];
-	$ua = strtok($ua, '/');
-	$ua = strtok($ua, '('); // 我们只留下括号前的内容
-	$ua = preg_replace('#[^a-z_\./ 0-9\-]#iu', null, $ua); // 我们剪掉了所有的"左"字符
+	// $ua = strtok($ua, '/'); // 这样做也会导致下述情况发生 --Diamochang
+	// $ua = strtok($ua, '('); // 我们只留下括号前的内容（这样做的后果是：大家都在使用初代 Mozilla --Diamochang）
+	$ua = preg_replace('#[^a-z_\./ 0-9\-]#iu', null, $ua); // 我们剪掉了所有的"左"（？--Diamochang）字符
 	// Opera mini还会发送有关手机的数据 :)
 	if (isset($_SERVER['HTTP_X_OPERAMINI_PHONE_UA']) && preg_match('#Opera#i',$ua))
 	{

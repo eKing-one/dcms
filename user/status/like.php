@@ -23,7 +23,7 @@ include_once '../../sys/inc/db_connect.php';
 include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
-$set['title'] = '喜欢地位';
+$set['title'] = '喜欢状态';
 include_once '../../sys/inc/thead.php';
 title();
 if (dbresult(dbquery("SELECT COUNT(*) FROM `status` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1", $db), 0) == 0) {
@@ -47,7 +47,7 @@ $q = dbquery("SELECT * FROM `status_like` WHERE `id_status` = '" . intval($_GET[
 echo "<table class='post'>";
 if ($k_post == 0) {
 	echo "<div class='mess'>";
-	echo "他们还没有投票支持这个地位";
+	echo "没有人给这个状态点赞";
 	echo "</div>";
 }
 while ($post = dbassoc($q)) {

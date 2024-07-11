@@ -26,7 +26,7 @@ if (!$set['web'])
 	</a>
 	<font color="#fee300" size="2"> (</font>
 	<font color="#ffffff">+'.$ol_guest.'</font>
-	<font color="#fee300" size="2"> 在线游客 )</font>
+	<font color="#fee300" size="2"> 游客 )</font>
 	</center>
 	</div>
 	<div class="main_menu">';

@@ -43,7 +43,7 @@ if (isset($_GET['id_mod']) && isset($_GET['id_act']) && dbresult(dbquery("SELECT
     if ($k_post == 0) {
         echo "   <tr>";
         echo "  <td class='p_t'>";
-        echo "没有动作";
+        echo "没有活动";
         echo "  </td>";
         echo "   </tr>";
     }

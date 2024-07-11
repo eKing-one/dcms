@@ -35,7 +35,7 @@ if ((!isset($user) || $user['group_access'] == 0) && dbresult(dbquery("SELECT CO
 	title();
 	aut();
 	echo '<div class="mess">';
-	echo '<b><font color=red>此用户被封禁，无法查看其用户页面。</font></b><br /> ';
+	echo '<b><font color=red>该用户已被封禁,无法查看个人页面</font></b><br /> ';
 	echo '</div>';
 	include_once '../sys/inc/tfoot.php';
 	exit;
@@ -77,13 +77,13 @@ if (isset($_POST['msg']) && isset($user)) {
 	$msg = $_POST['msg'];
 	if (isset($_POST['translit']) && $_POST['translit'] == 1) $msg = translit($msg);
 	$mat = antimat($msg);
-	if ($mat) $err[] = '在信息文本中发现了一个禁止字符: ' . $mat;
+	if ($mat) $err[] = '动态文本中包含特殊字符' . $mat;
 	if (strlen2($msg) > 1024) {
-		$err[] = '信息长于 1024 字节。试着压缩一下？';
+		$err[] = '动态长于1024个字,写少些吧';
 	} elseif (strlen2($msg) < 2) {
-		$err[] = '信息短于 2 字节。试着扩充一下？';
+		$err[] = '动态短于2个字,多写点吧';
 	} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `stena` WHERE `id_user` = '$user[id]' AND  `id_stena` = '$ank[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
-		$err = '您的信息与前一个重复';
+		$err = '动态重复了';
 	} elseif (!isset($err)) {
 		/*
 		==========================
@@ -97,7 +97,7 @@ if (isset($_POST['msg']) && isset($user)) {
 		}
 		dbquery("INSERT INTO `stena` (id_user, time, msg, id_stena) values('$user[id]', '$time', '" . my_esc($msg) . "', '$ank[id]')");
 		dbquery("UPDATE `user` SET `balls` = '" . ($user['balls'] + 1) . "' ,`rating_tmp` = '" . ($user['rating_tmp'] + 1) . "' WHERE `id` = '$user[id]' LIMIT 1");
-		$_SESSION['message'] = '信息已成功添加';
+		$_SESSION['message'] = '动态发表成功';
 		if (isset($user)) {
 			$notifiacation = dbassoc(dbquery("SELECT * FROM `notification_set` WHERE `id_user` = '" . $ank['id'] . "' LIMIT 1"));
 			if ($notifiacation['komm'] == 1 && $user['id'] != $ank['id'])
@@ -124,7 +124,7 @@ if (isset($_POST['rating']) && isset($user)  && $user['id'] != $ank['id'] && $us
 		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 留下了负面评论 [url=/who_rating.php]你的个人资料[/url]', '$time')");
 	if ($new_r == 0)
 		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 留下了中立的评论 [url=/who_rating.php]你的个人资料[/url]', '$time')");
-	msg('您对用户的看法已成功更改');
+	msg('对用户的评价已更改');
 }
 //-------------状态记录-----------//
 if (isset($_POST['status']) && isset($user) && $user['id'] == $ank['id']) {
@@ -133,11 +133,11 @@ if (isset($_POST['status']) && isset($user) && $user['id'] == $ank['id']) {
 	$mat = antimat($msg);
 	if ($mat) $err[] = '在状态文本中发现了一个禁止字符: ' . $mat;
 	if (strlen2($msg) > 512) {
-		$err = '状态长于 512 字节。试着压缩一下？';
+		$err = '状态长于512个字,写少点吧';
 	} elseif (strlen2($msg) < 2) {
-		$err = '状态短于 2 字节。试着扩充一下？';
+		$err = '状态短于2个字,多写点吧';
 	} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `status` WHERE `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
-		$err = '您的状态与前一个重复';
+		$err = '状态重复';
 	} elseif (!isset($err)) {
 		dbquery("UPDATE `status` SET `pokaz` = '0' WHERE `id_user` = '$user[id]'");
 		dbquery("INSERT INTO `status` (`id_user`, `time`, `msg`, `pokaz`) values('$user[id]', '$time', '" . my_esc($msg) . "', '1')");
@@ -219,7 +219,7 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 		if (isset($_POST['spamus'])) {
 			if ($mess['id_user'] != $user['id']) {
 				$msg = my_esc($_POST['spamus']);
-				if (strlen2($msg) < 3) $err = '更详细地说明投诉的原因';
+				if (strlen2($msg) < 3) $err = '请更详细地说明投诉原因';
 				if (strlen2($msg) > 1512) $err = '文本的长度超过512个字符的限制'; //是 512 字节还是 1512 字节？——Diamochang
 				if (isset($_POST['types'])) $types = intval($_POST['types']);
 				else $types = '0';
@@ -246,7 +246,7 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 		echo "<b>违规行为：</b> <font color='green'>" . output_text($mess['msg']) . "</font><br />";
 		echo "原因：<br /><select name='types'>";
 		echo "<option value='1' selected='selected'>垃圾邮件/广告</option>";
-		echo "<option value='2' selected='selected'>欺诈行为</option>";
+		echo "<option value='2' selected='selected'>诈骗行为</option>";
 		echo "<option value='3' selected='selected'>引战</option>"; //我自己认为进攻≈引战。——Diamochang
 		echo "<option value='4' selected='selected'>网络暴力</option>"; //网暴处理起来非常敏感，需要管理员高度重视。——Diamochang
 		echo "<option value='0' selected='selected'>其他</option>";
@@ -256,7 +256,7 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 		echo "<input value=\"提交投诉\" type=\"submit\" />";
 		echo "</form>";
 	} else {
-		echo "<div class='mess'>有关 <font color='green'>$spamer[nick]</font> 的投诉管理团队将尽快处理，请耐心等待。</div>";
+		echo "<div class='mess'>有关<font color='green'>$spamer[nick]</font>的投诉管理团队将尽快处理，请耐心等待。</div>";
 	}
 	echo "<div class='foot'>";
 	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/user/info.php?id=$ank[id]'>返回</a><br />";
