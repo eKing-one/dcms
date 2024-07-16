@@ -466,3 +466,6 @@ DCMS-Social 1.9.9.7
 -修正status()为avatar()
 -修正avatar_ank()为avatar()
 -obmen改为down
+====================
+DCMS-Social 20240711
+-修改程序参数存储位置由原来的/sys/dat/settings_6.2.dat改为/sys/conf/settings.php
