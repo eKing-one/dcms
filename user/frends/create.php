@@ -1,19 +1,4 @@
 <?
-/*
-=======================================
-DCMS-Social 的朋友
-作者：探索者
----------------------------------------
-此脚本在许可下被破坏
-DCMS-Social 引擎。
-使用时，指定引用到
-网址 http://dcms-social.ru
----------------------------------------
-接点
-ICQ：587863132
-http://dcms-social.ru
-=======================================
-*/
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -99,7 +84,7 @@ if (isset($_GET['ok']))
     dbquery("OPTIMIZE TABLE `frends`");
     dbquery("OPTIMIZE TABLE `frends_new`");
 	}		
-	$_SESSION['message']="用户已添加到您的好友列表中";
+	$_SESSION['message']="用户已添加到好友列表";
 	header("Location: new.php?".SID);
 	exit;
 	}
@@ -122,7 +107,7 @@ if (isset($_GET['del']))
   dbquery("DELETE FROM `frends_new` WHERE `user` = '$user[id]' AND `to` = '$no' LIMIT 1");
   dbquery("OPTIMIZE TABLE `frends`");
   dbquery("OPTIMIZE TABLE `frends_new`");
-	$_SESSION['message']="该用户已从您的好友列表中删除";
+	$_SESSION['message']="已删除此好友";
 	header("location:  " . htmlspecialchars($_SERVER['HTTP_REFERER']) . "");
 	}
 exit;
@@ -145,7 +130,7 @@ if (isset($_GET['otm']))
   dbquery("DELETE FROM `frends_new` WHERE `user` = '$user[id]' AND `to` = '$no' LIMIT 1");
   dbquery("OPTIMIZE TABLE `frends`");
   dbquery("OPTIMIZE TABLE `frends_new`");
-	$_SESSION['message']="申请被拒绝";
+	$_SESSION['message']="对方拒绝添加你为好友";
 	header("location:  " . htmlspecialchars($_SERVER['HTTP_REFERER']) . "");
 	}
 exit;
@@ -159,7 +144,7 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[i
 if ($ank['id']==$user['id']){header("Location: index.php?".SID);exit;}
 dbquery("INSERT INTO `frends_new` (`user`, `to`, `time`) values('$user[id]', '$ank[id]', '$time')");
 dbquery("OPTIMIZE TABLE `frends_new`");
-$_SESSION['message']="申请已寄出";
+$_SESSION['message']="好友申请已发送";
 header("location:  " . htmlspecialchars($_SERVER['HTTP_REFERER']) . "");
 exit;
 }
