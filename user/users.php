@@ -8,7 +8,7 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
-$set['title'] = '搜索使用者'; //网页标题
+$set['title'] = '搜索用户'; //网页标题
 include_once '../sys/inc/thead.php';
 title();
 aut();
@@ -48,11 +48,11 @@ if (!isset($_GET['go'])) {
 	<select name='menu' onchange='top.location.href = this.options[this.selectedIndex].value;'> 
 	<option selected>-选择-
 	<option value='?sort=balls&amp;DESC&amp;page=$page'>积分</option>
-	<option value='?sort=level&amp;DESC&amp;page=$page'>等级</option>
+	<option value='?sort=level&amp;DESC&amp;page=$page'>注册时间</option>
 	<option value='?sort=rating&amp;DESC&amp;page=$page'>评级</option>
-	<option value='?sort=id&amp;ASC&amp;page=$page'>id</option>
+	<option value='?sort=id&amp;ASC&amp;page=$page'>ID</option>
 	<option value='?sort=pol&amp;ASC&amp;page=$page'>性别</option>
-	<option value='?sort=id&amp;DESC&amp;page=$page'>新的</option>
+	<option value='?sort=id&amp;DESC&amp;page=$page'>最新的</option>
 	</select></option>
 	</div>
 	<table class='post'>";
@@ -111,7 +111,7 @@ if (isset($_GET['go']) && $usearch != NULL) {
 	 <select name='menu' onchange='top.location.href = this.options[this.selectedIndex].value;'> 
 	<option selected>-选择-
 	<option value='?sort=balls&amp;DESC&amp;page=$page'>积分</option>
-	<option value='?sort=level&amp;DESC&amp;page=$page'>等级</option>
+	<option value='?sort=level&amp;DESC&amp;page=$page'>注册时间</option>
 	<option value='?sort=rating&amp;DESC&amp;page=$page'>评级</option>
 	<option value='?sort=id&amp;ASC&amp;page=$page'>id</option>
 	<option value='?sort=pol&amp;ASC&amp;page=$page'>性别</option>
