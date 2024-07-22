@@ -12,7 +12,7 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('adm_set_chat',null,'index.php?'.SID);
 adm_check();
-$set['title']='聊天设置';
+$set['title']='聊天室设置';
 include_once '../sys/inc/thead.php';
 title();
 if (isset($_POST['save']))
@@ -29,7 +29,7 @@ if(preg_match("#^([A-zА-я0-9\-\_\ ])+$#ui", $_POST['chat_umnik']) && strlen2($
 $temp_set['chat_umnik']=$_POST['chat_umnik'];
 if (save_settings($temp_set))
 {
-admin_log('设置','系统','更改聊天设置');
+admin_log('设置','系统','聊天室设置');
 msg('设置已成功接受');
 }
 else
