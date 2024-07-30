@@ -111,15 +111,15 @@ if (isset($_POST['refresh'])) {
 }
 if (isset($_POST['msg']) && $ank['id'] != 0 && !isset($_GET['spam'])) {
 	if ($user['level'] == 0 && dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_kont` = '$user[id]' AND `id_user` = '$ank[id]'"), 0) == 0) {
-		if (!isset($_SESSION['captcha'])) $err[] = '验证号码错误';
-		if (!isset($_POST['chislo'])) $err[] = '输入验证号码';
-		elseif ($_POST['chislo'] == null) $err[] = '输入验证号码';
-		elseif ($_POST['chislo'] != $_SESSION['captcha']) $err[] = '检查验证号码是否输入正确';
+		if (!isset($_SESSION['captcha'])) $err[] = '验证码错误';
+		if (!isset($_POST['chislo'])) $err[] = '输入验证码';
+		elseif ($_POST['chislo'] == null) $err[] = '输入验证码';
+		elseif ($_POST['chislo'] != $_SESSION['captcha']) $err[] = '检查验证码是否输入正确';
 	}
 	$msg = $_POST['msg'];
 	if (isset($_POST['translit']) && $_POST['translit'] == 1) $msg = translit($msg);
-	if (strlen2($msg) > 1024) $err[] = '消息超过1024个字符';
-	if (strlen2($msg) < 2) $err[] = '信息太短了';
+	if (strlen2($msg) > 1024) $err[] = '信息多余1024字';
+	if (strlen2($msg) < 1) $err[] = '信息不能少于1字';
 	$mat = antimat($msg);
 	if ($mat) $err[] = '在消息的文本中发现了一个非法字符: ' . $mat;
 	if (!isset($err) && dbresult(dbquery("SELECT COUNT(*) FROM `mail` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]' AND `time` > '" . ($time - 360) . "' AND `msg` = '" . my_esc($msg) . "'"), 0) == 0) {
@@ -130,7 +130,7 @@ if (isset($_POST['msg']) && $ank['id'] != 0 && !isset($_GET['spam'])) {
 			dbquery("INSERT INTO `users_konts` (`id_user`, `id_kont`, `time`) VALUES ('$user[id]', '$ank[id]', '$time')");
 		// обновление сведений о контакте
 		dbquery("UPDATE `users_konts` SET `time` = '$time' WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]' OR `id_user` = '$ank[id]' AND `id_kont` = '$user[id]'");
-		$_SESSION['message'] = '消息发送成功';
+		$_SESSION['message'] = '信息发送成功';
 		header("Location: ?id=$ank[id]");
 		exit;
 	}
