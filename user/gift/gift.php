@@ -110,6 +110,6 @@ if ($ank['id'] == $user['id']) {
 	echo '</div>';
 }
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*" /> ' . user::nick($ank['nick'],1,0,0) . '</a> | <a href="/user/gift/index.php?id=' . $ank['id'] . '">Подарки</a> | <b>' . htmlspecialchars($gift['name']) . '</b>';
+echo '<img src="/style/icons/str2.gif" alt="*" /> ' . user::nick($ank['nick'],1,0,0) . '</a> | <a href="/user/gift/index.php?id=' . $ank['id'] . '">礼物</a> | <b>' . htmlspecialchars($gift['name']) . '</b>';
 echo '</div>';
 include_once '../../sys/inc/tfoot.php';
