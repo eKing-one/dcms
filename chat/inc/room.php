@@ -4,12 +4,12 @@ if (isset($_POST['msg']) && isset($user)) {
 	$msg = $_POST['msg'];
 	$mat = antimat($msg);
 	if ($mat) $err[] = '在信息的文本中发现了一个非法字符: ' . $mat;
-	if (strlen2($msg) > 512) {
-		$err[] = '信息长于 512 字节。试着压缩一下？';
-	} elseif (strlen2($msg) < 2) {
-		$err[] = '信息短于 2 字节。试着扩充一下？';
+	if (strlen2($msg) > 1024 ) {
+		$err[] = '信息不能超过 512 字';
+	} elseif (strlen2($msg) < 1) {
+		$err[] = '信息不能少于 1 字';
 	} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `chat_post` WHERE `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' AND `time` > '" . ($time - 300) . "' LIMIT 1"), 0) != 0) {
-		$err = '你的留言重复了前面的';
+		$err = '留言重复';
 	} elseif (!isset($err)) {
 		if (isset($_POST['privat'])) {
 			$priv = abs(intval($_POST['privat']));
