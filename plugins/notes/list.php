@@ -283,15 +283,15 @@ if (isset($user) && $user['id'] != $avtor['id']) {
 if (isset($user)) {
 	echo "" . ($webbrowser ? "&bull;" : null) . " <img src='/style/icons/add_fav.gif' alt='*' /> ";
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `bookmarks` WHERE `id_user` = '" . $user['id'] . "' AND `id_object` = '" . $notes['id'] . "' AND `type`='notes' LIMIT 1"), 0) == 0)
-		echo "<a href='list.php?id=$notes[id]&amp;fav=1'>添加书签</a><br />";
+		echo "<a href='list.php?id=$notes[id]&amp;fav=1'>添加到书签</a><br />";
 	else
-		echo "<a href='list.php?id=$notes[id]&amp;fav=0'>移除书签</a><br />";
-	echo "<img src='/style/icons/add_fav.gif' alt='*' />  <a href='fav.php?id=" . $notes['id'] . "'>谁加的？ </a> (" . $markinfo . ")";
+		echo "<a href='list.php?id=$notes[id]&amp;fav=0'>删除书签</a><br />";
+	echo "<img src='/style/icons/add_fav.gif' alt='*' />  <a href='fav.php?id=" . $notes['id'] . "'>谁将它添加到书签?</a> (" . $markinfo . ")";
 }
 echo '</div>';
 //-------------------------------------------------------------//
 echo "<div class='main'>";
-echo '在社交网络：';
+echo 'DCMS-Social：';
 echo "</div>";
 /*
 ===================================
@@ -367,7 +367,7 @@ if ($notes['private_komm'] == 1 && $user['id'] != $avtor['id'] && $frend != 2  &
 	exit;
 }
 if ($notes['private_komm'] == 2 && $user['id'] != $avtor['id'] && !user_access('notes_delete')) {
-	msg('用户禁止评论日记');
+	msg('评论区已关闭');
 	echo "  <div class='foot'>";
 	echo "<a href='index.php'>返回</a><br />";
 	echo "   </div>";
