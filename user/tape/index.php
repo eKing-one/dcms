@@ -74,7 +74,7 @@ include_once '../../sys/inc/thead.php';
 if (isset($_GET['read']) && $_GET['read'] == 'all') {
 	if (isset($user)) {
 		dbquery("UPDATE `tape` SET `read` = '1' WHERE `id_user` = '$user[id]'");
-		$_SESSION['message'] = '未读列表已清除';
+		$_SESSION['message'] = '已全部已读';
 		header("Location: ?page=" . intval($_GET['page']) . "");
 		exit;
 	}
@@ -89,7 +89,7 @@ if (isset($_GET['read']) && $_GET['read'] == 'all') {
 if (isset($_GET['delete']) && $_GET['delete'] == 'all') {
 	if (isset($user)) {
 		dbquery("DELETE FROM `tape` WHERE `id_user` = '$user[id]'");
-		$_SESSION['message'] = '成功清洁';
+		$_SESSION['message'] = ' 清理成功 ';
 		header("Location: ?");
 		exit;
 	}
@@ -121,7 +121,7 @@ echo "<div class='webmenu'>";
 echo "<a href='/user/discussions/' >讨论  $discuss</a>";
 echo "</div>";
 echo "<div class='webmenu'>";
-echo "<a href='/user/notification/'>通知书 $k_notif</a>";
+echo "<a href='/user/notification/'> @到你的 $k_notif</a>";
 echo "</div>";
 echo "</div>";
 
@@ -134,7 +134,7 @@ $start = $set['p_str'] * $page - $set['p_str'];
 
 
 echo '<div class="foot">';
-echo '<a href="?page=' . $page . '&amp;read=all"><img src="/style/icons/ok.gif"> 将所有内容标记为已读</a>';
+echo '<a href="?page=' . $page . '&amp;read=all"><img src="/style/icons/ok.gif"> 一键清除消息/已读</a>';
 echo '</div>';
 
 
@@ -142,7 +142,7 @@ $q = dbquery("SELECT * FROM `tape` WHERE `id_user` = '$user[id]' ORDER BY `time`
 
 if ($k_post == 0) {
 	echo "  <div class='mess'>";
-	echo "没有新活动";
+	echo "没有新消息";
 	echo "  </div>";
 }
 
@@ -183,7 +183,7 @@ if ($k_page > 1) str('?', $k_page, $page);
 
 
 echo '<div class="foot">';
-echo '<a href="?page=' . $page . '&amp;delete=all"><img src="/style/icons/delete.gif"> 清除所有</a>';
+echo '<a href="?page=' . $page . '&amp;delete=all"><img src="/style/icons/delete.gif"> 清除消息</a>';
 echo '</div>';
 
 echo '<div class="foot">';
