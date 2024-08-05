@@ -119,11 +119,11 @@ if (isset($_POST['rating']) && isset($user)  && $user['id'] != $ank['id'] && $us
 	$ank['rating'] = intval(dbresult(dbquery("SELECT SUM(`rating`) FROM `user_voice2` WHERE `id_kont` = '$ank[id]'"), 0));
 	dbquery("UPDATE `user` SET `rating` = '$ank[rating]' WHERE `id` = '$ank[id]' LIMIT 1");
 	if ($new_r > 0)
-		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 留下了积极的评价 [url=/who_rating.php]你的个人资料[/url]', '$time')");
+		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 对你表示赞赏! [url=/who_rating.php]你的个人资料[/url]', '$time')");
 	if ($new_r < 0)
-		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 留下了负面评论 [url=/who_rating.php]你的个人资料[/url]', '$time')");
+		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 对你感到失望... [url=/who_rating.php]你的个人资料[/url]', '$time')");
 	if ($new_r == 0)
-		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 留下了中立的评论 [url=/who_rating.php]你的个人资料[/url]', '$time')");
+		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 保持中立 [url=/who_rating.php]你的个人资料[/url]', '$time')");
 	msg('对用户的评价已更改');
 }
 //-------------状态记录-----------//
@@ -146,7 +146,7 @@ if (isset($_POST['status']) && isset($user) && $user['id'] == $ank['id']) {
 		$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $user['id'] . "' AND `i` = '1'");
 		while ($f = dbarray($q)) {
 			$a = user::get_user($f['frend']);
-			$lentaSet = dbarray(dbquery("SELECT * FROM `tape_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // 一般饲料设置
+			$lentaSet = dbarray(dbquery("SELECT * FROM `tape_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); 
 			if ($f['lenta_status'] == 1 && $lentaSet['lenta_status'] == 1)
 				dbquery("INSERT INTO `tape` (`id_user`,`ot_kogo`,  `avtor`, `type`, `time`, `id_file`) values('$a[id]', '$user[id]', '$status[id_user]', 'status', '$time', '$status[id]')");
 		}
@@ -294,7 +294,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 	if ($uSet['privat_str'] == 2 && $frend != 2) // 只要有朋友的话
 	{
 		echo '<div class="mess">';
-		echo '根据用户的隐私设置，只有成为该用户的朋友才能查看用户页面。'; //“他”一般代指男生，但是 DCMS 的受众不只有男生。中性词可以避免不必要的麻烦。下同。——Diamochang
+		echo '根据用户的隐私设置，只有成为该用户的朋友才能查看用户页面。'; 
 		echo '</div>';
 		// В друзья
 		if (isset($user)) {
@@ -314,7 +314,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 	if ($uSet['privat_str'] == 0) // 关闭时
 	{
 		echo '<div class="mess">';
-		echo '根据用户的隐私设置，已禁止查看这位用户的页面。';
+		echo '由于用户的隐私设置，已禁止查看这位用户的主页';
 		echo '</div>';
 		include_once '../sys/inc/tfoot.php';
 		exit;
