@@ -86,11 +86,11 @@ echo "网站运行状态：<br />
   <option ".(setget('job',1)==0? " selected ":null)." value='0'>已禁用</option>
 </select>
 <br />";
-echo "带确认退出：<br />
+echo "退出账号确认：<br />
 
 <select name='exit'>
-  <option ".(setget('exit',1)==1? " selected ":null)." value='1'>是</option>
-  <option ".(setget('exit',1)==0? " selected ":null)." value='0'>否</option>
+  <option ".(setget('exit',1)==1? " selected ":null)." value='1'>开启</option>
+  <option ".(setget('exit',1)==0? " selected ":null)." value='0'>关闭</option>
 </select>
 
 <br />";
