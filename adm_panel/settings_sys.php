@@ -111,7 +111,7 @@ echo "  通过文件夹安装插件 /Replace/:<br />
 </select>
 <br />";
 */
-echo "网站主题 (WAP):<br /><select name='set_them'>";
+echo "网站默认主题 (WAP移动端):<br /><select name='set_them'>";
 $opendirthem=opendir(H.'style/themes');
 while ($themes=readdir($opendirthem)){
 // пропускаем корневые папки и файлы
@@ -122,7 +122,7 @@ echo "<option value='$themes'".($temp_set['set_them']==$themes?" selected='selec
 }
 closedir($opendirthem);
 echo "</select><br />";
-echo "网站主题 (WEB):<br /><select name='set_them2'>";
+echo "网站默认主题 (PC端):<br /><select name='set_them2'>";
 $opendirthem=opendir(H.'style/themes');
 while ($themes=readdir($opendirthem)){
 // пропускаем корневые папки и файлы
