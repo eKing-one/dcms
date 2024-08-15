@@ -79,7 +79,7 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_GET['act']) && $_GET['a
 	* 侵犯未成年人的权利;<br />
 	* 侵犯第三方的版权和相关权利;<br />
 	* 色情性质;<br />
-	* 包含任何形式的商业广告。<br />
+	* 任何形式的商业广告。<br />
 	</div>
 	<div class="foot">
 	<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'],1,0,0)?> | 

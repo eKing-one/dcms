@@ -245,7 +245,7 @@ if (!isset($block_photo)) {
 		echo '<div class="mess">';
 		echo '<img src="/style/icons/small_adult.gif" alt="*"><br /> 
 		此文件包含色情性质的图像。 
-		如果这不会打扰你，你是18岁或以上，那么你可以 <a href="?sess_abuld=1">继续浏览</a>. 
+		如果你是18岁及以上，那么你可以 <a href="?sess_abuld=1">继续浏览</a>. 
 		或者您可以在 <a href="/user/info/settings.php">设置</a>.';
 		echo '</div>';
 	}
