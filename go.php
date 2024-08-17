@@ -29,7 +29,7 @@ dbquery("UPDATE `rekl` SET `count` = '".($rekl['count']+1)."' WHERE `id` = '$rek
 if (isset($_SESSION['adm_auth']))unset($_SESSION['adm_auth']);
 header("Refresh: 2; url=$rekl[link]");
 echo "外部链接跳转提示<br />
-你点击了不属于本站的链接,点击后会
+你点击了不属于本站的链接,
 本站不保证链接的安全性，请谨慎访问，防止感染病毒或上当。<br />";
 echo "你访问的链接是：<b><a href=\"$rekl[link]\">$rekl[link]</a></b><br />";
 echo "访问次数: $rekl[count]<br />";
