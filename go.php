@@ -8,7 +8,7 @@ include_once 'sys/inc/db_connect.php';
 include_once 'sys/inc/ipua.php';
 include_once 'sys/inc/fnc.php';
 include_once 'sys/inc/user.php';
-$set['title']='外部链接跳转提示';
+$set['title']='外部链接跳转提';
 include_once 'sys/inc/thead.php';
 title();
 if (!isset($_GET['go']) || (dbresult(dbquery("SELECT COUNT(*) FROM `rekl` WHERE `id` = '".intval($_GET['go'])."'"),0)==0 && !preg_match('#^https?://#',@base64_decode($_GET['go']))))
