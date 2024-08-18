@@ -71,16 +71,18 @@ if (isset($_GET['spam'])  &&  $ank['id'] != 0) {
 	aut();
 	err();
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'mail'"), 0) == 0) {
-		echo "<div class='mess'>虚假信息会导致账号被屏蔽。
-如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
+		echo "<div class='mess'>若你认为某条言论不合适、违反了网站规则，可以举报，管理员收到后会尽快处理。
+		但是，请不要瞎举报给管理添乱，若多次发出无意义的举报，将同样会按网站规则进行处罚。
+		如果你真的很讨厌某位用户的言论，你可以选择将其拉黑，而不是将消息逐条举报。逐条举报会大大降低管理员处理举报的效率，甚至导致举报处理任务大量积压。</div>";
 		echo "<form class='nav1' method='post' action='/user/mail.php?id=$ank[id]&amp;spam=$mess[id]'>";
 		echo "<b>用户:</b> ". user::nick($spamer['id'],1,0,0);
 		echo "" . medal($spamer['id']) . " " . online($spamer['id']) . " (" . vremja($mess['time']) . ")<br />";
 		echo "<b>违规：</b> <font color='green'>" . output_text($mess['msg']) . "</font><br />";
 		echo "原因：<br /><select name='types'>";
-		echo "<option value='1' selected='selected'>垃圾邮件/广告</option>";
+		echo "<option value='1' selected='selected'>垃圾邮件/广告/日记/帖子</option>";
 		echo "<option value='2' selected='selected'>欺诈行为</option>";
-		echo "<option value='3' selected='selected'>语言攻击</option>";
+		echo "<option value='3' selected='selected'>引战</option>";
+		echo "<option value='4' selected='selected'>网络暴力</option>";
 		echo "<option value='0' selected='selected'>其他</option>";
 		echo "</select><br />";
 		echo "评论:";

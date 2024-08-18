@@ -238,8 +238,9 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 	aut();
 	err();
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'stena'"), 0) == 0) {
-		echo "<div class='mess'>虚假信息会导致昵称被屏蔽。
-		如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>"; //这段建议与管理员讨论后再行修改。——Diamochang
+		echo "<div class='mess'>若你认为某条言论不合适、违反了网站规则，可以举报，管理员收到后会尽快处理。
+		但是，请不要瞎举报给管理添乱，若多次发出无意义的举报，将同样会按网站规则进行处罚。
+		如果你真的很讨厌某位用户的言论，你可以选择将其拉黑，而不是将消息逐条举报。逐条举报会大大降低管理员处理举报的效率，甚至导致举报处理任务大量积压。</div>"; 
 		echo "<form class='nav1' method='post' action='/user/info.php?id=$ank[id]&amp;spam=$mess[id]&amp;page=" . intval($_GET['page']) . "'>";
 		echo "<b>用户：</b> ";
 		echo " " . user::nick($spamer['id'], 1, 1, 0) . " (" . vremja($mess['time']) . ")<br />";
@@ -256,7 +257,7 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 		echo "<input value=\"提交举报\" type=\"submit\" />";
 		echo "</form>";
 	} else {
-		echo "<div class='mess'>有关<font color='green'>$spamer[nick]</font>的举报管理团队将尽快处理，请耐心等待。</div>";
+		echo "<div class='mess'>有关<font color='green'>$spamer[nick]</font>的举报管理将尽快处理，请耐心等待。</div>";
 	}
 	echo "<div class='foot'>";
 	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/user/info.php?id=$ank[id]'>返回</a><br />";
