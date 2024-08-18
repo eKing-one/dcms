@@ -17,7 +17,7 @@ if (!$ank) {
 }
 if ($ank['id'] == 0) {
 	$ank = user::get_user($ank['id']);
-	$set['title'] = $ank['nick'] . ' - 用户页面 '; //网页标题
+	$set['title'] = $ank['nick'] . ' - 个人主页 '; //网页标题
 	include_once '../sys/inc/thead.php';
 	title();
 	aut();
@@ -28,14 +28,14 @@ if ($ank['id'] == 0) {
 	include_once '../sys/inc/tfoot.php';
 	exit;
 }
-/* 用户厢式货车 */
+/* 个人主页 */
 if ((!isset($user) || $user['group_access'] == 0) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'all' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0) != 0) {
-	$set['title'] = $ank['nick'] . ' - 用户页面 '; //网页标题
+	$set['title'] = $ank['nick'] . ' - 个人主页 '; //网页标题
 	include_once '../sys/inc/thead.php';
 	title();
 	aut();
 	echo '<div class="mess">';
-	echo '<b><font color=red>该用户已被封禁,无法查看个人页面</font></b><br /> ';
+	echo '<b><font color=red>该用户已被封禁,无法查看个人主页</font></b><br /> ';
 	echo '</div>';
 	include_once '../sys/inc/tfoot.php';
 	exit;
@@ -46,7 +46,7 @@ if (isset($_GET['delete_post']) && dbresult(dbquery("SELECT COUNT(*) FROM `stena
 	if (user_access('guest_delete') || $ank['id'] == $user['id']) {
 		dbquery("DELETE FROM `stena` WHERE `id` = '$post[id]'");
 		dbquery("DELETE FROM `stena_like` WHERE `id_stena` = '$post[id]'");
-		$_SESSION['message'] = '邮件已成功删除';
+		$_SESSION['message'] = '动态已成功删除';
 	}
 }
 /*-------------------------客人们----------------------*/
@@ -97,7 +97,7 @@ if (isset($_POST['msg']) && isset($user)) {
 		}
 		dbquery("INSERT INTO `stena` (id_user, time, msg, id_stena) values('$user[id]', '$time', '" . my_esc($msg) . "', '$ank[id]')");
 		dbquery("UPDATE `user` SET `balls` = '" . ($user['balls'] + 1) . "' ,`rating_tmp` = '" . ($user['rating_tmp'] + 1) . "' WHERE `id` = '$user[id]' LIMIT 1");
-		$_SESSION['message'] = '动态发表成功';
+		$_SESSION['message'] = '动态发布成功';
 		if (isset($user)) {
 			$notifiacation = dbassoc(dbquery("SELECT * FROM `notification_set` WHERE `id_user` = '" . $ank['id'] . "' LIMIT 1"));
 			if ($notifiacation['komm'] == 1 && $user['id'] != $ank['id'])
@@ -124,7 +124,7 @@ if (isset($_POST['rating']) && isset($user)  && $user['id'] != $ank['id'] && $us
 		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 对你感到失望... [url=/who_rating.php]你的个人资料[/url]', '$time')");
 	if ($new_r == 0)
 		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 保持中立 [url=/who_rating.php]你的个人资料[/url]', '$time')");
-	msg('对用户的评价已更改');
+	msg('对用户的评价已修改');
 }
 //-------------状态记录-----------//
 if (isset($_POST['status']) && isset($user) && $user['id'] == $ank['id']) {
@@ -219,20 +219,20 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 		if (isset($_POST['spamus'])) {
 			if ($mess['id_user'] != $user['id']) {
 				$msg = my_esc($_POST['spamus']);
-				if (strlen2($msg) < 3) $err = '请更详细地说明投诉原因';
-				if (strlen2($msg) > 1512) $err = '文本的长度超过512个字符的限制'; //是 512 字节还是 1512 字节？——Diamochang
+				if (strlen2($msg) < 3) $err = '请更详细地说明举报原因';
+				if (strlen2($msg) > 1024) $err = '文本的长度超过1024字的限制';
 				if (isset($_POST['types'])) $types = intval($_POST['types']);
 				else $types = '0';
 				if (!isset($err)) {
 					dbquery("INSERT INTO `spamus` (`id_object`, `id_user`, `msg`, `id_spam`, `time`, `types`, `razdel`, `spam`) values('$ank[id]', '$user[id]', '$msg', '$spamer[id]', '$time', '$types', 'stena', '" . my_esc($mess['msg']) . "')");
-					$_SESSION['message'] = '投诉已发出';
+					$_SESSION['message'] = '举报已发出,管理员将会火速处理';
 					header("Location: ?id=$ank[id]&spam=$mess[id]&page=" . intval($_GET['page']) . "");
 					exit;
 				}
 			}
 		}
 	}
-	$set['title'] = $ank['nick'] . ' - 投诉 '; //网页标题
+	$set['title'] = $ank['nick'] . ' - 举报 '; //网页标题
 	include_once '../sys/inc/thead.php';
 	title();
 	aut();
@@ -245,18 +245,18 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 		echo " " . user::nick($spamer['id'], 1, 1, 0) . " (" . vremja($mess['time']) . ")<br />";
 		echo "<b>违规行为：</b> <font color='green'>" . output_text($mess['msg']) . "</font><br />";
 		echo "原因：<br /><select name='types'>";
-		echo "<option value='1' selected='selected'>垃圾邮件/广告</option>";
+		echo "<option value='1' selected='selected'>垃圾邮件/广告/日记/帖子</option>";
 		echo "<option value='2' selected='selected'>诈骗行为</option>";
-		echo "<option value='3' selected='selected'>引战</option>"; //我自己认为进攻≈引战。——Diamochang
-		echo "<option value='4' selected='selected'>网络暴力</option>"; //网暴处理起来非常敏感，需要管理员高度重视。——Diamochang
+		echo "<option value='3' selected='selected'>引战</option>"; 
+		echo "<option value='4' selected='selected'>网络暴力</option>"; 
 		echo "<option value='0' selected='selected'>其他</option>";
 		echo "</select><br />";
 		echo "附加解释：$tPanel";
 		echo "<textarea name=\"spamus\"></textarea><br />";
-		echo "<input value=\"提交投诉\" type=\"submit\" />";
+		echo "<input value=\"提交举报\" type=\"submit\" />";
 		echo "</form>";
 	} else {
-		echo "<div class='mess'>有关<font color='green'>$spamer[nick]</font>的投诉管理团队将尽快处理，请耐心等待。</div>";
+		echo "<div class='mess'>有关<font color='green'>$spamer[nick]</font>的举报管理团队将尽快处理，请耐心等待。</div>";
 	}
 	echo "<div class='foot'>";
 	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/user/info.php?id=$ank[id]'>返回</a><br />";
@@ -294,7 +294,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 	if ($uSet['privat_str'] == 2 && $frend != 2) // 只要有朋友的话
 	{
 		echo '<div class="mess">';
-		echo '根据用户的隐私设置，只有成为该用户的朋友才能查看用户页面。'; 
+		echo '由于用户的隐私设置，只有该用户的好友才能查看主页'; 
 		echo '</div>';
 		// В друзья
 		if (isset($user)) {
