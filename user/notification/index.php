@@ -15,8 +15,15 @@ $width = ($webbrowser == 'web' ? '100' : '70'); // 要在浏览器上显示的�
 ===============================
 删除全部通知
 ===============================
+
 */
+
+//屏蔽 Notice 报错
+error_reporting(E_ALL || ~E_NOTICE);
+
+
 if (isset($_GET['delete']) && $_GET['delete'] == 'all') {
+	
 	if (isset($user)) {
 		dbquery("DELETE FROM `notification` WHERE `id_user` = '$user[id]'");
 		$_SESSION['message'] = '清除通知';
@@ -146,13 +153,12 @@ $name 变量值
 	{	
 		$name = '在您的论坛主题中回复了您';
 	}
-	elseif ($type == 'stena_komm') // 留言板回复
+	elseif ($type == 'stena_komm') // 动态回复
 	{	
-		$stena = get_user($post['id_object']);
 		if ($stena['id'] == $user['id']) $sT = '您的';
 		elseif ($stena['id'] == $avtor['id']) $sT = '他的/她的';
 		else{ $sT = null; }
-		$name = '在'.$sT.'留言板中回复了您';
+		$name = '在'.$sT.'动态中回复了您';
 	}
 	elseif ($type == 'guest' || $type == 'adm_komm') // 访客留言、管理员聊天
 	{	
