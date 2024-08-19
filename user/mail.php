@@ -208,24 +208,24 @@ if ($ank['id'] != 0 && $ank['date_last'] < $rt) {
 	echo "</div>";
 }
 if ($ank['id'] != 0 && $block == true) {
-	if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"), 0) == 1) {
-		$kont = dbarray(dbquery("SELECT * FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"));
-	 else {
-		echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'> 
-	<a href='/user/conts.php?type=common&amp;act=add&amp;id=$ank[id]'>添加到联系人列表</a></div>";
-	}
-	echo "<form method='post' name='message' action='/user/mail.php?id=$ank[id]'>";
-	if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
-		include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
-	else
-		echo $tPanel . "<textarea name='msg'></textarea><br />";
-	if ($user['level'] == 0 && dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_kont` = '$user[id]' AND `id_user` = '$ank[id]'"), 0) == 0)
-		echo "<img src='/captcha.php?SESS=$sess' width='100' height='30' alt='核证号码' /><br /><input name='chislo' size='5' maxlength='5' value='' type='text' /><br/>";
-	echo "<input type='submit' name='send' value='发送' />";
-	echo "<input type='submit' name='refresh' value='清空' />";
-	echo "</form>";
-
+    if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"), 0) == 1) {
+        $kont = dbarray(dbquery("SELECT * FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"));
+    } else {
+        echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'> 
+        <a href='/user/conts.php?type=common&amp;act=add&amp;id=$ank[id]'>添加到联系人列表</a></div>";
+    }
+    echo "<form method='post' name='message' action='/user/mail.php?id=$ank[id]'>";
+    if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
+        include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
+    else
+        echo $tPanel . "<textarea name='msg'></textarea><br />";
+    if ($user['level'] == 0 && dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_kont` = '$user[id]' AND `id_user` = '$ank[id]'"), 0) == 0)
+        echo "<img src='/captcha.php?SESS=$sess' width='100' height='30' alt='核证号码' /><br /><input name='chislo' size='5' maxlength='5' value='' type='text' /><br/>";
+    echo "<input type='submit' name='send' value='发送' />";
+    echo "<input type='submit' name='refresh' value='清空' />";
+    echo "</form>";
 }
+
 echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'> 
 	<a href='/user/conts.php?" . (isset($kont) ? 'type=' . $kont['type'] : null) . "'>所有联系人</a></div>";
 echo "<table class='post'>";
@@ -283,3 +283,4 @@ echo "<div class='foot'>";
 echo "<img src='/style/icons/str.gif' alt='*'> <a href='mail.php?id=$ank[id]&amp;page=$page&amp;delete=add'>清除邮件</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
+?>
