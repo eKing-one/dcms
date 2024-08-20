@@ -82,3 +82,4 @@ while ($post = dbassoc($q)) {
 }
 echo "</table>";
 if ($k_page > 1) str("/chat/room/$room[id]/" . rand(1000, 9999) . "/?", $k_page, $page); // 输出页数
+?>
