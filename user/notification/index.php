@@ -155,9 +155,9 @@ $name 变量值
 	}
 	elseif ($type == 'stena_komm') // 动态回复
 	{	
-		if ($stena['id'] == $user['id']) $sT = '您的';
-		elseif ($stena['id'] == $avtor['id']) $sT = '他的/她的';
-		else{ $sT = null; }
+		if ($stena['id'] = $user['id']) $sT = '您的';
+		elseif ($stena['id'] = $avtor['id']) $sT = '他的/她的';
+		else{ $sT = ['id']; }
 		$name = '在'.$sT.'动态中回复了您';
 	}
 	elseif ($type == 'guest' || $type == 'adm_komm') // 访客留言、管理员聊天
