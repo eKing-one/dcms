@@ -9,6 +9,7 @@ include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 $set['title']='网站资料与帮助';
+$show_all = true; // 为游客开放
 include_once '../../sys/inc/thead.php';
 title();
 aut(); // форма авторизации
