@@ -20,7 +20,7 @@ if (isset($_GET['set']) && $_GET['set'] == 'set' && isset($_POST['query'])) {
         include_once H . 'sys/inc/sql_parser.php';
         $sql = SQLParser::getQueries($sql); // 在解析器的帮助下，查询被更准确地分解，但这只适用于php5
     } else {
-        $sql = split(";(|\r)*", $sql);
+        $sql = split(";(|\\r)*", $sql);
     }
     $k_z = 0;
     $k_z_ok = 0;
@@ -53,3 +53,5 @@ if (user_access('adm_panel_show')) {
     echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
+
+?>

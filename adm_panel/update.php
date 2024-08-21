@@ -167,3 +167,5 @@ function getFileListAsArray(string $dir, bool $recursive = TRUE, string $basedir
     }
     return $results;
 }
+
+?>

@@ -56,9 +56,12 @@ if (!$set['web'])
 }
 else
 {
-	// 主要网页主题
+	// 网页主题
 	include_once 'style/themes/' . $set['set_them'] . '/index.php'; 
 	
 }
-// echo '<a href="http://wapmz.com/in/3"><img src="http://wapmz.com/cn/small/3" alt="wapmz.com"></a>';
+// 页脚，可自定义内容
+
 include_once 'sys/inc/tfoot.php';
+
+?>
