@@ -37,5 +37,3 @@ echo "&laquo;<a href='$_SESSION[refer]'>".otkuda($_SESSION['refer'])."</a><br />
 echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
-
-?>
