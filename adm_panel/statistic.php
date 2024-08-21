@@ -86,3 +86,5 @@ echo "<div class='foot'>";
 echo "<a href='/adm_panel/'>管理面板</a><br />";
 echo "</div>";}
 include_once '../sys/inc/tfoot.php';
+
+?>

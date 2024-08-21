@@ -17,7 +17,7 @@ include_once '../sys/inc/thead.php';
 title();
 if (isset($_FILES['file'])){
 $file=esc(stripcslashes(htmlspecialchars($_FILES['file']['name'])));
-$ras=strtolower(preg_replace('#^.*\.#i', NULL, $file));
+$ras=strtolower(preg_replace('#^.*\.#i', 'null', $file));
 if($ras!='sql')$err='文件格式不正确';
 if(!isset($err)){
 @chmod(H."sys/update/",0777);
@@ -79,4 +79,5 @@ if (user_access('adm_panel_show'))
 echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
+
 ?>

@@ -71,3 +71,5 @@ if (user_access('adm_panel_show')) {
     echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
+
+?>

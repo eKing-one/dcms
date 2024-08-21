@@ -10,7 +10,7 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/shif.php';
-$show_all = true; // 给大家看
+$show_all = true; // 为游客开放
 include_once '../sys/inc/user.php';
 only_unreg();
 $set['title'] = '注册账号';
@@ -146,3 +146,5 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1) {
 echo "<div class = 'foot'>已经注册？<br />&raquo;<a href='/user/aut.php'>登录账号</a></div>
 <div class = 'foot'>不记得密码？<br />&raquo;<a href='/user/pass.php'>找回密码</a></div>";
 include_once '../sys/inc/tfoot.php';
+
+?>

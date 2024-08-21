@@ -271,4 +271,5 @@ while($post = dbarray($q))
 </div>
 <?
 include_once H.'sys/inc/tfoot.php';
+
 ?>

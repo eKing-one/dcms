@@ -82,3 +82,5 @@ if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth'] > $time || isset($_SES
   echo "</form>";
 }
 include_once '../sys/inc/tfoot.php';
+
+?>
