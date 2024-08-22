@@ -238,15 +238,14 @@ if (!isset($block_photo)) {
 		}
 	} elseif (!isset($user)) {
 		echo '<div class="mess">';
-		echo '<img src="/style/icons/small_adult.gif" alt="*"><br /> 此文件包含色情性质的图像。 只有18岁以上的注册用户才能查看此类文件。 <br />';
+		echo '<img src="/style/icons/small_adult.gif" alt="*"><br /> 此图像包含与性有关的内容/性行为的刻画/性器官的接触与接合等/使人联想起性行为的事物。只有年龄达到18岁以上的用户才能查看此类图像。 <br />';
 		echo '<a href="/user/aut.php">登录</a> | <a href="/user/reg.php">注册</a>';
 		echo '</div>';
 	} else {
 		echo '<div class="mess">';
 		echo '<img src="/style/icons/small_adult.gif" alt="*"><br /> 
-		此文件包含色情性质的图像。 
-		如果你是18岁及以上，那么你可以 <a href="?sess_abuld=1">继续浏览</a>. 
-		或者您可以在 <a href="/user/info/settings.php">设置</a>.';
+		此图像包含与性有关的内容/性行为的刻画/性器官的接触与接合等/使人联想起性行为的事物。只有年龄达到18岁以上的用户才能查看此类图像。 
+		如果你的年龄达到18岁及以上，那么你可以 <a href="?sess_abuld=1">继续浏览</a>.';
 		echo '</div>';
 	}
 	/*----------------------листинг-------------------*/
