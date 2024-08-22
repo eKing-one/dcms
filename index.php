@@ -60,5 +60,6 @@ else
 	include_once 'style/themes/' . $set['set_them'] . '/index.php'; 
 	
 }
-
+// 页脚,可添加统计数据
+// echo '<a href="http://wapmz.com/in/3"><img src="http://wapmz.com/cn/small/3" alt="wapmz.com"></a>';
 include_once 'sys/inc/tfoot.php';
