@@ -56,12 +56,9 @@ if (!$set['web'])
 }
 else
 {
-	// 网页主题
+	// 主要网页主题
 	include_once 'style/themes/' . $set['set_them'] . '/index.php'; 
 	
 }
-// 页脚，可自定义内容
 
 include_once 'sys/inc/tfoot.php';
-
-?>
