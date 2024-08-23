@@ -42,7 +42,7 @@ if (isset($_GET['del'])) // 删除通知
 		}
 	}
 }
-$set['title'] = '我的通知';
+$set['title'] = '关于我的';
 include_once '../../sys/inc/thead.php';
 title();
 err();
@@ -372,9 +372,9 @@ $name 变量值
 	echo "</div>";
 }
 if ($k_page > 1) str('?', $k_page, $page); // 输出页数
-echo '<div class="mess"><img src="/style/icons/delete.gif"> <a href="?delete=all">删除所有通知</a></div>';
+echo '<div class="mess"><img src="/style/icons/delete.gif"> <a href="?delete=all">清除所有通知</a></div>';
 echo "<div class=\"foot\">";
 echo "<img src='/style/icons/str2.gif' alt='*'> " . user::nick($user['id'], 1, 0, 0) . " | ";
-echo '<b>系统通知</b> | <a href="settings.php">设置</a>';
+echo ' <a href="settings.php">设置</a>';
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';
