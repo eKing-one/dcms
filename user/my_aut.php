@@ -21,7 +21,7 @@ echo '<table class="post">';
 if (empty($k_post))
 {
 	 echo '<div class="mess">';
-	 echo '没有记录的授权';
+	 echo '没有登录历史';
 	 echo '</div>';
 }	 
 $q = dbquery("SELECT * FROM `user_log` WHERE `id_user` = '".$user['id']."' ORDER BY `id` DESC  LIMIT $start, $set[p_str]");
