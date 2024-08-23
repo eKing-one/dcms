@@ -1,19 +1,4 @@
 <?
-/*
-=======================================
-Лента друзей для Dcms-Social
-Автор: Искатель
----------------------------------------
-此脚本在许可下被破坏
-DCMS-Social 引擎。
-使用时，指定引用到
-网址 http://dcms-social.ru
----------------------------------------
-接点
-ICQ：587863132
-http://dcms-social.ru
-=======================================
-*/
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';

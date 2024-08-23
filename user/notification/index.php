@@ -26,7 +26,7 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'all') {
 	
 	if (isset($user)) {
 		dbquery("DELETE FROM `notification` WHERE `id_user` = '$user[id]'");
-		$_SESSION['message'] = '清除通知';
+		$_SESSION['message'] = '清除所有通知';
 		header("Location: ?");
 		exit;
 	}
@@ -36,13 +36,13 @@ if (isset($_GET['del'])) // 删除通知
 	if (isset($user)) {
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `notification`  WHERE `id_user` = '$user[id]' AND `id` = '" . intval($_GET['del']) . "'"), 0) == 1) {
 			dbquery("DELETE FROM `notification` WHERE `id_user` = '$user[id]' AND `id` = '" . intval($_GET['del']) . "' LIMIT 1");
-			$_SESSION['message'] = '删除通知';
+			$_SESSION['message'] = '清除所有通知';
 			header("Location: ?komm&" . intval($_GET['page']) . "");
 			exit;
 		}
 	}
 }
-$set['title'] = '通知书';
+$set['title'] = '我的通知';
 include_once '../../sys/inc/thead.php';
 title();
 err();
@@ -69,7 +69,7 @@ echo "<div class='webmenu'>";
 echo "<a href='/user/discussions/' >讨论 $discuss</a>";
 echo "</div>";
 echo "<div class='webmenu'>";
-echo "<a href='/user/notification/' class='activ'>通知书 $k_notif</a>";
+echo "<a href='/user/notification/' class='activ'> 关于我的 $k_notif</a>";
 echo "</div>";
 echo "</div>";
 /*
@@ -82,7 +82,7 @@ $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
 $q = dbquery("SELECT * FROM `notification` WHERE `id_user` = '$user[id]' ORDER BY `time` DESC LIMIT $start, $set[p_str]");
-if ($k_post == 0) //如果没有通知的话...
+if ($k_post == 0) //如果没有通知的话
 {
 	echo "  <div class='mess'>";
 	echo "没有新通知";

@@ -1,20 +1,4 @@
 <?
-/*
-=======================================
-Dcms-Social用朋友蝴蝶结
-作者:с author author author author
----------------------------------------
-此脚本在许可下被破坏
-DCMS-Social 引擎。
-使用时，指定引用到
-网址 http://dcms-social.ru
----------------------------------------
-接点
-ICQ：587863132
-http://dcms-social.ru
-=======================================
-*/
-
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -83,7 +67,7 @@ if (isset($_GET['read']) && $_GET['read'] == 'all') {
 
 /*
 ===============================
-全胶带清洗
+清理全部消息
 ===============================
 */
 if (isset($_GET['delete']) && $_GET['delete'] == 'all') {
@@ -121,7 +105,7 @@ echo "<div class='webmenu'>";
 echo "<a href='/user/discussions/' >讨论  $discuss</a>";
 echo "</div>";
 echo "<div class='webmenu'>";
-echo "<a href='/user/notification/'> @到你的 $k_notif</a>";
+echo "<a href='/user/notification/'> 我的通知 $k_notif</a>";
 echo "</div>";
 echo "</div>";
 
@@ -183,7 +167,7 @@ if ($k_page > 1) str('?', $k_page, $page);
 
 
 echo '<div class="foot">';
-echo '<a href="?page=' . $page . '&amp;delete=all"><img src="/style/icons/delete.gif"> 清除消息</a>';
+echo '<a href="?page=' . $page . '&amp;delete=all"><img src="/style/icons/delete.gif"> 清除所有消息</a>';
 echo '</div>';
 
 echo '<div class="foot">';

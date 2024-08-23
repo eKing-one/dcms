@@ -218,7 +218,7 @@ if ($k_post) {
 	if ($type != 'deleted') echo '<input value="已删除" type="submit" name="deleted" /> ';
 	if ($type != 'common') echo '<input value="黑名单" type="submit" name="common" /> ';
 	if ($type != 'favorite') echo '<input value="特别关心" type="submit" name="favorite" /> ';
-	if ($type != 'ignor') echo '<input value="不常联系" type="submit" name="ignor" /> ';
+	if ($type != 'ignor') echo '<input value="不经常联系" type="submit" name="ignor" /> ';
 	echo '</form>';
 	echo '</div>';
 	if ($k_page > 1) str("?type=$type&amp;", $k_page, $page); // 输出页数

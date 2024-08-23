@@ -1,19 +1,4 @@
 <?
-/*
-=======================================
-Лента друзей для Dcms-Social
-Автор: Искатель
----------------------------------------
-此脚本在许可下被破坏
-DCMS-Social 引擎。
-使用时，指定引用到
-网址 http://dcms-social.ru
----------------------------------------
-接点
-ICQ：587863132
-http://dcms-social.ru
-=======================================
-*/
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -61,7 +46,7 @@ if (isset($_POST['save'])) {
     if (isset($_POST['lenta_forum']) && ($_POST['lenta_forum'] == 0 || $_POST['lenta_forum'] == 1)) {
         dbquery("UPDATE `tape_set` SET `lenta_forum` = '" . intval($_POST['lenta_forum']) . "' WHERE `id_user` = '$user[id]'");
     }
-    $_SESSION['message'] = '更改已成功接受';
+    $_SESSION['message'] = '已成功更改';
     header('Location: settings.php');
     exit;
 }
@@ -69,7 +54,7 @@ err();
 aut();
 echo "<div id='comments' class='menus'>";
 echo "<div class='webmenu'>";
-echo "<a href='/user/info/settings.php'>普通</a>";
+echo "<a href='/user/info/settings.php'>通用</a>";
 echo "</div>";
 echo "<div class='webmenu last'>";
 echo "<a href='/user/tape/settings.php' class='activ'>信息中心</a>";
@@ -78,10 +63,10 @@ echo "<div class='webmenu last'>";
 echo "<a href='/user/discussions/settings.php'>讨论</a>";
 echo "</div>";
 echo "<div class='webmenu last'>";
-echo "<a href='/user/notification/settings.php'>通知书</a>";
+echo "<a href='/user/notification/settings.php'>@提到我的</a>";
 echo "</div>";
 echo "<div class='webmenu last'>";
-echo "<a href='/user/info/settings.privacy.php' >私隐保护</a>";
+echo "<a href='/user/info/settings.privacy.php' >隐私保护</a>";
 echo "</div>";
 echo "<div class='webmenu last'>";
 echo "<a href='/user/info/secure.php' >密码</a>";
@@ -90,67 +75,67 @@ echo "</div>";
 echo "<form action='?' method=\"post\">";
 // Лента друзей
 echo "<div class='mess'>";
-echo "关于新朋友的通知";
+echo "关于添加新好友的通知";
 echo "</div>";
 echo "<div class='nav1'>";
-echo "<input name='lenta_frends' type='radio' " . ($lentaSet['lenta_frends'] == 1 ? ' checked="checked"' : null) . " value='1' /> 是的 ";
-echo "<input name='lenta_frends' type='radio' " . ($lentaSet['lenta_frends'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
+echo "<input name='lenta_frends' type='radio' " . ($lentaSet['lenta_frends'] == 1 ? ' checked="checked"' : null) . " value='1' /> 开启 ";
+echo "<input name='lenta_frends' type='radio' " . ($lentaSet['lenta_frends'] == 0 ? ' checked="checked"' : null) . " value='0' /> 关闭 ";
 echo "</div>";
 // Лента Дневников
 echo "<div class='mess'>";
 echo "关于新日记的通知";
 echo "</div>";
 echo "<div class='nav1'>";
-echo "<input name='lenta_notes' type='radio' " . ($lentaSet['lenta_notes'] == 1 ? ' checked="checked"' : null) . " value='1' /> 是的 ";
-echo "<input name='lenta_notes' type='radio' " . ($lentaSet['lenta_notes'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
+echo "<input name='lenta_notes' type='radio' " . ($lentaSet['lenta_notes'] == 1 ? ' checked="checked"' : null) . " value='1' /> 开启 ";
+echo "<input name='lenta_notes' type='radio' " . ($lentaSet['lenta_notes'] == 0 ? ' checked="checked"' : null) . " value='0' /> 关闭 ";
 echo "</div>";
 // Лента темах
 echo "<div class='mess'>";
-echo "关于论坛中新主题的通知";
+echo "关于论坛中新帖子的通知";
 echo "</div>";
 echo "<div class='nav1'>";
-echo "<input name='lenta_forum' type='radio' " . ($lentaSet['lenta_forum'] == 1 ? ' checked="checked"' : null) . " value='1' /> 是的 ";
-echo "<input name='lenta_forum' type='radio' " . ($lentaSet['lenta_forum'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
+echo "<input name='lenta_forum' type='radio' " . ($lentaSet['lenta_forum'] == 1 ? ' checked="checked"' : null) . " value='1' /> 开启 ";
+echo "<input name='lenta_forum' type='radio' " . ($lentaSet['lenta_forum'] == 0 ? ' checked="checked"' : null) . " value='0' /> 关闭 ";
 echo "</div>";
 // Лента фото
 echo "<div class='mess'>";
 echo "关于新照片的通知";
 echo "</div>";
 echo "<div class='nav1'>";
-echo "<input name='lenta_photo' type='radio' " . ($lentaSet['lenta_photo'] == 1 ? ' checked="checked"' : null) . " value='1' /> 是的 ";
-echo "<input name='lenta_photo' type='radio' " . ($lentaSet['lenta_photo'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
+echo "<input name='lenta_photo' type='radio' " . ($lentaSet['lenta_photo'] == 1 ? ' checked="checked"' : null) . " value='1' /> 开启 ";
+echo "<input name='lenta_photo' type='radio' " . ($lentaSet['lenta_photo'] == 0 ? ' checked="checked"' : null) . " value='0' /> 关闭 ";
 echo "</div>";
 // Лента о смене аватара
 echo "<div class='mess'>";
 echo "有关更改头像的通知";
 echo "</div>";
 echo "<div class='nav1'>";
-echo "<input name='lenta_avatar' type='radio' " . ($lentaSet['lenta_avatar'] == 1 ? ' checked="checked"' : null) . " value='1' /> 是的 ";
-echo "<input name='lenta_avatar' type='radio' " . ($lentaSet['lenta_avatar'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
+echo "<input name='lenta_avatar' type='radio' " . ($lentaSet['lenta_avatar'] == 1 ? ' checked="checked"' : null) . " value='1' /> 开启 ";
+echo "<input name='lenta_avatar' type='radio' " . ($lentaSet['lenta_avatar'] == 0 ? ' checked="checked"' : null) . " value='0' /> 关闭 ";
 echo "</div>";
 // Лента файлов
 echo "<div class='mess'>";
 echo "关于新文件的通知";
 echo "</div>";
 echo "<div class='nav1'>";
-echo "<input name='lenta_files' type='radio' " . ($lentaSet['lenta_files'] == 1 ? ' checked="checked"' : null) . " value='1' /> 是的 ";
-echo "<input name='lenta_files' type='radio' " . ($lentaSet['lenta_files'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
+echo "<input name='lenta_files' type='radio' " . ($lentaSet['lenta_files'] == 1 ? ' checked="checked"' : null) . " value='1' /> 开启 ";
+echo "<input name='lenta_files' type='radio' " . ($lentaSet['lenta_files'] == 0 ? ' checked="checked"' : null) . " value='0' /> 关闭 ";
 echo "</div>";
 // Лента статусов
 echo "<div class='mess'>";
 echo "关于新状态的通知";
 echo "</div>";
 echo "<div class='nav1'>";
-echo "<input name='lenta_status' type='radio' " . ($lentaSet['lenta_status'] == 1 ? ' checked="checked"' : null) . " value='1' /> 是的 ";
-echo "<input name='lenta_status' type='radio' " . ($lentaSet['lenta_status'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
+echo "<input name='lenta_status' type='radio' " . ($lentaSet['lenta_status'] == 1 ? ' checked="checked"' : null) . " value='1' /> 开启 ";
+echo "<input name='lenta_status' type='radio' " . ($lentaSet['lenta_status'] == 0 ? ' checked="checked"' : null) . " value='0' /> 关闭 ";
 echo "</div>";
 // Лента оценок статуса
 echo "<div class='mess'>";
-echo "有关的通知 \"Like\" 对朋友的状态";
+echo "关于好友状态点赞的通知";
 echo "</div>";
 echo "<div class='nav1'>";
-echo "<input name='lenta_status_like' type='radio' " . ($lentaSet['lenta_status_like'] == 1 ? ' checked="checked"' : null) . " value='1' /> 是的 ";
-echo "<input name='lenta_status_like' type='radio' " . ($lentaSet['lenta_status_like'] == 0 ? ' checked="checked"' : null) . " value='0' /> 否定 ";
+echo "<input name='lenta_status_like' type='radio' " . ($lentaSet['lenta_status_like'] == 1 ? ' checked="checked"' : null) . " value='1' /> 开启 ";
+echo "<input name='lenta_status_like' type='radio' " . ($lentaSet['lenta_status_like'] == 0 ? ' checked="checked"' : null) . " value='0' /> 关闭 ";
 echo "</div>";
 echo "<div class='main'>";
 echo "<input type='submit' name='save' value='保存' />";
