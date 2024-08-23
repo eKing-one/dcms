@@ -9,6 +9,10 @@ include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 only_reg();
+
+//屏蔽 Notice 报错
+error_reporting(E_ALL || ~E_NOTICE);
+
 $set['title']='编辑个人资料';
 include_once '../../sys/inc/thead.php';
 title();
