@@ -289,10 +289,7 @@ if (isset($user)) {
 	echo "<img src='/style/icons/add_fav.gif' alt='*' />  <a href='fav.php?id=" . $notes['id'] . "'>谁将它添加到书签?</a> (" . $markinfo . ")";
 }
 echo '</div>';
-//-------------------------------------------------------------//
-echo "<div class='main'>";
-echo 'DCMS-Social：';
-echo "</div>";
+
 /*
 ===================================
 日记评论
