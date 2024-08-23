@@ -117,7 +117,7 @@ else $lenta = null;
 		<a href="/user/discussions/" class="activ">讨论 <?= $discuss ?></a>
 	</div>
 	<div class="webmenu">
-		<a href="/user/notification/">我的通知 <?= $k_notif ?></a>
+		<a href="/user/notification/">关于我的 <?= $k_notif ?></a>
 	</div>
 </div>
 

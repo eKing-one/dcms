@@ -105,7 +105,7 @@ echo "<div class='webmenu'>";
 echo "<a href='/user/discussions/' >讨论  $discuss</a>";
 echo "</div>";
 echo "<div class='webmenu'>";
-echo "<a href='/user/notification/'> 我的通知 $k_notif</a>";
+echo "<a href='/user/notification/'> 关于我的 $k_notif</a>";
 echo "</div>";
 echo "</div>";
 
