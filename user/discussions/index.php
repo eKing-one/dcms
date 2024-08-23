@@ -122,7 +122,7 @@ else $lenta = null;
 </div>
 
 <div class="foot">
-	排序:
+	分类:
 	<a href="?"> 全部</a> |
 	<a href="?order=my"> 关于我的 <?= $count_my ?> </a> |
 	<a href="?order=frends"> 关于好友的 <?= $count_f ?> </a>
