@@ -68,7 +68,8 @@ if (isset($_GET['spam'])  &&  isset($user)) {
 		echo "原因：<br /><select name='types'>";
 		echo "<option value='1' selected='selected'>垃圾邮件/广告/日记/帖子</option>";
 		echo "<option value='2' selected='selected'>诈骗行为</option>";
-		echo "<option value='3' selected='selected'>引站</option>";
+		echo "<option value='3' selected='selected'>引战</option>";
+		echo "<option value='4' selected='selected'>网络暴力</option>";
 		echo "<option value='0' selected='selected'>其他</option>";
 		echo "</select><br />";
 		echo "评论:$tPanel";
