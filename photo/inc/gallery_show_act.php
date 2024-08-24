@@ -24,7 +24,7 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 	if ($imgc = @imagecreatefromstring(file_get_contents($_FILES['file']['tmp_name']))) {
 		$name = $_POST['name'];
 		if ($name == null)
-			$name = esc(stripcslashes(htmlspecialchars(preg_replace('#\.[^\.]*$#i', NULL, $_FILES['file']['name']))));
+			$name = esc(stripcslashes(htmlspecialchars(preg_replace('#\.[^\.]*$#i', 'NULL', $_FILES['file']['name']))));
 		if (strlen2($name) < 3) $err = '标题太短了！要大于 3 字节！';
 		if (strlen2($name) > 32) $err = '标题不得超过 32 字节！';
 		$name = my_esc($name);

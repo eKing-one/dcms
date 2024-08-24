@@ -40,7 +40,7 @@ if (isset($_GET['spam'])  &&  isset($user)) {
 			if ($mess['id_user'] != $user['id']) {
 				$msg = my_esc($_POST['msg']);
 				if (strlen2($msg) < 3) $err = '更详细地说明投诉的原因';
-				if (strlen2($msg) > 1512) $err = '文本的长度超过512个字符的限制';
+				if (strlen2($msg) > 1512) $err = '文本的长度超过1512个字符的限制';
 				if (isset($_POST['types'])) $types = intval($_POST['types']);
 				else $types = '0';
 				if (!isset($err)) {
@@ -58,16 +58,17 @@ if (isset($_GET['spam'])  &&  isset($user)) {
 	aut();
 	err();
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'notes_komm'"), 0) == 0) {
-		echo "<div class='mess'>虚假信息会导致昵称被屏蔽。
-如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单.</div>";
+		echo "<div class='mess'>若你认为某条言论不合适、违反了网站规则，可以举报，管理员收到后会尽快处理。
+		但是，请不要瞎举报给管理添乱，若多次发出无意义的举报，将同样会按网站规则进行处罚。
+		如果你真的很讨厌某位用户的言论，你可以选择将其拉黑，而不是将消息逐条举报。逐条举报会大大降低管理员处理举报的效率，甚至导致举报处理任务大量积压</div>";
 		echo "<form class='nav1' method='post' action='?id=$notes[id]&amp;page=" . intval($_GET['page']) . "&amp;spam=$mess[id]'>";
 		echo "<b>用户:</b> ";
 		echo " " . user::nick($spamer['id'],1,1,0) . " (" . vremja($mess['time']) . ")<br />";
 		echo "<b>违规：</b> <font color='green'>" . output_text($mess['msg']) . "</font><br />";
 		echo "原因：<br /><select name='types'>";
-		echo "<option value='1' selected='selected'>垃圾邮件/广告</option>";
-		echo "<option value='2' selected='selected'>欺诈行为</option>";
-		echo "<option value='3' selected='selected'>进攻</option>";
+		echo "<option value='1' selected='selected'>垃圾邮件/广告/日记/帖子</option>";
+		echo "<option value='2' selected='selected'>诈骗行为</option>";
+		echo "<option value='3' selected='selected'>引站</option>";
 		echo "<option value='0' selected='selected'>其他</option>";
 		echo "</select><br />";
 		echo "评论:$tPanel";
@@ -83,17 +84,13 @@ if (isset($_GET['spam'])  &&  isset($user)) {
 	include_once '../../sys/inc/tfoot.php';
 	exit;
 }
-/*
-==================================
-The End
-==================================
-*/
-// Запись просмотра
+
+// 查看记录
 if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `notes_count` WHERE `id_user` = '" . $user['id'] . "' AND `id_notes` = '" . $notes['id'] . "' LIMIT 1"), 0) == 0) {
 	dbquery("INSERT INTO `notes_count` (`id_notes`, `id_user`) VALUES ('$notes[id]', '$user[id]')");
 	dbquery("UPDATE `notes` SET `count` = '" . ($notes['count'] + 1) . "' WHERE `id` = '$notes[id]' LIMIT 1");
 }
-/*------------очищаем счетчик этого обсуждения-------------*/
+/*------------清除此讨论的计数器-------------*/
 if (isset($user)) {
 	dbquery("UPDATE `discussions` SET `count` = '0' WHERE `id_user` = '$user[id]' AND `type` = 'notes' AND `id_sim` = '$notes[id]' LIMIT 1");
 }
@@ -112,7 +109,7 @@ if (isset($_POST['msg']) && isset($user)) {
 	} elseif (!isset($err)) {
 		/*
 		==========================
-		Уведомления об ответах
+		回复通知
 		==========================
 		*/
 		if (isset($user) && $respons == TRUE) {
@@ -122,7 +119,7 @@ if (isset($_POST['msg']) && isset($user)) {
 		}
 		/*
 ====================================
-Обсуждения
+评论
 ====================================
 */
 		$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $notes['id_user'] . "' AND `i` = '1'");
