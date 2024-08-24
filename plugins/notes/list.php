@@ -27,7 +27,7 @@ if (isset($user))
 	dbquery("UPDATE `notification` SET `read` = '1' WHERE `type` = 'notes_komm' AND `id_user` = '$user[id]' AND `id_object` = '$notes[id]'");
 /*
 ================================
-用户投诉模块
+用户举报模块
 信件或内容
 因分区不同而不同
 ================================
@@ -39,13 +39,13 @@ if (isset($_GET['spam'])  &&  isset($user)) {
 		if (isset($_POST['msg'])) {
 			if ($mess['id_user'] != $user['id']) {
 				$msg = my_esc($_POST['msg']);
-				if (strlen2($msg) < 3) $err = '更详细地说明投诉的原因';
-				if (strlen2($msg) > 1512) $err = '文本的长度超过1512个字符的限制';
+				if (strlen2($msg) < 3) $err = '更加详细地说明举报的原因';
+				if (strlen2($msg) > 1512) $err = '文本长度超过1512个字';
 				if (isset($_POST['types'])) $types = intval($_POST['types']);
 				else $types = '0';
 				if (!isset($err)) {
 					dbquery("INSERT INTO `spamus` (`id_object`, `id_user`, `msg`, `id_spam`, `time`, `types`, `razdel`, `spam`) values('$notes[id]', '$user[id]', '$msg', '$spamer[id]', '$time', '$types', 'notes_komm', '" . my_esc($mess['msg']) . "')");
-					$_SESSION['message'] = '考虑申请已发出';
+					$_SESSION['message'] = '举报成功,管理员将火速处理';
 					header("Location: ?id=$notes[id]&page=" . intval($_GET['page']) . "&spam=$mess[id]");
 					exit;
 				}
@@ -77,7 +77,7 @@ if (isset($_GET['spam'])  &&  isset($user)) {
 		echo "<input value=\"发送\" type=\"submit\" />";
 		echo "</form>";
 	} else {
-		echo "<div class='mess'>投诉有关<font color='green'>$spamer[nick]</font> 它将在不久的将来考虑。</div>";
+		echo "<div class='mess'>举报有关<font color='green'>$spamer[nick]</font> 它将在不久的将来考虑。</div>";
 	}
 	echo "<div class='foot'>";
 	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='?id=$notes[id]&amp;page=" . intval($_GET['page']) . "'>返回</a><br />";
