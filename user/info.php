@@ -269,7 +269,7 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 The End
 ==================================
 */
-$set['title'] = $ank['nick'] . ' - 用户页面 '; //网页标题
+$set['title'] = $ank['nick'] . ' - 个人主页 '; //网页标题
 include_once '../sys/inc/thead.php';
 title();
 aut();
