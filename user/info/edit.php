@@ -33,8 +33,8 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '".my_esc($_POS
 {
 $nick=my_esc($_POST['nick']);
 if(!preg_match("/^[a-zA-Z0-9\x{4e00}-\x{9fa5}]+$/u",$nick))$err = '不要在名字里面使用特殊符号，请只使用字母,数字与汉字';
-if (strlen2($nick)<2)$err[]='昵称字数少于 2 字符';
-if (strlen2($nick)>32)$err[]='昵称字数多于 32 字符';
+if (strlen2($nick)<2)$err[]='昵称字数少于 2 字';
+if (strlen2($nick)>32)$err[]='昵称字数多于 32 字';
 }
 else $err[]='用户名"'.stripcslashes(htmlspecialchars($_POST['nick'])).'"';
 if (isset($_POST['nick']) && !isset($err))
@@ -174,7 +174,7 @@ dbquery("UPDATE `user` SET `pol` = '0' WHERE `id` = '$user[id]' LIMIT 1");
 if (isset($_GET['set']) && $_GET['set']=='osebe'){
 if (isset($_POST['ank_o_sebe']) && strlen2($_POST['ank_o_sebe'])<=512)
 {
-if (preg_match('#[^\u4e00-\u9fa5\p{P}A-z0-9 _\-\=\+\(\)\*\!\?\.,]#ui',$_POST['ank_o_sebe']))$err[]='禁止字符用于”关于我”字段';
+if (preg_match('$%^&',$_POST['ank_o_sebe']))$err[]='包含禁止字符';
 else {
 $user['ank_o_sebe'] = $_POST['ank_o_sebe'];
 dbquery("UPDATE `user` SET `ank_o_sebe` = '".my_esc($user['ank_o_sebe'])."' WHERE `id` = '$user[id]' LIMIT 1");
