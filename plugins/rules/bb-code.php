@@ -21,6 +21,7 @@ echo "<input type='text' value='[b]你的文字[/b]'/></a><br /><strong>加粗</
 echo "<input type='text' value='[i]你的文字[/i]' /></a><br /><em>斜体</em><br />";
 echo "<input type='text' value='[c]你的文字[/c]' /></a><br /><center>居中显示</center><br />";
 echo "<input type='text' value='[small]你的文字[/small]' /></a><br /><span style='font-size:small;'>缩小</span><br />";
+echo "<input type='text' value='[big]你的文字[/big]' /></a><br /><span style='font-size:big;'>放大</span><br />";
 echo "<div class='foot'>";
 echo '文字颜色：<br />';
 echo "</div>";
