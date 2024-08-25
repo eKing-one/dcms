@@ -37,19 +37,7 @@ if (isset($_GET['login']) && isset($_GET['pass']))
 <div class="main" id="umenu">
 <img src='/style/my_menu/avatar.png' alt='' /> <a href='/user/avatar.php'>我的头像</a><br />
 </div>
-<?
-//从文件夹加载其余插件 "sys/add/umenu"
-$opdirbase = opendir(H.'../sys/add/umenu');
-while ($filebase = readdir($opdirbase))
-{
-	if (preg_match('#\.php$#i', $filebase))
-	{
-		echo '<div class="main" id="umenu">';
-		include_once(H.'../sys/add/umenu/' . $filebase);
-		echo '</div>';
-	}
-}
-?>
+
 <div class="main2" id="umenu_razd">我的设置</div>
 <div class="main" id="umenu">
 <img src="/style/my_menu/set.png" alt="" /> <a href="/user/info/settings.php">常规设置</a><br />
