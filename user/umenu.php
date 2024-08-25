@@ -27,7 +27,6 @@ if (isset($_GET['login']) && isset($_GET['pass']))
 	echo '</div>';	
 }
 ?>
-<div class="main2" id="umenu_razd">我的个人资料</div>
 <div class="main" id="umenu">
 <img src='/style/my_menu/ank.png' alt='' /> <a href='/user/info.php'>我的页面</a><br />
 </div>
@@ -38,7 +37,6 @@ if (isset($_GET['login']) && isset($_GET['pass']))
 <img src='/style/my_menu/avatar.png' alt='' /> <a href='/user/avatar.php'>我的头像</a><br />
 </div>
 
-<div class="main2" id="umenu_razd">我的设置</div>
 <div class="main" id="umenu">
 <img src="/style/my_menu/set.png" alt="" /> <a href="/user/info/settings.php">常规设置</a><br />
 </div>
@@ -52,7 +50,6 @@ if (isset($_GET['login']) && isset($_GET['pass']))
 // 管理权限
 if (user_access('adm_panel_show'))
 {
-	echo '<div class="main2" id="umenu_razd">管理面板</div>';
 	echo '<div class="main" id="umenu">';
 	echo '<img src="/style/my_menu/adm_panel.png" alt="" /> <a href="/adm_panel/">管理面板</a><br />';
 	echo '</div>';
