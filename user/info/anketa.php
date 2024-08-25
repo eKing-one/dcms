@@ -111,14 +111,14 @@ if ($nMinsLeftLength > 1 && substr($sMinsLeft, -2, 1) != 1) {
 	if ($m_1 == 2 || $m_1 == 3 || $m_1 == 4) {
 		$sMinsText = "分钟";
 	} else if ($m_1 == 1) {
-		$sMinsText = "1分钟";
+		$sMinsText = "一分钟";
 	}
 }
 if ($nMinsLeftLength == 1) {
 	if ($m_1 == 2 || $m_1 == 3 || $m_1 == 4) {
 		$sMinsText = "分钟";
 	} elseif ($m_1 == "1") {
-		$sMinsText = "1分钟";
+		$sMinsText = "一分钟";
 	}
 }
 $displaystring = "" .
@@ -340,12 +340,12 @@ if ($ank['ank_d_r'] >= 19 && $ank['ank_m_r'] == 1) {
 	echo "| 摩羯座<br />";
 }
 echo "</div>";
-//--------------简介--------------//
+//--------------关于我自己--------------//
 echo "<div class='nav1'>";
 if ($ank['ank_o_sebe'] != NULL)
-	echo "$osebe<span class=\"ank_n\">简介：</span>$a <span class=\"ank_d\">" . output_text($ank['ank_o_sebe']) . "</span><br />";
+	echo "$osebe<span class=\"ank_n\">关于你自己：</span>$a <span class=\"ank_d\">" . output_text($ank['ank_o_sebe']) . "</span><br />";
 else
-	echo "$osebe<span class=\"ank_n\">简介：</span>$a<br />";
+	echo "$osebe<span class=\"ank_n\">关于你自己：</span>$a<br />";
 echo "</div>";
 //-------------联系方式----------------//
 echo "<div class='nav2'>";
@@ -457,7 +457,7 @@ if ($user['level'] > $ank['level']) {
 		echo "</div>";
 	} else {
 		echo "<div class='foot'>";
-		echo "<img src='/style/icons/str.gif' alt='*' /> <a href='?id=$ank[id]&amp;info'>查看更多(IP)</a><br />";
+		echo "<img src='/style/icons/str.gif' alt='*' /> <a href='?id=$ank[id]&amp;info'>其他信息</a><br />";
 		echo "</div>";
 	}
 }
