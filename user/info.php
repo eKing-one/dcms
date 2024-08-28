@@ -49,7 +49,7 @@ if (isset($_GET['delete_post']) && dbresult(dbquery("SELECT COUNT(*) FROM `stena
 		$_SESSION['message'] = '动态已成功删除';
 	}
 }
-/*-------------------------客人们----------------------*/
+/*-------------------------游客查看----------------------*/
 if (isset($user) && $user['id'] != $ank['id'] && !isset($_SESSION['guest_' . $ank['id']])) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `my_guests` WHERE `id_ank` = '$ank[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
 		dbquery("INSERT INTO `my_guests` (`id_ank`, `id_user`, `time`) VALUES ('$ank[id]', '$user[id]', '$time')");
