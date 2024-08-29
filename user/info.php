@@ -28,7 +28,7 @@ if ($ank['id'] == 0) {
 	include_once '../sys/inc/tfoot.php';
 	exit;
 }
-/* 个人主页 */
+/* 查看封禁用户的主页 */
 if ((!isset($user) || $user['group_access'] == 0) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'all' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0) != 0) {
 	$set['title'] = $ank['nick'] . ' - 个人主页 '; //网页标题
 	include_once '../sys/inc/thead.php';
@@ -40,7 +40,7 @@ if ((!isset($user) || $user['group_access'] == 0) && dbresult(dbquery("SELECT CO
 	include_once '../sys/inc/tfoot.php';
 	exit;
 }
-// 删除注释
+// 删除动态
 if (isset($_GET['delete_post']) && dbresult(dbquery("SELECT COUNT(*) FROM `stena` WHERE `id` = '" . intval($_GET['delete_post']) . "'"), 0) == 1) {
 	$post = dbassoc(dbquery("SELECT * FROM `stena` WHERE `id` = '" . intval($_GET['delete_post']) . "' LIMIT 1"));
 	if (user_access('guest_delete') || $ank['id'] == $user['id']) {
@@ -49,7 +49,7 @@ if (isset($_GET['delete_post']) && dbresult(dbquery("SELECT COUNT(*) FROM `stena
 		$_SESSION['message'] = '动态已成功删除';
 	}
 }
-/*-------------------------游客查看----------------------*/
+/*-------------------------游客查看主页----------------------*/
 if (isset($user) && $user['id'] != $ank['id'] && !isset($_SESSION['guest_' . $ank['id']])) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `my_guests` WHERE `id_ank` = '$ank[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
 		dbquery("INSERT INTO `my_guests` (`id_ank`, `id_user`, `time`) VALUES ('$ank[id]', '$user[id]', '$time')");
@@ -105,7 +105,7 @@ if (isset($_POST['msg']) && isset($user)) {
 		}
 	}
 }
-/*---------------------------------------------------*/
+/*-----------------------评价通知----------------------------*/
 if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL)
 	&& isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != NULL &&
 	!preg_match('#info\.php#', $_SERVER['HTTP_REFERER'])
