@@ -1,7 +1,4 @@
 <?php
-	// SimbaSocialNetwork
-	// http://mydcms.ru
-	// Искатель
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -16,7 +13,7 @@ only_reg();
 //屏蔽 Notice 报错
 error_reporting(E_ALL || ~E_NOTICE);
 
-$set['title']='我的头像';
+$set['title']='设置头像';
 include_once '../sys/inc/thead.php';
 title();
 err();
@@ -25,7 +22,7 @@ aut();
 	echo user::avatar($ank['id']);
 	echo "</div>";
 	echo "<div class='main'>";
-	echo "为了在你的页面上安装一个头像，上传一张照片到你的相册，然后点击链接 \"让它成为网站主页\"";
+	echo "创建一个相册,上传头像后点击设置为头像";
 	echo "</div>";
 	//--------------------------相片册-----------------------------//
 	echo "<div class='main'>";echo "<img src='/style/icons/photo.png' alt='*' /> ";
