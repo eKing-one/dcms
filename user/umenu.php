@@ -1,10 +1,4 @@
 <?php
-/**
- * & CMS Name :: DCMS-Social
- * & Author   :: Alexandr Andrushkin
- * & Contacts :: ICQ 587863132
- * & Site     :: http://dcms-social.ru
- */
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -22,11 +16,12 @@ aut();
 if (isset($_GET['login']) && isset($_GET['pass']))
 {
 	echo '<div class="mess">';
-	echo '如果您的浏览器不支持Cookie，您可以创建一个自动登录书签<br />';
+	echo '如果您的浏览器不支持Cookie，您可以创建一个自动登录链接<br />';
 	echo '<input type="text" value="http://' . text($_SERVER['SERVER_NAME']) . '/user/login.php?id=' . $user['id'] . '&amp;pass=' . text($_GET['pass']) . '" /><br />';
 	echo '</div>';	
 }
 ?>
+
 <div class="main" id="umenu">
 <img src='/style/my_menu/ank.png' alt='' /> <a href='/user/info.php'>我的页面</a><br />
 </div>
