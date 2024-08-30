@@ -1,5 +1,5 @@
 <?php
-require_once './vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 use UAParser\Parser;
 
 $ipa = false;
@@ -30,8 +30,8 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
     $parser = Parser::create();
     $result = $parser->parse($ua);
     
-    $browser_name = $result['user_agent']['family'] ?? '未知';
-    $browser_version = $result['user_agent']['major'] ?? '';
+    $browser_name = $result->ua->family ?? '未知'; // 修正对象访问
+    $browser_version = $result->ua->major ?? '';
     
     // 特殊处理 Opera Mini 手机型号
     if (isset($_SERVER['HTTP_X_OPERAMINI_PHONE_UA']) && stripos($ua, 'Opera') !== false) {
@@ -39,7 +39,7 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
         $browser_name = 'Opera Mini (' . $ua_om . ')';
     }
     
-    // 构造最终的 User-Agen t字符串
+    // 构造最终的 User-Agent 字符串
     $ua = "{$browser_name} {$browser_version}";
 } else {
     $ua = '没有可用的数据';
