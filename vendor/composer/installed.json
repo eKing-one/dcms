@@ -39,7 +39,7 @@
                     "dev-main": "1.x-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Composer\\CaBundle\\": "src"
@@ -130,7 +130,7 @@
                 "bin/uaparser"
             ],
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "UAParser\\": "src"
