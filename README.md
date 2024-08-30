@@ -8,8 +8,7 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 
 - PHP 5.4 至 7.0 或以上版本（推荐使用 PHP 7）
 - MySQL 数据库支持
-- Apache `mod_rewrite` 模块支持
-- Composer（如果服务器不支持，参见下面安装步骤的替代方法）
+- Apache `mod_rewrite` 模块支持（可用Nginx替代）
 
 ### 免费托管安装反馈
 如果您能在免费托管环境中成功安装并充分运行此引擎，请在[项目官方论坛（俄语）](http://dcms-social.ru/forum/)上报告。
@@ -47,9 +46,8 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 1. 克隆本仓库。
 2. 创建一个 MySQL 数据库（注意是数据库而不是表）。
 3. 将所有文件上传至根目录或子域文件夹（请注意，引擎无法在子文件夹内运行）。
-4. 在服务器端安装 Composer 并执行 `composer install`（如果服务器无条件，可以在第 3 步之前本地安装 Composer 并执行该命令，再上传文件）。
-5. 访问 `http://[您的网站]/install/`
-6. 遵循所有安装步骤进行操作。
+4. 访问 `http://[您的网站]/install/`
+5. 遵循所有安装步骤进行操作。
 
 如遇安装困难或有任何改进建议，请访问我们的[网站](http://dcms.net.cn/)，在[论坛板块](https://dcms.net.cn/forum/12/20/)中反馈。
 

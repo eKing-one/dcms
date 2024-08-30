@@ -1,7 +1,6 @@
 # git屏蔽代码
 HELP.md
 
-/vendor/
 /sys/conf/settings_6.2.dat
 /sys/conf/settings.php
 /sys/conf/shif_iv.dat
