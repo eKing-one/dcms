@@ -2,12 +2,12 @@
 // 函数别名
 function my_esc($text, $br = NULL)
 { // 剪切所有不可读字符
-	if ($br != 'NULL')
-		for ($i = 0; $i <= 31; $i++) $text = str_replace(chr($i), 'NULL', $text);
+	if ($br != NULL)
+		for ($i = 0; $i <= 31; $i++) $text = str_replace(chr($i), NULL, $text);
 	else {
-		for ($i = 0; $i < 10; $i++) $text = str_replace(chr($i), 'NULL', $text);
-		for ($i = 11; $i < 20; $i++) $text = str_replace(chr($i), 'NULL', $text);
-		for ($i = 21; $i <= 31; $i++) $text = str_replace(chr($i), 'NULL', $text);
+		for ($i = 0; $i < 10; $i++) $text = str_replace(chr($i), NULL, $text);
+		for ($i = 11; $i < 20; $i++) $text = str_replace(chr($i), NULL, $text);
+		for ($i = 21; $i <= 31; $i++) $text = str_replace(chr($i), NULL, $text);
 	}
 	return $text;
 }
@@ -225,11 +225,11 @@ function br($msg, $br = '<br />')
 function esc($text, $br = NULL)
 { // 过滤所有不可读字符
 	if ($br != NULL)
-		for ($i = 0; $i <= 31; $i++) $text = str_replace(chr($i), 'NULL', $text);
+		for ($i = 0; $i <= 31; $i++) $text = str_replace(chr($i), NULL, $text);
 	else {
-		for ($i = 0; $i < 10; $i++) $text = str_replace(chr($i), 'NULL', $text);
-		for ($i = 11; $i < 20; $i++) $text = str_replace(chr($i), 'NULL', $text);
-		for ($i = 21; $i <= 31; $i++) $text = str_replace(chr($i), 'NULL', $text);
+		for ($i = 0; $i < 10; $i++) $text = str_replace(chr($i), NULL, $text);
+		for ($i = 11; $i < 20; $i++) $text = str_replace(chr($i), NULL, $text);
+		for ($i = 21; $i <= 31; $i++) $text = str_replace(chr($i), NULL, $text);
 	}
 	return $text;
 }
