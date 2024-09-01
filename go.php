@@ -35,4 +35,3 @@ echo "你访问的链接是：<b><a href=\"$rekl[link]\">$rekl[link]</a></b><br 
 echo "访问次数: $rekl[count]<br />";
 }
 include_once 'sys/inc/tfoot.php';
-?>

@@ -31,4 +31,3 @@ echo "</form>";
 echo "<hr />";
 echo "<b>步骤: $_SESSION[install_step]</b>";
 include_once 'inc/foot.php'; //设计主题的底部
-?>

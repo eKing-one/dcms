@@ -95,7 +95,7 @@ if (isset($_SESSION['adm_reg_ok']) && $_SESSION['adm_reg_ok'] == true) {
     echo "<form action='index.php?$passgen' method='post'>";
     echo "账号 (3-16 字符):<br /><input type='text' name='nick'" . ((isset($nick)) ? " value='" . $nick . "'" : " value='Admin'") . " maxlength='16' /><br />";
     echo "密码 (6-16 字符):<br /><input type='password'" . ((isset($password)) ? " value='" . $password . "'" : null) . " name='password' maxlength='16' /><br />";
-    echo "* 使用简单的密码更容易被盗号<br />";
+    echo "* 使用简单的密码使黑客的生活更轻松<br />";
     echo "确认密码:<br /><input type='password'" . ((isset($password)) ? " value='" . $password . "'" : null) . " name='password_retry' maxlength='16' /><br />";
     echo "您的性别:<br />";
     echo "<select name='pol'>";
