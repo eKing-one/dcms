@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => '__root__',
+        'pretty_version' => 'dev-dev',
+        'version' => 'dev-dev',
+        'reference' => 'eeb671f1edcd3235655598a62cbda545057d051d',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => true,
+    ),
+    'versions' => array(
+        '__root__' => array(
+            'pretty_version' => 'dev-dev',
+            'version' => 'dev-dev',
+            'reference' => 'eeb671f1edcd3235655598a62cbda545057d051d',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'composer/ca-bundle' => array(
+            'pretty_version' => '1.5.0',
+            'version' => '1.5.0.0',
+            'reference' => '0c5ccfcfea312b5c5a190a21ac5cef93f74baf99',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/./ca-bundle',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'ua-parser/uap-php' => array(
+            'pretty_version' => 'v3.9.14',
+            'version' => '3.9.14.0',
+            'reference' => 'b796c5ea5df588e65aeb4e2c6cce3811dec4fed6',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ua-parser/uap-php',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);

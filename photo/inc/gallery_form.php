@@ -19,12 +19,12 @@ if (isset($user) && $user['id'] == $ank['id'])
 		<div class="nav1">
 		谁可以观看？<br />
 		<input name="privat" type="radio" checked="checked" value="0" />所有人 
-		<input name="privat" type="radio" value="1" />朋友 
+		<input name="privat" type="radio" value="1" />好友 
 		<input name="privat" type="radio" value="2" />只有我</div>
 		<div class="nav2">
 		谁可以评论？<br />
 		<input name="privat_komm" type="radio" checked="checked" value="0" />所有人 
-		<input name="privat_komm" type="radio" value="1" />朋友 
+		<input name="privat_komm" type="radio" value="1" />好友 
 		<input name="privat_komm" type="radio" value="2" />只有我</div>
 		<input class="submit" type="submit" value="创建" />
 		</form>

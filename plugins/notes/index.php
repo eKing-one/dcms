@@ -41,24 +41,24 @@ $sortir = isset($_GET['sort']) ? $_GET['sort'] : NULL;
 switch ($sortir) {
         case 't':
                 $order = 'order by `time` desc';
-                echo "<div class='foot'><b>新的</b> | <a href='?sort=c'>流行的</a></div>";
+                echo "<div class='foot'><b>新的</b> | <a href='?sort=c'>热门的</a></div>";
                 break;
         case 'c':
                 $order = 'order by `count` desc';
-                echo "<div class='foot'><a href='?sort=t'>新的</a> | <b>流行的</b></div>";
+                echo "<div class='foot'><a href='?sort=t'>新的</a> | <b>热门的</b></div>";
                 /* Сортировка популярных дневников по времени */
                 echo "<div class='nav2'>";
                 if (isset($_GET['new']) && $_GET['new'] == 't') {
-                        echo "<b>新的</b> | <a href='?sort=c&new=m'>每月</a> | <a href='?sort=c&new=v'>一直如此</a>";
+                        echo "<b>最新的</b> | <a href='?sort=c&new=m'>每月</a> | <a href='?sort=c&new=v'>长期</a>";
                         $new = " AND `time`>'" . (time() - 600) . "' ";
                 } elseif (isset($_GET['new']) && $_GET['new'] == 'm') {
-                        echo "<a href='?sort=c&new=t'>新的</a> | <b>每月</b> | <a href='?sort=c&new=v'>一直如此</a>";
+                        echo "<a href='?sort=c&new=t'>新的</a> | <b>=每月</b> | <a href='?sort=c&new=v'>长期</a>";
                         $new = " AND `time`>'" . (time() - 2592000) . "' ";
                 } elseif (isset($_GET['new']) && $_GET['new'] == 'v') {
-                        echo "<a href='?sort=c&new=t'>新的</a> | <a href='?sort=c&new=m'>每月</a> | <b>一直如此</b>";
+                        echo "<a href='?sort=c&new=t'>新的</a> | <a href='?sort=c&new=m'>每月</a> | <b>长期</b>";
                         $new = null;
                 } elseif (isset($_GET['sort']) && $_GET['sort'] == 'c') {
-                        echo "<b>新的</b> | <a href='?sort=c&new=m'>每月</a> | <a href='?sort=c&new=v'>一直如此</a>";
+                        echo "<b>新的</b> | <a href='?sort=c&new=m'>每月</a> | <a href='?sort=c&new=v'>长期</a>";
                         $new = " AND `time`>'" . (time() - 600) . "' ";
                 } else {
                         $new = null;
@@ -68,7 +68,7 @@ switch ($sortir) {
                 break;
         default:
                 $order = 'order by `time` desc';
-                echo "<div class='foot'><b>新的</b> | <a href='?sort=c'>流行的</a></div>";
+                echo "<div class='foot'><b>新的</b> | <a href='?sort=c'>热门的</a></div>";
 }
 if (!isset($_GET['sort']) or $_GET['sort'] != 'c') {
         $new = null;
@@ -81,7 +81,7 @@ $q = dbquery("SELECT * FROM `notes` $order LIMIT $start, $set[p_str]");
 echo "<table class='post'>";
 if ($k_post == 0) {
         echo "  <div class='mess'>";
-        echo "没有记录";
+        echo "没有日记";
         echo "  </div>";
 }
 while ($post = dbassoc($q)) {
@@ -107,5 +107,5 @@ echo "</table>";
 if (isset($_GET['sort'])) $dop = "sort=" . my_esc($_GET['sort']) . "&amp;";
 else $dop = '';
 if ($k_page > 1) str('?' . $dop . '', $k_page, $page); // 输出页数
-if (isset($user)) echo "<div class='foot'><a href='add.php'> 创建记录</a></div>";
+if (isset($user)) echo "<div class='foot'><a href='add.php'> 写日记</a></div>";
 include_once '../../sys/inc/tfoot.php';

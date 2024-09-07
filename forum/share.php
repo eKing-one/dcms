@@ -28,7 +28,7 @@ if (dbrows($not) == 0) {
     exit;
 }
 if (dbresult(dbquery("SELECT COUNT(`id`)FROM `notes` WHERE `id_user`='" . $user['id'] . "' AND `share_id`='" . intval($_GET['id']) . "' AND `share_type`='forum' LIMIT 1"), 0) == 1) {
-    echo "<div class='error'>你成功分享了这个帖子</div>";
+    echo "<div class='error'>成功分享帖子</div>";
     include_once '../sys/inc/tfoot.php';
     exit;
 } else {

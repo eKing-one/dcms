@@ -1,19 +1,4 @@
 <?php
-/*
-=======================================
-DCMS-Social 的日记
-作者：探索者
----------------------------------------
-此脚本在许可下被破坏
-DCMS-Social 引擎。
-使用时，指定引用到
-网址 http://dcms-social.ru
----------------------------------------
-接点
-ICQ：587863132
-http://dcms-social.ru
-=======================================
-*/
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -45,20 +30,20 @@ elseif (isset($_GET['sort']) && $_GET['sort'] == 'c') $order = 'order by `count`
 else $order = 'order by `time` desc';
 if (isset($user) && $user['id'] == $ank['id']) {
 	echo '<div class="foot">';
-	echo "<a href=\"add.php\">创建日记</a>";
+	echo "<a href=\"add.php\">写日记</a>";
 	echo '</div>';
 }
 if (isset($_GET['sort']) && $_GET['sort'] == 't') {
 	echo '<div class="foot">';
-	echo "<b>新</b> | <a href='?id=$ank[id]&amp;sort=c'>流行的</a>";
+	echo "<b>新的</b> | <a href='?id=$ank[id]&amp;sort=c'>热门的</a>";
 	echo '</div>';
 } elseif (isset($_GET['sort']) && $_GET['sort'] == 'c') {
 	echo '<div class="foot">';
-	echo "<a href='?id=$ank[id]&amp;sort=t'>新</a> | <b>流行的</b>";
+	echo "<a href='?id=$ank[id]&amp;sort=t'>新的</a> | <b>热门的</b>";
 	echo '</div>';
 } else {
 	echo '<div class="foot">';
-	echo "<b>新</b> | <a href='?id=$ank[id]&amp;sort=c'>流行的</a>";
+	echo "<b>新的</b> | <a href='?id=$ank[id]&amp;sort=c'>热门的</a>";
 	echo '</div>';
 }
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `notes` WHERE `id_user` = '$ank[id]' "), 0);
@@ -69,7 +54,7 @@ $q = dbquery("SELECT * FROM `notes` WHERE `id_user` = '$ank[id]' $order LIMIT $s
 echo "<table class='post'>";
 if ($k_post == 0) {
 	echo "  <div class='mess'>";
-	echo "没有记录。";
+	echo "没有日记";
 	echo "  </div>";
 }
 $num = 0;

@@ -86,11 +86,11 @@ echo "网站运行状态：<br />
   <option ".(setget('job',1)==0? " selected ":null)." value='0'>已禁用</option>
 </select>
 <br />";
-echo "带确认退出：<br />
+echo "退出账号确认：<br />
 
 <select name='exit'>
-  <option ".(setget('exit',1)==1? " selected ":null)." value='1'>是</option>
-  <option ".(setget('exit',1)==0? " selected ":null)." value='0'>否</option>
+  <option ".(setget('exit',1)==1? " selected ":null)." value='1'>开启</option>
+  <option ".(setget('exit',1)==0? " selected ":null)." value='0'>关闭</option>
 </select>
 
 <br />";
@@ -111,7 +111,7 @@ echo "  通过文件夹安装插件 /Replace/:<br />
 </select>
 <br />";
 */
-echo "网站主题 (WAP):<br /><select name='set_them'>";
+echo "网站默认主题 (WAP移动端):<br /><select name='set_them'>";
 $opendirthem=opendir(H.'style/themes');
 while ($themes=readdir($opendirthem)){
 // пропускаем корневые папки и файлы
@@ -122,7 +122,7 @@ echo "<option value='$themes'".($temp_set['set_them']==$themes?" selected='selec
 }
 closedir($opendirthem);
 echo "</select><br />";
-echo "网站主题 (WEB):<br /><select name='set_them2'>";
+echo "网站默认主题 (PC端):<br /><select name='set_them2'>";
 $opendirthem=opendir(H.'style/themes');
 while ($themes=readdir($opendirthem)){
 // пропускаем корневые папки и файлы
@@ -154,4 +154,5 @@ echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
 echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
+
 ?>

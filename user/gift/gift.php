@@ -1,19 +1,4 @@
 <?
-/*
-=======================================
-Подарки для Dcms-Social
-Автор: Искатель
----------------------------------------
-此脚本在许可下被破坏
-DCMS-Social 引擎。
-使用时，指定引用到
-网址 http://dcms-social.ru
----------------------------------------
-接点
-ICQ：587863132
-http://dcms-social.ru
-=======================================
-*/
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -110,6 +95,6 @@ if ($ank['id'] == $user['id']) {
 	echo '</div>';
 }
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*" /> ' . user::nick($ank['nick'],1,0,0) . '</a> | <a href="/user/gift/index.php?id=' . $ank['id'] . '">Подарки</a> | <b>' . htmlspecialchars($gift['name']) . '</b>';
+echo '<img src="/style/icons/str2.gif" alt="*" /> ' . user::nick($ank['nick'],1,0,0) . '</a> | <a href="/user/gift/index.php?id=' . $ank['id'] . '">礼物</a> | <b>' . htmlspecialchars($gift['name']) . '</b>';
 echo '</div>';
 include_once '../../sys/inc/tfoot.php';

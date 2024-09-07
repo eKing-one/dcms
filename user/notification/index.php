@@ -15,11 +15,18 @@ $width = ($webbrowser == 'web' ? '100' : '70'); // 要在浏览器上显示的�
 ===============================
 删除全部通知
 ===============================
+
 */
+
+//屏蔽 Notice 报错
+error_reporting(E_ALL || ~E_NOTICE);
+
+
 if (isset($_GET['delete']) && $_GET['delete'] == 'all') {
+	
 	if (isset($user)) {
 		dbquery("DELETE FROM `notification` WHERE `id_user` = '$user[id]'");
-		$_SESSION['message'] = '清除通知';
+		$_SESSION['message'] = '清除所有通知';
 		header("Location: ?");
 		exit;
 	}
@@ -29,13 +36,13 @@ if (isset($_GET['del'])) // 删除通知
 	if (isset($user)) {
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `notification`  WHERE `id_user` = '$user[id]' AND `id` = '" . intval($_GET['del']) . "'"), 0) == 1) {
 			dbquery("DELETE FROM `notification` WHERE `id_user` = '$user[id]' AND `id` = '" . intval($_GET['del']) . "' LIMIT 1");
-			$_SESSION['message'] = '删除通知';
+			$_SESSION['message'] = '清除所有通知';
 			header("Location: ?komm&" . intval($_GET['page']) . "");
 			exit;
 		}
 	}
 }
-$set['title'] = '通知书';
+$set['title'] = '关于我的';
 include_once '../../sys/inc/thead.php';
 title();
 err();
@@ -62,7 +69,7 @@ echo "<div class='webmenu'>";
 echo "<a href='/user/discussions/' >讨论 $discuss</a>";
 echo "</div>";
 echo "<div class='webmenu'>";
-echo "<a href='/user/notification/' class='activ'>通知书 $k_notif</a>";
+echo "<a href='/user/notification/' class='activ'> 关于我的 $k_notif</a>";
 echo "</div>";
 echo "</div>";
 /*
@@ -75,7 +82,7 @@ $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
 $q = dbquery("SELECT * FROM `notification` WHERE `id_user` = '$user[id]' ORDER BY `time` DESC LIMIT $start, $set[p_str]");
-if ($k_post == 0) //如果没有通知的话...
+if ($k_post == 0) //如果没有通知的话
 {
 	echo "  <div class='mess'>";
 	echo "没有新通知";
@@ -146,13 +153,12 @@ $name 变量值
 	{	
 		$name = '在您的论坛主题中回复了您';
 	}
-	elseif ($type == 'stena_komm') // 留言板回复
+	elseif ($type == 'stena_komm') // 动态回复
 	{	
-		$stena = get_user($post['id_object']);
-		if ($stena['id'] == $user['id']) $sT = '您的';
-		elseif ($stena['id'] == $avtor['id']) $sT = '他的/她的';
-		else{ $sT = null; }
-		$name = '在'.$sT.'留言板中回复了您';
+		if ($stena['id'] = $user['id']) $sT = '您的';
+		elseif ($stena['id'] = $avtor['id']) $sT = '他的/她的';
+		else{ $sT = ['id']; }
+		$name = '在'.$sT.'动态中回复了您';
 	}
 	elseif ($type == 'guest' || $type == 'adm_komm') // 访客留言、管理员聊天
 	{	
@@ -366,9 +372,9 @@ $name 变量值
 	echo "</div>";
 }
 if ($k_page > 1) str('?', $k_page, $page); // 输出页数
-echo '<div class="mess"><img src="/style/icons/delete.gif"> <a href="?delete=all">删除所有通知</a></div>';
+echo '<div class="mess"><img src="/style/icons/delete.gif"> <a href="?delete=all">清除所有通知</a></div>';
 echo "<div class=\"foot\">";
 echo "<img src='/style/icons/str2.gif' alt='*'> " . user::nick($user['id'], 1, 0, 0) . " | ";
-echo '<b>系统通知</b> | <a href="settings.php">设置</a>';
+echo ' <a href="settings.php">设置</a>';
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';

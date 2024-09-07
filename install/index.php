@@ -15,4 +15,3 @@ include_once '../sys/inc/ipua.php';
 $install=true;
 if (!isset($_SESSION['install_step']))$_SESSION['install_step']=0;
 include 'inc/step_'.$_SESSION['install_step'].'.php';
-?>

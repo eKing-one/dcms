@@ -201,7 +201,7 @@ if (user_access('forum_for_create') && isset($_GET['act']) && isset($_GET['ok'])
   if (!isset($_POST['icon']) || $_POST['icon'] == null)
     $icons = 'default';
   else
-    $icons = preg_replace('#[^a-z0-9 _\-\.]#i', null, $_POST['icon']);
+    $icons = preg_replace('#[^a-z0-9 _\-\.]#i', 'null', $_POST['icon']);
   $pos = intval($_POST['pos']);
   if (!isset($err)) {
     admin_log('论坛', '子论坛', "创建子论坛'$name'");
@@ -282,3 +282,4 @@ if (user_access('forum_for_create') && dbresult(dbquery("SELECT COUNT(*) FROM `f
   echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
+?>

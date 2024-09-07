@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . '/../../vendor/autoload.php';
+use UAParser\Parser;
+
 $ipa = false;
 if(isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR']!='127.0.0.1' && preg_match("#^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$#",$_SERVER['HTTP_X_FORWARDED_FOR']))
 {
@@ -17,21 +20,28 @@ if(isset($_SERVER['REMOTE_ADDR']) && preg_match("#^([0-9]{1,3})\.([0-9]{1,3})\.(
 }
 $ip = $ipa[0];
 $iplong = ip2long($ip);
-if (isset($_SERVER['HTTP_USER_AGENT']))
-{
-	$ua = $_SERVER['HTTP_USER_AGENT'];
-	// $ua = strtok($ua, '/'); // 这样做也会导致下述情况发生 --Diamochang
-	// $ua = strtok($ua, '('); // 我们只留下括号前的内容（这样做的后果是：大家都在使用初代 Mozilla --Diamochang）
-	$ua = preg_replace('#[^a-z_\./ 0-9\-]#iu', null, $ua); // 我们剪掉了所有的"左"（？--Diamochang）字符
-	// Opera mini还会发送有关手机的数据 :)
-	if (isset($_SERVER['HTTP_X_OPERAMINI_PHONE_UA']) && preg_match('#Opera#i',$ua))
-	{
-		$ua_om = $_SERVER['HTTP_X_OPERAMINI_PHONE_UA'];
-		$ua_om = strtok($ua_om, '/');
-		$ua_om = strtok($ua_om, '(');
-		$ua_om = preg_replace('#[^a-z_\. 0-9\-]#iu', null, $ua_om);
-		$ua = 'Opera Mini ('.$ua_om.')';
-	}
+function cleanUAString($ua) {
+    return preg_replace('#[^a-z_\. 0-9\-]#iu', "null", strtolower($ua));
 }
-else $ua = '没有可用的数据';
+if (isset($_SERVER['HTTP_USER_AGENT'])) {
+    $ua = $_SERVER['HTTP_USER_AGENT'];
+    
+    // 使用 uap-php 库解析 User-Agent
+    $parser = Parser::create();
+    $result = $parser->parse($ua);
+    
+    $browser_name = $result->ua->family ?? '未知'; // 修正对象访问
+    $browser_version = $result->ua->major ?? '';
+    
+    // 特殊处理 Opera Mini 手机型号
+    if (isset($_SERVER['HTTP_X_OPERAMINI_PHONE_UA']) && stripos($ua, 'Opera') !== false) {
+        $ua_om = cleanUAString($_SERVER['HTTP_X_OPERAMINI_PHONE_UA']);
+        $browser_name = 'Opera Mini (' . $ua_om . ')';
+    }
+    
+    // 构造最终的 User-Agent 字符串
+    $ua = "{$browser_name} {$browser_version}";
+} else {
+    $ua = '没有可用的数据';
+}
 ?>

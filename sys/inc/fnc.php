@@ -451,7 +451,7 @@ function version_stable()
 {
 	//$content = file_get_contents("https://dcms-social.ru/launcher/social.json");
 	//$data = json_decode($content, TRUE);
-	return $data['stable']['version'];
+	return $data=['stable']['version'];
 }
 function t_toolbar_html()
 {

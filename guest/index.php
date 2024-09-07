@@ -24,9 +24,9 @@ if (isset($_POST['msg']) && isset($user)) {
 	$mat = antimat($msg);
 	if ($mat) $err[] = '在信息文本中发现了一个禁止字符：' . $mat;
 	if (strlen2($msg) > 1024) {
-		$err[] = '信息长于 1024 字节。试着压缩一下？';
+		$err[] = '内容长度不能大于 1024 个字符';
 	} elseif (strlen2($msg) < 2) {
-		$err[] = '信息短于 2 字节。试着扩充一下？';
+		$err[] = '内容长度不能小于 2 个字符';
 	} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `guest` WHERE `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
 		$err = '您的信息重复上一条信息';
 	} elseif (!isset($err)) {
@@ -54,13 +54,13 @@ if (isset($_POST['msg']) && isset($user)) {
 		$err[] = '在信息文本中发现了一个禁止字符: ' . $mat;
 	}
 	if (strlen2($msg) > 1024) {
-		$err = '信息长于 1024 字节。试着压缩一下？';
+		$err = '内容长度不能大于 1024 个字符';
 	} elseif ($_SESSION['captcha'] != $_POST['chislo']) {
 		$err = '验证数字不正确';
 	} elseif (isset($_SESSION['antiflood']) && $_SESSION['antiflood'] > $time - 300) {
 		$err = '为防止 SPAM 攻击，你需要完成人机认证。';
 	} elseif (strlen2($msg) < 2) {
-		$err = '信息短于 2 字节。试着扩充一下？';
+		$err = '内容长度不能小于 2 个字符';
 	} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `guest` WHERE `id_user` = '0' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
 		$err = '您的信息重复上一条信息';
 	} elseif (!isset($err)) {

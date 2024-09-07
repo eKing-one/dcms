@@ -19,9 +19,9 @@ if ((!isset($_SESSION['refer']) || $_SESSION['refer']==NULL)
 && isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']!=NULL &&
 !preg_match('#info\.php#',$_SERVER['HTTP_REFERER']))
 $_SESSION['refer']=str_replace('&','&amp;',preg_replace('#^http://[^/]*/#','/', $_SERVER['HTTP_REFERER']));
-if (is_file(H.'../sys/add/rules.txt'))
+if (is_file(H.'sys/add/rules.txt'))
 {
-$f=file(H.'../sys/add/rules.txt');
+$f=file(H.'sys/add/rules.txt');
 $k_page=k_page(count($f),$set['p_str']);
 $page=page($k_page);
 $start=$set['p_str']*($page-1);

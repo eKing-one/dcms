@@ -34,7 +34,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей
 	{
 		echo '<div class="mess">';
-		echo '只有用户的好友才能查看用户的好友！';
+		echo '他/她的好友才能看他/她的好友';
 		echo '</div>';
 		// В друзья
 		if (isset($user)) {
@@ -54,13 +54,13 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 	if ($uSet['privat_str'] == 0) // Если закрыта
 	{
 		echo '<div class="mess">';
-		echo '用户已禁止查看他的朋友！';
+		echo '他/她已禁止查看他/她的好友！';
 		echo '</div>';
 		include_once '../sys/inc/tfoot.php';
 		exit;
 	}
 }
-$set['title'] = "在线朋友 $ank[nick]"; //网页标题
+$set['title'] = "在线的好友 $ank[nick]"; //网页标题
 include_once '../../sys/inc/thead.php';
 title();
 aut();
@@ -70,12 +70,12 @@ $f = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' A
 $add = dbresult(dbquery("SELECT COUNT(id) FROM `frends_new` WHERE `to` = '$ank[id]' LIMIT 1"), 0);
 echo '<div style="background:white;"><div class="pnl2H">';
 echo '<div class="linecd"><span style="margin:9px;">';
-echo '' . ($ank['id'] == $user['id'] ? '我的朋友们' : ' 朋友 '. user::nick($ank['id'], 0, 0, 0) . '') . '';
+echo '' . ($ank['id'] == $user['id'] ? '我的好友' : ' 好友 '. user::nick($ank['id'], 0, 0, 0) . '') . '';
 echo '</span> </div></div>';
 if ($set['web'] == true) {
 	echo '<div class="mb4">
 <nav class="acsw rnav_w"><ul class="rnav js-rnav  " style="padding-right: 45px;">';
-	echo '<li class="rnav_i"><a href="index.php?id=' . $ank['id'] . '" class="ai aslnk"><span class="wlnk"><span class="slnk">所有朋友</span></span> 
+	echo '<li class="rnav_i"><a href="index.php?id=' . $ank['id'] . '" class="ai aslnk"><span class="wlnk"><span class="slnk">所有好友</span></span> 
 <i><font color="#999">' . $f . '</font></i></a></li>';
 	echo '<li class="rnav_i"><a href="online.php?id=' . $ank['id'] . '" class="ai alnk"><span class="wlnk"><span class="lnk">在线
 <i><font color="#999">' . $on_f . '</font></i></a></span></span></li> ';
@@ -107,7 +107,7 @@ $start = $set['p_str'] * $page - $set['p_str'];
 $q = dbquery("SELECT * FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'" . (time() - 600) . "' ORDER BY `user`.`date_last` DESC LIMIT $start, $set[p_str]");
 if ($k_post == 0) {
 	echo '<div class="mess">';
-	echo '你没有在线的朋友';
+	echo '你没有在线的好友';
 	echo '</div>';
 }
 while ($frend = dbassoc($q)) {
@@ -132,7 +132,7 @@ while ($frend = dbassoc($q)) {
 	echo '</td><td style="width:80%;">';
 	if (isset($user) && $user['id'] == $ank['id']) echo " <input type='checkbox' name='post_$frend[id]' value='1' /> ";
 	echo user::nick($frend['id'], 1, 1, 0);
-	echo '<br/><img src="/style/icons/alarm.png"> ' . ($webbrowser ? '邮政活动:' : null) . ' ' . vremja($frend['date_last']) . ' </td><td style="width:18px;">';
+	echo '<br/><img src="/style/icons/alarm.png"> ' . ($webbrowser ? '最后一次活动' : null) . ' ' . vremja($frend['date_last']) . ' </td><td style="width:18px;">';
 	if (isset($user)) {
 		echo "<a href=\"/user/mail.php?id=$frend[id]\"><img src='/style/icons/pochta.gif' alt='*' /></a><br/>";
 		if ($ank['id'] == $user['id'])			echo "<a href='create.php?del=$frend[id]'><img src='/style/icons/delete.gif' alt='*' /></a>";

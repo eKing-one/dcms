@@ -13,19 +13,19 @@ if ($user['level'] > $ank['level'] || $user['id'] == $ank['id'])
 		<form action="?edit=rename&amp;ok" method="post">
 		<div class="nav2">相册名称：<br />
 		<input type="text" name="name" value="<?=text($gallery['name'])?>" /><br />
-		描述：<?=$tPanel?>
+		简介：<?=$tPanel?>
 		<textarea name="opis"></textarea><br />
 		密码：<br />
 		<input type="text" name="pass" value="<?=text($gallery['pass'])?>" /></div>
 		<div class="nav1">
-		谁可以观看？<br />
+		谁可以查看？<br />
 		<input name="privat" type="radio" <?=($gallery['privat'] == 0 ? ' checked="checked"' : null)?> value="0" />所有人 
-		<input name="privat" type="radio" <?=($gallery['privat'] == 1 ? ' checked="checked"' : null)?>value="1" />朋友 
+		<input name="privat" type="radio" <?=($gallery['privat'] == 1 ? ' checked="checked"' : null)?>value="1" />我的好友
 		<input name="privat" type="radio" <?=($gallery['privat'] == 2 ? ' checked="checked"' : null)?>value="2" />只有我</div>
 		<div class="nav2">
 		谁可以评论？<br />
 		<input name="privat_komm" type="radio" <?=($gallery['privat_komm'] == 0 ? ' checked="checked"' : null)?> value="0" />所有人 
-		<input name="privat_komm" type="radio" <?=($gallery['privat_komm'] == 1 ? ' checked="checked"' : null)?> value="1" />朋友 
+		<input name="privat_komm" type="radio" <?=($gallery['privat_komm'] == 1 ? ' checked="checked"' : null)?> value="1" />我的好友 
 		<input name="privat_komm" type="radio" <?=($gallery['privat_komm'] == 2 ? ' checked="checked"' : null)?> value="2" />只有我</div>
 		<input class="submit" type="submit" value="保存" />
 		</form>
@@ -44,7 +44,7 @@ if ((user_access('photo_alb_del') || isset($user) && $user['id'] == $ank['id']) 
 {
 	?>
 	<div class='mess'>
-	您确实要删除相册 <b><?=text($gallery['name'])?></b>, 和里面的所有照片？<br />
+	您确实要删除相册 <b><?=text($gallery['name'])?></b>, 和所有照片？<br />
 	<center>
 	<a href="?act=delete&amp;ok"><img src="/style/icons/ok.gif" alt="*"> 删除</a> 
 	<a href="?act=delete&amp;ok"><img src="/style/icons/delete.gif" alt="*"> 取消</a> 
@@ -73,13 +73,13 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_GET['act']) && $_GET['a
 	</form>
 	<div class="nav1">
 	<b>在网站上发布的照片不得：</b><br />
-	* 违反现行法律、荣誉和尊严、权利和受法律保护的第三方利益，助长宗教、民族或种族不和，包含暴力或不人道对待动物的场面等;<br />
+	* 违反中华人民共和国现行法律、损坏荣誉和尊严、权利和受法律保护的第三方利益，助长宗教、民族或种族不和，包含暴力或不人道对待动物的场面等;<br />
 	* 淫秽或冒犯性;<br />
 	* 包含麻醉药品广告;<br />
 	* 侵犯未成年人的权利;<br />
 	* 侵犯第三方的版权和相关权利;<br />
 	* 色情性质;<br />
-	* 包含任何形式的商业广告。<br />
+	* 任何形式的商业广告。<br />
 	</div>
 	<div class="foot">
 	<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'],1,0,0)?> | 

@@ -27,7 +27,7 @@ if (isset($_POST['add']) && isset($_POST['name']) && $_POST['name'] != NULL && i
     $url = esc(stripcslashes(htmlspecialchars($_POST['url'])));
     $counter = esc(stripcslashes(htmlspecialchars($_POST['counter'])));
     $pos = dbresult(dbquery("SELECT MAX(`pos`) FROM `menu`"), 0) + 1;
-    $icon = preg_replace('#[^a-z0-9 _\-\.]#i', null, $_POST['icon']);
+    $icon = preg_replace('#[^a-z0-9 _\-\.]#i', 'null', $_POST['icon']);
     dbquery("INSERT INTO `menu` (`name`, `url`, `counter`, `pos`, `icon`) VALUES ('$name', '$url', '$counter', '$pos', '$icon')");
     msg('链接成功添加');
 }
@@ -36,7 +36,7 @@ if (isset($_POST['add']) && isset($_POST['name']) && $_POST['name'] != NULL && i
     $url = esc(stripcslashes(htmlspecialchars($_POST['url'])));
     $counter = esc(stripcslashes(htmlspecialchars($_POST['counter'])));
     $pos = dbresult(dbquery("SELECT MAX(`pos`) FROM `menu`"), 0) + 1;
-    $icon = preg_replace('#[^a-z0-9 _\-\.]#i', null, $_POST['icon']);
+    $icon = preg_replace('#[^a-z0-9 _\-\.]#i', 'null', $_POST['icon']);
     dbquery("INSERT INTO `menu` (`type`, `name`, `url`, `counter`, `pos`, `icon`) VALUES ('razd', '$name', '$url', '$counter', '$pos', '$icon')");
     msg('链接成功添加');
 }
@@ -45,7 +45,7 @@ if (isset($_POST['change']) && isset($_GET['id']) && isset($_POST['name']) && $_
     $name = esc(stripcslashes(htmlspecialchars($_POST['name'])));
     $url = esc(stripcslashes(htmlspecialchars($_POST['url'])));
     $counter = esc(stripcslashes(htmlspecialchars($_POST['counter'])));
-    $icon = preg_replace('#[^a-z0-9 _\-\.]#i', null, $_POST['icon']);
+    $icon = preg_replace('#[^a-z0-9 _\-\.]#i', 'null', $_POST['icon']);
     dbquery("UPDATE `menu` SET `name` = '$name', `url` = '$url', `counter` = '$counter', `icon` = '$icon' WHERE `id` = '$id' LIMIT 1");
     msg('菜单项已成功更改');
 }
@@ -147,3 +147,5 @@ if (user_access('adm_panel_show')) {
     echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
+
+?>

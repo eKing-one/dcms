@@ -22,10 +22,10 @@ if(isset($_GET['chmod_ok'])){
 @chmod(H.'style/themes/',0777);
 @chmod(H.'style/smiles/',0777);
 @chmod(H.'sys/gift/',0777);
-msg('成功获得权利！');
+msg('成功设置权限！');
 }
 echo "<form method='post' action='?chmod_ok'>";
-echo "<input type='submit' name='refresh' value='获得权利！' />";
+echo "<input type='submit' name='refresh' value='刷新以重新设置权限' />";
 echo "</form>";
 include_once H.'sys/inc/chmod_test.php';
 if (isset($err))
@@ -54,4 +54,3 @@ echo "</form>";
 echo "<hr />";
 echo "<b>步骤: $_SESSION[install_step]</b>";
 include_once 'inc/foot.php'; //设计主题的底部
-?>

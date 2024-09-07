@@ -37,18 +37,13 @@ if (isset($user) && $ank['id'] == $user['id']) {
 }
 echo "<table>";
 if (!isset($_GET['metki'])) {
-    echo "<td class='nav1'><b>书签</b></td><td class='nav1'><a href='?id=" . $ank['id'] . "&metki'>标签</a></td>";
+    echo "<td class='nav1'><b>书签</b></td><td class='nav1'><a href='?id=" . $ank['id'] . "&metki'>分类</a></td>";
 } elseif (isset($_GET['metki'])) {
-    echo "<td class='nav1'><a href='index.php'>书签</a></td><td class='nav1'><b>标签</b></td>";
+    echo "<td class='nav1'><a href='index.php'>书签</a></td><td class='nav1'><b>分类</b></td>";
 }
 echo "</table>";
 if (isset($_GET['metki'])) {
     echo '<div class="nav1">';
-    $people = dbresult(dbquery("SELECT COUNT(id_object) FROM `bookmarks` WHERE `id_user` = '" . $ank['id'] . "' AND `type`='people'"), 0);
-    echo '<img src="/style/icons/druzya.png" alt="*" /> ';
-    echo '<a href="/user/bookmark/people.php?id=' . $ank['id'] . '">人们</a> (' . $people . ')';
-    echo '</div>';
-    echo '<div class="nav2">';
     $files = dbresult(dbquery("SELECT COUNT(id_object) FROM `bookmarks` WHERE `id_user` = '" . $ank['id'] . "' AND `type`='file'"), 0);
     echo '<img src="/style/icons/files.gif" alt="*" /> ';
     echo '<a href="/user/bookmark/files.php?id=' . $ank['id'] . '">档案</a> (' . $files . ')';
@@ -61,7 +56,7 @@ if (isset($_GET['metki'])) {
     echo '<div class="nav2">';
     $forum = dbresult(dbquery("SELECT COUNT(id_object) FROM `bookmarks` WHERE `id_user` = '" . $ank['id'] . "' AND `type`='forum'"), 0);
     echo '<img src="/style/icons/forum.png" alt="*" /> ';
-    echo '<a href="/user/bookmark/forum.php?id=' . $ank['id'] . '">论坛</a> (' . $forum . ')';
+    echo '<a href="/user/bookmark/forum.php?id=' . $ank['id'] . '">帖子</a> (' . $forum . ')';
     echo '</div>';
     echo '<div class="nav1">';
     $notes = dbresult(dbquery("SELECT COUNT(id_object) FROM `bookmarks` WHERE `id_user` = '" . $ank['id'] . "' AND `type`='notes'"), 0);
@@ -107,3 +102,5 @@ if (isset($_GET['metki'])) {
     }
 }
 include_once '../../sys/inc/tfoot.php';
+
+?>

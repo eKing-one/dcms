@@ -71,16 +71,18 @@ if (isset($_GET['spam'])  &&  $ank['id'] != 0) {
 	aut();
 	err();
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'mail'"), 0) == 0) {
-		echo "<div class='mess'>虚假信息会导致账号被屏蔽。
-如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
+		echo "<div class='mess'>若你认为某条言论不合适、违反了网站规则，可以举报，管理员收到后会尽快处理。
+		但是，请不要瞎举报给管理添乱，若多次发出无意义的举报，将同样会按网站规则进行处罚。
+		如果你真的很讨厌某位用户的言论，你可以选择将其拉黑，而不是将消息逐条举报。逐条举报会大大降低管理员处理举报的效率，甚至导致举报处理任务大量积压。</div>";
 		echo "<form class='nav1' method='post' action='/user/mail.php?id=$ank[id]&amp;spam=$mess[id]'>";
 		echo "<b>用户:</b> ". user::nick($spamer['id'],1,0,0);
 		echo "" . medal($spamer['id']) . " " . online($spamer['id']) . " (" . vremja($mess['time']) . ")<br />";
 		echo "<b>违规：</b> <font color='green'>" . output_text($mess['msg']) . "</font><br />";
 		echo "原因：<br /><select name='types'>";
-		echo "<option value='1' selected='selected'>垃圾邮件/广告</option>";
+		echo "<option value='1' selected='selected'>垃圾邮件/广告/日记/帖子</option>";
 		echo "<option value='2' selected='selected'>欺诈行为</option>";
-		echo "<option value='3' selected='selected'>语言攻击</option>";
+		echo "<option value='3' selected='selected'>引战</option>";
+		echo "<option value='4' selected='selected'>网络暴力</option>";
 		echo "<option value='0' selected='selected'>其他</option>";
 		echo "</select><br />";
 		echo "评论:";
@@ -111,15 +113,15 @@ if (isset($_POST['refresh'])) {
 }
 if (isset($_POST['msg']) && $ank['id'] != 0 && !isset($_GET['spam'])) {
 	if ($user['level'] == 0 && dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_kont` = '$user[id]' AND `id_user` = '$ank[id]'"), 0) == 0) {
-		if (!isset($_SESSION['captcha'])) $err[] = '验证号码错误';
-		if (!isset($_POST['chislo'])) $err[] = '输入验证号码';
-		elseif ($_POST['chislo'] == null) $err[] = '输入验证号码';
-		elseif ($_POST['chislo'] != $_SESSION['captcha']) $err[] = '检查验证号码是否输入正确';
+		if (!isset($_SESSION['captcha'])) $err[] = '验证码错误';
+		if (!isset($_POST['chislo'])) $err[] = '输入验证码';
+		elseif ($_POST['chislo'] == null) $err[] = '输入验证码';
+		elseif ($_POST['chislo'] != $_SESSION['captcha']) $err[] = '检查验证码是否输入正确';
 	}
 	$msg = $_POST['msg'];
 	if (isset($_POST['translit']) && $_POST['translit'] == 1) $msg = translit($msg);
-	if (strlen2($msg) > 1024) $err[] = '消息超过1024个字符';
-	if (strlen2($msg) < 2) $err[] = '信息太短了';
+	if (strlen2($msg) > 1024) $err[] = '信息多余1024字';
+	if (strlen2($msg) < 1) $err[] = '信息不能少于1字';
 	$mat = antimat($msg);
 	if ($mat) $err[] = '在消息的文本中发现了一个非法字符: ' . $mat;
 	if (!isset($err) && dbresult(dbquery("SELECT COUNT(*) FROM `mail` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]' AND `time` > '" . ($time - 360) . "' AND `msg` = '" . my_esc($msg) . "'"), 0) == 0) {
@@ -130,7 +132,7 @@ if (isset($_POST['msg']) && $ank['id'] != 0 && !isset($_GET['spam'])) {
 			dbquery("INSERT INTO `users_konts` (`id_user`, `id_kont`, `time`) VALUES ('$user[id]', '$ank[id]', '$time')");
 		// обновление сведений о контакте
 		dbquery("UPDATE `users_konts` SET `time` = '$time' WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]' OR `id_user` = '$ank[id]' AND `id_kont` = '$user[id]'");
-		$_SESSION['message'] = '消息发送成功';
+		$_SESSION['message'] = '信息发送成功';
 		header("Location: ?id=$ank[id]");
 		exit;
 	}
@@ -206,24 +208,24 @@ if ($ank['id'] != 0 && $ank['date_last'] < $rt) {
 	echo "</div>";
 }
 if ($ank['id'] != 0 && $block == true) {
-	if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"), 0) == 1) {
-		$kont = dbarray(dbquery("SELECT * FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"));
-	 else {
-		echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'> 
-	<a href='/user/conts.php?type=common&amp;act=add&amp;id=$ank[id]'>添加到联系人列表</a></div>";
-	}
-	echo "<form method='post' name='message' action='/user/mail.php?id=$ank[id]'>";
-	if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
-		include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
-	else
-		echo $tPanel . "<textarea name='msg'></textarea><br />";
-	if ($user['level'] == 0 && dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_kont` = '$user[id]' AND `id_user` = '$ank[id]'"), 0) == 0)
-		echo "<img src='/captcha.php?SESS=$sess' width='100' height='30' alt='核证号码' /><br /><input name='chislo' size='5' maxlength='5' value='' type='text' /><br/>";
-	echo "<input type='submit' name='send' value='发送' />";
-	echo "<input type='submit' name='refresh' value='清空' />";
-	echo "</form>";
-
+    if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"), 0) == 1) {
+        $kont = dbarray(dbquery("SELECT * FROM `users_konts` WHERE `id_user` = '$user[id]' AND `id_kont` = '$ank[id]'"));
+    } else {
+        echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'> 
+        <a href='/user/conts.php?type=common&amp;act=add&amp;id=$ank[id]'>添加到联系人列表</a></div>";
+    }
+    echo "<form method='post' name='message' action='/user/mail.php?id=$ank[id]'>";
+    if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
+        include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
+    else
+        echo $tPanel . "<textarea name='msg'></textarea><br />";
+    if ($user['level'] == 0 && dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_kont` = '$user[id]' AND `id_user` = '$ank[id]'"), 0) == 0)
+        echo "<img src='/captcha.php?SESS=$sess' width='100' height='30' alt='核证号码' /><br /><input name='chislo' size='5' maxlength='5' value='' type='text' /><br/>";
+    echo "<input type='submit' name='send' value='发送' />";
+    echo "<input type='submit' name='refresh' value='清空' />";
+    echo "</form>";
 }
+
 echo "<div class='foot'><img src='/style/icons/str.gif' alt='*'> 
 	<a href='/user/conts.php?" . (isset($kont) ? 'type=' . $kont['type'] : null) . "'>所有联系人</a></div>";
 echo "<table class='post'>";
@@ -281,3 +283,4 @@ echo "<div class='foot'>";
 echo "<img src='/style/icons/str.gif' alt='*'> <a href='mail.php?id=$ank[id]&amp;page=$page&amp;delete=add'>清除邮件</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
+?>

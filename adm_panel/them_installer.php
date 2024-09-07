@@ -18,9 +18,9 @@ title();
 if (isset($_FILES['file']) && filesize($_FILES['file']['tmp_name'])!=0)
 {
 $file=esc(stripcslashes(htmlspecialchars($_FILES['file']['name'])));
-$file=preg_replace('#(|\?)#', NULL, $file);
-$name=esc(trim(retranslit(preg_replace('#\.[^\.]*$#', NULL, $file)))); // имя файла без расширения
-$ras=strtolower(preg_replace('#^.*\.#i', NULL, $file));
+$file=preg_replace('#(|\?)#', 'null', $file);
+$name=esc(trim(retranslit(preg_replace('#\.[^\.]*$#', 'null', $file)))); // имя файла без расширения
+$ras=strtolower(preg_replace('#^.*\.#i', 'null', $file));
 if ($ras!='zip')$err='主题必须在ZIP存档中';
 if (!isset($err))
 {
@@ -75,4 +75,5 @@ if (user_access('adm_panel_show'))
 echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
+
 ?>

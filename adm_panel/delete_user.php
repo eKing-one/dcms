@@ -267,3 +267,5 @@ echo "&laquo;<a href='/user/info.php?id=$ank[id]'>返回资料</a><br />";
 echo "&laquo;<a href='/users.php'>用户</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
+
+?>

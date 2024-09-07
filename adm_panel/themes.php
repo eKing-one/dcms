@@ -99,3 +99,5 @@ if (user_access('adm_panel_show'))
     echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
+
+?>

@@ -15,4 +15,3 @@ echo '<center>
 echo "</div>";
 echo "</div></body></html>";
 exit;
-?>

@@ -9,6 +9,7 @@ include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 include_once '../../sys/inc/thead.php';
+$show_all = true; // 为游客开放
 $post = dbassoc(dbquery("SELECT * FROM `rules` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1"));
 $set['title'] = htmlspecialchars($post['title']);
 title();

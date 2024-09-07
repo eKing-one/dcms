@@ -111,24 +111,24 @@ else $lenta = null;
 
 <div id="comments" class="menus">
 	<div class="webmenu">
-		<a href="/user/tape/">消息中心<?= $lenta ?></a>
+		<a href="/user/tape/">信息中心<?= $lenta ?></a>
 	</div>
 	<div class="webmenu">
 		<a href="/user/discussions/" class="activ">讨论 <?= $discuss ?></a>
 	</div>
 	<div class="webmenu">
-		<a href="/user/notification/">@回复我的 <?= $k_notif ?></a>
+		<a href="/user/notification/">关于我的 <?= $k_notif ?></a>
 	</div>
 </div>
 
 <div class="foot">
-	排序:
+	分类:
 	<a href="?"> 全部</a> |
 	<a href="?order=my"> 关于我的 <?= $count_my ?> </a> |
 	<a href="?order=frends"> 关于好友的 <?= $count_f ?> </a>
 </div>
 <div class='foot'>
-<a href='?read=all'><img src='/style/icons/ok.gif'>一键已读</a>
+<a href='?read=all'><img src='/style/icons/ok.gif'> 一键清除消息/已读 </a>
 </div>
 <?
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `discussions`  WHERE `id_user` = '$user[id]' $order"), 0);
@@ -141,7 +141,7 @@ $q = dbquery("SELECT * FROM `discussions` WHERE `id_user` = '$user[id]' $order O
 if ($k_post == 0) {
 ?>
 	<div class="mess">
-		没有新的讨论&消息
+		没有新的讨论
 	</div>
 <?
 }
@@ -173,7 +173,7 @@ if ($k_page > 1) str('?' . $sort, $k_page, $page);
 
 ?>
 <div class='foot'>
-	<a href='?delete=all'><img src='/style/icons/delete.gif'>删除所有消息</a> | <a href='settings.php'>消息设置</a>
+	<a href='?delete=all'><img src='/style/icons/delete.gif'>清除所有消息</a> | <a href='settings.php'>消息设置</a>
 </div>
 <?
 include_once '../../sys/inc/tfoot.php';
