@@ -1,7 +1,7 @@
 <?php
 function img_preg($arr)
 {
-  if (preg_match('#^http://' . preg_quote($_SERVER['HTTP_HOST']) . '#', $arr[1]) || !preg_match('#://#', $arr[1])) {
+  
     if (preg_match('/\.(?:jp(?:e?g|e|2)|gif|png|tiff?|bmp|ico)$/i', $arr[1])) {
       if (true) {
         return '<a href="https://' . $_SERVER['HTTP_HOST'] . '/go.php?go=' . base64_encode(html_entity_decode($arr[1])) . '"><img decoding=async style="max-width:240px; max-height:320px;" src="' . text($arr[1]) . '" alt="img" /></a>';
@@ -9,10 +9,8 @@ function img_preg($arr)
     } else {
       return '<img style="max-width:240px;" src="/style/no_image.png" alt="No Image" />';
     }
-  } else {
-    return '<a target="_blank" href="http://' . $_SERVER['HTTP_HOST'] . '/go.php?go=' . base64_encode(html_entity_decode($arr[1])) . '">外部站点的图像</a>';
-  }
-}
+  } 
+
 function links_preg1($arr)
 {
   global $set;
