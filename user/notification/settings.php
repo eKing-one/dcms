@@ -1,19 +1,4 @@
 <?
-/*
-=======================================
-Уведомления для Dcms-Social
-Автор: Искатель
----------------------------------------
-此脚本在许可下被破坏
-DCMS-Social 引擎。
-使用时，指定引用到
-网址 http://dcms-social.ru
----------------------------------------
-接点
-ICQ：587863132
-http://dcms-social.ru
-=======================================
-*/
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -41,22 +26,22 @@ err();
 aut();
 echo "<div id='comments' class='menus'>";
 echo "<div class='webmenu'>";
-echo "<a href='/user/info/settings.php'>普通</a>";
+echo "<a href='/user/info/settings.php'>通用</a>";
 echo "</div>";
 echo "<div class='webmenu last'>";
-echo "<a href='/user/tape/settings.php'>信息中心</a>";
+echo "<a href='/user/tape/settings.php'>通知消息</a>";
 echo "</div>";
 echo "<div class='webmenu last'>";
 echo "<a href='/user/discussions/settings.php'>讨论</a>";
 echo "</div>";
 echo "<div class='webmenu last'>";
-echo "<a href='/user/notification/settings.php' class='activ'>通知书</a>";
+echo "<a href='/user/notification/settings.php' class='activ'>@提到我的</a>";
 echo "</div>";
 echo "<div class='webmenu last'>";
-echo "<a href='/user/info/settings.privacy.php' >私隐保护</a>";
+echo "<a href='/user/info/settings.privacy.php' >隐私保护</a>";
 echo "</div>";
 echo "<div class='webmenu last'>";
-echo "<a href='/user/info/secure.php' >密码</a>";
+echo "<a href='/user/info/secure.php' >更改密码</a>";
 echo "</div>";
 echo "</div>";
 echo "<form action='?' method=\"post\">";
