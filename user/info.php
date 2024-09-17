@@ -87,7 +87,7 @@ if (isset($_POST['msg']) && isset($user)) {
 	} elseif (!isset($err)) {
 		/*
 		==========================
-		有关回应的通知
+		动态发布成功通知
 		==========================
 		*/
 		if (isset($user) && $respons == TRUE) {
@@ -126,7 +126,7 @@ if (isset($_POST['rating']) && isset($user)  && $user['id'] != $ank['id'] && $us
 		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 保持中立 [url=/who_rating.php]你的个人资料[/url]', '$time')");
 	msg('对用户的评价已修改');
 }
-//-------------状态记录-----------//
+//-------------状态添加-----------//
 if (isset($_POST['status']) && isset($user) && $user['id'] == $ank['id']) {
 	$msg = $_POST['status'];
 	if (isset($_POST['translit']) && $_POST['translit'] == 1) $msg = translit($msg);
@@ -142,7 +142,7 @@ if (isset($_POST['status']) && isset($user) && $user['id'] == $ank['id']) {
 		dbquery("UPDATE `status` SET `pokaz` = '0' WHERE `id_user` = '$user[id]'");
 		dbquery("INSERT INTO `status` (`id_user`, `time`, `msg`, `pokaz`) values('$user[id]', '$time', '" . my_esc($msg) . "', '1')");
 		$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id_user` = '$ank[id]' AND `pokaz` = '1' LIMIT 1"));
-		######################Лента
+
 		$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $user['id'] . "' AND `i` = '1'");
 		while ($f = dbarray($q)) {
 			$a = user::get_user($f['frend']);
@@ -150,7 +150,7 @@ if (isset($_POST['status']) && isset($user) && $user['id'] == $ank['id']) {
 			if ($f['lenta_status'] == 1 && $lentaSet['lenta_status'] == 1)
 				dbquery("INSERT INTO `tape` (`id_user`,`ot_kogo`,  `avtor`, `type`, `time`, `id_file`) values('$a[id]', '$user[id]', '$status[id_user]', 'status', '$time', '$status[id]')");
 		}
-		#######################Конец
+
 		$_SESSION['message'] = '新增状态';
 		header("Location: ?id=$ank[id]");
 		exit;
@@ -170,21 +170,21 @@ $status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id_user` = '$ank[id]' A
 /* 状态类 */
 if (isset($_GET['like']) && $user['id'] != $ank['id'] && dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
 	dbquery("INSERT INTO `status_like` (`id_user`, `time`, `id_status`) values('$user[id]', '$time', '$status[id]')");
-	######################Лента
+
 	$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $user['id'] . "' AND `i` = '1'");
 	while ($f = dbarray($q)) {
 		$a = user::get_user($f['frend']);
-		$lentaSet = dbarray(dbquery("SELECT * FROM `tape_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // Общая настройка ленты
+		$lentaSet = dbarray(dbquery("SELECT * FROM `tape_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // 功能区设置
 		if ($a['id'] != $ank['id'] && $f['lenta_status_like'] == 1 && $lentaSet['lenta_status_like'] == 1)
 			dbquery("INSERT INTO `tape` (`id_user`,`ot_kogo`,  `avtor`, `type`, `time`, `id_file`) values('$a[id]', '$user[id]', '$status[id_user]', 'status_like', '$time', '$status[id]')");
 	}
-	#######################终极
+
 	header("Location: ?id=$ank[id]");
 	exit;
 }
 /*
 =================================
-添加到书签
+书签
 =================================
 */
 if (isset($_GET['fav']) && isset($user)) {
@@ -207,9 +207,7 @@ if (isset($user) && isset($_GET['like']) && ($_GET['like'] == 0 || $_GET['like']
 /*----------------------------------------------------------*/
 /*
 ================================
-用户投诉模块
-和他的消息或内容
-视区段而定
+用户举报
 ================================
 */
 if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
@@ -266,7 +264,7 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 }
 /*
 ==================================
-The End
+尾部
 ==================================
 */
 $set['title'] = $ank['nick'] . ' - 个人主页 '; //网页标题
@@ -292,7 +290,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 		echo user::avatar($ank['id']);
 		echo "<br />";
 	}
-	if ($uSet['privat_str'] == 2 && $frend != 2) // 只要有朋友的话
+	if ($uSet['privat_str'] == 2 && $frend != 2) // 仅允许好友查看
 	{
 		echo '<div class="mess">';
 		echo '由于用户的隐私设置，只有该用户的好友才能查看主页'; 
@@ -312,7 +310,7 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 		include_once '../sys/inc/tfoot.php';
 		exit;
 	}
-	if ($uSet['privat_str'] == 0) // 关闭时
+	if ($uSet['privat_str'] == 0) // 关闭查看主页
 	{
 		echo '<div class="mess">';
 		echo '由于用户的隐私设置，已禁止查看这位用户的主页';

@@ -468,4 +468,4 @@ DCMS-Social 1.9.9.7
 -obmen改为down
 ====================
 DCMS-Social 20240711
--修改程序参数存储位置由原来的/sys/dat/settings_6.2.dat改为/sys/conf/settings.php
+-修改程序参数存储位置由原来的/sys/dat/settings_6.2.dat改为/sys/dat/settings.php

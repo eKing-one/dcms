@@ -12,10 +12,6 @@ function bbcodeplayvideo($data){
 	if (preg_match('#\.youku\.com/.*/id_([a-zA-Z0-9=]+)#', $url, $arr)) {
 		$iframeUrl = 'https://player.youku.com/embed/'.$arr[1];
 	}
-	//土豆（失效）
-	//else if (preg_match('#\.tudou\.com/.*/([a-zA-Z0-9=]+)#', $url, $arr)) {
-	//    $iframeUrl = 'https://www.tudou.com/programs/view/html5embed.action?code='.$arr[1];
-	//}
 	//全民K歌
 	else if (preg_match('#kg.*\.qq\.com/.*\bs=([a-zA-Z0-9=]+)#', $url, $arr)) {
 		$iframeUrl = 'https://kg.qq.com/node/play?s='.$arr[1];

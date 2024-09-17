@@ -48,22 +48,22 @@ aut();
 ?>
 <div id="comments" class="menus">
 	<div class="webmenu">
-		<a href="/user/info/settings.php">常见的</a>
+		<a href="/user/info/settings.php">通用</a>
 	</div>
 	<div class="webmenu">
-		<a href="/user/tape/settings.php">信息中心</a>
+		<a href="/user/tape/settings.php">通知消息</a>
 	</div>
 	<div class="webmenu">
-		<a href="/user/discussions/settings.php" class="activ">讨论情况</a>
+		<a href="/user/discussions/settings.php" class="activ">讨论</a>
 	</div>
 	<div class="webmenu">
-		<a href="/user/notification/settings.php">通知书</a>
+		<a href="/user/notification/settings.php">@提到我的</a>
 	</div>
 	<div class="webmenu">
-		<a href="/user/info/settings.privacy.php">私隐保护</a>
+		<a href="/user/info/settings.privacy.php">隐私保护</a>
 	</div>
 	<div class="webmenu">
-		<a href="/user/info/secure.php">密码</a>
+		<a href="/user/info/secure.php">更改密码</a>
 	</div>
 </div>
 <form action="?" method="post">

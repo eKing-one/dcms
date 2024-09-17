@@ -1,11 +1,9 @@
 <?
 // 我们对图像施加版权，如果有的话。
 // 版权大小根据图像动态变化
-function img_copyright($img)
-{
+function img_copyright($img) {
 	global $set;
-	if (isset($set['copy_path']) && $set['copy_path'] != null && $copy = @imagecreatefromstring(file_get_contents(H.$set['copy_path'])))
-	{
+	if (isset($set['copy_path']) && $set['copy_path'] != null && $copy = @imagecreatefromstring(file_get_contents(H.$set['copy_path']))) {
 		$img_x = imagesx($img);
 		$img_y = imagesy($img);
 		$copy_x = imagesx($copy);
@@ -14,18 +12,13 @@ function img_copyright($img)
 		$h = intval(min($img_y / 2.5, $copy_y, 64));
 		$x_ratio = $w / $copy_x;
 		$y_ratio = $h / $copy_y;
-		if (($copy_x <= $w) && ($img_y <= $h))
-		{
+		if (($copy_x <= $w) && ($img_y <= $h)) {
 			$dstW = $copy_x;
 			$dstH = $copy_y;
-		}
-		elseif (($x_ratio * $copy_y) < $h)
-		{
+		} elseif (($x_ratio * $copy_y) < $h) {
 			$dstH = ceil($x_ratio * $copy_y);
 			$dstW = $w;
-		}
-		else
-		{
+		} else {
 			$dstW = ceil($y_ratio * $copy_x);
 			$dstH = $h;
 		}
@@ -33,4 +26,3 @@ function img_copyright($img)
 	}
 	return $img;
 }
-?>
