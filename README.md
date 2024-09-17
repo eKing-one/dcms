@@ -41,7 +41,6 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - 主题样式文件：`style/themes/`（主题文件夹）
 - 网站规则文件：`sys/add/rules.txt`
 - 默认主题存档：`sys/add/theme.zip`（用于管理员安装或替换丢失的主题文件）
-- 爬虫管理：`robots.txt`（源代码默认屏蔽 MJ12Bot、AhrefsBot 和 SEMrushBot 三只垃圾爬虫，详见[该文章](https://itlanyan.com/common-bot-ua-and-block-bad-bots/)）
 
 ## 安装步骤
 
