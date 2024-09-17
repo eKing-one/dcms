@@ -1,10 +1,10 @@
 <?php
 // 函数别名
-function my_esc($text, $br = NULL)
-{ // 剪切所有不可读字符
-	if ($br != NULL)
+// 剪切所有不可读字符
+function my_esc($text, $br = NULL) { 
+	if ($br != NULL) {
 		for ($i = 0; $i <= 31; $i++) $text = str_replace(chr($i), NULL, $text);
-	else {
+	} else {
 		for ($i = 0; $i < 10; $i++) $text = str_replace(chr($i), NULL, $text);
 		for ($i = 11; $i < 20; $i++) $text = str_replace(chr($i), NULL, $text);
 		for ($i = 21; $i <= 31; $i++) $text = str_replace(chr($i), NULL, $text);
@@ -14,8 +14,7 @@ function my_esc($text, $br = NULL)
 
 // 对于php4（替代file_put_contents）
 if (!function_exists('file_put_contents')) {
-	function file_put_contents($file, $data)
-	{
+	function file_put_contents($file, $data) {
 		$f = @fopen($file, 'w');
 		return @fwrite($f, $data);
 		@fclose($f);
@@ -35,16 +34,16 @@ if ($set['antidos']) { // 来自单个 IP 的频繁请求保护
 		}
 	}
 	if ($k_loads > 100) {
-		if (dbresult(dbquery("SELECT COUNT(*) FROM `ban_ip` WHERE `min` <= '$iplong' AND `max` >= '$iplong'"), 0) == 0)
+		if (dbresult(dbquery("SELECT COUNT(*) FROM `ban_ip` WHERE `min` <= '$iplong' AND `max` >= '$iplong'"), 0) == 0) {
 			dbquery("INSERT INTO `ban_ip` (`min`, `max`, `prich`) values('$iplong', '$iplong', 'AntiDos')", $db);
+		}
 	}
 	@file_put_contents(H . 'sys/tmp/antidos_' . $iplong . '.dat', serialize($antidos));
 	@chmod(H . 'sys/tmp/antidos_' . $iplong . '.dat', 0777);
 }
 
 // 禁止文字antimat会自动发出警告，然后禁止
-function antimat($str)
-{
+function antimat($str) {
 	global $user, $time, $set;
 	// if ($set['antimat']) {
 	// 	$antimat = &$_SESSION['antimat'];
@@ -68,8 +67,7 @@ function antimat($str)
 }
 
 // 递归删除文件夹
-function delete_dir($dir)
-{
+function delete_dir($dir) {
 	if (is_dir($dir)) {
 		$od = opendir($dir);
 		while ($rd = readdir($od)) {
@@ -91,8 +89,7 @@ function delete_dir($dir)
 	}
 }
 //curl支持函数
-function get_curl($url, $post=0, $referer=0, $cookie=0, $header=0, $ua=0, $nobaody=0, $addheader=0)
-{
+function get_curl($url, $post=0, $referer=0, $cookie=0, $header=0, $ua=0, $nobaody=0, $addheader=0) {
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -100,7 +97,7 @@ function get_curl($url, $post=0, $referer=0, $cookie=0, $header=0, $ua=0, $nobao
 	$httpheader[] = "Accept-Encoding: gzip,deflate,sdch";
 	$httpheader[] = "Accept-Language: zh-CN,zh;q=0.8";
 	$httpheader[] = "Connection: close";
-	if($addheader){
+	if($addheader) {
 		$httpheader = array_merge($httpheader, $addheader);
 	}
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
@@ -114,15 +111,12 @@ function get_curl($url, $post=0, $referer=0, $cookie=0, $header=0, $ua=0, $nobao
 	if ($cookie) {
 		curl_setopt($ch, CURLOPT_COOKIE, $cookie);
 	}
-	if($referer){
-
+	if($referer) {
 		curl_setopt($ch, CURLOPT_REFERER, $referer);
-
 	}
 	if ($ua) {
 		curl_setopt($ch, CURLOPT_USERAGENT, $ua);
-	}
-	else {
+	} else {
 		curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Linux; U; Android 4.0.4; es-mx; HTC_One_X Build/IMM76D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0");
 	}
 	if ($nobaody) {
@@ -135,26 +129,24 @@ function get_curl($url, $post=0, $referer=0, $cookie=0, $header=0, $ua=0, $nobao
 	return $ret;
 }
 //获取ip位置信息
-function get_ip_city($ip)
-{
-    $url = 'http://whois.pconline.com.cn/ipJson.jsp?json=true&ip=';
-    $city = get_curl($url . $ip);
+function get_ip_city($ip) {
+	$url = 'http://whois.pconline.com.cn/ipJson.jsp?json=true&ip=';
+	$city = get_curl($url . $ip);
 	$city = mb_convert_encoding($city, "UTF-8", "GB2312");
-    $city = json_decode($city, true);
-    if ($city['city']) {
-        $location = $city['pro'].$city['city'];
-    } else {
-        $location = $city['pro'];
-    }
-	if($location){
+	$city = json_decode($city, true);
+	if ($city['city']) {
+		$location = $city['pro'].$city['city'];
+	} else {
+		$location = $city['pro'];
+	}
+	if ($location) {
 		return $location;
-	}else{
+	} else {
 		return false;
 	}
 }
 //反黑客攻击行为
 if (!defined("ADMIN")) {
-
 	$hackparam = $_SERVER['QUERY_STRING'];
 	$hackparam = htmlspecialchars($hackparam);
 
@@ -217,16 +209,14 @@ if (isset($_SERVER['HTTP_REFERER']) && !preg_match('#' . preg_quote($_SERVER['HT
 	if (isset($ref['host'])) $_SESSION['http_referer'] = $ref['host'];
 }
 
-function br($msg, $br = '<br />')
-{
+function br($msg, $br = '<br />') {
 	return preg_replace("#((<br( ?/?)>)|\n|\r)+#i", $br, $msg);
 } // 换行
 
-function esc($text, $br = NULL)
-{ // 过滤所有不可读字符
-	if ($br != NULL)
+function esc($text, $br = NULL) { // 过滤所有不可读字符
+	if ($br != NULL) {
 		for ($i = 0; $i <= 31; $i++) $text = str_replace(chr($i), NULL, $text);
-	else {
+	} else {
 		for ($i = 0; $i < 10; $i++) $text = str_replace(chr($i), NULL, $text);
 		for ($i = 11; $i < 20; $i++) $text = str_replace(chr($i), NULL, $text);
 		for ($i = 21; $i <= 31; $i++) $text = str_replace(chr($i), NULL, $text);
@@ -237,8 +227,7 @@ function esc($text, $br = NULL)
 
 
 // 语句定义
-function opsos($ips = NULL)
-{
+function opsos($ips = NULL) {
 	global $ip;
 	if ($ips == NULL) $ips = $ip;
 	$ipl = ip2long($ips);
@@ -248,8 +237,7 @@ function opsos($ips = NULL)
 	} else return false;
 }
 // 时间输出
-function vremja($time = NULL)
-{
+function vremja($time = NULL) {
 	global $user;
 	if ($time == NULL) $time = time();
 	if (isset($user)) $time = $time + $user['set_timesdvig'] * 60 * 60;
@@ -280,8 +268,7 @@ function vremja($time = NULL)
 }
 
 // 只供已登记人士使用
-function only_reg($link = NULL)
-{
+function only_reg($link = NULL) {
 	global $user;
 	if (!isset($user)) {
 		if ($link == NULL) $link = '/index.php?' . SID;
@@ -292,8 +279,7 @@ function only_reg($link = NULL)
 
 
 // 只适用于未登记的人
-function only_unreg($link = NULL)
-{
+function only_unreg($link = NULL) {
 	global $user;
 	if (isset($user)) {
 		if ($link == NULL) $link = '/index.php?' . SID;
@@ -304,8 +290,7 @@ function only_unreg($link = NULL)
 
 
 // 仅适用于访问级别大于或等于 $level
-function only_level($level = 0, $link = NULL)
-{
+function only_level($level = 0, $link = NULL) {
 	global $user;
 	if (!isset($user) || $user['level'] < $level) {
 		if ($link == NULL) $link = '/index.php?' . SID;
@@ -345,8 +330,7 @@ if (!isset($hard_process)) {
 
 
 // 错误输出
-function err()
-{
+function err() {
 	global $err;
 	if (isset($err)) {
 		if (is_array($err)) {
@@ -357,8 +341,7 @@ function err()
 	}
 }
 
-function msg($msg)
-{
+function msg($msg) {
 	echo "<div class='msg'>$msg</div>";
 } // 消息输出
 
@@ -376,30 +359,28 @@ if (dbrows($q) != 0) {
 }
 
 // 保存系统设置
-function save_settings($set)
-{
-    // 从数组中移除特定键
-    unset($set['web']);
-    
-    // 构建配置文件内容
-    $configContent = "<?php\nreturn " . var_export($set, true) . ";\n";
+function save_settings($set) {
+	// 从数组中移除特定键
+	unset($set['web']);
+	
+	// 构建配置文件内容
+	$configContent = "<?php\nreturn " . var_export($set, true) . ";\n";
 
-    // 定义配置文件路径
-    $filePath = H . 'sys/conf/settings.php';
+	// 定义配置文件路径
+	$filePath = H . 'sys/dat/settings.php';
 
-    // 尝试打开文件写入内容
-    if ($fopen = @fopen($filePath, 'w')) {
-        @fputs($fopen, $configContent);
-        @fclose($fopen);
-        @chmod($filePath, 0777);
-        return true;
-    } else {
-        return false;
-    }
+	// 尝试打开文件写入内容
+	if ($fopen = @fopen($filePath, 'w')) {
+		@fputs($fopen, $configContent);
+		@fclose($fopen);
+		@chmod($filePath, 0777);
+		return true;
+	} else {
+		return false;
+	}
 }
 // 管理行动记录
-function admin_log($mod, $act, $opis)
-{
+function admin_log($mod, $act, $opis) {
 	global $user;
 
 	$q = dbquery("SELECT * FROM `admin_log_mod` WHERE `name` = '" . my_esc($mod) . "' LIMIT 1");
@@ -413,8 +394,7 @@ function admin_log($mod, $act, $opis)
 		dbquery("INSERT INTO `admin_log_act` (`name`, `id_mod`) VALUES ('" . my_esc($act) . "', '$id_mod')");
 		$id_act = dbinsertid();
 	} else $id_act = dbresult($q2, 0);
-	dbquery("INSERT INTO `admin_log` (`time`, `id_user`, `mod`, `act`, `opis`) VALUES
-('" . time() . "','$user[id]', '$id_mod', '$id_act', '" . my_esc($opis) . "')");
+	dbquery("INSERT INTO `admin_log` (`time`, `id_user`, `mod`, `act`, `opis`) VALUES ('" . time() . "','$user[id]', '$id_mod', '$id_act', '" . my_esc($opis) . "')");
 }
 
 
@@ -431,8 +411,7 @@ while ($filebase = readdir($opdirbase)) {
 dbquery("INSERT INTO `visit_today` (`ip` , `ua`, `time`) VALUES ('$iplong', '" . @my_esc($_SERVER['HTTP_USER_AGENT']) . "', '$time')");
 
 
-function ages($age)
-{
+function ages($age) {
 	$str = '';
 	$num = $age > 100 ? substr($age, -2) : $age;
 	if ($num >= 5 && $num <= 14) $str = "年";
@@ -447,33 +426,29 @@ function ages($age)
 
 //删除更新代码
 
-function version_stable()
-{
+function version_stable() {
 	//$content = file_get_contents("https://dcms-social.ru/launcher/social.json");
 	//$data = json_decode($content, TRUE);
 	return $data=['stable']['version'];
 }
-function t_toolbar_html()
-{
+function t_toolbar_html() {
 	global $set;
 
 	echo '<div class="mess">
-      <b>Admin Tool</b> :: <a href="/">网站主页</a>  |<a href="/plugins/admin/">管理员</a> | <a href="/adm_panel/">控制面板</a> |<a target="_blank" href="https://dcms-social.ru">DCMS-Social.ru</a>
-       v' . $set['dcms_version'];
+	  <b>Admin Tool</b> :: <a href="/">网站主页</a>  |<a href="/plugins/admin/">管理员</a> | <a href="/adm_panel/">控制面板</a> |<a target="_blank" href="https://dcms-social.ru">DCMS-Social.ru</a>
+	   v' . $set['dcms_version'];
 	if (status_version() < 0) {
 		echo '<center><font color="red">有一个新版本 - ' . version_stable() . '! <a href="/adm_panel/update.php">详细</a></font></center>';
 	}
 	echo '</div>';
 }
 
-function add_header($value)
-{
+function add_header($value) {
 	static $add;
 	return $add[] = $value;
 	header_html($add);
 }
-function header_html($add = null)
-{
+function header_html($add = null) {
 	static $header;
 	if ($add == null) {
 		//   var_dump($header);
@@ -483,8 +458,7 @@ function header_html($add = null)
 
 //获取远程更新代码
 //影响网站效率
-function status_version()
-{
+function status_version() {
 	// global $set;
 	// $content = file_get_contents("https://dcms-social.ru/launcher/social.json");
 	// $data = json_decode($content, TRUE);
