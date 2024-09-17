@@ -1,4 +1,5 @@
 <?php
+# 处理 [img] 标签的内容
 function img_preg($arr) {
 	global $set;
 	if (preg_match('#^http://' . preg_quote($_SERVER['HTTP_HOST']) . '#', $arr[1]) || !preg_match('#://#', $arr[1]) || $set['bb_external_img'] == '1') {
