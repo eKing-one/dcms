@@ -409,6 +409,7 @@ function save_settings($set) {
 		return false;
 	}
 }
+
 // 管理行动记录
 function admin_log($mod, $act, $opis) {
 	global $user;
