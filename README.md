@@ -75,3 +75,4 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - [ ] "网站领袖" 新译名
 - [ ] "书签分类" -> "日记" 翻页后无法显示标题
 - [ ] "书签分类" -> "论坛" 出现数据库查询的 Warning 报错
+- [ ] 完善“是否允许游客访问《网站资料与帮助》页面”功能，优化 plugins/rules/index.php:13 与 plugins/rules/post.php:13 的代码实现方式
