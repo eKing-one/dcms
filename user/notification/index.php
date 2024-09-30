@@ -19,11 +19,10 @@ $width = ($webbrowser == 'web' ? '100' : '70'); // 要在浏览器上显示的�
 */
 
 //屏蔽 Notice 报错
-error_reporting(E_ALL || ~E_NOTICE);
+//error_reporting(E_ALL || ~E_NOTICE);
 
 
 if (isset($_GET['delete']) && $_GET['delete'] == 'all') {
-	
 	if (isset($user)) {
 		dbquery("DELETE FROM `notification` WHERE `id_user` = '$user[id]'");
 		$_SESSION['message'] = '清除所有通知';

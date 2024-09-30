@@ -15,11 +15,13 @@ $show_all = true; //为大家展示
 include_once '../sys/inc/user.php';
 only_unreg();
 
-if (isset($_GET['pass']) && $_GET['pass'] = 'ok')
+if (isset($_GET['pass']) && $_GET['pass'] = 'ok') {
 	$_SESSION['message'] = '密码已通过电子邮件发送给您';
+}
 
-if ($set['guest_select'] == '1')
+if ($set['guest_select'] == '1') {
 	$_SESSION['message'] = "只有授权用户才能访问该网站";
+}
 
 $set['title'] = '登录账号';
 include_once '../sys/inc/thead.php';
