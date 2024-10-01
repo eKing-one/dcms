@@ -7,12 +7,8 @@ include_once '../../sys/inc/settings.php';
 include_once '../../sys/inc/db_connect.php';
 include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
-if ($set['allow_guest_help_page'] == '1') {
+if ($set['allow_guest_rules_page'] == '1') {
 	$show_all = true; // 为游客开放
-} else {
-	// 临时使用，需要改进
-	header("Location: /user/aut.php");
-	exit;
 }
 include_once '../../sys/inc/user.php';
 include_once '../../sys/inc/thead.php';

@@ -49,7 +49,6 @@ if (isset($_POST['save'])) {
 	if ($_POST['replace'] != 1) {}
 	$temp_set['main'] = esc(stripcslashes(htmlspecialchars(($_POST['main']))));
 	$temp_set['header'] = esc(stripcslashes(htmlspecialchars(($_POST['header']))));
-	$temp_set['allow_guest_help_page'] = intval($_POST['allow_guest_help_page']);
 	if (save_settings($temp_set)) {
 		admin_log('设置', '系统', '更改系统设置');
 		msg('已成功接受设置');
@@ -101,13 +100,6 @@ echo "网站标题栏：<br />
 <select name='header'>
 	<option ".(setget('header',"index")=="index"? " selected ":null)." value='index'>仅在首页</option>
 	<option ".(setget('header',"all")=="all"? " selected ":null)." value='all'>在所有页面上</option>
-</select>
-<br />";
-
-echo "允许游客访问《<a href='/plugins/rules'>网站资料与帮助</a>》页面：<br />
-<select name='allow_guest_help_page'>
-	<option ".(setget('allow_guest_help_page',1)==1? " selected ":null)." value='1'>允许</option>
-	<option ".(setget('allow_guest_help_page',1)==0? " selected ":null)." value='0'>禁止</option>
 </select>
 <br />";
 
