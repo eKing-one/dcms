@@ -10,18 +10,13 @@ include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/adm_check.php';
 include_once '../../sys/inc/user.php';
 only_reg();
-$width = ($webbrowser == 'web' ? '100' : '70'); // 要在浏览器上显示的礼物大小
+$width = ($webbrowser == 'web' ? '100' : '70');	// 要在浏览器上显示的礼物大小
+
 /*
 ===============================
 删除全部通知
 ===============================
-
 */
-
-//屏蔽 Notice 报错
-//error_reporting(E_ALL || ~E_NOTICE);
-
-
 if (isset($_GET['delete']) && $_GET['delete'] == 'all') {
 	if (isset($user)) {
 		dbquery("DELETE FROM `notification` WHERE `id_user` = '$user[id]'");
@@ -30,8 +25,7 @@ if (isset($_GET['delete']) && $_GET['delete'] == 'all') {
 		exit;
 	}
 }
-if (isset($_GET['del'])) // 删除通知
-{
+if (isset($_GET['del'])) {	// 删除通知
 	if (isset($user)) {
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `notification`  WHERE `id_user` = '$user[id]' AND `id` = '" . intval($_GET['del']) . "'"), 0) == 1) {
 			dbquery("DELETE FROM `notification` WHERE `id_user` = '$user[id]' AND `id` = '" . intval($_GET['del']) . "' LIMIT 1");
@@ -41,11 +35,13 @@ if (isset($_GET['del'])) // 删除通知
 		}
 	}
 }
+
 $set['title'] = '关于我的';
 include_once '../../sys/inc/thead.php';
 title();
 err();
 aut();
+
 /*
 ======
 面板
@@ -81,8 +77,7 @@ $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
 $q = dbquery("SELECT * FROM `notification` WHERE `id_user` = '$user[id]' ORDER BY `time` DESC LIMIT $start, $set[p_str]");
-if ($k_post == 0) //如果没有通知的话
-{
+if ($k_post == 0) {	//如果没有通知的话
 	echo "  <div class='mess'>";
 	echo "没有新通知";
 	echo "  </div>";
@@ -100,8 +95,7 @@ while ($post = dbassoc($q)) {
 	/*---------------------------*/
 	$type = $post['type']; //通知类型
 	$avtor = user::get_user($post['avtor']); //谁的通知
-	if ($post['read'] == 0) //未读时
-	{
+	if ($post['read'] == 0) {	//未读时
 		$s1 = "<font color='red'>";
 		$s2 = "</font>";
 	} else {
@@ -109,84 +103,58 @@ while ($post = dbassoc($q)) {
 		$s2 = null;
 	}
 	/*
-===============================
-$name 变量值 
-特定消息类型
-===============================
-*/
-	if ($type == 'ok_gift') // 接受礼物
-	{	
+	===============================
+	$name 变量值 
+	特定消息类型
+	===============================
+	*/
+	if ($type == 'ok_gift') {			// 接受礼物
 		$name = '接受了您的礼物';
-	}
-	elseif ($type == 'no_gift') // 拒绝礼物
-	{	
+	} elseif ($type == 'no_gift') {		// 拒绝礼物
 		$name = '拒绝了您的礼物';
-	}
-	elseif ($type == 'new_gift') // 新礼物
-	{	
+	} elseif ($type == 'new_gift') {	// 新礼物
 		$name = '给您送上了新的礼物';
-	}
-	elseif ($type == 'files_komm' || $type == 'obmen_komm') // 文件评论
-	{	
+	} elseif ($type == 'files_komm' || $type == 'obmen_komm') {	// 文件评论
 		$name = '在您的文件评论中回复了您';
-	}
-
-	elseif ($type == 'news_komm') // 新闻评论
-	{	
+	} elseif ($type == 'news_komm') {	// 新闻评论
 		$name = '在您的新闻评论中回复了您';
-	}
-	elseif ($type == 'status_komm') // 状态评论
-	{	
+	} elseif ($type == 'status_komm') {	// 状态评论
 		$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '".$post['id_object']."' LIMIT 1"));
 		$name = '在这个状态的评论中回复了您';
-	}
-	elseif ($type == 'foto_komm') // 照片评论
-	{	
+	} elseif ($type == 'foto_komm') {	// 照片评论
 		$name = '在您的照片评论中回复了您';
-	}
-	elseif ($type == 'notes_komm') // 日记评论
-	{	
+	} elseif ($type == 'notes_komm') {	// 日记评论
 		$name = '在您的日记评论中回复了您';
-	}
-	elseif ($type == 'them_komm') // 论坛回复
-	{	
+	} elseif ($type == 'them_komm') {	// 论坛回复
 		$name = '在您的论坛主题中回复了您';
-	}
-	elseif ($type == 'stena_komm') // 动态回复
-	{	
-		if ($stena['id'] = $user['id']) $sT = '您的';
-		elseif ($stena['id'] = $avtor['id']) $sT = '他的/她的';
-		else{ $sT = ['id']; }
+	} elseif ($type == 'stena_komm') {	// 动态回复
+		if ($stena['id'] = $user['id']) {
+			$sT = '您的';
+		} elseif ($stena['id'] = $avtor['id']) {
+			$sT = '他的/她的';
+		} else {
+			$sT = ['id'];
+		}
 		$name = '在'.$sT.'动态中回复了您';
-	}
-	elseif ($type == 'guest' || $type == 'adm_komm') // 访客留言、管理员聊天
-	{	
+	} elseif ($type == 'guest' || $type == 'adm_komm') {	// 访客留言、管理员聊天
 		$name = '在您的'.$type.'中回复了您';
-	}
-	elseif ($type == 'del_frend') // 删除好友通知
-	{	
+	} elseif ($type == 'del_frend') {	// 删除好友通知
 		$name = '很遗憾，将您从好友列表中删除了';
-	}
-	elseif ($type == 'no_frend') // 拒绝好友请求通知
-	{	
+	} elseif ($type == 'no_frend') {	// 拒绝好友请求通知
 		$name = '很遗憾，拒绝了您的好友请求';
-	}
-
-	elseif ($type == 'ok_frend') // 同意好友请求通知
-	{	
+	} elseif ($type == 'ok_frend') {	// 同意好友请求通知
 		$name = '成为了您的好友';
-	}
-	elseif ($type == 'otm_frend') // 取消好友请求通知
-	{	
+	} elseif ($type == 'otm_frend') {	// 取消好友请求通知
 		$name = '取消了添加您为好友的请求';
-	}elseif($type=='stena_komm2'){
+	} elseif($type=='stena_komm2') {
 		$name='在您的留言板中写了评论';
 	}
+
 	/*
-===============================
-送礼
-===============================
-*/
+	===============================
+	送礼
+	===============================
+	*/
 	if ($type == 'new_gift' || $type == 'no_gift' || $type == 'ok_gift') {
 		if ($type == 'new_gift') {
 			$id_gift =  dbassoc(dbquery("SELECT id,id_gift FROM `gifts_user` WHERE `id` = '$post[id_object]' LIMIT 1"));
@@ -196,18 +164,22 @@ $name 变量值
 		}
 		if ($avtor['id']) {
 			echo user::nick($avtor['id'], 1, 0, 0) . " " . $name;
-			if ($type == 'new_gift') echo '<a href="/user/gift/gift.php?id=' . $id_gift['id'] . '"><img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:60px;" alt="*" /> ' . htmlspecialchars($gift['name']) . '</a>';
-			else echo '<img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:60px;" alt="*" /> ' . htmlspecialchars($gift['name']);
+			if ($type == 'new_gift') {
+				echo '<a href="/user/gift/gift.php?id=' . $id_gift['id'] . '"><img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:60px;" alt="*" /> ' . htmlspecialchars($gift['name']) . '</a>';
+			} else {
+				echo '<img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:60px;" alt="*" /> ' . htmlspecialchars($gift['name']);
+			}
 			echo "  $s1 " . vremja($post['time']) . " $s2";
 		}
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
+
 	/*
-===============================
-朋友/申请书
-===============================
-*/
+	===============================
+	朋友/申请书
+	===============================
+	*/
 	if ($type == 'no_frend' || $type == 'ok_frend' || $type == 'del_frend' || $type == 'otm_frend') {
 		if ($avtor['id']) {
 			echo user::nick($avtor['id'], 1, 0, 0) . " $name ";
@@ -218,11 +190,12 @@ $name 变量值
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 		dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 	}
+
 	/*
-===============================
-Дневники коментарии
-===============================
-*/
+	===============================
+	Дневники коментарии
+	===============================
+	*/
 	if ($type == 'notes_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		$notes = dbassoc(dbquery("SELECT * FROM `notes` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
@@ -236,11 +209,12 @@ $name 变量值
 		}
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
+
 	/*
-===============================
-Файлы коментарии
-===============================
-*/
+	===============================
+	Файлы коментарии
+	===============================
+	*/
 	if ($type == 'files_komm' || $type == 'down_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		$file = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
@@ -256,11 +230,12 @@ $name 变量值
 		}
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
+	
 	/*
-===============================
-Фото коментарии
-===============================
-*/
+	===============================
+	Фото коментарии
+	===============================
+	*/
 	if ($type == 'photo_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		$photo = dbassoc(dbquery("SELECT * FROM `gallery_photo` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
@@ -274,11 +249,12 @@ $name 变量值
 		}
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
+
 	/*
-===============================
-Форум коментарии
-===============================
-*/
+	===============================
+	Форум коментарии
+	===============================
+	*/
 	if ($type == 'them_komm') {
 		$them = dbassoc(dbquery("SELECT * FROM `forum_t` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
@@ -291,11 +267,12 @@ $name 变量值
 		}
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
+
 	/*
-===============================
-Стена юзера
-===============================
-*/
+	===============================
+	Стена юзера
+	===============================
+	*/
 	if ($type == 'stena_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		echo user::avatar($avtor['id']) .  user::nick($avtor['id'], 1, 1, 0) . " $name ";
@@ -314,11 +291,12 @@ $name 变量值
 		echo '' . $s1 . vremja($post['time']) . $s2 . ' ';
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
+
 	/*
-===============================
-Стасус коментарии
-===============================
-*/
+	===============================
+	Стасус коментарии
+	===============================
+	*/
 	if ($type == 'status_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		if ($status['id']) {
@@ -330,11 +308,12 @@ $name 变量值
 		}
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
+
 	/*
-===============================
-新闻评论
-===============================
-*/
+	===============================
+	新闻评论
+	===============================
+	*/
 	if ($type == 'news_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		$news = dbassoc(dbquery("SELECT * FROM `news` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
@@ -342,11 +321,12 @@ $name 变量值
 		echo "<img src='/style/icons/news.png' alt='*'> <a href='/news/news.php?id=$news[id]&amp;page=$pageEnd'>" . htmlspecialchars($news['title']) . "</a>   $s1 " . vremja($post['time']) . " $s2";
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
+
 	/*
-===============================
-客人的评论
-===============================
-*/
+	===============================
+	客人的评论
+	===============================
+	*/
 	if ($type == 'guest') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		if ($avtor['id']) {
@@ -357,11 +337,12 @@ $name 变量值
 		}
 		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
+
 	/*
-===============================
-Админ чат
-===============================
-*/
+	===============================
+	Админ чат
+	===============================
+	*/
 	if ($type == 'adm_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		echo user::nick($avtor['id'], 1, 1, 0) . " $name ";
