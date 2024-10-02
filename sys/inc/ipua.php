@@ -29,7 +29,7 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
     $parser = Parser::create();
     $result = $parser->parse($ua);
     $browser_name = $result->ua->family ?? '未知'; // 修正对象访问
-    $browser_version = $result->ua->major ?? '';
+    $browser_version = $result->ua->major ?? '0';
     // 特殊处理 Opera Mini 手机型号
     if (isset($_SERVER['HTTP_X_OPERAMINI_PHONE_UA']) && stripos($ua, 'Opera') !== false) {
         $ua_om = cleanUAString($_SERVER['HTTP_X_OPERAMINI_PHONE_UA']);
