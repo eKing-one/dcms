@@ -2,6 +2,10 @@
 require_once __DIR__ . '/../../vendor/autoload.php';
 use UAParser\Parser;
 
+/**
+ * Cloudflare IPv4 列表：https://www.cloudflare.com/ips-v4/
+ * Cloudflare IPv6 列表：https://www.cloudflare.com/ips-v6/
+ */
 // 下载的 Cloudflare IP 文件路径
 define('CLOUDFLARE_IPV4_FILE', __DIR__ . '/../dat/cloudflare-ips-v4.txt');
 define('CLOUDFLARE_IPV6_FILE', __DIR__ . '/../dat/cloudflare-ips-v6.txt');
