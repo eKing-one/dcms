@@ -78,4 +78,4 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - [x] 完善“是否允许游客访问《网站资料与帮助》页面”功能，优化 plugins/rules/index.php:13 与 plugins/rules/post.php:13 的代码实现方式
 - [ ] 修复RSS订阅功能
 - [ ] 修复更新页面
-- [ ] 提供给APP的API
+- [ ] 提供给客户端的API
