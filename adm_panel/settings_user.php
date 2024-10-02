@@ -53,21 +53,19 @@ if ($temp_set['reg_select']=='open_mail')$sel=' selected="selected"';else $sel=N
 echo "<option value=\"open_mail\"$sel>打开 + E-mail</option>";
 echo "</select><br />";
 
-echo "访客模式：<br /><select name=\"guest_select\">";
+echo "访客模式：<br /> * 注册和授权仍然开放<br /><select name=\"guest_select\">";
 echo "<option value=\"0\">一切都是开放的</option>";
 if ($temp_set['guest_select']=='1')$sel=' selected="selected"';else $sel=NULL;
 echo "<option value=\"1\"$sel>一切都关闭了 *</option>";
 echo "</select><br />";
-echo " * 注册和授权仍然开放<br />";
 
-echo "允许游客访问《<a href='/plugins/rules'>网站资料与帮助</a>》页面：<br />";
+echo "允许游客访问《<a href='/plugins/rules'>网站资料与帮助</a>》页面：<br /> * 此选项在关闭访客模式时生效<br />";
 echo "<select name=\"allow_guest_rules_page\">";
 if ($temp_set['allow_guest_rules_page'] == 1) $sel = ' selected="selected"'; else $sel = NULL;
 echo "<option value=\"1\"$sel>允许</option>";
 if ($temp_set['allow_guest_rules_page'] == 0) $sel = ' selected="selected"'; else $sel = NULL;
 echo "<option value=\"0\"$sel>禁止</option>";
 echo "</select><br />";
-echo " * 此选项在关闭访客模式时生效<br />";
 
 echo "炫耀：<br /><select name=\"show_away\">";
 if ($temp_set['show_away']==1)$sel=' selected="selected"';else $sel=NULL;
