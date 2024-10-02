@@ -49,6 +49,7 @@ if (isset($_POST['save'])) {
 	if ($_POST['replace'] != 1) {}
 	$temp_set['main'] = esc(stripcslashes(htmlspecialchars(($_POST['main']))));
 	$temp_set['header'] = esc(stripcslashes(htmlspecialchars(($_POST['header']))));
+	$temp_set['get_ip_from_header'] = in_array($_POST['get_ip_from_header'], ['auto', 'disabled', 'X-Forwarded-For', 'X-Real-IP', 'CF-Connecting-IP', 'True-Client-IP']) ? $_POST['get_ip_from_header'] : 'auto';
 	if (save_settings($temp_set)) {
 		admin_log('设置', '系统', '更改系统设置');
 		msg('已成功接受设置');
@@ -100,6 +101,17 @@ echo "网站标题栏：<br />
 <select name='header'>
 	<option ".(setget('header',"index")=="index"? " selected ":null)." value='index'>仅在首页</option>
 	<option ".(setget('header',"all")=="all"? " selected ":null)." value='all'>在所有页面上</option>
+</select>
+<br />";
+
+echo "从请求标头获取用户IP：<br />
+<select name='get_ip_from_header'>
+	<option ".(setget('get_ip_from_header',"auto")=="auto"? " selected ":null)." value='auto'>自动识别</option>
+	<option ".(setget('get_ip_from_header',"disabled")=="disabled"? " selected ":null)." value='enable'>禁用</option>
+	<option ".(setget('get_ip_from_header',"X-Forwarded-For")=="X-Forwarded-For"? " selected ":null)." value='X-Forwarded-For'>X-Forwarded-For</option>
+	<option ".(setget('get_ip_from_header',"X-Real-IP")=="X-Real-IP"? " selected ":null)." value='X-Real-IP'>X-Real-IP</option>
+	<option ".(setget('get_ip_from_header',"CF-Connecting-IP")=="CF-Connecting-IP"? " selected ":null)." value='CF-Connecting-IP'>CF-Connecting-IP</option>
+	<option ".(setget('get_ip_from_header',"True-Client-IP")=="True-Client-IP"? " selected ":null)." value='True-Client-IP'>True-Client-IP</option>
 </select>
 <br />";
 
