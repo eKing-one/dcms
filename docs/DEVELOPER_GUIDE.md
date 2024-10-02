@@ -4,7 +4,7 @@
 
 ## 文件 `sys/inc/fnc.php`
 
-内容：该文件包含了项目中的大部分可供调用的函数。
+- **内容**：该文件包含了项目中的大部分可供调用的函数。
 
 ---
 
@@ -95,3 +95,22 @@
   global $set;
   echo $set['所需的配置项'];
   ```
+
+---
+
+## 变量 `ip`
+
+- **来源**：`sys\inc\ipua.php`
+- **作用**：获取用户 IP 地址
+
+---
+
+## 文件 `sys\dat\cloudflare-ips-v4.txt`
+
+- **内容**：Cloudflare IPv4 列表
+
+---
+
+## 文件 `sys\dat\cloudflare-ips-v6.txt`
+
+- **内容**：Cloudflare IPv6 列表

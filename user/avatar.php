@@ -10,9 +10,6 @@ include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
 only_reg();
 
-//屏蔽 Notice 报错
-error_reporting(E_ALL || ~E_NOTICE);
-
 $set['title']='设置头像';
 include_once '../sys/inc/thead.php';
 title();
@@ -22,7 +19,7 @@ aut();
 	echo user::avatar($ank['id']);
 	echo "</div>";
 	echo "<div class='main'>";
-	echo "创建一个相册,上传头像后点击设置为头像";
+	echo "欲设置头像，请先创建一个相册，然后在相册里上传头像图片，最后进入图片页面点击“设置为头像”，提示成功即完成设置。";
 	echo "</div>";
 	//--------------------------相片册-----------------------------//
 	echo "<div class='main'>";echo "<img src='/style/icons/photo.png' alt='*' /> ";

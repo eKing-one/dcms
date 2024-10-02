@@ -10,10 +10,6 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - MySQL 数据库支持
 - Apache `mod_rewrite` 模块支持（可用Nginx替代）
 
-### 免费托管安装反馈
-
-如果您能在免费托管环境中成功安装并充分运行此引擎，请在[项目官方论坛（俄语）](http://dcms-social.ru/forum/)上报告。
-
 ### 推荐库
 
 以下库为可选但**强烈建议**安装，以确保所有功能的正常使用：
@@ -42,6 +38,10 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - 网站规则文件：`sys/add/rules.txt`
 - 默认主题存档：`sys/add/theme.zip`（用于管理员安装或替换丢失的主题文件）
 
+## 安装前体验
+
+你可以前往 GuGuan123 开设的[副站](https://dcms.myredirect.us/)体验各项功能。相关技术信息请参见[他的博客](https://blog.guguan.us.kg/2024/08/23/cn_dcms-social-%e5%89%af%e7%ab%99/)。
+
 ## 安装步骤
 
 1. 克隆本仓库。
@@ -69,7 +69,7 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - [x] 修复在 "书签" 页面无法翻页
 - [ ] 将用户名与昵称区分,在个人主页可显示用户名(或仅限管理员可查看用户名)
 - [ ] 纠正翻译和翻译部分残留的文本
-- [ ] CDN 支持
+- [x] CDN 支持
 - [ ] 暗色模式
 - [ ] 档案页报错
 - [ ] "网站领袖" 新译名
@@ -77,3 +77,5 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - [ ] "书签分类" -> "论坛" 出现数据库查询的 Warning 报错
 - [x] 完善“是否允许游客访问《网站资料与帮助》页面”功能，优化 plugins/rules/index.php:13 与 plugins/rules/post.php:13 的代码实现方式
 - [ ] 修复RSS订阅功能
+- [ ] 修复更新页面
+- [ ] 提供给客户端的API

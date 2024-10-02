@@ -23,7 +23,7 @@ include_once '../../sys/inc/db_connect.php';
 include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
-$set['title'] = '状态-评论';
+$set['title'] = '状态 - 评论';
 include_once '../../sys/inc/thead.php';
 title();
 if (dbresult(dbquery("SELECT COUNT(*) FROM `status` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1", $db), 0) == 0) {
@@ -58,13 +58,13 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0) {
 	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей
 	{
 		echo '<div class="mess">';
-		echo '只有他的朋友可以评论用户的状态！';
+		echo '根据用户的隐私设置，只有朋友可以评论用户的状态。';
 		echo '</div>';
 		// В друзья
 		if (isset($user)) {
 			echo '<div class="nav1">';
 			if ($frend_new == 0 && $frend == 0) {
-				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=" . $anketa['id'] . "'>添加到好友</a><br />";
+				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=" . $anketa['id'] . "'>添加到朋友</a><br />";
 			} elseif ($frend_new == 1) {
 				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$anketa[id]'>拒绝申请</a><br />";
 			} elseif ($frend == 2) {
@@ -78,7 +78,7 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0) {
 	if ($uSet['privat_str'] == 0) // Если закрыта
 	{
 		echo '<div class="mess">';
-		echo '用户禁止评论他的状态!';
+		echo '根据用户的隐私设置，状态评论功能已被禁止。';
 		echo '</div>';
 		include_once '../../sys/inc/tfoot.php';
 		exit;
@@ -91,6 +91,7 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0) {
 в зависимости от раздела
 ================================
 */
+// 下面是有翻译残余的举报页代码
 if (isset($_GET['spam'])  && isset($user)) {
 	$mess = dbassoc(dbquery("SELECT * FROM `status_komm` WHERE `id` = '" . intval($_GET['spam']) . "' limit 1"));
 	$spamer = user::get_user($mess['id_user']);
@@ -155,13 +156,13 @@ if (isset($_POST['msg']) && isset($user)) {
 	$msg = $_POST['msg'];
 	if (isset($_POST['translit']) && $_POST['translit'] == 1) $msg = translit($msg);
 	$mat = antimat($msg);
-	if ($mat) $err[] = '在消息的文本中发现了一个非法字符: ' . $mat;
+	if ($mat) $err[] = '在评论文本中发现非法字符: ' . $mat;
 	if (strlen2($msg) > 1024) {
-		$err = '消息太长了';
+		$err = '评论太长，请适当缩短';
 	} elseif (strlen2($msg) < 2) {
-		$err = '短消息';
+		$err = '评论太短，请多写点';
 	} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `status_komm` WHERE `id_status` = '" . intval($_GET['id']) . "' AND `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
-		$err = '您的消息重复前一个';
+		$err = '评论内容与前一个重复';
 	} elseif (!isset($err)) {
 		/*
 		==========================
@@ -205,7 +206,7 @@ if (isset($_POST['msg']) && isset($user)) {
 		}
 		dbquery("INSERT INTO `status_komm` (`id_user`, `time`, `msg`, `id_status`) values('$user[id]', '$time', '" . my_esc($msg) . "', '" . intval($_GET['id']) . "')");
 		dbquery("UPDATE `user` SET `balls` = '" . ($user['balls'] + 1) . "' WHERE `id` = '$user[id]' LIMIT 1");
-		$_SESSION['message'] = '消息被匆忙发送';
+		$_SESSION['message'] = '消息被匆忙发送'; // “匆忙发送”到底指什么？
 		header("Location: komm.php?id=$status[id]");
 		exit;
 	}

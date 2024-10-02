@@ -31,6 +31,7 @@ $size = $file_id['size'];
 в зависимости от раздела
 ================================
 */
+// 上来就是有翻译残余的举报代码（
 if (isset($_GET['spam'])  && isset($user)) {
 	$mess = dbassoc(dbquery("SELECT * FROM `downnik_komm` WHERE `id` = '" . intval($_GET['spam']) . "' limit 1"));
 	$spamer = user::get_user($mess['id_user']);
@@ -107,13 +108,13 @@ if (isset($user) && isset($_GET['play']) && ($_GET['play'] == 1 || $_GET['play']
 	{
 		dbquery("INSERT INTO `user_music` (`id_user`, `id_file`, `dir`) VALUES ('$user[id]', '$file_id[id]', 'down')");
 		dbquery("UPDATE `user` SET `balls` = '" . ($ank['balls'] + 1) . "', `rating_tmp` = '" . ($ank['rating_tmp'] + 1) . "' WHERE `id` = '$ank[id]' LIMIT 1");
-		$_SESSION['message'] = '已添加到播放列表中的曲目';
+		$_SESSION['message'] = '歌曲已添加到播放列表';
 	}
 	if ($_GET['play'] == 0 && $music == 1) // Удаляем из плейлиста
 	{
 		dbquery("DELETE FROM `user_music` WHERE `id_user` = '$user[id]' AND `id_file` = '$file_id[id]' AND `dir` = 'down' LIMIT 1");
 		dbquery("UPDATE `user` SET `rating_tmp` = '" . ($ank['rating_tmp'] - 1) . "' WHERE `id` = '$ank[id]' LIMIT 1");
-		$_SESSION['message'] = '从播放列表中删除的曲目';
+		$_SESSION['message'] = '歌曲已从播放列表中删除';
 	}
 	header("Location: ?id_file=$file_id[id]");
 	exit;
@@ -124,7 +125,7 @@ include_once '../../sys/inc/thead.php';
 title();
 if ((user_access('down_komm_del') || $ank['id'] == $user['id']) && isset($_GET['del_post']) && dbresult(dbquery("SELECT COUNT(*) FROM `downnik_komm` WHERE `id` = '" . intval($_GET['del_post']) . "' AND `id_file` = '$file_id[id]'"), 0)) {
 	dbquery("DELETE FROM `downnik_komm` WHERE `id` = '" . intval($_GET['del_post']) . "' LIMIT 1");
-	$_SESSION['message'] = '评论成功删除';
+	$_SESSION['message'] = '评论已成功删除';
 	header("Location: ?id_file=$file_id[id]");
 }
 if (isset($user))
@@ -133,13 +134,13 @@ if (isset($_POST['msg']) && isset($user)) {
 	$msg = $_POST['msg'];
 	if (isset($_POST['translit']) && $_POST['translit'] == 1) $msg = translit($msg);
 	$mat = antimat($msg);
-	if ($mat) $err[] = '在邮件文本中检测到 MAT： ' . $mat;
+	if ($mat) $err[] = '在评论文本中检测到非法字符：' . $mat;
 	if (strlen2($msg) > 1024) {
-		$err[] = '消息过长';
+		$err[] = '评论过长，请适当缩短';
 	} elseif (strlen2($msg) < 2) {
-		$err[] = '短消息';
+		$err[] = '评论过短，请多写点';
 	} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `downnik_komm` WHERE `id_file` = '$file_id[id]' AND `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
-		$err = '你的留言重复了前面的';
+		$err = '你的评论重复了前面的';
 	} elseif (!isset($err)) {
 		$ank = user::get_user($file_id['id_user']);
 		/*
@@ -242,15 +243,15 @@ if (($user['abuld'] == 1 || $file_id['metka'] == 0 || $file_id['id_user'] == $us
 	echo '</div>';
 } elseif (!isset($user)) {
 	echo '<div class="mess">';
-	echo '<img src="/style/icons/small_adult.gif" alt="*"><br /> 该文件包含色情图像。只有 18 岁以上的注册用户才能查看此类文件。 <br />';
+	echo '<img src="/style/icons/small_adult.gif" alt="*"><br /> 该文件包含略微的色情内容，只有 18 岁及以上的注册用户才能查看。 <br />';
 	echo '<a href="/user/aut.php">登录</a> | <a href="/user/reg.php">注册</a>';
 	echo '</div>';
 } else {
 	echo '<div class="mess">';
 	echo '<img src="/style/icons/small_adult.gif" alt="*"><br /> 
-该文件包含色情图像。
-	如果你不介意，而且你已经 18 岁或 18 岁以上了，你可以 <a href="?id_file=' . $file_id['id'] . '&amp;sess_abuld=1">继续查看</a>. 
-	或者你可以在以下内容中禁用警告 <a href="/user/info/settings.php">设置</a>.';
+该文件包含略微的色情内容。
+	如果你不介意，而且你已经满 18 岁或 18 岁以上，你可以<a href="?id_file=' . $file_id['id'] . '&amp;sess_abuld=1">继续查看</a>。
+	你也可以直接在<a href="/user/info/settings.php">设置</a>中禁用该警告。';
 	echo '</div>';
 }
 /*----------------------листинг-------------------*/
@@ -260,7 +261,7 @@ echo '<div class="c2" style="text-align: center;">';
 if (isset($list['id'])) echo '<span class="page">' . ($list['id'] ? '<a href="?id_file=' . $list['id'] . '">&laquo; 上一页</a> ' : '&laquo; 上一页 ') . '</span>';
 $k_1 = dbresult(dbquery("SELECT COUNT(*) FROM `downnik_files` WHERE `id` > '$file_id[id]' AND `my_dir` = '$dir[id]'"), 0) + 1;
 $k_2 = dbresult(dbquery("SELECT COUNT(*) FROM `downnik_files` WHERE `my_dir` = '$dir[id]'"), 0);
-echo ' (第' . $k_1 . '页 共' . $k_2 . '页) ';
+echo ' (第' . $k_1 . '页，共' . $k_2 . '页) ';
 if (isset($listr['id'])) echo '<span class="page">' . ($listr['id'] ? '<a href="?id_file=' . $listr['id'] . '">下一页 &raquo;</a>' : ' 下一页 &raquo;') . '</span>';
 echo '</div>';
 /*----------------------alex-borisi---------------*/
