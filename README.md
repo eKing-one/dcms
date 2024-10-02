@@ -10,10 +10,6 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - MySQL 数据库支持
 - Apache `mod_rewrite` 模块支持（可用Nginx替代）
 
-### 免费托管安装反馈
-
-如果您能在免费托管环境中成功安装并充分运行此引擎，请在[项目官方论坛（俄语）](http://dcms-social.ru/forum/)上报告。
-
 ### 推荐库
 
 以下库为可选但**强烈建议**安装，以确保所有功能的正常使用：
@@ -41,6 +37,10 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - 主题样式文件：`style/themes/`（主题文件夹）
 - 网站规则文件：`sys/add/rules.txt`
 - 默认主题存档：`sys/add/theme.zip`（用于管理员安装或替换丢失的主题文件）
+
+## 安装前体验
+
+你可以前往 GuGuan123 开设的[副站](https://dcms.myredirect.us/)体验各项功能。相关技术信息请参见[他的博客](https://blog.guguan.us.kg/2024/08/23/cn_dcms-social-%e5%89%af%e7%ab%99/)。
 
 ## 安装步骤
 
