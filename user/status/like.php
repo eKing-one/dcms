@@ -47,7 +47,7 @@ $q = dbquery("SELECT * FROM `status_like` WHERE `id_status` = '" . intval($_GET[
 echo "<table class='post'>";
 if ($k_post == 0) {
 	echo "<div class='mess'>";
-	echo "没有人给这个状态点赞";
+	echo "还没有人给这个状态点赞";
 	echo "</div>";
 }
 while ($post = dbassoc($q)) {

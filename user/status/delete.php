@@ -30,7 +30,7 @@ if (isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `status` WHERE 
         dbquery("DELETE FROM `status` WHERE `id` = '$post[id]'");
     dbquery("DELETE FROM `status_komm` WHERE `id_status` = '$post[id]'");
     dbquery("DELETE FROM `status_like` WHERE `id_status` = '$post[id]'");
-    $_SESSION['message'] = '状态草草删除';
+    $_SESSION['message'] = '状态草草删除'; // “草草删除”...看起来是全删罢
     header("Location: index.php?id=$ank[id]");
     exit;
 }
