@@ -64,7 +64,7 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 
 ## 本项目引用的第三方库
 
-- [IPUtils](https://github.com/wikimedia/mediawiki-libs-IPUtils)
+- [IPSet](https://github.com/wikimedia/ipset)
 - [ua-parser](https://github.com/ua-parser/uap-php)
 
 ## 待办事项

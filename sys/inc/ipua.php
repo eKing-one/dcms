@@ -1,15 +1,13 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
+use Wikimedia\IPSet;
 use UAParser\Parser;
-use Wikimedia\IPUtils;
 
 /**
  * Cloudflare IPv4 列表：https://www.cloudflare.com/ips-v4/
  * Cloudflare IPv6 列表：https://www.cloudflare.com/ips-v6/
  */
-// 下载的 Cloudflare IP 文件路径
-define('CLOUDFLARE_IPV4_FILE', __DIR__ . '/../dat/cloudflare-ips-v4.txt');
-define('CLOUDFLARE_IPV6_FILE', __DIR__ . '/../dat/cloudflare-ips-v6.txt');
+
 /**
  * 从文件加载 Cloudflare IP 地址列表
  * @param string $filePath
@@ -26,7 +24,10 @@ function loadCloudflareIps($filePath) {
 	});
 }
 
-$ipa = false;
+// 读取 Cloudflare CDN IP 列表
+$cloudflareIps = array_merge(loadCloudflareIps(__DIR__ . '/../dat/cloudflare-ips-v4.txt'), loadCloudflareIps(__DIR__ . '/../dat/cloudflare-ips-v6.txt'));
+
+$ipset = new IPSet($cloudflareIps);
 
 // 根据不同选项获取IP
 switch ($set['get_ip_from_header']) {
@@ -69,7 +70,7 @@ switch ($set['get_ip_from_header']) {
 		 * 获取 Cloudflare 的 IP 列表并检查请求是否来自 Cloudflare。
 		 * 如果是，则返回 Cloudflare 提供的真实用户 IP，否则返回请求者的 IP。
 		 */
-		if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && (IPUtils::isInRange($_SERVER['REMOTE_ADDR'], loadCloudflareIps(CLOUDFLARE_IPV4_FILE)) || IPUtils::isInRange($_SERVER['REMOTE_ADDR'], loadCloudflareIps(CLOUDFLARE_IPV6_FILE)))) {
+		if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && ($ipset->match($_SERVER['REMOTE_ADDR']))) {
 			$ip2['cf'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
 			$ipa[] = $_SERVER['HTTP_CF_CONNECTING_IP'];
 		}
