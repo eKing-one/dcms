@@ -6,7 +6,7 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 
 ## 安装要求
 
-- PHP 5.4 至 7.0 或以上版本（推荐使用 PHP 7）
+- PHP 7.4.3 至 8.x
 - MySQL 数据库支持
 - Apache `mod_rewrite` 模块支持（可用Nginx替代）
 
@@ -61,6 +61,11 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 ## 开发贡献
 
 如果您对开发引擎有兴趣，可 Fork 本仓库并在修改后创建 Pull Request。
+
+## 本项目引用的第三方库
+
+- [IPUtils](https://github.com/wikimedia/mediawiki-libs-IPUtils)
+- [ua-parser](https://github.com/ua-parser/uap-php)
 
 ## 待办事项
 
