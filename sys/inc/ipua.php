@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
 use UAParser\Parser;
+use Wikimedia\IPUtils;
 
 /**
  * Cloudflare IPv4 列表：https://www.cloudflare.com/ips-v4/
