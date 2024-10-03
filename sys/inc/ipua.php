@@ -25,39 +25,6 @@ function loadCloudflareIps($filePath) {
 	});
 }
 
-/**
- * 检查 IP 是否属于 Cloudflare
- * @param string $ip
- * @param array $cloudflareIps
- * @return bool
- */
-function isCloudflareIp($ip, $cloudflareIps) {
-	foreach ($cloudflareIps as $cidr) {
-		if (cidr_match($ip, $cidr)) {
-			return true;
-		}
-	}
-	return false;
-}
-
-/**
- * 检查 IP 是否在 CIDR 范围内
- * @param string $ip
- * @param string $cidr
- * @return bool
- */
-function cidr_match($ip, $cidr) {
-	list($subnet, $mask) = explode('/', $cidr);
-	if ($mask === null) {
-		$mask = ($ip === $subnet) ? 32 : (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? 128 : 32);
-	}
-	
-	$ip_bin = inet_pton($ip);
-	$subnet_bin = inet_pton($subnet);
-	$mask_bin = str_repeat("f", intval($mask / 4)) . str_repeat("0", (128 - intval($mask)) / 4);
-	return ($ip_bin & hex2bin($mask_bin)) === ($subnet_bin & hex2bin($mask_bin));
-}
-
 $ipa = false;
 
 // 根据不同选项获取IP
@@ -99,7 +66,7 @@ switch ($set['get_ip_from_header']) {
 		 * 获取 Cloudflare 的 IP 列表并检查请求是否来自 Cloudflare。
 		 * 如果是，则返回 Cloudflare 提供的真实用户 IP，否则返回请求者的 IP。
 		 */
-		if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && (isCloudflareIp($_SERVER['REMOTE_ADDR'], loadCloudflareIps(CLOUDFLARE_IPV4_FILE)) || isCloudflareIp($_SERVER['REMOTE_ADDR'], loadCloudflareIps(CLOUDFLARE_IPV6_FILE)))) {
+		if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && (IPUtils::isInRange($_SERVER['REMOTE_ADDR'], loadCloudflareIps(CLOUDFLARE_IPV4_FILE)) || IPUtils::isInRange($_SERVER['REMOTE_ADDR'], loadCloudflareIps(CLOUDFLARE_IPV6_FILE)))) {
 			$ip2['cf'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
 			$ipa[] = $_SERVER['HTTP_CF_CONNECTING_IP'];
 		}
