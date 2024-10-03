@@ -107,7 +107,7 @@ echo "网站标题栏：<br />
 echo "从请求标头获取用户IP：<br />
 <select name='get_ip_from_header'>
 	<option ".(setget('get_ip_from_header',"auto")=="auto"? " selected ":null)." value='auto'>自动识别</option>
-	<option ".(setget('get_ip_from_header',"disabled")=="disabled"? " selected ":null)." value='enable'>禁用</option>
+	<option ".(setget('get_ip_from_header',"disabled")=="disabled"? " selected ":null)." value='disabled'>禁用</option>
 	<option ".(setget('get_ip_from_header',"X-Forwarded-For")=="X-Forwarded-For"? " selected ":null)." value='X-Forwarded-For'>X-Forwarded-For</option>
 	<option ".(setget('get_ip_from_header',"X-Real-IP")=="X-Real-IP"? " selected ":null)." value='X-Real-IP'>X-Real-IP</option>
 	<option ".(setget('get_ip_from_header',"CF-Connecting-IP")=="CF-Connecting-IP"? " selected ":null)." value='CF-Connecting-IP'>CF-Connecting-IP</option>
