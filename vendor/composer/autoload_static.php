@@ -6,7 +6,15 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit1d5c899fd1cfa4469bbd76b2735efb15
 {
+    public static $files = array (
+        'c3f7f0e81464740a933532e81fa26cc7' => __DIR__ . '/..' . '/wikimedia/base-convert/src/Functions.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'W' => 
+        array (
+            'Wikimedia\\' => 10,
+        ),
         'U' => 
         array (
             'UAParser\\' => 9,
@@ -18,6 +26,10 @@ class ComposerStaticInit1d5c899fd1cfa4469bbd76b2735efb15
     );
 
     public static $prefixDirsPsr4 = array (
+        'Wikimedia\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/wikimedia/ip-utils/src',
+        ),
         'UAParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/ua-parser/uap-php/src',
