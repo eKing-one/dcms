@@ -55,6 +55,8 @@ switch ($set['get_ip_from_header']) {
 	case 'auto':
 	default:
 		// 自动模式，尝试从多个标头获取
+		$ip2 = [];
+		$ipa = [];
 		if(isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR']!='127.0.0.1' && preg_match("#^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$#",$_SERVER['HTTP_X_FORWARDED_FOR'])) {
 			$ip2['xff'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
 			$ipa[] = $_SERVER['HTTP_X_FORWARDED_FOR'];
