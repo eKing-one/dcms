@@ -880,6 +880,10 @@ img.sto500 {
 	word-wrap: break-word;
 }
 @media (prefers-color-scheme: dark) {
+	.slim_header {
+		background-color: #141A21;
+		color: #91afc9;
+	}
 	.str {
 		color: #FFF;
 	}
