@@ -13,7 +13,7 @@ if ($k_post > 0) {
 	while ($ank = dbassoc($q)) {
 		$ank = user::get_user($ank['id']);
 
-		echo '<td class="oline_user" style="width:60px; height:70px; vertical-align:top; border:1px solid black; text-align:center; display:inline-table; margin:2px;">';
+		echo '<td class="oline_user">';
 
 		echo "<a href='/user/info.php?id=$ank[id]'>" . user::avatar($ank['id']) . '<br />';
 		echo "<b><small>$ank[nick]</small></b></a>";

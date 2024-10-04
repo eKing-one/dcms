@@ -639,9 +639,7 @@ b.count {
 		background-image: url("images/menu-list-b-dark.jpg");
 		border-bottom: 1px solid #111111;
 	}
-	.oline_user {
-		border:1px solid DarkGray;
-	}
+
 }
 
 /* O */
@@ -653,6 +651,26 @@ b.count {
 }
 .off {
     color: #FF0000;
+}
+td.oline_user {
+	width:60px;
+	height:70px;
+	vertical-align:top;
+	border:1px solid black;
+	text-align:center;
+	display:inline-table;
+	margin:2px;
+}
+@media (prefers-color-scheme: dark) {
+	td.oline_user {
+		width:60px;
+		height:70px;
+		vertical-align:top;
+		border:1px solid DarkGray;
+		text-align:center;
+		display:inline-table;
+		margin:2px;
+	}
 }
 
 /* P */
