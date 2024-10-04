@@ -12,8 +12,7 @@ include_once 'sys/inc/icons.php'; // 主菜单图标
 include_once 'sys/inc/thead.php';
 title();
 err();
-if (!$set['web'])
-{
+if (!$set['web']) {
 	$ol_user = dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `date_last` > ".(time()-600).""), 0);
 	//在线用户数量
 	$ol_guest = dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `date_last` > ".(time()-600)." AND `pereh` > '0'"), 0);
@@ -31,16 +30,13 @@ if (!$set['web'])
 	</div>
 	<div class="main_menu">';
 
-	if (isset($user))
-	{
+	if (isset($user)) {
 		echo '<div align="right">
 		<img src="/style/icons/icon_stranica.gif" alt="DS" />
 		'.user::nick($user['id'],1,0,0).' | <a href="/user/exit.php"><font color="#ff0000">退出</font></a>
 		</div>';
 	
-	}
-	else
-	{
+	} else {
 		echo '<div align="right">
 		<a href="/user/aut.php">登录</a> | <a href="/user/reg.php">注册</a>
 		</div>';
@@ -53,13 +49,9 @@ if (!$set['web'])
 	// 主菜单
 	include_once 'sys/inc/main_menu.php'; 
 	include_once 'sys/inc/main_notes.php';
-}
-else
-{
+} else {
 	// 主要网页主题
 	include_once 'style/themes/' . $set['set_them'] . '/index.php'; 
 	
 }
-// 页脚,可添加统计数据
-// echo '<a href="http://wapmz.com/in/3"><img src="http://wapmz.com/cn/small/3" alt="wapmz.com"></a>';
 include_once 'sys/inc/tfoot.php';

@@ -1,8 +1,7 @@
 /* A */
-
 a {
     border: 0px dashed #039;
-    color: #069;
+    color: #487BE1;
     text-decoration: none;
 }
 
@@ -91,18 +90,12 @@ a.activ {
 .ank_n {
     font-weight: bold;
 }
-.ank_d {}
-
-@media (prefers-color-scheme: dark) {
-	a {
-		color: #487BE1;
-	}
-}
 
 /* B */
 body {
     width: 100%;
-    background-color: #F5F5F5;
+    background-color: #0A0A0A;
+    color: white;
     font-family: Lucida, Sans sans-serif, tahoma, Comic Sans MS, verdana;
     font-size: 12px;
     margin: auto;
@@ -127,12 +120,6 @@ body {
 .bb1 {
     margin: 0 10px 2px 10px;
 }
-@media (prefers-color-scheme: dark) {
-	body {
-		background-color: #0A0A0A;
-		color: white;
-	}
-}
 
 /* C */
 .cit {
@@ -144,13 +131,8 @@ body {
     padding: 1px;
 }
 .content_block {
-    background-color: #FCFCFC;
+    background-color: #030303;
     word-wrap: break-word;
-}
-@media (prefers-color-scheme: dark) {
-	.content_block {
-		background-color: #030303;
-	}
 }
 
 /* D */
@@ -273,17 +255,12 @@ form label:hover {
     height: 52px;
     width: 100%;
     color: #fff;
-    background: url("images/mhead_bg.png") repeat-x #4C6F97;
+    background: url("images/mhead_bg_dark.png") repeat-x #4C6F97;
     line-height: 1.5em;
     border-bottom: 1px solid #154596;
 }
 .head img {
     vertical-align: top;
-}
-@media (prefers-color-scheme: dark) {
-	.head {
-		background: url("images/mhead_bg_dark.png") repeat-x #4C6F97;
-	}
 }
 
 /* I */
@@ -351,8 +328,7 @@ textarea:focus {
 }
 .ind_cont {
     /* Обрамление главного блока */
-    
-    background-color: #ffffff;
+    background-color: #000;
     box-shadow: 0px 0px 9px 2px rgba(71, 79, 87, 0.149);
     margin-bottom: -3px;
     width: 800px;
@@ -362,11 +338,6 @@ textarea:focus {
 .ind_last {
     border-bottom: 1px dotted #a6a6a6;
     padding: 2px 0;
-}
-@media (prefers-color-scheme: dark) {
-	.ind_cont {
-		background-color: #000;
-	}
 }
 
 /* K */
@@ -457,12 +428,12 @@ b.count {
     /* Див сообщения */
     
     padding: 7px;
-    background: #EBF3FE url(img/mess.png) repeat-x left center;
+    background: #010C14 url(img/mess_dark.png) repeat-x left center;
     margin-top: 2px;
     margin-bottom: 2px;
     margin-left: 2px;
     margin-right: 2px;
-    border: 1px solid #DADADA;
+    border: 1px solid #252525;
 }
 .menu_hello/* Главное меню */
 {
@@ -482,11 +453,11 @@ b.count {
     
     display: block;
     padding: 10px;
-    color: #4C6B8F;
+    color: #7094B3;
     font-weight: bold;
-    text-shadow: 1px 1px 2px #ffffff;
-    border-top: 1px solid #FCFCFC;
-    border-bottom: 1px solid #E3E3E3;
+    text-shadow: 1px 1px 2px #000;
+    border-top: 1px solid #030303;
+    border-bottom: 1px solid #1C1C1C;
     margin-left: 1px;
     width: 200px;
 }
@@ -521,9 +492,9 @@ b.count {
 .main {
     /* Дивы навигации */
     
-    color: black;
-    background: url("images/bgs.png") repeat-x #4C6F97;
-    border: 1px solid #DADADA;
+    color: white;
+    background: url("images/bgs_dark.png") repeat-x #4C6F97;
+    border: 1px solid #252525;
     margin: 2px;
     padding: 9px 6px 9px 6px;
     word-wrap: break-word;
@@ -577,39 +548,17 @@ b.count {
     font-style: normal;
     padding: 2px 4px;
     margin-left: 7px;
-    background-color: #E1E7ED;
+    background-color: #12181E;
     border-radius: 3px;
 }
 .my {
     margin: 2px;
     padding: 9px 6px 9px 6px;
     word-wrap: break-word;
-    background: #79a3cc url("images/header-menu-footer.jpg") 50% 0;
+    background: #79a3cc url("images/header-menu-footer-dark.jpg") 50% 0;
     overflow: hidden;
     zoom: 1;
-}
-@media (prefers-color-scheme: dark) {
-	.mess {
-		background: #010C14 url(img/mess_dark.png) repeat-x left center;
-		border: 1px solid #252525;
-	}
-	.main_menu {
-		color: #7094B3;
-		text-shadow: 1px 1px 2px #000;
-		border-top: 1px solid #030303;
-		border-bottom: 1px solid #1C1C1C;
-	}
-	.main {
-		color: white;
-		background: url("images/bgs_dark.png") repeat-x #4C6F97;
-		border: 1px solid #252525;
-	}
-	.mm_counter {
-		background-color: #12181E;
-	}
-	.my {
-		background: #79a3cc url("images/header-menu-footer-dark.jpg") 50% 0;
-	}
+    color: white;
 }
 
 /* N */
@@ -628,20 +577,11 @@ b.count {
     word-wrap: break-word;
 }
 .nav3 {
-    background-image: url("images/menu-list-b.jpg");
+    background-image: url("images/header-menu-footer-dark.jpg");
     background-size: 100% 100%;
     padding: 4px;
-    border-bottom: 1px solid #EEEEEE;
+    border-bottom: 1px solid #111111;
     word-wrap: break-word;
-}
-@media (prefers-color-scheme: dark) {
-	.nav3 {
-		background-image: url("images/header-menu-footer-dark.jpg");
-		border-bottom: 1px solid #111111;
-	}
-	.oline_user {
-		border:1px solid DarkGray;
-	}
 }
 
 /* O */
@@ -824,7 +764,7 @@ a.bottom:hover {
     
     font-family: Comic Sans MS;
     color: #fff;
-    background: url("images/tits.png") repeat-x #fff;
+    background: url("images/tits_dark.png") repeat-x #000;
     margin: 2px;
     padding: 9px;
     overflow: hidden;
@@ -837,7 +777,7 @@ a.bottom:hover {
 .tof {
     /*//网页标题 */
     
-    background: url("images/tof.png") repeat-x #fff;
+    background: url("images/tof_dark.png") repeat-x #000;
     margin: 2px;
     padding: 9px;
     overflow: hidden;
@@ -864,14 +804,6 @@ textarea {
     max-width: 100%;
     vertical-align: top;
     width: 90%;
-}
-@media (prefers-color-scheme: dark) {
-	.title {
-		background: url("images/tits_dark.png") repeat-x #000;
-	}
-	.tof {
-		background: url("images/tof_dark.png") repeat-x #000;
-	}
 }
 
 /* V */
