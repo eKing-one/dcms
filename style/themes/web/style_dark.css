@@ -1,7 +1,7 @@
 /* A */
 a {
     border: 0px dashed #039;
-    color: #487BE1;
+    color: #95b8ff;
     text-decoration: none;
 }
 
@@ -140,8 +140,8 @@ div.c2 {
     /* Блок навигации стр */
     
     color: #000;
-    background: #e6e5e5;
-    border: 1px solid #bdc7d8;
+    background: #1A1A19;
+    border: 1px solid #273842;
     margin: 3px;
     padding: 8px 8px 8px 8px;
 }
@@ -175,12 +175,12 @@ div.pager {
 /* F */
 form {
     position: relative;
-    background: #FAFAFA;
-    border: 1px #DBDBDB solid;
+    background: #050505;
+    border: 1px #242424 solid;
     padding: 5px;
     border-radius: 2px;
     margin-bottom: 10px;
-    box-shadow: 0 0 0 1px #FCFCFC inset, 0 1px 17px -9px black;
+    box-shadow: 0 0 0 1px #030303 inset, 0 1px 17px -9px black;
     font-size: 12px;
 }
 form label {
@@ -213,9 +213,9 @@ form label:hover {
     text-align: center;
 }
 .foot {
-    border-bottom: 1px solid #D4DBE3;
+    border-bottom: 1px solid #1C242B;
     padding: 4px;
-    background: #E4E8ED;
+    background: #12171B;
 }
 .foot_page {
     /* Нижняя полоска с копирайтом  */
@@ -565,22 +565,22 @@ b.count {
 .nav1 {
     /* Лесенка */
     
-    background-color: #fff;
+    background-color: #000;
     padding: 4px;
-    border-bottom: 1px solid #EEEEEE;
+    border-bottom: 1px solid #111;
     word-wrap: break-word;
 }
 .nav2 {
-    background-color: #FFFFFF;
+    background-color: #000;
     padding: 4px;
-    border-bottom: 1px solid #EEEEEE;
+    border-bottom: 1px solid #111;
     word-wrap: break-word;
 }
 .nav3 {
     background-image: url("images/header-menu-footer-dark.jpg");
     background-size: 100% 100%;
     padding: 4px;
-    border-bottom: 1px solid #111111;
+    border-bottom: 1px solid #111;
     word-wrap: break-word;
 }
 
@@ -663,7 +663,7 @@ img.sto500 {
     border: 1px solid #29447e;
     margin-top: 1px;
     padding: 4px 6px 4px 6px;
-    color: #000;
+    color: #FFF;
 }
 .st_1 {
     /* Оформление статуса юзера */
