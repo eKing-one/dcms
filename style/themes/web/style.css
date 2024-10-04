@@ -157,7 +157,7 @@ body {
 @media (prefers-color-scheme: dark) {
 	body {
 		background-color: #0A0A0A;
-		color: white;
+		color: #eee;
 	}
 }
 
@@ -196,6 +196,15 @@ div.pager {
     padding: 1px 3px 2px 0;
     text-align: left;
     color: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+	div.c2 {
+	    color: white;
+	    background: #191a1a;
+	    border: 1px solid #273842;
+	    margin: 3px;
+	    padding: 8px 8px 8px 8px;
+	}
 }
 
 /* E */
@@ -425,6 +434,44 @@ textarea:focus {
 	.invert-image {
 		filter: invert(1); /* 图片反色 */
 	}
+	input[type="submit"] {
+        background: url("images/mhead_bg_dark.png") repeat-x #3A506E; /* 暗色背景图和颜色 */
+        border: 1px solid #5A6B82; /* 边框颜色变暗 */
+        box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1); /* 内阴影透明度降低 */
+        text-shadow: 0px -1px 0px #324763; /* 文字阴影颜色加深 */
+    }
+
+    input[type="submit"]:hover {
+        box-shadow: 0px 0px 20px #aaa; /* 暗色模式下白色发光效果变暗 */
+        background: #3A506E; /* 背景色变暗 */
+    }
+
+    select {
+        border: 1px solid #555; /* 暗色模式下，边框变为较深颜色 */
+        background-color: #2A2A2A; /* 背景颜色变暗 */
+        color: #DDD; /* 文字颜色变浅 */
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        background-color: #2A2A2A; /* 输入框背景色变暗 */
+        border: 1px solid #555; /* 边框颜色变暗 */
+        box-shadow: 1px 1px 7px -4px rgba(0, 0, 0, 0.7) inset, 0 0 0 1px #333; /* 内阴影调整为更暗的黑色，外边框颜色加深 */
+        color: #DDD; /* 文本颜色变浅 */
+    }
+
+    input[type="text"]:disabled,
+    input[type="password"]:disabled {
+        border-color: #555; /* 禁用时的边框颜色加深 */
+        background-color: #333; /* 背景颜色变暗 */
+        color: #888; /* 文本颜色加深 */
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    textarea:focus {
+        border-color: #777; /* 焦点时边框颜色变暗 */
+    }
 }
 
 /* K */
