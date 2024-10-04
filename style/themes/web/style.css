@@ -1027,6 +1027,27 @@ textarea {
 	.tof {
 		background: url("images/tof_dark.png") repeat-x #000;
 	}
+	textarea {
+        background-color: #2A2A2A; /* 背景颜色变暗 */
+        border: 1px #555 solid; /* 边框颜色变深 */
+        color: #DDD; /* 文本颜色变浅 */
+        box-shadow: 0 1px 7px -3px rgba(0, 0, 0, 0.7) inset; /* 内阴影颜色变暗 */
+    }
+    textarea:focus {
+        border-color: #777; /* 焦点状态下，边框颜色变浅 */
+        box-shadow: 0 1px 7px -3px rgba(255, 255, 255, 0.2) inset; /* 焦点时内阴影调整为浅色阴影 */
+    }
+
+	.tmenu a {
+        background: url("images/mhead_bg_dark.png") repeat-x #3A506E; /* 背景图片和颜色调整为暗色版本 */
+        border-top: 1px solid #5A6B82; /* 边框颜色变暗 */
+        box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.1); /* 内阴影透明度降低 */
+        color: #DDD; /* 文本颜色改为浅灰色 */
+        text-shadow: 0px -1px 0px #2B3E5A; /* 文本阴影颜色加深 */
+    }
+    .tmenu a:hover {
+        background: #506080 url(img/in_dark.png); /* 悬停时的背景颜色调整为更深的蓝色，并使用暗色图片 */
+    }
 }
 
 /* V */
