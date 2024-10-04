@@ -657,6 +657,10 @@ b.count {
 		border-top: 1px solid #030303;
 		border-bottom: 1px solid #1C1C1C;
 	}
+	.main_menu:hover {
+		color: #BBBBCC;
+		background-color: #1d1d1d;
+	}
 	.main {
 		color: white;
 		background: url("images/bgs_dark.png") repeat-x #4C6F97;
