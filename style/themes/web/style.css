@@ -957,6 +957,19 @@ textarea {
     width: 90%;
 }
 @media (prefers-color-scheme: dark) {
+	.top_nav {
+		background: #2a5353; /* 设置更暗的基础背景 */
+		background: -webkit-gradient(linear, left top, left bottom, from(#3c7070), to(#1e4040)); /* 渐变色调整为更暗的色调 */
+		background: -moz-linear-gradient(top, #3c7070, #1e4040);
+		background: -o-linear-gradient(top, #3c7070, #1e4040);
+		background: -ms-linear-gradient(top, #3c7070, #1e4040);
+		filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#3c7070', endColorstr='#1e4040');
+		zoom: 1;
+		border-left: 1px solid #4c5f5f; /* 边框颜色调整为较暗色 */
+		border-right: 1px solid #1a3838;
+		border-bottom: 1px solid #1a3838;
+		border-top: 1px solid #1a3838;
+	}	
 	.title {
 		background: url("images/tits_dark.png") repeat-x #000;
 	}
