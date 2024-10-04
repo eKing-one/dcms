@@ -1,83 +1,83 @@
-.table
+.table {
+	margin-right: auto;
+	margin-left: auto;
+	width: 75%;
+	float: center;
+	margin-top: -2px;
+	word-wrap: break-word;
+}
+
+.table_info /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
 {
-	margin-right: auto;	
-	margin-left: auto;	
-	width:75%;	
-	float:center;	
-	margin-top:-2px;
+	vertical-align: top;
 	word-wrap: break-word;
 }
 
-
-.table_info	/* Обрамление блока странички юзера */
+.block_menu /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 {
-	vertical-align: top;	
-	word-wrap: break-word;
-
-}
-
-.block_menu	/* блок меню с аватаром */
-{	background: url(images/stripe2.png) white;	
-	vertical-align: top;	
-	background-color: #fff;	
-	text-align: left;	
-	color: #000;	
-	width:200px;
-}
-
-.block_menu_nav	/* блок главного меню */
-{	
-	vertical-align: top;	
-	text-align: left;	
-	color: #000;	
-	width:175px;
-}
-
-.block_all_nav	
-{	
-	vertical-align: top;	
-	word-wrap: break-word;
-}
-
-.block_info	/* блок вывода анкеты и стены */
-{	
-	vertical-align: top;	
 	background: url(images/stripe2.png) white;
-	color: #000;	
-	
-	word-wrap: break-word;
-	position:relative;
-	padding: 7px;
-	padding-top:15px;
+	vertical-align: top;
+	background-color: #fff;
+	text-align: left;
+	color: #000;
+	width: 200px;
 }
 
-#footer
-{	   color: white;
-    text-shadow: 1px 1px 0px #6F6F6F;
-background: url("images/mhead_bg.png") repeat-x #4C6F97;
+.block_menu_nav /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
+{
+	vertical-align: top;
+	text-align: left;
+	color: #000;
+	width: 175px;
+}
+
+.block_all_nav {
+	vertical-align: top;
+	word-wrap: break-word;
+}
+
+.block_info /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ */
+{
+	vertical-align: top;
+	background: url(images/stripe2.png) white;
+	color: #000;
+	word-wrap: break-word;
 	position: relative;
-	margin-top:15px;
+	padding: 7px;
+	padding-top: 15px;
+}
+
+#footer {
+	color: white;
+	text-shadow: 1px 1px 0px #6F6F6F;
+	background: url("images/mhead_bg.png") repeat-x #4C6F97;
+	position: relative;
+	margin-top: 15px;
 	text-align: center;
 	padding: 10px;
-	
-
 }
 #footer a:hover {background: #37587F;}
 #footer #copyright a {
- color: white;
-    text-shadow: 1px 1px 0px #6F6F6F;
+	color: white;
+	text-shadow: 1px 1px 0px #6F6F6F;
 	border-right: 1px solid rgba(49, 76, 110, 0.600);
 	padding: 10px;
 }
-#copyright { 
-float: left;
+#copyright {
+	float: left;
 }
-#language { 
-float: right;
+#language {
+	float: right;
 }
 #footer #language a {
-color: white;
-    text-shadow: 1px 1px 0px #6F6F6F;
+	color: white;
+	text-shadow: 1px 1px 0px #6F6F6F;
 	border-left: 1px solid rgba(49, 76, 110, 0.600);
 	padding: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+	#footer {
+		background: url("images/mhead_bg_dark.png") repeat-x #4C6F97;
+	}
 }
