@@ -29,10 +29,10 @@ if (!isset($msg2))
     </div>
 </div>
 <div style="margin:4px;">
-    <a href="javascript:tag('[b]', '[/b]')"><img src="/style/value/b.png" alt="b" title="加粗"/></a>
-    <a href="javascript:tag('[i]', '[/i]')"><img src="/style/value/i.png" alt="i" title="斜"/></a>
-    <a href="javascript:tag('[u]', '[/u]')"><img src="/style/value/u.png" alt="u" title="下划线"/></a>
-    <a href="javascript:tag('&#60;?php', '?&#62;')"><img src="/style/value/cod.png" alt="cod" title="密码"/></a>
+    <a class="invert-image" href="javascript:tag('[b]', '[/b]')"><img src="/style/value/b.png" alt="b" title="加粗"/></a>
+    <a class="invert-image" href="javascript:tag('[i]', '[/i]')"><img src="/style/value/i.png" alt="i" title="斜"/></a>
+    <a class="invert-image" href="javascript:tag('[u]', '[/u]')"><img src="/style/value/u.png" alt="u" title="下划线"/></a>
+    <a class="invert-image" href="javascript:tag('&#60;?php', '?&#62;')"><img src="/style/value/cod.png" alt="cod" title="密码"/></a>
     <a href="javascript:tag('[url=]', '[/url]')"><img src="/style/value/l.png" alt="url" title="连结" /></a>
     <a href="javascript:tag('[red]', '[/red]')"><img src="/style/value/re.png" alt="red" title="红色"/></a>
     <a href="javascript:tag('[green]', '[/green]')"><img src="/style/value/gr.png" alt="green" title="绿色"/></a>

@@ -15,11 +15,11 @@
 
 .block_menu /* ���� ���� � �������� */
 {
-	background: url(images/stripe2.png) white;
+	background: url(images/stripe2.png) black;
 	vertical-align: top;
-	background-color: #fff;
+	background-color: black;
 	text-align: left;
-	color: #000;
+	color: white;
 	width: 200px;
 }
 
@@ -79,5 +79,9 @@
 @media (prefers-color-scheme: dark) {
 	#footer {
 		background: url("images/mhead_bg_dark.png") repeat-x #4C6F97;
+	}
+	.block_info {
+		background: url(images/stripe2.png) black;
+		color: #fff;
 	}
 }
