@@ -92,11 +92,12 @@ function delete_dir($dir) {
 // curl相关函数
 function get_curl($url, $post_data=null, $referer=null, $cookie=null, $header=false, $ua=null, $nobody=false, $addheader=null) {
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);  // 启用SSL证书验证
-	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);     // 启用SSL主机验证
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_ENCODING, "gzip");
-	curl_setopt($ch, CURLOPT_TIMEOUT, 10);  // 设置超时10秒
+
+	curl_setopt($ch, CURLOPT_URL, $url);			// 设置URL
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);	// 启用SSL证书验证
+	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);	// 启用SSL主机验证
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);	// 将结果以字符串形式返回
+	curl_setopt($ch, CURLOPT_TIMEOUT, 10);  		// 设置超时10秒
 
 	$httpheader = [
 		"Accept: */*",
@@ -148,9 +149,9 @@ function get_curl($url, $post_data=null, $referer=null, $cookie=null, $header=fa
 	return $ret;
 }
 
-// 获取ip位置信息
+// 获取ip位置信息（暂时弃用）
 function get_ip_city($ip) {
-	$url = 'https://whois.pconline.com.cn/ipJson.jsp?json=true&ip=';
+	//$url = 'https://whois.pconline.com.cn/ipJson.jsp?json=true&ip=';
 	$city = get_curl($url . $ip);
 	
 	// 处理可能的curl错误
@@ -172,7 +173,7 @@ function get_ip_city($ip) {
 		$location = $city['pro'];
 	}
 
-	return $location ? $location : false;
+	return $location ?: false;
 }
 
 //反黑客攻击行为
@@ -186,8 +187,8 @@ if (!defined("ADMIN")) {
 
 	if ($hackparam != $checkcmd) {
 		dbquery("INSERT INTO ban_ip (min, max) VALUES(\"$iplong\", \"$iplong\");");
-		dbquery('INSERT INTO mail (id_user, id_kont, msg, time) VALUES("0", "1", "IP: '.$ip.' UA: '.$ua.' 位置: '.get_ip_city($ip).'正在进行黑客攻击", "'.$time.'");');
-		die('<h2>攻击失败！</h2><br>你的浏览器：<b>'.$ua.'</b><br>你的IP： <b>'.$ip.'</b><br>位置：<b>'.get_ip_city($ip).'</b><br><b>已被记录，不要尝试违法操作！</b><br><br>有这时间多休息吧！！！！');
+		dbquery('INSERT INTO mail (id_user, id_kont, msg, time) VALUES("0", "1", "IP: '.$ip.' UA: '.$ua.'正在进行黑客攻击", "'.$time.'");');
+		die('<h2>检测到攻击！</h2><br>你的浏览器：<b>'.$ua.'</b><br>你的IP： <b>'.$ip.'</b><br><b>已被记录，不要尝试违法操作！</b><br><br>有这时间多休息吧！！！');
 	}
 }
 

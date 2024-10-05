@@ -85,4 +85,4 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - [ ] 修复更新页面
 - [ ] 提供给客户端的API
 - [ ] PHP 8 支持
-- [ ] 删除 IP 归属地相关代码
+- [ ] 修复 IP 归属地功能
