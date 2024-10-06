@@ -150,30 +150,29 @@ function get_curl($url, $post_data=null, $referer=null, $cookie=null, $header=fa
 }
 
 // 获取ip位置信息（暂时弃用）
-function get_ip_city($ip) {
-	//$url = 'https://whois.pconline.com.cn/ipJson.jsp?json=true&ip=';
-	$city = get_curl($url . $ip);
+function get_ip_address($ip) {
+	$url = 'http://ip-api.com/json/';
+	$otherParameters = '?fields=status,message,country,countryCode,region,regionName,city,district,lat,lon,isp,org,as,reverse,mobile,proxy,hosting&lang=zh-CN';
+	$address = get_curl($url . $ip . $otherParameters);
 	
 	// 处理可能的curl错误
-	if (isset($city['error'])) {
+	if (isset($address['error'])) {
 		return false;
 	}
 
-	$city = mb_convert_encoding($city, "UTF-8", "GB2312");
-	$city = json_decode($city, true);
+	$address = json_decode($address, true);
 
 	// 处理JSON解析错误
 	if (json_last_error() !== JSON_ERROR_NONE) {
-		return false;
+		return 'JSON error';
 	}
 
-	if (!empty($city['city'])) {
-		$location = $city['pro'] . $city['city'];
-	} else {
-		$location = $city['pro'];
-	}
+	$location = $address['country'];
+	if (!empty($address['regionName'])) {$location .= ',' . $address['regionName'];}
+	if (!empty($address['city'])) {$location .= ',' . $address['city'];}
+	if ($address['proxy'] == true) {$location .= ',通过代理访问';}
 
-	return $location ?: false;
+	return $location ?: 'N/A';
 }
 
 //反黑客攻击行为
@@ -187,7 +186,7 @@ if (!defined("ADMIN")) {
 
 	if ($hackparam != $checkcmd) {
 		dbquery("INSERT INTO ban_ip (min, max) VALUES(\"$iplong\", \"$iplong\");");
-		dbquery('INSERT INTO mail (id_user, id_kont, msg, time) VALUES("0", "1", "IP: '.$ip.' UA: '.$ua.'正在进行黑客攻击", "'.$time.'");');
+		dbquery('INSERT INTO mail (id_user, id_kont, msg, time) VALUES("0", "1", "IP: '.$ip.' UA: '.$ua.' 位置: '.get_ip_address($ip).' 正在进行黑客攻击", "'.$time.'");');
 		die('<h2>检测到攻击！</h2><br>你的浏览器：<b>'.$ua.'</b><br>你的IP： <b>'.$ip.'</b><br><b>已被记录，不要尝试违法操作！</b><br><br>有这时间多休息吧！！！');
 	}
 }
