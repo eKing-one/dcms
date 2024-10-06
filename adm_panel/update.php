@@ -21,13 +21,15 @@ include_once '../sys/inc/thead.php';
 title();
 err();
 aut();
-if (isset($_POST['update'])) {
-    if (function_exists("disk_free_space")) {
-        if (disk_free_space("/") < 1048576) exit("升级系统至少需要 20MB 的可用空间");
+
+if (isset($_POST['update'])) {  // 请求更新
+    if (function_exists("disk_free_space")) {   // 检测剩余空间是否充足
+        if (disk_free_space("/") < 1048576) exit("升级至少需要 20MB 的可用空间");
     }
     $temp_set['job'] = 0;
     save_settings($temp_set);
-    if (isset($_POST['backup'])) {
+
+    if (isset($_POST['backup'])) {  // 备份文件
         $backup = H . "sys/backup/";
         if (!file_exists($backup)) {
             if (!mkdir($backup, 0777, TRUE) && !is_dir($backup)) {
@@ -53,40 +55,53 @@ deny from all");
             copy($dir30 . $index, $backup . $index);
         }
     }
+
     $content = file_get_contents("https://dcms-social.ru/launcher/social.json");
     $data = json_decode($content, TRUE);
     $temp_set['dcms_version'] = $data['stable']['version'];
+
+    // 检查并创建下载目录
     $downloads = H . "sys/update/";
     if (!file_exists($downloads)) {
         if (!mkdir($downloads, 0777, TRUE) && !is_dir($downloads)) {
             throw new \RuntimeException(sprintf('Directory "%s" was not created', $downloads));
         }
     }
+
+    // 防止用户通过浏览器直接查看目录内容
     if (!file_exists($downloads . ".htaccess")) {
         $f = fopen($downloads . ".htaccess", "a+");
         fwrite($f, "Options All -Indexes
 deny from all");
         fclose($f);
     }
-    $url = $data['stable']['url'];;
-    $version = $data['stable']['version'];
-    // Скачивание
+    $url = $data['stable']['url'];          // 提取下载链接
+    $version = $data['stable']['version'];  // 提取版本号
+
+    // 下载更新包
     if ($updated = file_get_contents($url)) {
-        $nf = $data['stable']['version'] . ".social-new.zip";
-        file_put_contents($downloads . $nf, $updated);
+        $nf = $data['stable']['version'] . ".social-new.zip";   // 定义更新包文件名
+        file_put_contents($downloads . $nf, $updated);          // 将下载的文件内容保存到下载目录
         //  echo "Скачивание</br>";
+
+        // 解压更新包
         $zip = new ZipArchive;
         $res = $zip->open($downloads . $nf);
         if ($res === TRUE) {
+            // 创建解压目录
             $dir30 = $downloads . $version . "_" . time() . "/";
             if (!file_exists($dir30)) {
                 if (!mkdir($dir30, 0777, TRUE) && !is_dir($dir30)) {
                     throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir30));
                 }
             }
+
+            // 解压文件
             $zip->extractTo($dir30);
             $zip->close();
+
             //  echo "Установка</br>";
+            // 获取解压缩后的文件列表
             $files_new = getFileListAsArray($dir30);
             $newpatch = H . "s";
             if (!file_exists($newpatch)) {
@@ -94,20 +109,28 @@ deny from all");
                     throw new \RuntimeException(sprintf('Directory "%s" was not created', $newpatch));
                 }
             }
+
+            // 遍历解压缩后的文件并创建相应的子目录
+            // $index 变量为文件相对路径
             foreach ($files_new as $index => $file) {
+                // 检查目标目录下是否存在该文件的父目录，如果没有就创建
                 if (!file_exists(dirname($newpatch . $index))) mkdir(dirname($newpatch . $index), 0755, TRUE);
                 copy($dir30 . $index, $newpatch . $index);
+                // 复制文件到目标目录
             }
+
+            // 完成更新
             $temp_set['job'] = 1;
             save_settings($temp_set);
             if (save_settings($temp_set)) {
-                admin_log('设置', '系统', '系统更新');
-                msg('系统更新');
+                admin_log('设置', '系统', '更新');
+                msg('更新');
             }
             header("Location: /adm_panel/update.php");
         }
     }
 }
+
 $content = file_get_contents("https://dcms-social.ru/launcher/social.json");
 $data = json_decode($content, TRUE);
 echo "<div class='mess'>";
@@ -133,6 +156,10 @@ if (user_access('adm_panel_show')) {
     echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
+
+
+// 选择性（通过$recursive参数）递归遍历一个目录，并返回一个包含所有文件的数组（包括子目录中的文件）
+// 用于获取子目录中的文件列表
 function getFileListAsArray(string $dir, bool $recursive = TRUE, string $basedir = ''): array
 {
     if ($dir == '') {
@@ -167,5 +194,3 @@ function getFileListAsArray(string $dir, bool $recursive = TRUE, string $basedir
     }
     return $results;
 }
-
-?>

@@ -69,7 +69,7 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 
 ## 待办事项
 
-- [ ] 移除代码 `version_stable()`
+- [ ] 修复 `version_stable()` 相关功能
 - [ ] 移除 token 相关代码
 - [x] 修复在 "书签" 页面无法翻页
 - [ ] 将用户名与昵称区分,在个人主页可显示用户名(或仅限管理员可查看用户名)
