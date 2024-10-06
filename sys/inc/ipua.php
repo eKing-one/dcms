@@ -93,19 +93,13 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
 	// 使用 uap-php 库解析 User-Agent
 	$parser = Parser::create();
 	$result = $parser->parse($ua);
-	$browser_name = $result->ua->family ?? '未知'; // 修正对象访问
-	$browser_version = $result->ua->major;
 	// 特殊处理 Opera Mini 手机型号
 	if (isset($_SERVER['HTTP_X_OPERAMINI_PHONE_UA']) && stripos($ua, 'Opera') !== false) {
-		$ua_om = preg_replace('#[^a-z_\. 0-9\-]#iu', "null", strtolower($_SERVER['HTTP_X_OPERAMINI_PHONE_UA']));
-		$browser_name = 'Opera Mini (' . $ua_om . ')';
-	}
-	// 构造最终的 User-Agent 字符串
-	if ($browser_version == null) {
-		// 如果解析不到浏览器版本就不合并版本号
-		$ua = $browser_name;
+		$ua_om = preg_replace('#[^a-z_\. 0-9\-]#iu', null, strtolower($_SERVER['HTTP_X_OPERAMINI_PHONE_UA']));
+		$ua = $result->toString();
+		$ua = $ua . '(' . $ua_om . ')';
 	} else {
-		$ua = "{$browser_name} v{$browser_version}";
+		$ua = $result->toString();
 	}
 } else {
 	$ua = 'N/A';
