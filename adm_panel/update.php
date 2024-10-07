@@ -16,7 +16,7 @@ include_once '../sys/inc/user.php';
 adm_check();
 user_access('adm_set_sys', NULL, 'index.php?' . SID);
 $temp_set = $set;
-$set['title'] = '引擎升级(阿尔法版)';
+$set['title'] = '引擎升级(Alpha)';
 include_once '../sys/inc/thead.php';
 title();
 err();
@@ -138,10 +138,12 @@ echo "<center><span style='font-size:16px;'><strong>DCMS-Social v.$set[dcms_vers
 echo "<center><span style='font-size:14px;'> 官方支持网站 <a href='https://dcms-social.ru'>https://dcms-social.ru</a></span></center>";
 echo "";
 if (version_compare($set['dcms_version'], $data['version']) >= 0) {
-	echo "<div class='mess'> 你有最新的相关版本。你可以在中文版CN_DCMS-Social的<a target='_blank' href='https://github.com/zzyh1145/CN_DCMS-Social'>GitHub仓库</a>上手动查看新版本</div>";
+	echo "<div class='mess'> 当前版本为最新版 v" . $data['version'] . "你可以在CN_DCMS-Social的<a target='_blank' href='https://github.com/zzyh1145/CN_DCMS-Social'>GitHub仓库</a>上手动查看新版本</div>";
 } else {
-	echo "<div class='mess' style='font-size: 16px; background-color: #9aff9a' >有个新版本 - " . $data['version'] . "! 需要升级。新发布的所有信息在 <a target='_blank' href='https://github.com/zzyh1145/CN_DCMS-Social'>GitHub仓库</a> 你可以在此页面上自动更新引擎。</div>";
+	echo "<div class='mess' style='font-size: 16px; background-color: #9aff9a' >有个新版本 - " . $data['version'] . "! 需要升级，新发布的信息可以在 <a target='_blank' href='https://github.com/zzyh1145/CN_DCMS-Social'>GitHub仓库</a> 仓库，你可以在此页面上自动更新引擎。</div>";
 }
+
+// 更新按钮
 echo "<div class='mess'> <h3 style='color: red'>注意！这是自动更新的 Alpha 版本，明智地使用！在 /replace/ 文件夹之外对原始引擎文件所做的所有手动更改都将丢失，请做备份！</h3>  </div>";
 echo "<form method='post' >";
 echo "<label><input type='checkbox' name='backup'> 备份文件到 /sys/backup/</label></br> ";

@@ -114,3 +114,17 @@
 ## 文件 `sys\dat\cloudflare-ips-v6.txt`
 
 - **内容**：Cloudflare IPv6 列表
+
+---
+
+## 函数 `getLatestStableRelease`
+
+- **来源**：`sys/inc/fnc.php`
+- **作用**：从GitHub仓库获取最新版CN_DCMS-Social和更新包信息。
+- **用法**：
+
+  ```php
+  $result = getLatestStableRelease();
+  echo "Latest Stable Version: " . $result['version'] . PHP_EOL;
+	echo "ZIP Download URL: " . $result['zip_url'] . PHP_EOL;
+  ```
