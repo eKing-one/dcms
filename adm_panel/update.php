@@ -24,11 +24,11 @@ aut();
 
 if (isset($_POST['update'])) {					// 暂时禁用自动升级功能
 	$err = '自动更新功能暂时不可用，请手动更新';
+	err();
 }
-err();											// 暂时用于展示错误信息的函数调用
 
 if (isset($_POST['update']) && false) {			// 暂时禁用自动升级功能
-	if (function_exists("disk_free_space")) {   // 检测剩余空间是否充足
+	if (function_exists("disk_free_space")) {	// 检测剩余空间是否充足
 		if (disk_free_space("/") < 1048576) exit("升级至少需要 20MB 的可用空间");
 	}
 
@@ -77,8 +77,7 @@ deny from all");
 	// 防止用户通过浏览器直接查看目录内容
 	if (!file_exists($downloads . ".htaccess")) {
 		$f = fopen($downloads . ".htaccess", "a+");
-		fwrite($f, "Options All -Indexes
-deny from all");
+		fwrite($f, "Options All -Indexes\nDeny from all");
 		fclose($f);
 	}
 	$url = $data['zip_url'];	// 提取下载链接
@@ -143,12 +142,12 @@ echo "<center><span style='font-size:16px;'><strong>DCMS-Social v.$set[dcms_vers
 echo "<center><span style='font-size:14px;'> 官方支持网站 <a href='https://dcms-social.ru'>https://dcms-social.ru</a></span></center>";
 echo "";
 if (version_compare($set['dcms_version'], $data['version']) >= 0) {
-	echo "<div class='mess'> 当前版本为最新版 v" . $data['version'] . "你可以在CN_DCMS-Social的<a target='_blank' href='https://github.com/zzyh1145/CN_DCMS-Social'>GitHub仓库</a>上手动查看新版本</div>";
+	echo "<div class='mess'> 当前版本为最新版 v" . $data['version'] . "，你可以在CN_DCMS-Social的<a target='_blank' href='https://github.com/zzyh1145/CN_DCMS-Social'>GitHub仓库</a>上手动查看新版本</div>";
 } else {
 	echo "<div class='mess' style='font-size: 16px; background-color: #9aff9a' >有个新版本 - " . $data['version'] . "! 需要升级，新发布的信息可以在 <a target='_blank' href='https://github.com/zzyh1145/CN_DCMS-Social'>GitHub仓库</a> 仓库，你可以在此页面上自动更新引擎。</div>";
 }
 
-// 更新按钮
+// 更新按钮和相关提示
 echo "<div class='mess'> <h3 style='color: red'>注意！这是自动更新的 Alpha 版本，明智地使用！在 /replace/ 文件夹之外对原始引擎文件所做的所有手动更改都将丢失，请做备份！</h3>  </div>";
 echo "<form method='post' >";
 echo "<label><input type='checkbox' name='backup'> 备份文件到 /sys/backup/</label></br> ";
