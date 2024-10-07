@@ -22,7 +22,12 @@ title();
 err();
 aut();
 
-if (isset($_POST['update'])) {  // 请求更新
+if (isset($_POST['update'])) {					// 暂时禁用自动升级功能
+	$err = '自动更新功能暂时不可用，请手动更新';
+}
+err();											// 暂时用于展示错误信息的函数调用
+
+if (isset($_POST['update']) && false) {			// 暂时禁用自动升级功能
 	if (function_exists("disk_free_space")) {   // 检测剩余空间是否充足
 		if (disk_free_space("/") < 1048576) exit("升级至少需要 20MB 的可用空间");
 	}
@@ -76,13 +81,13 @@ deny from all");
 deny from all");
 		fclose($f);
 	}
-	$url = $data['zip_url'];          // 提取下载链接
-	$version = $data['version'];  // 提取版本号
+	$url = $data['zip_url'];	// 提取下载链接
+	$version = $data['version'];// 提取版本号
 
 	// 下载更新包
 	if ($updated = file_get_contents($url)) {
-		$nf = $data['version'] . ".social-new.zip";   // 定义更新包文件名
-		file_put_contents($downloads . $nf, $updated);          // 将下载的文件内容保存到下载目录
+		$nf = $data['version'] . ".social-new.zip";		// 定义更新包文件名
+		file_put_contents($downloads . $nf, $updated);	// 将下载的文件内容保存到下载目录
 		//  echo "Скачивание</br>";
 
 		// 解压更新包

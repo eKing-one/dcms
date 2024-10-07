@@ -29,7 +29,8 @@
 - **用法**：
 
   ```php
-  err('报错内容');
+  $err = '报错内容';
+  err();
   ```
 
 ---
@@ -126,5 +127,5 @@
   ```php
   $result = getLatestStableRelease();
   echo "Latest Stable Version: " . $result['version'] . PHP_EOL;
-	echo "ZIP Download URL: " . $result['zip_url'] . PHP_EOL;
+  echo "ZIP Download URL: " . $result['zip_url'] . PHP_EOL;
   ```
