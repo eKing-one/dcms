@@ -6,13 +6,9 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 
 ## 安装要求
 
-- PHP 5.4 至 7.0 或以上版本（推荐使用 PHP 7）
+- PHP 7 （推荐使用PHP 7.4.3）
 - MySQL 数据库支持
 - Apache `mod_rewrite` 模块支持（可用Nginx替代）
-
-### 免费托管安装反馈
-
-如果您能在免费托管环境中成功安装并充分运行此引擎，请在[项目官方论坛（俄语）](http://dcms-social.ru/forum/)上报告。
 
 ### 推荐库
 
@@ -41,7 +37,10 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - 主题样式文件：`style/themes/`（主题文件夹）
 - 网站规则文件：`sys/add/rules.txt`
 - 默认主题存档：`sys/add/theme.zip`（用于管理员安装或替换丢失的主题文件）
-- 爬虫管理：`robots.txt`（源代码默认屏蔽 MJ12Bot、AhrefsBot 和 SEMrushBot 三只垃圾爬虫，详见[该文章](https://itlanyan.com/common-bot-ua-and-block-bad-bots/)）
+
+## 安装前体验
+
+你可以前往 [GuGuan123](https://github.com/guguan123/) 开设的[副站](https://dcms.myredirect.us/)体验各项功能的最新改进。相关技术信息请参见[他的博客](http://u5a.cn/B8Ng5)。
 
 ## 安装步骤
 
@@ -63,12 +62,30 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 
 如果您对开发引擎有兴趣，可 Fork 本仓库并在修改后创建 Pull Request。
 
+## 本项目引用的第三方库
+
+- [IPSet](https://github.com/wikimedia/ipset)
+- [ua-parser](https://github.com/ua-parser/uap-php)
+
 ## 待办事项
 
-- [ ] 移除代码 `version_stable()`
+- [ ] 修复更新功能
 - [ ] 移除 token 相关代码
 - [x] 修复在 "书签" 页面无法翻页
 - [ ] 将用户名与昵称区分,在个人主页可显示用户名(或仅限管理员可查看用户名)
 - [ ] 纠正翻译和翻译部分残留的文本
-- [ ] CDN 支持
-- [ ] 暗色模式
+- [x] CDN 支持
+- [x] 暗色模式
+- [ ] 档案页报错
+- [ ] "网站领袖" 新译名
+- [ ] "书签分类" -> "日记" 翻页后无法显示标题
+- [ ] "书签分类" -> "论坛" 出现数据库查询的 Warning 报错
+- [x] 完善“是否允许游客访问《网站资料与帮助》页面”功能，优化 plugins/rules/index.php:13 与 plugins/rules/post.php:13 的代码实现方式
+- [ ] 修复RSS订阅功能
+- [ ] 修复更新页面
+- [ ] 提供给客户端的API
+- [ ] PHP 8 支持
+- [x] 修复 IP 归属地功能
+- [ ] 修复登录历史的 UA 和 IP 信息错误问题
+- [ ] WAP暗色模式主题
+- [ ] web暗色主题优化&暗色图片资源优化

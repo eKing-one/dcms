@@ -1,19 +1,4 @@
 <?php
-/*
-=======================================
-Музыка юзеров для Dcms-Social
-Автор: Искатель
----------------------------------------
-此脚本在许可下被破坏
-DCMS-Social 引擎。
-使用时，指定引用到
-网址 http://dcms-social.ru
----------------------------------------
-接点
-ICQ：587863132
-http://dcms-social.ru
-=======================================
-*/
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -23,7 +8,7 @@ include_once '../../sys/inc/db_connect.php';
 include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
-/* Бан пользователя */
+/* 用户封禁 */
 if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'files' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
 	header('Location: /user/ban.php?' . SID);
 	exit;
@@ -35,7 +20,7 @@ if ($ank['id'] == 0) {
 	echo "你的播放列表还没有歌曲=）";
 	exit;
 }
-// Определяем id автора плейлиста
+// 播放列表作者的 ID
 $ank = user::get_user($ank['id']);
 if (!$ank) {
 	header("Location: /index.php?" . SID);

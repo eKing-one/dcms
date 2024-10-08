@@ -3,13 +3,5 @@ Disallow: /cgi-bin/
 Disallow: /adm_panel/
 Disallow: /style/
 Disallow: /sys/
-Disallow: /chat/
 Disallow: /docs/
 Disallow: /files/
-
-User-agent: AhrefsBot
-Disallow: /
-User-agent: MJ12bot
-Disallow: /
-User-agent: SemrushBot
-Disallow: /

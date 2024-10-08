@@ -2,12 +2,12 @@
 // 函数别名
 // 剪切所有不可读字符
 function my_esc($text, $br = NULL) { 
-	if ($br != NULL) {
-		for ($i = 0; $i <= 31; $i++) $text = str_replace(chr($i), NULL, $text);
+	if ($br != '') {
+		for ($i = 0; $i <= 31; $i++) $text = str_replace(chr($i), '', $text);
 	} else {
-		for ($i = 0; $i < 10; $i++) $text = str_replace(chr($i), NULL, $text);
-		for ($i = 11; $i < 20; $i++) $text = str_replace(chr($i), NULL, $text);
-		for ($i = 21; $i <= 31; $i++) $text = str_replace(chr($i), NULL, $text);
+		for ($i = 0; $i < 10; $i++) $text = str_replace(chr($i), '', $text);
+		for ($i = 11; $i < 20; $i++) $text = str_replace(chr($i), '', $text);
+		for ($i = 21; $i <= 31; $i++) $text = str_replace(chr($i), '', $text);
 	}
 	return $text;
 }
@@ -92,11 +92,12 @@ function delete_dir($dir) {
 // curl相关函数
 function get_curl($url, $post_data=null, $referer=null, $cookie=null, $header=false, $ua=null, $nobody=false, $addheader=null) {
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);  // 启用SSL证书验证
-	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);     // 启用SSL主机验证
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_ENCODING, "gzip");
-	curl_setopt($ch, CURLOPT_TIMEOUT, 10);  // 设置超时10秒
+
+	curl_setopt($ch, CURLOPT_URL, $url);			// 设置URL
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);	// 启用SSL证书验证
+	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);	// 启用SSL主机验证
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);	// 将结果以字符串形式返回
+	curl_setopt($ch, CURLOPT_TIMEOUT, 10);  		// 设置超时10秒
 
 	$httpheader = [
 		"Accept: */*",
@@ -148,31 +149,30 @@ function get_curl($url, $post_data=null, $referer=null, $cookie=null, $header=fa
 	return $ret;
 }
 
-// 获取ip位置信息
-function get_ip_city($ip) {
-	$url = 'https://whois.pconline.com.cn/ipJson.jsp?json=true&ip=';
-	$city = get_curl($url . $ip);
+// 获取ip位置信息（暂时弃用）
+function get_ip_address($ip) {
+	$url = 'http://ip-api.com/json/';
+	$otherParameters = '?fields=status,message,country,countryCode,region,regionName,city,district,lat,lon,isp,org,as,reverse,mobile,proxy,hosting&lang=zh-CN';
+	$address = get_curl($url . $ip . $otherParameters);
 	
 	// 处理可能的curl错误
-	if (isset($city['error'])) {
+	if (isset($address['error'])) {
 		return false;
 	}
 
-	$city = mb_convert_encoding($city, "UTF-8", "GB2312");
-	$city = json_decode($city, true);
+	$address = json_decode($address, true);
 
 	// 处理JSON解析错误
 	if (json_last_error() !== JSON_ERROR_NONE) {
-		return false;
+		return 'JSON error';
 	}
 
-	if (!empty($city['city'])) {
-		$location = $city['pro'] . $city['city'];
-	} else {
-		$location = $city['pro'];
-	}
+	$location = $address['country'];
+	if (!empty($address['regionName'])) {$location .= ',' . $address['regionName'];}
+	if (!empty($address['city'])) {$location .= ',' . $address['city'];}
+	if ($address['proxy'] == true) {$location .= ',通过代理访问';}
 
-	return $location ? $location : false;
+	return $location ?: 'N/A';
 }
 
 //反黑客攻击行为
@@ -186,8 +186,8 @@ if (!defined("ADMIN")) {
 
 	if ($hackparam != $checkcmd) {
 		dbquery("INSERT INTO ban_ip (min, max) VALUES(\"$iplong\", \"$iplong\");");
-		dbquery('INSERT INTO mail (id_user, id_kont, msg, time) VALUES("0", "1", "IP: '.$ip.' UA: '.$ua.' 位置: '.get_ip_city($ip).'正在进行黑客攻击", "'.$time.'");');
-		die('<h2>攻击失败！</h2><br>你的浏览器：<b>'.$ua.'</b><br>你的IP： <b>'.$ip.'</b><br>位置：<b>'.get_ip_city($ip).'</b><br><b>已被记录，不要尝试违法操作！</b><br><br>有这时间多休息吧！！！！');
+		dbquery('INSERT INTO mail (id_user, id_kont, msg, time) VALUES("0", "1", "IP: '.$ip.' UA: '.$ua.' 位置: '.get_ip_address($ip).' 正在进行黑客攻击", "'.$time.'");');
+		die('<h2>检测到攻击！</h2><br>你的浏览器：<b>'.$ua.'</b><br>你的IP： <b>'.$ip.'</b><br><b>已被记录，不要尝试违法操作！</b><br><br>有这时间多休息吧！！！');
 	}
 }
 
@@ -409,6 +409,7 @@ function save_settings($set) {
 		return false;
 	}
 }
+
 // 管理行动记录
 function admin_log($mod, $act, $opis) {
 	global $user;
@@ -454,21 +455,15 @@ function ages($age) {
 	return $age . ' ' . $str;
 }
 
-//删除更新代码
-
-function version_stable() {
-	//$content = file_get_contents("https://dcms-social.ru/launcher/social.json");
-	//$data = json_decode($content, TRUE);
-	return $data=['stable']['version'];
-}
 function t_toolbar_html() {
 	global $set;
 
+	$status_version_data = getLatestStableRelease();
 	echo '<div class="mess">
 	  <b>Admin Tool</b> :: <a href="/">网站主页</a>  |<a href="/plugins/admin/">管理员</a> | <a href="/adm_panel/">控制面板</a> |<a target="_blank" href="https://dcms-social.ru">DCMS-Social.ru</a>
 	   v' . $set['dcms_version'];
-	if (status_version() < 0) {
-		echo '<center><font color="red">有一个新版本 - ' . version_stable() . '! <a href="/adm_panel/update.php">详细</a></font></center>';
+	if (version_compare($set['dcms_version'], $status_version_data['version']) < 0) {
+		echo '<center><font color="red">有一个新版本 - ' . $status_version_data['version'] . '! <a href="/adm_panel/update.php">详细</a></font></center>';
 	}
 	echo '</div>';
 }
@@ -486,11 +481,81 @@ function header_html($add = null) {
 	} else $header = $add;
 }
 
-//获取远程更新代码
-//影响网站效率
-function status_version() {
-	// global $set;
-	// $content = file_get_contents("https://dcms-social.ru/launcher/social.json");
-	// $data = json_decode($content, TRUE);
-	// return version_compare($set['dcms_version'], $data['stable']['version']);
+/**
+ * 获取最新的发行版稳定版本信息
+ *
+ * @return array 包含最新版本信息或错误信息的数组
+ */
+function getLatestStableRelease() {
+	// 设置API的URL
+	$api_url = "https://free.guguan.us.kg/api/dcms_github_releases.php";
+	
+	// 初始化cURL会话
+	$ch = curl_init();
+
+	// 设置cURL选项
+	curl_setopt($ch, CURLOPT_URL, $api_url);         // 设置请求的URL
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  // 返回作为字符串，而不是直接输出
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 忽略SSL证书检查（如果使用的是https）
+
+	// 执行cURL请求并获取响应数据
+	$response = curl_exec($ch);
+
+	// 检查是否有错误
+	if (curl_errno($ch)) {
+		$error_message = 'cURL Error: ' . curl_error($ch);
+		curl_close($ch);
+		return [
+			'success' => false,
+			'error' => $error_message
+		];
+	}
+
+	// 关闭cURL会话
+	curl_close($ch);
+
+	// 解析JSON响应数据
+	$release_data = json_decode($response, true);
+
+	// 检查响应是否有效
+	if (!is_array($release_data) || count($release_data) === 0) {
+		return [
+			'success' => false,
+			'error' => 'No release data found.'
+		];
+	}
+
+	// 初始化变量以保存最新稳定版本的数据
+	$latest_stable_release = null;
+	$latest_published_time = null;
+
+	// 遍历所有发布，查找最新的稳定版本
+	foreach ($release_data as $release) {
+		// 检查该版本是否为非预发布且非草稿
+		if (!$release['prerelease'] && !$release['draft']) {
+			// 获取发布时间
+			$published_at = strtotime($release['published_at']);
+
+			// 如果这是第一个找到的稳定版本，或发布时间比当前保存的更晚，则更新
+			if ($latest_stable_release === null || $published_at > $latest_published_time) {
+				$latest_stable_release = $release;
+				$latest_published_time = $published_at;
+			}
+		}
+	}
+
+	// 检查是否找到了稳定版本
+	if ($latest_stable_release !== null) {
+		// 返回最新稳定版本的版本号和ZIP源码包下载链接
+		return [
+			'success' => true,
+			'version' => $latest_stable_release['tag_name'],
+			'zip_url' => $latest_stable_release['zipball_url']
+		];
+	} else {
+		return [
+			'success' => false,
+			'error' => 'No stable release found.'
+		];
+	}
 }

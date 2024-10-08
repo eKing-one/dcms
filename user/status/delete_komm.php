@@ -29,7 +29,7 @@ if (isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `status_komm` W
     $status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '$post[id_status]' LIMIT 1"));
     if (isset($user) && ($user['level'] > $ank['level']) || $status['id_user'] == $user['id']) {
         dbquery("DELETE FROM `status_komm` WHERE `id` = '$post[id]'");
-        $_SESSION['message'] = '评论已被匆忙删除';
+        $_SESSION['message'] = '评论已被匆忙删除'; // 啊这...
     }
     header("Location: komm.php?id=$status[id]");
     exit;
