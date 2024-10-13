@@ -45,7 +45,7 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 
 ## 安装步骤
 
-1. 克隆本仓库。
+1. 下载最新的 [Releases](https://github.com/zzyh1145/CN_DCMS-Social/releases/latest) 并解压到服务器。
 2. 创建一个 MySQL 数据库（注意是数据库而不是表）。
 3. 将所有文件上传至根目录或子域文件夹（请注意，引擎无法在子文件夹内运行）。
 4. 访问 `http://[您的网站]/install/`
