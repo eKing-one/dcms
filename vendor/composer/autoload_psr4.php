@@ -7,5 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'UAParser\\' => array($vendorDir . '/ua-parser/uap-php/src'),
+    'IPLib\\' => array($vendorDir . '/mlocati/ip-lib/src'),
     'Composer\\CaBundle\\' => array($vendorDir . '/composer/ca-bundle/src'),
 );
