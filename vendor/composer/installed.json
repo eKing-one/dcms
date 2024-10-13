@@ -156,60 +156,6 @@
                 "source": "https://github.com/ua-parser/uap-php/tree/v3.9.14"
             },
             "install-path": "../ua-parser/uap-php"
-        },
-        {
-            "name": "wikimedia/ip-set",
-            "version": "4.0.0",
-            "version_normalized": "4.0.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/wikimedia/IPSet.git",
-                "reference": "5c55f38f79dac6b5ba88502a76f865ad1f615f4a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/wikimedia/IPSet/zipball/5c55f38f79dac6b5ba88502a76f865ad1f615f4a",
-                "reference": "5c55f38f79dac6b5ba88502a76f865ad1f615f4a",
-                "shasum": ""
-            },
-            "require": {
-                "ext-ctype": "*",
-                "ext-json": "*",
-                "php": ">=7.4.3"
-            },
-            "require-dev": {
-                "mediawiki/mediawiki-codesniffer": "41.0.0",
-                "mediawiki/mediawiki-phan-config": "0.12.1",
-                "mediawiki/minus-x": "1.1.1",
-                "ockcyp/covers-validator": "1.6.0",
-                "php-parallel-lint/php-console-highlighter": "1.0.0",
-                "php-parallel-lint/php-parallel-lint": "1.3.2",
-                "phpunit/phpunit": "9.5.28"
-            },
-            "time": "2023-09-16T07:22:04+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Wikimedia\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Brandon Black",
-                    "email": "blblack@gmail.com"
-                }
-            ],
-            "description": "Efficiently match IP addresses against a set of CIDR specifications.",
-            "homepage": "https://www.mediawiki.org/wiki/IPSet",
-            "support": {
-                "source": "https://github.com/wikimedia/IPSet/tree/4.0.0"
-            },
-            "install-path": "../wikimedia/ip-set"
         }
     ],
     "dev": true,
