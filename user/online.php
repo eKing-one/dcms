@@ -17,8 +17,10 @@ if (isset($_GET['admin']) && user_access('user_collisions')) {
 }
 $set['title'] = '在线用户'; //网页标题
 include_once '../sys/inc/thead.php';
+
 title();
 aut();
+
 /*
 ==============================================
 这个脚本输出 1 个随机的“领导者”和
@@ -36,17 +38,20 @@ if ($k_lider > 0) {
 	echo '<img src="/style/icons/lider.gif" alt="S"/> <a href="/user/liders/">所有领导者</a> (' . $k_lider . ')';
 	echo '</div>';
 }
+
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `date_last` > '" . (time() - 600) . "'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
 $q = dbquery("SELECT id, ank_city, pol, ank_d_r, ank_m_r, ank_g_r, ank_o_sebe, url, level, ip, ip_xff, ip_cl, ua, date_last FROM `user` WHERE `date_last` > '" . (time() - 600) . "' ORDER BY `date_last` DESC LIMIT $start, $set[p_str]");
 echo '<table class="post">';
+
 if ($k_post == 0) {
 	echo '<div class="mess">';
 	echo '现在网站上没有人';
 	echo '</div>';
 }
+
 while ($ank = dbassoc($q)) {
 	$ank['ank_age'] = null;
 	if ($ank['ank_d_r'] != NULL && $ank['ank_m_r'] != NULL && $ank['ank_g_r'] != NULL) {
@@ -133,12 +138,16 @@ while ($ank = dbassoc($q)) {
 }
 echo '</table>';
 if ($k_page > 1) str("?", $k_page, $page); // 输出页数
-if (user_access('user_collisions')) {
-?>
+
+if (user_access('user_collisions')): ?>
 	<div class="foot">
-		<?= (!isset($_SESSION['admin']) ? '<a href="?admin">高级模式</a> | <b>正常模式</b>' : '<b>高级模式</b> | <a href="?admin=close">正常模式</a>') ?>
+		<?php if (!isset($_SESSION['admin'])): ?>
+			<a href="?admin">高级模式</a> | <b>正常模式</b>
+		<?php else: ?>
+			<b>高级模式</b> | <a href="?admin=close">正常模式</a>
+		<?php endif; ?>
 	</div>
-<?
-}
+<?php endif;
+
 include_once '../sys/inc/tfoot.php';
 ?>
