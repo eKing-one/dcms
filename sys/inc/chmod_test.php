@@ -23,8 +23,7 @@ function test_chmod($df,$chmod)
 		$f_chmod1 . $f_chmod2 . $f_chmod3 . ' (ok)</span><br />';
 	}
 }
-if (file_exists(H.'install/'))
-test_chmod(H.'install/', 777);
+if (file_exists(H.'install/')) test_chmod(H.'install/', 777);
 test_chmod(H.'sys/dat/',777);
 test_chmod(H.'sys/forum/files',777);
 test_chmod(H.'sys/gallery/48/',777);
