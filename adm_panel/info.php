@@ -16,22 +16,23 @@ include_once '../sys/inc/thead.php';
 title();
 err();
 aut();
+
 include_once H . 'sys/inc/testing.php';
 echo "<hr />";
 include_once H . 'sys/inc/chmod_test.php';
+
 if (isset($err)) {
-    if (is_array($err)) {
-        foreach ($err as $key => $value) {
-            echo "<div class='err'>$value</div>";
-        }
-    } else
-        echo "<div class='err'>$err</div>";
+	if (is_array($err)) {
+		foreach ($err as $key => $value) {
+			echo "<div class='err'>$value</div>";
+		}
+	} else
+		echo "<div class='err'>$err</div>";
 }
+
 if (user_access('adm_panel_show')) {
-    echo "<div class='foot'>";
-    echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
-    echo "</div>";
+	echo "<div class='foot'>";
+	echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
+	echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
-
-?>
