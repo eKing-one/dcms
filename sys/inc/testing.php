@@ -77,8 +77,8 @@ if (ini_get('arg_separator.output') == '&amp;') {
 	$err[] = '可能会发生xml错误';
 	$err[] = '加到根部  .htaccess 字符串 <b>php_value arg_separator.output &amp;amp;</b>';
 }
-if (file_exists(H . 'inc/mod_rewrite_test.php')) {
-	if (@trim(file_get_contents("http://$_SERVER[HTTP_HOST]/inc/mod_rewrite.test")) == 'mod_rewrite-ok') {
+if (file_exists(H . 'sys/inc/mod_rewrite_test.php')) {
+	if (@trim(file_get_contents("http://$_SERVER[HTTP_HOST]/sys/inc/mod_rewrite.test")) == 'mod_rewrite-ok') {
 		echo "<span class='on'>mod_rewrite: OK</span><br />";
 	} elseif (function_exists('apache_get_modules')) {
 		$apache_mod = @apache_get_modules();
