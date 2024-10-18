@@ -77,21 +77,8 @@ if (ini_get('arg_separator.output') == '&amp;') {
 	$err[] = '可能会发生xml错误';
 	$err[] = '加到根部  .htaccess 字符串 <b>php_value arg_separator.output &amp;amp;</b>';
 }
-if (file_exists(H . 'sys/inc/mod_rewrite_test.php')) {
-	if (@trim(file_get_contents("http://$_SERVER[HTTP_HOST]/sys/inc/mod_rewrite.test")) == 'mod_rewrite-ok') {
-		echo "<span class='on'>mod_rewrite: OK</span><br />";
-	} elseif (function_exists('apache_get_modules')) {
-		$apache_mod = @apache_get_modules();
-		if (array_search('mod_rewrite', $apache_mod)) {
-			echo "<span class='on'>mod_rewrite: OK</span><br />";
-		} else {
-			echo "<span class='off'>mod_rewrite: OFF</span><br />";
-			$err[] = '需要的支持 mod_rewrite';
-		}
-	} else {
-		echo "<span class='off'>mod_rewrite: OFF</span><br />";
-		$err[] = '需要的支持 mod_rewrite';
-	}
+if (@trim(file_get_contents("http://$_SERVER[HTTP_HOST]/sys/inc/mod_rewrite.test")) == 'mod_rewrite-ok') {
+	echo "<span class='on'>mod_rewrite: OK</span><br />";
 } elseif (function_exists('apache_get_modules')) {
 	$apache_mod = @apache_get_modules();
 	if (array_search('mod_rewrite', $apache_mod)) {
@@ -101,7 +88,8 @@ if (file_exists(H . 'sys/inc/mod_rewrite_test.php')) {
 		$err[] = '需要的支持 mod_rewrite';
 	}
 } else {
-	echo "<span class='off'>mod_rewrite: OFF 数据</span><br />";
+	echo "<span class='off'>mod_rewrite: OFF</span><br />";
+	$err[] = '需要的支持 mod_rewrite';
 }
 if (function_exists('imagecreatefromstring') && function_exists('gd_info')) {
 	$gdinfo = gd_info();
