@@ -8,7 +8,6 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
-include_once '../sys/inc/icons.php'; // 主菜单图标
 include_once '../sys/inc/thead.php';
 
 ?>
