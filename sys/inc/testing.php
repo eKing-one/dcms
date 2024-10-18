@@ -16,15 +16,40 @@ if (function_exists('disk_free_space') && function_exists('disk_total_space')) {
 
 	if ($free_space !== false && $total_space !== false) {
 		if ($free_space>1024*1024*5) {
-			echo "<span class='on'>剩余空间:</span> ".size_file($free_space).' / '.size_file($total_space)."<br />";
+			echo "<span class='on'>剩余空间:</span> ".size_file($free_space).' 可用，共 '.size_file($total_space)."<br />";
 		} else {
-			echo "<span class='off'>剩余空间:</span> ".size_file($free_space).' / '.size_file($total_space)."<br />";
-			$err[]='磁盘空间不足';
+			echo "<span class='off'>剩余空间:</span> ".size_file($free_space).' 可用，共 '.size_file($total_space)."<br />";
+			$err[]='存储空间不足';
 		}
 	} else {
-		$err[]='无法获取磁盘的剩余空间信息';
+		$err[]='无法获取存储的剩余空间信息';
 	}
 }
+
+echo "<span class='on'>网站根目录路径:</span> " . realpath(H) . "<br />";
+
+function folderSize($dir) {
+    $size = 0;
+
+    // 获取目录中的所有文件和子目录
+    foreach (scandir($dir) as $file) {
+        if ($file !== '.' && $file !== '..') {
+            $filePath = $dir . DIRECTORY_SEPARATOR . $file;
+
+            // 如果是目录，递归调用函数；如果是文件，累加其大小
+            if (is_dir($filePath)) {
+                $size += folderSize($filePath);
+            } else {
+                $size += filesize($filePath);
+            }
+        }
+    }
+
+    return $size;
+}
+echo "<span class='on'>网站根目录空间占用:</span> " . size_file(folderSize(H)) . "<br />";
+
+echo "<hr />";
 
 if (function_exists('set_time_limit')) {
 	echo "<span class='on'>set_time_limit: OK</span><br />";
