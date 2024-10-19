@@ -29,17 +29,16 @@ if (isset($_GET['login']) && isset($_GET['pass']))
 <img src='/style/my_menu/ank.png' alt='' /> <a href='/user/info/anketa.php'>个人资料</a> [<a href='user/info/edit.php'>编辑.</a>]<br />
 </div>
 <div class="main" id="umenu">
-<img src='/style/my_menu/avatar.png' alt='' /> <a href='/user/avatar.php'>我的头像</a><br />
-</div>
-
-<div class="main" id="umenu">
-<img src="/style/my_menu/set.png" alt="" /> <a href="/user/info/settings.php">常规设置</a><br />
+<img src='/style/my_menu/avatar.png' alt='' /> <a href='/user/avatar.php'>设置头像</a><br />
 </div>
 <div class="main" id="umenu">
 <img src="/style/my_menu/secure.png" alt="" /> <a href="/user/secure.php">更改密码</a><br />
 </div>
 <div class="main" id="umenu">
 <img src="/style/my_menu/rules.png" alt="" /> <a href="/user/rules.php">规则</a><br />
+</div>
+<div class="main" id="umenu">
+<img src="/style/my_menu/set.png" alt="" /> <a href="/user/info/settings.php">我的设置</a><br />
 </div>
 <?
 // 管理权限
