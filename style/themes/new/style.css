@@ -369,6 +369,10 @@ a.activ {
 	padding: 8px;
 }
 
+.rekl {
+	text-align: center;
+}
+
 /* шапка в списке гостей */
 .p_t {
 	border-top: 0px #D6E6F2 solid;
@@ -404,6 +408,7 @@ a.activ {
 	background-color: #85ABFF;
 	border:1px solid #4C82F6;
 	color: #f5f5f5;
+	text-align: center;
 }
 .copy a {
 	color: #fff;

@@ -19,7 +19,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 		echo '<div class="msg">' . $_SESSION['message'] . '</div>';
 		$_SESSION['message'] = NULL;
 	}
-	if ($_SERVER['PHP_SELF'] == '/index.php') : ?>
+	if ($_SERVER['PHP_SELF'] == '/index.php'): ?>
 		<div class="logo">
 			<img src="/style/themes/<?=$set['set_them']?>/logo.png" alt="logo" /><br />
 			<?=$set['title']?>
