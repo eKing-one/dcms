@@ -8,11 +8,12 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
+$set['title'] = 'Hello world!'; //网页标题
 include_once '../sys/inc/thead.php';
 
 ?>
 
-<p>Hello world!</p>
+<p>页面正文</p>
 
 <?php
 
