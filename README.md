@@ -33,11 +33,11 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 
 ## 主要文件夹与引擎文件
 
-- 论坛附件文件：`sys/forum/files/`（*.frf 文件）
-- 下载中心文件：`sys/down/files/`（*.DAT 文件）
-- 主题样式文件：`style/themes/`（主题文件夹）
+- 论坛附件文件：`sys/forum/files/` (*.frf 文件)
+- 下载中心文件：`sys/down/files/` (*.DAT 文件)
+- 主题样式文件：`style/themes/` (主题文件夹)
 - 网站规则文件：`sys/add/rules.txt`
-- 默认主题存档：`sys/add/theme.zip`（用于管理员安装或替换丢失的主题文件）
+- 默认主题存档：`sys/add/theme.zip` (用于管理员安装或替换丢失的主题文件)
 
 ## 安装前体验
 
@@ -45,7 +45,7 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 
 ## 安装步骤
 
-1. 克隆本仓库。
+1. 下载最新的 [Releases](https://github.com/zzyh1145/CN_DCMS-Social/releases/latest) 并解压到服务器。
 2. 创建一个 MySQL 数据库（注意是数据库而不是表）。
 3. 将所有文件上传至根目录或子域文件夹（请注意，引擎无法在子文件夹内运行）。
 4. 访问 `http://[您的网站]/install/`
@@ -65,7 +65,7 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 
 ## 本项目引用的第三方库
 
-- [IPSet](https://github.com/wikimedia/ipset)
+- [IPLib](https://github.com/mlocati/ip-lib)
 - [ua-parser](https://github.com/ua-parser/uap-php)
 
 ## 待办事项

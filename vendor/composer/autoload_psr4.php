@@ -6,7 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Wikimedia\\' => array($vendorDir . '/wikimedia/ip-set/src'),
     'UAParser\\' => array($vendorDir . '/ua-parser/uap-php/src'),
+    'IPLib\\' => array($vendorDir . '/mlocati/ip-lib/src'),
     'Composer\\CaBundle\\' => array($vendorDir . '/composer/ca-bundle/src'),
 );

@@ -34,7 +34,7 @@ if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth'] > $time || isset($_SES
 	}
 	echo "</div>";
 
-	if (user_access('adm_info')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='update.php'>更新</a></div>\n";
+	if (user_access('adm_set_sys')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='update.php'>更新</a></div>\n";
 
 	if (user_access('adm_info')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='info.php'>总体信息</a></div>\n";
 	if (user_access('adm_statistic')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='statistic.php'>网站统计</a></div>\n";

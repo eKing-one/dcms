@@ -7,13 +7,13 @@ namespace Composer\Autoload;
 class ComposerStaticInit1d5c899fd1cfa4469bbd76b2735efb15
 {
     public static $prefixLengthsPsr4 = array (
-        'W' => 
-        array (
-            'Wikimedia\\' => 10,
-        ),
         'U' => 
         array (
             'UAParser\\' => 9,
+        ),
+        'I' => 
+        array (
+            'IPLib\\' => 6,
         ),
         'C' => 
         array (
@@ -22,13 +22,13 @@ class ComposerStaticInit1d5c899fd1cfa4469bbd76b2735efb15
     );
 
     public static $prefixDirsPsr4 = array (
-        'Wikimedia\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/wikimedia/ip-set/src',
-        ),
         'UAParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/ua-parser/uap-php/src',
+        ),
+        'IPLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mlocati/ip-lib/src',
         ),
         'Composer\\CaBundle\\' => 
         array (
