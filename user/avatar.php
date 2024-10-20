@@ -8,6 +8,7 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
+if (isset($user)) $ank['id'] = $user['id'];
 only_reg();
 
 $set['title']='设置头像';
