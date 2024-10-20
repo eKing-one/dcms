@@ -19,7 +19,7 @@ aut();
 	echo user::avatar($ank['id']);
 	echo "</div>";
 	echo "<div class='main'>";
-	echo "欲设置头像，请先创建一个相册，然后在相册里上传头像图片，最后进入图片页面点击“设置为头像”，提示成功即完成设置。";
+	echo "请先创建一个相册，在相册里上传头像图片，进入图片页面点击“设置为头像”，即完成设置。";
 	echo "</div>";
 	//--------------------------相片册-----------------------------//
 	echo "<div class='main'>";echo "<img src='/style/icons/photo.png' alt='*' /> ";

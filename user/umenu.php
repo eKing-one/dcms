@@ -40,6 +40,7 @@ if (isset($_GET['login']) && isset($_GET['pass']))
 <div class="main" id="umenu">
 <img src="/style/my_menu/set.png" alt="" /> <a href="/user/info/settings.php">我的设置</a><br />
 </div>
+
 <?
 // 管理权限
 if (user_access('adm_panel_show'))
