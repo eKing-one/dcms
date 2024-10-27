@@ -1,5 +1,5 @@
 <?
-// Удаление альбома
+// 删除相册
 if ((user_access('photo_alb_del') || isset($user) && $user['id'] == $ank['id']) && isset($_GET['act']) && $_GET['act'] == 'delete' && isset($_GET['ok'])) {
 	$q = dbquery("SELECT * FROM `gallery_photo` WHERE `id_gallery` = '$gallery[id]'");
 	while ($post = dbassoc($q)) {
@@ -19,15 +19,19 @@ if ((user_access('photo_alb_del') || isset($user) && $user['id'] == $ank['id']) 
 	header("Location: /photo/$ank[id]/");
 	exit;
 }
-// Загрузка фото
-if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
-	if ($imgc = @imagecreatefromstring(file_get_contents($_FILES['file']['tmp_name']))) {
+
+// 上传照片
+if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {	// 检查上传权限
+	if ($imgc = @imagecreatefromstring(file_get_contents($_FILES['file']['tmp_name']))) {	// 检查图片是否有效
+		// 检查图片标题
 		$name = $_POST['name'];
 		if ($name == null)
 			$name = esc(stripcslashes(htmlspecialchars(preg_replace('#\.[^\.]*$#i', 'NULL', $_FILES['file']['name']))));
 		if (strlen2($name) < 3) $err = '标题太短了！要大于 3 字节！';
 		if (strlen2($name) > 32) $err = '标题不得超过 32 字节！';
 		$name = my_esc($name);
+
+		// 检查图片描述
 		if (isset($_POST['metka']) && ($_POST['metka'] == 0 || $_POST['metka'] == 1))
 			$metka = my_esc($_POST['metka']);
 		else {
@@ -36,24 +40,29 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 		$msg = $_POST['opis'];
 		if (strlen2($msg) > 1024) $err = '描述长度超过 1024 个字节的限制';
 		$msg = my_esc($msg);
+
+		// 图片尺寸检查
 		$img_x = imagesx($imgc);
 		$img_y = imagesy($imgc);
 		if ($img_x > $set['max_upload_photo_x'] || $img_y > $set['max_upload_photo_y'])
 			$err = '图像大小超过 ' . $set['max_upload_photo_x'] . '*' . $set['max_upload_photo_y'];
 		if (!isset($err)) {
+			// 图片信息存储到数据库中
 			if (isset($_GET['avatar'])) {
 				dbquery("UPDATE `gallery_photo` SET `avatar` = '0' WHERE `id_user` = '$user[id]'");
 				dbquery("INSERT INTO `gallery_photo` (`id_gallery`, `name`, `ras`, `type`, `opis`, `id_user`,`avatar`, `metka`, `time`) values ('$gallery[id]', '$name', 'jpg', 'image/jpeg', '$msg', '$user[id]','1', '$metka', '$time')");
 			} else {
 				dbquery("INSERT INTO `gallery_photo` (`id_gallery`, `name`, `ras`, `type`, `opis`, `id_user`, `metka`, `time`) values ('$gallery[id]', '$name', 'jpg', 'image/jpeg', '$msg', '$user[id]', '$metka', '$time')");
 			}
-			$id_photo = dbinsertid();
-			dbquery("UPDATE `gallery` SET `time` = '$time' WHERE `id` = '$gallery[id]' LIMIT 1");
+			$id_photo = dbinsertid();	// 获取新插入图片的ID
+			dbquery("UPDATE `gallery` SET `time` = '$time' WHERE `id` = '$gallery[id]' LIMIT 1");	// 刷新相册更新时间
+			// 如果好友设置了接受相册动态通知，则会将上传的新照片通知给好友
 			$q = dbquery("SELECT * FROM `frends` WHERE `user` = '$user[id]' AND `lenta_photo` = '1' AND `i` = '1'");
 			$photo['id'] = $id_photo;
+
 			/*
-* Лента друзей
-*/
+			* 好友动态
+			*/
 			dbquery("UPDATE `tape` SET `count` = '0' WHERE  `type` = 'album' AND `read` = '1' AND `id_file` = '$gallery[id]'");
 			$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $gallery['id_user'] . "' AND `i` = '1'");
 			while ($f = dbarray($q)) {
@@ -77,6 +86,8 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 					}
 				}
 			}
+
+			// 生成不同尺寸的缩略图
 			if ($img_x == $img_y) {
 				$dstW = 48; // ширина
 				$dstH = 48; // высота 
@@ -114,6 +125,8 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 			imagejpeg($screen, H . "sys/gallery/128/$id_photo.jpg", 90);
 			@chmod(H . "sys/gallery/128/$id_photo.jpg", 0777);
 			imagedestroy($screen);
+
+			// 添加版权水印
 			if ($img_x > 640 || $img_y > 640) {
 				if ($img_x == $img_y) {
 					$dstW = 640; // ширина
@@ -157,10 +170,12 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 			header("Location: /photo/$ank[id]/$gallery[id]/$id_photo/");
 			exit;
 		}
-	} else
+	} else {
 		$err = '不支持您选择的图像格式';
+	}
 }
-// Редактирование альбома
+
+// 重命名相册
 if (isset($_GET['edit']) && $_GET['edit'] == 'rename' && isset($_GET['ok']) && (isset($_POST['name']) || isset($_POST['opis']))) {
 	$name = $_POST['name'];
 	$pass = $_POST['pass'];
