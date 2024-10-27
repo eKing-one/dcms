@@ -5,9 +5,8 @@ $set['meta_description'] = (isset($set['meta_description'])) ? $set['meta_descri
 
 // 如果设置了关键词，则定义函数并使用输出缓冲来插入meta标签
 if ($set['meta_keywords'] != NULL) {
-	function meta_keywords($str)
-	{
-		global $set; // 使用全局变量
+	function meta_keywords($str) {
+		global $set;
 		return str_replace('</head>', '<meta name="keywords" content="' . $set['meta_keywords'] . '" />' . "</head>", $str); // 在<head>结束前插入meta关键词
 	}
 	ob_start('meta_keywords'); // 开启输出缓冲
@@ -15,23 +14,22 @@ if ($set['meta_keywords'] != NULL) {
 
 // 如果设置了描述，则定义函数并使用输出缓冲来插入meta标签
 if ($set['meta_description'] != NULL) {
-	function meta_description($str)
-	{
-		global $set; // 使用全局变量
+	function meta_description($str) {
+		global $set;
 		return str_replace('</head>', '<meta name="description" content="' . $set['meta_description'] . '" />' . "</head>", $str); // 在<head>结束前插入meta描述
 	}
 	ob_start('meta_description'); // 开启输出缓冲
 }
 
 // 检查主题文件是否存在，并包含头部文件
-if (file_exists(H . "style/themes/$set[set_them]/head.php"))
+if (file_exists(H . "style/themes/$set[set_them]/head.php")) {
 	include_once H . "style/themes/$set[set_them]/head.php"; // 包含自定义主题的头部文件
-else {
+} else {
 	$set['web'] = false; // 设置网站状态为false
 	//header("Content-type: application/vnd.wap.xhtml+xml");
 	//header("Content-type: application/xhtml+xml");
-	header("Content-type: text/html"); // 设置内容类型为HTML
-	echo '<?xml version="1.0" encoding="utf-8"?>'; // 输出XML声明
+	header("Content-type: text/html");
+	echo '<?xml version="1.0" encoding="utf-8"?>';
 	echo '<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
 	<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -41,7 +39,7 @@ else {
 		<link rel="alternate" title="订阅RSS" href="/news/rss.php" type="application/rss+xml" /> <!-- RSS订阅链接 -->
 	</head>
 	<body>
-		<div class="body">'; // 打开页面主体
+		<div class="body">'; // 页面主体
 }
 
 // 如果用户等级大于4，显示工具栏
