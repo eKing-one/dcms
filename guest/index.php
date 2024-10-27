@@ -73,7 +73,6 @@ if (isset($_POST['msg']) && isset($user)) {
 }
 //网页标题
 $set['title'] = '留言板';
-include_once '../sys/inc/thead.php';
 title();
 aut();
 err();

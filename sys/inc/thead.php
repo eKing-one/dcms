@@ -51,11 +51,6 @@ if ($user['level'] > 4) {
 	}
 }
 
-// 若为系统/游客，不显示工具栏
-if ($user['id'] = 0) {
-	if (setget('toolbar',1) == 0)
-}
-
 // 检查网站是否关闭，并可能显示警告消息
 if (empty(setget('job', 1))) {
 	if (isset($user) and $user['level'] >= 5)
