@@ -8,9 +8,11 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
+
 if (isset($_GET['acth']) && $_GET['acth'] == 'show_photo' && isset($_GET['id_gallery']) && isset($_GET['id_photo'])) {
     include_once 'inc/user_show_photo.php';
 }
+
 if (isset($_GET['acth']) && $_GET['acth'] == 'user_gallery' && isset($_GET['id_gallery'])) {
     include_once 'inc/user_gallery_show.php';
 } elseif (isset($_GET['acth']) && $_GET['acth'] == 'user_gallery') {
@@ -18,4 +20,5 @@ if (isset($_GET['acth']) && $_GET['acth'] == 'user_gallery' && isset($_GET['id_g
 } else {
     include_once 'inc/all_gallery.php';
 }
+
 include_once '../sys/inc/tfoot.php';
