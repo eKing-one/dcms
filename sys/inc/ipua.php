@@ -2,11 +2,11 @@
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 /**
- * 从文件加载 Cloudflare IP 地址列表
+ * 从文件加载 CDN IP 地址列表
  * @param string $filePath
  * @return array
  */
-function loadCloudflareIps($filePath) {
+function loadCdnIps($filePath) {
 	if (!file_exists($filePath)) {
 		return [];
 	}
@@ -17,21 +17,10 @@ function loadCloudflareIps($filePath) {
 	});
 }
 
-/**
- * Cloudflare IPv4 列表：https://www.cloudflare.com/ips-v4/
- * Cloudflare IPv6 列表：https://www.cloudflare.com/ips-v6/
- */
-
-// 读取 Cloudflare CDN IP 列表
-$cloudflareIps = array_merge(
-	loadCloudflareIps(__DIR__ . '/../dat/cloudflare-ips-v4.txt'),
-	loadCloudflareIps(__DIR__ . '/../dat/cloudflare-ips-v6.txt')
-);
-
-// 创建 Range 数组
-$cloudflareIpRanges = array_map(function ($cidr) {
+// 读取 CDN IP 列表并创建 Range 数组
+$cdnIpRanges = array_map(function ($cidr) {
 	return \IPLib\Factory::parseRangeString($cidr);
-}, $cloudflareIps);
+}, array_merge(loadCdnIps(__DIR__ . '/../dat/cdn-ips.txt')));
 
 // 局域网、回环地址和链路本地地址范围（包含IPv4和IPv6）
 $privateRanges = [
@@ -65,28 +54,33 @@ function isIpInRange($ip, $ranges) {
 // 根据不同选项获取IP
 switch ($set['get_ip_from_header']) {
 	case 'X-Forwarded-For':
-		if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+		if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']) && isIpInRange($_SERVER['REMOTE_ADDR'], $cdnIpRanges)) {
 			$ip = trim(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0]);
 		}
 		break;
+
 	case 'X-Real-IP':
-		if (!empty($_SERVER['HTTP_X_REAL_IP'])) {
+		if (!empty($_SERVER['HTTP_X_REAL_IP']) && isIpInRange($_SERVER['REMOTE_ADDR'], $cdnIpRanges)) {
 			$ip = $_SERVER['HTTP_X_REAL_IP'];
 		}
 		break;
+
 	case 'CF-Connecting-IP':
-		if (!empty($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+		if (!empty($_SERVER['HTTP_CF_CONNECTING_IP']) && isIpInRange($_SERVER['REMOTE_ADDR'], $cdnIpRanges)) {
 			$ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
 		}
 		break;
+
 	case 'True-Client-IP':
-		if (!empty($_SERVER['HTTP_TRUE_CLIENT_IP'])) {
+		if (!empty($_SERVER['HTTP_TRUE_CLIENT_IP']) && isIpInRange($_SERVER['REMOTE_ADDR'], $cdnIpRanges)) {
 			$ip = $_SERVER['HTTP_TRUE_CLIENT_IP'];
 		}
 		break;
+
 	case 'disabled':
 		$ip = $_SERVER['REMOTE_ADDR'];
 		break;
+
 	case 'auto':
 	default:
 		// 自动模式，尝试从多个标头获取
@@ -94,7 +88,7 @@ switch ($set['get_ip_from_header']) {
 		$ipa = [];
 
 		// 检查是否来自 Cloudflare，如果是则返回真实客户端 IP
-		if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && isIpInRange($_SERVER['REMOTE_ADDR'], $cloudflareIpRanges)) {
+		if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && isIpInRange($_SERVER['REMOTE_ADDR'], $cdnIpRanges)) {
 			$ip2['cf'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
 			$ipa[] = $_SERVER['HTTP_CF_CONNECTING_IP'];
 		}

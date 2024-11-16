@@ -138,19 +138,27 @@ echo "</select><br />";
 
 echo "关键词 (META):<br />";
 echo "<textarea name='meta_keywords'>$temp_set[meta_keywords]</textarea><br />";
+
 echo "资料描述 (META):<br />";
 echo "<textarea name='meta_description'>$temp_set[meta_description]</textarea><br />";
+
 echo "<label><input type='checkbox'".($temp_set['antidos']?" checked='checked'":null)." name='antidos' value='1' /> 反Dos*</label><br />";
+
 echo "<label><input type='checkbox'".($temp_set['antimat']?" checked='checked'":null)." name='antimat' value='1' /> 反CC</label><br />";
+
 echo "php解释器错误:<br /><select name=\"show_err_php\">";
 echo "<option value='0'".($temp_set['show_err_php']==0?" selected='selected'":null).">隐藏</option>";
 echo "<option value='1'".($temp_set['show_err_php']==1?" selected='selected'":null).">显示</option>";
 echo "</select><br />";
+
 echo "备份用电子邮件：<br /><input type='text' name='mail_backup' value='$temp_set[mail_backup]'  /><br />";
+
 echo "<br />";
 echo "* 防止Dos攻击 - 防范来自同一IP地址的频繁请求<br />";
+
 echo "<input value=\"修改\" name='save' type=\"submit\" />";
 echo "</form>";
+
 if (user_access('adm_panel_show')) {
 	echo "<div class='foot'>";
 	echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
