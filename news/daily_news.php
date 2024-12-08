@@ -76,7 +76,7 @@ $updateTime = date("Y-m-d H:i:s", $data['data']['updated'] / 1000);
     <?php foreach ($newsList as $news): ?>
         <div class="news-item"><?= htmlspecialchars($news) ?></div>
     <?php endforeach; ?>
-    <div class="tip">提示：<?= htmlspecialchars($tip) ?></div>
+    <div class="tip">微语：<?= htmlspecialchars($tip) ?></div>
 </div>
 <div class="footer">
     数据来源于官方 | <a href="https://github.com/vikiboss/60s" target="_blank">开源地址</a>
