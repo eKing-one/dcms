@@ -73,13 +73,14 @@ $updateTime = date("Y-m-d H:i:s", $data['data']['updated'] / 1000);
     <img src="<?= htmlspecialchars($cover) ?>" alt="封面图片" class="cover">
     <h2>今日新闻</h2>
     <p>更新时间：<?= htmlspecialchars($updateTime) ?></p>
-    <?php foreach ($newsList as $news): ?>
+    <?php foreach ($data['data']['news'] as $news): ?>
         <div class="news-item"><?= htmlspecialchars($news) ?></div>
     <?php endforeach; ?>
-    <div class="tip">微语：<?= htmlspecialchars($tip) ?></div>
+    <div class="tip">微语：<?= htmlspecialchars($data['data']['tip']) ?></div>
 </div>
 <div class="footer">
-    数据来源于官方 | <a href="https://github.com/vikiboss/60s" target="_blank">开源地址</a>
+    <div class="sourceUrl">来源：<a href="<?= htmlspecialchars($data['data']['url']) ?>" target="_blank">知乎文章</a></div>
+    数据来源于公共API | <a href="https://github.com/vikiboss/60s" target="_blank">开源地址</a>
 </div>
 
 
