@@ -77,7 +77,7 @@ if (isset($user) && ($them['close'] == 0 || $them['close'] == 1 && user_access('
                 if (isset($_SESSION['file'][$i]) && is_file($_SESSION['file'][$i]['tmp_name'])) {
                     dbquery("INSERT INTO `forum_files` (`id_post`, `name`, `ras`, `size`, `type`) values('$post_id', '" . $_SESSION['file'][$i]['name'] . "', '" . $_SESSION['file'][$i]['ras'] . "', '" . $_SESSION['file'][$i]['size'] . "', '" . $_SESSION['file'][$i]['type'] . "')");
                     $file_id = dbinsertid();
-                    copy($_SESSION['file'][$i]['tmp_name'], H . 'sys/forum/files/' . $file_id . '.frf');
+                    copy($_SESSION['file'][$i]['tmp_name'], H . 'files/forum/' . $file_id . '.frf');
                     unlink($_SESSION['file'][$i]['tmp_name']);
                 }
             }

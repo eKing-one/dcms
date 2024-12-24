@@ -51,7 +51,7 @@ if (isset($_GET['edit_gift']) && isset($_GET['category'])) {
 	}
 	if (isset($_GET['delete'])) // Удаление подарка
 	{
-		unlink(H . 'sys/gift/' . $gift['id'] . '.png');
+		unlink(H . 'files/gift/' . $gift['id'] . '.png');
 		dbquery("DELETE FROM `gift_list` WHERE `id` = '$gift[id]'");
 		dbquery("DELETE FROM `gifts_user` WHERE `id_gift` = '$gift[id]'");
 		$_SESSION['message'] = '礼物被成功撤回';
@@ -68,7 +68,7 @@ if (isset($_GET['edit_gift']) && isset($_GET['category'])) {
 	echo '</div>';
 	// Форма редактирования подарка
 	echo '<form class="main" method="post" enctype="multipart/form-data"  action="?category=' . $category['id'] . '&amp;edit_gift=' . $gift['id'] . '&amp;page=' . intval($_GET['page']) . '">';
-	echo '<img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:' . $width . 'px;" alt="*" /><br />';
+	echo '<img src="/files/gift/' . $gift['id'] . '.png" style="max-width:' . $width . 'px;" alt="*" /><br />';
 	echo '标题:<br /><input type="text" name="name" value="' . htmlspecialchars($gift['name']) . '" /><br />';
 	echo '价格:<br /><input type="text" name="money" value="' . $gift['money'] . '" style="width:30px;"/><br />';
 	echo '<input value="保存" type="submit" />';
@@ -99,8 +99,8 @@ if (isset($_GET['edit_gift']) && isset($_GET['category'])) {
 			if (!isset($err)) {
 				dbquery("INSERT INTO `gift_list` (`name`, `money`, `id_category`) values('$name', '$money', '$category[id]')");
 				$file_id = dbinsertid();
-				copy($_FILES['gift']['tmp_name'], H . 'sys/gift/' . $file_id . '.png');
-				@chmod(H . 'sys/gift/' . $file_id . '.png', 0777);
+				copy($_FILES['gift']['tmp_name'], H . 'files/gift/' . $file_id . '.png');
+				@chmod(H . 'files/gift/' . $file_id . '.png', 0777);
 				$_SESSION['message'] = 'Подарок успешно добавлен';
 				header("Location: ?category=" . $category['id']);
 				exit;
@@ -166,7 +166,7 @@ if (isset($_GET['edit_gift']) && isset($_GET['category'])) {
 					$num = 0;
 				}
 				/*---------------------------*/
-				echo '<img src="/sys/gift/' . $post['id'] . '.png" style="max-width:' . $width . 'px;" alt="*" /><br />';
+				echo '<img src="/files/gift/' . $post['id'] . '.png" style="max-width:' . $width . 'px;" alt="*" /><br />';
 				echo '标题: ' . htmlspecialchars($post['name']) . '<br /> ';
 				echo '成本: ' . $post['money'] . ' ' . $sMonet[0];
 				echo ' <a href="create.php?category=' . $category['id'] . '&amp;edit_gift=' . $post['id'] . '&amp;page=' . $page . '"><img src="/style/icons/edit.gif" alt="*" /></a> ';
@@ -244,7 +244,7 @@ if (isset($_GET['edit_gift']) && isset($_GET['category'])) {
 					{
 						$q = dbquery("SELECT id FROM `gift_list` WHERE `id_category` = '$category[id]'");
 						while ($post = dbassoc($q)) {
-							unlink(H . 'sys/gift/' . $post['id'] . '.png');
+							unlink(H . 'files/gift/' . $post['id'] . '.png');
 							dbquery("DELETE FROM `gifts_user` WHERE `id_gift` = '$post[id]'");
 						}
 						dbquery("DELETE FROM `gift_list` WHERE `id_category` = '$category[id]'");

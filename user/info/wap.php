@@ -75,7 +75,7 @@ if ($k_p > 0) {
 	echo '<div class="nav2">';
 	while ($post = dbassoc($q)) {
 		$gift = dbassoc(dbquery("SELECT id FROM `gift_list` WHERE `id` = '$post[id_gift]' LIMIT 1"));
-		echo '<a href="/user/gift/gift.php?id=' . $post['id'] . '"><img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:' . $width . 'px;" alt="Подарок" /></a> ';
+		echo '<a href="/user/gift/gift.php?id=' . $post['id'] . '"><img src="/files/gift/' . $gift['id'] . '.png" style="max-width:' . $width . 'px;" alt="Подарок" /></a> ';
 	}
 	echo '</div>';
 	echo '<div class="nav2">';

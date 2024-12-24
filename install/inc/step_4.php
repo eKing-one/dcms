@@ -26,15 +26,15 @@ if (isset($_SESSION['adm_reg_ok']) && $_SESSION['adm_reg_ok'] == true) {
     }
 } elseif (isset($_POST['reg'])) {
     // проверка ника
-    if (!preg_match("#^([A-z0-9\-\_\ ])+$#ui", $_POST['nick'])) $err[] = '昵称中有禁字';
-    if (!preg_match("#[a-z]+#ui", $_POST['nick'])) $err[] = '只允许使用英文字母字符';
-    if (preg_match("#(^\ )|(\ $)#ui", $_POST['nick'])) $err[] = '禁止在昵称的开头和结尾使用空格';
+    if (!preg_match("#^([A-z0-9\-\_\ ])+$#ui", $_POST['login'])) $err[] = '昵称中有禁字';
+    if (!preg_match("#[a-z]+#ui", $_POST['login'])) $err[] = '只允许使用英文字母字符';
+    if (preg_match("#(^\ )|(\ $)#ui", $_POST['login'])) $err[] = '禁止在昵称的开头和结尾使用空格';
     else {
-        if (strlen2($_POST['nick']) < 3) $err[] = '短于 3 个字符的用户名';
-        elseif (strlen2($_POST['nick']) > 16) $err[] = '长于 16 个字符的用户名';
-        elseif (mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "' LIMIT 1"), 0) != 0)
+        if (strlen2($_POST['login']) < 3) $err[] = '短于 3 个字符的用户名';
+        elseif (strlen2($_POST['login']) > 16) $err[] = '长于 16 个字符的用户名';
+        elseif (mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) FROM `user` WHERE `login` = '" . my_esc($_POST['login']) . "' LIMIT 1"), 0) != 0)
             $err[] = '所选的用户名已经被另一个用户占用了';
-        else $nick = $_POST['nick'];
+        else $login = $_POST['login'];
     }
     // проверка пароля
     if (!isset($_POST['password']) || $_POST['password'] == null) $err[] = '输入密码';
@@ -49,9 +49,9 @@ if (isset($_SESSION['adm_reg_ok']) && $_SESSION['adm_reg_ok'] == true) {
     else $pol = intval($_POST['pol']);
     if (!isset($err)) // если нет ошибок
     {
-        mysqli_query($db, "INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_aut`, `date_last`, `pol`, `level`, `group_access`, `balls`, `money`)
-VALUES('$nick', '" . shif($password) . "', $time, $time, $time, '$pol', '4', '15', '5000', '500')");
-        $user = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM `user` WHERE `nick` = '$nick' AND `pass` = '" . shif($password) . "' LIMIT 1"));
+        mysqli_query($db, "INSERT INTO `user` (`login`, `nick`, `pass`, `date_reg`, `date_aut`, `date_last`, `pol`, `level`, `group_access`, `balls`, `money`)
+VALUES('$login', '网站管理员', '" . shif($password) . "', $time, $time, $time, '$pol', '4', '15', '5000', '500')");
+        $user = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM `user` WHERE `login` = '$login' AND `pass` = '" . shif($password) . "' LIMIT 1"));
         $q = mysqli_query($db, "SELECT `type` FROM `all_accesses`");
         while ($ac = mysqli_fetch_assoc($q)) {
             mysqli_query($db, "INSERT INTO `user_acсess` (`id_user`, `type`) VALUES ('$user[id]','$ac[type]')");
@@ -93,7 +93,7 @@ if (isset($_SESSION['adm_reg_ok']) && $_SESSION['adm_reg_ok'] == true) {
         echo "<hr />";
     }
     echo "<form action='index.php?$passgen' method='post'>";
-    echo "账号 (3-16 字符):<br /><input type='text' name='nick'" . ((isset($nick)) ? " value='" . $nick . "'" : " value='Admin'") . " maxlength='16' /><br />";
+    echo "账号 (3-16 字符):<br /><input type='text' name='login'" . ((isset($login)) ? " value='" . $login . "'" : " value='Admin'") . " maxlength='16' /><br />";
     echo "密码 (6-16 字符):<br /><input type='password'" . ((isset($password)) ? " value='" . $password . "'" : null) . " name='password' maxlength='16' /><br />";
     echo "* 使用简单的密码使黑客的生活更轻松<br />";
     echo "确认密码:<br /><input type='password'" . ((isset($password)) ? " value='" . $password . "'" : null) . " name='password_retry' maxlength='16' /><br />";

@@ -67,7 +67,7 @@ while ($post = dbassoc($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	echo '<img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:' . $width . 'px;" alt="*" /><br />';
+	echo '<img src="/files/gift/' . $gift['id'] . '.png" style="max-width:' . $width . 'px;" alt="*" /><br />';
 	echo '<img src="/style/icons/present.gif" alt="*" /> <a href="gift.php?id=' . $post['id'] . '"><b>' . htmlspecialchars($gift['name']) . '</b></a> :: ';
 	echo '由 ' . user::nick($anketa['id'], 1, 1, 0) . ' 在 ' . vremja($post['time']) . ' 送出';
 	if ($post['status'] == 0) echo ' <font color=red>NEW</font> ';
