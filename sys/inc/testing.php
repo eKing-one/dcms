@@ -7,29 +7,9 @@ if ($php_ver1 == 5 or $php_ver1 == 7 or $php_ver1 == 8) {
     echo "<span class='off'>PHP版本: $php_ver1.$php_ver2.$php_ver3</span><br />";
     $err[] = "测试php版本 $php_ver1.$php_ver2.$php_ver3 未实施";
 }
-/*
-if (function_exists('disk_free_space') && function_exists('disk_total_space'))
-{
-$free_space=disk_free_space(H);
-$total_space=disk_total_space(H);
-if ($free_space>1024*1024*5)
-echo "<span class='on'>Свободно:</span> ".size_file($free_space).' / '.size_file($total_space)."<br />";
-else
-{
-echo "<span class='off'>Свободно:</span> ".size_file($free_space).' / '.size_file($total_space)."<br />";
-$err[]='Мало свободного места на диске';
-}
-}
-*/
 if (function_exists('set_time_limit')) echo "<span class='on'>set_time_limit: OK</span><br />";
 else echo "<span class='on'>set_time_limit: 禁止使用</span><br />";
-if (ini_get('session.use_trans_sid') == true) {
-    echo "<span class='on'>session.use_trans_sid: OK</span><br />";
-} else {
-    echo "<span class='off'>session.use_trans_sid: OFF</span><br />";
-    $err[] = '在没有COOKIE支持的浏览器上，会话将丢失';
-    $err[] = '加到根部 .htaccess 字符串 <b>php_value session.use_trans_sid 1</b>';
-}
+
 if (ini_get('magic_quotes_gpc') == 0) {
     echo "<span class='on'>magic_quotes_gpc: 0 (OK)</span><br />";
 } else {
@@ -37,13 +17,7 @@ if (ini_get('magic_quotes_gpc') == 0) {
     $err[] = '引号转义已启用';
     $err[] = '加到根部  .htaccess 字符串 <b>php_value magic_quotes_gpc 0</b>';
 }
-if (ini_get('arg_separator.output') == '&amp;') {
-    echo "<span class='on'>arg_separator.output: &amp;amp; (OK)</span><br />";
-} else {
-    echo "<span class='off'>arg_separator.output: " . output_text(ini_get('arg_separator.output')) . "</span><br />";
-    $err[] = '可能会发生xml错误';
-    $err[] = '加到根部  .htaccess 字符串 <b>php_value arg_separator.output &amp;amp;</b>';
-}
+
 if (file_exists(H . 'install/mod_rewrite_test.php')) {
     if (@trim(file_get_contents("http://$_SERVER[HTTP_HOST]/install/mod_rewrite.test")) == 'mod_rewrite-ok') {
         echo "<span class='on'>mod_rewrite: OK</span><br />";

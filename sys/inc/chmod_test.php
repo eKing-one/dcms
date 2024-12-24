@@ -1,4 +1,4 @@
-<?
+<?php
 function permissions($filez)
 {
 	return decoct(@fileperms("$filez")) % 1000;
@@ -14,7 +14,7 @@ function test_chmod($df,$chmod)
 	//list($m_chmod1,$m_chmod2,$m_chmod3)=str_split($max_chmod);
 	if ($f_chmod1<$n_chmod1 || $f_chmod2<$n_chmod2 || $f_chmod3<$n_chmod3)
 	{
-		$err[] = 'Установите CHMOD ' . $n_chmod1 . $n_chmod2 . $n_chmod3 . ' на ' . $show_df;
+		$err[] = 'CHMOD ' . $n_chmod1 . $n_chmod2 . $n_chmod3 . ' 在 ' . $show_df;
 		echo '<span class="off">' . $show_df . ' : [' . $f_chmod1 . $f_chmod2 . $f_chmod3 . '] - > ' . $n_chmod1 . $n_chmod2 . $n_chmod3 . '</span><br />';
 	}
 	else
@@ -26,21 +26,22 @@ function test_chmod($df,$chmod)
 if (file_exists(H.'install/'))
 test_chmod(H.'install/', 777);
 test_chmod(H.'sys/dat/',777);
-test_chmod(H.'sys/forum/files',777);
-test_chmod(H.'sys/gallery/48/',777);
-test_chmod(H.'sys/gallery/50/',777);
-test_chmod(H.'sys/gallery/128/',777);
-test_chmod(H.'sys/gallery/640/',777);
-test_chmod(H.'sys/gallery/photo/',777);
 test_chmod(H.'sys/inc/',777);
 test_chmod(H.'sys/fnc/',777);
 test_chmod(H.'files/down/',777);
+test_chmod(H.'files/forum',777);
+test_chmod(H.'files/gallery/48/',777);
+test_chmod(H.'files/gallery/50/',777);
+test_chmod(H.'files/gallery/128/',777);
+test_chmod(H.'files/gallery/640/',777);
+test_chmod(H.'files/gallery/photo/',777);
 test_chmod(H.'files/screens/14/',777);
 test_chmod(H.'files/screens/48/',777);
 test_chmod(H.'files/screens/128/',777);
+test_chmod(H.'files/gift/',777);
 test_chmod(H.'sys/update/',777);
 test_chmod(H.'sys/tmp/',777);
 test_chmod(H.'style/themes/',777);
 test_chmod(H.'style/smiles/',777);
-test_chmod(H.'sys/gift/',777);
+
 ?>

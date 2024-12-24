@@ -3,11 +3,11 @@
 if ((user_access('photo_alb_del') || isset($user) && $user['id'] == $ank['id']) && isset($_GET['act']) && $_GET['act'] == 'delete' && isset($_GET['ok'])) {
 	$q = dbquery("SELECT * FROM `gallery_photo` WHERE `id_gallery` = '$gallery[id]'");
 	while ($post = dbassoc($q)) {
-		@unlink(H . "sys/gallery/48/$post[id].jpg");
-		@unlink(H . "sys/gallery/50/$post[id].jpg");
-		@unlink(H . "sys/gallery/128/$post[id].jpg");
-		@unlink(H . "sys/gallery/640/$post[id].jpg");
-		@unlink(H . "sys/gallery/photo/$post[id].jpg");
+		@unlink(H . "files/gallery/48/$post[id].jpg");
+		@unlink(H . "files/gallery/50/$post[id].jpg");
+		@unlink(H . "files/gallery/128/$post[id].jpg");
+		@unlink(H . "files/gallery/640/$post[id].jpg");
+		@unlink(H . "files/gallery/photo/$post[id].jpg");
 		dbquery("DELETE FROM `gallery_komm` WHERE `id_photo` = '$post[id]' LIMIT 1");
 		dbquery("DELETE FROM `gallery_photo` WHERE `id` = '$post[id]' LIMIT 1");
 		dbquery("DELETE FROM `mark_photo` WHERE `id_photo` = '$post[id]' LIMIT 1");
@@ -92,8 +92,8 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 			$screen = imagecreatetruecolor($dstW, $dstH);
 			imagecopyresampled($screen, $imgc, 0, 0, 0, 0, $dstW, $dstH, $img_x, $img_y);
 			//imagedestroy($imgc);
-			imagejpeg($screen, H . "sys/gallery/48/$id_photo.jpg", 90);
-			@chmod(H . "sys/gallery/48/$id_photo.jpg", 0777);
+			imagejpeg($screen, H . "files/gallery/48/$id_photo.jpg", 90);
+			@chmod(H . "files/gallery/48/$id_photo.jpg", 0777);
 			imagedestroy($screen);
 			if ($img_x == $img_y) {
 				$dstW = 128; // ширина
@@ -111,8 +111,8 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 			imagecopyresampled($screen, $imgc, 0, 0, 0, 0, $dstW, $dstH, $img_x, $img_y);
 			//imagedestroy($imgc);
 			// $screen = img_copyright($screen); // наложение копирайта
-			imagejpeg($screen, H . "sys/gallery/128/$id_photo.jpg", 90);
-			@chmod(H . "sys/gallery/128/$id_photo.jpg", 0777);
+			imagejpeg($screen, H . "files/gallery/128/$id_photo.jpg", 90);
+			@chmod(H . "files/gallery/128/$id_photo.jpg", 0777);
 			imagedestroy($screen);
 			if ($img_x > 640 || $img_y > 640) {
 				if ($img_x == $img_y) {
@@ -131,23 +131,23 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 				imagecopyresampled($screen, $imgc, 0, 0, 0, 0, $dstW, $dstH, $img_x, $img_y);
 				// imagedestroy($imgc);
 				// $screen=img_copyright($screen); // наложение копирайта
-				imagejpeg($screen, H . "sys/gallery/640/$id_photo.jpg", 90);
+				imagejpeg($screen, H . "files/gallery/640/$id_photo.jpg", 90);
 				imagedestroy($screen);
 				$imgc = img_copyright($imgc); // наложение копирайта
-				imagejpeg($imgc, H . "sys/gallery/photo/$id_photo.jpg", 90);
-				@chmod(H . "sys/gallery/photo/$id_photo.jpg", 0777);
+				imagejpeg($imgc, H . "files/gallery/photo/$id_photo.jpg", 90);
+				@chmod(H . "files/gallery/photo/$id_photo.jpg", 0777);
 			} else {
-				imagejpeg($imgc, H . "sys/gallery/640/$id_photo.jpg", 90);
+				imagejpeg($imgc, H . "files/gallery/640/$id_photo.jpg", 90);
 				$imgc = img_copyright($imgc); // наложение копирайта
-				imagejpeg($imgc, H . "sys/gallery/photo/$id_photo.jpg", 90);
-				@chmod(H . "sys/gallery/photo/$id_photo.jpg", 0777);
+				imagejpeg($imgc, H . "files/gallery/photo/$id_photo.jpg", 90);
+				@chmod(H . "files/gallery/photo/$id_photo.jpg", 0777);
 			}
-			@chmod(H . "sys/gallery/640/$id_photo.jpg", 0777);
+			@chmod(H . "files/gallery/640/$id_photo.jpg", 0777);
 			imagedestroy($imgc);
-			crop(H . "sys/gallery/640/$id_photo.jpg", H . "sys/gallery/50/$id_photo.tmp.jpg");
-			resize(H . "sys/gallery/50/$id_photo.tmp.jpg", H . "sys/gallery/50/$id_photo.jpg", 50, 50);
-			@chmod(H . "sys/gallery/50/$id_photo.jpg", 0777);
-			@unlink(H . "sys/gallery/50/$id_photo.tmp.jpg");
+			crop(H . "files/gallery/640/$id_photo.jpg", H . "files/gallery/50/$id_photo.tmp.jpg");
+			resize(H . "files/gallery/50/$id_photo.tmp.jpg", H . "files/gallery/50/$id_photo.jpg", 50, 50);
+			@chmod(H . "files/gallery/50/$id_photo.jpg", 0777);
+			@unlink(H . "files/gallery/50/$id_photo.tmp.jpg");
 			if (isset($_GET['avatar'])) {
 				$_SESSION['message'] = '已成功将照片设置为头像';
 				header("Location: /user/info.php");

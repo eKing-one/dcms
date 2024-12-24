@@ -1,6 +1,0 @@
-{
-    "require": {
-        "ua-parser/uap-php": "^3.9",
-        "wikimedia/ip-set": "^4.0"
-    }
-}
