@@ -5,4 +5,3 @@ nginx.htaccess
 /sys/dat/settings.php
 /sys/dat/shif_iv.dat
 /sys/tmp/*
-/files/*
