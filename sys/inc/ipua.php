@@ -1,6 +1,4 @@
 <?php
-require_once __DIR__ . '/../../vendor/autoload.php';
-
 /**
  * 从文件加载 CDN IP 地址列表
  * @param string $filePath
