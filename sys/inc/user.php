@@ -22,8 +22,7 @@ if (isset($_SESSION['id_user']) && dbresult(dbquery("SELECT COUNT(*) FROM `user`
 }
 
 
-if (!isset($_SERVER['HTTP_REFERER']))
-	$_SERVER['HTTP_REFERER'] = '/index.php';
+if (!isset($_SERVER['HTTP_REFERER'])) $_SERVER['HTTP_REFERER'] = '/index.php';
 
 // 如果帐户未激活
 if (isset($user['activation']) && $user['activation'] != NULL) {
@@ -53,19 +52,16 @@ if (isset($user)) {
 	}
 
 	// 聊天刷新时间
-	if ($user['set_time_chat'] != NULL)
-		$set['time_chat'] = $user['set_time_chat'];
+	if ($user['set_time_chat'] != NULL) $set['time_chat'] = $user['set_time_chat'];
 
 	// 逐页导航
-	if ($user['set_p_str'] != NULL)
-		$set['p_str'] = $user['set_p_str'];
+	if ($user['set_p_str'] != NULL) $set['p_str'] = $user['set_p_str'];
 
 	// 图标模式
 	$set['set_show_icon'] = $user['set_show_icon'];
 
 
-	if (!isset($banpage)) // 用户封禁
-	{
+	if (!isset($banpage)) {	// 用户封禁
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'all' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
 			header('Location: /user/ban.php?' . SID);
 			exit;
@@ -77,7 +73,6 @@ if (isset($user)) {
 	创建用户设置
 	========================================
 	*/
-
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `user_set` WHERE `id_user` = '$user[id]'"), 0) == 0)
 		dbquery("INSERT INTO `user_set` (`id_user`) VALUES ('$user[id]')");
 
