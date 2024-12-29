@@ -91,3 +91,4 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - [ ] 每日新闻页评论区&修复WAP主题下无工具栏
 - [x] 添加个人中心页登录历史
 - [ ] IPv6 适配
+- [ ] 将数据表`guests`的联合索引从`ua`改成`ua_hash`
