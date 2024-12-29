@@ -121,8 +121,8 @@ switch ($set['get_ip_from_header']) {
 if (!$ip) {$ip = $_SERVER['REMOTE_ADDR'];}
 
 $iplong = ip2long($ip);
-
-if (isset($_SERVER['HTTP_USER_AGENT'])) {
+if (isset($_SERVER['HTTP_USER_AGENT']))
+{
 	$ua = $_SERVER['HTTP_USER_AGENT'];
 	// 使用 uap-php 库解析 User-Agent
 	$parser = UAParser\Parser::create();
@@ -135,6 +135,6 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
 	} else {
 		$ua = $result->toString();
 	}
-} else {
-	$ua = 'N/A';
 }
+else $ua = 'N/A';
+?>

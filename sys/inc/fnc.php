@@ -351,10 +351,10 @@ if (!isset($hard_process)) {
 				dbquery("DELETE FROM `mail` WHERE `id_user` = '$deleted[id_user]' AND `id_kont` = '$deleted[id_kont]' OR `id_kont` = '$deleted[id_user]' AND `id_user` = '$deleted[id_kont]'");
 			}
 		}
-		$tab = dbquery('SHOW TABLES FROM ' . $set['mysql_db_name']);
-		for ($i = 0; $i < dbrows($tab); $i++) {
-			dbquery("OPTIMIZE TABLE `" . $tab . "`"); // 表的优化
-		}
+		// $tab = dbquery('SHOW TABLES FROM ' . $set['mysql_db_name']);
+		// for ($i = 0; $i < dbrows($tab); $i++) {
+		// 	dbquery("OPTIMIZE TABLE `" . $tab . "`"); // 表的优化
+		// }
 	}
 }
 

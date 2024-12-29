@@ -74,7 +74,7 @@ echo '<img src="/style/icons/str2.gif" alt="*" /> ' . user::nick($ank['id'], 1, 
 echo '</div>';
 // Подарок
 echo '<div class="nav2">';
-echo '<img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:' . $width . 'px;" alt="*" /><br />';
+echo '<img src="/files/gift/' . $gift['id'] . '.png" style="max-width:' . $width . 'px;" alt="*" /><br />';
 echo htmlspecialchars($gift['name']) . ' :: ' . vremja($post['time']) . '<br />';
 echo '</div>';
 // Автор подарка

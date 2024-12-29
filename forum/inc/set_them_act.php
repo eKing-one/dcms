@@ -34,7 +34,7 @@ if ((user_access('forum_them_del') || $ank2['id'] == $user['id']) &&  isset($_GE
 			$qS = dbquery("SELECT * FROM `forum_files` WHERE `id_post` = '$postf[id]'");
 			while ($postS = dbassoc($qS)) {
 				dbquery("DELETE FROM `forum_files` WHERE `id` = '$postS[id]'");
-				@unlink(H . 'sys/forum/files/' . $postS['id'] . '.frf');
+				@unlink(H . 'files/forum/' . $postS['id'] . '.frf');
 			}
 		}
 	}
