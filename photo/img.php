@@ -66,45 +66,45 @@ if ($ank['id'] != $user['id'] && isset($user['group_access']) && ($user['group_a
 if ($size == '48') {
 	if (is_file(H.'sys/gallery/48/'.$if_photo.'.png'))
 	{
-		DownloadFile(H.'files/gallery/48/'.$if_photo.'.png', '相片.png', ras_to_mime('png'));
+		DownloadFile(H.'sys/gallery/48/'.$if_photo.'.png', '相片.png', ras_to_mime('png'));
 		exit;
 	}
-	if (is_file(H.'files/gallery/48/'.$if_photo.'.gif'))
+	if (is_file(H.'sys/gallery/48/'.$if_photo.'.gif'))
 	{
-		DownloadFile(H.'files/gallery/48/'.$if_photo.'.gif', '相片.gif', ras_to_mime('gif'));
+		DownloadFile(H.'sys/gallery/48/'.$if_photo.'.gif', '相片.gif', ras_to_mime('gif'));
 		exit;
 	}
-	if (is_file(H.'files/gallery/48/'.$if_photo.'.jpg'))
+	if (is_file(H.'sys/gallery/48/'.$if_photo.'.jpg'))
 	{
-		DownloadFile(H.'files/gallery/48/'.$if_photo.'.jpg', '相片.jpg', ras_to_mime('jpg'));
+		DownloadFile(H.'sys/gallery/48/'.$if_photo.'.jpg', '相片.jpg', ras_to_mime('jpg'));
 		exit;
 	}
 }
 if ($size == '128') {
 	if (is_file(H.'sys/gallery/128/'.$if_photo.'.jpg'))
 	{
-		DownloadFile(H.'files/gallery/128/'.$if_photo.'.jpg', '相片.jpg', ras_to_mime('jpg'));
+		DownloadFile(H.'sys/gallery/128/'.$if_photo.'.jpg', '相片.jpg', ras_to_mime('jpg'));
 		exit;
 	}
 }
 if ($size == '50') {
 	if (is_file(H.'sys/gallery/50/'.$if_photo.'.jpg'))
 	{
-		DownloadFile(H.'files/gallery/50/'.$if_photo.'.jpg', '相片.jpg', ras_to_mime('jpg'));
+		DownloadFile(H.'sys/gallery/50/'.$if_photo.'.jpg', '相片.jpg', ras_to_mime('jpg'));
 		exit;
 	}
 }
 if ($size == '640') {
 	if (is_file(H.'sys/gallery/640/'.$if_photo.'.jpg'))
 	{
-		DownloadFile(H.'files/gallery/640/'.$if_photo.'.jpg', '相片.jpg', ras_to_mime('jpg'));
+		DownloadFile(H.'sys/gallery/640/'.$if_photo.'.jpg', '相片.jpg', ras_to_mime('jpg'));
 		exit;
 	}
 }
 if ($size == '0') {
 	if (is_file(H.'sys/gallery/photo/'.$if_photo.'.jpg'))
 	{
-		DownloadFile(H.'files/gallery/photo/'.$if_photo.'.jpg', 'photo_'.$if_photo.'.jpg', ras_to_mime('jpg'));
+		DownloadFile(H.'sys/gallery/photo/'.$if_photo.'.jpg', 'photo_'.$if_photo.'.jpg', ras_to_mime('jpg'));
 		exit;
 	}
 }

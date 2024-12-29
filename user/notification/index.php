@@ -165,9 +165,9 @@ while ($post = dbassoc($q)) {
 		if ($avtor['id']) {
 			echo user::nick($avtor['id'], 1, 0, 0) . " " . $name;
 			if ($type == 'new_gift') {
-				echo '<a href="/user/gift/gift.php?id=' . $id_gift['id'] . '"><img src="/files/gift/' . $gift['id'] . '.png" style="max-width:60px;" alt="*" /> ' . htmlspecialchars($gift['name']) . '</a>';
+				echo '<a href="/user/gift/gift.php?id=' . $id_gift['id'] . '"><img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:60px;" alt="*" /> ' . htmlspecialchars($gift['name']) . '</a>';
 			} else {
-				echo '<img src="/files/gift/' . $gift['id'] . '.png" style="max-width:60px;" alt="*" /> ' . htmlspecialchars($gift['name']);
+				echo '<img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:60px;" alt="*" /> ' . htmlspecialchars($gift['name']);
 			}
 			echo "  $s1 " . vremja($post['time']) . " $s2";
 		}

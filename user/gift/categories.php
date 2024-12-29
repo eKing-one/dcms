@@ -66,7 +66,7 @@ if (isset($_GET['gift']) && isset($_GET['category'])) {
 	echo '</div>';
 	echo '<form action="?category=' . $category['id'] . '&amp;gift=' . $gift['id'] . '&amp;id=' . $ank['id'] . '&amp;ok" method="post">';
 	echo '<div class="mess">';
-	echo '赠送礼物 <img src="/files/gift/' . $gift['id'] . '.png" style="max-width:' . $width . 'px;" alt="*" /> 给 ';
+	echo '赠送礼物 <img src="/sys/gift/' . $gift['id'] . '.png" style="max-width:' . $width . 'px;" alt="*" /> 给 ';
 	echo user::avatar($ank['id']), group($ank['id']), $ank['nick'], medal($ank['id']), online($ank['id']) . '<br />';
 	echo '需要花费 <b><font color=red>' . intval($gift['money']) . '</font> <font color=green>' . $sMonet[0] . '</font></b>，你有 <b><font color=red>' . $user['money'] . '</font>  <font color=green>' . $sMonet[0] . '</font></b><br />';
 	echo '</div>';
@@ -117,7 +117,7 @@ if (isset($_GET['gift']) && isset($_GET['category'])) {
 				$num = 0;
 			}
 			/*---------------------------*/
-			echo '<img src="/files/gift/' . $post['id'] . '.png" style="max-width:' . $width . 'px;" alt="*" /><br />';
+			echo '<img src="/sys/gift/' . $post['id'] . '.png" style="max-width:' . $width . 'px;" alt="*" /><br />';
 			echo '<a href="?category=' . $category['id'] . '&amp;gift=' . $post['id'] . '&amp;id=' . $ank['id'] . '"><b>' . htmlspecialchars($post['name']) . '</b></a> :: ';
 			echo '<b><font color=red>' . intval($post['money']) . '</font> <font color=green>' . $sMonet[0] . '</font></b>';
 			echo '</div>';
