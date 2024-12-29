@@ -9,7 +9,7 @@ require 'classes/class.user.php';
 
 
 
-// Определение юзера
+// 用户的定义
 if (isset($_SESSION['id_user']) && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '$_SESSION[id_user]' LIMIT 1"), 0) == 1) {
 	$user = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $_SESSION[id_user] LIMIT 1"));
 	dbquery("UPDATE `user` SET `date_last` = '$time' WHERE `id` = '$user[id]' LIMIT 1");
@@ -25,7 +25,7 @@ if (isset($_SESSION['id_user']) && dbresult(dbquery("SELECT COUNT(*) FROM `user`
 if (!isset($_SERVER['HTTP_REFERER']))
 	$_SERVER['HTTP_REFERER'] = '/index.php';
 
-// если аккаунт не активирован
+// 如果帐户未激活
 if (isset($user['activation']) && $user['activation'] != NULL) {
 	$err[] = '您需要使用发送到注册时指定的电子邮件的链接激活您的帐户';
 	unset($user);
@@ -52,19 +52,19 @@ if (isset($user)) {
 		}
 	}
 
-	// Время обновления чата
+	// 聊天刷新时间
 	if ($user['set_time_chat'] != NULL)
 		$set['time_chat'] = $user['set_time_chat'];
 
-	// Постраничная навигация
+	// 逐页导航
 	if ($user['set_p_str'] != NULL)
 		$set['p_str'] = $user['set_p_str'];
 
-	// Режим иконок
+	// 图标模式
 	$set['set_show_icon'] = $user['set_show_icon'];
 
 
-	if (!isset($banpage)) // бан пользователя
+	if (!isset($banpage)) // 用户封禁
 	{
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'all' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
 			header('Location: /user/ban.php?' . SID);
@@ -74,7 +74,7 @@ if (isset($user)) {
 
 	/*
 	========================================
-	Создание настроек юзера 
+	创建用户设置
 	========================================
 	*/
 
@@ -90,10 +90,10 @@ if (isset($user)) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `notification_set` WHERE `id_user` = '$user[id]'"), 0) == 0)
 		dbquery("INSERT INTO `notification_set` (`id_user`) VALUES ('$user[id]')");
 
-	// Записываем url 
+	// 记录 url
 	dbquery("UPDATE `user` SET `url` = '" . my_esc($_SERVER['SCRIPT_NAME']) . "' WHERE `id` = '$user[id]' LIMIT 1");
 
-	// для web темы
+	// 对于 Web 主题
 	if ($webbrowser) {
 		if (is_dir(H . 'style/themes/' . $user['set_them2']))
 			$set['set_them'] = $user['set_them2'];
@@ -104,7 +104,7 @@ if (isset($user)) {
 		else dbquery("UPDATE `user` SET `set_them` = '$set[set_them]' WHERE `id` = '$user[id]' LIMIT 1");
 	}
 
-	// Пишем ip пользователя
+	// 写入用户的 ip
 	if (isset($ip2['add'])) dbquery("UPDATE `user` SET `ip` = " . ip2long($ip2['add']) . " WHERE `id` = '$user[id]' LIMIT 1");
 	else dbquery("UPDATE `user` SET `ip` = null WHERE `id` = '$user[id]' LIMIT 1");
 	if (isset($ip2['cl'])) dbquery("UPDATE `user` SET `ip_cl` = " . ip2long($ip2['cl']) . " WHERE `id` = '$user[id]' LIMIT 1");
@@ -113,13 +113,13 @@ if (isset($user)) {
 	else dbquery("UPDATE `user` SET `ip_xff` = null WHERE `id` = '$user[id]' LIMIT 1");
 	if ($ua) dbquery("UPDATE `user` SET `ua` = '" . my_esc($ua) . "' WHERE `id` = '$user[id]' LIMIT 1");
 
-	// Непонятная сессия
+	// 难以理解的会话
 	dbquery("UPDATE `user` SET `sess` = '$sess' WHERE `id` = '$user[id]' LIMIT 1");
 
-	// Тип браузера
+	// 浏览器类型
 	dbquery("UPDATE `user` SET `browser` = '" . ($webbrowser == true ? "web" : "wap") . "' WHERE `id` = '$user[id]' LIMIT 1");
 
-	// Проверяем на схожие ники
+	// 检查相似的昵称
 	$collision_q = dbquery("SELECT * FROM `user` WHERE `ip` = '$iplong' AND `ua` = '" . my_esc($ua) . "' AND `date_last` > '" . (time() - 600) . "' AND `id` <> '$user[id]'");
 
 	while ($collision = dbassoc($collision_q)) {
@@ -167,8 +167,8 @@ if (isset($user)) {
 
 if (!isset($user) || $user['level']  ==  0) {
 	@error_reporting(0);
-	@ini_set('display_errors', false); // показ ошибок
-	if (function_exists('set_time_limit')) @set_time_limit(20); // Ставим ограничение на 20 сек
+	@ini_set('display_errors', false); // 错误显示
+	if (function_exists('set_time_limit')) @set_time_limit(20); // 将限制设置为 20 秒
 }
 
 if (!isset($user) && $set['guest_select']  ==  '1' && !isset($show_all) && $_SERVER['PHP_SELF'] != '/index.php') {
@@ -179,7 +179,7 @@ if (!isset($user) && $set['guest_select']  ==  '1' && !isset($show_all) && $_SER
 if (isset($user)) {
 	$user_gr = dbassoc(dbquery("SELECT * FROM `user_group` WHERE `id` = $user[group_access] LIMIT 1"));
 	$user['group_name'] = $user_gr['name'];
-	if (isset($_GET['sess_abuld']) && $_GET['sess_abuld']  ==  1) // Продолжаем просмотр файла с меткой 18+
+	if (isset($_GET['sess_abuld']) && $_GET['sess_abuld']  ==  1) // 继续查看标记为 18+ 的文件
 	{
 		$_SESSION['abuld'] = 1;
 	}
@@ -214,7 +214,7 @@ if (isset($_SESSION['guest_theme']) && $_SESSION['guest_theme'] == 'web' && !iss
 
 /*
 ========================================
-Смена тем для юзеров папки wap и web
+为 wap 和 web 文件夹的用户更改主题
 ========================================
 */
 
@@ -239,7 +239,7 @@ if (isset($user) && isset($_GET['t'])) {
 
 /*
 ========================================
-Сортировка списка по времени
+按时间对列表进行排序
 ========================================
 */
 
@@ -259,7 +259,7 @@ else $pageEnd = '1';
 
 /*
 ========================================
-Ответы в комм [DELETE]
+对评论 [DELETE] 的回复
 ========================================
 */
 
@@ -302,7 +302,7 @@ if (isset($_GET['response'])) {
 
 /*
 ========================================
-Скрытие новости
+隐藏新闻
 ========================================
 */
 
@@ -315,7 +315,7 @@ if (isset($user) && isset($_GET['news_read'])) {
 
 /*
 ========================================
-Панель навигации над полем ввода
+输入字段上方的导航栏
 ========================================
 */
 
@@ -326,7 +326,7 @@ $tPanel = "<div id='comments' class='tpanel'>
 
 /*
 ========================================
-Причины бана
+封禁原因
 ========================================
 */
 
@@ -342,7 +342,7 @@ $pBan[7] = "挑拨";
 
 /*
 ========================================
-Раздел бана
+禁止部分
 ========================================
 */
 
@@ -372,7 +372,7 @@ if (isset($_POST['msg']) && !isset($user)) {
 
 /*
 ========================================
-Валюта
+货币
 ========================================
 */
 

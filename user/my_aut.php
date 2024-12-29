@@ -13,17 +13,19 @@ $set['title'] = '登录历史';
 include_once '../sys/inc/thead.php';
 title();
 aut();
+
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `user_log` WHERE `id_user` = '$user[id]'"),0);
 $k_page = k_page($k_post,$set['p_str']);
 $page = page($k_page);
 $start = $set['p_str']*$page-$set['p_str'];
 echo '<table class="post">';
-if (empty($k_post))
-{
+
+if (empty($k_post)) {
 	 echo '<div class="mess">';
 	 echo '没有登录历史';
 	 echo '</div>';
-}	 
+}
+
 $q = dbquery("SELECT * FROM `user_log` WHERE `id_user` = '".$user['id']."' ORDER BY `id` DESC  LIMIT $start, $set[p_str]");
 while ($post = dbassoc($q))
 {
@@ -32,10 +34,11 @@ while ($post = dbassoc($q))
 	echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 	$num++;
 	echo '<img src="/style/my_menu/logout_16.png" alt="" />';
-	if ($post['method'] != 1)
+	if ($post['method'] != 1) {
 		echo ' 登录历史<br />';
-	else
+	} else {
 		echo ' 使用用户名及密码登录 (' . vremja($post['time']) . ')<br />';
+	}
 	echo 'IP: ' . long2ip($post['ip']) . '<br />';
 	echo '浏览器: ' . output_text($post['ua']);
 	echo '</div>';

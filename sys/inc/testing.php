@@ -77,6 +77,8 @@ if (ini_get('arg_separator.output') == '&amp;') {
 	$err[] = '可能会发生xml错误';
 	$err[] = '加到根部  .htaccess 字符串 <b>php_value arg_separator.output &amp;amp;</b>';
 }
+
+// 测试URL重写是否正常工作
 if (@trim(file_get_contents("http://$_SERVER[HTTP_HOST]/sys/inc/mod_rewrite.test")) == 'mod_rewrite-ok') {
 	echo "<span class='on'>mod_rewrite: OK</span><br />";
 } elseif (function_exists('apache_get_modules')) {
@@ -91,6 +93,7 @@ if (@trim(file_get_contents("http://$_SERVER[HTTP_HOST]/sys/inc/mod_rewrite.test
 	echo "<span class='off'>mod_rewrite: OFF</span><br />";
 	$err[] = '需要的支持 mod_rewrite';
 }
+
 if (function_exists('imagecreatefromstring') && function_exists('gd_info')) {
 	$gdinfo = gd_info();
 	echo "<span class='on'>GD: " . $gdinfo['GD Version'] . " OK</span><br />";
