@@ -1,4 +1,4 @@
-<?
+<?php
 // 如果没有设置用户且没有通过GET请求传递用户ID，则重定向到照片页面并退出。
 if (!isset($user) && !isset($_GET['id_user'])) {
 	header("Location: /photo/?" . SID);
@@ -234,10 +234,10 @@ if (!isset($block_photo)) {
 	{
 		echo '<div class="nav2">';
 		if ($webbrowser == 'web' && $w > 128) {
-			echo "<a href='/photo/photo0/$photo[id].$photo[ras]' title='下载原文'><img style='max-width:90%' src='/photo/photo640/$photo[id].$photo[ras]'/></a>";
+			echo "<a href='/photo/photo0/{$photo['id']}.{$photo['ras']}' title='下载原文'><img style='max-width:90%' src='/photo/photo640/{$photo['id']}.jpg'/></a>";
 			if ($rat > 0) echo "<div style='display:inline;margin-left:-45px;vertical-align:top;'><img style='padding-top:15px;' src='/style/icons/5_plus.png'/></div>";
 		} else {
-			echo "<a href='/photo/photo0/$photo[id].$photo[ras]' title='下载原文'><img src='/photo/photo128/$photo[id].$photo[ras]'/></a>";
+			echo "<a href='/photo/photo0/{$photo['id']}.{$photo['ras']}' title='下载原文'><img src='/photo/photo128/{$photo['id']}.jpg'/></a>";
 			if ($rat > 0) echo "<div style='display:inline;margin-left:-25px;vertical-align:top;'><img style='padding-top:10px;' src='/style/icons/6.png'/></div>";
 		}
 		echo '</div>';
@@ -300,13 +300,12 @@ if (!isset($block_photo)) {
 		echo '类型: <b>' . $photo['ras'] . '</b>, ' . $w . 'x' . $h . ' <br />';
 		if ($photo['opis'] != null)
 			echo output_text($photo['opis']) . '<br />';
-		echo '<img src="/style/icons/d.gif" alt="*"> <a href="/photo/photo0/' . $photo['id'] . '.' . $photo['ras'] . '" title="下载原文">';
+		echo '<img src="/style/icons/d.gif" alt="*"> <a href="/photo/photo0/' . $photo['id'] . '.' . $photo['ras'] . '" title="下载原图">';
 		echo '下载';
-		echo ' (' . size_file(filesize(H . 'sys/gallery/photo/' . $photo['id'] . '.jpg')) . ')';
+		echo ' (' . size_file(filesize(H . 'sys/gallery/photo/' . $photo['id'] . '.' . $photo['ras'])) . ')';
 		echo '</a><br />';
 		echo '</div>';
-		if (user_access('photo_photo_edit') && $ank['level'] < $user['level'] || isset($user) && $ank['id'] == $user['id'])
-			include_once check_replace('inc/gallery_show_photo_form.php');
+		if (user_access('photo_photo_edit') && $ank['level'] < $user['level'] || isset($user) && $ank['id'] == $user['id']) include_once check_replace('inc/gallery_show_photo_form.php');
 	}
 	$k_post = dbresult(dbquery("SELECT COUNT(*) FROM `gallery_komm` WHERE `id_photo` = '$photo[id]'"), 0);
 	$k_page = k_page($k_post, $set['p_str']);

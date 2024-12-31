@@ -55,31 +55,28 @@ if ($ank['id'] != $user['id'] && isset($user['group_access']) && ($user['group_a
 	/*---------------------------------------------------------*/
 }
 
-// 检查图片大小是否合法
-$valid_sizes = [48, 50, 128, 640, 0];
-$size = in_array($_GET['size'], $valid_sizes) ? $_GET['size'] : 0;
-$if_photo = filter_var($_GET['id'], FILTER_VALIDATE_INT);
-if (!$if_photo) {
-	http_response_code(404);
-    exit;
+if ($size == 0) {
+	$file_path = H . "sys/gallery/photo/{$if_photo}.{$photo['ras']}";
+	// 检查文件是否存在
+	if (is_file($file_path)) {
+		header("Last-Modified: " . gmdate("D, d M Y H:i:s", filemtime($file_path)) . " GMT");
+		// 输出文件
+		DownloadFile($file_path, "photo_{$if_photo}.{$photo['ras']}", ras_to_mime($photo['ras']));
+		exit;
+	} else {
+		error_log("[photo/img.php] Error: File not found at path: $file_path");
+		http_response_code(404);
+	}
+} else {
+	$file_path = H . "sys/gallery/{$size}/{$if_photo}.jpg";
+	// 检查文件是否存在
+	if (is_file($file_path)) {
+		header("Last-Modified: " . gmdate("D, d M Y H:i:s", filemtime($file_path)) . " GMT");
+		// 输出文件
+		DownloadFile($file_path, "photo_{$if_photo}.jpg", ras_to_mime('jpg'));
+		exit;
+	} else {
+		error_log("[photo/img.php] Error: File not found at path: $file_path");
+		http_response_code(404);
+	}
 }
-
-
-function download_photo($size, $if_photo, $formats = ['png', 'gif', 'jpg']) {
-    foreach ($formats as $format) {
-        $file_path = H . "sys/gallery/{$size}/{$if_photo}.{$format}";
-		if ($if_photo == 0 || !file_exists($file_path)) {
-			http_response_code(404);
-			// 提供默认图片或显示错误消息
-			exit;
-		}		
-        if (is_file($file_path)) {
-            header("Last-Modified: " . gmdate("D, d M Y H:i:s", filemtime($file_path)) . " GMT");
-            DownloadFile($file_path, "photo_{$if_photo}.{$format}", ras_to_mime($format));
-            exit;
-        }
-    }
-}
-
-// 传输图片
-download_photo($size, $if_photo);
