@@ -15,7 +15,10 @@ http://dcms-social.ru
 =======================================
 */
 
-// 检查是否定义了常量“USER”，如果没有定义，则禁止访问此脚本
+ini_set("display_errors", "On");//打开错误提示
+ini_set("error_reporting",E_ALL);//显示所有错误
+
+// 检查是否定义了常量“USER”，如果没有定义，则禁止访问此页面
 if (!defined("USER")) die('No access');
 
 // 判断用户是否已选择下载目录，如果有，则从数据库中获取目录信息
@@ -31,16 +34,18 @@ if ($dir_id['upload'] == 1) {
 	// 检查上传入口参数
 	if (isset($_GET['upload']) && $_GET['upload'] == 'enter') {
 		// 验证文件上传的错误
-		if (!isset($_FILES['file'])) $err[] = '上传文件时出错';
-		elseif (!isset($_FILES['file']['tmp_name']) || filesize($_FILES['file']['tmp_name']) > $dir_id['maxfilesize']) $err[] = '文件大小超过设定的限制';
-		else {
+		if (!isset($_FILES['file'])) {
+			$err[] = '上传文件时出错';
+		} elseif (!isset($_FILES['file']['tmp_name']) || filesize($_FILES['file']['tmp_name']) > $dir_id['maxfilesize']) {
+			$err[] = '文件大小超过设定的限制';
+		} else {
 			// 处理上传文件的文件名
 			$file = esc(stripcslashes(htmlspecialchars($_FILES['file']['name'])));
 			$file = preg_replace('(\#|\?)', NULL, $file);
-			$name = preg_replace('#\.[^\.]*$#', NULL, $file); // 文件名去掉扩展名
+			$name = preg_replace('#\.[^\.]*$#', NULL, $file); // 获取文件名
 			$ras = strtolower(preg_replace('#^.*\.#', NULL, $file)); // 获取文件扩展名
 			$type = my_esc($_FILES['file']['type']); // 文件类型
-			$size = filesize($_FILES['file']['tmp_name']); // 文件大小
+			$size = $_FILES['file']['size']; // 文件大小
 			$rasss = explode(';', $dir_id['ras']); // 允许的文件格式
 			$ras_ok = false;
 
@@ -52,21 +57,22 @@ if ($dir_id['upload'] == 1) {
 		}
 
 		// 检查是否设置了“18+”标签
-		if (isset($_POST['metka']) && ($_POST['metka'] == '0' || $_POST['metka'] == '1')) $metka = $_POST['metka'];
-		else $metka = 0;
+		if (isset($_POST['metka']) && ($_POST['metka'] == '0' || $_POST['metka'] == '1')) {
+			$metka = $_POST['metka'];
+		} else {
+			$metka = 0;
+		}
 
 		// 获取文件描述
 		$opis = NULL;
-		if (isset($_POST['msg']))
-			$opis = stripslashes(htmlspecialchars(esc($_POST['msg'])));
+		if (isset($_POST['msg'])) $opis = stripslashes(htmlspecialchars(esc($_POST['msg'])));
 
 		// 如果没有错误，插入文件数据到数据库
 		if (!isset($err)) {
 			// 更新用户临时评分
 			dbquery("UPDATE `user` SET `rating_tmp` = '" . ($user['rating_tmp'] + 3) . "' WHERE `id` = '$user[id]' LIMIT 1");
 			// 将文件信息插入到文件表中
-			dbquery("INSERT INTO `downnik_files` (`metka`, `id_dir`, `name`, `ras`, `type`, `size`, `time`, `time_last`, `id_user`, `opis`, `my_dir` )
-VALUES ('$metka', '$dir_id[id]', '$name', '$ras', '$type', '$size', '$time', '$time', '$user[id]', '$opis', '$dir[id]')");
+			dbquery("INSERT INTO `downnik_files` (`metka`, `id_dir`, `name`, `ras`, `type`, `size`, `time`, `time_last`, `id_user`, `opis`, `my_dir` ) VALUES ('$metka', '$dir_id[id]', '$name', '$ras', '$type', '$size', '$time', '$time', '$user[id]', '$opis', '$dir[id]')");
 			$id_file = dbinsertid();
 
 			// 处理社交“动态”的逻辑
@@ -106,8 +112,8 @@ VALUES ('$metka', '$dir_id[id]', '$name', '$ras', '$type', '$size', '$time', '$t
 				$img_x = imagesx($imgc);
 				$img_y = imagesy($imgc);
 				if ($img_x == $img_y) {
-					$dstW = 320; // ширина
-					$dstH = 320; // высота 
+					$dstW = 320; // 宽度
+					$dstH = 320; // 高度
 				} elseif ($img_x > $img_y) {
 					$prop = $img_x / $img_y;
 					$dstW = 320;
@@ -120,16 +126,18 @@ VALUES ('$metka', '$dir_id[id]', '$name', '$ras', '$type', '$size', '$time', '$t
 				$screen = imagecreatetruecolor($dstW, $dstH);
 				imagecopyresampled($screen, $imgc, 0, 0, 0, 0, $dstW, $dstH, $img_x, $img_y);
 				imagedestroy($imgc);
-				$screen = img_copyright($screen); // наложение копирайта
+				$screen = img_copyright($screen); // 叠加水印
 				imagegif($screen, H . "files/screens/320/$id_file.gif");
 				imagedestroy($screen);
 			}
+
+			// 创建 128x128 的缩略图
 			if (isset($_FILES['screen']) && $imgc = @imagecreatefromstring(file_get_contents($_FILES['screen']['tmp_name']))) {
 				$img_x = imagesx($imgc);
 				$img_y = imagesy($imgc);
 				if ($img_x == $img_y) {
-					$dstW = 128; // ширина
-					$dstH = 128; // высота 
+					$dstW = 128; // 宽度
+					$dstH = 128; // 高度
 				} elseif ($img_x > $img_y) {
 					$prop = $img_x / $img_y;
 					$dstW = 128;
@@ -142,7 +150,7 @@ VALUES ('$metka', '$dir_id[id]', '$name', '$ras', '$type', '$size', '$time', '$t
 				$screen = imagecreatetruecolor($dstW, $dstH);
 				imagecopyresampled($screen, $imgc, 0, 0, 0, 0, $dstW, $dstH, $img_x, $img_y);
 				imagedestroy($imgc);
-				$screen = img_copyright($screen); // наложение копирайта
+				$screen = img_copyright($screen); // 叠加水印
 				imagegif($screen, H . "files/screens/128/$id_file.gif");
 				imagedestroy($screen);
 			}
@@ -170,13 +178,13 @@ if ($dir_id['upload'] == 1 && isset($user)) {
 		echo '</div>';
 	}
 	echo "<form class='foot' enctype=\"multipart/form-data\" name='message' action='?upload=enter&wap' method=\"post\">
-档案: (<" . size_file($dir_id['maxfilesize']) . ")<br />
-	 <input name='file' type='file' maxlength='$dir_id[maxfilesize]' /><br />
-	 截图:<br />
-	 <input name='screen' type='file' accept='image/*' /><br />";
-	if ($set['web'] && test_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
+	    	档案: (<" . size_file($dir_id['maxfilesize']) . ")<br />
+	 		<input name='file' type='file' maxlength='$dir_id[maxfilesize]' /><br />
+	 		截图:<br />
+			<input name='screen' type='file' accept='image/*' /><br />";
+	if ($set['web'] && test_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php')) {
 		include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
-	else {
+	} else {
 		echo $tPanel . '<textarea name="msg"></textarea><br />';
 	}
 	echo "<label><input type='checkbox' name='metka' value='1' /> 标记 <font color=red>18+</font></label><br />";
