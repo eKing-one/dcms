@@ -3,13 +3,11 @@ function br($msg, $br = '<br />') {
 	return preg_replace("#((<br( ?/?)>)|\n|\r)+#i", $br, $msg);
 } // 换行符
 
-function my_esc($text, $br = NULL) { // 剪切所有不可读字符
+function my_esc($text, $br = NULL) {
 	if ($br != NULL) {
-		for ($i = 0; $i <= 31; $i++) $text = str_replace(chr($i), NULL, $text);
+		$text = preg_replace('/[\x00-\x1F]/', '', $text); // 移除所有不可见字符
 	} else {
-		for ($i = 0; $i < 10; $i++) $text = str_replace(chr($i), NULL, $text);
-		for ($i = 11; $i < 20; $i++) $text = str_replace(chr($i), NULL, $text);
-		for ($i = 21; $i <= 31; $i++) $text = str_replace(chr($i), NULL, $text);
+		$text = preg_replace('/[\x00-\x09\x0B-\x1F]/', '', $text); // 移除指定范围的不可见字符
 	}
 	return $text;
 }
@@ -37,7 +35,6 @@ function passgen($k_simb = 8, $types = 3) {
 	$small = "abcdefghijklmnopqrstuvwxyz";
 	$large = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	$numbers = "1234567890";
-	mt_srand((float)microtime() * 1000000);
 	for ($i = 0; $i < $k_simb; $i++) {
 		$type = mt_rand(1, min($types, 3));
 		switch ($type) {

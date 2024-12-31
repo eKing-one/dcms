@@ -10,7 +10,7 @@ $ok_sql = 0;
 $opdirtables = opendir(H . 'install/db_tables');
 while ($filetables = readdir($opdirtables)) {
 	if (preg_match('#\.sql$#i', $filetables)) {
-		$table_name = preg_replace('#\.sql$#i', null, $filetables);
+		$table_name = preg_replace('#\.sql$#i', '', $filetables);
 		if (!isset($_ver_table[$table_name])) {
 			include_once check_replace(H.'sys/inc/sql_parser.php');
 			$sql = SQLParser::getQueriesFromFile(H . 'install/db_tables/' . $filetables);

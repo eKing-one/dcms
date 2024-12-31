@@ -275,7 +275,7 @@ echo "<div class='nav2'>";
 echo "基本信息";
 echo "</div>";
 echo "<div class='nav1'>";
-echo "<img src='/style/icons/str.gif' alt='*'>  <b>用户名</b> &#62; $user[login]<br />";
+echo "<img src='/style/icons/str.gif' alt='*'>  <b>用户名</b> &#62; $user[nick]<br />";
 if ($user['set_nick'] == 1)
 {
 echo "<a href='?set=nick'> <img src='/style/icons/str.gif' alt='*'>  <b>昵称</b></a>";

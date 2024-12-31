@@ -42,7 +42,7 @@ if (isset($_SESSION['adm_reg_ok']) && $_SESSION['adm_reg_ok'] == true) {
 			$err[] = '短于 3 个字符的用户名';
 		} elseif (strlen2($_POST['nick']) > 16) {
 			$err[] = '长于 16 个字符的用户名';
-		}elseif (mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "' LIMIT 1"), 0) != 0) {
+		} elseif (mysqli_fetch_assoc(mysqli_query($db, "SELECT COUNT(*) AS cnt FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "' LIMIT 1"))['cnt'] != 0) {
 			$err[] = '所选的用户名已经被另一个用户占用了';
 		} else {
 			$nick = $_POST['nick'];
@@ -118,7 +118,7 @@ if (isset($_SESSION['adm_reg_ok']) && $_SESSION['adm_reg_ok'] == true) {
 		echo "<hr />";
 	}
 	echo "<form action='index.php?$passgen' method='post'>";
-	echo "账号 (3-16 字符):<br /><input type='text' name='nick'" . ((isset($nick)) ? " value='" . $nick . "'" : " value='Admin'") . " maxlength='16' /><br />";
+	echo "账号名 (3-16 字符):<br /><input type='text' name='nick'" . ((isset($nick)) ? " value='" . $nick . "'" : " value='Admin'") . " maxlength='16' /><br />";
 	echo "密码 (6-16 字符):<br /><input type='password'" . ((isset($password)) ? " value='" . $password . "'" : null) . " name='password' maxlength='16' /><br />";
 	echo "* 使用简单的密码使黑客的生活更轻松<br />";
 	echo "确认密码:<br /><input type='password'" . ((isset($password)) ? " value='" . $password . "'" : null) . " name='password_retry' maxlength='16' /><br />";

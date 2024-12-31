@@ -25,11 +25,7 @@ if (isset($_SESSION['mysql_ok']) && $_SESSION['mysql_ok'] == true) {
 		$set['mysql_host'] = $_SESSION['host'] = $_POST['host'];
 		$set['mysql_user'] = $_SESSION['user'] = $_POST['user'];
 		$set['mysql_pass'] = $_SESSION['pass'] = $_POST['pass'];
-		mysqli_query($db,'set charset utf8mb4');
-		mysqli_query($db, 'SET names utf8mb4');
-		mysqli_query($db, 'set character_set_client="utf8mb4"');
-		mysqli_query($db, 'set character_set_connection="utf8mb4"');
-		mysqli_query($db, 'set character_set_result="utf8mb4"');
+		mysqli_set_charset($db, 'utf8mb4');
 		$db_tables = array();
 		$res = mysqli_query($db,'SHOW TABLES');
 		while($name = mysqli_fetch_array($res)) {
@@ -38,7 +34,7 @@ if (isset($_SESSION['mysql_ok']) && $_SESSION['mysql_ok'] == true) {
 		$opdirtables = opendir(H . 'install/db_tables');
 		while ($filetables = readdir($opdirtables)) {
 			if (preg_match('#\.sql$#i', $filetables)) {
-				$table_name = preg_replace('#\.sql$#i', null, $filetables);
+				$table_name = preg_replace('#\.sql$#i', '', $filetables);
 				if (in_array($table_name, $db_tables)) {
 					if (isset($_POST['rename']) && $_POST['rename'] == 1) {
 						mysqli_query($db,"ALTER TABLE `$table_name` RENAME `~" . $time . "_$table_name`");

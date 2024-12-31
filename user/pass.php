@@ -14,21 +14,21 @@ only_unreg();
 $set['title'] = '密码恢复';
 include_once '../sys/inc/thead.php';
 title();
-if (isset($_POST['login']) && isset($_POST['mail']) && $_POST['login'] != NULL && $_POST['mail'] != NULL) {
-    if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `login` = '" . my_esc($_POST['login']) . "'"), 0) == 0) {
+if (isset($_POST['nick']) && isset($_POST['mail']) && $_POST['nick'] != NULL && $_POST['mail'] != NULL) {
+    if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "'"), 0) == 0) {
         $err = "使用此用户名的用户未注册";
-    } elseif (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `login` = '" . my_esc($_POST['login']) . "' AND `ank_mail` = '" . my_esc($_POST['mail']) . "'"), 0) == 0) {
+    } elseif (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "' AND `ank_mail` = '" . my_esc($_POST['mail']) . "'"), 0) == 0) {
         $err = '无效的电子邮件地址或丢失的电子邮件信息';
     } else {
-        $q = dbquery("SELECT * FROM `user` WHERE `login` = '" . my_esc($_POST['login']) . "' LIMIT 1");
+        $q = dbquery("SELECT * FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "' LIMIT 1");
         $user2 = dbassoc($q);
         $new_sess = substr(md5(passgen()), 0, 20);
         $subject = "密码恢复";
-        $regmail = "你好！ $user2[login]<br />
+        $regmail = "你好！ $user2[nick]<br />
 您已激活密码恢复<br />
 要设置新密码，请点击链接:<br />
 <a href='http://$_SERVER[HTTP_HOST]/user/pass.php?id=$user2[id]&amp;set_new=$new_sess'>http://$_SERVER[HTTP_HOST]/user/pass.php?id=$user2[id]&amp;set_new=$new_sess</a><br />
-此链接有效，直到您的用户名下的第一个授权($user2[login])<br />真诚的，网站管理<br />";
+此链接有效，直到您的用户名下的第一个授权($user2[nick])<br />真诚的，网站管理<br />";
         $adds = "From: \"password@$_SERVER[HTTP_HOST]\" <password@$_SERVER[HTTP_HOST]>";
         //$adds = "From: <$set[reg_mail]>";
         //$adds .= "X-sender: <$set[reg_mail]>";
@@ -60,7 +60,7 @@ if (
     aut();
     echo "<form action='/user/pass.php?id=$user2[id]&amp;set_new=" . esc($_GET['set_new'], 1) . "&amp;$passgen' method=\"post\">";
     echo "用户名:<br />";
-    echo "<input type=\"text\" disabled='disabled' value='$user2[login]' maxlength=\"32\" size=\"16\" /><br />";
+    echo "<input type=\"text\" disabled='disabled' value='$user2[nick]' maxlength=\"32\" size=\"16\" /><br />";
     echo "新密码:<br /><input type='password' name='pass1' value='' /><br />";
     echo "确认书:<br /><input type='password' name='pass2' value='' /><br />";
     echo "<input type='submit' name='save' value='修改' />";
@@ -70,7 +70,7 @@ if (
     aut();
     echo "<form action=\"?$passgen\" method=\"post\">";
     echo "用户名:<br />";
-    echo "<input type=\"text\" name=\"login\" title=\"用户名\" value=\"\" maxlength=\"32\" size=\"16\" /><br />";
+    echo "<input type=\"text\" name=\"nick\" title=\"用户名\" value=\"\" maxlength=\"32\" size=\"16\" /><br />";
     echo "E-mail:<br />";
     echo "<input type=\"text\" name=\"mail\" title=\"E-mail\" value=\"\" maxlength=\"32\" size=\"16\" /><br />";
     echo "<input type=\"submit\" value=\"下一步\" title=\"下一步\" />";

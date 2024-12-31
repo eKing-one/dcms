@@ -20,7 +20,7 @@ aut();
 
 
 // 检查用户是否成功登录
-if (isset($_GET['login']) && isset($_GET['pass'])) {
+if (isset($_GET['nick']) && isset($_GET['pass'])) {
 	echo '<div class="mess">';
 	echo '如果您的浏览器不支持Cookie，您可以创建一个自动登录链接<br />';
 	echo '<input type="text" value="http://' . text($_SERVER['SERVER_NAME']) . '/user/login.php?id=' . $user['id'] . '&amp;pass=' . text($_GET['pass']) . '" /><br />';
