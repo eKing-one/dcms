@@ -17,7 +17,7 @@ if (file_exists(H.'sys/dat/settings.php')) {
 	exit;
 }
 
-$set = @array_merge ($set_default, $set_dinamic, $set_replace);
+$set = @array_merge($set_default, $set_dinamic, $set_replace);
 
 if ($set['show_err_php']) {
 	error_reporting(E_ALL); // 启用错误显示
@@ -25,10 +25,10 @@ if ($set['show_err_php']) {
 }
 
 // 解析 User-Agent 检查设备类型是否为 PC
-if (isset($_SERVER["HTTP_USER_AGENT"]) && in_array(UAParser\Parser::create()->parse($_SERVER["HTTP_USER_AGENT"])->device->family, ['Desktop', 'Macintosh', 'Linux', 'Windows'])) {
-    $webbrowser = true;
+if (!empty($_SERVER["HTTP_USER_AGENT"]) && in_array(UAParser\Parser::create()->parse($_SERVER["HTTP_USER_AGENT"])->os->family, ['Desktop', 'Macintosh', 'Linux', 'Windows'])) {
+	$webbrowser = true;
 } else {
-    $webbrowser = false;
+	$webbrowser = false;
 }
 
 $set['web'] = false;

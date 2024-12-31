@@ -49,11 +49,12 @@ function isIpInRange($ip, $ranges) {
 	return false;
 }
 
+// 获取用户的 IP 信息
 $ip2 = [];
-$ip2['cf'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
-$ip2['xff'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
-$ip2['xri'] = $_SERVER['HTTP_X_REAL_IP'];
-$ip2['cl'] = $_SERVER['HTTP_CLIENT_IP'];
+if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) $ip2['xff'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
+if (!empty($_SERVER['HTTP_X_REAL_IP'])) $ip2['xri'] = $_SERVER['HTTP_X_REAL_IP'];
+if (!empty($_SERVER['HTTP_CLIENT_IP'])) $ip2['cl'] = $_SERVER['HTTP_CLIENT_IP'];
+if (!empty($_SERVER['HTTP_CF_CONNECTING_IP'])) $ip2['cf'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
 $ip2['add'] = $_SERVER['REMOTE_ADDR'];
 
 // 根据不同选项获取IP

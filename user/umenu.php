@@ -60,5 +60,3 @@ if ($set['web'] == false)
 	echo '</div>';
 }
 include_once '../sys/inc/tfoot.php';
-exit;
-?>
