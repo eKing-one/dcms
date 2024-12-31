@@ -1,0 +1,61 @@
+
+####################################################################################################
+# MIME 类型映射配置
+# 指定常见文件类型与 MIME 类型的映射
+
+# 图像文件
+AddType image/jpeg jpg jpeg
+AddType image/png png
+AddType image/gif gif
+AddType image/webp webp
+AddType image/svg+xml svg
+AddType image/x-icon ico
+
+# 文本文件
+AddType text/plain txt
+AddType text/html html htm
+AddType text/css css
+AddType text/javascript js
+AddType application/json json
+AddType application/xml xml
+
+# 文档文件
+AddType application/pdf pdf
+AddType application/msword doc
+AddType application/vnd.openxmlformats-officedocument.wordprocessingml.document docx
+AddType application/vnd.ms-excel xls
+AddType application/vnd.openxmlformats-officedocument.spreadsheetml.sheet xlsx
+AddType application/vnd.ms-powerpoint ppt
+AddType application/vnd.openxmlformats-officedocument.presentationml.presentation pptx
+
+# 压缩文件
+AddType application/zip zip
+AddType application/x-rar-compressed rar
+AddType application/gzip gz
+AddType application/x-7z-compressed 7z
+AddType application/x-tar tar
+
+# 音频文件
+AddType audio/mpeg mp3
+AddType audio/ogg ogg
+AddType audio/wav wav
+AddType audio/x-aac aac
+
+# 视频文件
+AddType video/mp4 mp4
+AddType video/ogg ogv
+AddType video/webm webm
+AddType video/x-msvideo avi
+
+# 字体文件
+AddType font/ttf ttf
+AddType font/otf otf
+AddType font/woff woff
+AddType font/woff2 woff2
+
+# 可执行文件
+AddType application/x-msdownload exe
+AddType application/x-shockwave-flash swf
+
+# 二进制文件
+AddType application/octet-stream bin
