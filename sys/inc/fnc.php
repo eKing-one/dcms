@@ -489,7 +489,7 @@ function header_html($add = null) {
  */
 function getLatestStableRelease() {
 	// 设置API的URL
-	$api_url = "https://free.guguan.us.kg/api/dcms_github_releases.php";
+	$api_url = "https://api.guguan.us.kg/dcms_github_releases.php";
 	
 	// 初始化cURL会话
 	$ch = curl_init();
