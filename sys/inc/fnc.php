@@ -461,7 +461,7 @@ function t_toolbar_html() {
 
 	$status_version_data = getLatestStableRelease();
 	echo '<div class="mess">
-	  <b>Admin Tool</b> :: <a href="/plugins/admin/">管理员</a> | <a href="/adm_panel/">控制面板</a>
+	  <b>Admin Tool</b> :: <a href="/">网站首页</a> | <a href="/plugins/admin/">管理员</a> | <a href="/adm_panel/">控制面板</a>
 	   v' . $set['dcms_version'];
 	if (version_compare($set['dcms_version'], $status_version_data['version']) < 0) {
 		echo '<center><font color="red">有一个新版本 - ' . $status_version_data['version'] . '! <a href="/adm_panel/update.php">详细</a></font></center>';
