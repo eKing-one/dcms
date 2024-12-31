@@ -217,18 +217,19 @@ if (!isset($hard_process)) {
 }
 // 统计数据汇总
 
+// 每日访问记录
 if (!isset($hard_process)) {
 	$q = dbquery("SELECT * FROM `cron` WHERE `id` = 'visit' LIMIT 1");
 	if (dbrows($q) == 0) dbquery("INSERT INTO `cron` (`id`, `time`) VALUES ('visit', '$time')");
 	$visit = dbassoc($q);
 	if (!isset($visit['time']) || isset($visit['time']) && $visit['time'] < time() - 60 * 60 * 24) {
-		if (function_exists('set_time_limit')) @set_time_limit(600); // Ставим ограничение на 10 минут
-		$last_day = mktime(0, 0, 0, date('m'), date('d') - 1); // начало вчерашних суток
-		$today_time = mktime(0, 0, 0); // начало сегодняшних суток
+		if (function_exists('set_time_limit')) @set_time_limit(600); // 将限制设置为 10 分钟
+		$last_day = mktime(0, 0, 0, date('m'), date('d') - 1); // 昨天的开始
+		$today_time = mktime(0, 0, 0); // 今天的开始
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `visit_everyday` WHERE `time` = '$last_day'"), 0) == 0) {
 			$hard_process = true;
-			// записываем общие данные за вчерашние сутки в отдельную таблицу
-			dbquery("INSERT INTO `visit_everyday` (`host` , `host_ip_ua`, `hit`, `time`) VALUES ((SELECT COUNT(DISTINCT `ip`) FROM `visit_today` WHERE `time` < '$today_time'),(SELECT COUNT(DISTINCT `ip`, `ua`) FROM `visit_today` WHERE `time` < '$today_time'),(SELECT COUNT(*) FROM `visit_today` WHERE `time` < '$today_time'),'$last_day')");
+			// 在单独的表中记下昨天的一般数据
+			dbquery("INSERT INTO `visit_everyday` (`host` , `host_ip_ua`, `hit`, `time`) VALUES ((SELECT COUNT(DISTINCT `ip`) FROM `visit_today` WHERE `time` < '$today_time'),(SELECT COUNT(DISTINCT `ip`, `ua_hash`) FROM `visit_today` WHERE `time` < '$today_time'),(SELECT COUNT(*) FROM `visit_today` WHERE `time` < '$today_time'),'$last_day')");
 			dbquery('DELETE FROM `visit_today` WHERE `time` < ' . $today_time);
 		}
 	}
@@ -439,7 +440,7 @@ while ($filebase = readdir($opdirbase)) {
 }
 
 // 参观记录
-dbquery("INSERT INTO `visit_today` (`ip` , `ua`, `time`) VALUES ('$iplong', '" . @my_esc($_SERVER['HTTP_USER_AGENT']) . "', '$time')");
+dbquery("INSERT INTO `visit_today` (`ip` , `ua`, ,`ua_hash` `time`) VALUES ('$iplong', '" . @my_esc($_SERVER['HTTP_USER_AGENT']) . "', '" . md5($_SERVER['HTTP_USER_AGENT'], true) . "', '$time')");
 
 
 function ages($age) {
