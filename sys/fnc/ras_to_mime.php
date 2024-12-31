@@ -58,14 +58,28 @@ function ras_to_mime($ras = null)
 
 		// 逐行解析 .htaccess 文件
 		foreach ($htaccess as $line) {
-			// 使用正则表达式匹配 "AddType" 指令并提取 MIME 类型和扩展名
-			if (preg_match('#^AddType\s+(\S+)\s+(\S+)$#i', trim($line), $matches)) {
-				$mime[str_replace('.', '', $matches[2])] = $matches[1]; // 构建映射：扩展名 => MIME 类型
+			$line = trim($line); // 去掉行首尾空白字符
+		
+			// 跳过空行或注释行
+			if (empty($line) || str_starts_with($line, '#')) {
+				continue;
+			}
+		
+			// 匹配 AddType 指令
+			if (preg_match('#^AddType\s+(\S+)\s+(.+)$#i', $line, $matches)) {
+				$mimeType = $matches[1]; // 提取 MIME 类型
+				$extensions = preg_split('/\s+/', $matches[2]); // 提取所有扩展名（用空白分隔）
+		
+				// 将每个扩展名映射到对应的 MIME 类型
+				foreach ($extensions as $extension) {
+					$mime[str_replace('.', '', $extension)] = $mimeType;
+				}
 			} else {
-				// 如果行格式不符合预期，记录警告日志
+				// 记录无效的 AddType 行
 				error_log("[ras_to_mime] Warning: Invalid AddType line in .htaccess: $line");
 			}
 		}
+		
 	}
 
 	// 返回 MIME 类型，如果未找到扩展名对应的 MIME 类型，返回默认值
@@ -74,4 +88,11 @@ function ras_to_mime($ras = null)
 	}
 
 	return $mime[$ras] ?? 'application/octet-stream';
+}
+
+// 检查 PHP 版本是否支持 str_starts_with ，以适配 PHP 8.0 之前的版本
+if (!function_exists('str_starts_with')) {
+    function str_starts_with($haystack, $needle) {
+        return strpos($haystack, $needle) === 0;
+    }
 }

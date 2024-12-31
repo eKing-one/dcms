@@ -9,8 +9,8 @@ include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/downloadfile.php';
 include_once '../sys/inc/user.php';
-header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime($time))." GMT");
 header("Expires: ".gmdate("D, d M Y H:i:s", time() + 3600)." GMT");
+header("Cache-Control: max-age=3600");
 if (!isset($_GET['id']) || !isset($_GET['size'])) exit;
 $size = intval($_GET['size']);
 $if_photo = intval($_GET['id']);
@@ -57,38 +57,85 @@ if ($ank['id'] != $user['id'] && isset($user['group_access']) && ($user['group_a
 
 if ($size == '48') {
 	if (is_file(H.'sys/gallery/48/'.$if_photo.'.png')) {
+		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/48/'.$if_photo.'.png'))." GMT");
 		DownloadFile(H.'sys/gallery/48/'.$if_photo.'.png', '相片.png', ras_to_mime('png'));
 		exit;
 	}
 	if (is_file(H.'sys/gallery/48/'.$if_photo.'.gif')) {
+		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/48/'.$if_photo.'.gif'))." GMT");
 		DownloadFile(H.'sys/gallery/48/'.$if_photo.'.gif', '相片.gif', ras_to_mime('gif'));
 		exit;
 	}
 	if (is_file(H.'sys/gallery/48/'.$if_photo.'.jpg')) {
+		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/48/'.$if_photo.'.jpg'))." GMT");
 		DownloadFile(H.'sys/gallery/48/'.$if_photo.'.jpg', '相片.jpg', ras_to_mime('jpg'));
 		exit;
 	}
 }
 if ($size == '128') {
+	if (is_file(H.'sys/gallery/128/'.$if_photo.'.png')) {
+		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/128/'.$if_photo.'.png'))." GMT");
+		DownloadFile(H.'sys/gallery/128/'.$if_photo.'.png', '相片.png', ras_to_mime('png'));
+		exit;
+	}
+	if (is_file(H.'sys/gallery/128/'.$if_photo.'.gif')) {
+		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/128/'.$if_photo.'.gif'))." GMT");
+		DownloadFile(H.'sys/gallery/128/'.$if_photo.'.gif', '相片.gif', ras_to_mime('gif'));
+		exit;
+	}
 	if (is_file(H.'sys/gallery/128/'.$if_photo.'.jpg')) {
+		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/128/'.$if_photo.'.jpg'))." GMT");
 		DownloadFile(H.'sys/gallery/128/'.$if_photo.'.jpg', '相片.jpg', ras_to_mime('jpg'));
 		exit;
 	}
 }
 if ($size == '50') {
+	if (is_file(H.'sys/gallery/50/'.$if_photo.'.png')) {
+		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/50/'.$if_photo.'.png'))." GMT");
+		DownloadFile(H.'sys/gallery/50/'.$if_photo.'.png', '相片.png', ras_to_mime('png'));
+		exit;
+	}
+	if (is_file(H.'sys/gallery/50/'.$if_photo.'.gif')) {
+		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/50/'.$if_photo.'.gif'))." GMT");
+		DownloadFile(H.'sys/gallery/50/'.$if_photo.'.gif', '相片.gif', ras_to_mime('gif'));
+		exit;
+	}
 	if (is_file(H.'sys/gallery/50/'.$if_photo.'.jpg')) {
+		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/50/'.$if_photo.'.jpg'))." GMT");
 		DownloadFile(H.'sys/gallery/50/'.$if_photo.'.jpg', '相片.jpg', ras_to_mime('jpg'));
 		exit;
 	}
 }
 if ($size == '640') {
+	if (is_file(H.'sys/gallery/640/'.$if_photo.'.png')) {
+		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/640/'.$if_photo.'.png'))." GMT");
+		DownloadFile(H.'sys/gallery/640/'.$if_photo.'.png', '相片.png', ras_to_mime('png'));
+		exit;
+	}
+	if (is_file(H.'sys/gallery/640/'.$if_photo.'.gif')) {
+		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/640/'.$if_photo.'.gif'))." GMT");
+		DownloadFile(H.'sys/gallery/640/'.$if_photo.'.gif', '相片.gif', ras_to_mime('gif'));
+		exit;
+	}
 	if (is_file(H.'sys/gallery/640/'.$if_photo.'.jpg')) {
+		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/640/'.$if_photo.'.jpg'))." GMT");
 		DownloadFile(H.'sys/gallery/640/'.$if_photo.'.jpg', '相片.jpg', ras_to_mime('jpg'));
 		exit;
 	}
 }
 if ($size == '0') {
+	if (is_file(H.'sys/gallery/photo/'.$if_photo.'.png')) {
+		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/photo/'.$if_photo.'.png'))." GMT");
+		DownloadFile(H.'sys/gallery/photo/'.$if_photo.'.png', 'photo_'.$if_photo.'.png', ras_to_mime('png'));
+		exit;
+	}
+	if (is_file(H.'sys/gallery/photo/'.$if_photo.'.gif')) {
+		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/photo/'.$if_photo.'.gif'))." GMT");
+		DownloadFile(H.'sys/gallery/photo/'.$if_photo.'.gif', 'photo_'.$if_photo.'.gif', ras_to_mime('gif'));
+		exit;
+	}
 	if (is_file(H.'sys/gallery/photo/'.$if_photo.'.jpg')) {
+		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/photo/'.$if_photo.'.jpg'))." GMT");
 		DownloadFile(H.'sys/gallery/photo/'.$if_photo.'.jpg', 'photo_'.$if_photo.'.jpg', ras_to_mime('jpg'));
 		exit;
 	}
