@@ -38,20 +38,40 @@ function ras_to_mime($ras = null)
 		$htaccessPath = H . '.htaccess'; // 构建 .htaccess 文件路径
 
 		// 检查 .htaccess 文件是否存在且可读
-		if (!file_exists($htaccessPath) || !is_readable($htaccessPath)) {
-			return 'application/octet-stream'; // 如果文件不可用，返回默认 MIME 类型
+		if (!file_exists($htaccessPath)) {
+			error_log("[ras_to_mime] Error: .htaccess file not found at path: $htaccessPath");
+			return 'application/octet-stream';
 		}
 
-		// 逐行读取 .htaccess 文件并解析 MIME 类型映射
-		$htaccess = file($htaccessPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		if (!is_readable($htaccessPath)) {
+			error_log("[ras_to_mime] Error: .htaccess file is not readable at path: $htaccessPath");
+			return 'application/octet-stream';
+		}
+
+		// 尝试读取 .htaccess 文件内容
+		try {
+			$htaccess = file($htaccessPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		} catch (Exception $e) {
+			error_log("[ras_to_mime] Error: Failed to read .htaccess file - " . $e->getMessage());
+			return 'application/octet-stream';
+		}
+
+		// 逐行解析 .htaccess 文件
 		foreach ($htaccess as $line) {
 			// 使用正则表达式匹配 "AddType" 指令并提取 MIME 类型和扩展名
 			if (preg_match('#^AddType\s+(\S+)\s+(\S+)$#i', trim($line), $matches)) {
 				$mime[str_replace('.', '', $matches[2])] = $matches[1]; // 构建映射：扩展名 => MIME 类型
+			} else {
+				// 如果行格式不符合预期，记录警告日志
+				error_log("[ras_to_mime] Warning: Invalid AddType line in .htaccess: $line");
 			}
 		}
 	}
 
 	// 返回 MIME 类型，如果未找到扩展名对应的 MIME 类型，返回默认值
+	if (!isset($mime[$ras])) {
+		error_log("[ras_to_mime] Warning: MIME type not found for extension: $ras");
+	}
+
 	return $mime[$ras] ?? 'application/octet-stream';
 }
