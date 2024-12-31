@@ -16,7 +16,7 @@ function cookie_encrypt($str,$id=0) {
 		if (!$iv = @file_get_contents(H.'sys/dat/shif_iv.dat')) {
 			$iv=base64_encode( mcrypt_create_iv (mcrypt_enc_get_iv_size($td), MCRYPT_DEV_RANDOM));
 			file_put_contents(H.'sys/dat/shif_iv.dat', $iv);
-			chmod(H.'sys/dat/shif_iv.dat', 0777);
+			chmod(H . 'sys/dat/shif_iv.dat', 0644);
 		}
 		$ks = @mcrypt_enc_get_key_size ($td);
 		/* Создать ключ */
@@ -45,7 +45,7 @@ function cookie_decrypt($str,$id=0) {
 		if (!$iv = @file_get_contents(H.'sys/dat/shif_iv.dat')) {
 			$iv = base64_encode( mcrypt_create_iv (mcrypt_enc_get_iv_size($td), MCRYPT_DEV_RANDOM));
 			file_put_contents(H.'sys/dat/shif_iv.dat', $iv);
-			chmod(H.'sys/dat/shif_iv.dat', 0777);
+			chmod(H.'sys/dat/shif_iv.dat', 0644);
 		}
 		$ks = @mcrypt_enc_get_key_size ($td);
 		/* Создать ключ */

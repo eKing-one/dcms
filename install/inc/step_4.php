@@ -77,9 +77,10 @@ if (isset($_SESSION['adm_reg_ok']) && $_SESSION['adm_reg_ok'] == true) {
 		                   VALUES('$nick', '" . shif($password) . "', $time, $time, $time, '$pol', '4', '15', '5000', '500')");
 		$user = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM `user` WHERE `nick` = '$nick' AND `pass` = '" . shif($password) . "' LIMIT 1"));
 		$q = mysqli_query($db, "SELECT `type` FROM `all_accesses`");
-		while ($ac = mysqli_fetch_assoc($q)) {
-			mysqli_query($db, "INSERT INTO `user_acсess` (`id_user`, `type`) VALUES ('$user[id]','$ac[type]')");
-		}
+
+		// 意义不明的循环，根本没有用到 $ac 和 user_acсess 表
+		//while ($ac = mysqli_fetch_assoc($q)) {mysqli_query($db, "INSERT INTO `user_acсess` (`id_user`, `type`) VALUES ('$user[id]','$ac[type]')");}
+		
 		/*
 		========================================
 		创建用户设置
