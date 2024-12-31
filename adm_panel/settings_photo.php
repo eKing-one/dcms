@@ -13,7 +13,7 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('adm_set_photo',null,'index.php?'.SID);
 adm_check();
-$set['title']='照片库设置';
+$set['title']='图片上传大小设置';
 include_once '../sys/inc/thead.php';
 title();
 if (isset($_POST['save']))
@@ -22,7 +22,7 @@ $temp_set['max_upload_photo_x']=intval($_POST['max_upload_photo_x']);
 $temp_set['max_upload_photo_y']=intval($_POST['max_upload_photo_y']);
 if (save_settings($temp_set))
 {
-admin_log('设置','照片廊','更改照片库设置');
+admin_log('设置','照片廊','图片上传大小设置');
 msg('设置已成功接受');
 }
 else
