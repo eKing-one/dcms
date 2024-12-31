@@ -94,6 +94,7 @@ if (@trim(file_get_contents("http://$_SERVER[HTTP_HOST]/sys/inc/mod_rewrite.test
 	$err[] = '需要的支持 mod_rewrite';
 }
 
+// 测试PHP扩展是否正常工作
 if (function_exists('imagecreatefromstring') && function_exists('gd_info')) {
 	$gdinfo = gd_info();
 	echo "<span class='on'>GD: " . $gdinfo['GD Version'] . " OK</span><br />";

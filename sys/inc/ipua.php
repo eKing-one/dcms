@@ -122,6 +122,7 @@ if (!$ip) {$ip = $_SERVER['REMOTE_ADDR'];}
 
 $iplong = ip2long($ip);
 
+// 获取 User-Agent
 if (isset($_SERVER['HTTP_USER_AGENT'])) {
 	$ua = $_SERVER['HTTP_USER_AGENT'];
 	// 使用 uap-php 库解析 User-Agent

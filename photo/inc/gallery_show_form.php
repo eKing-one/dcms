@@ -1,6 +1,6 @@
 <?
-if ($user['level'] > $ank['level'] || $user['id'] == $ank['id'])
-{
+// 编辑相册
+if ($user['level'] > $ank['level'] || $user['id'] == $ank['id']) {
 	if (isset($_GET['edit']) && $_GET['edit'] == 'rename') {
 		?>
 		<div class="foot">
@@ -41,21 +41,21 @@ if ($user['level'] > $ank['level'] || $user['id'] == $ank['id'])
 	}
 }
 
-if ((user_access('photo_alb_del') || isset($user) && $user['id'] == $ank['id']) && isset($_GET['act']) && $_GET['act'] == 'delete')
-{
+// 删除相册
+if ((user_access('photo_alb_del') || isset($user) && $user['id'] == $ank['id']) && isset($_GET['act']) && $_GET['act'] == 'delete') {
 	?>
 	<div class='mess'>
 		您确实要删除相册 <b><?=text($gallery['name'])?></b>, 和所有照片？<br />
 		<center>
-			<a href="?act=delete&amp;ok"><img src="/style/icons/ok.gif" alt="*"> 删除</a> 
+			<a href="?act=delete&amp;ok"><img src="/style/icons/ok.gif" alt="*"> 删除</a>
 			<a href="?act=delete&amp;ok"><img src="/style/icons/delete.gif" alt="*"> 取消</a> 
 		</center>
 	</div>
 	<?
 }
 
-if (isset($user) && $user['id'] == $ank['id'] && isset($_GET['act']) && $_GET['act'] == 'upload')
-{
+// 上传照片
+if (isset($user) && $user['id'] == $ank['id'] && isset($_GET['act']) && $_GET['act'] == 'upload') {
 	?>
 	<div class="foot">
 		<img src="/style/icons/str2.gif" alt="*"> <?=user::nick($ank['id'],1,0,0)?> | 
