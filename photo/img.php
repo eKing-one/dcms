@@ -55,88 +55,31 @@ if ($ank['id'] != $user['id'] && isset($user['group_access']) && ($user['group_a
 	/*---------------------------------------------------------*/
 }
 
-if ($size == '48') {
-	if (is_file(H.'sys/gallery/48/'.$if_photo.'.png')) {
-		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/48/'.$if_photo.'.png'))." GMT");
-		DownloadFile(H.'sys/gallery/48/'.$if_photo.'.png', '相片.png', ras_to_mime('png'));
-		exit;
-	}
-	if (is_file(H.'sys/gallery/48/'.$if_photo.'.gif')) {
-		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/48/'.$if_photo.'.gif'))." GMT");
-		DownloadFile(H.'sys/gallery/48/'.$if_photo.'.gif', '相片.gif', ras_to_mime('gif'));
-		exit;
-	}
-	if (is_file(H.'sys/gallery/48/'.$if_photo.'.jpg')) {
-		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/48/'.$if_photo.'.jpg'))." GMT");
-		DownloadFile(H.'sys/gallery/48/'.$if_photo.'.jpg', '相片.jpg', ras_to_mime('jpg'));
-		exit;
-	}
+// 检查图片大小是否合法
+$valid_sizes = [48, 50, 128, 640, 0];
+$size = in_array($_GET['size'], $valid_sizes) ? $_GET['size'] : 0;
+$if_photo = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+if (!$if_photo) {
+	http_response_code(404);
+    exit;
 }
-if ($size == '128') {
-	if (is_file(H.'sys/gallery/128/'.$if_photo.'.png')) {
-		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/128/'.$if_photo.'.png'))." GMT");
-		DownloadFile(H.'sys/gallery/128/'.$if_photo.'.png', '相片.png', ras_to_mime('png'));
-		exit;
-	}
-	if (is_file(H.'sys/gallery/128/'.$if_photo.'.gif')) {
-		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/128/'.$if_photo.'.gif'))." GMT");
-		DownloadFile(H.'sys/gallery/128/'.$if_photo.'.gif', '相片.gif', ras_to_mime('gif'));
-		exit;
-	}
-	if (is_file(H.'sys/gallery/128/'.$if_photo.'.jpg')) {
-		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/128/'.$if_photo.'.jpg'))." GMT");
-		DownloadFile(H.'sys/gallery/128/'.$if_photo.'.jpg', '相片.jpg', ras_to_mime('jpg'));
-		exit;
-	}
+
+
+function download_photo($size, $if_photo, $formats = ['png', 'gif', 'jpg']) {
+    foreach ($formats as $format) {
+        $file_path = H . "sys/gallery/{$size}/{$if_photo}.{$format}";
+		if ($if_photo == 0 || !file_exists($file_path)) {
+			http_response_code(404);
+			// 提供默认图片或显示错误消息
+			exit;
+		}		
+        if (is_file($file_path)) {
+            header("Last-Modified: " . gmdate("D, d M Y H:i:s", filemtime($file_path)) . " GMT");
+            DownloadFile($file_path, "photo_{$if_photo}.{$format}", ras_to_mime($format));
+            exit;
+        }
+    }
 }
-if ($size == '50') {
-	if (is_file(H.'sys/gallery/50/'.$if_photo.'.png')) {
-		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/50/'.$if_photo.'.png'))." GMT");
-		DownloadFile(H.'sys/gallery/50/'.$if_photo.'.png', '相片.png', ras_to_mime('png'));
-		exit;
-	}
-	if (is_file(H.'sys/gallery/50/'.$if_photo.'.gif')) {
-		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/50/'.$if_photo.'.gif'))." GMT");
-		DownloadFile(H.'sys/gallery/50/'.$if_photo.'.gif', '相片.gif', ras_to_mime('gif'));
-		exit;
-	}
-	if (is_file(H.'sys/gallery/50/'.$if_photo.'.jpg')) {
-		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/50/'.$if_photo.'.jpg'))." GMT");
-		DownloadFile(H.'sys/gallery/50/'.$if_photo.'.jpg', '相片.jpg', ras_to_mime('jpg'));
-		exit;
-	}
-}
-if ($size == '640') {
-	if (is_file(H.'sys/gallery/640/'.$if_photo.'.png')) {
-		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/640/'.$if_photo.'.png'))." GMT");
-		DownloadFile(H.'sys/gallery/640/'.$if_photo.'.png', '相片.png', ras_to_mime('png'));
-		exit;
-	}
-	if (is_file(H.'sys/gallery/640/'.$if_photo.'.gif')) {
-		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/640/'.$if_photo.'.gif'))." GMT");
-		DownloadFile(H.'sys/gallery/640/'.$if_photo.'.gif', '相片.gif', ras_to_mime('gif'));
-		exit;
-	}
-	if (is_file(H.'sys/gallery/640/'.$if_photo.'.jpg')) {
-		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/640/'.$if_photo.'.jpg'))." GMT");
-		DownloadFile(H.'sys/gallery/640/'.$if_photo.'.jpg', '相片.jpg', ras_to_mime('jpg'));
-		exit;
-	}
-}
-if ($size == '0') {
-	if (is_file(H.'sys/gallery/photo/'.$if_photo.'.png')) {
-		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/photo/'.$if_photo.'.png'))." GMT");
-		DownloadFile(H.'sys/gallery/photo/'.$if_photo.'.png', 'photo_'.$if_photo.'.png', ras_to_mime('png'));
-		exit;
-	}
-	if (is_file(H.'sys/gallery/photo/'.$if_photo.'.gif')) {
-		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/photo/'.$if_photo.'.gif'))." GMT");
-		DownloadFile(H.'sys/gallery/photo/'.$if_photo.'.gif', 'photo_'.$if_photo.'.gif', ras_to_mime('gif'));
-		exit;
-	}
-	if (is_file(H.'sys/gallery/photo/'.$if_photo.'.jpg')) {
-		header("Last-Modified: ".gmdate("D, d M Y H:i:s", filemtime(H.'sys/gallery/photo/'.$if_photo.'.jpg'))." GMT");
-		DownloadFile(H.'sys/gallery/photo/'.$if_photo.'.jpg', 'photo_'.$if_photo.'.jpg', ras_to_mime('jpg'));
-		exit;
-	}
-}
+
+// 传输图片
+download_photo($size, $if_photo);
