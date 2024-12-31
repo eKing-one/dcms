@@ -40,7 +40,7 @@ while ($post = dbassoc($q))
 		echo ' 使用用户名及密码登录 (' . vremja($post['time']) . ')<br />';
 	}
 	echo 'IP: ' . long2ip($post['ip']) . '<br />';
-	echo '浏览器: ' . output_text($post['ua']);
+	echo 'UA: ' . output_text($post['ua']);
 	echo '</div>';
 }
 echo '</table>';

@@ -13,8 +13,9 @@ $set['title'] = '个人中心';
 include_once '../sys/inc/thead.php';
 title();
 aut();
-if (isset($_GET['login']) && isset($_GET['pass']))
-{
+
+// 检查用户是否成功登录
+if (isset($_GET['login']) && isset($_GET['pass'])) {
 	echo '<div class="mess">';
 	echo '如果您的浏览器不支持Cookie，您可以创建一个自动登录链接<br />';
 	echo '<input type="text" value="http://' . text($_SERVER['SERVER_NAME']) . '/user/login.php?id=' . $user['id'] . '&amp;pass=' . text($_GET['pass']) . '" /><br />';
@@ -46,15 +47,14 @@ if (isset($_GET['login']) && isset($_GET['pass']))
 
 <?
 // 管理权限
-if (user_access('adm_panel_show'))
-{
+if (user_access('adm_panel_show')) {
 	echo '<div class="main" id="umenu">';
 	echo '<img src="/style/my_menu/adm_panel.png" alt="" /> <a href="/adm_panel/">管理面板</a><br />';
 	echo '</div>';
 }
+
 // 仅适用于wap
-if ($set['web'] == false)
-{
+if ($set['web'] == false) {
 	echo '<div class="main" id="umenu">';
 	echo '<a href="/user/exit.php"><img src="/style/icons/delete.gif" /> 退出登录 ' . user::nick($user['id'],0,0,0) . '</a><br />';
 	echo '</div>';

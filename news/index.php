@@ -23,20 +23,30 @@ $start = $set['p_str'] * $page - $set['p_str'];
 $q = dbquery("SELECT * FROM `news` ORDER BY `id` DESC LIMIT $start, $set[p_str]");
 
 echo '<table class="post">';
+
+if ($set['daily_news'] == 1) {
+	echo '<div class="mess">';
+	echo '<a href="daily_news.php">每日新闻</a>';
+	echo '</div>';
+}
+
+// 如果没有新闻
 if ($k_post == 0) {
 	echo '<div class="mess">';
 	echo '没有消息';
 	echo '</div>';
 }
+
+// 循环输出新闻
 while ($post = dbassoc($q)) {
-	// Лесенка
+	// 阶梯
 	echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 	$num++;
-	// Заголовок новости
+	// 新闻标题
 	echo '<a id="link_menu" href="news.php?id=' . $post['id'] . '"><img src="/style/icons/rss.png" alt="*" /> ' . text($post['title']) . '</a> ';
-	// Колличество комментариев
+	// 评论数量
 	echo '(' . dbresult(dbquery("SELECT COUNT(*) FROM `news_komm` WHERE `id_news` = '$post[id]'"),0) . ')<br />';
-	// Часть текста
+	// 部分文本
 	echo '<div class="text">' . output_text($post['msg']) . '</div>';
 	echo '<a href="news.php?id=' . $post['id'] . '">阅读更多&gt;&gt;&gt;</a>';
 	echo '</div>';
