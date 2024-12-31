@@ -1,6 +1,4 @@
 <?php
-require_once __DIR__ . '/../../vendor/autoload.php';
-
 /**
  * 从文件加载 CDN IP 地址列表
  * @param string $filePath
@@ -51,6 +49,14 @@ function isIpInRange($ip, $ranges) {
 	return false;
 }
 
+// 获取用户的 IP 信息
+$ip2 = [];
+if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) $ip2['xff'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
+if (!empty($_SERVER['HTTP_X_REAL_IP'])) $ip2['xri'] = $_SERVER['HTTP_X_REAL_IP'];
+if (!empty($_SERVER['HTTP_CLIENT_IP'])) $ip2['cl'] = $_SERVER['HTTP_CLIENT_IP'];
+if (!empty($_SERVER['HTTP_CF_CONNECTING_IP'])) $ip2['cf'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
+$ip2['add'] = $_SERVER['REMOTE_ADDR'];
+
 // 根据不同选项获取IP
 switch ($set['get_ip_from_header']) {
 	case 'X-Forwarded-For':
@@ -84,12 +90,10 @@ switch ($set['get_ip_from_header']) {
 	case 'auto':
 	default:
 		// 自动模式，尝试从多个标头获取
-		$ip2 = [];
 		$ipa = [];
 
 		// 检查是否来自 Cloudflare，如果是则返回真实客户端 IP
 		if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && isIpInRange($_SERVER['REMOTE_ADDR'], $cdnIpRanges)) {
-			$ip2['cf'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
 			$ipa[] = $_SERVER['HTTP_CF_CONNECTING_IP'];
 		}
 
@@ -97,22 +101,18 @@ switch ($set['get_ip_from_header']) {
 		if (isIpInRange($_SERVER['REMOTE_ADDR'], $privateRanges)) {
 			// 处理代理头
 			if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && filter_var($_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP)) {
-				$ip2['xff'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
 				$ipa[] = $_SERVER['HTTP_X_FORWARDED_FOR'];
 			}
 			if (isset($_SERVER['HTTP_X_REAL_IP']) && filter_var($_SERVER['HTTP_X_REAL_IP'], FILTER_VALIDATE_IP)) {
-				$ip2['xri'] = $_SERVER['HTTP_X_REAL_IP'];
 				$ipa[] = $_SERVER['HTTP_X_REAL_IP'];
 			}
 			if (isset($_SERVER['HTTP_CLIENT_IP']) && filter_var($_SERVER['HTTP_CLIENT_IP'], FILTER_VALIDATE_IP)) {
-				$ip2['cl'] = $_SERVER['HTTP_CLIENT_IP'];
 				$ipa[] = $_SERVER['HTTP_CLIENT_IP'];
 			}
 		}
 
 		// 最后使用 REMOTE_ADDR 作为候选 IP
 		if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP)) {
-			$ip2['add'] = $_SERVER['REMOTE_ADDR'];
 			$ipa[] = $_SERVER['REMOTE_ADDR'];
 		}
 
@@ -120,10 +120,11 @@ switch ($set['get_ip_from_header']) {
 		break;
 }
 
-if (!$ip) {$ip = $_SERVER['REMOTE_ADDR'];}
+if (!$ip) $ip = $_SERVER['REMOTE_ADDR'];
 
 $iplong = ip2long($ip);
 
+// 获取 User-Agent
 if (isset($_SERVER['HTTP_USER_AGENT'])) {
 	$ua = $_SERVER['HTTP_USER_AGENT'];
 	// 使用 uap-php 库解析 User-Agent

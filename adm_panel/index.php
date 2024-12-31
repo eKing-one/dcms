@@ -11,6 +11,7 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('adm_panel_show', null, '/index.php?' . SID);
 if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth'] > $time || isset($_SESSION['captcha']) && isset($_POST['chislo']) && $_SESSION['captcha'] == $_POST['chislo']) {
+	// 验证通过
 	$_SESSION['adm_auth'] = $time + setget("timeadmin", 1000);
 	if (isset($_GET['go']) && $_GET['go'] != null) {
 		header('Location: ' . base64_decode($_GET['go']));
@@ -75,7 +76,7 @@ if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth'] > $time || isset($_SES
 			include_once(H . 'sys/add/admin/' . $filebase);
 	@closedir($opdirbase);
 } else {
-	$set['title'] = '验证';
+	$set['title'] = '防止自动更改';
 	include_once '../sys/inc/thead.php';
 	title();
 	err();

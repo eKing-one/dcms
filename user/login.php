@@ -12,77 +12,95 @@ $show_all=true; // 给大家看
 $input_page=true;
 include_once '../sys/inc/user.php';
 only_unreg();
-if (isset($_GET['id']) && isset($_GET['pass']))
-{
-	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '".intval($_GET['id'])."' AND `pass` = '".shif($_GET['pass'])."' LIMIT 1"), 0)==1)
-	{
+
+// 检查用户是否成功登录
+if (isset($_GET['id']) && isset($_GET['pass'])) {
+	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '".intval($_GET['id'])."' AND `pass` = '".shif($_GET['pass'])."' LIMIT 1"), 0)==1) {
 		$user = user::get_user($_GET['id']);
 		$_SESSION['id_user'] = $user['id'];
 		dbquery("UPDATE `user` SET `date_aut` = ".time()." WHERE `id` = '$user[id]' LIMIT 1");
 		dbquery("UPDATE `user` SET `date_last` = ".time()." WHERE `id` = '$user[id]' LIMIT 1");
 		dbquery("INSERT INTO `user_log` (`id_user`, `time`, `ua`, `ip`, `method`) values('$user[id]', '$time', '$user[ua]' , '$user[ip]', '0')");
+	} else {
+		$_SESSION['err'] = '用户名或密码不正确';
 	}
-	else $_SESSION['err'] = '用户名或密码不正确';
-}
-elseif (isset($_POST['login']) && isset($_POST['pass']))
-{
-	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `login` = '".my_esc($_POST['login'])."' AND `pass` = '".shif($_POST['pass'])."' LIMIT 1"), 0))
-	{
+} elseif (isset($_POST['login']) && isset($_POST['pass'])) {	// 检查用户是否已经提交登录表单
+	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `login` = '".my_esc($_POST['login'])."' AND `pass` = '".shif($_POST['pass'])."' LIMIT 1"), 0)) {
 		$user = dbassoc(dbquery("SELECT `id` FROM `user` WHERE `login` = '".my_esc($_POST['login'])."' AND `pass` = '".shif($_POST['pass'])."' LIMIT 1"));
 		$_SESSION['id_user'] = $user['id'];
 		$user = user::get_user($user['id']);
 		// 在COOKIE中保存数据
-		if (isset($_POST['aut_save']) && $_POST['aut_save'])
-		{
+		if (isset($_POST['aut_save']) && $_POST['aut_save']) {
 			setcookie('id_user', $user['id'], time()+60*60*24*365);
 			setcookie('pass', cookie_encrypt($_POST['pass'],$user['id']), time()+60*60*24*365);
 		}
 		dbquery("UPDATE `user` SET `date_aut` = '$time', `date_last` = '$time' WHERE `id` = '$user[id]' LIMIT 1");
 		dbquery("INSERT INTO `user_log` (`id_user`, `time`, `ua`, `ip`, `method`) values('$user[id]', '$time', '$user[ua]' , '$user[ip]', '1')");
+	} else {
+		$_SESSION['err'] = '用户名或密码不正确';
 	}
-	else $_SESSION['err'] = '用户名或密码不正确';
-}
-elseif (isset($_COOKIE['id_user']) && isset($_COOKIE['pass']) && $_COOKIE['id_user'] && $_COOKIE['pass'])
-{
-	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = ".intval($_COOKIE['id_user'])." AND `pass` = '".shif(cookie_decrypt($_COOKIE['pass'],intval($_COOKIE['id_user'])))."' LIMIT 1"), 0)==1)
-	{
+} elseif (isset($_COOKIE['id_user']) && isset($_COOKIE['pass']) && $_COOKIE['id_user'] && $_COOKIE['pass']) {
+	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = ".intval($_COOKIE['id_user'])." AND `pass` = '".shif(cookie_decrypt($_COOKIE['pass'],intval($_COOKIE['id_user'])))."' LIMIT 1"), 0)==1) {
 		$user = user::get_user($_COOKIE['id_user']);
 		$_SESSION['id_user'] = $user['id'];
 		dbquery("UPDATE `user` SET `date_aut` = '$time', `date_last` = '$time' WHERE `id` = '$user[id]' LIMIT 1");
 		$user['type_input'] = 'cookie';
-	}
-	else
-	{
+	} else {
 		$_SESSION['err'] = 'COOKIE授权错误';
 		setcookie('id_user');
 		setcookie('pass');
 	}
+} else {
+	$_SESSION['err'] = '授权错误';
 }
-else $_SESSION['err'] = '授权错误';
-if (!isset($user))
-{
+
+// 检查用户是否已经登录
+if (!isset($user)) {
 	header('Location: /user/aut.php');
 	exit;
 }
-// Пишем ip пользователя
-if (isset($ip2['add']))dbquery("UPDATE `user` SET `ip` = ".ip2long($ip2['add'])." WHERE `id` = '$user[id]' LIMIT 1");
-else dbquery("UPDATE `user` SET `ip` = null WHERE `id` = '$user[id]' LIMIT 1");
-if (isset($ip2['cl']))dbquery("UPDATE `user` SET `ip_cl` = ".ip2long($ip2['cl'])." WHERE `id` = '$user[id]' LIMIT 1");
-else dbquery("UPDATE `user` SET `ip_cl` = null WHERE `id` = '$user[id]' LIMIT 1");
-if (isset($ip2['xff']))dbquery("UPDATE `user` SET `ip_xff` = ".ip2long($ip2['xff'])." WHERE `id` = '$user[id]' LIMIT 1");
-else dbquery("UPDATE `user` SET `ip_xff` = null WHERE `id` = '$user[id]' LIMIT 1");
-if ($ua)dbquery("UPDATE `user` SET `ua` = '".my_esc($ua)."' WHERE `id` = '$user[id]' LIMIT 1");
+
+// 记录用户的 ip
+if (isset($ip2['add'])) {
+	dbquery("UPDATE `user` SET `ip` = ".ip2long($ip2['add'])." WHERE `id` = '$user[id]' LIMIT 1");
+} else {
+	dbquery("UPDATE `user` SET `ip` = null WHERE `id` = '$user[id]' LIMIT 1");
+}
+if (isset($ip2['cl'])) {
+	dbquery("UPDATE `user` SET `ip_cl` = ".ip2long($ip2['cl'])." WHERE `id` = '$user[id]' LIMIT 1");
+} else {
+	dbquery("UPDATE `user` SET `ip_cl` = null WHERE `id` = '$user[id]' LIMIT 1");
+}
+if (isset($ip2['xff'])) {
+	dbquery("UPDATE `user` SET `ip_xff` = ".ip2long($ip2['xff'])." WHERE `id` = '$user[id]' LIMIT 1");
+} else {
+	dbquery("UPDATE `user` SET `ip_xff` = null WHERE `id` = '$user[id]' LIMIT 1");
+}
+if (isset($ip2['xfi'])) {
+	dbquery("UPDATE `user` SET `ip_xfi` = " . ip2long($ip2['xfi']) . " WHERE `id` = '$user[id]' LIMIT 1");
+} else {
+	dbquery("UPDATE `user` SET `ip_xfi` = null WHERE `id` = '$user[id]' LIMIT 1");
+}
+if (isset($ip2['cf'])) {
+	dbquery("UPDATE `user` SET `ip_cf` = " . ip2long($ip2['cf']) . " WHERE `id` = '$user[id]' LIMIT 1");
+} else {
+	dbquery("UPDATE `user` SET `ip_cf` = null WHERE `id` = '$user[id]' LIMIT 1");
+}
+
+// 记录用户的 ua
+if ($ua) dbquery("UPDATE `user` SET `ua` = '".my_esc($ua)."' WHERE `id` = '$user[id]' LIMIT 1");
+
 // Непонятная сессия
 dbquery("UPDATE `user` SET `sess` = '$sess' WHERE `id` = '$user[id]' LIMIT 1");
-// Тип браузера
+// 浏览器类型
 dbquery("UPDATE `user` SET `browser` = '" . ($webbrowser == true ? "wap" : "web") . "' WHERE `id` = '$user[id]' LIMIT 1");
-// Проверяем на схожие ники
+// 检查相似的昵称
 $collision_q = dbquery("SELECT * FROM `user` WHERE `ip` = '$iplong' AND `ua` = '".my_esc($ua)."' AND `date_last` > '".(time()-600)."' AND `id` <> '$user[id]'");
-while ($collision = dbassoc($collision_q))
-{
+while ($collision = dbassoc($collision_q)) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `user_collision` WHERE `id_user` = '$user[id]' AND `id_user2` = '$collision[id]' OR `id_user2` = '$user[id]' AND `id_user` = '$collision[id]'"), 0) == 0)
 	dbquery("INSERT INTO `user_collision` (`id_user`, `id_user2`, `type`) values('$user[id]', '$collision[id]', 'ip_ua_time')");
 }
+
 /*
 ========================================
 等级: 0

@@ -217,18 +217,19 @@ if (!isset($hard_process)) {
 }
 // 统计数据汇总
 
+// 每日访问记录
 if (!isset($hard_process)) {
 	$q = dbquery("SELECT * FROM `cron` WHERE `id` = 'visit' LIMIT 1");
 	if (dbrows($q) == 0) dbquery("INSERT INTO `cron` (`id`, `time`) VALUES ('visit', '$time')");
 	$visit = dbassoc($q);
 	if (!isset($visit['time']) || isset($visit['time']) && $visit['time'] < time() - 60 * 60 * 24) {
-		if (function_exists('set_time_limit')) @set_time_limit(600); // Ставим ограничение на 10 минут
-		$last_day = mktime(0, 0, 0, date('m'), date('d') - 1); // начало вчерашних суток
-		$today_time = mktime(0, 0, 0); // начало сегодняшних суток
+		if (function_exists('set_time_limit')) @set_time_limit(600); // 将限制设置为 10 分钟
+		$last_day = mktime(0, 0, 0, date('m'), date('d') - 1); // 昨天的开始
+		$today_time = mktime(0, 0, 0); // 今天的开始
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `visit_everyday` WHERE `time` = '$last_day'"), 0) == 0) {
 			$hard_process = true;
-			// записываем общие данные за вчерашние сутки в отдельную таблицу
-			dbquery("INSERT INTO `visit_everyday` (`host` , `host_ip_ua`, `hit`, `time`) VALUES ((SELECT COUNT(DISTINCT `ip`) FROM `visit_today` WHERE `time` < '$today_time'),(SELECT COUNT(DISTINCT `ip`, `ua`) FROM `visit_today` WHERE `time` < '$today_time'),(SELECT COUNT(*) FROM `visit_today` WHERE `time` < '$today_time'),'$last_day')");
+			// 在单独的表中记下昨天的一般数据
+			dbquery("INSERT INTO `visit_everyday` (`host` , `host_ip_ua`, `hit`, `time`) VALUES ((SELECT COUNT(DISTINCT `ip`) FROM `visit_today` WHERE `time` < '$today_time'),(SELECT COUNT(DISTINCT `ip`, `ua_hash`) FROM `visit_today` WHERE `time` < '$today_time'),(SELECT COUNT(*) FROM `visit_today` WHERE `time` < '$today_time'),'$last_day')");
 			dbquery('DELETE FROM `visit_today` WHERE `time` < ' . $today_time);
 		}
 	}
@@ -335,11 +336,11 @@ if (!isset($hard_process)) {
 	$everyday = dbassoc($q);
 	if (!isset($everyday['time']) || isset($everyday['time']) && $everyday['time'] < time() - 60 * 60 * 24) {
 		$hard_process = true;
-		if (function_exists('set_time_limit')) @set_time_limit(600); // Ставим ограничение на 10 минут
+		if (function_exists('set_time_limit')) @set_time_limit(600); // 将限制设置为 10 分钟
 		dbquery("UPDATE `cron` SET `time` = '" . time() . "' WHERE `id` = 'everyday'");
 		dbquery("DELETE FROM `guests` WHERE `date_last` < '" . (time() - 600) . "'");
-		dbquery("DELETE FROM `chat_post` WHERE `time` < '" . (time() - 60 * 60 * 24) . "'"); // удаление старых постов в чате
-		dbquery("DELETE FROM `user` WHERE `activation` != null AND `time_reg` < '" . (time() - 60 * 60 * 24) . "'"); // удаление неактивированных аккаунтов
+		dbquery("DELETE FROM `chat_post` WHERE `time` < '" . (time() - 60 * 60 * 24) . "'"); // 删除旧的聊天帖子
+		dbquery("DELETE FROM `user` WHERE `activation` != null AND `time_reg` < '" . (time() - 60 * 60 * 24) . "'"); // 删除未激活的账户
 
 		// 删除所有一个多月前标记为删除的联系人
 		$qd = dbquery("SELECT * FROM `users_konts` WHERE `type` = 'deleted' AND `time` < " . ($time - 60 * 60 * 24 * 30));
@@ -347,7 +348,7 @@ if (!isset($hard_process)) {
 			dbquery("DELETE FROM `users_konts` WHERE `id_user` = '$deleted[id_user]' AND `id_kont` = '$deleted[id_kont]'");
 
 			if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_kont` = '$deleted[id_user]' AND `id_user` = '$deleted[id_kont]'"), 0) == 0) {
-				// если юзер не находится в контакте у другого, то удаляем и все сообщения
+				// 如果用户未与其他人联系，则删除所有消息
 				dbquery("DELETE FROM `mail` WHERE `id_user` = '$deleted[id_user]' AND `id_kont` = '$deleted[id_kont]' OR `id_kont` = '$deleted[id_user]' AND `id_user` = '$deleted[id_kont]'");
 			}
 		}
@@ -439,7 +440,7 @@ while ($filebase = readdir($opdirbase)) {
 }
 
 // 参观记录
-dbquery("INSERT INTO `visit_today` (`ip` , `ua`, `time`) VALUES ('$iplong', '" . @my_esc($_SERVER['HTTP_USER_AGENT']) . "', '$time')");
+dbquery("INSERT INTO `visit_today` (`ip`, `ua`, `ua_hash`, `time`) VALUES ('$iplong', '" . @my_esc($_SERVER['HTTP_USER_AGENT']) . "', '" . md5($_SERVER['HTTP_USER_AGENT'], true) . "', '$time')");
 
 
 function ages($age) {
@@ -460,7 +461,7 @@ function t_toolbar_html() {
 
 	$status_version_data = getLatestStableRelease();
 	echo '<div class="mess">
-	  <b>Admin Tool</b> :: <a href="/">网站主页</a>  |<a href="/plugins/admin/">管理员</a> | <a href="/adm_panel/">控制面板</a> |<a target="_blank" href="https://dcms-social.ru">DCMS-Social.ru</a>
+	  <b>Admin Tool</b> :: <a href="/">网站首页</a> | <a href="/plugins/admin/">管理员</a> | <a href="/adm_panel/">控制面板</a>
 	   v' . $set['dcms_version'];
 	if (version_compare($set['dcms_version'], $status_version_data['version']) < 0) {
 		echo '<center><font color="red">有一个新版本 - ' . $status_version_data['version'] . '! <a href="/adm_panel/update.php">详细</a></font></center>';
