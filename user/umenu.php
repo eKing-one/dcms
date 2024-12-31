@@ -8,11 +8,16 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
+if (isset($user)) $ank['id'] = $user['id'];
 only_reg();
 $set['title'] = '个人中心';
 include_once '../sys/inc/thead.php';
 title();
 aut();
+	echo "<div class='main'>";
+	echo user::avatar($ank['id']);
+	echo "</div>";
+
 if (isset($_GET['login']) && isset($_GET['pass']))
 {
 	echo '<div class="mess">';
@@ -21,7 +26,6 @@ if (isset($_GET['login']) && isset($_GET['pass']))
 	echo '</div>';	
 }
 ?>
-
 <div class="main" id="umenu">
 <img src='/style/my_menu/ank.png' alt='' /> <a href='/user/info.php'>我的页面</a><br />
 </div>
