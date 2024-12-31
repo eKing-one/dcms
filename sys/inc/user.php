@@ -99,13 +99,34 @@ if (isset($user)) {
 		else dbquery("UPDATE `user` SET `set_them` = '$set[set_them]' WHERE `id` = '$user[id]' LIMIT 1");
 	}
 
-	// 写入用户的 ip
-	if (isset($ip2['add'])) dbquery("UPDATE `user` SET `ip` = " . ip2long($ip2['add']) . " WHERE `id` = '$user[id]' LIMIT 1");
-	else dbquery("UPDATE `user` SET `ip` = null WHERE `id` = '$user[id]' LIMIT 1");
-	if (isset($ip2['cl'])) dbquery("UPDATE `user` SET `ip_cl` = " . ip2long($ip2['cl']) . " WHERE `id` = '$user[id]' LIMIT 1");
-	else dbquery("UPDATE `user` SET `ip_cl` = null WHERE `id` = '$user[id]' LIMIT 1");
-	if (isset($ip2['xff'])) dbquery("UPDATE `user` SET `ip_xff` = " . ip2long($ip2['xff']) . " WHERE `id` = '$user[id]' LIMIT 1");
-	else dbquery("UPDATE `user` SET `ip_xff` = null WHERE `id` = '$user[id]' LIMIT 1");
+	// 记录用户的 ip
+	if (isset($ip2['add'])) {
+		dbquery("UPDATE `user` SET `ip` = " . ip2long($ip2['add']) . " WHERE `id` = '$user[id]' LIMIT 1");
+	} else {
+		dbquery("UPDATE `user` SET `ip` = null WHERE `id` = '$user[id]' LIMIT 1");
+	}
+	if (isset($ip2['cl'])) {
+		dbquery("UPDATE `user` SET `ip_cl` = " . ip2long($ip2['cl']) . " WHERE `id` = '$user[id]' LIMIT 1");
+	} else {
+		dbquery("UPDATE `user` SET `ip_cl` = null WHERE `id` = '$user[id]' LIMIT 1");
+	}
+	if (isset($ip2['xff'])) {
+		dbquery("UPDATE `user` SET `ip_xff` = " . ip2long($ip2['xff']) . " WHERE `id` = '$user[id]' LIMIT 1");
+	} else {
+		dbquery("UPDATE `user` SET `ip_xff` = null WHERE `id` = '$user[id]' LIMIT 1");
+	}
+	if (isset($ip2['xfi'])) {
+		dbquery("UPDATE `user` SET `ip_xfi` = " . ip2long($ip2['xfi']) . " WHERE `id` = '$user[id]' LIMIT 1");
+	} else {
+		dbquery("UPDATE `user` SET `ip_xfi` = null WHERE `id` = '$user[id]' LIMIT 1");
+	}
+	if (isset($ip2['cf'])) {
+		dbquery("UPDATE `user` SET `ip_cf` = " . ip2long($ip2['cf']) . " WHERE `id` = '$user[id]' LIMIT 1");
+	} else {
+		dbquery("UPDATE `user` SET `ip_cf` = null WHERE `id` = '$user[id]' LIMIT 1");
+	}
+
+	// 记录用户的 ua
 	if ($ua) dbquery("UPDATE `user` SET `ua` = '" . my_esc($ua) . "' WHERE `id` = '$user[id]' LIMIT 1");
 
 	// 难以理解的会话
