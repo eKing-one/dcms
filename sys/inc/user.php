@@ -143,17 +143,20 @@ if (isset($user)) {
 	// 响应时链接
 	define("REPLY", $go_link);
 } else {
-	// 嘉宾主题
+	// 未登录用户主题
 	if ($webbrowser)
 		$set['set_them'] = $set['set_them2'];
 
-	// 嘉宾:
+	// 记录未登录用户
 	if ($ip && $ua) {
-		if (dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `ip` = '$iplong' AND `ua` = '" . my_esc($ua) . "' LIMIT 1"), 0) == 1) {
-			$guests = dbassoc(dbquery("SELECT * FROM `guests` WHERE `ip` = '$iplong' AND `ua` = '" . my_esc($ua) . "' LIMIT 1"));
-			dbquery("UPDATE `guests` SET `date_last` = " . time() . ", `url` = '" . my_esc($_SERVER['SCRIPT_NAME']) . "', `pereh` = '" . ($guests['pereh'] + 1) . "' WHERE `ip` = '$iplong' AND `ua` = '" . my_esc($ua) . "' LIMIT 1");
+		// 查询数据库中是否有相同的 ip 和 ua
+		if (dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `ip` = '$iplong' AND `ua_hash` = '" . md5($ua, true) . "' LIMIT 1"), 0) == 1) {
+			// 更新访客记录
+			$guests = dbassoc(dbquery("SELECT * FROM `guests` WHERE `ip` = '$iplong' AND `ua_hash` = '" . md5($ua, true) . "' LIMIT 1"));
+			dbquery("UPDATE `guests` SET `date_last` = " . time() . ", `url` = '" . my_esc($_SERVER['SCRIPT_NAME']) . "', `pereh` = '" . ($guests['pereh'] + 1) . "' WHERE `ip` = '$iplong' AND `ua_hash` = '" . md5($ua, true) . "' LIMIT 1");
 		} else {
-			dbquery("INSERT INTO `guests` (`ip`, `ua`, `date_aut`, `date_last`, `url`) VALUES ('$iplong', '" . my_esc($ua) . "', '" . time() . "', '" . time() . "', '" . my_esc($_SERVER['SCRIPT_NAME']) . "')");
+			// 添加新的访客记录
+			dbquery("INSERT INTO `guests` (`ip`, `ua`, `ua_hash` , `date_aut`, `date_last`, `url`) VALUES ('$iplong', '" . my_esc($ua) . "' , '" . md5($ua, true) . "', '" . time() . "', '" . time() . "', '" . my_esc($_SERVER['SCRIPT_NAME']) . "')");
 		}
 	}
 	unset($access);
