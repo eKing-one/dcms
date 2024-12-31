@@ -88,5 +88,7 @@ if ($set['daily_news'] === 1) {
     $err = '管理员已关闭每日新闻功能';
     err();
 }
-
+echo '<div class="foot">';
+echo '<img src="/style/icons/str2.gif" alt="*"> <a href="index.php">新闻中心</a><br />';
+echo '</div>';
 include_once '../sys/inc/tfoot.php';
