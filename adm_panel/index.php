@@ -31,7 +31,7 @@ if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth'] > $time || isset($_SES
 	if (version_compare($set['dcms_version'], $status_version_data['version']) >= 0) {
 		echo "<center> <font color='green'>最新版本</font>		</center>	";
 	} else {
-		echo "<center> <font color='red'>有个新版本 - " . $status_version_data['version'] . "! <a href='/adm_panel/update.php'>更详细</a></font> </center>	";
+		echo "<center> <font color='red'>有个新版本 - " . $status_version_data['version'] . "! <a href='/adm_panel/update.php'>详细信息</a></font> </center>	";
 	}
 	echo "</div>";
 
@@ -39,32 +39,32 @@ if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth'] > $time || isset($_SES
 
 	if (user_access('adm_info')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='info.php'>总体信息</a></div>\n";
 	if (user_access('adm_statistic')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='statistic.php'>网站统计</a></div>\n";
-	if (user_access('adm_show_adm')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='administration.php'>管理人员</a></div>\n";
-	if (user_access('adm_log_read')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='adm_log.php'>管理操作日志</a></div>\n";
+	if (user_access('adm_show_adm')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='administration.php'>管理员列表</a></div>\n";
+	if (user_access('adm_log_read')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='adm_log.php'>查看管理日志</a></div>\n";
 	
-	if (user_access('adm_menu')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='menu.php'>主菜单</a></div>\n";
-	if (user_access('adm_rekl')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='rekl.php'>广告</a></div>\n";
-	if (user_access('adm_news')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='news.php'>新闻</a></div>\n";
+	if (user_access('adm_menu')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='menu.php'>主页设置</a></div>\n";
+	if (user_access('adm_rekl')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='rekl.php'>广告设置</a></div>\n";
+	if (user_access('adm_news')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='/news/add.php'>创建新闻</a></div>\n";
 	
 	if (user_access('adm_set_sys')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_sys.php'>系统设置</a></div>\n";
 	if (user_access('adm_set_sys')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_cdn.php'>CDN设置</a></div>\n";
 	if (user_access('adm_set_sys')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='rights.php'>文件夹权限</a></div>\n";
 	if (user_access('adm_set_sys')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_bbcode.php'>BBcode设置</a></div>\n";
-	if ($user['level'] > 3) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='/user/gift/create.php'>礼物</a></div>\n";
-	if ($user['level'] > 3) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='smiles.php'>表情符号</a></div>\n";
+	if ($user['level'] > 3) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='/user/gift/create.php'>礼物设置</a></div>\n";
+	if ($user['level'] > 3) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='smiles.php'>表情包设置</a></div>\n";
 	if (user_access('adm_set_forum')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_forum.php'>论坛设置</a></div>\n";
 	
 	if (user_access('adm_set_user')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_user.php'>用户设置</a></div>\n";
-	if (user_access('adm_accesses')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='accesses.php'>用户组权限</a></div>\n";
+	if (user_access('adm_accesses')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='accesses.php'>用户权限设置</a></div>\n";
 	if (user_access('adm_banlist')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='banlist.php'>封禁列表</a></div>\n";
 	if (user_access('adm_set_loads')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_loads.php'>下载设置</a></div>\n";
 	if (user_access('adm_set_chat')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_chat.php'>聊天室设置</a></div>\n";
 	
-	if (user_access('adm_set_foto')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_foto.php'>相册设置</a></div>\n";
+	if (user_access('adm_set_photo')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_photo.php'>图片上传大小设置</a></div>\n";
 	
 	if (user_access('adm_forum_sinc')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='forum_sinc.php'>论坛表格同步</a></div>\n";
-	if (user_access('adm_ref')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='referals.php'>推荐</a></div>\n";
-	if (user_access('adm_ip_edit')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='opsos.php'>编辑IP操作者</a></div>\n";
+	if (user_access('adm_ref')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='referals.php'>引荐网址</a></div>\n";
+	if (user_access('adm_ip_edit')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='opsos.php'>编辑运营商</a></div>\n";
 	if (user_access('adm_ban_ip')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='ban_ip.php'>IP地址封禁（范围）</a></div>\n";
 	
 	if (user_access('adm_mysql')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='mysql.php'>MySQL查询</a></div>\n";
@@ -75,8 +75,7 @@ if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth'] > $time || isset($_SES
 		if (preg_match('#\.php$#i', $filebase))
 			include_once(H . 'sys/add/admin/' . $filebase);
 	@closedir($opdirbase);
-
-} else {	// 要求输入验证码以防止自动更改
+} else {
 	$set['title'] = '防止自动更改';
 	include_once '../sys/inc/thead.php';
 	title();
