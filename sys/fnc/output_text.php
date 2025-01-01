@@ -1,4 +1,4 @@
-<?
+<?php
 // 该函数在输出到浏览器之前处理文本字符串
 // 强烈不建议在这里修改任何东西
 function output_text($str, $br = 1, $html = 1, $smiles = 1, $links = 1, $bbcode = 1)
