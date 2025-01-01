@@ -67,6 +67,7 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 
 - [IPLib](https://github.com/mlocati/ip-lib)
 - [ua-parser](https://github.com/ua-parser/uap-php)
+- [MobileDetect](https://mobiledetect.net)
 
 ## 待办事项
 
