@@ -11,9 +11,18 @@ class ComposerStaticInit1d5c899fd1cfa4469bbd76b2735efb15
         array (
             'UAParser\\' => 9,
         ),
+        'P' => 
+        array (
+            'Psr\\SimpleCache\\' => 16,
+            'Psr\\Cache\\' => 10,
+        ),
         'I' => 
         array (
             'IPLib\\' => 6,
+        ),
+        'D' => 
+        array (
+            'Detection\\' => 10,
         ),
         'C' => 
         array (
@@ -26,9 +35,21 @@ class ComposerStaticInit1d5c899fd1cfa4469bbd76b2735efb15
         array (
             0 => __DIR__ . '/..' . '/ua-parser/uap-php/src',
         ),
+        'Psr\\SimpleCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
+        ),
+        'Psr\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/cache/src',
+        ),
         'IPLib\\' => 
         array (
             0 => __DIR__ . '/..' . '/mlocati/ip-lib/src',
+        ),
+        'Detection\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/src',
         ),
         'Composer\\CaBundle\\' => 
         array (

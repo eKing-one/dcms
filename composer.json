@@ -1,6 +1,7 @@
 {
     "require": {
         "ua-parser/uap-php": "^3.9",
-        "mlocati/ip-lib": "^1.18"
+        "mlocati/ip-lib": "^1.18",
+        "mobiledetect/mobiledetectlib": "^4.8"
     }
 }

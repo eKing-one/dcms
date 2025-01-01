@@ -25,7 +25,7 @@ if ($set['show_err_php']) {
 }
 
 // 解析 User-Agent 检查设备类型是否为 PC
-if (!empty($_SERVER["HTTP_USER_AGENT"]) && in_array(UAParser\Parser::create()->parse($_SERVER["HTTP_USER_AGENT"])->os->family, ['Desktop', 'Macintosh', 'Linux', 'Windows'])) {
+if (!empty($_SERVER["HTTP_USER_AGENT"]) && !(new Detection\MobileDetect())->isMobile()) {
 	$webbrowser = true;
 } else {
 	$webbrowser = false;
