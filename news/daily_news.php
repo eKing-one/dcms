@@ -12,7 +12,7 @@ $set['title'] = '每日新闻';
 include_once '../sys/inc/thead.php';
 title();
 
-if ($set['daily_news'] === 1) {
+if ($set['daily_news'] == '1') {
     // 请求API获取数据
     $url = "https://60s.viki.moe/60s?v2=1";
     $response = file_get_contents($url);
