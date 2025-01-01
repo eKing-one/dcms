@@ -70,11 +70,25 @@ if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth'] > $time || isset($_SES
 	if (user_access('adm_mysql')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='mysql.php'>MySQL查询</a></div>\n";
 	if (user_access('adm_mysql')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='tables.php'>上传表格</a></div>\n";
 	if (user_access('adm_themes')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='themes.php'>主题样式</a></div>\n";
-	$opdirbase = @opendir(H . 'sys/add/admin');
-	while ($filebase = @readdir($opdirbase))
-		if (preg_match('#\.php$#i', $filebase))
-			include_once(H . 'sys/add/admin/' . $filebase);
-	@closedir($opdirbase);
+
+	// 加载插件的设置项
+	$directory = H . 'sys/add/admin';
+	if (is_dir($directory)) {
+		$opdirbase = opendir($directory);
+		if ($opdirbase) {
+			while (($filebase = readdir($opdirbase)) !== false) {
+				// 确保是 .php 文件，且避免加载非文件类型
+				if (is_file($directory . '/' . $filebase) && preg_match('#\.php$#i', $filebase)) {
+					include_once($directory . '/' . $filebase);
+				}
+			}
+			closedir($opdirbase);
+		} else {
+			error_log("Failed to open directory: $directory");
+		}
+	} else {
+		error_log("Directory does not exist: $directory");
+	}
 } else {
 	$set['title'] = '防止自动更改';
 	include_once '../sys/inc/thead.php';
