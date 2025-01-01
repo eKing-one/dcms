@@ -29,9 +29,9 @@ if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth'] > $time || isset($_SES
 	echo "<center><span style='font-size:14px;'> 官方支持网站 <a href='https://dcms-social.ru'>https://dcms-social.ru</a></span></center>";
 	echo "";
 	if (version_compare($set['dcms_version'], $status_version_data['version']) >= 0) {
-		echo "<center> <font color='green'>最新版本</font>		</center>	";
+		echo "<center><font color='green'>最新版本</font></center>	";
 	} else {
-		echo "<center> <font color='red'>有个新版本 - " . $status_version_data['version'] . "! <a href='/adm_panel/update.php'>详细信息</a></font> </center>	";
+		echo "<center><font color='red'>有个新版本 - " . $status_version_data['version'] . "! <a href='/adm_panel/update.php'>详细信息</a></font></center>	";
 	}
 	echo "</div>";
 
@@ -44,7 +44,7 @@ if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth'] > $time || isset($_SES
 	
 	if (user_access('adm_menu')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='menu.php'>主页设置</a></div>\n";
 	if (user_access('adm_rekl')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='rekl.php'>广告设置</a></div>\n";
-	if (user_access('adm_news')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='/news/add.php'>创建新闻</a></div>\n";
+	if (user_access('adm_news')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='news.php'>新闻设置</a></div>\n";
 	
 	if (user_access('adm_set_sys')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_sys.php'>系统设置</a></div>\n";
 	if (user_access('adm_set_sys')) echo "<div class='main'><img src='/style/icons/str.gif' alt=''/> <a href='settings_cdn.php'>CDN设置</a></div>\n";
