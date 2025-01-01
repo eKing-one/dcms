@@ -7,6 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'UAParser\\' => array($vendorDir . '/ua-parser/uap-php/src'),
+    'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
+    'Psr\\Cache\\' => array($vendorDir . '/psr/cache/src'),
     'IPLib\\' => array($vendorDir . '/mlocati/ip-lib/src'),
+    'Detection\\' => array($vendorDir . '/mobiledetect/mobiledetectlib/src'),
     'Composer\\CaBundle\\' => array($vendorDir . '/composer/ca-bundle/src'),
 );
