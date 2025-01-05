@@ -17,8 +17,8 @@ aut();
  * 获取数据并缓存
  */
 function getCachedData() {
-	// 缓存有效时间，单位：秒（1小时）
-	$cacheValidity = 3600;
+	$cacheValidity = 3600; // 缓存有效时间：1小时
+	$url = "https://60s.viki.moe/60s?v2=1";
 
 	// 查询缓存数据
 	$result = dbquery("SELECT data, time FROM daily_news_cache LIMIT 1");
@@ -26,7 +26,7 @@ function getCachedData() {
 	if (!empty($result)) {
 		// 数据库返回的结果
 		$cachedData = $result[0];
-		$cachedTime = $cachedData['time'];
+		$cachedTime = strtotime($cachedData['time']);
 
 		// 检查缓存是否有效
 		if (time() - $cachedTime < $cacheValidity) {
@@ -35,22 +35,48 @@ function getCachedData() {
 		}
 	}
 
-	// 如果缓存不存在或已过期，则请求 API 并更新缓存
-	$url = "https://60s.viki.moe/60s?v2=1";
-	$response = file_get_contents($url);
+	// 缓存无效或不存在，调用API
+	try {
+		$response = fetchFromAPI($url);
 
-	if ($response === false) {
-		// 如果 API 请求失败，返回错误信息
-		throw new Exception("Failed to fetch data from API.");
+		if (empty($response)) {
+			throw new Exception("Invalid API response.");
+		}
+
+		// 更新缓存
+		dbquery("REPLACE INTO daily_news_cache (id, data, time) VALUES (1, :data, CURRENT_TIMESTAMP)", [
+			':data' => $response
+		]);
+
+		return $response;
+	} catch (Exception $e) {
+		error_log($e->getMessage()); // 记录错误日志
+
+		// 如果API请求失败，返回过期缓存
+		if (!empty($cachedData)) {
+			return $cachedData['data'];
+		}
+
+		throw new Exception("Failed to fetch data and no valid cache available.");
+	}
+}
+
+/**
+ * 通过cURL请求API
+ */
+function fetchFromAPI($url) {
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_TIMEOUT, 10); // 设置超时时间
+	$response = curl_exec($ch);
+
+	if (curl_errno($ch)) {
+		throw new Exception('cURL Error: ' . curl_error($ch));
 	}
 
-	// 将新数据存入缓存（覆盖旧数据）
-	$escapedData = addslashes($response); // 防止数据中的特殊字符导致 SQL 问题
-	$currentTime = time();
-	dbquery("DELETE FROM daily_news_cache"); // 清除旧缓存
-	dbquery("INSERT INTO daily_news_cache (data) VALUES ($escapedData)");
+	curl_close($ch);
 
-	// 返回最新数据
 	return $response;
 }
 
