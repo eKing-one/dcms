@@ -44,9 +44,7 @@ function getCachedData() {
 		}
 
 		// 更新缓存
-		dbquery("REPLACE INTO daily_news_cache (id, data, time) VALUES (1, :data, CURRENT_TIMESTAMP)", [
-			':data' => $response
-		]);
+		dbquery("REPLACE INTO daily_news_cache (id, data, time) VALUES (1, '$response', CURRENT_TIMESTAMP)");
 
 		return $response;
 	} catch (Exception $e) {
@@ -142,16 +140,16 @@ if ($set['daily_news'] == '1') {
 		}
 	</style>
 	<div class="container">
-		<?php if ($cover && filter_var($cover, FILTER_VALIDATE_URL)): ?><img src="<?= htmlspecialchars($cover) ?>" alt="封面图片" class="cover"><?php endif; ?>
+		<?php if (filter_var($cover, FILTER_VALIDATE_URL)): ?><img src="<?= htmlspecialchars($cover) ?>" alt="封面图片" class="cover"><?php endif; ?>
 		<h2>今日新闻</h2>
-		<?php if ($updateTime): ?><p>更新时间：<?= htmlspecialchars($updateTime) ?></p><?php endif; ?>
-		<?php if (is_array($data['data']['news'])): foreach ($data['data']['news'] as $news): ?>
+		<p>更新时间：<?= htmlspecialchars($updateTime) ?>
+		<?php foreach ($data['data']['news'] as $news): ?>
 			<div class="news-item"><?= htmlspecialchars($news) ?></div>
-		<?php endforeach; endif; ?>
-		<?php if ($data['data']['tip']): ?><div class="tip">微语：<?= htmlspecialchars($data['data']['tip']) ?></div><?php endif; ?>
+		<?php endforeach; ?>
+		<div class="tip">微语：<?= htmlspecialchars($data['data']['tip']) ?></div>
 	</div>
 	<div class="footer">
-		<div class="sourceUrl">来源：<?php if ($data['data']['url']): ?><a href="<?= htmlspecialchars($data['data']['url']) ?>" target="_blank">知乎文章</a></div><?php endif; ?>
+		<div class="sourceUrl">来源：<?php if (filter_var($data['data']['url'], FILTER_VALIDATE_URL)): ?><a href="<?= htmlspecialchars($data['data']['url']) ?>" target="_blank">知乎文章</a></div><?php endif; ?>
 		数据来源于公共API | <a href="https://github.com/vikiboss/60s" target="_blank">开源地址</a>
 	</div>
 <?php
