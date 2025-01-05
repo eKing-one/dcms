@@ -439,7 +439,7 @@ while ($filebase = readdir($opdirbase)) {
 }
 
 // 参观记录
-dbquery("INSERT INTO `visit_today` (`ip`, `ua`, `ua_hash`, `time`) VALUES ('$iplong', '" . @my_esc($_SERVER['HTTP_USER_AGENT']) . "', '" . md5($_SERVER['HTTP_USER_AGENT'], true) . "', '$time')");
+dbquery("INSERT INTO `visit_today` (`ip`, `ua`, `ua_hash`, `time`) VALUES ('$iplong', '" . my_esc($_SERVER['HTTP_USER_AGENT']) . "', '" . md5($_SERVER['HTTP_USER_AGENT']) . "', '$time')");
 
 
 function ages($age) {
