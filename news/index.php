@@ -24,7 +24,7 @@ $q = dbquery("SELECT * FROM `news` ORDER BY `id` DESC LIMIT $start, $set[p_str]"
 
 echo '<table class="post">';
 
-if ($set['daily_news'] == 1) {
+if ($set['daily_news'] == '1') {
 	echo '<div class="mess">';
 	echo '<a href="daily_news.php">每日新闻</a>';
 	echo '</div>';
