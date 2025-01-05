@@ -16,20 +16,20 @@ aut();
 /**
  * 获取数据并缓存
  */
-function getCachedData() {
+function getCachedData($forceRefresh = false) {
 	$cacheValidity = 3600; // 缓存有效时间：1小时
 	$url = "https://60s.viki.moe/60s?v2=1";
 
 	// 查询缓存数据
 	$result = dbquery("SELECT data, time FROM daily_news_cache LIMIT 1");
 
-	if (!empty($result)) {
-		// 数据库返回的结果
-		$cachedData = $result[0];
+	// 使用封装好的函数处理查询结果
+	if ($row = dbassoc($result)) { // dbassoc 返回关联数组
+		$cachedData = $row;
 		$cachedTime = strtotime($cachedData['time']);
 
 		// 检查缓存是否有效
-		if (time() - $cachedTime < $cacheValidity) {
+		if (!$forceRefresh && time() - $cachedTime < $cacheValidity) {
 			// 缓存有效，直接返回缓存的原始数据
 			return $cachedData['data'];
 		}
@@ -44,9 +44,7 @@ function getCachedData() {
 		}
 
 		// 更新缓存
-		dbquery("REPLACE INTO daily_news_cache (id, data, time) VALUES (1, :data, CURRENT_TIMESTAMP)", [
-			':data' => $response
-		]);
+		dbquery("REPLACE INTO daily_news_cache (id, data, time) VALUES (1, '$response', CURRENT_TIMESTAMP)");
 
 		return $response;
 	} catch (Exception $e) {
@@ -81,24 +79,35 @@ function fetchFromAPI($url) {
 }
 
 if ($set['daily_news'] == '1') {
+	$forceRefresh = false;
+	if (user_access('adm_news') && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['force_refresh'])) {
+		// 强制刷新数据
+		$forceRefresh = true;
+	}
+
 	try {
 		// 请求API获取数据
-		$data = json_decode(getCachedData(), true);
+		$data = json_decode(getCachedData($forceRefresh), true);
 
 		// 确认数据正常加载
 		if ($data['status'] !== 200) {
 			$err = '无法加载新闻数据，请稍后重试！';
 		}
 
-		$newsList = $data['data']['news'];
-		$tip = $data['data']['tip'];
-		$cover = $data['data']['cover'];
-		$updateTime = date("Y-m-d H:i:s", $data['data']['updated'] / 1000);
 	} catch (Exception $e) {
 		$err = $e->getMessage();
 	}
 
+	$newsList = $data['data']['news'];
+	$tip = $data['data']['tip'];
+	$cover = $data['data']['cover'];
+	$updateTime = date("Y-m-d H:i:s", $data['data']['updated'] / 1000);
+
 	err();
+
+	if ($forceRefresh) {
+		msg('数据已刷新');
+	}
 
 	?>
 
@@ -140,18 +149,23 @@ if ($set['daily_news'] == '1') {
 			width: 100%;
 			border-radius: 8px;
 		}
+		.refresh-form {
+			text-align: center;
+			margin: 20px 0;
+		}
 	</style>
 	<div class="container">
-		<?php if ($cover && filter_var($cover, FILTER_VALIDATE_URL)): ?><img src="<?= htmlspecialchars($cover) ?>" alt="封面图片" class="cover"><?php endif; ?>
+		<?php if (filter_var($cover, FILTER_VALIDATE_URL)): ?><img src="<?= htmlspecialchars($cover) ?>" alt="封面图片" class="cover"><?php endif; ?>
 		<h2>今日新闻</h2>
-		<?php if ($updateTime): ?><p>更新时间：<?= htmlspecialchars($updateTime) ?></p><?php endif; ?>
-		<?php if (is_array($data['data']['news'])): foreach ($data['data']['news'] as $news): ?>
+		<p>更新时间：<?= htmlspecialchars($updateTime) ?>
+		<?php foreach ($data['data']['news'] as $news): ?>
 			<div class="news-item"><?= htmlspecialchars($news) ?></div>
-		<?php endforeach; endif; ?>
-		<?php if ($data['data']['tip']): ?><div class="tip">微语：<?= htmlspecialchars($data['data']['tip']) ?></div><?php endif; ?>
+		<?php endforeach; ?>
+		<div class="tip">微语：<?= htmlspecialchars($data['data']['tip']) ?></div>
 	</div>
+	<?php if (user_access('adm_news')): ?><div class="refresh-form"><form method="POST"><button type="submit" name="force_refresh">强制刷新</button></form></div><?php endif; ?>
 	<div class="footer">
-		<div class="sourceUrl">来源：<?php if ($data['data']['url']): ?><a href="<?= htmlspecialchars($data['data']['url']) ?>" target="_blank">知乎文章</a></div><?php endif; ?>
+		<div class="sourceUrl">来源：<?php if (filter_var($data['data']['url'], FILTER_VALIDATE_URL)): ?><a href="<?= htmlspecialchars($data['data']['url']) ?>" target="_blank">知乎文章</a></div><?php endif; ?>
 		数据来源于公共API | <a href="https://github.com/vikiboss/60s" target="_blank">开源地址</a>
 	</div>
 <?php
