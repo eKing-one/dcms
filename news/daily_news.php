@@ -23,9 +23,9 @@ function getCachedData() {
 	// 查询缓存数据
 	$result = dbquery("SELECT data, time FROM daily_news_cache LIMIT 1");
 
-	if (!empty($result)) {
-		// 数据库返回的结果
-		$cachedData = $result[0];
+	// 使用封装好的函数处理查询结果
+	if ($row = dbassoc($result)) { // dbassoc 返回关联数组
+		$cachedData = $row;
 		$cachedTime = strtotime($cachedData['time']);
 
 		// 检查缓存是否有效
