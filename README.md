@@ -95,3 +95,4 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - [x] 将数据表`guests`的联合索引从`ua`改成`ua_hash`
 - [x] 每日新闻缓存机制
 - [ ] 部分类型的文件无法上传
+- [ ] 改进用户IP信息记录
