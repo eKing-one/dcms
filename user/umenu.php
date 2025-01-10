@@ -9,11 +9,18 @@ include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
 if (isset($user)) $ank['id'] = $user['id'];
+if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
+$ank = user::get_user($ank['id']);
 only_reg();
 $set['title'] = '个人中心';
 include_once '../sys/inc/thead.php';
 title();
 aut();
+
+	echo '<div class="mess">';
+	echo '欢迎!' . $ank['nick'];
+	echo '</div>';
+
 	echo "<div class='main'>";
 	echo user::avatar($ank['id']);
 	echo "</div>";
@@ -32,9 +39,6 @@ if (isset($_GET['nick']) && isset($_GET['pass'])) {
 </div>
 <div class="main" id="umenu">
 <img src='/style/my_menu/ank.png' alt='' /> <a href='/user/info/anketa.php'>个人资料</a> [<a href='user/info/edit.php'>编辑.</a>]<br />
-</div>
-<div class="main" id="umenu">
-<img src='/style/my_menu/avatar.png' alt='' /> <a href='/user/avatar.php'>设置头像</a><br />
 </div>
 <div class="main" id="umenu">
 <img src="/style/my_menu/secure.png" alt="" /> <a href="/user/secure.php">更改密码</a><br />
