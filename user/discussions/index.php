@@ -1,5 +1,4 @@
 <?
-
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -58,15 +57,17 @@ if (isset($_GET['likestatus'])) {
 	}
 }
 
-if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions`  WHERE `id_user` = '$user[id]' AND `count` > '0' AND `avtor` = '$user[id]'"), 0) > 0)
+if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions`  WHERE `id_user` = '$user[id]' AND `count` > '0' AND `avtor` = '$user[id]'"), 0) > 0) {
 	$count_my = " <img src='/style/icons/tochka.png' alt='*'/>";
-else
+} else {
 	$count_my = null;
+}
 
-if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions`  WHERE `id_user` = '$user[id]' AND `count` > '0' AND `avtor` <> '$user[id]'"), 0) > 0)
+if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions`  WHERE `id_user` = '$user[id]' AND `count` > '0' AND `avtor` <> '$user[id]'"), 0) > 0) {
 	$count_f = " <img src='/style/icons/tochka.png' alt='*'/>";
-else
+} else {
 	$count_f = null;
+}
 
 $set['title'] = '讨论';
 include_once '../../sys/inc/thead.php';
@@ -92,21 +93,29 @@ if (isset($_GET['order']) && $_GET['order'] == 'my') {
 // Уведомления
 $k_notif = dbresult(dbquery("SELECT COUNT(`read`) FROM `notification` WHERE `id_user` = '$user[id]' AND `read` = '0'"), 0);
 
-if ($k_notif > 0) $k_notif = '<font color=red>(' . $k_notif . ')</font>';
-else $k_notif = null;
+if ($k_notif > 0) {
+	$k_notif = '<font color=red>(' . $k_notif . ')</font>';
+} else {
+	$k_notif = null;
+}
 
 // Обсуждения
 $discuss = dbresult(dbquery("SELECT COUNT(`count`) FROM `discussions` WHERE `id_user` = '$user[id]' AND `count` > '0' "), 0);
 
-if ($discuss > 0) $discuss = '<font color=red>(' . $discuss . ')</font>';
-else $discuss = null;
+if ($discuss > 0) {
+	$discuss = '<font color=red>(' . $discuss . ')</font>';
+} else {
+	$discuss = null;
+}
 
 // Лента
 $lenta = dbresult(dbquery("SELECT COUNT(`read`) FROM `tape` WHERE `id_user` = '$user[id]' AND `read` = '0' "), 0);
 
-if ($lenta > 0) $lenta = '<font color=red>(' . $lenta . ')</font>';
-else $lenta = null;
-
+if ($lenta > 0) {
+	$lenta = '<font color=red>(' . $lenta . ')</font>';
+} else {
+	$lenta = null;
+}
 ?>
 
 <div id="comments" class="menus">
@@ -138,13 +147,11 @@ $start = $set['p_str'] * $page - $set['p_str'];
 
 $q = dbquery("SELECT * FROM `discussions` WHERE `id_user` = '$user[id]' $order ORDER BY `time` DESC LIMIT $start, $set[p_str]");
 
-if ($k_post == 0) {
-?>
+if ($k_post == 0) :?>
 	<div class="mess">
 		没有新的讨论
 	</div>
-<?
-}
+<?endif;
 
 while ($post = dbassoc($q)) {
 	$type = $post['type'];
@@ -177,4 +184,3 @@ if ($k_page > 1) str('?' . $sort, $k_page, $page);
 </div>
 <?
 include_once '../../sys/inc/tfoot.php';
-?>
