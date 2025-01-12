@@ -9,20 +9,15 @@ include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
 if (isset($user)) $ank['id'] = $user['id'];
-if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
-$ank = user::get_user($ank['id']);
 only_reg();
 $set['title'] = '个人中心';
 include_once '../sys/inc/thead.php';
 title();
 aut();
 
-	echo '<div class="mess">';
-	echo '欢迎!' . $ank['nick'];
-	echo '</div>';
-
 	echo "<div class='main'>";
 	echo user::avatar($ank['id']);
+	echo "	" . user::nick($ank['id'], 0);
 	echo "</div>";
 
 
