@@ -13,5 +13,5 @@ function user_files($path) {
 				$rudir .= ' <a href="/user/personalfiles/' . $dir_id['id_user'] . '/' . $dir_id['id'] . '/">' . htmlspecialchars($dirname) . '</a> &gt; ';
 			}
 		}
-return preg_replace("# &gt; $#","",$rudir);
+	return preg_replace("# &gt; $#","",$rudir);
 }

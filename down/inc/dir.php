@@ -1,14 +1,17 @@
-<?
+<?php
 $list = null;
-if ($l == '/')
+
+if ($l == '/') {
 	$set['title'] = '文件下载中心'; //网页标题
-else $set['title'] = '下载中心 - ' . $dir_id['name']; //网页标题
+} else {
+	$set['title'] = '下载中心 - ' . $dir_id['name']; //网页标题
+}
+
 $_SESSION['page'] = 1;
 include_once '../sys/inc/thead.php';
 title();
 // Файл который перемещаем
-if (isset($_GET['trans']))
-	$trans = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id` = '" . intval($_GET['trans']) . "' AND `id_user` = '$user[id]' LIMIT 1"));
+if (isset($_GET['trans'])) $trans = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id` = '" . intval($_GET['trans']) . "' AND `id_user` = '$user[id]' LIMIT 1"));
 // Загрузка файла
 include 'inc/upload_act.php';
 // Действие над папкой
@@ -41,10 +44,13 @@ while ($post = dbassoc($q)) {
 }
 if (isset($list) && count($list) > 0) {
 	$k_post = sizeof($list);
-} else $k_post = 0;
+} else {
+	$k_post = 0;
+}
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
+
 if (isset($dir_id['upload']) && $dir_id['upload'] == 1 && $k_post > 1 && !isset($_GET['trans'])) {
 	/*------------сортировка файлов--------------*/
 	echo "<div id='comments' class='menus'>";
@@ -67,9 +73,9 @@ if ($k_post == 0) {
 	echo '文件夹为空';
 	echo '</div>';
 }
+
 for ($i = $start; $i < $k_post && $i < $set['p_str'] * $page; $i++) {
-	if ($list[$i]['dir'] == 1) // папка 
-	{
+	if ($list[$i]['dir'] == 1) {	// папка 
 		$post = $list[$i]['post'];
 		/*-----------代码-----------*/
 		if ($num == 0) {
