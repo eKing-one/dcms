@@ -24,8 +24,8 @@ if ($_SESSION['sort'] == 1) $sort_files = "k_loads";
 else $sort_files = "time";
 /*---------------plugins-----------------------*/
 if (isset($_GET['d']) && esc($_GET['d']) != NULL) {
-    $l = preg_replace("#\.{2,}#", NULL, esc($_GET['d']));
-    $l = preg_replace("#\./|/\.#", NULL, $l);
+    $l = preg_replace("#\.{2,}#", '', esc($_GET['d']));
+    $l = preg_replace("#\./|/\.#", '', $l);
     $l = preg_replace("#(/){1,}#", "/", $l);
     $l = '/' . preg_replace("#(^(/){1,})|((/){1,}$)#", "", $l);
 } else {
@@ -45,8 +45,8 @@ if ($l == '/') {
 }
 if (isset($_GET['f'])) {
     $f = esc(urldecode($_GET['f']));
-    $name = preg_replace('#.[^.]*$#', NULL, $f); // имя файла без расширения 
-    $ras = strtolower(preg_replace('#^.*.#', NULL, $f));
+    $name = preg_replace('#.[^.]*$#', '', $f); // имя файла без расширения 
+    $ras = strtolower(preg_replace('#^.*.#', '', $f));
     $ras = str_replace('jad', 'jar', $ras);
     if (dbresult(dbquery("SELECT COUNT(`id`) FROM `downnik_files` WHERE `id_dir` = '$id_dir' AND `id`='" . intval($_GET['f']) . "' LIMIT 1"), 0) != 0) {
         $file_id = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id_dir` = '$id_dir' AND `id`='" . intval($_GET['f']) . "'"));
