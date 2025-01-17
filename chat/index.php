@@ -9,17 +9,17 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
-/* Бан пользователя */
+
+/* 用户封禁 */
 if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'chat' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
     header('Location: /user/ban.php?' . SID);
     exit;
 }
+
 if (isset($user)) dbquery("DELETE FROM `chat_who` WHERE `id_user` = '$user[id]'");
 dbquery("DELETE FROM `chat_who` WHERE `time` < '" . ($time - 120) . "'");
-if (
-    isset($user) && isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `chat_rooms` WHERE `id` = '" . intval($_GET['id']) . "'"), 0) == 1
-    && isset($_GET['msg']) && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '" . intval($_GET['msg']) . "'"), 0) == 1
-) {
+
+if (isset($user) && isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `chat_rooms` WHERE `id` = '" . intval($_GET['id']) . "'"), 0) == 1 && isset($_GET['msg']) && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '" . intval($_GET['msg']) . "'"), 0) == 1) {
     $room = dbassoc(dbquery("SELECT * FROM `chat_rooms` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1"));
     $ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '" . intval($_GET['msg']) . "' LIMIT 1"));
     if (isset($user)) dbquery("INSERT INTO `chat_who` (`id_user`, `time`,  `room`) values('$user[id]', '$time', '$room[id]')");
@@ -40,6 +40,7 @@ if (
     echo "</div>";
     include_once '../sys/inc/tfoot.php';
 }
+
 if (isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `chat_rooms` WHERE `id` = '" . intval($_GET['id']) . "'"), 0) == 1) {
     $room = dbassoc(dbquery("SELECT * FROM `chat_rooms` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1"));
     if (isset($user)) dbquery("INSERT INTO `chat_who` (`id_user`, `time`,  `room`) values('$user[id]', '$time', '$room[id]')");
@@ -53,12 +54,14 @@ if (isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `chat_rooms` WH
     echo "</div>";
     include_once '../sys/inc/tfoot.php';
 }
+
 $set['title'] = '聊天室-大厅'; // 网页标题
 include_once '../sys/inc/thead.php';
 title();
 include 'inc/admin_act.php';
 err();
 aut(); // форма авторизации
+
 echo "<table class='post'>";
 $q = dbquery("SELECT * FROM `chat_rooms` ORDER BY `pos` ASC");
 if (dbrows($q) == 0) {
@@ -83,8 +86,10 @@ while ($room = dbassoc($q)) {
     echo "   </div>";
 }
 echo "</table>";
+
 echo "<div class=\"foot\">";
 echo "<img src='/style/icons/str.gif' alt='*'> <a href='who.php'>谁在聊天？</a><br />";
 echo "</div>";
+
 include 'inc/admin_form.php';
 include_once '../sys/inc/tfoot.php';
