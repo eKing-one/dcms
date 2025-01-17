@@ -1,5 +1,9 @@
 <?php
-//没有评论
+/**
+ * 聊天室-房间相关代码，用于显示聊天室的信息
+ */
+
+// 添加信息
 if (isset($_POST['msg']) && isset($user)) {
 	$msg = $_POST['msg'];
 	$mat = antimat($msg);
@@ -23,12 +27,15 @@ if (isset($_POST['msg']) && isset($user)) {
 	}
 }
 
+// 检查是否添加答题机器人
 if ($room['umnik'] == 1) include 'inc/umnik.php';
+// 检查是否添加笑话机器人
 if ($room['shutnik'] == 1) include 'inc/shutnik.php';
 
 err();
-aut(); // форма авторизации
+aut(); // 授权表格
 
+// 如果为已登录用户，显示留言表单
 if (isset($user)) {
 	echo "<form method=\"post\" name='message' action=\"/chat/room/$room[id]/" . rand(1000, 9999) . "/\">";
 	if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php')) {
