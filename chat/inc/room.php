@@ -73,7 +73,7 @@ while ($post = dbassoc($q)) {
 		$ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
 	if ($post['umnik_st'] == 0 && $post['shutnik'] == 0)
 		echo group($ank['id']);
-	elseif ($post['shutnik'] == 1)
+	elseif ($post['shutnik'] != 0)
 		echo "<img src='/style/themes/$set[set_them]/chat/14/shutnik.png' alt='' />";
 	elseif ($post['umnik_st'] != 0)
 		echo "<img src='/style/themes/$set[set_them]/chat/14/umnik.png' alt='' />";

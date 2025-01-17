@@ -46,6 +46,6 @@ if (user_access('chat_room') && (isset($_GET['act']) && $_GET['act']=='add_room'
 }
 
 echo "<div class=\"foot\">";
-if (user_access('chat_clear')) echo "<img src='/style/icons/str.gif' alt='*'> <a href=\"?act=clear\">从消息中清除聊天</a><br />";
+if (user_access('chat_clear')) echo "<img src='/style/icons/str.gif' alt='*'> <a href=\"?act=clear\">清除所有聊天消息</a><br />";
 if (user_access('chat_room') && dbresult(dbquery("SELECT COUNT(*) FROM `chat_rooms`"),0)>0) echo "<img src='/style/icons/str.gif' alt='*'> <a href=\"?act=add_room\">创建一个房间</a><br />";
 echo "</div>";
