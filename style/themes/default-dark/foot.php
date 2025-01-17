@@ -1,4 +1,4 @@
-<?
+<?php
 list($msec, $sec) = explode(chr(32), microtime());
 if ($_SERVER['PHP_SELF'] != '/index.php'): ?>
 	<div class="foot">

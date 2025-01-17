@@ -9,6 +9,8 @@ include_once '../../sys//inc/db_connect.php';
 include_once '../../sys//inc/ipua.php';
 include_once '../../sys//inc/fnc.php';
 include_once '../../sys//inc/user.php';
+
+// 检查用户是否登录
 if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
 if ($ank['id'] == 0) {
@@ -16,12 +18,13 @@ if ($ank['id'] == 0) {
 	$set['title'] = $ank['nick'] . ' - 个人资料 '; //网页标题
 	include_once '../../sys/inc/thead.php';
 	title();
-	aut();/*
-==================================
-用户的页面隐私
-禁止查看个人资料
-==================================
-*/
+	aut();
+	/*
+	==================================
+	用户的页面隐私
+	禁止查看个人资料
+	==================================
+	*/
 	$uSet = dbarray(dbquery("SELECT * FROM `user_set` WHERE `id_user` = '$ank[id]'  LIMIT 1"));
 	$frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$ank[id]') OR (`user` = '$ank[id]' AND `frend` = '$user[id]') LIMIT 1"), 0);
 	$frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[id]' AND `to` = '$ank[id]') OR (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"), 0);
@@ -73,6 +76,8 @@ if ($ank['id'] == 0) {
 	include_once '../../sys//inc/tfoot.php';
 	exit;
 }
+
+// 检查用户是否存在
 $ank = user::get_user($ank['id']);
 if (!$ank) {
 	header("Location: /index.php?" . SID);
@@ -369,9 +374,9 @@ if ($ank['ank_n_tel'] != NULL)
 else
 	echo "$mobile<span class=\"ank_n\">电话:</span>$a<br />";
 if ($ank['ank_skype'] != NULL)
-	echo "$skype<span class=\"ank_n\">微信:</span>$a <span class=\"ank_d\">$ank[ank_skype]</span><br />";
+	echo "$skype<span class=\"ank_n\">Skype:</span>$a <span class=\"ank_d\">$ank[ank_skype]</span><br />";
 else
-	echo "$skype<span class=\"ank_n\">微信:</span>$a<br />";
+	echo "$skype<span class=\"ank_n\">Skype:</span>$a<br />";
 echo "</div>";
 //--------------------管理用户----------------------//
 echo "<div class='nav1'>";
@@ -401,30 +406,10 @@ if ($user['level'] > $ank['level']) {
 				echo "<br />";
 			}
 		}
-		if ($ank['ip_cl'] != NULL) {
-			if (user_access('user_show_ip') && $ank['ip_cl'] != 0) {
-				echo "<span class=\"ank_n\">IP (CLIENT):</span> <span class=\"ank_d\">" . long2ip($ank['ip_cl']) . "</span>";
-				if (user_access('adm_ban_ip'))
-					echo " [<a href='/adm_panel/ban_ip.php?min=$ank[ip_cl]'>禁止</a>]";
-				echo "<br />";
-			}
-		}
-		if ($ank['ip_xff'] != NULL) {
-			if (user_access('user_show_ip') && $ank['ip_xff'] != 0) {
-				echo "<span class=\"ank_n\">IP (XFF):</span> <span class=\"ank_d\">" . long2ip($ank['ip_xff']) . "</span>";
-				if (user_access('adm_ban_ip'))
-					echo " [<a href='/adm_panel/ban_ip.php?min=$ank[ip_xff]'>禁止</a>]";
-				echo "<br />";
-			}
-		}
 		if (user_access('user_show_ua') && $ank['ua'] != NULL)
 			echo "<span class=\"ank_n\">UA:</span> <span class=\"ank_d\">$ank[ua]</span><br />";
 		if (user_access('user_show_ip') && opsos($ank['ip']))
 			echo "<span class=\"ank_n\">IP:</span> <span class=\"ank_d\">" . opsos($ank['ip']) . "</span><br />";
-		if (user_access('user_show_ip') && opsos($ank['ip_cl']))
-			echo "<span class=\"ank_n\">IP (CL):</span> <span class=\"ank_d\">" . opsos($ank['ip_cl']) . "</span><br />";
-		if (user_access('user_show_ip') && opsos($ank['ip_xff']))
-			echo "<span class=\"ank_n\">IP (XFF):</span> <span class=\"ank_d\">" . opsos($ank['ip_xff']) . "</span><br />";
 		if ($ank['show_url'] == 1) {
 			if (otkuda($ank['url'])) echo "<span class=\"ank_n\">URL:</span> <span class=\"ank_d\"><a href='$ank[url]'>" . otkuda($ank['url']) . "</a></span><br />";
 		}

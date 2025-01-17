@@ -21,25 +21,21 @@ if (!function_exists('file_put_contents')) {
 	}
 }
 
-if ($set['antidos']) { // 来自单个 IP 的频繁请求保护
-	$antidos[] = array('time' => $time);
-	$k_loads = 0;
-	if (test_file(H . 'sys/tmp/antidos_' . $iplong . '.dat')) {
-		$antidos_dat = unserialize(file_get_contents(H . 'sys/tmp/antidos_' . $iplong . '.dat'));
-		for ($i = 0; $i < 150 && $i < sizeof($antidos_dat); $i++) {
-			if ($antidos_dat[$i]['time'] > $time - 5) {
-				$k_loads++;
-				$antidos[] = $antidos_dat[$i];
-			}
+// DOS攻击防护
+if ($set['antidos']) {
+	// 插入当前请求记录
+	dbquery("INSERT INTO ip_requests (`ip`) VALUES ('$ip')");
+
+	// 查询该 IP 在过去 5 秒内的请求次数，如果请求次数超过 100，则封禁 IP
+	if (dbresult(dbquery("SELECT COUNT(*) FROM ip_requests WHERE ip = '$ip' AND time > '$time' - 5"), 0) > 100) {
+		// 如果请求次数超过 100，则封禁 IP
+		if (dbresult(dbquery("SELECT COUNT(*) FROM `ban_ip` WHERE `min` <= '$ip' AND `max` >= '$ip'"), 0) == 0) {
+			dbquery("INSERT INTO `ban_ip` (`min`, `max`, `prich`) values('$ip', '$ip', 'AntiDos')");
 		}
 	}
-	if ($k_loads > 100) {
-		if (dbresult(dbquery("SELECT COUNT(*) FROM `ban_ip` WHERE `min` <= '$iplong' AND `max` >= '$iplong'"), 0) == 0) {
-			dbquery("INSERT INTO `ban_ip` (`min`, `max`, `prich`) values('$iplong', '$iplong', 'AntiDos')", $db);
-		}
-	}
-	@file_put_contents(H . 'sys/tmp/antidos_' . $iplong . '.dat', serialize($antidos));
-	@chmod(H . 'sys/tmp/antidos_' . $iplong . '.dat', 0777);
+
+	// 定期清理过期的请求记录
+	dbquery("DELETE FROM ip_requests WHERE time < '$time' - 3600");  // 删除 1 小时之前的记录
 }
 
 // 禁止文字antimat会自动发出警告，然后禁止
@@ -184,7 +180,7 @@ if (!defined("ADMIN")) {
 	$checkcmd = str_replace($hackcmd, 'X', $hackparam);
 
 	if ($hackparam != $checkcmd) {
-		dbquery("INSERT INTO ban_ip (min, max) VALUES(\"$iplong\", \"$iplong\");");
+		dbquery("INSERT INTO ban_ip (min, max) VALUES(\"$ip\", \"$ip\");");
 		dbquery('INSERT INTO mail (id_user, id_kont, msg, time) VALUES("0", "1", "IP: '.$ip.' UA: '.$ua.' 位置: '.get_ip_address($ip).' 正在进行黑客攻击", "'.$time.'");');
 		die('<h2>检测到攻击！</h2><br>你的浏览器：<b>'.$ua.'</b><br>你的IP： <b>'.$ip.'</b><br><b>已被记录，不要尝试违法操作！</b><br><br>有这时间多休息吧！！！');
 	}
@@ -439,7 +435,7 @@ while ($filebase = readdir($opdirbase)) {
 }
 
 // 参观记录
-dbquery("INSERT INTO `visit_today` (`ip`, `ua`, `ua_hash`, `time`) VALUES ('$iplong', '" . my_esc($_SERVER['HTTP_USER_AGENT']) . "', '" . md5($_SERVER['HTTP_USER_AGENT']) . "', '$time')");
+dbquery("INSERT INTO `visit_today` (`ip`, `ua`, `ua_hash`, `time`) VALUES ('$ip', '" . my_esc($_SERVER['HTTP_USER_AGENT']) . "', '" . md5($_SERVER['HTTP_USER_AGENT']) . "', '$time')");
 
 
 function ages($age) {
@@ -479,83 +475,4 @@ function header_html($add = null) {
 		//   var_dump($header);
 		echo "" . $header;
 	} else $header = $add;
-}
-
-/**
- * 获取最新的发行版稳定版本信息
- *
- * @return array 包含最新版本信息或错误信息的数组
- */
-function getLatestStableRelease() {
-	// 设置API的URL
-	$api_url = "https://api.guguan.us.kg/dcms_github_releases.php";
-	
-	// 初始化cURL会话
-	$ch = curl_init();
-
-	// 设置cURL选项
-	curl_setopt($ch, CURLOPT_URL, $api_url);         // 设置请求的URL
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  // 返回作为字符串，而不是直接输出
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 忽略SSL证书检查（如果使用的是https）
-
-	// 执行cURL请求并获取响应数据
-	$response = curl_exec($ch);
-
-	// 检查是否有错误
-	if (curl_errno($ch)) {
-		$error_message = 'cURL Error: ' . curl_error($ch);
-		curl_close($ch);
-		return [
-			'success' => false,
-			'error' => $error_message
-		];
-	}
-
-	// 关闭cURL会话
-	curl_close($ch);
-
-	// 解析JSON响应数据
-	$release_data = json_decode($response, true);
-
-	// 检查响应是否有效
-	if (!is_array($release_data) || count($release_data) === 0) {
-		return [
-			'success' => false,
-			'error' => 'No release data found.'
-		];
-	}
-
-	// 初始化变量以保存最新稳定版本的数据
-	$latest_stable_release = null;
-	$latest_published_time = null;
-
-	// 遍历所有发布，查找最新的稳定版本
-	foreach ($release_data as $release) {
-		// 检查该版本是否为非预发布且非草稿
-		if (!$release['prerelease'] && !$release['draft']) {
-			// 获取发布时间
-			$published_at = strtotime($release['published_at']);
-
-			// 如果这是第一个找到的稳定版本，或发布时间比当前保存的更晚，则更新
-			if ($latest_stable_release === null || $published_at > $latest_published_time) {
-				$latest_stable_release = $release;
-				$latest_published_time = $published_at;
-			}
-		}
-	}
-
-	// 检查是否找到了稳定版本
-	if ($latest_stable_release !== null) {
-		// 返回最新稳定版本的版本号和ZIP源码包下载链接
-		return [
-			'success' => true,
-			'version' => $latest_stable_release['tag_name'],
-			'zip_url' => $latest_stable_release['zipball_url']
-		];
-	} else {
-		return [
-			'success' => false,
-			'error' => 'No stable release found.'
-		];
-	}
 }

@@ -17,9 +17,9 @@ include_once '../sys/inc/thead.php';
 title();
 
 if (isset($_POST['save'])) {
-	$temp_set['get_ip_from_header'] = in_array($_POST['get_ip_from_header'], ['auto', 'disabled', 'X-Forwarded-For', 'X-Real-IP', 'CF-Connecting-IP', 'True-Client-IP']) ? $_POST['get_ip_from_header'] : 'auto';
+	$temp_set['get_ip_from_header'] = in_array($_POST['get_ip_from_header'], ['disabled', 'Forwarded', 'X-Forwarded-For', 'X-Real-IP', 'CF-Connecting-IP', 'True-Client-IP']) ? $_POST['get_ip_from_header'] : 'disabled';
 	try {
-		if ($_POST['get_ip_from_header'] == 'auto') {
+		if ($_POST['get_ip_from_header'] == 'CF-Connecting-IP') {
 
 			/**
 			 * Cloudflare IPv4 列表：https://www.cloudflare.com/ips-v4/
@@ -48,19 +48,24 @@ if (isset($_POST['save'])) {
 			}
 
 			// 去重和清理空行
-			$cloudflareCdnIpList = array_filter(array_unique($cloudflareCdnIpList));
-
-			$save_cdn_ip_list = implode(PHP_EOL, $cloudflareCdnIpList);
+			$save_cdn_ip_list = array_filter(array_unique($cloudflareCdnIpList));
 		} else {
 			$save_cdn_ip_list = $_POST['cdn_ip_list'];
 		}
 
+		// 检查IP范围是否有效
+		foreach ($save_cdn_ip_list as $save_cdn_ip_range) {
+			if (!\IPLib\Factory::parseRangeString($save_cdn_ip_range)) {
+				throw new Exception("IP范围 $save_cdn_ip_range 无效");
+			}
+		}
+
+		// 清空数据库
+		dbquery("TRUNCATE TABLE cdn_ips");
+
 		// 保存CDN IP列表
-		if (file_put_contents(__DIR__ . '/../sys/dat/cdn-ips.txt', $save_cdn_ip_list)) {
-			admin_log('设置', '系统', '修改CDN列表');
-			msg('CDN列表已保存');
-		} else {
-			throw new Exception("CDN列表保存失败，请检查CDN IP列表文件权限");
+		foreach ($save_cdn_ip_list as $save_cdn_ip_range) {
+			dbquery("INSERT INTO cdn_ips (ip_range) VALUES ('$save_cdn_ip_range')");
 		}
 
 		if (save_settings($temp_set)) {
@@ -80,30 +85,36 @@ if (isset($_POST['save'])) {
 err();
 aut();
 
-echo "<form method=\"post\" action=\"?\">";
-
-echo "从请求标头获取用户IP：<br />
+echo "<form method=\"post\" action=\"?\">从请求标头获取用户IP：<br />
 <select name='get_ip_from_header'>
-	<option ".(setget('get_ip_from_header',"auto")=="auto"? " selected ":null)." value='auto'>自动识别(Cloudflare)</option>
 	<option ".(setget('get_ip_from_header',"disabled")=="disabled"? " selected ":null)." value='disabled'>禁用</option>
+	<option ".(setget('get_ip_from_header',"Forwarded")=="Forwarded"? " selected ":null)." value='Forwarded'>Forwarded</option>
 	<option ".(setget('get_ip_from_header',"X-Forwarded-For")=="X-Forwarded-For"? " selected ":null)." value='X-Forwarded-For'>X-Forwarded-For</option>
 	<option ".(setget('get_ip_from_header',"X-Real-IP")=="X-Real-IP"? " selected ":null)." value='X-Real-IP'>X-Real-IP</option>
-	<option ".(setget('get_ip_from_header',"CF-Connecting-IP")=="CF-Connecting-IP"? " selected ":null)." value='CF-Connecting-IP'>CF-Connecting-IP</option>
+	<option ".(setget('get_ip_from_header',"CF-Connecting-IP")=="CF-Connecting-IP"? " selected ":null)." value='CF-Connecting-IP'>Cloudflare</option>
 	<option ".(setget('get_ip_from_header',"True-Client-IP")=="True-Client-IP"? " selected ":null)." value='True-Client-IP'>True-Client-IP</option>
 </select>
 <br />";
+// 从数据库获取所有 IP 范围
+$getIpRangeResult = dbquery("SELECT ip_range FROM cdn_ips");
+// 检查查询是否成功
+if ($getIpRangeResult) {
+    // 遍历查询结果并将每个 IP 范围拼接成列表
+    $ip_ranges = [];
+    while ($row = mysqli_fetch_assoc($getIpRangeResult)) {
+        $ip_ranges[] = $row['ip_range'];
+    }
 
-
-// 检查文件是否存在，如果存在则读取内容
-if (file_exists(__DIR__ . '/../sys/dat/cdn-ips.txt')) {
-	$cdnIpsExistingContent = file_get_contents(__DIR__ . '/../sys/dat/cdn-ips.txt');
+    // 将 IP 范围输出为文本格式，每个范围一行
+    $cdnIpsExistingContent = implode("\n", $ip_ranges);
+} else {
+    $cdnIpsExistingContent = "";
 }
-
 echo "CDN 列表：<br />
-<textarea name='cdn_ip_list'>$cdnIpsExistingContent</textarea><br />";
-
+<textarea name='cdn_ip_list'>{$cdnIpsExistingContent}</textarea><br />";
 echo "<input value=\"保存\" name='save' type=\"submit\" />";
 echo "</form>";
+
 if (user_access('adm_panel_show')) {
 	echo "<div class='foot'>";
 	echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
