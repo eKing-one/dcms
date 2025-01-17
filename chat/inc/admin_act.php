@@ -33,7 +33,7 @@ if (user_access('chat_room') && isset($_GET['delete']) && is_numeric($_GET['dele
     $room = dbassoc(dbquery("SELECT * FROM `chat_rooms` WHERE `id` = '" . intval($_GET['delete']) . "' LIMIT 1"));
     dbquery("DELETE FROM `chat_rooms` WHERE `id` = '$room[id]' LIMIT 1");
     dbquery("DELETE FROM `chat_post` WHERE `room` = '$room[id]'");
-    admin_log('聊天', '房间参数', "删除房间 {$room[name]}");
+    admin_log('聊天', '房间参数', "删除房间 {$room['name']}");
     msg('房间被成功删除');
 }
 

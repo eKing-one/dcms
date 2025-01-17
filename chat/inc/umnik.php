@@ -1,6 +1,11 @@
 <?php
-$umnik_last = dbassoc(dbquery("SELECT * FROM `chat_post` WHERE `room` = '$room[id]' AND `umnik_st` <> '0' ORDER BY id DESC"));
-if ($umnik_last != NULL && $umnik_last['umnik_st'] != 4 && $umnik_last['umnik_st'] != 0) {
+/**
+ * “答题”相关的逻辑部分
+ */
+
+// 检查是否有人回答问题并奖励积分
+$umnik_last = dbassoc(dbquery("SELECT * FROM `chat_post` WHERE `room` = '$room[id]' AND `umnik_st` <> '0' ORDER BY id DESC"));	// 获取最后一个非完成的答题记录
+if ($umnik_last != NULL && $umnik_last['umnik_st'] != 4 && $umnik_last['umnik_st'] != 0 && $umnik_last['umnik_st'] != 5) {
 	$umnik_vopros = dbassoc(dbquery("SELECT * FROM `chat_vopros` WHERE `id` = '$umnik_last[vopros]' LIMIT 1"));
 	$umnik_post = dbassoc(dbquery("SELECT * FROM `chat_post` WHERE `room` = '$room[id]' AND `msg` like '%$umnik_vopros[otvet]%' AND `umnik_st` = '0' AND `time` >= '" . ($time - $umnik_last['time']) . "' ORDER BY `id` ASC LIMIT 1"));
 	if ($umnik_post != NULL) {
@@ -23,21 +28,36 @@ if ($umnik_last != NULL && $umnik_last['umnik_st'] != 4 && $umnik_last['umnik_st
 		dbquery("UPDATE `user` SET `balls` = '" . ($ank['balls'] + $add_balls) . "' WHERE `id` = '$ank[id]' LIMIT 1");
 	}
 }
+
+// 如果回答错误或者没有人回答问题，给出正确答案
 $umnik_last1 = dbassoc(dbquery("SELECT * FROM `chat_post` WHERE `room` = '$room[id]' AND `umnik_st` = '1' ORDER BY id DESC"));
-if ($umnik_last1 != NULL && $umnik_last['umnik_st'] != 4 && $umnik_last1['time'] < time() - $set['umnik_time']) {
+if ($umnik_last1 != NULL && $umnik_last['umnik_st'] != 4 && $umnik_last['umnik_st'] != 5 && $umnik_last1['time'] < time() - $set['umnik_time']) {
 	$umnik_vopros = dbassoc(dbquery("SELECT * FROM `chat_vopros` WHERE `id` = '$umnik_last1[vopros]' LIMIT 1"));
 	$msg = "没有人回复或答对这个问题。正确答案: $umnik_vopros[otvet]。下一个问题将于 $set[umnik_new] 秒后提出。";
 	dbquery("INSERT INTO `chat_post` (`umnik_st`, `time`, `msg`, `room`, `vopros`, `privat`) values('4', '$time', '$msg', '$room[id]', '$umnik_vopros[id]', '0')");
 }
+
+// 如果没有问题或者上一个问题已经回答完毕，提出新问题
 $umnik_last = dbassoc(dbquery("SELECT * FROM `chat_post` WHERE `room` = '$room[id]' AND `umnik_st` <> '0' ORDER BY id DESC"));
-if ($umnik_last == NULL || $umnik_last['umnik_st'] == 4 && $umnik_last['time'] < time() - $set['umnik_new']) {
-	// задается вопрос
+if ($umnik_last == NULL || ($umnik_last['umnik_st'] == 4 && $umnik_last['time'] < time() - $set['umnik_new'])) {
+	// 提出问题
 	$k_vopr = dbresult(dbquery("SELECT COUNT(*) FROM `chat_vopros`"), 0);
-	$umnik_vopros = dbassoc(dbquery("SELECT * FROM `chat_vopros` LIMIT " . rand(0, $k_vopr) . ", 1"));
-	$msg = "[b]问题：[/b] \"$umnik_vopros[vopros]\"[b]回复字数：[/b] " . strlen2($umnik_vopros['otvet']) . "个字";
-	dbquery("INSERT INTO `chat_post` (`umnik_st`, `time`, `msg`, `room`, `vopros`, `privat`) values('1', '$time', '$msg', '$room[id]', '$umnik_vopros[id]', '0')");
+	if ($k_vopr > 0) {
+		$umnik_vopros = dbassoc(dbquery("SELECT * FROM `chat_vopros` LIMIT " . rand(0, $k_vopr) . ", 1"));
+		$msg = "[b]问题：[/b] \"$umnik_vopros[vopros]\"[b]回复字数：[/b] " . strlen2($umnik_vopros['otvet']) . "个字";
+		dbquery("INSERT INTO `chat_post` (`umnik_st`, `time`, `msg`, `room`, `vopros`, `privat`) values('1', '$time', '$msg', '$room[id]', '$umnik_vopros[id]', '0')");
+	} else {
+		// 检查之前是否已经发送过“没有问题”的提示
+		$no_problem_last = dbassoc(dbquery("SELECT * FROM `chat_post` WHERE `room` = '$room[id]' AND `umnik_st` = '5' ORDER BY id DESC LIMIT 1"));
+		if ($no_problem_last == NULL || $no_problem_last['umnik_st'] == 0) {
+			$msg = "没有问题。";
+			dbquery("INSERT INTO `chat_post` (`umnik_st`, `time`, `msg`, `room`, `vopros`, `privat`) values('5', '$time', '$msg', '$room[id]', '0', '0')");
+		}
+	}
 }
-if ($umnik_last != NULL && $umnik_last['umnik_st'] == 1 && $umnik_last['time'] < time() - $set['umnik_help']) {
+
+// 发布第一个提示
+if ($umnik_last != NULL && $umnik_last['umnik_st'] == 1 && $umnik_last['umnik_st'] != 5 && $umnik_last['time'] < time() - $set['umnik_help']) {
 	$umnik_vopros = dbassoc(dbquery("SELECT * FROM `chat_vopros` WHERE `id` = '$umnik_last[vopros]' LIMIT 1"));
 	if (function_exists('iconv_substr'))
 		$help = iconv_substr($umnik_vopros['otvet'], 0, 1, 'utf-8');
@@ -49,7 +69,9 @@ if ($umnik_last != NULL && $umnik_last['umnik_st'] == 1 && $umnik_last['time'] <
 	$msg = "[b]问题：[/b] \"$umnik_vopros[vopros]\"[b]第一个提示：[/b] $help (" . strlen2($umnik_vopros['otvet']) . "个字)";
 	dbquery("INSERT INTO `chat_post` (`umnik_st`, `time`, `msg`, `room`, `vopros`, `privat`) values('2', '$time', '$msg', '$room[id]', '$umnik_vopros[id]', '0')");
 }
-if ($umnik_last != NULL && $umnik_last['umnik_st'] == 2 && $umnik_last['time'] < time() - $set['umnik_help']) {
+
+// 发布第二个提示
+if ($umnik_last != NULL && $umnik_last['umnik_st'] == 2 && $umnik_last['umnik_st'] != 5 && $umnik_last['time'] < time() - $set['umnik_help']) {
 	$umnik_vopros = dbassoc(dbquery("SELECT * FROM `chat_vopros` WHERE `id` = '$umnik_last[vopros]' LIMIT 1"));
 	if (function_exists('iconv_substr'))
 		$help = iconv_substr($umnik_vopros['otvet'], 0, 2, 'utf-8');
