@@ -61,4 +61,3 @@ if ($umnik_last != NULL && $umnik_last['umnik_st'] == 2 && $umnik_last['time'] <
 	$msg = "[b]问题：[/b] \"$umnik_vopros[vopros]\"[b]第二个提示：[/b] $help (" . strlen2($umnik_vopros['otvet']) . "个字)";
 	dbquery("INSERT INTO `chat_post` (`umnik_st`, `time`, `msg`, `room`, `vopros`, `privat`) values('3', '$time', '$msg', '$room[id]', '$umnik_vopros[id]', '0')");
 }
-?>
