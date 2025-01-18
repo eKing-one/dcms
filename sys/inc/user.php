@@ -100,7 +100,7 @@ if (isset($user)) {
 	}
 
 	// 记录用户的 ip
-	dbquery("UPDATE `user` SET `ip` = {$ip} WHERE `id` = '$user[id]' LIMIT 1");
+	dbquery("UPDATE `user` SET `ip` = '{$ip}' WHERE `id` = '$user[id]' LIMIT 1");
 
 	// 记录用户的 ua
 	if ($ua) dbquery("UPDATE `user` SET `ua` = '" . my_esc($ua) . "' WHERE `id` = '$user[id]' LIMIT 1");
