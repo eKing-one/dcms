@@ -2,7 +2,7 @@
 // 连接数据库服务器
 // 使用 mysqli_connect 函数连接到数据库，传入数据库主机、用户名、密码和数据库名称
 // 如果连接失败，输出错误信息并终止脚本
-$db = @mysqli_connect($set['mysql_host'], $set['mysql_user'], $set['mysql_pass'], $set['mysql_db_name']);
+$db = mysqli_connect($set['mysql_host'], $set['mysql_user'], $set['mysql_pass'], $set['mysql_db_name']);
 if (mysqli_connect_errno()) { 
 	exit("连接 MySQL 失败: " . mysqli_connect_error()); // 显示连接失败的错误信息
 }
