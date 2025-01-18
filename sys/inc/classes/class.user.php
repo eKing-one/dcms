@@ -13,16 +13,14 @@ class user
 	 * / 参考文献及用户昵称
 	 */
 	// 所有用户字段
-	public static function user_db($user = 0)
-	{
+	public static function user_db($user = 0) {
 		static $nicks = [];
 		if (empty($nicks[$user])) {
 			$ank = dbassoc(dbquery('SELECT `nick`, `date_last`, `rating`, `browser` FROM `user` WHERE `id` = "' . $user . '" LIMIT 1 '));
 			$nicks[$user] = $ank;
 		} else $ank = $nicks[$user];
 	}
-	public static function nick($user = 0, $url = 1, $on = 0, $medal = 0)
-	{
+	public static function nick($user = 0, $url = 1, $on = 0, $medal = 0) {
 		/*
 		* $url == 0		只输出昵称
 		* $url == 1		输出昵称并链接到用户页的
@@ -106,8 +104,7 @@ class user
 	/**
 	 * / 本身，用户组图标
 	 */
-	public static function avatar($user = 0, $type = 1)
-	{
+	public static function avatar($user = 0, $type = 1) {
 		/*
 		* $type == 0 - 将头像和图标一起输出
 		* $type == 1 - 只输出头像
@@ -133,17 +130,17 @@ class user
 		}
 		return $AVATAR;
 	}
+
 	/**
 	 * / 用户数据采样功能
 	 * / 从用户表输出数据
 	 * / 并生成一个头像，奖章图标和在线阵列
 	 * 返回return
 	 */
-	static function get_user($ID = 0)
-	{
+	static function get_user($ID = 0) {
 		static $users; // 调用函数后不删除变量
 		if ($ID == 0) {
-			// бот
+			// 机器人
 			$ank['id'] = 0;
 			$ank['nick'] = '系统';
 			$ank['level'] = 999;
@@ -160,7 +157,6 @@ class user
 
 				if ($ank[$user_id]['id'] != 0) {
 
-
 					$tmp_us = dbassoc(dbquery("SELECT `level`,`name` AS `group_name` FROM `user_group` WHERE `id` = '" . $ank[$user_id]['group_access'] . "' LIMIT 1"));
 
 					if (!isset($tmp_us) or empty($tmp_us['group_name'])) {
@@ -170,7 +166,9 @@ class user
 						$ank[$user_id]['level'] = $tmp_us['level'];
 						$ank[$user_id]['group_name'] = $tmp_us['group_name'];
 					}
-				} else $ank[$user_id] = FALSE;
+				} else {
+					$ank[$user_id] = FALSE;
+				}
 			}
 			return $ank[$user_id];
 		}

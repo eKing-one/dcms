@@ -6,7 +6,6 @@ $passgen = NULL;
 $sess = NULL;
 $ip = NULL;
 $ua = NULL;
-$iplong = NULL;
 $webbrowser = NULL;
 $tpanel = NULL;
 if (function_exists('error_reporting')) @error_reporting(0); // 禁用错误显示

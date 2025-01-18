@@ -100,31 +100,7 @@ if (isset($user)) {
 	}
 
 	// 记录用户的 ip
-	if (isset($ip2['add'])) {
-		dbquery("UPDATE `user` SET `ip` = " . ip2long($ip2['add']) . " WHERE `id` = '$user[id]' LIMIT 1");
-	} else {
-		dbquery("UPDATE `user` SET `ip` = null WHERE `id` = '$user[id]' LIMIT 1");
-	}
-	if (isset($ip2['cl'])) {
-		dbquery("UPDATE `user` SET `ip_cl` = " . ip2long($ip2['cl']) . " WHERE `id` = '$user[id]' LIMIT 1");
-	} else {
-		dbquery("UPDATE `user` SET `ip_cl` = null WHERE `id` = '$user[id]' LIMIT 1");
-	}
-	if (isset($ip2['xff'])) {
-		dbquery("UPDATE `user` SET `ip_xff` = " . ip2long($ip2['xff']) . " WHERE `id` = '$user[id]' LIMIT 1");
-	} else {
-		dbquery("UPDATE `user` SET `ip_xff` = null WHERE `id` = '$user[id]' LIMIT 1");
-	}
-	if (isset($ip2['xfi'])) {
-		dbquery("UPDATE `user` SET `ip_xfi` = " . ip2long($ip2['xfi']) . " WHERE `id` = '$user[id]' LIMIT 1");
-	} else {
-		dbquery("UPDATE `user` SET `ip_xfi` = null WHERE `id` = '$user[id]' LIMIT 1");
-	}
-	if (isset($ip2['cf'])) {
-		dbquery("UPDATE `user` SET `ip_cf` = " . ip2long($ip2['cf']) . " WHERE `id` = '$user[id]' LIMIT 1");
-	} else {
-		dbquery("UPDATE `user` SET `ip_cf` = null WHERE `id` = '$user[id]' LIMIT 1");
-	}
+	dbquery("UPDATE `user` SET `ip` = '{$ip}' WHERE `id` = '$user[id]' LIMIT 1");
 
 	// 记录用户的 ua
 	if ($ua) dbquery("UPDATE `user` SET `ua` = '" . my_esc($ua) . "' WHERE `id` = '$user[id]' LIMIT 1");
@@ -136,8 +112,8 @@ if (isset($user)) {
 	dbquery("UPDATE `user` SET `browser` = '" . ($webbrowser == true ? "web" : "wap") . "' WHERE `id` = '$user[id]' LIMIT 1");
 
 	// 检查相似的昵称
-	$collision_q = dbquery("SELECT * FROM `user` WHERE `ip` = '$iplong' AND `ua` = '" . my_esc($ua) . "' AND `date_last` > '" . (time() - 600) . "' AND `id` <> '$user[id]'");
-
+	// 一定时间范围内检查是否有多个用户在相同的IP、相同的用户代理和相似的登录时间（10分钟内）之间产生了碰撞，如果有碰撞，则将这两个用户的信息记录在 user_collision 表中
+	$collision_q = dbquery("SELECT * FROM `user` WHERE `ip` = '$ip' AND `ua` = '" . my_esc($ua) . "' AND `date_last` > '" . (time() - 600) . "' AND `id` <> '$user[id]'");
 	while ($collision = dbassoc($collision_q)) {
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `user_collision` WHERE `id_user` = '$user[id]' AND `id_user2` = '$collision[id]' OR `id_user2` = '$user[id]' AND `id_user` = '$collision[id]'"), 0) == 0)
 			dbquery("INSERT INTO `user_collision` (`id_user`, `id_user2`, `type`) values('$user[id]', '$collision[id]', 'ip_ua_time')");
@@ -171,13 +147,13 @@ if (isset($user)) {
 	// 记录未登录用户
 	if ($ip && $ua) {
 		// 查询数据库中是否有相同的 ip 和 ua
-		if (dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `ip` = '$iplong' AND `ua_hash` = '" . md5($ua) . "' LIMIT 1"), 0) == 1) {
+		if (dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `ip` = '$ip' AND `ua_hash` = '" . md5($ua) . "' LIMIT 1"), 0) == 1) {
 			// 更新访客记录
-			$guests = dbassoc(dbquery("SELECT * FROM `guests` WHERE `ip` = '$iplong' AND `ua_hash` = '" . md5($ua) . "' LIMIT 1"));
-			dbquery("UPDATE `guests` SET `date_last` = " . time() . ", `url` = '" . my_esc($_SERVER['SCRIPT_NAME']) . "', `pereh` = '" . ($guests['pereh'] + 1) . "' WHERE `ip` = '$iplong' AND `ua_hash` = '" . md5($ua) . "' LIMIT 1");
+			$guests = dbassoc(dbquery("SELECT * FROM `guests` WHERE `ip` = '$ip' AND `ua_hash` = '" . md5($ua) . "' LIMIT 1"));
+			dbquery("UPDATE `guests` SET `date_last` = " . time() . ", `url` = '" . my_esc($_SERVER['SCRIPT_NAME']) . "', `pereh` = '" . ($guests['pereh'] + 1) . "' WHERE `ip` = '$ip' AND `ua_hash` = '" . md5($ua) . "' LIMIT 1");
 		} else {
 			// 添加新的访客记录
-			dbquery("INSERT INTO `guests` (`ip`, `ua`, `ua_hash` , `date_aut`, `date_last`, `url`) VALUES ('$iplong', '" . my_esc($ua) . "' , '" . md5($ua) . "', '" . time() . "', '" . time() . "', '" . my_esc($_SERVER['SCRIPT_NAME']) . "')");
+			dbquery("INSERT INTO `guests` (`ip`, `ua`, `ua_hash` , `date_aut`, `date_last`, `url`) VALUES ('$ip', '" . my_esc($ua) . "' , '" . md5($ua) . "', '" . time() . "', '" . time() . "', '" . my_esc($_SERVER['SCRIPT_NAME']) . "')");
 		}
 	}
 	unset($access);
