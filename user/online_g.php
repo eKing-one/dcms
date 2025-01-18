@@ -45,7 +45,7 @@ while ($guest = dbassoc($q)) {
     if ($guest['ua'] != NULL) echo "<span class=\"ank_n\">UA:</span> <span class=\"ank_d\">$guest[ua]</span><br />";
     if (isset($user) && ($user['level'] > 0)) {
         if (user_access('guest_show_ip') && $guest['ip'] != 0) echo "<span class=\"ank_n\">IP:</span> <span class=\"ank_d\">{$guest['ip']}</span><br />";
-        if (user_access('guest_show_ip') && opsos($guest['ip'])) echo "<span class=\"ank_n\">浏览器:</span> <span class=\"ank_d\">" . opsos($guest['ip']) . "</span><br />";
+        if (user_access('guest_show_ip') && opsos($guest['ip'])) echo "<span class=\"ank_n\">UA:</span> <span class=\"ank_d\">" . opsos($guest['ip']) . "</span><br />";
         if (otkuda($guest['url'])) echo "<span class=\"ank_n\">URL:</span> <span class=\"ank_d\"><a href='$guest[url]'>" . otkuda($guest['url']) . "</a></span><br />";
     }
     echo "  </td>";

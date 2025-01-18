@@ -74,7 +74,7 @@ $max = NULL;
 
 // 意义不明的代码
 //if (isset($_GET['min']) && (filter_var($_POST['min'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) || filter_var($_POST['min'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6))) {
-//	echo "HOST: ".gethostbyaddr(long2ip($_GET['min']))."<br />";
+//	echo "HOST: ".gethostbyaddr($_GET['min'])."<br />";
 //	$min=$_GET['min'];
 //	$max=$_GET['min'];
 //	if (isset($_GET['max']) && (filter_var($_POST['max'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) || filter_var($_POST['max'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6))) $max = $_GET['max'];

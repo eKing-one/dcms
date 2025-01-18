@@ -35,7 +35,7 @@ if (isset($_GET['id']) && isset($_GET['pass'])) {
 			setcookie('pass', cookie_encrypt($_POST['pass'],$user['id']), time()+60*60*24*365);
 		}
 		dbquery("UPDATE `user` SET `date_aut` = '$time', `date_last` = '$time' WHERE `id` = '$user[id]' LIMIT 1");
-		dbquery("INSERT INTO `user_log` (`id_user`, `time`, `ua`, `ip`, `method`) values('$user[id]', '$time', '$user[ua]' , '$user[ip]', '1')");
+		dbquery("INSERT INTO `user_log` (`id_user`, `time`, `ua`, `ip`, `method`) values('{$user['id']}', '{$time}', '{$user['ua']}' , '{$user['ip']}', '1')");
 	} else {
 		$_SESSION['err'] = '用户名或密码不正确';
 	}
