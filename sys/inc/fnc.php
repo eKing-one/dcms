@@ -35,7 +35,8 @@ if ($set['antidos']) {
 	}
 
 	// 定期清理过期的请求记录
-	dbquery("DELETE FROM ip_requests WHERE time < '$time' - 3600");  // 删除 1 小时之前的记录
+	dbquery("DELETE FROM ip_requests WHERE time < '" . date('Y-m-d H:i:s', $time - 3600) . "'");  // 删除 1 小时之前的记录
+
 }
 
 // 禁止文字antimat会自动发出警告，然后禁止

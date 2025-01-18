@@ -14,6 +14,8 @@ function get_cdn_ips() {
 		while ($row = dbarray($result)) {
 			return $row['ip_range'];
 		}
+	} else {
+		return [];
 	}
 }
 
