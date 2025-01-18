@@ -12,11 +12,13 @@ $set['title'] = '网站上的游客'; // 页标题
 include_once '../sys/inc/thead.php';
 title();
 aut();
+
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `date_last` > '" . (time() - 600) . "' AND `pereh` > '0'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
 $q = dbquery("SELECT * FROM `guests` WHERE `date_last` > '" . (time() - 600) . "' AND `pereh` > '0' ORDER BY `date_aut` DESC LIMIT $start, $set[p_str]");
+
 echo "<table class='post'>";
 if ($k_post == 0) {
     echo "   <tr>";
@@ -42,7 +44,7 @@ while ($guest = dbassoc($q)) {
     echo "<span class=\"ank_n\">访问次数:</span> <span class=\"ank_d\">$guest[pereh]</span><br />";
     if ($guest['ua'] != NULL) echo "<span class=\"ank_n\">UA:</span> <span class=\"ank_d\">$guest[ua]</span><br />";
     if (isset($user) && ($user['level'] > 0)) {
-        if (user_access('guest_show_ip') && $guest['ip'] != 0) echo "<span class=\"ank_n\">IP:</span> <span class=\"ank_d\">" . long2ip($guest['ip']) . "</span><br />";
+        if (user_access('guest_show_ip') && $guest['ip'] != 0) echo "<span class=\"ank_n\">IP:</span> <span class=\"ank_d\">{$guest['ip']}</span><br />";
         if (user_access('guest_show_ip') && opsos($guest['ip'])) echo "<span class=\"ank_n\">浏览器:</span> <span class=\"ank_d\">" . opsos($guest['ip']) . "</span><br />";
         if (otkuda($guest['url'])) echo "<span class=\"ank_n\">URL:</span> <span class=\"ank_d\"><a href='$guest[url]'>" . otkuda($guest['url']) . "</a></span><br />";
     }
