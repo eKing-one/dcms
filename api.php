@@ -29,6 +29,31 @@ function setget() {
  * Database 类用于简化与 MySQL 数据库的交互。
  * 通过 PDO (PHP Data Objects) 提供的 API 提供常见的数据库操作方法，
  * 包括查询单条记录、查询多条记录、插入、更新和删除操作。
+ * 
+ * 使用示例：
+ * 
+ * // 创建数据库连接
+ * $db = new Database('localhost', 'test_db', 'root', 'password');
+ * 
+ * // 查询单条记录
+ * $result = $db->query('SELECT * FROM users WHERE id = ?', [1]);
+ * print_r($result);
+ * 
+ * // 查询多条记录
+ * $results = $db->queryAll('SELECT * FROM users');
+ * print_r($results);
+ * 
+ * // 插入新记录并获取插入的 ID
+ * $insertId = $db->insert('INSERT INTO users (name, email) VALUES (?, ?)', ['John Doe', 'john@example.com']);
+ * echo "Inserted ID: " . $insertId;
+ * 
+ * // 更新记录
+ * $updated = $db->update('UPDATE users SET email = ? WHERE id = ?', ['newemail@example.com', 1]);
+ * echo $updated ? 'Update successful' : 'Update failed';
+ * 
+ * // 删除记录
+ * $deleted = $db->delete('DELETE FROM users WHERE id = ?', [1]);
+ * echo $deleted ? 'Delete successful' : 'Delete failed';
  */
 class Database {
 	// PDO 实例，负责与数据库的实际连接
