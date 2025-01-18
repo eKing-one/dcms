@@ -21,7 +21,7 @@ if (isset($user)) dbquery("DELETE FROM `chat_who` WHERE `id_user` = '$user[id]'"
 // 删除超过2分钟的在线记录
 dbquery("DELETE FROM `chat_who` WHERE `time` < '" . ($time - 120) . "'");
 
-// 私聊
+// at 某人
 if (isset($user) && isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `chat_rooms` WHERE `id` = '" . intval($_GET['id']) . "'"), 0) == 1 && isset($_GET['msg']) && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '" . intval($_GET['msg']) . "'"), 0) == 1) {
     $room = dbassoc(dbquery("SELECT * FROM `chat_rooms` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1"));
     $ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '" . intval($_GET['msg']) . "' LIMIT 1"));
