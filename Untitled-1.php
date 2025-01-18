@@ -17,6 +17,7 @@ aut();
 当前设备UA为：<?php echo my_esc($_SERVER['HTTP_USER_AGENT']); ?><br>
 当前设备IP为：<?php echo $ip; ?><br>
 当前网站根目录：<?php echo $_SERVER['DOCUMENT_ROOT']; ?><br>
+123456：<?php echo password_hash('123456', PASSWORD_BCRYPT);?>
 
 <?php
 include_once 'sys/inc/tfoot.php';

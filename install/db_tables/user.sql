@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nick` varchar(32) NOT NULL,
-  `pass` varchar(32) NOT NULL,
+  `pass` VARCHAR(255) NOT NULL,
   `sess` varchar(32) DEFAULT NULL,
   `activation` varchar(32) DEFAULT NULL,
   `ban` int(11) NOT NULL DEFAULT '0',

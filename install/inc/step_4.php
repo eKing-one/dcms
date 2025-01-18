@@ -74,8 +74,8 @@ if (isset($_SESSION['adm_reg_ok']) && $_SESSION['adm_reg_ok'] == true) {
 
 	if (!isset($err)) {	// 如果没有错误
 		mysqli_query($db, "INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_aut`, `date_last`, `pol`, `level`, `group_access`, `balls`, `money`)
-		                   VALUES('$nick', '" . shif($password) . "', $time, $time, $time, '$pol', '4', '15', '5000', '500')");
-		$user = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM `user` WHERE `nick` = '$nick' AND `pass` = '" . shif($password) . "' LIMIT 1"));
+		                   VALUES('$nick', '" . password_hash($password, PASSWORD_BCRYPT) . "', $time, $time, $time, '$pol', '4', '15', '5000', '500')");
+		$user = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM `user` WHERE `nick` = '$nick' AND `pass` = '" . password_hash($password, PASSWORD_BCRYPT) . "' LIMIT 1"));
 		$q = mysqli_query($db, "SELECT `type` FROM `all_accesses`");
 
 		// 意义不明的循环，根本没有用到 $ac 和 user_acсess 表

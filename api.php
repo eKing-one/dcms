@@ -90,34 +90,13 @@ $db = new Database($set['mysql_host'], $set['mysql_db_name'], $set['mysql_user']
  */
 
 
-
-/**
- * 计算并返回输入字符串的加密哈希值。
- *
- * @param string $str 输入的字符串。
- * @return string 返回加密后的哈希值。
- */
-function shif($str) {
-	// 引入全局变量 $set
-	global $set;
-	// 获取加密所使用的密钥，来自全局变量 $set
-	$key = $set['shif'];
-	// 对输入的字符串 $str 进行 MD5 哈希运算
-	$str1 = md5((string) $str);
-	// 对密钥 $key 进行 MD5 哈希运算
-	$str2 = md5($key);
-	// 将密钥、加密后的字符串和密钥组合起来，再进行一次 MD5 哈希加密，返回最终结果
-	return md5($key . $str1 . $str2 . $key);
-}
-
-
 // 处理登录
 if (isset($_POST['nick']) && isset($_POST['pass'])) {	// 检查用户是否已经提交登录表单
     // 使用参数化查询验证用户名和密码
     $query = "SELECT `id`, `pass` FROM `user` WHERE `nick` = :nick LIMIT 1";
     $user = $db->query($query, ['nick' => $_POST['nick']]);
 
-    if ($user && shif($_POST['pass']) == $user['pass']) {  // 比较密码
+    if ($user && password_verify($_POST['pass'], $user['pass'])) {  // 比较密码
         // 登录成功
         $_SESSION['id_user'] = $user['id'];
 

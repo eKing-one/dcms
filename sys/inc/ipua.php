@@ -21,10 +21,12 @@ function get_cdn_ips() {
 	}
 }
 
-// 读取 CDN IP 列表并创建 Range 数组
-$cdnIpRanges = array_map(function ($cidr) {
-	return \IPLib\Factory::parseRangeString($cidr);
-}, get_cdn_ips());
+if ($set['get_ip_from_header'] != 'disabled') {
+	// 读取 CDN IP 列表并创建 Range 数组
+	$cdnIpRanges = array_map(function ($cidr) {
+		return \IPLib\Factory::parseRangeString($cidr);
+	}, get_cdn_ips());
+}
 
 /**
  * 检查一个IP是否在特定IP范围内
