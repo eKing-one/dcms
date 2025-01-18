@@ -43,7 +43,7 @@ if (file_exists(H . "style/themes/$set[set_them]/head.php")) {
 }
 
 // 如果用户等级大于4，显示工具栏
-if ($user['level'] > 4) {
+if (isset($user) and $user['level'] > 4) {
 	if (setget('toolbar', 1) == 1) {
 		t_toolbar_html(); // 调用工具栏函数
 	}

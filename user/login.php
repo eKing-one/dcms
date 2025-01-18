@@ -77,7 +77,7 @@ dbquery("UPDATE `user` SET `sess` = '$sess' WHERE `id` = '$user[id]' LIMIT 1");
 // 浏览器类型
 dbquery("UPDATE `user` SET `browser` = '" . ($webbrowser == true ? "wap" : "web") . "' WHERE `id` = '$user[id]' LIMIT 1");
 // 检查相似的昵称
-$collision_q = dbquery("SELECT * FROM `user` WHERE `ip` = '$iplong' AND `ua` = '".my_esc($ua)."' AND `date_last` > '".(time()-600)."' AND `id` <> '$user[id]'");
+$collision_q = dbquery("SELECT * FROM `user` WHERE `ip` = '$ip' AND `ua` = '".my_esc($ua)."' AND `date_last` > '".(time()-600)."' AND `id` <> '$user[id]'");
 while ($collision = dbassoc($collision_q)) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `user_collision` WHERE `id_user` = '$user[id]' AND `id_user2` = '$collision[id]' OR `id_user2` = '$user[id]' AND `id_user` = '$collision[id]'"), 0) == 0)
 	dbquery("INSERT INTO `user_collision` (`id_user`, `id_user2`, `type`) values('$user[id]', '$collision[id]', 'ip_ua_time')");

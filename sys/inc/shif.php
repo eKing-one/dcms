@@ -1,12 +1,18 @@
 <?php
 
 /**
+ * 此函数已弃用！！！！
+ * 
  * 计算并返回输入字符串的加密哈希值。
  *
  * @param string $str 输入的字符串。
  * @return string 返回加密后的哈希值。
  */
 function shif($str) {
+	// 触发弃用警告
+	trigger_error("Function 'shif' is deprecated and insecure. Please avoid using it.", E_USER_DEPRECATED);
+
+
 	// 引入全局变量 $set
 	global $set;
 	// 获取加密所使用的密钥，来自全局变量 $set
