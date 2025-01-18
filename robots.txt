@@ -2,4 +2,3 @@ User-agent: *
 Disallow: /adm_panel/
 Disallow: /style/
 Disallow: /sys/
-Disallow: /files/
