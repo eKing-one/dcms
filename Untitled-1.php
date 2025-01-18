@@ -11,13 +11,11 @@ include_once 'sys/inc/user.php';
 include_once 'sys/inc/thead.php';
 title();
 aut();
-$range = \IPLib\Factory::parseRangeString('127.0.0.a');
 ?>
 
 当前设备类型为：<?php echo $webbrowser ? 'PC' : 'NoPC'; ?><br>
 当前设备UA为：<?php echo my_esc($_SERVER['HTTP_USER_AGENT']); ?><br>
 当前设备IP为：<?php echo $ip; ?><br>
-<?php echo $range ? 'IP范围有效' : 'IP范围无效'; ?><br>
 
 <?php
 include_once 'sys/inc/tfoot.php';

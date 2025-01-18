@@ -25,7 +25,6 @@ if (isset($_POST['save'])) {
 			 * Cloudflare IPv4 列表：https://www.cloudflare.com/ips-v4/
 			 * Cloudflare IPv6 列表：https://www.cloudflare.com/ips-v6/
 			 */
-
 			$cloudflareCdnIpsUrls = [
 				"https://www.cloudflare.com/ips-v4/",
 				"https://www.cloudflare.com/ips-v6/"
@@ -50,7 +49,19 @@ if (isset($_POST['save'])) {
 			// 去重和清理空行
 			$save_cdn_ip_list = array_filter(array_unique($cloudflareCdnIpList));
 		} else {
-			$save_cdn_ip_list = $_POST['cdn_ip_list'];
+			// 先将所有换行符标准化为 "\n" （适应 Windows 和 Linux 系统）
+			$save_cdn_ip_list = str_replace("\r\n", "\n", $_POST['cdn_ip_list']);
+
+			// 然后按 "\n" 分割文本并转换为数组
+			$save_cdn_ip_list = explode("\n", $save_cdn_ip_list);
+
+			// 使用 array_filter 去除空白行或只包含空格/Tab 的行
+			$save_cdn_ip_list = array_filter($save_cdn_ip_list, function($line) {
+				return trim($line) !== '';
+			});
+
+			// 重新索引数组，去除空洞
+			$save_cdn_ip_list = array_values($save_cdn_ip_list);
 		}
 
 		// 检查IP范围是否有效
@@ -77,9 +88,6 @@ if (isset($_POST['save'])) {
 	} catch (Exception $e) {
 		echo $err =  $e->getMessage();
 	}
-
-	header( "Location: " . $_SERVER [ "REQUEST_URI" ]);
-	exit();
 }
 
 err();

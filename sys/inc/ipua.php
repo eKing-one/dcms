@@ -12,10 +12,12 @@ function get_cdn_ips() {
 	if (dbrows($result) > 0) {
 		// 循环遍历每一行数据
 		while ($row = dbarray($result)) {
-			return $row['ip_range'];
+			// 将每个 IP 范围添加到数组中
+			$ipArray[] = $row['ip_range'];
 		}
+		return $ipArray; // 返回包含所有 IP 范围的数组
 	} else {
-		return [];
+		return []; // 如果没有数据，返回空数组
 	}
 }
 
