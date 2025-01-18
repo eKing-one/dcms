@@ -1,4 +1,4 @@
-<?
+<?php
 if (!defined('H')) define("H", dirname(dirname(__DIR__)) . "/");
 if (!defined('I')) define("I", "");
 if (!defined('REPLACE')) define("REPLACE", H . "replace/");
@@ -14,8 +14,7 @@ foreach ($includes as $file) {
         } else  define($file_constant, H . $file_path);
     }
 }
-function check_replace($source2)
-{
+function check_replace($source2) {
     $source = realpath($source2);
     if (!file_exists($source)) $source = $source2;
     $source = str_ireplace(DIRECTORY_SEPARATOR, "/", (string)$source);
@@ -23,20 +22,25 @@ function check_replace($source2)
     $replace = str_ireplace(DIRECTORY_SEPARATOR, "/", REPLACE);
     $replace_file = str_ireplace($h, $replace, (string)$source);
     if (setget('replace', 1) == 1) {
-        if (file_exists($replace_file)) return $replace_file;
-        else return $source;
-    } else return $source;
+        if (file_exists($replace_file)) {
+            return $replace_file;
+        } else {
+            return $source;
+        }
+    } else {
+        return $source;
+    }
 }
-function test_file($file)
-{
+
+function test_file($file) {
     return (is_file(check_replace($file)));
 }
-function test_file2($file)
-{
+
+function test_file2($file) {
     return (file_exists(check_replace($file)));
 }
-function check_file($source)
-{
+
+function check_file($source) {
     static $includes;
     if (file_exists(REPLACE . $source)) {
         include_once REPLACE . $source;
@@ -44,8 +48,7 @@ function check_file($source)
         if ($includes[$source] === TRUE) exit();
     }
 }
-function setget($name, $default = NULL)
-{
+function setget($name, $default = NULL) {
     global $set;
     if (!isset($set[$name])) {
         if ($default === NULL) $set[$name] = NULL;
