@@ -3,7 +3,7 @@ body {
 	font-family: tahoma, Comic Sans MS,  verdana, sans-serif, Lucida Sans;
 	font-size: 14px;
 	background-color:black;
-	color: white;
+	color: #e8e6e3;
 	border: 3px #2f2f2f solid;
 	word-break: normal;
 	max-width: 600px;
@@ -36,7 +36,7 @@ a:link, a:visited {
 }
 
 a:hover {
-	color: #0056b3;
+	color: #0078f8;
 	text-decoration: none;
 }
 
@@ -44,6 +44,9 @@ a:hover {
 	width: 100%;
 }
 
+table {
+    border-color: #545b5e;
+}
 
 img {
 	vertical-align: middle;
@@ -62,35 +65,36 @@ form label {
 
 /* кнопки */
 input[type="submit"] {
-	color: #ffffff;
-	background: #4C82F6;
+	color: rgb(232, 230, 227);
+	background-color: rgb(8, 55, 156);
 	border-radius: 4px;
 	margin-top: 1px;
 	padding: 8px;
 }
 input[type="submit"]:hover {
-	color: #fff;
-	background-color: #85ABFF;
+	color: rgb(232, 230, 227);
+	background-color: #0b255e;
 	border-radius: 4px;
 }
 
-/* текстовое поле */
+/* 文本字段 */
 textarea {
 	width: 98%;
 	height: 6pc;
-	border:1px solid #CFD4DA;
+	border:1px solid rgb(60, 65, 68);
 	border-radius: 4px;
-	color:#495058;
+	color: rgb(181, 175, 165);
+	background-color: rgb(18, 20, 20);
 }
 
 
 input, select{
-	border:1px solid #CFD4DA;
+	border:1px solid rgb(60, 65, 68);
 	border-radius: 4px;
-	background-color: #fff;
+	background-color: rgb(24, 26, 27);
 	margin: 2px;
 	padding: 8px;
-	color:#495058;
+	color:rgb(181, 175, 165);
 }
 
 
@@ -133,23 +137,23 @@ input, select{
 	color: #FFFFFF;
 }
 
-/* ссылка на главную */
+/* 链接到主页 */
 .titles {
 	margin: 5px;
 	padding: 5px;
 	text-align: center;
-	background-color: #357FFA;	
-	border-bottom: 1px #0e9ece solid;
+	background-color: rgb(4, 67, 171);
+	border-bottom: 1px rgb(12, 136, 177) solid;
 	margin-bottom: 0px;
-	color: #fee800;
+	color: rgb(255, 235, 26);
 	width:20px;
-	border-right: 1px solid #29447e;
+	border-right: 1px solid rgb(50, 83, 155);
 }
 .titles a {
-	color: #29447e;
+	color: rgb(141, 178, 218);
 }
 .titles a:hover {
-	color: #FFFFFF;
+	color: #c9c9c9;
 }
 
 
@@ -157,10 +161,10 @@ input, select{
 .err {
 	text-align: center;
 	font-weight: bold;
-	background-color: #FEF0F5;
-	border: 1px solid #EE5E8A;
+	background-color: rgb(57, 4, 23);
+	border: 1px solid rgb(141, 15, 53);
 	border-radius: 4px;
-	color: #EE5E8A;
+	color: rgb(238, 96, 140);
 	padding: 7px;
 	margin: 2px;
 }
@@ -209,7 +213,7 @@ input, select{
 }
 
 
-/* Тело статуса */
+/* 状态正文 */
 .st_2 {
 	margin: 3px;
 	margin-top: 0;
@@ -223,17 +227,17 @@ input, select{
 	word-wrap: normal;
 }
 
-/* блок постраничной навигации */
+/* 逐页导航单元 */
 .c2 {
-	color: #1D222C;
-	background: #f5f5f5;
-	border: 1px solid #f0f0f0;
+	color: rgb(209, 205, 199);
+	background-color: rgb(30, 32, 33);
+	border: 1px solid rgb(52, 57, 59);
 	border-radius: 4px;
 	margin: 2px;
 	padding: 10px;
 }
 
-/* активная страница */
+/* 活动页面 */
 .str {
 	border: 1px solid #4C82F6;
 	border-radius: 4px;
@@ -242,7 +246,7 @@ input, select{
 	color: #000;
 }
 
-/* кнопки пагинации */
+/* 分页按钮 */
 .page a {
 	background: #4C82F6;
 	border-radius: 4px;
@@ -254,7 +258,7 @@ input, select{
 	background: #85ABFF;
 }
 
-/* блок панели у textarea */
+/* textArea 处的 panel 块 */
 .tpanel {
 	display: table;
 	border: 0;
@@ -263,7 +267,7 @@ input, select{
 	color: #fff;
 }
 
-/* кнопки панели у textarea */
+/* 文本区域面板按钮 */
 .tmenu {
 	float: left;
 	display: inline;
@@ -275,24 +279,24 @@ input, select{
 	padding: 6px 8px 6px 8px;
 	text-decoration: none;
 	text-align: center;
-	color: #fff;
-	background: #4C82F6;
+	color: rgb(232, 230, 227);
+	background-color: rgb(8, 55, 156);
 	border-radius: 4px 4px 0px 0px;
 	-moz-border-radius: 4px 4px 0px 0px;
 }
 .tmenu a:hover {
-	background: #85ABFF;
+	background: #132957;
 }
 
 
-/* блок кнопок в настройках, дневниках и тд */
+/* 设置、日记等中的按钮块 */
 .menus {
 	display: table;
 	width: 99%;
-	background-color: #E6EDFA;
-	border: 1px #E6EBF9 solid;
+	background-color: rgb(32, 35, 37);
+	border: 1px rgb(22, 39, 90) solid;
 }
-/* кнопки блока */
+/* 块按钮 */
 .webmenu {
 	float: left;
 	display: inline;
@@ -320,11 +324,11 @@ input, select{
 	border-radius: 5px;
 }
 a.activ {
-	background-color: #4C82F6;
+	background-color: rgb(8, 55, 156);
 	font-weight: bold;
 	margin:2px;
 	border-radius: 5px;
-	color:#fff;
+	color:rgb(232, 230, 227);
 }
 
 /* 阶梯 1 */
@@ -377,18 +381,18 @@ a.activ {
 	text-align: center;
 }
 
-/* шапка в списке гостей */
+/* 嘉宾名单上的帽子 */
 .p_t {
-	border-top: 0px #D6E6F2 solid;
-	background-color: #E3EFFF;
+	border-top: 0px rgb(28, 63, 90) solid;
+	background-color: rgb(32, 35, 36);
 	padding: 5px;
 	margin: 0px;
 	width: 100%;
 }
 /* 嘉宾名单上的正文 */
 .p_m {
-	border-bottom: 1px #e5fdfd solid;
-	background-color: #f2ffff;
+	border-bottom: 1px rgb(8, 103, 103) solid;
+	background-color: rgb(0, 59, 59);
 	padding: 5px;
 	margin: 0px;
 	width: 100%;
@@ -397,7 +401,7 @@ a.activ {
 /* 突出显示调查问卷中的项目 */
 .ank_n {
 	font-weight: bold;
-	color: #555;
+	color: rgb(178, 172, 162);
 }
 
 /* 调查问卷中的变体 */
