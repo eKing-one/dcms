@@ -15,7 +15,7 @@ only_unreg();
 
 // 检查用户是否成功登录
 if (isset($_GET['id']) && isset($_GET['pass'])) {
-	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '".intval($_GET['id'])."' AND `pass` = '".shif($_GET['pass'])."' LIMIT 1"), 0)==1) {
+	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '" . intval($_GET['id']) . "' AND `pass` = '" . shif($_GET['pass']) . "' LIMIT 1"), 0) == 1) {
 		$user = user::get_user($_GET['id']);
 		$_SESSION['id_user'] = $user['id'];
 		dbquery("UPDATE `user` SET `date_aut` = ".time()." WHERE `id` = '$user[id]' LIMIT 1");
@@ -25,8 +25,8 @@ if (isset($_GET['id']) && isset($_GET['pass'])) {
 		$_SESSION['err'] = '用户名或密码不正确';
 	}
 } elseif (isset($_POST['nick']) && isset($_POST['pass'])) {	// 检查用户是否已经提交登录表单
-	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '".my_esc($_POST['nick'])."' AND `pass` = '".shif($_POST['pass'])."' LIMIT 1"), 0)) {
-		$user = dbassoc(dbquery("SELECT `id` FROM `user` WHERE `nick` = '".my_esc($_POST['nick'])."' AND `pass` = '".shif($_POST['pass'])."' LIMIT 1"));
+	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "' AND `pass` = '" . shif($_GET['pass']) . "' LIMIT 1"), 0)) {
+		$user = dbassoc(dbquery("SELECT `id` FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "' AND `pass` = '" . shif($_GET['pass']) . "' LIMIT 1"));
 		$_SESSION['id_user'] = $user['id'];
 		$user = user::get_user($user['id']);
 		// 在COOKIE中保存数据
@@ -40,7 +40,7 @@ if (isset($_GET['id']) && isset($_GET['pass'])) {
 		$_SESSION['err'] = '用户名或密码不正确';
 	}
 } elseif (isset($_COOKIE['id_user']) && isset($_COOKIE['pass']) && $_COOKIE['id_user'] && $_COOKIE['pass']) {
-	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = ".intval($_COOKIE['id_user'])." AND `pass` = '".shif(cookie_decrypt($_COOKIE['pass'],intval($_COOKIE['id_user'])))."' LIMIT 1"), 0)==1) {
+	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = " . intval($_COOKIE['id_user']) . " AND `pass` = '" . shif(cookie_decrypt($_COOKIE['pass'], intval($_COOKIE['id_user']))) . "' LIMIT 1"), 0) == 1) {
 		$user = user::get_user($_COOKIE['id_user']);
 		$_SESSION['id_user'] = $user['id'];
 		dbquery("UPDATE `user` SET `date_aut` = '$time', `date_last` = '$time' WHERE `id` = '$user[id]' LIMIT 1");
