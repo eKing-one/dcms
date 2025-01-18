@@ -395,14 +395,14 @@ echo "</div>";
 if ($user['level'] > $ank['level']) {
 	if (isset($_GET['info'])) {
 		echo "<div class='foot'>";
-		echo "<img src='/style/icons/str.gif' alt='*' /> <a href='?id=$ank[id]'>隐藏</a><br />";
+		echo "<img src='/style/icons/str.gif' alt='*' /> <a href='?id={$ank['id']}'>隐藏</a><br />";
 		echo "</div>";
 		echo "<div class='p_t'>";
 		if ($ank['ip'] != NULL) {
 			if (user_access('user_show_ip') && $ank['ip'] != 0) {
-				echo "<span class=\"ank_n\">IP:</span> <span class=\"ank_d\">" . long2ip($ank['ip']) . "</span>";
+				echo "<span class=\"ank_n\">IP:</span> <span class=\"ank_d\">{$ank['ip']}</span>";
 				if (user_access('adm_ban_ip'))
-					echo " [<a href='/adm_panel/ban_ip.php?min=$ank[ip]'>禁止</a>]";
+					echo " [<a href='/adm_panel/ban_ip.php?min={$ank['ip']}'>禁止</a>]";
 				echo "<br />";
 			}
 		}
