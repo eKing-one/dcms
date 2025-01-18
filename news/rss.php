@@ -23,7 +23,7 @@ while ($post = dbassoc($q)) {
 	echo "<item>";
 	echo "<title>{$post['title']}</title>";
 	if ($post['link'] != NULL) {
-		if (!preg_match('#^https?://#',$post['link'])) {
+		if (!preg_match('#^https?://#', $post['link'])) {
 			echo "<link>" . htmlentities("http://{$_SERVER['SERVER_NAME']}{$post['link']}", ENT_QUOTES, 'UTF-8') . "</link>";
 		} else {
 			echo "<link>" . htmlentities($post['link'], ENT_QUOTES, 'UTF-8') . "</link>";

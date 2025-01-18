@@ -5,9 +5,9 @@ $set_dinamic = array();
 $set_replace = array();
 
 // 正在加载默认设置。消除未定义变量的缺失
-$default = @parse_ini_file(H.'sys/dat/default.ini',true);
-$set_default = @$default['DEFAULT'];
-$set_replace = @$default['REPLACE'];
+$default = parse_ini_file(H.'sys/dat/default.ini',true);
+$set_default = $default['DEFAULT'];
+$set_replace = $default['REPLACE'];
 
 // 检查 install 目录是否存在，如果存在就转跳到引擎安装界面
 if (file_exists(H.'sys/dat/settings.php')) {
