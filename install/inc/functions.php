@@ -65,10 +65,10 @@ function save_settings($set) {
 	$filePath = H . 'sys/dat/settings.php';
 
 	// 尝试打开文件写入内容
-	if ($fopen = @fopen($filePath, 'w')) {
-		@fputs($fopen, $configContent);
-		@fclose($fopen);
-		@chmod($filePath, 0777);
+	if ($fopen = fopen($filePath, 'w')) {
+		fputs($fopen, $configContent);
+		fclose($fopen);
+		chmod($filePath, 0777);
 		return true;
 	} else {
 		return false;
@@ -82,18 +82,18 @@ function delete_dir($dir) {
 		while ($rd = readdir($od)) {
 			if ($rd == '.' || $rd == '..') continue;
 			if (is_dir("$dir/$rd")) {
-				@chmod("$dir/$rd", 0777);
+				chmod("$dir/$rd", 0777);
 				delete_dir("$dir/$rd");
 			} else {
-				@chmod("$dir/$rd", 0777);
-				@unlink("$dir/$rd");
+				chmod("$dir/$rd", 0777);
+				unlink("$dir/$rd");
 			}
 		}
 		closedir($od);
-		@chmod("$dir", 0777);
-		return @rmdir("$dir");
+		chmod("$dir", 0777);
+		return rmdir("$dir");
 	} else {
-		@chmod("$dir", 0777);
-		@unlink("$dir");
+		chmod("$dir", 0777);
+		unlink("$dir");
 	}
 }

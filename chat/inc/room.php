@@ -3,7 +3,7 @@
  * 聊天室-房间相关代码，用于显示聊天室的信息
  */
 
-// 添加信息
+// 处理发送信息
 if (isset($_POST['msg']) && isset($user)) {
 	$msg = $_POST['msg'];
 	$mat = antimat($msg);

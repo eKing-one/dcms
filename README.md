@@ -41,7 +41,7 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 
 ## 安装前体验
 
-你可以前往 [GuGuan123](https://github.com/guguan123/) 开设的[副站](https://dcms.myredirect.us/)体验各项功能的最新改进。相关技术信息请参见[他的博客](http://u5a.cn/B8Ng5)。
+你可以前往 [GuGuan123](https://github.com/guguan123/) 开设的[副站](https://dcms.myredirect.us/)体验各项功能的最新改进。相关技术信息请参见[他的博客](https://blog.guguan.us.kg/2024/08/23/cn_dcms-social-%e5%89%af%e7%ab%99/)。
 
 ## 安装步骤
 
@@ -99,3 +99,4 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - [x] 移除`$iplong`
 - [x] 移除`$ipa`
 - [x] 全新的 IP 屏蔽方法
+- [ ] 抛弃老旧的`shif()`函数，改为使用`password_hash()`和`password_verify()`来加密用户密码
