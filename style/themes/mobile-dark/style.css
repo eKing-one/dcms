@@ -169,19 +169,19 @@ input, select{
 	margin: 2px;
 }
 
-/* Уведомление зелёным */
+/* 绿色通知 */
 .msg {
 	text-align: center;
 	font-weight: bold;
-	background-color: #E5F8F6;
-	border: 1px solid #01AFA7;
+	background-color: rgb(15, 56, 53);
+	border: 1px solid rgb(1, 201, 192);
 	border-radius: 4px;
-	color: #01AFA7;
+	color: rgb(82, 254, 246);
 	padding: 7px;
 	margin: 2px;
 }
 
-/* уведомление в жолтой рамке */
+/* 黄框通知 */
 .mess {
 	padding: 7px;
 	background: black;
@@ -190,7 +190,7 @@ input, select{
 	border-radius: 4px;
 }
 
-/* Цытата */
+/* 报价 */
 .cit {
     margin-bottom: 6px;
     border: 1px solid #c1c1c1;
@@ -201,7 +201,7 @@ input, select{
 }
 
 
-/* Шапка статуса */
+/* 状态标头 */
 .st_1 {
 	margin-left: 20px;
 	margin-bottom: 0;
