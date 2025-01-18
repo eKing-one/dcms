@@ -334,11 +334,15 @@ a.activ {
 }
 
 /* лесенка 2 */
-.nav2 { background-color: #FFFFFF;
+.nav2 {
+	background-color: #FFFFFF;
 	padding: 7px;
 	border-bottom: 1px solid #e0e0e0;
 }
 
+.main_no_notes_nav2 {
+	color: #666;
+}
 
 /* ссылки главного меню */
 .main_menu, .main2 {

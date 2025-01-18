@@ -94,15 +94,15 @@ input, select{
 }
 
 
-/* логотип на главной */
+/* 主页上的徽标 */
 .logo {
 	margin: 0px;
 	padding: 2px;
 	text-align: center;
-	background: #3b5998;
+	background-color: rgb(47, 71, 122);
 }
 
-/* верняя панель */
+/* 返回面板 */
 .auts {
 	font-weight: bold;
 	overflow: hidden;
@@ -110,14 +110,14 @@ input, select{
 	vertical-align: top;
 	width: 19%;
 	white-space: nowrap;
-	background: #4C82F6;
-	border: 1px solid #3b5998;
+	background-color: rgb(8, 55, 156);
+	border: 1px solid rgb(54, 81, 138);
 }
 .auts:hover {
-	background-color: #85ABFF;
+	background-color: #02205f;
 }
 
-/* титл страницы */
+/* 页面标题 */
 .title {
 	margin: 0px;
 	padding: 5px;
@@ -341,6 +341,9 @@ a.activ {
 	border-bottom: 1px solid rgb(57, 61, 64);
 }
 
+.main_no_notes_nav2 {
+	color: #666;
+}
 
 /* 主菜单链接 */
 .main_menu, .main2 {
@@ -382,7 +385,7 @@ a.activ {
 	margin: 0px;
 	width: 100%;
 }
-/* тело в списке гостей */
+/* 嘉宾名单上的正文 */
 .p_m {
 	border-bottom: 1px #e5fdfd solid;
 	background-color: #f2ffff;
@@ -391,24 +394,24 @@ a.activ {
 	width: 100%;
 }
 
-/* выделение пункта в анкете */
+/* 突出显示调查问卷中的项目 */
 .ank_n {
 	font-weight: bold;
 	color: #555;
 }
 
-/* вариант в анкете */
+/* 调查问卷中的变体 */
 .ank_d {
 	margin: 5px;
 }
 
-/* копирайт внизу сайта */
+/* 网站底部的版权标识 */
 .copy {
 	padding: 7px;
 	text-align: center;
-	background-color: #85ABFF;
-	border:1px solid #4C82F6;
-	color: #f5f5f5;
+	background-color: rgb(0, 39, 124);
+	border:1px solid rgb(8, 53, 151);
+	color: rgb(226, 223, 219);
 	text-align: center;
 }
 .copy a {
