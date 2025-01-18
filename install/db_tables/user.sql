@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `ank_mail` varchar(32) DEFAULT NULL,
   `ank_n_tel` varchar(11) DEFAULT NULL,
   `ank_name` varchar(32) DEFAULT NULL,
-  `set_time_chat` int(11) DEFAULT '30',
+  `set_time_chat` int(11) DEFAULT '0',
   `set_p_str` int(11) DEFAULT '7',
   `set_show_icon` set('0','1','2') DEFAULT '1',
   `set_translit` enum('0','1') NOT NULL DEFAULT '1',
