@@ -15,9 +15,6 @@ http://dcms-social.ru
 =======================================
 */
 
-ini_set("display_errors", "On");//打开错误提示
-ini_set("error_reporting",E_ALL);//显示所有错误
-
 // 检查是否定义了常量“USER”，如果没有定义，则禁止访问此页面
 if (!defined("USER")) die('No access');
 
@@ -41,9 +38,9 @@ if ($dir_id['upload'] == 1) {
 		} else {
 			// 处理上传文件的文件名
 			$file = esc(stripcslashes(htmlspecialchars($_FILES['file']['name'])));
-			$file = preg_replace('(\#|\?)', NULL, $file);
-			$name = preg_replace('#\.[^\.]*$#', NULL, $file); // 获取文件名
-			$ras = strtolower(preg_replace('#^.*\.#', NULL, $file)); // 获取文件扩展名
+			$file = preg_replace('(\#|\?)', '', $file);
+			$name = preg_replace('#\.[^\.]*$#', '', $file); // 获取文件名
+			$ras = strtolower(preg_replace('#^.*\.#', '', $file)); // 获取文件扩展名
 			$type = my_esc($_FILES['file']['type']); // 文件类型
 			$size = $_FILES['file']['size']; // 文件大小
 			$rasss = explode(';', $dir_id['ras']); // 允许的文件格式
@@ -96,7 +93,7 @@ if ($dir_id['upload'] == 1) {
 			}
 
 			// 保存文件到服务器
-			if (!@copy($_FILES['file']['tmp_name'], H . "files/down/$id_file.dat")) {
+			if (!copy($_FILES['file']['tmp_name'], H . "files/down/$id_file.dat")) {
 				dbquery("DELETE FROM `downnik_files` WHERE `id` = '$id_file' LIMIT 1");
 				$err[] = '上传时出错';
 			}
@@ -107,7 +104,7 @@ if ($dir_id['upload'] == 1) {
 			chmod(H . "files/down/$id_file.dat", 0666);
 
 			// 处理截图逻辑
-			if (isset($_FILES['screen']) && $imgc = @imagecreatefromstring(file_get_contents($_FILES['screen']['tmp_name']))) {
+			if (isset($_FILES['screen']) && $_FILES['screen']['error'] === UPLOAD_ERR_OK && $imgc = imagecreatefromstring(file_get_contents($_FILES['screen']['tmp_name']))) {
 				// 创建 320x320 的缩略图
 				$img_x = imagesx($imgc);
 				$img_y = imagesy($imgc);
@@ -132,7 +129,7 @@ if ($dir_id['upload'] == 1) {
 			}
 
 			// 创建 128x128 的缩略图
-			if (isset($_FILES['screen']) && $imgc = @imagecreatefromstring(file_get_contents($_FILES['screen']['tmp_name']))) {
+			if (isset($_FILES['screen']) && $_FILES['screen']['error'] === UPLOAD_ERR_OK && $imgc = imagecreatefromstring(file_get_contents($_FILES['screen']['tmp_name']))) {
 				$img_x = imagesx($imgc);
 				$img_y = imagesy($imgc);
 				if ($img_x == $img_y) {
