@@ -1,9 +1,8 @@
-<?
-function MultiWave($img)
-{
-	$width=imagesx($img);
-	$height=imagesy($img);
-	$img2=imagecreatetruecolor($width, $height);
+<?php
+function MultiWave($img) {
+	$width = imagesx($img);
+	$height = imagesy($img);
+	$img2 = imagecreatetruecolor($width, $height);
 	$rand1 = mt_rand(700000, 1000000) / 15000000;
 	$rand2 = mt_rand(700000, 1000000) / 15000000;
 	$rand3 = mt_rand(700000, 1000000) / 15000000;
@@ -34,7 +33,7 @@ function MultiWave($img)
 		  $color_xy = (imagecolorat($img, $sx + 1, $sy + 1) >> 16) & 0xFF;
 		}    // сглаживаем только точки, цвета соседей которых отличается
 		if($color == $color_x && $color == $color_y && $color == $color_xy){
-		  $newcolor=$color;
+		  $newcolor = $color;
 		}else{
 		  $frsx = $sx - floor($sx); //отклонение координат первообраза от целого
 		  $frsy = $sy - floor($sy);
@@ -51,4 +50,3 @@ function MultiWave($img)
 	}
 	return $img2;
 }
-?>
