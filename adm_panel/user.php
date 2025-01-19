@@ -123,7 +123,9 @@ if (isset($_POST['save'])) {
 	if (user_access('user_change_group') && isset($_POST['group_access'])) {
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `user_group` WHERE `id` = '" . intval($_POST['group_access']) . "' AND `level` < '$user[level]'"), 0) == 1) {
 			if ($ank['group_access'] != intval($_POST['group_access'])) {
-				admin_log('用户', '状态更改', "用户 '$ank[nick]': 状况 '$ank[group_name]' 改为 '" . dbresult(dbquery("SELECT `name` FROM `user_group` WHERE `id` = '" . intval($_POST['group_access']) . "'"), 0) . "'");
+				$user_new_group_name = dbresult(dbquery("SELECT `name` FROM `user_group` WHERE `id` = '" . intval($_POST['group_access']) . "'"), 0);
+				admin_log('用户', '状态更改', "用户 “{$ank['nick']}”: 由 “{$ank['group_name']}” 改为 “{$user_new_group_name}”");
+				//admin_log('用户', '状态更改', "用户 '{$ank['nick']}': 状况 '{$ank['group_name']}' 改为 '" . dbresult(dbquery("SELECT `name` FROM `user_group` WHERE `id` = '" . intval($_POST['group_access']) . "'"), 0) . "'");
 				$ank['group_access'] = intval($_POST['group_access']);
 				dbquery("UPDATE `user` SET `group_access` = '$ank[group_access]' WHERE `id` = '$ank[id]' LIMIT 1");
 			}
@@ -135,7 +137,7 @@ if (isset($_POST['save'])) {
 		$ank['balls'] = intval($_POST['balls']);
 		dbquery("UPDATE `user` SET `balls` = '$ank[balls]' WHERE `id` = '$ank[id]' LIMIT 1");
 	}
-	admin_log('用户', '个人资料', "编辑用户个人资料 '$ank[nick]' (id#$ank[id])");
+	admin_log('用户', '个人资料', "编辑用户个人资料 “{$ank['nick']}” (id#{$ank['id']})");
 	if (!isset($err)) msg('更改已成功接受');
 }
 
