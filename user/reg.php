@@ -88,7 +88,7 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 			dbquery("INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_last`, `pol`) values('" . $_SESSION['reg_nick'] . "', '" . password_hash($_POST['pass1'], PASSWORD_BCRYPT) . "', '$time', '$time', '" . intval($_POST['pol']) . "')", $db);
 		}
 		// 获取用户信息
-		$user = dbassoc(dbquery("SELECT * FROM `user` WHERE `nick` = '" . my_esc($_SESSION['reg_nick']) . "' AND `pass` = '" . password_hash($_POST['pass1'], PASSWORD_BCRYPT) . "' LIMIT 1"));
+		$user = dbassoc(dbquery("SELECT * FROM `user` WHERE `nick` = '" . my_esc($_SESSION['reg_nick']) . "' LIMIT 1"));
 
 		/*
 		========================================
@@ -108,14 +108,15 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 			msg('您需要使用发送到电子邮件的链接激活您的帐户');
 		} else {
 			dbquery("update `user` set `wall` = '0' where `id` = '$user[id]' limit 1");
-			header('Location: /user/my_aut.php?login=' . htmlspecialchars($_POST['reg_nick']) . '&pass=' . htmlspecialchars($_POST['pass1']));
 		}
+
+		msg('注册成功！');
 
 		echo "如果您的浏览器不支持Cookie，您可以创建一个自动登录书签<br />";
 		echo "<input type='text' value='http://$_SERVER[SERVER_NAME]/user/login.php?id=$user[id]&amp;pass=" . htmlspecialchars($_POST['pass1']) . "' /><br />";
 		if ($set['reg_select'] == 'open_mail') unset($user);
 		echo "<div class='foot'>";
-		echo "&raquo;<a href='settings.php'>我的设置</a><br />";
+		echo "&raquo;<a href='info/settings.php'>我的设置</a><br />";
 		echo "&raquo;<a href='umenu.php'>我的菜单</a><br />";
 		echo "</div>";
 		include_once '../sys/inc/tfoot.php';

@@ -1,4 +1,11 @@
 <?php
+/**
+ * 网站的API，用于以提供更多的可玩性
+ * 
+ * 用更现代的方法重新实现了大部分功能
+ */
+
+
 error_reporting(E_ALL); // 启用错误显示
 ini_set('display_errors',true); // 启用错误显示
 
@@ -94,9 +101,9 @@ class Database {
 	 * @return mixed 返回查询结果，如果没有结果则返回 false
 	 */
 	public function query($sql, $params = []) {
-		$stmt = $this->pdo->prepare($sql);  // 准备 SQL 语句
-		$stmt->execute($params);  // 执行查询，传入参数
-		return $stmt->fetch();  // 获取单行结果
+		$stmt = $this->pdo->prepare($sql);	// 准备 SQL 语句
+		$stmt->execute($params);			// 执行查询，传入参数
+		return $stmt->fetch();				// 获取单行结果
 	}
 
 	/**
@@ -108,9 +115,9 @@ class Database {
 	 * @return array 返回查询结果的数组，如果没有结果则返回空数组
 	 */
 	public function queryAll($sql, $params = []) {
-		$stmt = $this->pdo->prepare($sql);  // 准备 SQL 语句
-		$stmt->execute($params);  // 执行查询，传入参数
-		return $stmt->fetchAll();  // 获取所有结果
+		$stmt = $this->pdo->prepare($sql);	// 准备 SQL 语句
+		$stmt->execute($params);			// 执行查询，传入参数
+		return $stmt->fetchAll();			// 获取所有结果
 	}
 
 	/**
@@ -122,9 +129,9 @@ class Database {
 	 * @return string 返回插入数据的最后插入 ID
 	 */
 	public function insert($sql, $params = []) {
-		$stmt = $this->pdo->prepare($sql);  // 准备 SQL 语句
-		$stmt->execute($params);  // 执行插入操作，传入参数
-		return $this->pdo->lastInsertId();  // 返回最后插入记录的 ID
+		$stmt = $this->pdo->prepare($sql);	// 准备 SQL 语句
+		$stmt->execute($params);			// 执行插入操作，传入参数
+		return $this->pdo->lastInsertId();	// 返回最后插入记录的 ID
 	}
 
 	/**
@@ -136,8 +143,8 @@ class Database {
 	 * @return bool 返回执行成功与否，成功则返回 true，失败返回 false
 	 */
 	public function update($sql, $params = []) {
-		$stmt = $this->pdo->prepare($sql);  // 准备 SQL 语句
-		return $stmt->execute($params);  // 执行更新操作
+		$stmt = $this->pdo->prepare($sql);	// 准备 SQL 语句
+		return $stmt->execute($params);		// 执行更新操作
 	}
 
 	/**
@@ -149,8 +156,8 @@ class Database {
 	 * @return bool 返回执行成功与否，成功则返回 true，失败返回 false
 	 */
 	public function delete($sql, $params = []) {
-		$stmt = $this->pdo->prepare($sql);  // 准备 SQL 语句
-		return $stmt->execute($params);  // 执行删除操作
+		$stmt = $this->pdo->prepare($sql);	// 准备 SQL 语句
+		return $stmt->execute($params);		// 执行删除操作
 	}
 }
 
@@ -159,58 +166,54 @@ class Database {
 $set = setget();
 $db = new Database($set['mysql_host'], $set['mysql_db_name'], $set['mysql_user'], $set['mysql_pass']);
 
-
-/**
- * // 数据库使用示例
- * // 查询单条数据
- * $user = $db->query("SELECT * FROM users WHERE username = ?", ['desiredUsername']);
- *
- * // 插入新用户
- * $newUserId = $db->insert("INSERT INTO users (username, password) VALUES (?, ?)", ['newUsername', 'hashedPassword']);
- */
+// 检测是否启用了 API
+if ($set['api'] == '0') {
+	http_response_code (403);
+	die ('{"success":"false", "error":"The administrator turned off the API"}');
+}
 
 
 // 处理登录
 if (isset($_POST['nick']) && isset($_POST['pass'])) {	// 检查用户是否已经提交登录表单
-    // 使用参数化查询验证用户名和密码
-    $query = "SELECT `id`, `pass` FROM `user` WHERE `nick` = :nick LIMIT 1";
-    $user = $db->query($query, ['nick' => $_POST['nick']]);
+	// 使用参数化查询验证用户名和密码
+	$query = "SELECT `id`, `pass` FROM `user` WHERE `nick` = :nick LIMIT 1";
+	$user = $db->query($query, ['nick' => $_POST['nick']]);
 
-    if ($user && password_verify($_POST['pass'], $user['pass'])) {  // 比较密码
-        // 登录成功
-        $_SESSION['id_user'] = $user['id'];
+	if ($user && password_verify($_POST['pass'], $user['pass'])) {	// 比较密码
+		// 登录成功
+		$_SESSION['id_user'] = $user['id'];
 
-        // 自动登录功能
-        if (isset($_POST['aut_save']) && $_POST['aut_save']) {
-            setcookie('id_user', $user['id'], time() + 60 * 60 * 24 * 365);
-            setcookie('pass', $_POST['pass'], $user['id'], time() + 60 * 60 * 24 * 365);
-        }
+		// 自动登录功能
+		if (isset($_POST['aut_save']) && $_POST['aut_save']) {
+			setcookie('id_user', $user['id'], time() + 60 * 60 * 24 * 365);
+			setcookie('pass', $_POST['pass'], $user['id'], time() + 60 * 60 * 24 * 365);
+		}
 
-        // 更新用户的登录时间
-        $time = time();  // 当前时间戳
-        $updateQuery = "UPDATE `user` SET `date_aut` = :time, `date_last` = :time WHERE `id` = :id LIMIT 1";
-        $db->update($updateQuery, ['time' => $time, 'id' => $user['id']]);
+		// 更新用户的登录时间
+		$time = time();	// 当前时间戳
+		$updateQuery = "UPDATE `user` SET `date_aut` = :time, `date_last` = :time WHERE `id` = :id LIMIT 1";
+		$db->update($updateQuery, ['time' => $time, 'id' => $user['id']]);
 
-        // 记录登录日志
-        $logQuery = "INSERT INTO `user_log` (`id_user`, `time`, `ua`, `ip`, `method`) VALUES (:id_user, :time, :ua, :ip, '1')";
-        $db->insert($logQuery, [
-            'id_user' => $user['id'],
-            'time' => $time,
-            'ua' => $_SERVER['HTTP_USER_AGENT'],  // 从客户端获取 User-Agent
-            'ip' => $_SERVER['REMOTE_ADDR']      // 从客户端获取 IP 地址
-        ]);
+		// 记录登录日志
+		$logQuery = "INSERT INTO `user_log` (`id_user`, `time`, `ua`, `ip`, `method`) VALUES (:id_user, :time, :ua, :ip, '1')";
+		$db->insert($logQuery, [
+			'id_user' => $user['id'],
+			'time' => $time,
+			'ua' => $_SERVER['HTTP_USER_AGENT'],	// 从客户端获取 User-Agent
+			'ip' => $_SERVER['REMOTE_ADDR']			// 从客户端获取 IP 地址
+		]);
 
-        // 设置响应为成功
-        $response['success'] = true;
-        $response['message'] = '登录成功';
-    } else {
-        // 登录失败
-		$response['success'] = false;
-        $response['message'] = '用户名或密码不正确';
-    }
+		// 设置响应为成功
+		$response['login']['success'] = true;
+		$response['login']['message'] = '登录成功';
+	} else {
+		// 登录失败
+		$response['login']['success'] = false;
+		$response['login']['message'] = '用户名或密码不正确';
+	}
 } else {
-	$response['success'] = false;
-    $response['message'] = '缺少必要的用户名或密码参数';
+	$response['login']['success'] = false;
+	$response['login']['message'] = '缺少必要的用户名或密码参数';
 }
 
 print_r($response);

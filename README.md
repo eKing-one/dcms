@@ -101,3 +101,4 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - [x] 全新的 IP 屏蔽方法
 - [ ] 抛弃老旧的`shif()`函数，改为使用`password_hash()`和`password_verify()`来加密用户密码
 - [ ] 用更安全的方式保持登录和存储Cookie
+- [ ] 通过短轮询实现在线聊天
