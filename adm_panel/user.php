@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -12,8 +12,9 @@ include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('user_prof_edit', null, 'index.php?' . SID);
 adm_check();
-if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
-else {
+if (isset($_GET['id'])) {
+	$ank['id'] = intval($_GET['id']);
+} else {
 	header("Location: /index.php?" . SID);
 	exit;
 }
@@ -117,7 +118,7 @@ if (isset($_POST['save'])) {
 	} else $err = '你在这个领域犯了一个关于你自己的错误';
 	if (isset($_POST['new_pass']) && strlen2($_POST['new_pass']) > 5) {
 		admin_log('用户', '更改密码', "给用户 '$ank[nick]' 已设置新密码");
-		dbquery("UPDATE `user` SET `pass` = '" . shif($_POST['new_pass']) . "' WHERE `id` = '$ank[id]' LIMIT 1");
+		dbquery("UPDATE `user` SET `pass` = '" . password_hash($_POST['new_pass'], PASSWORD_BCRYPT) . "' WHERE `id` = '$ank[id]' LIMIT 1");
 	}
 	if (user_access('user_change_group') && isset($_POST['group_access'])) {
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `user_group` WHERE `id` = '" . intval($_POST['group_access']) . "' AND `level` < '$user[level]'"), 0) == 1) {
@@ -137,8 +138,10 @@ if (isset($_POST['save'])) {
 	admin_log('用户', '个人资料', "编辑用户个人资料 '$ank[nick]' (id#$ank[id])");
 	if (!isset($err)) msg('更改已成功接受');
 }
+
 err();
 aut();
+
 echo "<form method='post' action='user.php?id=$ank[id]'>
 用户名:<br /><input" . (user_access('user_change_nick') ? null : ' disabled="disabled"') . " type='text' name='nick' value='$ank[nick]' maxlength='32' /><br />
 	真实姓名:<br /><input type='text' name='ank_name' value='$ank[ank_name]' maxlength='32' /><br />";
@@ -247,12 +250,10 @@ echo "</select><br />";
 echo "新密码:<br /><input type='text' name='new_pass' value='' /><br />";
 echo "<input type='submit' name='save' value='保存' />";
 echo "</form>";
+
 echo "<div class='foot'>";
 echo "&raquo;<a href=\"/user/mail.php?id=$ank[id]\">写一封信</a><br />";
 echo "&laquo;<a href=\"/user/info.php?id=$ank[id]\">返回资料</a><br />";
-if (user_access('adm_panel_show'))
-	echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
+if (user_access('adm_panel_show')) echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
-
-?>

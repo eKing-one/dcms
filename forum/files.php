@@ -11,23 +11,23 @@ include_once '../sys/inc/user.php';
 include_once '../sys/inc/downloadfile.php';
 if (isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `forum_files` WHERE `id` = '".intval($_GET['id'])."'"),0)==1)
 {
-$file=dbassoc(dbquery("SELECT * FROM `forum_files` WHERE `id` = '".intval($_GET['id'])."' LIMIT 1"));if (is_file(H.'files/forum/'.$file['id'].'.frf') && isset($user) && $user['level']>=1 && isset($_GET['del']))
+$file=dbassoc(dbquery("SELECT * FROM `forum_files` WHERE `id` = '".intval($_GET['id'])."' LIMIT 1"));if (is_file(H.'sys/forum/files/'.$file['id'].'.frf') && isset($user) && $user['level']>=1 && isset($_GET['del']))
 {
 if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']!=NULL)
 $link =$_SERVER['HTTP_REFERER'];
 else
 $link='/index.php';
 dbquery("DELETE FROM `forum_files` WHERE `id` = '$file[id]' LIMIT 1");
-unlink(H.'files/forum/'.$file['id'].'.frf');
+unlink(H.'sys/forum/files/'.$file['id'].'.frf');
 if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']!=NULL)
 header("Location: $_SERVER[HTTP_REFERER]");
 else
 header("Location: /forum/index.php?".SID);
 }
-elseif (is_file(H.'files/forum/'.$file['id'].'.frf'))
+elseif (is_file(H.'sys/forum/files/'.$file['id'].'.frf'))
 {
 dbquery("UPDATE `forum_files` SET `count` = '".($file['count']+1)."' WHERE `id` = '$file[id]' LIMIT 1");
-DownloadFile(H.'files/forum/'.$file['id'].'.frf', $file['name'].'.'.$file['ras'],ras_to_mime($file['ras']));
+DownloadFile(H.'sys/forum/files/'.$file['id'].'.frf', $file['name'].'.'.$file['ras'],ras_to_mime($file['ras']));
 exit;
 }
 }

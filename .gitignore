@@ -1,7 +1,11 @@
 # git屏蔽代码
 HELP.md
-nginx.htaccess
+
 /sys/dat/settings_6.2.dat
 /sys/dat/settings.php
 /sys/dat/shif_iv.dat
 /sys/tmp/*
+/files/down/*
+/files/screens/14/*
+/files/screens/48/*
+/files/screens/128/*

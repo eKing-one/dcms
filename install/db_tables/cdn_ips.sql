@@ -1,0 +1,4 @@
+CREATE TABLE cdn_ips (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ip_range VARCHAR(50) NOT NULL
+);

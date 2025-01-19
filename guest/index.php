@@ -8,17 +8,18 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
-/* Бан пользователя */
+/* 封禁的用户 */
 if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'guest' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0')"), 0) != 0) {
 	header('Location: /user/ban.php?' . SID);
 	exit;
 }
-// Очищаем уведомления об ответах
-if (isset($user))
+// 清除回复通知
+if (isset($user)) {
 	dbquery("UPDATE `notification` SET `read` = '1' WHERE `type` = 'guest' AND `id_user` = '$user[id]'");
-// Действия с комментариями
+}
+// 注释操作
 include 'inc/admin_act.php';
-// Отправка комментариев
+// 提交评论
 if (isset($_POST['msg']) && isset($user)) {
 	$msg = $_POST['msg'];
 	$mat = antimat($msg);
@@ -34,7 +35,7 @@ if (isset($_POST['msg']) && isset($user)) {
 		include_once H . 'sys/add/user.active.php';
 		/*
 		==========================
-		Уведомления об ответах
+		回复通知
 		==========================
 		*/
 		if (isset($ank_reply['id'])) {
@@ -71,17 +72,19 @@ if (isset($_POST['msg']) && isset($user)) {
 		exit;
 	}
 }
+
 //网页标题
 $set['title'] = '留言板';
 include_once '../sys/inc/thead.php';
 title();
 aut();
 err();
+
 $k_post = dbresult(dbquery("SELECT COUNT(id) FROM `guest`"), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
-// Форма для комментариев
+// 留言板
 if (isset($user) || (isset($set['write_guest']) && $set['write_guest'] == 1 && (!isset($_SESSION['antiflood']) || $_SESSION['antiflood'] < $time - 300))) {
 	echo '<form method="post" name="message" action="?page=' . $page . REPLY . '">';
 	if (is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
@@ -109,7 +112,7 @@ if (isset($user) || (isset($set['write_guest']) && $set['write_guest'] == 1 && (
 	$q = dbquery("SELECT * FROM `guest` ORDER BY id DESC LIMIT $start, $set[p_str]");
 	while ($post = dbassoc($q)) {
 		$ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
-		// Лесенка
+	
 		echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 		$num++;
 		echo ($post['id_user'] != '0' ? user::avatar($ank['id'], 0) . user::nick($ank['id'], 1, 1, 0) : user::avatar(0, 0) . ' <b>' . '游客' . '</b> ');
@@ -125,10 +128,11 @@ if (isset($user) || (isset($set['write_guest']) && $set['write_guest'] == 1 && (
 	}
 	echo '</table>';
 	if ($k_page > 1) str('index.php?', $k_page, $page); // 输出页数
+
 	echo '<div class="foot">';
 	echo '<img src="/style/icons/str.gif" alt="*"> <a href="who.php">在线 (' . dbresult(dbquery("SELECT COUNT(id) FROM `user` WHERE `date_last` > '" . (time() - 100) . "' AND `url` like '/guest/%'"), 0) . ' 人)</a><br />';
 	echo '</div>';
-	// Форма очистки комментов
+	// 评论清理表单
 	include 'inc/admin_form.php';
 	include_once '../sys/inc/tfoot.php';
 		?>

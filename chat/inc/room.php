@@ -1,5 +1,9 @@
-<?
-//没有评论
+<?php
+/**
+ * 聊天室-房间相关代码，用于显示聊天室的信息
+ */
+
+// 处理发送信息
 if (isset($_POST['msg']) && isset($user)) {
 	$msg = $_POST['msg'];
 	$mat = antimat($msg);
@@ -22,20 +26,28 @@ if (isset($_POST['msg']) && isset($user)) {
 		exit;
 	}
 }
+
+// 检查是否添加答题机器人
 if ($room['umnik'] == 1) include 'inc/umnik.php';
+// 检查是否添加笑话机器人
 if ($room['shutnik'] == 1) include 'inc/shutnik.php';
+
 err();
-aut(); // форма авторизации
+aut(); // 授权表格
+
+// 如果为已登录用户，显示留言表单
 if (isset($user)) {
 	echo "<form method=\"post\" name='message' action=\"/chat/room/$room[id]/" . rand(1000, 9999) . "/\">";
-	if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
+	if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php')) {
 		include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
-	else
+	} else {
 		echo "$tPanel<textarea name=\"msg\"></textarea><br />";
+	}
 	echo "<input value=\"发送\" type=\"submit\" />";
 	echo " <a href='/chat/room/$room[id]/" . rand(1000, 9999) . "/'>刷新</a><br />";
 	echo "</form>";
 }
+
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `chat_post` WHERE `room` = '$room[id]' AND (`privat`='0'" . (isset($user) ? " OR `privat` = '$user[id]'" : null) . ")"), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
@@ -61,7 +73,7 @@ while ($post = dbassoc($q)) {
 		$ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
 	if ($post['umnik_st'] == 0 && $post['shutnik'] == 0)
 		echo group($ank['id']);
-	elseif ($post['shutnik'] == 1)
+	elseif ($post['shutnik'] != 0)
 		echo "<img src='/style/themes/$set[set_them]/chat/14/shutnik.png' alt='' />";
 	elseif ($post['umnik_st'] != 0)
 		echo "<img src='/style/themes/$set[set_them]/chat/14/umnik.png' alt='' />";
@@ -82,4 +94,3 @@ while ($post = dbassoc($q)) {
 }
 echo "</table>";
 if ($k_page > 1) str("/chat/room/$room[id]/" . rand(1000, 9999) . "/?", $k_page, $page); // 输出页数
-?>

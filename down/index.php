@@ -1,7 +1,6 @@
 <?php
 include_once '../sys/inc/start.php';
-if (isset($_GET['showinfo']) || !isset($_GET['f']) || isset($_GET['komm']))
-    include_once '../sys/inc/compress.php';
+if (isset($_GET['showinfo']) || !isset($_GET['f']) || isset($_GET['komm'])) include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
 include_once '../sys/inc/home.php';
 include_once '../sys/inc/settings.php';
@@ -9,23 +8,30 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
-/* Бан пользователя */
+
+// 如果账号被封禁，跳转到封禁页面
 if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'files' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
     header('Location: /user/ban.php?' . SID);
     exit;
 }
-/*--------------Сортировка файлов------------------*/
+
+/*--------------对文件进行排序------------------*/
 if (!isset($_SESSION['sort'])) $_SESSION['sort'] = 0;
-if (isset($_GET['sort_files']) && $_GET['sort_files'] == 1)
+if (isset($_GET['sort_files']) && $_GET['sort_files'] == 1) {
     $_SESSION['sort'] = 1;
-elseif (isset($_GET['sort_files']))
+} elseif (isset($_GET['sort_files'])) {
     $_SESSION['sort'] = 0;
-if ($_SESSION['sort'] == 1) $sort_files = "k_loads";
-else $sort_files = "time";
-/*---------------plugins-----------------------*/
+}
+if ($_SESSION['sort'] == 1) {
+    $sort_files = "k_loads";
+} else {
+    $sort_files = "time";
+}
+
+// 处理目录
 if (isset($_GET['d']) && esc($_GET['d']) != NULL) {
-    $l = preg_replace("#\.{2,}#", NULL, esc($_GET['d']));
-    $l = preg_replace("#\./|/\.#", NULL, $l);
+    $l = preg_replace("#\.{2,}#", '', esc($_GET['d']));
+    $l = preg_replace("#\./|/\.#", '', $l);
     $l = preg_replace("#(/){1,}#", "/", $l);
     $l = '/' . preg_replace("#(^(/){1,})|((/){1,}$)#", "", $l);
 } else {
@@ -43,10 +49,12 @@ if ($l == '/') {
     $id_dir = 0;
     $l = '/';
 }
+
+// 处理文件
 if (isset($_GET['f'])) {
     $f = esc(urldecode($_GET['f']));
-    $name = preg_replace('#.[^.]*$#', NULL, $f); // имя файла без расширения 
-    $ras = strtolower(preg_replace('#^.*.#', NULL, $f));
+    $name = preg_replace('#.[^.]*$#', '', $f); // имя файла без расширения 
+    $ras = strtolower(preg_replace('#^.*.#', '', $f));
     $ras = str_replace('jad', 'jar', $ras);
     if (dbresult(dbquery("SELECT COUNT(`id`) FROM `downnik_files` WHERE `id_dir` = '$id_dir' AND `id`='" . intval($_GET['f']) . "' LIMIT 1"), 0) != 0) {
         $file_id = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id_dir` = '$id_dir' AND `id`='" . intval($_GET['f']) . "'"));
@@ -351,5 +359,6 @@ if (isset($_GET['f'])) {
         include_once '../sys/inc/tfoot.php';
     }
 }
+
 include_once 'inc/dir.php';
 include_once '../sys/inc/tfoot.php';

@@ -1,6 +1,6 @@
 <?
-if (isset($_GET['act']) && $_GET['act'] == 'rename')
-{
+// 更改照片信息
+if (isset($_GET['act']) && $_GET['act'] == 'rename') {
 	?>
 	<form class="foot" action="?act=rename&amp;ok" method="post">
 	标题:<br />
@@ -13,8 +13,9 @@ if (isset($_GET['act']) && $_GET['act'] == 'rename')
 	</form>
 	<?
 }
-if (isset($_GET['act']) && $_GET['act'] == 'delete')
-{
+
+// 删除照片
+if (isset($_GET['act']) && $_GET['act'] == 'delete') {
 	?>
 	<form class="foot" action="?act=delete&amp;ok" method="post">
 	<div class="err">确认删除照片</div>
@@ -23,6 +24,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'delete')
 	</form>
 	<?
 }
+
 echo '<div class="foot">';
 if ($ank['id'] == $user['id'])
 echo '<img src="/style/icons/pht2.png" alt="*"> <a href="?act=avatar">设置为头像</a><br />';

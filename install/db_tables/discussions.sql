@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS `discussions` (
   `avtor` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `count` int(11) DEFAULT '0',
-  `msg` varchar(1024) NOT NULL,
+  `msg` varchar(1024),
   `time` int(11) NOT NULL,
   `type` varchar(100) NOT NULL,
   `id_sim` int(11) NOT NULL,

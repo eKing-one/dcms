@@ -1,13 +1,13 @@
-<?
-// Удаление альбома
+<?php
+// 删除相册
 if ((user_access('photo_alb_del') || isset($user) && $user['id'] == $ank['id']) && isset($_GET['act']) && $_GET['act'] == 'delete' && isset($_GET['ok'])) {
 	$q = dbquery("SELECT * FROM `gallery_photo` WHERE `id_gallery` = '$gallery[id]'");
 	while ($post = dbassoc($q)) {
-		@unlink(H . "files/gallery/48/$post[id].jpg");
-		@unlink(H . "files/gallery/50/$post[id].jpg");
-		@unlink(H . "files/gallery/128/$post[id].jpg");
-		@unlink(H . "files/gallery/640/$post[id].jpg");
-		@unlink(H . "files/gallery/photo/$post[id].jpg");
+		@unlink(H . "sys/gallery/48/{$post['id']}.jpg");
+		@unlink(H . "sys/gallery/50/{$post['id']}.jpg");
+		@unlink(H . "sys/gallery/128/{$post['id']}.jpg");
+		@unlink(H . "sys/gallery/640/{$post['id']}.jpg");
+		@unlink(H . "sys/gallery/photo/{$post['id']}.jpg");
 		dbquery("DELETE FROM `gallery_komm` WHERE `id_photo` = '$post[id]' LIMIT 1");
 		dbquery("DELETE FROM `gallery_photo` WHERE `id` = '$post[id]' LIMIT 1");
 		dbquery("DELETE FROM `mark_photo` WHERE `id_photo` = '$post[id]' LIMIT 1");
@@ -19,15 +19,18 @@ if ((user_access('photo_alb_del') || isset($user) && $user['id'] == $ank['id']) 
 	header("Location: /photo/$ank[id]/");
 	exit;
 }
-// Загрузка фото
-if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
-	if ($imgc = @imagecreatefromstring(file_get_contents($_FILES['file']['tmp_name']))) {
+
+// 上传照片
+if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {	// 检查上传权限
+	if ($imgc = @imagecreatefromstring(file_get_contents($_FILES['file']['tmp_name']))) {	// 检查图片是否有效
+		// 检查图片标题
 		$name = $_POST['name'];
-		if ($name == null)
-			$name = esc(stripcslashes(htmlspecialchars(preg_replace('#\.[^\.]*$#i', 'NULL', $_FILES['file']['name']))));
+		if ($name == null) $name = esc(stripcslashes(htmlspecialchars($_FILES['file']['name'])));
 		if (strlen2($name) < 3) $err = '标题太短了！要大于 3 字节！';
 		if (strlen2($name) > 32) $err = '标题不得超过 32 字节！';
 		$name = my_esc($name);
+
+		// 检查图片描述
 		if (isset($_POST['metka']) && ($_POST['metka'] == 0 || $_POST['metka'] == 1))
 			$metka = my_esc($_POST['metka']);
 		else {
@@ -36,24 +39,44 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 		$msg = $_POST['opis'];
 		if (strlen2($msg) > 1024) $err = '描述长度超过 1024 个字节的限制';
 		$msg = my_esc($msg);
+
+		// 检查图片格式
+		switch (getimagesize($_FILES['file']['tmp_name'])[2]) {
+			case IMAGETYPE_JPEG:
+				$format = 'jpg';
+				break;
+			case IMAGETYPE_PNG:
+				$format = 'png';
+				break;
+			case IMAGETYPE_GIF:
+				$format = 'gif';
+				break;
+			default:
+				$format = 'jpg';
+		}
+
+		// 图片尺寸检查
 		$img_x = imagesx($imgc);
 		$img_y = imagesy($imgc);
 		if ($img_x > $set['max_upload_photo_x'] || $img_y > $set['max_upload_photo_y'])
 			$err = '图像大小超过 ' . $set['max_upload_photo_x'] . '*' . $set['max_upload_photo_y'];
 		if (!isset($err)) {
+			// 图片信息存储到数据库中
 			if (isset($_GET['avatar'])) {
 				dbquery("UPDATE `gallery_photo` SET `avatar` = '0' WHERE `id_user` = '$user[id]'");
-				dbquery("INSERT INTO `gallery_photo` (`id_gallery`, `name`, `ras`, `type`, `opis`, `id_user`,`avatar`, `metka`, `time`) values ('$gallery[id]', '$name', 'jpg', 'image/jpeg', '$msg', '$user[id]','1', '$metka', '$time')");
+				dbquery("INSERT INTO `gallery_photo` (`id_gallery`, `name`, `ras`, `type`, `opis`, `id_user`,`avatar`, `metka`, `time`) values ('$gallery[id]', '$name', '$format', '" . ras_to_mime($format) . "', '$msg', '$user[id]','1', '$metka', '$time')");
 			} else {
-				dbquery("INSERT INTO `gallery_photo` (`id_gallery`, `name`, `ras`, `type`, `opis`, `id_user`, `metka`, `time`) values ('$gallery[id]', '$name', 'jpg', 'image/jpeg', '$msg', '$user[id]', '$metka', '$time')");
+				dbquery("INSERT INTO `gallery_photo` (`id_gallery`, `name`, `ras`, `type`, `opis`, `id_user`, `metka`, `time`) values ('$gallery[id]', '$name', '$format', '" . ras_to_mime($format) . "', '$msg', '$user[id]', '$metka', '$time')");
 			}
-			$id_photo = dbinsertid();
-			dbquery("UPDATE `gallery` SET `time` = '$time' WHERE `id` = '$gallery[id]' LIMIT 1");
+			$id_photo = dbinsertid();	// 获取新插入图片的ID
+			dbquery("UPDATE `gallery` SET `time` = '$time' WHERE `id` = '$gallery[id]' LIMIT 1");	// 刷新相册更新时间
+			// 如果好友设置了接受相册动态通知，则会将上传的新照片通知给好友
 			$q = dbquery("SELECT * FROM `frends` WHERE `user` = '$user[id]' AND `lenta_photo` = '1' AND `i` = '1'");
 			$photo['id'] = $id_photo;
+
 			/*
-* Лента друзей
-*/
+			* 好友动态
+			*/
 			dbquery("UPDATE `tape` SET `count` = '0' WHERE  `type` = 'album' AND `read` = '1' AND `id_file` = '$gallery[id]'");
 			$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $gallery['id_user'] . "' AND `i` = '1'");
 			while ($f = dbarray($q)) {
@@ -77,6 +100,8 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 					}
 				}
 			}
+
+			// 生成不同尺寸的缩略图
 			if ($img_x == $img_y) {
 				$dstW = 48; // ширина
 				$dstH = 48; // высота 
@@ -92,8 +117,8 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 			$screen = imagecreatetruecolor($dstW, $dstH);
 			imagecopyresampled($screen, $imgc, 0, 0, 0, 0, $dstW, $dstH, $img_x, $img_y);
 			//imagedestroy($imgc);
-			imagejpeg($screen, H . "files/gallery/48/$id_photo.jpg", 90);
-			@chmod(H . "files/gallery/48/$id_photo.jpg", 0777);
+			imagejpeg($screen, H . "sys/gallery/48/{$id_photo}.jpg", 90);
+			@chmod(H . "sys/gallery/48/{$id_photo}.jpg", 0777);
 			imagedestroy($screen);
 			if ($img_x == $img_y) {
 				$dstW = 128; // ширина
@@ -111,9 +136,11 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 			imagecopyresampled($screen, $imgc, 0, 0, 0, 0, $dstW, $dstH, $img_x, $img_y);
 			//imagedestroy($imgc);
 			// $screen = img_copyright($screen); // наложение копирайта
-			imagejpeg($screen, H . "files/gallery/128/$id_photo.jpg", 90);
-			@chmod(H . "files/gallery/128/$id_photo.jpg", 0777);
+			imagejpeg($screen, H . "sys/gallery/128/{$id_photo}.jpg", 90);
+			@chmod(H . "sys/gallery/128/{$id_photo}.jpg", 0777);
 			imagedestroy($screen);
+
+			// 添加版权水印
 			if ($img_x > 640 || $img_y > 640) {
 				if ($img_x == $img_y) {
 					$dstW = 640; // ширина
@@ -130,37 +157,39 @@ if (isset($user) && $user['id'] == $ank['id'] && isset($_FILES['file'])) {
 				$screen = imagecreatetruecolor($dstW, $dstH);
 				imagecopyresampled($screen, $imgc, 0, 0, 0, 0, $dstW, $dstH, $img_x, $img_y);
 				// imagedestroy($imgc);
-				// $screen=img_copyright($screen); // наложение копирайта
-				imagejpeg($screen, H . "files/gallery/640/$id_photo.jpg", 90);
+				// $screen=img_copyright($screen); // 叠加水印
+				imagejpeg($screen, H . "sys/gallery/640/{$id_photo}.jpg", 90);
 				imagedestroy($screen);
-				$imgc = img_copyright($imgc); // наложение копирайта
-				imagejpeg($imgc, H . "files/gallery/photo/$id_photo.jpg", 90);
-				@chmod(H . "files/gallery/photo/$id_photo.jpg", 0777);
+				$imgc = img_copyright($imgc); // 叠加水印
+				imagejpeg($imgc, H . "sys/gallery/photo/{$id_photo}.{$format}", 90);
+				@chmod(H . "sys/gallery/photo/{$id_photo}.{$format}", 0777);
 			} else {
-				imagejpeg($imgc, H . "files/gallery/640/$id_photo.jpg", 90);
-				$imgc = img_copyright($imgc); // наложение копирайта
-				imagejpeg($imgc, H . "files/gallery/photo/$id_photo.jpg", 90);
-				@chmod(H . "files/gallery/photo/$id_photo.jpg", 0777);
+				imagejpeg($imgc, H . "sys/gallery/640/{$id_photo}.jpg", 90);
+				$imgc = img_copyright($imgc); // 叠加水印
+				imagejpeg($imgc, H . "sys/gallery/photo/{$id_photo}.{$format}", 90);
+				@chmod(H . "sys/gallery/photo/{$id_photo}.{$format}", 0777);
 			}
-			@chmod(H . "files/gallery/640/$id_photo.jpg", 0777);
+			@chmod(H . "sys/gallery/640/{$id_photo}.jpg", 0777);
 			imagedestroy($imgc);
-			crop(H . "files/gallery/640/$id_photo.jpg", H . "files/gallery/50/$id_photo.tmp.jpg");
-			resize(H . "files/gallery/50/$id_photo.tmp.jpg", H . "files/gallery/50/$id_photo.jpg", 50, 50);
-			@chmod(H . "files/gallery/50/$id_photo.jpg", 0777);
-			@unlink(H . "files/gallery/50/$id_photo.tmp.jpg");
+			crop(H . "sys/gallery/640/{$id_photo}.jpg", H . "sys/gallery/50/{$id_photo}.tmp.jpg");
+			resize(H . "sys/gallery/50/{$id_photo}.tmp.jpg", H . "sys/gallery/50/{$id_photo}.jpg", 50, 50);
+			@chmod(H . "sys/gallery/50/{$id_photo}.jpg", 0777);
+			@unlink(H . "sys/gallery/50/{$id_photo}.tmp.jpg");
 			if (isset($_GET['avatar'])) {
 				$_SESSION['message'] = '已成功将照片设置为头像';
 				header("Location: /user/info.php");
 				exit;
 			}
 			$_SESSION['message'] = '照片已成功上传';
-			header("Location: /photo/$ank[id]/$gallery[id]/$id_photo/");
+			header("Location: /photo/{$ank['id']}/{$gallery['id']}/{$id_photo}/");
 			exit;
 		}
-	} else
+	} else {
 		$err = '不支持您选择的图像格式';
+	}
 }
-// Редактирование альбома
+
+// 重命名相册
 if (isset($_GET['edit']) && $_GET['edit'] == 'rename' && isset($_GET['ok']) && (isset($_POST['name']) || isset($_POST['opis']))) {
 	$name = $_POST['name'];
 	$pass = $_POST['pass'];
@@ -175,10 +204,10 @@ if (isset($_GET['edit']) && $_GET['edit'] == 'rename' && isset($_GET['ok']) && (
 	$msg = my_esc($msg);
 	if (!isset($err)) {
 		if ($user['id'] != $ank['id'])
-			admin_log('图片集锦', '照片', "重命名用户相册 '[url=/user/info.php?id=$ank[id]]" . user::nick($ank['id'], 1, 0, 0) . "[/url]'");
+			admin_log('图片集锦', '照片', "重命名用户相册 '[url=/user/info.php?id={$ank['id']}]" . user::nick($ank['id'], 1, 0, 0) . "[/url]'");
 		dbquery("UPDATE `gallery` SET `name` = '$name', `privat` = '$privat', `privat_komm` = '$privat_komm', `pass` = '$pass', `opis` = '$msg' WHERE `id` = '$gallery[id]' LIMIT 1");
 		$_SESSION['message'] = '已成功接受更改';
-		header("Location: /photo/$ank[id]/?");
+		header("Location: /photo/{$ank['id']}/?");
 		exit;
 	}
 }
