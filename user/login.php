@@ -22,7 +22,7 @@ if (isset($_GET['id']) && isset($_GET['pass'])) {
 		$_SESSION['id_user'] = $user['id'];
 		dbquery("UPDATE `user` SET `date_aut` = " . time() . " WHERE `id` = '$user[id]' LIMIT 1");
 		dbquery("UPDATE `user` SET `date_last` = " . time() . " WHERE `id` = '$user[id]' LIMIT 1");
-		dbquery("INSERT INTO `user_log` (`id_user`, `time`, `ua`, `ip`, `method`) values('$user[id]', '$time', '$user[ua]' , '$user[ip]', '0')");
+		dbquery("INSERT INTO `user_log` (`id_user`, `date`, `ua`, `ip`, `method`) values('$user[id]', '" . date('Y-m-d H:i:s') . "', '$user[ua]' , '$user[ip]', '0')");
 	} else {
 		$_SESSION['err'] = '用户名或密码不正确';
 	}
@@ -36,25 +36,25 @@ if (isset($_GET['id']) && isset($_GET['pass'])) {
 		// 在COOKIE中保存数据
 		if (isset($_POST['aut_save']) && $_POST['aut_save']) {
 			setcookie('id_user', $user['id'], time() + 60 * 60 * 24 * 365);
-			setcookie('pass', cookie_encrypt($_POST['pass'], $user['id']), time() + 60 * 60 * 24 * 365);
+			setcookie('auth_token', cookie_encrypt($_POST['pass'], $user['id']), time() + 60 * 60 * 24 * 365);
 		}
 		dbquery("UPDATE `user` SET `date_aut` = '$time', `date_last` = '$time' WHERE `id` = '$user[id]' LIMIT 1");
-		dbquery("INSERT INTO `user_log` (`id_user`, `time`, `ua`, `ip`, `method`) values('{$user['id']}', '{$time}', '{$user['ua']}' , '{$user['ip']}', '1')");
+		dbquery("INSERT INTO `user_log` (`id_user`, `date`, `ua`, `ip`, `method`) values('{$user['id']}', '" . date('Y-m-d H:i:s') . "', '{$user['ua']}' , '{$user['ip']}', '1')");
 	} else {
 		$_SESSION['err'] = '用户名或密码不正确';
 	}
-} elseif (isset($_COOKIE['id_user']) && isset($_COOKIE['pass']) && $_COOKIE['id_user'] && $_COOKIE['pass']) {
+} elseif (isset($_COOKIE['id_user']) && isset($_COOKIE['auth_token']) && $_COOKIE['id_user'] && $_COOKIE['auth_token']) {
 	// 从数据库获取用户信息
 	$user = dbassoc(dbquery("SELECT `id`, `pass` FROM `user` WHERE `id` = " . intval($_COOKIE['id_user']) . " LIMIT 1"));
 
-	if ($user && password_verify(cookie_decrypt($_COOKIE['pass'], intval($_COOKIE['id_user'])), $user['pass'])) {
+	if ($user && password_verify(cookie_decrypt($_COOKIE['auth_token'], intval($_COOKIE['id_user'])), $user['auth_token'])) {
 		$_SESSION['id_user'] = $user['id'];
 		dbquery("UPDATE `user` SET `date_aut` = '$time', `date_last` = '$time' WHERE `id` = '$user[id]' LIMIT 1");
 		$user['type_input'] = 'cookie';
 	} else {
 		$_SESSION['err'] = 'COOKIE授权错误';
 		setcookie('id_user');
-		setcookie('pass');
+		setcookie('auth_token');
 	}
 } else {
 	$_SESSION['err'] = '授权错误';
@@ -67,19 +67,19 @@ if (!isset($user)) {
 }
 
 // 记录用户的 ip
-dbquery("UPDATE `user` SET `ip` = '{$ip}' WHERE `id` = '$user[id]' LIMIT 1");
+dbquery("UPDATE `user` SET `ip` = '{$ip}' WHERE `id` = '{$user['id']}' LIMIT 1");
 
 // 记录用户的 ua
-if ($ua) dbquery("UPDATE `user` SET `ua` = '".my_esc($ua)."' WHERE `id` = '$user[id]' LIMIT 1");
+if ($ua) dbquery("UPDATE `user` SET `ua` = '" . my_esc($ua) . "' WHERE `id` = '{$user['id']}' LIMIT 1");
 
 // Непонятная сессия
 dbquery("UPDATE `user` SET `sess` = '$sess' WHERE `id` = '$user[id]' LIMIT 1");
 // 浏览器类型
-dbquery("UPDATE `user` SET `browser` = '" . ($webbrowser == true ? "wap" : "web") . "' WHERE `id` = '$user[id]' LIMIT 1");
+dbquery("UPDATE `user` SET `browser` = '" . ($webbrowser == true ? "wap" : "web") . "' WHERE `id` = '{$user['id']}' LIMIT 1");
 // 检查相似的昵称
-$collision_q = dbquery("SELECT * FROM `user` WHERE `ip` = '$ip' AND `ua` = '".my_esc($ua)."' AND `date_last` > '".(time()-600)."' AND `id` <> '$user[id]'");
+$collision_q = dbquery("SELECT * FROM `user` WHERE `ip` = '$ip' AND `ua` = '" . my_esc($ua) . "' AND `date_last` > '" . (time() - 600) . "' AND `id` <> '{$user['id']}'");
 while ($collision = dbassoc($collision_q)) {
-	if (dbresult(dbquery("SELECT COUNT(*) FROM `user_collision` WHERE `id_user` = '$user[id]' AND `id_user2` = '$collision[id]' OR `id_user2` = '$user[id]' AND `id_user` = '$collision[id]'"), 0) == 0)
+	if (dbresult(dbquery("SELECT COUNT(*) FROM `user_collision` WHERE `id_user` = '$user[id]' AND `id_user2` = '$collision[id]' OR `id_user2` = '$user[id]' AND `id_user` = '{$collision['id']}'"), 0) == 0)
 	dbquery("INSERT INTO `user_collision` (`id_user`, `id_user2`, `type`) values('$user[id]', '$collision[id]', 'ip_ua_time')");
 }
 
@@ -98,11 +98,11 @@ if (isset($user) && $user['rating_tmp'] > 1000) {
 	// 添加% 级别
 	dbquery("update `user` set `rating` = '" . ($user['rating'] + $col) . "' where `id` = '$user[id]' limit 1");
 	// 通知
-	$_SESSION['message'] = "祝贺你！你的活动是值得的 $col% 评级!"; 
+	$_SESSION['message'] = "祝贺你！你的活动是值得的 {$col}% 评级!"; 
 	// 活动柜台余额计算
 	$col = $user['rating_tmp'] - ($col * 1000); 
 	// 重新设定
-	dbquery("update `user` set `rating_tmp` = '$col' where `id` = '$user[id]' limit 1");
+	dbquery("update `user` set `rating_tmp` = '{$col}' where `id` = '{$user['id']}' limit 1");
 }
 if (isset($_GET['return']))
 header('Location: '.urldecode($_GET['return']));
