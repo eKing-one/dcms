@@ -41,6 +41,7 @@ if (isset($_POST['save'])) {
 	$temp_set['meta_keywords']=esc(stripcslashes(htmlspecialchars($_POST['meta_keywords'])),1);
 	$temp_set['background'] = esc(stripcslashes(htmlspecialchars($_POST['background'])), 1);
 	$temp_set['meta_description']=esc(stripcslashes(htmlspecialchars($_POST['meta_description'])),1);
+	$temp_set['api'] = intval($_POST['api']);
 	$temp_set['toolbar'] = intval($_POST['toolbar']);
 	$temp_set['exit'] = intval($_POST['exit']);
 	$temp_set['timeadmin'] = intval($_POST['timeadmin']);
@@ -66,10 +67,18 @@ echo "<form method=\"post\" action=\"?\">";
 echo "网站名称:<br /><input name=\"title\" value=\"$temp_set[title]\" type=\"text\" /><br />";
 echo "每页显示:<br /><input name=\"p_str\" value=\"$temp_set[p_str]\" type=\"text\" /><br />";
 echo "主页:<br /><input name=\"main\" value=\"".setget('main',"")."\" type=\"text\" /><br />";
+
+echo "API:<br />
+<select name='api'>
+	<option " . (setget('api', 1) == 1 ? " selected " : null) . " value='1'>启用</option>
+	<option " . (setget('api', 1) == 0 ? " selected " : null) . " value='0'>禁用</option>
+</select>
+<br />";
+
 echo "Admin Toolbar:<br />
 <select name='toolbar'>
-	<option ".(setget('toolbar',1)==1? " selected ":null)." value='1'>是</option>
-	<option ".(setget('toolbar',1)==0? " selected ":null)." value='0'>没有</option>
+	<option " . (setget('toolbar', 1) == 1 ? " selected " : null) . " value='1'>是</option>
+	<option " . (setget('toolbar', 1) == 0 ? " selected " : null) . " value='0'>没有</option>
 </select>
 <br />";
 
@@ -84,22 +93,22 @@ echo '网站背景:<br />
 
 echo "网站运行状态：<br />
 <select name='job'>
-	<option ".(setget('job',1)==1? " selected ":null)." value='1'>已启用</option>
-	<option ".(setget('job',1)==0? " selected ":null)." value='0'>已禁用</option>
+	<option " . (setget('job', 1) == 1 ? " selected " : null) . " value='1'>已启用</option>
+	<option " . (setget('job', 1) == 0 ? " selected " : null) . " value='0'>已禁用</option>
 </select>
 <br />";
 
 echo "退出账号确认：<br />
 <select name='exit'>
-	<option ".(setget('exit',1)==1? " selected ":null)." value='1'>开启</option>
-	<option ".(setget('exit',1)==0? " selected ":null)." value='0'>关闭</option>
+	<option " . (setget('exit', 1) == 1 ? " selected " : null) . " value='1'>开启</option>
+	<option " . (setget('exit', 1) == 0 ? " selected " : null) . " value='0'>关闭</option>
 </select>
 <br />";
 
 echo "网站标题栏：<br />
 <select name='header'>
-	<option ".(setget('header',"index")=="index"? " selected ":null)." value='index'>仅在首页</option>
-	<option ".(setget('header',"all")=="all"? " selected ":null)." value='all'>在所有页面上</option>
+	<option " . (setget('header', "index") == "index" ? " selected " : null) . " value='index'>仅在首页</option>
+	<option " . (setget('header', "all") == "all" ? " selected " : null) . " value='all'>在所有页面上</option>
 </select>
 <br />";
 
@@ -113,49 +122,48 @@ echo "  通过文件夹安装插件 /Replace/:<br />
 */
 
 echo "网站默认主题 (WAP移动端):<br /><select name='set_them'>";
-$opendirthem=opendir(H.'style/themes');
-while ($themes=readdir($opendirthem)) {
+$opendirthem = opendir(H . 'style/themes');
+while ($themes = readdir($opendirthem)) {
 	// пропускаем корневые папки и файлы
-	if ($themes=='.' || $themes=='..' || !is_dir(H."style/themes/$themes"))continue;
+	if ($themes == '.' || $themes == '..' || !is_dir(H . "style/themes/{$themes}")) continue;
 	// пропускаем темы для web браузеров
-	if (test_file2(H."style/themes/$themes/.only_for_web"))continue;
-	echo "<option value='$themes'".($temp_set['set_them']==$themes?" selected='selected'":null).">".trim(file_get_contents(H.'style/themes/'.$themes.'/them.name'))."</option>";
+	if (test_file2(H . "style/themes/{$themes}/.only_for_web"))continue;
+	echo "<option value='{$themes}'" . ($temp_set['set_them'] == $themes ? " selected='selected'" : null) . ">" . trim(file_get_contents(H . 'style/themes/' . $themes . '/them.name')) . "</option>";
 }
 closedir($opendirthem);
 echo "</select><br />";
 
 echo "网站默认主题 (PC端):<br /><select name='set_them2'>";
-$opendirthem=opendir(H.'style/themes');
-while ($themes=readdir($opendirthem)){
+$opendirthem = opendir(H . 'style/themes');
+while ($themes = readdir($opendirthem)){
 	// пропускаем корневые папки и файлы
-	if ($themes=='.' || $themes=='..' || !is_dir(H."style/themes/$themes"))continue;
+	if ($themes == '.' || $themes == '..' || !is_dir(H . "style/themes/{$themes}")) continue;
 	// пропускаем темы для wap браузеров
-	if (file_exists(H."style/themes/$themes/.only_for_wap"))continue;
-	echo "<option value='$themes'".($temp_set['set_them2']==$themes?" selected='selected'":null).">".trim(file_get_contents(H.'style/themes/'.$themes.'/them.name'))."</option>";
+	if (file_exists(H . "style/themes/{$themes}/.only_for_wap")) continue;
+	echo "<option value='{$themes}'" . ($temp_set['set_them2'] == $themes ? " selected='selected'" : null) . ">" . trim(file_get_contents(H . 'style/themes/' . $themes . '/them.name')) . "</option>";
 }
 closedir($opendirthem);
 echo "</select><br />";
 
 echo "关键词 (META):<br />";
-echo "<textarea name='meta_keywords'>$temp_set[meta_keywords]</textarea><br />";
+echo "<textarea name='meta_keywords'>{$temp_set['meta_keywords']}</textarea><br />";
 
 echo "资料描述 (META):<br />";
-echo "<textarea name='meta_description'>$temp_set[meta_description]</textarea><br />";
+echo "<textarea name='meta_description'>{$temp_set['meta_description']}</textarea><br />";
 
-echo "<label><input type='checkbox'".($temp_set['antidos']?" checked='checked'":null)." name='antidos' value='1' /> 反Dos*</label><br />";
-
-echo "<label><input type='checkbox'".($temp_set['antimat']?" checked='checked'":null)." name='antimat' value='1' /> 反CC</label><br />";
-
-echo "php解释器错误:<br /><select name=\"show_err_php\">";
-echo "<option value='0'".($temp_set['show_err_php']==0?" selected='selected'":null).">隐藏</option>";
-echo "<option value='1'".($temp_set['show_err_php']==1?" selected='selected'":null).">显示</option>";
-echo "</select><br />";
-
-echo "备份用电子邮件：<br /><input type='text' name='mail_backup' value='$temp_set[mail_backup]'  /><br />";
-
-echo "<br />";
+echo "<label><input type='checkbox'" . ($temp_set['antidos'] ? " checked='checked'" : null) . " name='antidos' value='1' /> 反Dos*</label><br />";
 echo "* 防止Dos攻击 - 防范来自同一IP地址的频繁请求<br />";
 
+echo "<label><input type='checkbox'" . ($temp_set['antimat'] ? " checked='checked'" : null) . " name='antimat' value='1' /> 反CC</label><br />";
+
+echo "php解释器错误:<br /><select name=\"show_err_php\">";
+echo "<option value='0'" . ($temp_set['show_err_php'] == 0 ? " selected='selected'" : null) . ">隐藏</option>";
+echo "<option value='1'" . ($temp_set['show_err_php'] == 1 ? " selected='selected'" : null) . ">显示</option>";
+echo "</select><br />";
+
+echo "备份用电子邮件：<br /><input type='text' name='mail_backup' value='{$temp_set['mail_backup']}'  /><br />";
+
+echo "<br />";
 echo "<input value=\"修改\" name='save' type=\"submit\" />";
 echo "</form>";
 

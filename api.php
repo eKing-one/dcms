@@ -88,7 +88,10 @@ class Database {
 			$this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 		} catch (PDOException $e) {
 			// 连接失败时，输出错误信息并终止脚本执行
-			die("Connection failed: " . $e->getMessage());
+			die(json_encode([
+				'success' => false, 
+				'error' => "Database connection failed: " . $e->getMessage()
+			]));
 		}
 	}
 
@@ -167,9 +170,12 @@ $set = setget();
 $db = new Database($set['mysql_host'], $set['mysql_db_name'], $set['mysql_user'], $set['mysql_pass']);
 
 // 检测是否启用了 API
-if ($set['api'] == '0') {
-	http_response_code (403);
-	die ('{"success":"false", "error":"The administrator turned off the API"}');
+if (empty($set['api']) || $set['api'] == '0') {
+	http_response_code(403);
+	die(json_encode([
+		'success' => false, 
+		'error' => 'The administrator turned off the API'
+	]));
 }
 
 
@@ -216,4 +222,4 @@ if (isset($_POST['nick']) && isset($_POST['pass'])) {	// 检查用户是否已�
 	$response['login']['message'] = '缺少必要的用户名或密码参数';
 }
 
-print_r($response);
+echo json_encode($response);
