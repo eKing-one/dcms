@@ -73,8 +73,6 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 ## 待办事项
 
 - [ ] 修复更新功能
-- [ ] 移除 token 相关代码
-- [ ] 将用户名与昵称区分,在个人主页可显示用户名(或仅限管理员可查看用户名)
 - [ ] 纠正翻译和翻译部分残留的文本
 - [x] 完善 CDN 支持
 - [x] 暗色模式
@@ -100,7 +98,7 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - [x] 移除`$iplong`
 - [x] 移除`$ipa`
 - [x] 全新的 IP 屏蔽方法
-- [ ] 抛弃老旧的`shif()`函数，改为使用`password_hash()`和`password_verify()`来加密用户密码
+- [x] 抛弃老旧的`shif()`函数，改为使用`password_hash()`和`password_verify()`来加密用户密码
 - [ ] 用更安全的方式保持登录和存储Cookie
 - [ ] 通过短轮询实现在线聊天
 - [ ] 完善登录历史
