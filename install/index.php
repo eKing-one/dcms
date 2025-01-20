@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL); // 启用错误显示
+ini_set('display_errors',true); // 启用错误显示
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
