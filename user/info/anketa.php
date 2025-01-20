@@ -29,8 +29,7 @@ if ($ank['id'] == 0) {
 	$frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$ank[id]') OR (`user` = '$ank[id]' AND `frend` = '$user[id]') LIMIT 1"), 0);
 	$frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[id]' AND `to` = '$ank[id]') OR (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"), 0);
 	if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
-		if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) // 如果页面有私人设置，则开始输出
-		{
+		if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) {	// 如果页面有私人设置，则开始输出
 			if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
 			echo "<div class='nav1'>";
 			echo group($ank['id']) . " $ank[nick] ";

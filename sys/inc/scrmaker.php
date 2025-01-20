@@ -17,7 +17,6 @@ function make_pre($dir_loads2, $file2)
 			if (is_array($list)) {
 				if (preg_match('/\.xml$/i', $list[$i]['filename'])) {
 					$xml = $archive->extractInString($list[$i]['filename']);
-					break;
 				}
 			}
 		}

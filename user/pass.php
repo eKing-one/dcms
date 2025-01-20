@@ -49,7 +49,7 @@ if (isset($_GET['id']) && isset($_GET['set_new']) && strlen($_GET['set_new']) ==
 		if (!isset($err)) {
 			setcookie('id_user', $user2['id'], time() + 60 * 60 * 24 * 365);
 			dbquery("UPDATE `user` SET `pass` = '" . password_hash($_POST['pass1'], PASSWORD_BCRYPT) . "' WHERE `id` = '$user2[id]' LIMIT 1");
-			setcookie('pass', cookie_encrypt($_POST['pass1'], $user2['id']), time() + 60 * 60 * 24 * 365);
+			setcookie('auth_token', cookie_encrypt($_POST['pass1'], $user2['id']), time() + 60 * 60 * 24 * 365);
 			msg('密码更改成功');
 		}
 	}

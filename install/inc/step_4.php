@@ -92,7 +92,7 @@ if (isset($_SESSION['adm_reg_ok']) && $_SESSION['adm_reg_ok'] == true) {
 		mysqli_query($db, "INSERT INTO `notification_set` (`id_user`) VALUES ('$user[id]')");
 		$_SESSION['id_user'] = $user['id'];
 		setcookie('id_user', $user['id'], time() + 60 * 60 * 24 * 365);
-		setcookie('pass', cookie_encrypt($password, $user['id']), time() + 60 * 60 * 24 * 365);
+		setcookie('auth_token', cookie_encrypt($password, $user['id']), time() + 60 * 60 * 24 * 365);
 		$_SESSION['adm_reg_ok'] = true;
 	}
 }

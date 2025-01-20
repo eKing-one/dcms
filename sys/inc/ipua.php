@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 从数据库获取 CDN IP 列表
+ * 从数据库获取 CDN IP 范围列表
  */
 function get_cdn_ips() {
 	// 查询 'cdn_ips' 表中的所有数据
