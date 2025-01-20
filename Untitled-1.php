@@ -14,9 +14,9 @@ aut();
 ?>
 
 当前设备类型为：<?php echo $webbrowser ? 'PC' : 'NoPC'; ?><br>
-当前设备UA为：<?php echo my_esc($_SERVER['HTTP_USER_AGENT']); ?><br>
+当前设备UA为：<?php echo $_SERVER['HTTP_USER_AGENT']; ?><br>
 当前设备IP为：<?php echo $ip; ?><br>
-<form method='post''>验证码测试：<img src='/captcha.php' alt='验证码图像' /><br /><input name='chislo' type='text' /><br/><input type='submit' value='继续' />
+<form method='post'>验证码测试：<img src='/captcha.php' alt='验证码图像' /><br /><input name='chislo' type='text' /><br/><input type='submit' value='继续' />
 
 <?php
 if (isset($_SESSION['captcha']) && isset($_POST['chislo'])) {
