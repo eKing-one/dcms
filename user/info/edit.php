@@ -121,9 +121,9 @@ if (isset($_GET['set'])) {
 				$user['set_show_mail'] = 0;
 				dbquery("UPDATE `user` SET `set_show_mail` = '0' WHERE `id` = '$user[id]' LIMIT 1");
 			}
-			if (isset($_POST['ank_mail']) && ($_POST['ank_mail']==null || preg_match('#^[A-z0-9-\._]+@[A-z0-9]{2,}\.[A-z]{2,4}$#ui',$_POST['ank_mail']))) {
-				$user['ank_mail']=$_POST['ank_mail'];
-				dbquery("UPDATE `user` SET `ank_mail` = '$user[ank_mail]' WHERE `id` = '$user[id]' LIMIT 1");
+			if (isset($_POST['email']) && ($_POST['email']==null || preg_match('#^[A-z0-9-\._]+@[A-z0-9]{2,}\.[A-z]{2,4}$#ui',$_POST['email']))) {
+				$user['email']=$_POST['email'];
+				dbquery("UPDATE `user` SET `email` = '$user[email]' WHERE `id` = '$user[id]' LIMIT 1");
 			} else {
 				$err[] = '无效的电子邮件';
 			}
@@ -260,7 +260,7 @@ if (isset($_GET['set'])) {
 	if (isset($_GET['set']) && $_GET['set']=='skype') echo "Skype<br /><input type='text' name='ank_skype' value='$user[ank_skype]' maxlength='16' /><br />";
 	if (isset($_GET['set']) && $_GET['set']=='mail') {
 		echo "E-mail:<br />
-			<input type='text' name='ank_mail' value='$user[ank_mail]' maxlength='32' /><br />
+			<input type='text' name='email' value='$user[email]' maxlength='32' /><br />
 			<label><input type='checkbox' name='set_show_mail'".($user['set_show_mail']==1?' checked="checked"':null)." value='1' /> 在资料中显示电子邮件</label><br />";
 	}
 	if (isset($_GET['set']) && $_GET['set']=='mobile') echo "电话号码:<br /><input type='text' name='ank_n_tel' value='$user[ank_n_tel]' maxlength='11' /><br />";
@@ -324,8 +324,8 @@ if (isset($_GET['set'])) {
 	}
 
 	echo "<a href='?set=mail'> <img src='/style/icons/str.gif' alt='*'>E-Mail</a> ";
-	if ($user['ank_mail']) {
-		echo "&#62; $user[ank_mail]<br />";
+	if ($user['email']) {
+		echo "&#62; $user[email]<br />";
 	} else {
 		echo "<br />";
 	}

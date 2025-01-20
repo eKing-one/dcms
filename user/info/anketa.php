@@ -29,8 +29,7 @@ if ($ank['id'] == 0) {
 	$frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$ank[id]') OR (`user` = '$ank[id]' AND `frend` = '$user[id]') LIMIT 1"), 0);
 	$frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[id]' AND `to` = '$ank[id]') OR (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"), 0);
 	if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
-		if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) // 如果页面有私人设置，则开始输出
-		{
+		if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) {	// 如果页面有私人设置，则开始输出
 			if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
 			echo "<div class='nav1'>";
 			echo group($ank['id']) . " $ank[nick] ";
@@ -359,13 +358,13 @@ if ($ank['ank_icq'] != NULL && $ank['ank_icq'] != 0)
 else
 	echo "$icq<span class=\"ank_n\">QQ:</span>$a<br />";
 echo "$mail E-Mail:$a";
-if ($ank['ank_mail'] != NULL && ($ank['set_show_mail'] == 1 || isset($user) && ($user['level'] > $ank['level'] || $user['level'] == 4))) {
+if ($ank['email'] != NULL && ($ank['set_show_mail'] == 1 || isset($user) && ($user['level'] > $ank['level'] || $user['level'] == 4))) {
 	if ($ank['set_show_mail'] == 0) $hide_mail = ' (隐藏)';
 	else $hide_mail = NULL;
-	if (preg_match("#(@mail\.ru$)|(@bk\.ru$)|(@inbox\.ru$)|(@list\.ru$)#", $ank['ank_mail']))
-		echo " <a href=\"mailto:$ank[ank_mail]\" title=\"写信\" class=\"ank_d\">$ank[ank_mail]</a>$hide_mail<br />";
+	if (preg_match("#(@mail\.ru$)|(@bk\.ru$)|(@inbox\.ru$)|(@list\.ru$)#", $ank['email']))
+		echo " <a href=\"mailto:$ank[email]\" title=\"写信\" class=\"ank_d\">$ank[email]</a>$hide_mail<br />";
 	else
-		echo " <a href=\"mailto:$ank[ank_mail]\" title=\"写信\" class=\"ank_d\">$ank[ank_mail]</a>$hide_mail<br />";
+		echo " <a href=\"mailto:$ank[email]\" title=\"写信\" class=\"ank_d\">$ank[email]</a>$hide_mail<br />";
 } else {
 	echo "<br />";
 }

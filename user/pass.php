@@ -17,7 +17,7 @@ title();
 if (isset($_POST['nick']) && isset($_POST['mail']) && $_POST['nick'] != NULL && $_POST['mail'] != NULL) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "'"), 0) == 0) {
 		$err = "使用此用户名的用户未注册";
-	} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "' AND `ank_mail` = '" . my_esc($_POST['mail']) . "'"), 0) == 0) {
+	} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "' AND `email` = '" . my_esc($_POST['mail']) . "'"), 0) == 0) {
 		$err = '无效的电子邮件地址或丢失的电子邮件信息';
 	} else {
 		$q = dbquery("SELECT * FROM `user` WHERE `nick` = '" . my_esc($_POST['nick']) . "' LIMIT 1");
@@ -33,9 +33,9 @@ if (isset($_POST['nick']) && isset($_POST['mail']) && $_POST['nick'] != NULL && 
 		//$adds = "From: <$set[reg_mail]>";
 		//$adds .= "X-sender: <$set[reg_mail]>";
 		$adds .= "Content-Type: text/html; charset=utf-8";
-		mail($user2['ank_mail'], '=?utf-8?B?' . base64_encode($subject) . '?=', $regmail, $adds);
+		mail($user2['email'], '=?utf-8?B?' . base64_encode($subject) . '?=', $regmail, $adds);
 		dbquery("UPDATE `user` SET `sess` = '$new_sess' WHERE `id` = '$user2[id]' LIMIT 1");
-		msg("设置新密码的链接已发送到电子邮件 \"$user2[ank_mail]\"");
+		msg("设置新密码的链接已发送到电子邮件 \"$user2[email]\"");
 	}
 }
 if (isset($_GET['id']) && isset($_GET['set_new']) && strlen($_GET['set_new']) == 20 && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '" . intval($_GET['id']) . "' AND `sess` = '" . my_esc($_GET['set_new']) . "'"), 0) == 1) {
@@ -49,7 +49,7 @@ if (isset($_GET['id']) && isset($_GET['set_new']) && strlen($_GET['set_new']) ==
 		if (!isset($err)) {
 			setcookie('id_user', $user2['id'], time() + 60 * 60 * 24 * 365);
 			dbquery("UPDATE `user` SET `pass` = '" . password_hash($_POST['pass1'], PASSWORD_BCRYPT) . "' WHERE `id` = '$user2[id]' LIMIT 1");
-			setcookie('pass', cookie_encrypt($_POST['pass1'], $user2['id']), time() + 60 * 60 * 24 * 365);
+			setcookie('auth_token', cookie_encrypt($_POST['pass1'], $user2['id']), time() + 60 * 60 * 24 * 365);
 			msg('密码更改成功');
 		}
 	}

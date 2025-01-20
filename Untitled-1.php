@@ -16,8 +16,14 @@ aut();
 当前设备类型为：<?php echo $webbrowser ? 'PC' : 'NoPC'; ?><br>
 当前设备UA为：<?php echo my_esc($_SERVER['HTTP_USER_AGENT']); ?><br>
 当前设备IP为：<?php echo $ip; ?><br>
-当前网站根目录：<?php echo $_SERVER['DOCUMENT_ROOT']; ?><br>
-123456：<?php echo password_hash('123456', PASSWORD_BCRYPT);?>
+<form method='post''>验证码测试：<img src='/captcha.php' alt='验证码图像' /><br /><input name='chislo' type='text' /><br/><input type='submit' value='继续' />
 
 <?php
+if (isset($_SESSION['captcha']) && isset($_POST['chislo'])) {
+	if ($_SESSION['captcha'] == $_POST['chislo']) {
+		echo '验证通过';
+	} else {
+		echo '验证码错误';
+	}
+}
 include_once 'sys/inc/tfoot.php';

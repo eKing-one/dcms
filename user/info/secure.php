@@ -43,7 +43,7 @@ if (isset($_POST['save'])) {
 		dbquery("UPDATE `user` SET `pass` = '$hashedPassword' WHERE `id` = '$user[id]' LIMIT 1");
 
 		// 更新 Cookie 中的密码（可选）
-		setcookie('pass', cookie_encrypt($_POST['pass1'], $user['id']), time() + 60 * 60 * 24 * 365);
+		setcookie('auth_token', cookie_encrypt($_POST['pass1'], $user['id']), time() + 60 * 60 * 24 * 365);
 
 		// 设置成功消息并重定向
 		$_SESSION['message'] = '密码更改成功';

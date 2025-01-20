@@ -42,7 +42,7 @@ if (isset($_POST['save'])) {
 		// 使用 password_hash 来加密新密码
 		$hashedPassword = password_hash($_POST['pass1'], PASSWORD_BCRYPT);
 		dbquery("UPDATE `user` SET `pass` = '$hashedPassword' WHERE `id` = '$user[id]' LIMIT 1");
-		setcookie('pass', cookie_encrypt($_POST['pass1'], $user['id']), time() + 60 * 60 * 24 * 365);
+		setcookie('auth_token', cookie_encrypt($_POST['pass1'], $user['id']), time() + 60 * 60 * 24 * 365);
 		msg('密码更改成功');
 	}
 }
