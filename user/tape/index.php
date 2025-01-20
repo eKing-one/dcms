@@ -16,7 +16,7 @@ $all = null;
 
 only_reg();
 
-/* Класс к статусу */
+/* 状态点赞 */
 
 if (isset($_GET['likestatus'])) {
 
@@ -58,7 +58,7 @@ include_once '../../sys/inc/thead.php';
 if (isset($_GET['read']) && $_GET['read'] == 'all') {
 	if (isset($user)) {
 		dbquery("UPDATE `tape` SET `read` = '1' WHERE `id_user` = '$user[id]'");
-		$_SESSION['message'] = '已全部已读';
+		$_SESSION['message'] = '已读全部';
 		header("Location: ?page=" . intval($_GET['page']) . "");
 		exit;
 	}
@@ -118,7 +118,7 @@ $start = $set['p_str'] * $page - $set['p_str'];
 
 
 echo '<div class="foot">';
-echo '<a href="?page=' . $page . '&amp;read=all"><img src="/style/icons/ok.gif"> 一键清除消息/已读</a>';
+echo '<a href="?page=' . $page . '&amp;read=all"><img src="/style/icons/ok.gif"> 一键已读</a>';
 echo '</div>';
 
 
