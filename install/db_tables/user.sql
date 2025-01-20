@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `ban` int(11) NOT NULL DEFAULT '0',
   `ban_pr` varchar(64) DEFAULT NULL,
   `ip` VARCHAR(39) DEFAULT NULL,
-  `ua` varchar(512) DEFAULT NULL,
+  `ua` varchar(128) DEFAULT NULL,
   `date_reg` int(11) NOT NULL DEFAULT '0',
   `time` int(11) DEFAULT NULL,
   `date_aut` int(11) NOT NULL DEFAULT '0',

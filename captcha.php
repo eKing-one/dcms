@@ -1,15 +1,53 @@
 <?php
 define('H', $_SERVER['DOCUMENT_ROOT'] . '/');
-session_name('SESS');
-session_start();
-$show_all = true; //为大家展示, 否则无法完成注册。
-$_SESSION['captcha'] = '';
 
-// 生成代码
-for ($i = 0; $i < 5; $i++) {
-	$_SESSION['captcha'] .= mt_rand(0, 9);
+// 加载网站设置
+function setget() {
+	$set = array();
+	$set_default = array();
+	$set_dynamic = array();
+	$set_replace = array();
+
+	// 正在加载默认设置。消除未定义变量的缺失
+	$default = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/sys/dat/default.ini', true);
+	$set_default = $default['DEFAULT'];
+	$set_replace = $default['REPLACE'];
+
+	if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/sys/dat/settings.php')) {
+		$set_dynamic = include_once($_SERVER['DOCUMENT_ROOT'] . '/sys/dat/settings.php');
+	} else {
+		http_response_code(506);
+		exit;
+	}
+	return array_merge($set_default, $set_dynamic, $set_replace);
 }
 
+function decrypt_captcha_token($captcha_token) {
+	// 解析 captcha_token
+	$token_parts = explode('.', $captcha_token);
+	if (count($token_parts) !== 2) {
+		throw new Exception('captcha_token 参数格式不正确');
+	}
+
+	// 使用 openssl 解密
+	$decrypted_captcha_token = openssl_decrypt(base64_decode($token_parts[0]), 'aes-256-cbc', setget()['shif'], 0, base64_decode($token_parts[1]));
+
+	$decrypted_captcha_token_parts = explode('.', $decrypted_captcha_token);
+	if (count($decrypted_captcha_token_parts) !== 2) {
+		throw new Exception('captcha_token 参数格式不正确');
+	}
+
+	if ($decrypted_captcha_token_parts[1] < time()) {
+		throw new Exception('captcha_token 已过期');
+	}
+
+	// 检查解码后的验证码是否是5位纯数字
+	if (preg_match('/^\d{5}$/', $decrypted_captcha_token_parts[0])) {
+		// 返回解密后的验证码
+		return $decrypted_captcha_token_parts[0];
+	}
+	throw new Exception("验证码“{$decrypted_captcha_token_parts[0]}”不是5位纯数字");
+}
 
 class captcha
 {
@@ -135,7 +173,24 @@ class captcha
 	}
 }
 
-$captcha = new captcha($_SESSION['captcha']);
+
+try {
+	if (isset($_GET['captcha_token'])) {
+		$captcha_code = decrypt_captcha_token($_GET['captcha_token']);
+	} else {
+		throw new Exception('无 captcha_token 参数');
+	}
+} catch(Exception $e) {
+	session_name('SESS');
+	session_start();
+	// 随机生成5位数字
+	for ($i = 0; $i < 5; $i++) {
+		$captcha_code .= mt_rand(0, 9);
+	}
+	$_SESSION['captcha'] = $captcha_code;
+}
+
+$captcha = new captcha($captcha_code);
 $captcha->create();
 $captcha->MultiWave(); // 图像失真
 $captcha->colorize();

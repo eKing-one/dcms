@@ -26,7 +26,7 @@ if (empty($k_post)) {
 	 echo '</div>';
 }
 
-$q = dbquery("SELECT * FROM `user_log` WHERE `id_user` = '".$user['id']."' ORDER BY `id` DESC  LIMIT $start, $set[p_str]");
+$q = dbquery("SELECT * FROM `user_log` WHERE `id_user` = '" . $user['id'] . "' ORDER BY `id` DESC  LIMIT $start, $set[p_str]");
 while ($post = dbassoc($q)) {
 	$ank = user::get_user($user['id']);
 	// Лесенка
@@ -36,7 +36,7 @@ while ($post = dbassoc($q)) {
 	if ($post['method'] != 1) {
 		echo ' 登录历史<br />';
 	} else {
-		echo ' 使用用户名及密码登录 (' . vremja($post['time']) . ')<br />';
+		echo "使用用户名及密码登录 ({$post['date']})<br />";
 	}
 	echo "IP: {$post['ip']}<br />";
 	echo 'UA: ' . output_text($post['ua']);

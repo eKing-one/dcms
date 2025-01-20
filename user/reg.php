@@ -30,7 +30,7 @@ if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL)
 $_SESSION['refer'] = str_replace('&', '&amp;', preg_replace('#^http://[^/]*/#', '/', $_SERVER['HTTP_REFERER']));
 
 if ($set['reg_select'] == 'close') {
-	// 管理员以关闭注册
+	// 管理员已关闭注册
 	$err = '已关闭注册';
 	err();
 	echo "<a href='/user/aut.php'>已注册?点击此处登录账号</a><br />";
@@ -50,9 +50,11 @@ if ($set['reg_select'] == 'close') {
 if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `nick` = '" . $_SESSION['reg_nick'] . "'"), 0) == 0 && isset($_POST['pass1']) && $_POST['pass1'] != NULL && $_POST['pass2'] && $_POST['pass2'] != NULL) {
 	// 检查电子邮件
 	if ($set['reg_select'] == 'open_mail') {
-		if (!isset($_POST['ank_mail']) || $_POST['ank_mail'] == NULL) $err[] = '必须输入电子邮件';
-		elseif (!preg_match('#^[A-z0-9-\._]+@[A-z0-9]{2,}\.[A-z]{2,4}$#ui', $_POST['ank_mail'])) $err[] = '无效的电子邮件格式';
-		elseif (dbresult(dbquery("SELECT COUNT(*) FROM `reg_mail` WHERE `mail` = '" . my_esc($_POST['ank_mail']) . "'"), 0) != 0) {
+		if (!isset($_POST['ank_mail']) || $_POST['ank_mail'] == NULL) {
+			$err[] = '必须输入电子邮件';
+		} elseif (!filter_var($_POST['ank_mail'], FILTER_VALIDATE_EMAIL)) {
+			$err[] = '无效的电子邮件格式';
+		} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `reg_mail` WHERE `mail` = '" . my_esc($_POST['ank_mail']) . "'"), 0) != 0) {
 			$err[] = "使用此电子邮件的用户已注册";
 		}
 	}
@@ -102,7 +104,7 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 		if (isset($_SESSION['http_referer'])) dbquery("INSERT INTO `user_ref` (`time`, `id_user`, `type_input`, `url`) VALUES ('$time', '$user[id]', 'reg', '" . my_esc($_SESSION['http_referer']) . "')");
 		$_SESSION['id_user'] = $user['id'];
 		setcookie('id_user', $user['id'], time() + 60 * 60 * 24 * 365);
-		setcookie('pass', cookie_encrypt($_POST['pass1'], $user['id']), time() + 60 * 60 * 24 * 365);
+		setcookie('auth_token', cookie_encrypt($_POST['pass1'], $user['id']), time() + 60 * 60 * 24 * 365);
 
 		if ($set['reg_select'] == 'open_mail') {
 			msg('您需要使用发送到电子邮件的链接激活您的帐户');
@@ -112,8 +114,10 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 
 		msg('注册成功！');
 
+		$http_type = ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1)) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https' : 'http';
+
 		echo "如果您的浏览器不支持Cookie，您可以创建一个自动登录书签<br />";
-		echo "<input type='text' value='http://$_SERVER[SERVER_NAME]/user/login.php?id=$user[id]&amp;pass=" . htmlspecialchars($_POST['pass1']) . "' /><br />";
+		echo "<input type='text' value='{$http_type}://{$_SERVER['SERVER_NAME']}/user/login.php?id={$user['id']}&amp;pass=" . htmlspecialchars($_POST['pass1']) . "' /><br />";
 		if ($set['reg_select'] == 'open_mail') unset($user);
 		echo "<div class='foot'>";
 		echo "&raquo;<a href='info/settings.php'>我的设置</a><br />";
@@ -130,7 +134,9 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 		if (preg_match("#(^\ )|(\ $)#ui", $_POST['nick'])) $err[] = '禁止在昵称的开头和结尾使用空格';
 		if (strlen2($nick) < 3) $err[] = '短用户名';
 		if (strlen2($nick) > 32) $err[] = '昵称长度超过32个字符';
-	} else $err[] = '用户名 "' . stripcslashes(htmlspecialchars($_POST['nick'])) . '"已登记';
+	} else {
+		$err[] = '用户名 "' . stripcslashes(htmlspecialchars($_POST['nick'])) . '"已登记';
+	}
 	if (!isset($err)) {
 		$_SESSION['reg_nick'] = $nick;
 		$_SESSION['step'] = 1;
@@ -141,24 +147,26 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 err();
 
 if (isset($_SESSION['step']) && $_SESSION['step'] == 1) {
-	echo "<form method='post' action='/user/reg.php?$passgen'>";
-	echo "你的用户名[A-z0-9 -_]:<br /><input type='text' name='nick' maxlength='32' value='$_SESSION[reg_nick]' /><br />";
+	echo "<form method='post' action='/user/reg.php?{$passgen}'>";
+	echo "你的用户名[A-z0-9 -_]:<br /><input type='text' name='nick' maxlength='32' value='{$_SESSION['reg_nick']}' /><br />";
 	echo "<input type='submit' value='另一个' />";
 	echo "</form><br />";
-	echo "<form method='post' action='/user/reg.php?$passgen'>";
+	echo "<form method='post' action='/user/reg.php?{$passgen}'>";
 	echo "你的性别:<br /><select name='pol'><option value='1'>男</option><option value='0'>女</option></select><br />";
+
 	if ($set['reg_select'] == 'open_mail') {
 		echo "E-mail:<br /><input type='text' name='ank_mail' /><br />";
 		echo "* 指定您的真实电子邮件地址。您将收到一个激活您的帐户的代码.<br />";
 	}
+
 	echo "输入密码（6-32个字符）:<br /><input type='password' name='pass1' maxlength='32' /><br />";
 	echo "重复密码:<br /><input type='password' name='pass2' maxlength='32' /><br />";
-	echo "<img src='/captcha.php?$passgen&amp;SESS=$sess' width='100' height='30' alt='核证号码' /><br /><input name='chislo' size='5' maxlength='5' value='' type='text' /><br/>";
+	echo "<img src='/captcha.php?{$passgen}&amp;SESS={$sess}' width='100' height='30' alt='验证码图像' /><br /><input name='chislo' size='5' maxlength='5' value='' type='text' /><br/>";
 	echo "通过注册，即代表您同意网站管理条例</a><br />";
 	echo "<input type='submit' value='继续' />";
 	echo "</form><br />";
 } else {
-	echo "<form class='mess' method='post' action='/user/reg.php?$passgen'>";
+	echo "<form class='mess' method='post' action='/user/reg.php?{$passgen}'>";
 	echo "你的用户名 [A-z0-9 -_]:<br /><input type='text' name='nick' maxlength='32' /><br />";
 	echo "通过注册，即代表您同意网站管理条例</a> <br />";
 	echo "<input type='submit' value='继续' />";

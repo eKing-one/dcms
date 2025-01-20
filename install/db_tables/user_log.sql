@@ -6,8 +6,7 @@ CREATE TABLE IF NOT EXISTS `user_log` (
   `ip` VARCHAR(39) DEFAULT NULL,
   `ua` varchar(128) default NULL,
   `ban` set('1','0') NOT NULL default '0',
-  `expiration` TIMESTAMP NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `id_user` (`id_user`),
-  KEY `time` (`time`)
+  KEY `date` (`date`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;

@@ -14,7 +14,7 @@ if (setget('exit', 1) == 1) {
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if (isset($_POST['confirm_yes'])) {
 			setcookie('id_user');
-			setcookie('pass');
+			setcookie('auth_token');
 			session_destroy();
 			header('Location: /?' . SID);
 			exit();
@@ -25,7 +25,7 @@ if (setget('exit', 1) == 1) {
 	}
 } else {
 	setcookie('id_user');
-	setcookie('pass');
+	setcookie('auth_token');
 	session_destroy();
 	header('Location: /?' . SID);
 	exit();

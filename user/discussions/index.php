@@ -147,7 +147,7 @@ $start = $set['p_str'] * $page - $set['p_str'];
 
 $q = dbquery("SELECT * FROM `discussions` WHERE `id_user` = '$user[id]' $order ORDER BY `time` DESC LIMIT $start, $set[p_str]");
 
-if ($k_post == 0) :?>
+if ($k_post == 0):?>
 	<div class="mess">
 		没有新的讨论
 	</div>

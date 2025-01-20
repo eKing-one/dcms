@@ -20,6 +20,10 @@ class ComposerStaticInit1d5c899fd1cfa4469bbd76b2735efb15
         array (
             'IPLib\\' => 6,
         ),
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
+        ),
         'D' => 
         array (
             'Detection\\' => 10,
@@ -46,6 +50,10 @@ class ComposerStaticInit1d5c899fd1cfa4469bbd76b2735efb15
         'IPLib\\' => 
         array (
             0 => __DIR__ . '/..' . '/mlocati/ip-lib/src',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
         'Detection\\' => 
         array (

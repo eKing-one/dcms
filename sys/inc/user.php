@@ -14,7 +14,7 @@ if (isset($_SESSION['id_user']) && dbresult(dbquery("SELECT COUNT(*) FROM `user`
 	$user = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $_SESSION[id_user] LIMIT 1"));
 	dbquery("UPDATE `user` SET `date_last` = '$time' WHERE `id` = '$user[id]' LIMIT 1");
 	$user['type_input'] = 'session';
-} elseif (!isset($input_page) && isset($_COOKIE['id_user']) && isset($_COOKIE['pass']) && $_COOKIE['id_user'] && $_COOKIE['pass']) {
+} elseif (!isset($input_page) && isset($_COOKIE['id_user']) && isset($_COOKIE['auth_token']) && $_COOKIE['id_user'] && $_COOKIE['auth_token']) {
 	if (!isset($_POST['token'])) {
 		header("Location: /user/login.php?return=" . urlencode($_SERVER['REQUEST_URI']) . "&$passgen");
 		exit;
@@ -161,9 +161,9 @@ if (isset($user)) {
 
 
 if (!isset($user) || $user['level']  ==  0) {
-	@error_reporting(0);
-	@ini_set('display_errors', false); // 错误显示
-	if (function_exists('set_time_limit')) @set_time_limit(20); // 将限制设置为 20 秒
+	error_reporting(0);
+	ini_set('display_errors', false); // 错误显示
+	if (function_exists('set_time_limit')) set_time_limit(20); // 将限制设置为 20 秒
 }
 
 if (!isset($user) && $set['guest_select']  ==  '1' && !isset($show_all) && $_SERVER['PHP_SELF'] != '/index.php') {
