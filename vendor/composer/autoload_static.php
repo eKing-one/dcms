@@ -15,6 +15,7 @@ class ComposerStaticInit1d5c899fd1cfa4469bbd76b2735efb15
         array (
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Cache\\' => 10,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'I' => 
         array (
@@ -46,6 +47,10 @@ class ComposerStaticInit1d5c899fd1cfa4469bbd76b2735efb15
         'Psr\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'IPLib\\' => 
         array (

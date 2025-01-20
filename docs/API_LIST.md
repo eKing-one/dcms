@@ -11,7 +11,7 @@
 - **请求参数**:
 
     ```x-www-form-urlencoded
-    nick=<UserName>&password=<Password>
+    nick=<string>&password=<string>
     ```
 
 - **响应内容**:
@@ -33,12 +33,10 @@
 - **请求方式**: POST
 - **请求参数**:
 
-    ```json
-    {
-        "username": "string",
-        "password": "string",
-        "email": "string"
-    }
+    ```x-www-form-urlencoded
+    reg_nick=<string>&password=<string>&captcha=<string>&captcha_token=<string>&email=<string>&pol=<1 or 0>
+
+    # pol参数为可选项
     ```
 
 - **响应内容**:
@@ -49,8 +47,6 @@
         "message": "注册成功",
         "data": {
             "user_id": "int",
-            "username": "string",
-            "email": "string"
         }
     }
     ```

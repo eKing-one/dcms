@@ -9,6 +9,7 @@ return array(
     'UAParser\\' => array($vendorDir . '/ua-parser/uap-php/src'),
     'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
     'Psr\\Cache\\' => array($vendorDir . '/psr/cache/src'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'IPLib\\' => array($vendorDir . '/mlocati/ip-lib/src'),
     'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
     'Detection\\' => array($vendorDir . '/mobiledetect/mobiledetectlib/src'),
