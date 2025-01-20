@@ -69,6 +69,7 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - [ua-parser](https://github.com/ua-parser/uap-php)
 - [MobileDetect](https://mobiledetect.net)
 - [PHP-JWT](https://github.com/firebase/php-jwt)
+- [PHPMailer](https://github.com/PHPMailer/PHPMailer)
 
 ## 待办事项
 
@@ -103,6 +104,7 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - [ ] 通过短轮询实现在线聊天
 - [ ] 完善登录历史
 - [ ] 注册答题
+- [ ] 完善注册电子邮箱验证
 
 ## API 开发进度
 

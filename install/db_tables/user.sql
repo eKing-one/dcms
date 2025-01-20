@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `ank_o_sebe` varchar(512) DEFAULT NULL,
   `ank_icq` varchar(10) DEFAULT NULL,
   `ank_skype` varchar(16) DEFAULT NULL,
-  `ank_mail` varchar(32) DEFAULT NULL,
+  `email` varchar(32) DEFAULT NULL,
   `ank_n_tel` varchar(11) DEFAULT NULL,
   `ank_name` varchar(32) DEFAULT NULL,
   `set_time_chat` int(11) DEFAULT '0',

@@ -358,13 +358,13 @@ if ($ank['ank_icq'] != NULL && $ank['ank_icq'] != 0)
 else
 	echo "$icq<span class=\"ank_n\">QQ:</span>$a<br />";
 echo "$mail E-Mail:$a";
-if ($ank['ank_mail'] != NULL && ($ank['set_show_mail'] == 1 || isset($user) && ($user['level'] > $ank['level'] || $user['level'] == 4))) {
+if ($ank['email'] != NULL && ($ank['set_show_mail'] == 1 || isset($user) && ($user['level'] > $ank['level'] || $user['level'] == 4))) {
 	if ($ank['set_show_mail'] == 0) $hide_mail = ' (隐藏)';
 	else $hide_mail = NULL;
-	if (preg_match("#(@mail\.ru$)|(@bk\.ru$)|(@inbox\.ru$)|(@list\.ru$)#", $ank['ank_mail']))
-		echo " <a href=\"mailto:$ank[ank_mail]\" title=\"写信\" class=\"ank_d\">$ank[ank_mail]</a>$hide_mail<br />";
+	if (preg_match("#(@mail\.ru$)|(@bk\.ru$)|(@inbox\.ru$)|(@list\.ru$)#", $ank['email']))
+		echo " <a href=\"mailto:$ank[email]\" title=\"写信\" class=\"ank_d\">$ank[email]</a>$hide_mail<br />";
 	else
-		echo " <a href=\"mailto:$ank[ank_mail]\" title=\"写信\" class=\"ank_d\">$ank[ank_mail]</a>$hide_mail<br />";
+		echo " <a href=\"mailto:$ank[email]\" title=\"写信\" class=\"ank_d\">$ank[email]</a>$hide_mail<br />";
 } else {
 	echo "<br />";
 }

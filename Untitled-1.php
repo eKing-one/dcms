@@ -20,10 +20,10 @@ aut();
 
 <?php
 if (isset($_SESSION['captcha']) && isset($_POST['chislo'])) {
-    if ($_SESSION['captcha'] == $_POST['chislo']) {
-        echo '验证通过';
-    } else {
-        echo '验证码错误';
-    }
+	if ($_SESSION['captcha'] == $_POST['chislo']) {
+		echo '验证通过';
+	} else {
+		echo '验证码错误';
+	}
 }
 include_once 'sys/inc/tfoot.php';

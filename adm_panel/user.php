@@ -108,9 +108,9 @@ if (isset($_POST['save'])) {
 		$ank['ank_n_tel'] = $_POST['ank_n_tel'];
 		dbquery("UPDATE `user` SET `ank_n_tel` = '$ank[ank_n_tel]' WHERE `id` = '$ank[id]' LIMIT 1");
 	} else $err = '无效的电话号码格式';
-	if (isset($_POST['ank_mail']) && ($_POST['ank_mail'] == null || preg_match('#^[A-z0-9-\._]+@[A-z0-9]{2,}\.[A-z]{2,4}$#ui', $_POST['ank_mail']))) {
-		$ank['ank_mail'] = $_POST['ank_mail'];
-		dbquery("UPDATE `user` SET `ank_mail` = '$ank[ank_mail]' WHERE `id` = '$ank[id]' LIMIT 1");
+	if (isset($_POST['email']) && ($_POST['email'] == null || preg_match('#^[A-z0-9-\._]+@[A-z0-9]{2,}\.[A-z]{2,4}$#ui', $_POST['email']))) {
+		$ank['email'] = $_POST['email'];
+		dbquery("UPDATE `user` SET `email` = '$ank[email]' WHERE `id` = '$ank[id]' LIMIT 1");
 	} else $err[] = '无效电子邮件';
 	if (isset($_POST['ank_o_sebe']) && preg_match('#^([A-zА-я \-]*)$#ui', $_POST['ank_o_sebe'])) {
 		$ank['ank_o_sebe'] = esc(stripcslashes(htmlspecialchars($_POST['ank_o_sebe'])));
@@ -204,7 +204,7 @@ echo "城市:<br /><input type='text' name='ank_city' value='$ank[ank_city]' max
 	ICQ:<br /><input type='text' name='ank_icq' value='$ank[ank_icq]' maxlength='9' /><br />
 	Skype 账号<br />
 		<input type='text' name='ank_skype' value='$ank[ank_skype]' maxlength='16' /><br />
-	E-mail:<br /><input type='text' name='ank_mail' value='$ank[ank_mail]' maxlength='32' /><br />
+	E-mail:<br /><input type='text' name='email' value='$ank[email]' maxlength='32' /><br />
 	电话号码:<br /><input type='text' name='ank_n_tel' value='$ank[ank_n_tel]' maxlength='11' /><br />
 	关于我:<br /><input type='text' name='ank_o_sebe' value='$ank[ank_o_sebe]' maxlength='512' /><br />";
 echo "聊天中自动更新:<br /><input type='text' name='set_time_chat' value='$ank[set_time_chat]' maxlength='3' /><br />";
