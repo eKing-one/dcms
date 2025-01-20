@@ -49,10 +49,10 @@ if (isset($_POST['title']) && isset($_POST['msg']) && isset($_POST['link']) && i
 	dbquery("UPDATE `user` SET `news_read` = '0'");
 	if (isset($_POST['mail'])) // Расслылка новостей на майл
 	{
-		$q = dbquery("SELECT `ank_mail` FROM `user` WHERE `set_news_to_mail` = '1' AND `ank_mail` <> ''");
+		$q = dbquery("SELECT `email` FROM `user` WHERE `set_news_to_mail` = '1' AND `email` <> ''");
 		while ($ank = dbassoc($q))
 		{
-			dbquery("INSERT INTO `mail_to_send` (`mail`, `them`, `msg`) values('$ank[ank_mail]', '新闻', '".trim(br(bbcode(links(stripcslashes(htmlspecialchars($msg))))))."')");
+			dbquery("INSERT INTO `mail_to_send` (`mail`, `them`, `msg`) values('$ank[email]', '新闻', '".trim(br(bbcode(links(stripcslashes(htmlspecialchars($msg))))))."')");
 		}
 	}
 	$_SESSION['message'] = '新闻创建成功';

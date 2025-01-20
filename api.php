@@ -487,7 +487,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 			// 设置响应为成功
 			$response['status'] = 'success';
 			$response['message'] = '登录成功';
-			$response['token'] = $jwt;
+			$response['data']['user_id'] = $user['id'];
+			$response['data']['token'] = $jwt;
 		} else {
 			// 登录失败
 			http_response_code(403);
@@ -572,14 +573,14 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 				if ($set['reg_select'] == 'open_mail') {
 					// 如果开启了注册邮箱验证
 					$activation = md5(passgen());
-					$db->insert("INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_last`, `pol`, `activation`, `ank_mail`) VALUES (?, ?, ?, ?, ?, ?, ?)", [
+					$db->insert("INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_last`, `pol`, `activation`, `email`) VALUES (?, ?, ?, ?, ?, ?, ?)", [
 						$_POST['reg_nick'],
 						password_hash($_POST['password'], PASSWORD_BCRYPT),
 						time(),
 						time(),
 						intval($_POST['pol']),
 						$activation,
-						$_POST['ank_mail']
+						$_POST['email']
 					]);
 					$id_reg = dbinsertid();
 					$subject = "帐户激活";
@@ -592,7 +593,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 					//$adds = "From: <$set[reg_mail]>";
 					//$adds .= "X-sender: <$set[reg_mail]>";
 					$adds .= "Content-Type: text/html; charset=utf-8";
-					mail($_POST['ank_mail'], '=?utf-8?B?' . base64_encode($subject) . '?=', $regmail, $adds);
+					mail($_POST['email'], '=?utf-8?B?' . base64_encode($subject) . '?=', $regmail, $adds);
 				} else {
 					// 未开启邮箱验证，直接注册
 					$db->insert("INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_last`, `pol`) VALUES (?, ?, ?, ?, ?)", [
