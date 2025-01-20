@@ -45,4 +45,4 @@ if (isset($err)) {
 <!-- 当前步骤 -->
 <b>步骤: <?php echo $_SESSION['install_step']; ?></b>
 
-<?php include_once 'inc/foot.php'; // 设计主题的底部 ?>
+<?php include_once 'inc/foot.php'; // 设计主题的底部

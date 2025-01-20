@@ -1,4 +1,4 @@
-<?
+<?php
 list($msec, $sec) = explode(chr(32), microtime());
 echo "<div class='foot'>";
 //echo "<a href='/' accesskey='0' title='На главную'>".(isset ($set['copy']) && $set['copy']!=null?$set['copy']:'На главную')."</a><br />";
