@@ -317,55 +317,36 @@ $clientDetails = get_client_details();
 
 
 
-
-
 function checkLoginStatus() {
 	global $db;
-	
-	// 检查 Authorization 头部中是否有 Bearer Token
-	if (isset($_SERVER['HTTP_AUTHORIZATION']) && strpos($_SERVER['HTTP_AUTHORIZATION'], 'Bearer ') === 0) {
-		// 提取 JWT（去掉 "Bearer " 前缀）
-		$jwt = preg_split('/\s+/', $_SERVER['HTTP_AUTHORIZATION'])[1];
-	} elseif (isset($_COOKIE['auth_token'])) {
-		$jwt = $_COOKIE['auth_token'];
-	} elseif (isset($_SESSION['id_user'])) {
-		// 查询用户是否存在
-		$result = $db->query("SELECT COUNT(*) FROM `user` WHERE `id` = :id LIMIT 1", [':id' => $_SESSION['id_user']]);
-
-		if ($result && $result['COUNT(*)'] == 1) {
-			// 获取用户数据
-			$user = $db->query("SELECT * FROM `user` WHERE `id` = :id LIMIT 1", [':id' => $_SESSION['id_user']]);
-			
-			// 更新用户的最后登录时间
-			$db->update("UPDATE `user` SET `date_last` = :time WHERE `id` = :id LIMIT 1", [':time' => time(), ':id' => $user['id']]);
-			
-			// 设置用户类型为 session
-			$user['type_input'] = 'session';
-
-			return $user;
-		}
-		return false;
-	} else {
-		return false;
-	}
-
-	// 解码 JWT，验证其签名和有效性
 	global $set;
-	try {
-		$decoded = \Firebase\JWT\JWT::decode($jwt, new \Firebase\JWT\Key($set['shif'], 'HS256'));
-	} catch (Exception $e) {
-		return false; // 解码失败，返回 false
+
+	function jwt_get_user_info($jwt, $set, $db) {
+		// 解码 JWT，验证其签名和有效性
+		try {
+			$decoded = \Firebase\JWT\JWT::decode($jwt, new \Firebase\JWT\Key($set['shif'], 'HS256'));
+		} catch (Exception $e) {
+			return false; // 解码失败，返回 false
+		}
+
+		// 检查 JWT 是否过期
+		if ($decoded->exp > time()) {
+			// 查询用户是否存在
+			return get_user_info($decoded->user_id, $decoded->jwt_id, $db);
+		} else {
+			return false; // JWT 过期，返回 false
+		}
 	}
 
-	// 检查 JWT 是否过期
-	if ($decoded->exp > time()) {
+
+	function get_user_info($user_id, $log_id, $db) {
 		// 查询用户是否存在
-		$result = $db->query("SELECT COUNT(*) FROM `user` WHERE `id` = :id LIMIT 1", [':id' => $decoded->user_id]);
+		$result = $db->query("SELECT COUNT(*) FROM `user` WHERE `id` = :id LIMIT 1", [':id' => $user_id]);
 		if ($result && $result['COUNT(*)'] == 1) {
-			// 可以检查数据库中的登录日志，确保 JWT 对应的 log_id 没有标记为"ban"
+			// 检查数据库中的登录日志，确保 JWT 对应的 log_id 没有标记为"ban"
 			$user_log = $db->query("SELECT * FROM `user_log` WHERE `id` = :log_id AND `id_user` = :user_id", [
-				'log_id' => $decoded->jwt_id,
-				'user_id' => $decoded->user_id
+				'log_id' => $log_id,
+				'user_id' => $user_id
 			]);
 			if ($user_log && $user_log['ban'] == '0') {
 				// 验证通过，说明用户已经登录
@@ -375,13 +356,37 @@ function checkLoginStatus() {
 					':id' => $user_log['id_user']
 				]);
 
-				// 获取用户数据
-				$user = $db->query("SELECT * FROM `user` WHERE `id` = :id LIMIT 1", [':id' => $decoded->user_id]);
-				return $user;
+				// 返回用户数据
+				return $db->query("SELECT * FROM `user` WHERE `id` = :id LIMIT 1", [':id' => $user_id]);
+			} else {
+				return false; // 登录记录被 ban，返回 false
 			}
+		} else {
+			return false; // 用户不存在，返回 false
 		}
 	}
-	return false;
+
+
+	// 检查 Authorization 头部中是否有 Bearer Token
+	if (isset($_SERVER['HTTP_AUTHORIZATION']) && strpos($_SERVER['HTTP_AUTHORIZATION'], 'Bearer ') === 0) {
+		// 提取 JWT（去掉 "Bearer " 前缀）
+		$user = jwt_get_user_info(preg_split('/\s+/', $_SERVER['HTTP_AUTHORIZATION'])[1], $set, $db);
+		// 设置用户类型为 token
+		if ($user) $user['type_input'] = 'token';
+	} elseif (isset($_COOKIE['auth_token'])) {
+		// 从 Cookie 提取 JWT
+		$user = jwt_get_user_info($_COOKIE['auth_token'], $set, $db);
+		// 设置用户类型为 cookie
+		if ($user) $user['type_input'] = 'cookie';
+	} elseif (isset($_SESSION['id_user']) && isset($_SESSION['login_id'])) {
+		// 使用 session 检测登录状态
+		$user = get_user_info($_SESSION['id_user'], $_SESSION['login_id'], $db);
+		// 设置用户类型为 session
+		if ($user) $user['type_input'] = 'session';
+	} else {
+		return false;
+	}
+	return $user;
 }
 
 
@@ -441,7 +446,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 		if ($user && password_verify($_POST['password'], $user['pass'])) {	// 比较密码
 			// 登录成功
 
-			$_SESSION['id_user'] = $user['id'];
 
 			// 更新用户的登录时间
 			$updateQuery = "UPDATE `user` SET `date_aut` = :time, `date_last` = :time WHERE `id` = :id LIMIT 1";
@@ -455,6 +459,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 				'ua' => $clientDetails['ua'],	// 从客户端获取 User-Agent
 				'ip' => $clientDetails['ip']			// 从客户端获取 IP 地址
 			]);
+
+			// 在 session 存储用户ID与登录记录ID
+			$_SESSION['id_user'] = $user['id'];
+			$_SESSION['login_id'] = $log_id;
 
 			// 选择了“记住我”
 			if (isset($_POST['aut_save']) && $_POST['aut_save']) {
