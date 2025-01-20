@@ -1,4 +1,4 @@
-<?
+<?php
 $set['title']='检查 CHMOD';
 include_once 'inc/head.php'; // 设计主题的顶部
 

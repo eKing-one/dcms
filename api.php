@@ -627,6 +627,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 		}
 	
 		$response['status'] = 'success';
+		$response['data']['user_id'] = $id_reg;
 	
 	} catch (Exception $e) {
 		$response['status'] = 'error';

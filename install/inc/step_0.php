@@ -45,5 +45,5 @@ if (isset($_GET['no'])) {echo '<div class="err">必须接受这一条件</div>';
 
 <hr />
 <b>步骤: <?php echo $_SESSION['install_step']; ?></b>
-<?
+<?php
 include_once 'inc/foot.php'; //设计主题的底部
