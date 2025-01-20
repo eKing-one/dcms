@@ -7,7 +7,7 @@
  * ** 登录 **
  * curl https://dcms.myredirect.us/api.php --cookie "auth_token=<JSON Web Token>"
  * 或者
- * 
+ * curl -i https://dcms.myredirect.us/api.php --cookie "SESS=<SESS>; PHPSESSID=<PHPSESSID>"
  */
 
 
@@ -370,7 +370,10 @@ function checkLoginStatus() {
 			if ($user_log && $user_log['ban'] == '0') {
 				// 验证通过，说明用户已经登录
 				// 更新用户的最后登录时间
-				$db->update("UPDATE `user` SET `date_last` = :time WHERE `id` = :id LIMIT 1", [':time' => time(), ':id' => $user_log['id_user']]);
+				$db->update("UPDATE `user` SET `date_last` = :time WHERE `id` = :id LIMIT 1", [
+					':time' => time(),
+					':id' => $user_log['id_user']
+				]);
 
 				// 获取用户数据
 				$user = $db->query("SELECT * FROM `user` WHERE `id` = :id LIMIT 1", [':id' => $decoded->user_id]);
@@ -489,12 +492,29 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 		$response['message'] = '缺少必要参数';
 	}
 
+
+
+
+
+
+
+
 } elseif (isset($_GET['action']) && $_GET['action'] == 'logout') {
 	// 退出登录
 	setcookie('id_user');
 	setcookie('auth_token');
 	session_destroy();
 	$response['status'] = 'success';
+
+
+
+
+
+
+
+
+
+
 
 } elseif (isset($_GET['action']) && $_GET['action'] == 'register') {
 	// 注册
@@ -589,8 +609,15 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 	}
 
 
+
+
+
+
+
+
+
 } elseif (isset($_GET['action']) && $_GET['action'] == 'get_captcha_url') {
-	// 获取验证码URL
+	// 获取 Captcha URL 和 Captcha token
 
 	// 生成5位验证码
 	$captcha = '';
@@ -612,9 +639,15 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 	$encoded_captcha = base64_encode($encrypted_captcha);
 
 	$response['status'] = 'success';
-	// 生成验证码图片URL
+	// 生成验证码图片 URL
 	$response['captcha_token'] = "{$encoded_captcha}.{$encoded_iv}";
 	$response['captcha_url'] = "/captcha.php?captcha_token={$response['captcha_token']}";
+
+
+
+
+
+
 } else {
 	// 检查登录状态
 	$user_info = checkLoginStatus();
