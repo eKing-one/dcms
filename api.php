@@ -595,7 +595,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 		// 注册用户
 		$id_reg = $db->insert("INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_last`, `pol`, `activation`, `email`) VALUES (?, ?, ?, ?, ?, ?, ?)", [
 			$_POST['reg_nick'],
-			password_hash($_POST['password'], PASSWORD_BCRYPT),
+			password_hash($_POST['password'], PASSWORD_DEFAULT),
 			time(),
 			time(),
 			intval((isset($_POST['pol']) && ($_POST['pol'] == '1')) ? 1 : 0),

@@ -39,7 +39,7 @@ if (isset($_POST['save'])) {
 
 	if (!isset($err)) {
 		// 使用 password_hash() 来加密新密码
-		$hashedPassword = password_hash($_POST['pass1'], PASSWORD_BCRYPT);
+		$hashedPassword = password_hash($_POST['pass1'], PASSWORD_DEFAULT);
 		dbquery("UPDATE `user` SET `pass` = '$hashedPassword' WHERE `id` = '$user[id]' LIMIT 1");
 
 		// 更新 Cookie 中的密码（可选）
