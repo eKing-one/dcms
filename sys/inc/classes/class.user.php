@@ -20,6 +20,7 @@ class user
 			$nicks[$user] = $ank;
 		} else $ank = $nicks[$user];
 	}
+
 	public static function nick($user = 0, $url = 1, $on = 0, $medal = 0) {
 		/*
 		* $url == 0		只输出昵称
@@ -101,6 +102,7 @@ class user
 		}
 		return $icon . $nick . $icon_medal . $online;
 	}
+
 	/**
 	 * / 本身，用户组图标
 	 */
