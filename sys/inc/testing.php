@@ -79,10 +79,10 @@ if (ini_get('arg_separator.output') == '&amp;') {
 }
 
 // 测试URL重写是否正常工作
-if (@trim(file_get_contents("http://$_SERVER[HTTP_HOST]/sys/inc/mod_rewrite.test")) == 'mod_rewrite-ok') {
+if (trim(file_get_contents("http://$_SERVER[HTTP_HOST]/sys/inc/mod_rewrite.test")) == 'mod_rewrite-ok') {
 	echo "<span class='on'>mod_rewrite: OK</span><br />";
 } elseif (function_exists('apache_get_modules')) {
-	$apache_mod = @apache_get_modules();
+	$apache_mod = apache_get_modules();
 	if (array_search('mod_rewrite', $apache_mod)) {
 		echo "<span class='on'>mod_rewrite: OK</span><br />";
 	} else {
