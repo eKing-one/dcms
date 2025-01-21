@@ -33,8 +33,11 @@ if (isset($user['activation']) && $user['activation'] != NULL) {
 
 if (isset($user)) {
 	$tmp_us = dbassoc(dbquery("SELECT `level` FROM `user_group` WHERE `id` = '$user[group_access]' LIMIT 1"));
-	if (isset($tmp_us['level'])) $user['level'] = $tmp_us['level'];
-	else $user['level'] = 0;
+	if (isset($tmp_us['level'])) {
+		$user['level'] = $tmp_us['level'];
+	} else {
+		$user['level'] = 0;
+	}
 	$timeactiv  =  time() - $user['date_last'];
 
 	if ($timeactiv < 120) {
@@ -126,15 +129,14 @@ if (isset($user)) {
 	========================================
 	*/
 
-	if (!isset($insert))
-		$insert = null;
+	if (!isset($insert)) $insert = null;
 
 	if (isset($_GET['response']) && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '" . intval($_GET['response']) . "'"), 0) == 1) {
 		$ank_reply = dbassoc(dbquery("SELECT nick,id FROM `user` WHERE `id` = '" . intval($_GET['response']) . "' LIMIT 1"));
 		$insert = user::nick($ank_reply['id'], 0, 0, 0) . ', ';
 		$go_link = '?' . $passgen . '&amp;response=' . $ank_reply['id'];
 	} else {
-		$go_link = NULL;
+		$go_link = '';
 	}
 
 	// 响应时链接
@@ -161,8 +163,8 @@ if (isset($user)) {
 
 
 if (!isset($user) || $user['level']  ==  0) {
-	error_reporting(0);
-	ini_set('display_errors', false); // 错误显示
+	// error_reporting(0);
+	// ini_set('display_errors', false); // 错误显示
 	if (function_exists('set_time_limit')) set_time_limit(20); // 将限制设置为 20 秒
 }
 

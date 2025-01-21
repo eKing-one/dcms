@@ -22,8 +22,8 @@ if ($set['meta_description'] != NULL) {
 }
 
 // 检查主题文件是否存在，并包含头部文件
-if (file_exists(H . "style/themes/$set[set_them]/head.php")) {
-	include_once H . "style/themes/$set[set_them]/head.php"; // 包含自定义主题的头部文件
+if (file_exists(H . "style/themes/{$set['set_them']}/head.php")) {
+	include_once H . "style/themes/{$set['set_them']}/head.php"; // 包含自定义主题的头部文件
 } else {
 	$set['web'] = false; // 设置网站状态为false
 	//header("Content-type: application/vnd.wap.xhtml+xml");
@@ -43,7 +43,7 @@ if (file_exists(H . "style/themes/$set[set_them]/head.php")) {
 }
 
 // 如果用户等级大于4，显示工具栏
-if (isset($user) && $user['level'] > 4) {
+if (isset($user['level']) && $user['level'] > 4) {
 	if (setget('toolbar', 1) == 1) {
 		t_toolbar_html(); // 调用工具栏函数
 	}
