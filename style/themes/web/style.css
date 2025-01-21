@@ -623,7 +623,7 @@ b.count {
 	-moz-border-radius: 3px;
 }
 .menu_razd {
-	/* Разделитель меню */
+	/* 菜单分隔符 */
 	
 	padding: 4px;
 	background-color: #E0E6FF;
@@ -633,7 +633,7 @@ b.count {
 	margin: 7px;
 }
 .main {
-	/* Дивы навигации */
+	/* 导航 Divas */
 	
 	color: black;
 	background: url("images/bgs.png") repeat-x #4C6F97;
@@ -644,7 +644,7 @@ b.count {
 	box-shadow: 0px 0px 9px 2px rgba(71, 79, 87, 0.149);
 }
 .mains {
-	/* Дивы навигации */
+	/* 导航 Divas */
 	
 	color: black;
 	background: url("images/nature-background.jpg") repeat-x #4C6F97;
@@ -727,6 +727,10 @@ b.count {
 	}
 	.main2 {
 		background: url("images/ma2_dark.png") repeat-y #000;
+	}
+	.menu {
+		background-color: #030303;
+		border-color: #00191F;
 	}
 	.mm_counter {
 		background-color: #12181E;
