@@ -453,9 +453,8 @@ function getStringLength($str) {
 }
 
 
-
-
-
+// 删除过期的captcha_token
+$db->query("DELETE FROM captcha_tokens WHERE expires_at < NOW()");
 
 
 
