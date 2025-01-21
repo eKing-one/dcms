@@ -174,7 +174,7 @@ if (!isset($user) && $set['guest_select']  ==  '1' && !isset($show_all) && $_SER
 }
 
 if (isset($user)) {
-	$user_gr = dbassoc(dbquery("SELECT * FROM `user_group` WHERE `id` = $user[group_access] LIMIT 1"));
+	$user_gr = dbassoc(dbquery("SELECT * FROM `user_group` WHERE `id` = {$user['group_access']} LIMIT 1"));
 	$user['group_name'] = $user_gr['name'];
 	if (isset($_GET['sess_abuld']) && $_GET['sess_abuld']  ==  1) // 继续查看标记为 18+ 的文件
 	{

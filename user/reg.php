@@ -72,7 +72,7 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 		// 注册邮箱验证
 		if ($set['reg_select'] == 'open_mail') {
 			$activation = md5(passgen());
-			dbquery("INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_last`, `pol`, `activation`, `email`) values('" . $_SESSION['reg_nick'] . "', '" . password_hash($_POST['pass1'], PASSWORD_DEFAULT) . "', '$time', '$time', '" . intval($_POST['pol']) . "', '$activation', '" . my_esc($_POST['email']) . "')", $db);
+			dbquery("INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_last`, `group_access`,`pol`, `activation`, `email`) values('" . $_SESSION['reg_nick'] . "', '" . password_hash($_POST['pass1'], PASSWORD_DEFAULT) . "', '$time', '$time', '1', '" . intval($_POST['pol']) . "', '$activation', '" . my_esc($_POST['email']) . "')", $db);
 			$id_reg = dbinsertid();
 			$subject = "帐户激活";
 			$regmail = "你好！ $_SESSION[reg_nick]<br />
