@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -8,7 +8,8 @@ include_once '../../sys/inc/db_connect.php';
 include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
-/* 用户厢式货车 */
+
+/* 屏蔽封禁用户 */
 if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'notes' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0')"), 0) != 0) {
 	header('Location: /user/ban.php?' . SID);
 	exit;
@@ -257,11 +258,13 @@ if (isset($listr['id'])) echo '<span class="page">' . ($listr['id'] ? '<a href="
 echo '</div>';
 /*----------------------plugins---------------*/
 echo "<div class='main2'>";
-$share = dbresult(dbquery("SELECT COUNT(*)FROM `notes` WHERE `share_id`='" . $notes['id'] . "' AND `share_type`='notes'"), 0);
-if (dbresult(dbquery("SELECT COUNT(*)FROM `notes` WHERE `id_user`='" . $user['id'] . "' AND `share_type`='notes' AND `share_id`='" . $notes['id'] . "' LIMIT 1"), 0) == 0 && isset($user) && $user['id'] != $notes['id_user']) {
-	echo " <a href='share.php?id=" . $notes['id'] . "'><img src='/style/icons/action_share_color.gif'> 分享: (" . $share . ")</a>";
-} else {
-	echo "<img src='/style/icons/action_share_color.gif'> 分享:  (" . $share . ")";
+if (isset($user)) {
+	$share = dbresult(dbquery("SELECT COUNT(*)FROM `notes` WHERE `share_id`='" . $notes['id'] . "' AND `share_type`='notes'"), 0);
+	if (dbresult(dbquery("SELECT COUNT(*)FROM `notes` WHERE `id_user`='" . $user['id'] . "' AND `share_type`='notes' AND `share_id`='" . $notes['id'] . "' LIMIT 1"), 0) == 0 && isset($user) && $user['id'] != $notes['id_user']) {
+		echo " <a href='share.php?id=" . $notes['id'] . "'><img src='/style/icons/action_share_color.gif'> 分享: (" . $share . ")</a>";
+	} else {
+		echo "<img src='/style/icons/action_share_color.gif'> 分享:  (" . $share . ")";
+	}
 }
 if (isset($user) && (user_access('notes_delete') || $user['id'] == $avtor['id'])) {
 	echo "<br/><a href='edit.php?id=$notes[id]'><img src='/style/icons/edit.gif'> 修改</a> <a href='?id=$notes[id]&amp;delete'><img src='/style/icons/delete.gif'> 删除</a>";

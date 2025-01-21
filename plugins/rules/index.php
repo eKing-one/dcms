@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -14,7 +14,7 @@ include_once '../../sys/inc/user.php';
 $set['title']='网站资料与帮助';
 include_once '../../sys/inc/thead.php';
 title();
-aut(); // форма авторизации
+aut(); // 授权表格
 
 if (isset($user) && $user['level'] > 2) {
 	if (isset($_GET['del']) && is_numeric($_GET['del']) && dbresult(dbquery("SELECT COUNT(*) FROM `rules` WHERE `id` = '".intval($_GET['del'])."' LIMIT 1",$db), 0)==1) {
@@ -43,6 +43,7 @@ if (isset($_GET['id']) && isset($_GET['act']) && dbresult(dbquery("SELECT COUNT(
 		exit;
 	}
 }
+
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `rules`"),0);
 $q = dbquery("SELECT * FROM `rules` ORDER BY `pos` ASC");
 echo '<table class="post">';
@@ -73,7 +74,7 @@ while ($post = dbassoc($q)) {
 	echo '</div>';
 }
 echo '</table>';
-if ($user['level'] > 2) {
+if (isset($user) && $user['level'] > 2) {
 	echo '<div class="foot"><img src="/style/icons/ok.gif" alt="*" /> <a href="new.php?msg">添加一段文本</a></div>';
 	echo '<div class="foot"><img src="/style/icons/ok.gif" alt="*" /> <a href="new.php?post">添加一个项目</a></div>';
 	echo '<div class="foot"><img src="/style/icons/ok.gif" alt="*" /> <a href="new.php?url">添加一个链接</a></div>';

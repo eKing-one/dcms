@@ -299,25 +299,28 @@ aut();
 用户页面的隐私
 ==================================
 */
+// 获取用户设置
 $uSet = dbarray(dbquery("SELECT * FROM `user_set` WHERE `id_user` = '$ank[id]'  LIMIT 1"));
-$frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$ank[id]') OR (`user` = '$ank[id]' AND `frend` = '$user[id]') LIMIT 1"), 0);
-$frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[id]' AND `to` = '$ank[id]') OR (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"), 0);
-if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
-	if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) {	// 页面有个人设置时开始打印
-		if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
-		echo "<div class='nav1'>";
-		echo user::nick($ank['id'], 1, 1, 1);
-		echo "</div>";
-		echo "<div class='nav2'>";
-		echo user::avatar($ank['id']);
-		echo "<br />";
-	}
-	if ($uSet['privat_str'] == 2 && $frend != 2) {	// 仅允许好友查看
-		echo '<div class="mess">';
-		echo '由于用户的隐私设置，只有该用户的好友才能查看主页'; 
-		echo '</div>';
-		// В друзья
-		if (isset($user)) {
+// 如果用户登录，检查是否是好友
+if (isset($user)) {
+	$frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '{$user['id']}' AND `frend` = '{$ank['id']}') OR (`user` = '{$ank['id']}' AND `frend` = '{$user['id']}') LIMIT 1"), 0);
+	$frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '{$user['id']}' AND `to` = '{$ank['id']}') OR (`user` = '{$ank['id']}' AND `to` = '{$user['id']}') LIMIT 1"), 0);
+}
+
+
+if ($uSet['privat_str'] == 2) {
+	if (isset($user)) {
+		if ($ank['id'] != $user['id'] && $frend != 2 && $user['group_access'] <= 1 && $user['group_access'] <= $ank['group_access']) {
+			if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
+			echo "<div class='nav1'>";
+			echo user::nick($ank['id'], 1, 1, 1);
+			echo "</div>";
+			echo "<div class='nav2'>";
+			echo user::avatar($ank['id']);
+			echo "<br />";
+			echo '<div class="mess">';
+			echo '由于用户的隐私设置，只有该用户的好友才能查看主页'; 
+			echo '</div>';
 			echo '<div class="nav1">';
 			if ($frend_new == 0 && $frend == 0) {
 				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=" . $ank['id'] . "'>添加到朋友</a><br />";
@@ -327,18 +330,54 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>从朋友中删除</a><br />";
 			}
 			echo "</div>";
+			include_once '../sys/inc/tfoot.php';
 		}
+	} else {
+		if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
+		echo "<div class='nav1'>";
+		echo user::nick($ank['id'], 1, 1, 1);
+		echo "</div>";
+		echo "<div class='nav2'>";
+		echo user::avatar($ank['id']);
+		echo "<br />";
+		echo '<div class="mess">';
+		echo '由于用户的隐私设置，只有该用户的好友才能查看主页'; 
+		echo '</div>';
 		include_once '../sys/inc/tfoot.php';
-		exit;
 	}
-	if ($uSet['privat_str'] == 0) {	// 关闭查看主页
+}
+
+
+if ($uSet['privat_str'] == 0) {
+	if (isset($user)) {
+		if ($ank['id'] != $user['id'] && $user['group_access'] <= 1 && $user['group_access'] <= $ank['group_access']) {
+			if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
+			echo "<div class='nav1'>";
+			echo user::nick($ank['id'], 1, 1, 1);
+			echo "</div>";
+			echo "<div class='nav2'>";
+			echo user::avatar($ank['id']);
+			echo "<br />";
+			echo '<div class="mess">';
+			echo '由于用户的隐私设置，已禁止查看这位用户的主页';
+			echo '</div>';
+			include_once '../sys/inc/tfoot.php';
+		}
+	} else {
+		if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
+		echo "<div class='nav1'>";
+		echo user::nick($ank['id'], 1, 1, 1);
+		echo "</div>";
+		echo "<div class='nav2'>";
+		echo user::avatar($ank['id']);
+		echo "<br />";
 		echo '<div class="mess">';
 		echo '由于用户的隐私设置，已禁止查看这位用户的主页';
 		echo '</div>';
 		include_once '../sys/inc/tfoot.php';
-		exit;
 	}
 }
+
 if ($set['web'] == true) {
 	include_once H . "user/info/web.php";
 } else {
