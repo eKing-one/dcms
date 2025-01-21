@@ -110,8 +110,13 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - [x] 报错页修复：plugins/rules/
 - [x] 报错页修复：photo/1/1/
 - [x] 报错页修复：plugins/notes/list.php?id=1
-- [ ] 报错页修复：
-- [ ] 报错页修复：
-- [ ] 报错页修复：
-- [ ] 报错页修复：
-- [ ] 报错页修复：
+- [x] 报错页修复：plugins/notes/search.php
+- [x] 报错页修复：chat/room/1/2683/
+- [x] 报错页修复：chat/who.php
+- [x] 报错页修复：forum/
+- [x] 报错页修复：forum/new_t.php
+- [x] 报错页修复：forum/new_p.php
+- [x] 报错页修复：forum/search.php
+- [x] 报错页修复：down/
+- [x] 报错页修复：down/search.php
+- [x] 报错页修复：chat/
