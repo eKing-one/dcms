@@ -107,3 +107,16 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - [ ] 完善注册电子邮箱验证
 - [ ] 每日签到
 - [ ] 系统礼物发放
+- [x] 报错页修复：plugins/rules/
+- [x] 报错页修复：photo/1/1/
+- [x] 报错页修复：plugins/notes/list.php?id=1
+- [x] 报错页修复：plugins/notes/search.php
+- [x] 报错页修复：chat/room/1/2683/
+- [x] 报错页修复：chat/who.php
+- [x] 报错页修复：forum/
+- [x] 报错页修复：forum/new_t.php
+- [x] 报错页修复：forum/new_p.php
+- [x] 报错页修复：forum/search.php
+- [x] 报错页修复：down/
+- [x] 报错页修复：down/search.php
+- [x] 报错页修复：chat/

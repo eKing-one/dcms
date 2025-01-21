@@ -18,8 +18,8 @@ if (!$ank) {
 	exit;
 }
 
-// 如果用户被禁止访问相册
-if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'photo' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
+// 如果用户被Ban
+if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'photo' AND `id_user` = '{$user['id']}' AND (`time` > '{$time}' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
 	header('Location: /user/ban.php?' . SID);
 	exit;
 }
@@ -60,23 +60,45 @@ include H . 'sys/add/user.privace.php';
 /*
 * 如果相册设置了隐私
 */
-if ($gallery['privat'] == 1 && ($frend != 2 || !isset($user)) && $user['level'] <= $ank['level'] && $user['id'] != $ank['id']) {
-	echo '<div class="mess">';
-	echo '只有该用户的好友才能查看该用户的相册';
-	echo '</div>';
+if ($gallery['privat'] == 1) {
+	// 相册设置为仅好友可查看
+	if (isset($user)) {
+		if ($frend != 2 && $user['level'] <= $ank['level'] && $user['id'] != $ank['id']) {
+			echo '<div class="mess">';
+			echo '只有用户的好友才能查看用户的相册！';
+			echo '</div>';
 
-	$block_photo = true;
-} elseif ($gallery['privat'] == 2 && $user['id'] != $ank['id'] && $user['level'] <= $ank['level']) {
-	echo '<div class="mess">';
-	echo '用户已禁止查看此相册！';
-	echo '</div>';
+			$block_photo = true;
+		}
+	} else {
+		echo '<div class="mess">';
+		echo '只有用户的好友才能查看用户的相册！';
+		echo '</div>';
 
-	$block_photo = true;
+		$block_photo = true;
+	}
+}
+if ($gallery['privat'] == 2) {
+	if (isset($user)) {
+		if ($gallery['privat'] == 2 && $user['id'] != $ank['id'] && $user['level'] <= $ank['level']) {
+			echo '<div class="mess">';
+			echo '用户已禁止查看此相册！';
+			echo '</div>';
+
+			$block_photo = true;
+		}
+	} else {
+		echo '<div class="mess">';
+		echo '用户已禁止查看此相册！';
+		echo '</div>';
+
+		$block_photo = true;
+	}
 }
 
 /*--------------------如果相册有密码-------------------*/
 
-if ($user['id'] != $ank['id'] && $gallery['pass'] != NULL) {
+if ((!isset($user) || $user['id'] != $ank['id']) && $gallery['pass'] != NULL) {
 	if (isset($_POST['password'])) {
 		$_SESSION['pass'] = my_esc($_POST['password']);
 
@@ -96,7 +118,6 @@ if ($user['id'] != $ank['id'] && $gallery['pass'] != NULL) {
 		echo '</div>';
 
 		include_once '../sys/inc/tfoot.php';
-		exit;
 	}
 }
 /*---------------------------------------------------------*/
