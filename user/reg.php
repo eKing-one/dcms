@@ -87,7 +87,7 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 			mail($_POST['email'], '=?utf-8?B?' . base64_encode($subject) . '?=', $regmail, $adds);
 		} else {
 			// 未开启邮箱验证，直接注册
-			dbquery("INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_last`, `pol`) values('" . $_SESSION['reg_nick'] . "', '" . password_hash($_POST['pass1'], PASSWORD_DEFAULT) . "', '$time', '$time', '" . intval($_POST['pol']) . "')", $db);
+			dbquery("INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_last`, `group_access`, `pol`) values('" . $_SESSION['reg_nick'] . "', '" . password_hash($_POST['pass1'], PASSWORD_DEFAULT) . "', '$time', '$time', '1', '" . intval($_POST['pol']) . "')", $db);
 		}
 		// 获取用户信息
 		$user = dbassoc(dbquery("SELECT * FROM `user` WHERE `nick` = '" . my_esc($_SESSION['reg_nick']) . "' LIMIT 1"));

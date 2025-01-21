@@ -101,9 +101,8 @@ if (isset($_POST['save'])) {
 	} else $err = '无效的ICQ格式';
 	if (isset($_POST['ank_skype']) && preg_match('#^([A-z0-9 \-]*)$#ui', $_POST['ank_skype'])) {
 		$ank['ank_skype'] = $_POST['ank_skype'];
-		if ($ank['ank_skype'] == null) $ank['ank_skype'] = 'null';
 		dbquery("UPDATE `user` SET `ank_skype` = '" . my_esc($ank['ank_skype']) . "' WHERE `id` = '$ank[id]' LIMIT 1");
-	} else $err[] = "无效的Skype登录";
+	} else $err[] = "无效的Skype账号";
 	if (isset($_POST['ank_n_tel']) && (is_numeric($_POST['ank_n_tel']) && strlen($_POST['ank_n_tel']) >= 5 && strlen($_POST['ank_n_tel']) <= 11 || $_POST['ank_n_tel'] == NULL)) {
 		$ank['ank_n_tel'] = $_POST['ank_n_tel'];
 		dbquery("UPDATE `user` SET `ank_n_tel` = '$ank[ank_n_tel]' WHERE `id` = '$ank[id]' LIMIT 1");
