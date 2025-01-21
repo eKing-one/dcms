@@ -1,5 +1,5 @@
 <?php
-//不知道干啥的
+// 执行搜索
 
 if (isset($_POST['in']) && $_POST['in'] != null && preg_match('#^(r|f)([0-9]+)$#', $_POST['in'], $in)) {
 	if ($in[1] == 'f' && dbresult(dbquery("SELECT COUNT(*) FROM `forum_f` WHERE `id` = '$in[2]' " . ((!isset($user) || $user['level'] == 0) ? "AND `adm` = '0'" : null)), 0) == 1) {
@@ -22,15 +22,14 @@ else {
 	}
 }
 if (isset($s_arr_mysql)) {
-	$adm_add = NULL;
+	$adm_add = [];
 	$adm_add2 = NULL;
 	if (!isset($user) || $user['level'] == 0) {
 		$q222 = dbquery("SELECT * FROM `forum_f` WHERE `adm` = '1'");
 		while ($adm_f = dbassoc($q222)) {
 			$adm_add[] = "`forum_p`.`id_forum` <> '$adm_f[id]'";
 		}
-		if (sizeof($adm_add) != 0)
-			$adm_add2 = implode(' AND ', $adm_add) . ' AND ';
+		if (sizeof($adm_add) != 0) $adm_add2 = implode(' AND ', $adm_add) . ' AND ';
 	}
 	$searched['query'] = implode(' ', $s_arr_mysql);
 	$searched['sql_query'] = "SELECT 
