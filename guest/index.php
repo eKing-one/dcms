@@ -8,6 +8,7 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
+
 /* 封禁的用户 */
 if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'guest' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0')"), 0) != 0) {
 	header('Location: /user/ban.php?' . SID);
@@ -20,7 +21,7 @@ if (isset($user)) {
 }
 
 // 注释操作
-include 'inc/admin_act.php';
+include 'inc/admin_act.php';	// ??????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
 
 // 提交评论
 if (isset($_POST['msg']) && isset($user)) {
@@ -98,13 +99,15 @@ if (isset($user) || (isset($set['write_guest']) && $set['write_guest'] == 1 && (
 	else
 		echo $tPanel . '<textarea name="msg">' . $insert . '</textarea><br />';
 	if (!isset($user) && isset($set['write_guest']) && $set['write_guest'] == 1) {
-		echo "<img src=\"/captcha.php?SESS={$sess}\" width=\"100\" height=\"30\" alt=\"Captcha\" /> <input name=\"chislo\" size=\"7\" maxlength=\"5\" value=\"\" type=\"text\" placeholder=\"验证码..\" /><br />"
+		echo "<img src=\"/captcha.php?SESS={$sess}\" width=\"100\" height=\"30\" alt=\"Captcha\" /> <input name=\"chislo\" size=\"7\" maxlength=\"5\" value=\"\" type=\"text\" placeholder=\"验证码..\" /><br />";
 	}
 	echo '<input value="发送" type="submit" />';
 	echo '</form>';
 } elseif (!isset($user) && isset($set['write_guest']) && $set['write_guest'] == 1) {
 	?><div class="mess">您将能够通过 <span class="on"><?= abs($time - $_SESSION['antiflood'] - 300) ?> 秒.</span></div><?
 }
+
+// 输出留言板
 echo '<table class="post">';
 if ($k_post == 0) {
 	echo '<div class="mess" id="no_object">';
@@ -118,8 +121,9 @@ while ($post = dbassoc($q)) {
 	echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 	$num++;
 	echo ($post['id_user'] != '0' ? user::avatar($ank['id'], 0) . user::nick($ank['id'], 1, 1, 0) : user::avatar(0, 0) . ' <b>' . '游客' . '</b> ');
-	if (isset($user) && $user['id'] != $ank['id'])
+	if (isset($user) && $user['id'] != $ank['id']) {
 		echo ' <a href="?page=' . $page . '&amp;response=' . $ank['id'] . '">[@]</a> (' . vremja($post['time']) . ')<br />';
+	}
 	echo output_text($post['msg']) . '<br />';
 	if (isset($user) && ($user['level'] > $ank['level'] || $user['level'] != 0 && $user['id'] == $ank['id']) && user_access('guest_delete')) {
 		echo '<div class="right">';

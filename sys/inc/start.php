@@ -8,12 +8,14 @@ $ip = NULL;
 $ua = NULL;
 $webbrowser = NULL;
 $tpanel = NULL;
-if (function_exists('error_reporting')) @error_reporting(0); // 禁用错误显示
+
+// DCMS 核心科技😎😎😋，屏蔽报错就没有错误啦
+// if (function_exists('error_reporting')) error_reporting(0); // 禁用错误显示
 // 将脚本执行限制为 60 秒
-if (function_exists('set_time_limit')) @set_time_limit(60);
+//if (function_exists('set_time_limit')) set_time_limit(60);
 if (function_exists('ini_set')) {
-	ini_set('display_errors', false); // 禁用错误显示
-	ini_set('register_globals', false); // 消除全局变量
+	//ini_set('display_errors', false); // 禁用错误显示
+	//ini_set('register_globals', false); // 消除全局变量
 	ini_set('session.use_cookies', true); // 使用 Cookie 进行会话
 	ini_set('session.use_trans_sid', true); // 使用 URL 传输会话
 	ini_set('arg_separator.output', "&amp;"); // URL 中的变量分隔符（用于与 XML 匹配）

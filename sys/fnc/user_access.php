@@ -18,7 +18,7 @@ function user_access($access, $u_id = null, $exit = false) {
 	}
 
 	// 初始化用户权限的默认值
-	$user['group_access2'] = 0;
+	if (isset($user)) $user['group_access2'] = 0;	// 原来是你？？？折腾了我两个多小时
 
 	// 检查用户是否有组权限，如果没有权限或权限为空，则处理退出
 	if (!isset($user['group_access']) || $user['group_access'] == null) {
