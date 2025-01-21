@@ -13,12 +13,15 @@ if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` 
 	header('Location: /user/ban.php?' . SID);
 	exit;
 }
+
 // 清除回复通知
 if (isset($user)) {
 	dbquery("UPDATE `notification` SET `read` = '1' WHERE `type` = 'guest' AND `id_user` = '$user[id]'");
 }
+
 // 注释操作
 include 'inc/admin_act.php';
+
 // 提交评论
 if (isset($_POST['msg']) && isset($user)) {
 	$msg = $_POST['msg'];
@@ -48,6 +51,8 @@ if (isset($_POST['msg']) && isset($user)) {
 		header("Location: index.php" . SID);
 		exit;
 	}
+
+// 提交留言板
 } elseif (!isset($user) && isset($set['write_guest']) && $set['write_guest'] == 1 && isset($_SESSION['captcha']) && isset($_POST['chislo'])) {
 	$msg = $_POST['msg'];
 	$mat = antimat($msg);
@@ -84,7 +89,8 @@ $k_post = dbresult(dbquery("SELECT COUNT(id) FROM `guest`"), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
-// 留言板
+
+// 留言板输入框
 if (isset($user) || (isset($set['write_guest']) && $set['write_guest'] == 1 && (!isset($_SESSION['antiflood']) || $_SESSION['antiflood'] < $time - 300))) {
 	echo '<form method="post" name="message" action="?page=' . $page . REPLY . '">';
 	if (is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
@@ -92,47 +98,43 @@ if (isset($user) || (isset($set['write_guest']) && $set['write_guest'] == 1 && (
 	else
 		echo $tPanel . '<textarea name="msg">' . $insert . '</textarea><br />';
 	if (!isset($user) && isset($set['write_guest']) && $set['write_guest'] == 1) {
-?>
-		<img src="/captcha.php?SESS=<?= $sess ?>" width="100" height="30" alt="Captcha" /> <input name="chislo" size="7" maxlength="5" value="" type="text" placeholder="验证码.." /><br />
-	<?
+		echo "<img src=\"/captcha.php?SESS={$sess}\" width=\"100\" height=\"30\" alt=\"Captcha\" /> <input name=\"chislo\" size=\"7\" maxlength=\"5\" value=\"\" type=\"text\" placeholder=\"验证码..\" /><br />"
 	}
 	echo '<input value="发送" type="submit" />';
 	echo '</form>';
 } elseif (!isset($user) && isset($set['write_guest']) && $set['write_guest'] == 1) {
-	?>
-	<div class="mess">您将能够通过 <span class="on"><?= abs($time - $_SESSION['antiflood'] - 300) ?> 秒.</span></div>
-	<?
-	}
-	echo '<table class="post">';
-	if ($k_post == 0) {
-		echo '<div class="mess" id="no_object">';
-		echo '没有评论';
-		echo '</div>';
-	}
-	$q = dbquery("SELECT * FROM `guest` ORDER BY id DESC LIMIT $start, $set[p_str]");
-	while ($post = dbassoc($q)) {
-		$ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
-	
-		echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
-		$num++;
-		echo ($post['id_user'] != '0' ? user::avatar($ank['id'], 0) . user::nick($ank['id'], 1, 1, 0) : user::avatar(0, 0) . ' <b>' . '游客' . '</b> ');
-		if (isset($user) && $user['id'] != $ank['id'])
-			echo ' <a href="?page=' . $page . '&amp;response=' . $ank['id'] . '">[@]</a> (' . vremja($post['time']) . ')<br />';
-		echo output_text($post['msg']) . '<br />';
-		if (isset($user) && ($user['level'] > $ank['level'] || $user['level'] != 0 && $user['id'] == $ank['id']) && user_access('guest_delete')) {
-			echo '<div class="right">';
-			echo '<a href="delete.php?id=' . $post['id'] . '"><img src="/style/icons/delete.gif" alt="*"></a>';
-			echo '</div>';
-		}
-		echo '</div>';
-	}
-	echo '</table>';
-	if ($k_page > 1) str('index.php?', $k_page, $page); // 输出页数
-
-	echo '<div class="foot">';
-	echo '<img src="/style/icons/str.gif" alt="*"> <a href="who.php">在线 (' . dbresult(dbquery("SELECT COUNT(id) FROM `user` WHERE `date_last` > '" . (time() - 100) . "' AND `url` like '/guest/%'"), 0) . ' 人)</a><br />';
+	?><div class="mess">您将能够通过 <span class="on"><?= abs($time - $_SESSION['antiflood'] - 300) ?> 秒.</span></div><?
+}
+echo '<table class="post">';
+if ($k_post == 0) {
+	echo '<div class="mess" id="no_object">';
+	echo '没有评论';
 	echo '</div>';
-	// 评论清理表单
-	include 'inc/admin_form.php';
-	include_once '../sys/inc/tfoot.php';
-		?>
+}
+$q = dbquery("SELECT * FROM `guest` ORDER BY id DESC LIMIT $start, $set[p_str]");
+while ($post = dbassoc($q)) {
+	$ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
+
+	echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
+	$num++;
+	echo ($post['id_user'] != '0' ? user::avatar($ank['id'], 0) . user::nick($ank['id'], 1, 1, 0) : user::avatar(0, 0) . ' <b>' . '游客' . '</b> ');
+	if (isset($user) && $user['id'] != $ank['id'])
+		echo ' <a href="?page=' . $page . '&amp;response=' . $ank['id'] . '">[@]</a> (' . vremja($post['time']) . ')<br />';
+	echo output_text($post['msg']) . '<br />';
+	if (isset($user) && ($user['level'] > $ank['level'] || $user['level'] != 0 && $user['id'] == $ank['id']) && user_access('guest_delete')) {
+		echo '<div class="right">';
+		echo '<a href="delete.php?id=' . $post['id'] . '"><img src="/style/icons/delete.gif" alt="*"></a>';
+		echo '</div>';
+	}
+	echo '</div>';
+}
+echo '</table>';
+
+if ($k_page > 1) str('index.php?', $k_page, $page); // 输出页数
+
+echo '<div class="foot">';
+echo '<img src="/style/icons/str.gif" alt="*"> <a href="who.php">在线 (' . dbresult(dbquery("SELECT COUNT(id) FROM `user` WHERE `date_last` > '" . (time() - 100) . "' AND `url` like '/guest/%'"), 0) . ' 人)</a><br />';
+echo '</div>';
+// 评论清理表单
+include 'inc/admin_form.php';
+include_once '../sys/inc/tfoot.php';
