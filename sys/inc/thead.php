@@ -51,8 +51,7 @@ if (isset($user['level']) && $user['level'] > 4) {
 
 // 检查网站是否关闭，并可能显示警告消息
 if (empty(setget('job', 1))) {
-	if (isset($user) and $user['level'] >= 5)
-		echo "<div style='color:red' class='err'>注意！网站已经关闭<a href='/adm_panel/settings_sys.php?'>管理员</a></div>"; // 提示网站关闭
+	if (isset($user) and $user['level'] >= 5) echo "<div style='color:red' class='err'>注意！网站已经关闭<a href='/adm_panel/settings_sys.php?'>管理员</a></div>"; // 提示网站关闭
 }
 
 // 显示会话消息
