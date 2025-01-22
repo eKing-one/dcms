@@ -123,7 +123,7 @@ if (user_access('down_dir_edit') && isset($_GET['act']) && $_GET['act']=='set' &
 		if ($l!='/')$l.='/';
 		dbquery("UPDATE `downnik_dir` SET `ras`='$ras', `maxfilesize`='$size', `upload`='$upload' WHERE `id` = '$dir_id[id]'");
 		msg('文件夹设置已成功更改');
-		admin_log('下载中心','编辑文件夹',"更改文件夹选项 '$dir_id[name]'");
+		admin_log('下载中心','编辑文件夹',"更改文件夹选项 {$dir_id['name']}");
 		$dir_id=dbassoc(dbquery("SELECT * FROM `downnik_dir` WHERE `id` = '$dir_id[id]' LIMIT 1"));
 		$id_dir=$dir_id['id'];
 	}

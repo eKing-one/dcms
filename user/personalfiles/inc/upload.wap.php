@@ -39,18 +39,20 @@ if ($dir_id['upload'] == 1) {
 			// 处理上传文件的文件名
 			$file = esc(stripcslashes(htmlspecialchars($_FILES['file']['name'])));
 			$file = preg_replace('(\#|\?)', '', $file);
-			$name = preg_replace('#\.[^\.]*$#', '', $file); // 获取文件名
-			$ras = strtolower(preg_replace('#^.*\.#', '', $file)); // 获取文件扩展名
-			$type = my_esc($_FILES['file']['type']); // 文件类型
-			$size = $_FILES['file']['size']; // 文件大小
-			$rasss = explode(';', $dir_id['ras']); // 允许的文件格式
+			$name = pathinfo($file, PATHINFO_FILENAME);		// 获取文件名
+			$ras = pathinfo($file, PATHINFO_EXTENSION);		// 获取文件扩展名
+			$type = my_esc($_FILES['file']['type']);		// 文件类型
+			$size = $_FILES['file']['size'];				// 文件大小
 			$ras_ok = false;
 
-			// 检查文件扩展名是否有效
-			for ($i = 0; $i < count($rasss); $i++) {
-				if ($rasss[$i] != NULL && $ras == $rasss[$i]) $ras_ok = true;
+			if ($dir_id['ras'] != '*') {					// * 表示允许上传所有文件格式
+				$rasss = explode(';', $dir_id['ras']);		// 允许的文件格式
+				// 检查文件扩展名是否有效
+				for ($i = 0; $i < count($rasss); $i++) {
+					if ($rasss[$i] != NULL && $ras == $rasss[$i]) $ras_ok = true;
+				}
+				if (!$ras_ok) $err = '无效的文件扩展名';
 			}
-			if (!$ras_ok) $err = '无效的文件扩展名';
 		}
 
 		// 检查是否设置了“18+”标签
@@ -67,7 +69,7 @@ if ($dir_id['upload'] == 1) {
 		// 如果没有错误，插入文件数据到数据库
 		if (!isset($err)) {
 			// 更新用户临时评分
-			dbquery("UPDATE `user` SET `rating_tmp` = '" . ($user['rating_tmp'] + 3) . "' WHERE `id` = '$user[id]' LIMIT 1");
+			dbquery("UPDATE `user` SET `rating_tmp` = '" . ($user['rating_tmp'] + 3) . "' WHERE `id` = '{$user['id']}' LIMIT 1");
 			// 将文件信息插入到文件表中
 			dbquery("INSERT INTO `downnik_files` (`metka`, `id_dir`, `name`, `ras`, `type`, `size`, `time`, `time_last`, `id_user`, `opis`, `my_dir` ) VALUES ('$metka', '$dir_id[id]', '$name', '$ras', '$type', '$size', '$time', '$time', '$user[id]', '$opis', '$dir[id]')");
 			$id_file = dbinsertid();
@@ -93,15 +95,15 @@ if ($dir_id['upload'] == 1) {
 			}
 
 			// 保存文件到服务器
-			if (!copy($_FILES['file']['tmp_name'], H . "files/down/$id_file.dat")) {
-				dbquery("DELETE FROM `downnik_files` WHERE `id` = '$id_file' LIMIT 1");
+			if (!copy($_FILES['file']['tmp_name'], H . "files/down/{$id_file}.dat")) {
+				dbquery("DELETE FROM `downnik_files` WHERE `id` = '{$id_file}' LIMIT 1");
 				$err[] = '上传时出错';
 			}
 		}
 
 		// 如果一切成功，设置文件权限并创建截图
 		if (!isset($err)) {
-			chmod(H . "files/down/$id_file.dat", 0666);
+			chmod(H . "files/down/{$id_file}.dat", 0666);
 
 			// 处理截图逻辑
 			if (isset($_FILES['screen']) && $_FILES['screen']['error'] === UPLOAD_ERR_OK && $imgc = imagecreatefromstring(file_get_contents($_FILES['screen']['tmp_name']))) {
@@ -185,13 +187,15 @@ if ($dir_id['upload'] == 1 && isset($user)) {
 		echo $tPanel . '<textarea name="msg"></textarea><br />';
 	}
 	echo "<label><input type='checkbox' name='metka' value='1' /> 标记 <font color=red>18+</font></label><br />";
-	echo "<input class=\"submit\" type=\"submit\" value=\"上传\" /> [<img src='/style/icons/delete.gif' alt='*'> <a href='?'>取消</a>]<br />
-	 <div class='main'>*允许上传以下格式的文件: ";
-	$i5 = explode(';', $dir_id['ras']);
-	for ($i = 0; $i < count($i5); $i++) {
-		echo $i5[$i] . ', ';
+	echo "<input class=\"submit\" type=\"submit\" value=\"上传\" /> [<img src='/style/icons/delete.gif' alt='*'> <a href='?'>取消</a>]<br />";
+	if ($dir_id['ras'] != '*') {
+		echo "<div class='main'>*允许上传以下格式的文件: ";
+		$i5 = explode(';', $dir_id['ras']);
+		for ($i = 0; $i < count($i5); $i++) {
+			echo $i5[$i] . ', ';
+		}
+		echo "如果缺少某种格式，请告知项目管理！</div></form>";
 	}
-	echo "如果缺少某种格式，请告知项目管理！</div></form>";
 	echo "<div class='foot'>";
 	echo "<img src='/style/icons/up_dir.gif' alt='*'> " . ($dir['osn'] == 1 ? '<a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">档案</a>' : '') . " " . user_files($dir['id_dires']) . " " . ($dir['osn'] == 1 ? '' : '&gt; <a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">' . text($dir['name']) . '</a>') . "";
 	echo "</div>";

@@ -107,41 +107,41 @@ while ($post = dbassoc($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	echo "<img src='/style/themes/$set[set_them]/loads/14/" . ($post['pass'] != null ? 'lock.gif' : 'dir.png') . "' alt='*'>";
+	echo "<img src='/style/themes/{$set['set_them']}/loads/14/" . ($post['pass'] != null ? 'lock.gif' : 'dir.png') . "' alt='*'>";
 	if (isset($_GET['go'])) // 如果我们移动一个文件
-		echo " <a href='/user/personalfiles/$ank[id]/$post[id]/?go=$file_go[id]'>" . text($post['name']) . "</a>";
+		echo " <a href='/user/personalfiles/{$ank['id']}/{$post['id']}/?go={$file_go['id']}'>" . text($post['name']) . "</a>";
 	else
-		echo " <a href='/user/personalfiles/$ank[id]/$post[id]/'>" . text($post['name']) . "</a>";
+		echo " <a href='/user/personalfiles/{$ank['id']}/{$post['id']}/'>" . text($post['name']) . "</a>";
 	/*----------------------文件夹计数器---------------------*/
 	$k_f = 0;
-	$q3 = dbquery("SELECT * FROM `user_files` WHERE `id_dires` like '%$post[id]%'");
+	$q3 = dbquery("SELECT * FROM `user_files` WHERE `id_dires` like '%{$post['id']}%'");
 	while ($post2 = dbassoc($q3)) {
-		$k_f = $k_f + dbresult(dbquery("SELECT COUNT(*) FROM `user_files` WHERE `id_dir` = '$post2[id]'"), 0);
+		$k_f = $k_f + dbresult(dbquery("SELECT COUNT(*) FROM `user_files` WHERE `id_dir` = '{$post2['id']}'"), 0);
 	}
-	$k_f = $k_f + dbresult(dbquery("SELECT COUNT(*) FROM `user_files` WHERE `id_dir` = '$post[id]'"), 0);
+	$k_f = $k_f + dbresult(dbquery("SELECT COUNT(*) FROM `user_files` WHERE `id_dir` = '{$post['id']}'"), 0);
 	/*---------------------------------------------------------*/
 	/*----------------------文件计数器--------------------*/
 	$k_f2 = 0;
-	$q4 = dbquery("SELECT * FROM `user_files` WHERE `id_dires` like '%$post[id]%'");
+	$q4 = dbquery("SELECT * FROM `user_files` WHERE `id_dires` like '%{$post['id']}%'");
 	while ($post3 = dbassoc($q4)) {
-		$k_f2 = $k_f2 + dbresult(dbquery("SELECT COUNT(*) FROM `downnik_files` WHERE `my_dir` = '$post3[id]'"), 0);
+		$k_f2 = $k_f2 + dbresult(dbquery("SELECT COUNT(*) FROM `downnik_files` WHERE `my_dir` = '{$post3['id']}'"), 0);
 	}
-	$k_f2 = $k_f2 + dbresult(dbquery("SELECT COUNT(*) FROM `downnik_files` WHERE `my_dir` = '$post[id]'"), 0);
+	$k_f2 = $k_f2 + dbresult(dbquery("SELECT COUNT(*) FROM `downnik_files` WHERE `my_dir` = '{$post['id']}'"), 0);
 	/*---------------------------------------------------------*/
 	echo ' (' . $k_f . '/' . $k_f2 . ') ';
 	if (isset($user) && $user['group_access'] > 2 || $ank['id'] == $user['id'])
-		echo "<a href='?edit_folder=$post[id]'><img src='/style/icons/edit.gif' alt='*'></a> <a href='?delete_folder=$post[id]'><img src='/style/icons/delete.gif' alt='*'></a><br />";
+		echo "<a href='?edit_folder={$post['id']}'><img src='/style/icons/edit.gif' alt='*'></a> <a href='?delete_folder={$post['id']}'><img src='/style/icons/delete.gif' alt='*'></a><br />";
 	echo "</div>";
 }
 
 if (!isset($_GET['go'])) {
-	$q2 = dbquery("SELECT * FROM `downnik_files`  WHERE `my_dir` = '$dir[id]' AND `id_user` = '$ank[id]' ORDER BY time DESC LIMIT $start, $set[p_str]");
+	$q2 = dbquery("SELECT * FROM `downnik_files`  WHERE `my_dir` = '{$dir['id']}' AND `id_user` = '{$ank['id']}' ORDER BY time DESC LIMIT {$start}, {$set['p_str']}");
 	//echo "<form method='post' action='?move_file'>";
 	while ($post = dbassoc($q2)) {
-		$k_p = dbresult(dbquery("SELECT COUNT(*) FROM `downnik_komm` WHERE `id_file` = '$post[id]'"), 0);
-		$dir_id = dbassoc(dbquery("SELECT * FROM `downnik_dir` WHERE `id` = '$post[id_dir]' LIMIT 1"));
+		$k_p = dbresult(dbquery("SELECT COUNT(*) FROM `downnik_komm` WHERE `id_file` = '{$post['id']}'"), 0);
+		$dir_id = dbassoc(dbquery("SELECT * FROM `downnik_dir` WHERE `id` = '{$post['id_dir']}' LIMIT 1"));
 		$ras = $post['ras'];
-		$file = H . "files/down/$post[id].dat";
+		$file = H . "files/down/{$post['id']}.dat";
 		$name = $post['name'];
 		$size = $post['size'];
 		/*-----------代码-----------*/
@@ -153,17 +153,21 @@ if (!isset($_GET['go'])) {
 			$num = 0;
 		}
 		/*---------------------------*/
-		if (is_file(H . "down/inc/icon48/$ras.php")) {
-			include H . "down/inc/icon48/$ras.php";
+		if (is_file(H . "down/inc/icon48/{$ras}.php")) {
+			include H . "down/inc/icon48/{$ras}.php";
 		}
 		//echo "<input type='checkbox' name='files_$post[id]' value='1' /> ";
-		if (is_file(H . 'style/themes/' . $set['set_them'] . '/loads/14/' . $ras . '.png'))
-			echo "<img src='/style/themes/$set[set_them]/loads/14/$ras.png' alt='$ras' /> ";
-		else
-			echo "<img src='/style/themes/$set[set_them]/loads/14/file.png' alt='file' /> ";
-		if ($set['echo_rassh'] == 1) $ras = $post['ras'];
-		else $ras = NULL;
-		echo '<a href="?id_file=' . $post['id'] . '&amp;page=' . $page . '"><b>' . text($post['name']) . '.' . $ras . '</b></a> (' . size_file($post['size']) . ') ';
+		if (is_file(H . 'style/themes/' . $set['set_them'] . '/loads/14/' . $ras . '.png')) {
+			echo "<img src='/style/themes/{$set['set_them']}/loads/14/{$ras}.png' alt='{$ras}' /> ";
+		} else {
+			echo "<img src='/style/themes/{$set['set_them']}/loads/14/file.png' alt='file' /> ";
+		}
+		if ($set['echo_rassh'] == 1) {
+			$ras = $post['ras'];
+		} else {
+			$ras = NULL;
+		}
+		echo '<a href="?id_file=' . $post['id'] . '&amp;page=' . $page . '"><b>' . text($post['name']) . (!empty($ras) ? '.' . $ras : '') . '</b></a> (' . size_file($post['size']) . ')';
 		if ($post['metka'] == 1) echo ' <font color=red>(18+)</font>';
 		if (isset($user)) {
 			if ($user['id'] == $post['id_user'] && $dir_id['my'] == 1) echo '<a href="/down/?trans=' . $post['id'] . '"><img src="/style/icons/z.gif" alt="*"> 到区域</a> ';
