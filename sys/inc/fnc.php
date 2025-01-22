@@ -39,6 +39,15 @@ if ($set['antidos']) {
 
 }
 
+/**
+ * 删除超过一小时的 IP 封禁记录
+ * 
+ * 仅删除 `prich` 字段为 `AntiDos` 且 `created_at` 早于一天前的记录
+ */
+dbquery("DELETE FROM `ban_ip` WHERE `prich` = 'AntiDos' AND `created_at` < '" . date('Y-m-d H:i:s', time() - 3600 * 24) . "'");
+dbquery("DELETE FROM `ban_ip` WHERE `prich` = 'Inject' AND `created_at` < '" . date('Y-m-d H:i:s', time() - 3600 * 24) . "'");
+
+
 // 禁止文字antimat会自动发出警告，然后禁止
 function antimat($str) {
 	global $user, $time, $set;
@@ -70,19 +79,19 @@ function delete_dir($dir) {
 		while ($rd = readdir($od)) {
 			if ($rd == '.' || $rd == '..') continue;
 			if (is_dir("$dir/$rd")) {
-				@chmod("$dir/$rd", 0777);
+				chmod("$dir/$rd", 0777);
 				delete_dir("$dir/$rd");
 			} else {
-				@chmod("$dir/$rd", 0777);
-				@unlink("$dir/$rd");
+				chmod("$dir/$rd", 0777);
+				unlink("$dir/$rd");
 			}
 		}
 		closedir($od);
-		@chmod("$dir", 0777);
-		return @rmdir("$dir");
+		chmod("$dir", 0777);
+		return rmdir("$dir");
 	} else {
-		@chmod("$dir", 0777);
-		@unlink("$dir");
+		chmod("$dir", 0777);
+		unlink("$dir");
 	}
 }
 
@@ -206,7 +215,7 @@ if (!defined("ADMIN")) {
 	$checkcmd = str_replace($hackcmd, 'X', $hackparam);
 
 	if ($hackparam != $checkcmd) {
-		dbquery("INSERT INTO ban_ip (min, max) VALUES(\"$ip\", \"$ip\");");
+		dbquery("INSERT INTO ban_ip (min, max, prich) VALUES(\"$ip\", \"$ip\", \"Inject\");");
 		dbquery('INSERT INTO mail (id_user, id_kont, msg, time) VALUES("0", "1", "IP: '.$ip.' UA: '.$ua.' 位置: '.get_ip_address($ip).' 正在进行黑客攻击", "'.$time.'");');
 		die('<h2>检测到攻击！</h2><br>你的浏览器：<b>'.$ua.'</b><br>你的IP： <b>'.$ip.'</b><br><b>已被记录，不要尝试违法操作！</b><br><br>有这时间多休息吧！！！');
 	}
@@ -380,21 +389,21 @@ if (!isset($hard_process)) {
 		dbquery("UPDATE `cron` SET `time` = '" . time() . "' WHERE `id` = 'everyday'");
 		dbquery("DELETE FROM `guests` WHERE `date_last` < '" . (time() - 600) . "'");
 		dbquery("DELETE FROM `chat_post` WHERE `time` < '" . (time() - 60 * 60 * 24) . "'"); // 删除旧的聊天帖子
-		//dbquery("DELETE FROM `user` WHERE `activation` != null AND `time_reg` < '" . (time() - 60 * 60 * 24) . "'"); // 删除未激活的账户
+		dbquery("DELETE FROM `user` WHERE `activation` != null AND `time_reg` < '" . (time() - 60 * 60 * 24) . "'"); // 删除未激活的账户
 
 		// 删除所有一个多月前标记为删除的联系人
 		$qd = dbquery("SELECT * FROM `users_konts` WHERE `type` = 'deleted' AND `time` < " . ($time - 60 * 60 * 24 * 30));
 		while ($deleted = dbarray($qd)) {
-			dbquery("DELETE FROM `users_konts` WHERE `id_user` = '$deleted[id_user]' AND `id_kont` = '$deleted[id_kont]'");
+			dbquery("DELETE FROM `users_konts` WHERE `id_user` = '{$deleted['id_user']}' AND `id_kont` = '{$deleted['id_kont']}'");
 
-			if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_kont` = '$deleted[id_user]' AND `id_user` = '$deleted[id_kont]'"), 0) == 0) {
+			if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_kont` = '{$deleted['id_user']}' AND `id_user` = '{$deleted['id_kont']}'"), 0) == 0) {
 				// 如果用户未与其他人联系，则删除所有消息
-				dbquery("DELETE FROM `mail` WHERE `id_user` = '$deleted[id_user]' AND `id_kont` = '$deleted[id_kont]' OR `id_kont` = '$deleted[id_user]' AND `id_user` = '$deleted[id_kont]'");
+				dbquery("DELETE FROM `mail` WHERE `id_user` = '{$deleted['id_user']}' AND `id_kont` = '{$deleted['id_kont']}' OR `id_kont` = '{$deleted['id_user']}' AND `id_user` = '{$deleted['id_kont']}'");
 			}
 		}
 		$tab = dbquery('SHOW TABLES FROM ' . $set['mysql_db_name']);
 		while ($table = mysqli_fetch_row($tab)) {
-			dbquery("OPTIMIZE TABLE `" . $table[0] . "`"); // 表的优化
+			dbquery("OPTIMIZE TABLE `{$table[0]}`"); // 表的优化
 		}
 	}
 }
@@ -406,14 +415,14 @@ function err() {
 	if (isset($err)) {
 		if (is_array($err)) {
 			foreach ($err as $key => $value) {
-				echo "<div class='err'>$value</div>";
+				echo "<div class='err'>{$value}</div>";
 			}
-		} else echo "<div class='err'>$err</div>";
+		} else echo "<div class='err'>{$err}</div>";
 	}
 }
 
 function msg($msg) {
-	echo "<div class='msg'>$msg</div>";
+	echo "<div class='msg'>{$msg}</div>";
 } // 消息输出
 
 
@@ -441,10 +450,10 @@ function save_settings($set) {
 	$filePath = H . 'sys/dat/settings.php';
 
 	// 尝试打开文件写入内容
-	if ($fopen = @fopen($filePath, 'w')) {
-		@fputs($fopen, $configContent);
-		@fclose($fopen);
-		@chmod($filePath, 0777);
+	if ($fopen = fopen($filePath, 'w')) {
+		fputs($fopen, $configContent);
+		fclose($fopen);
+		chmod($filePath, 0777);
 		return true;
 	} else {
 		return false;

@@ -40,7 +40,7 @@ function cookie_encrypt($str, $id = 0) {
 
 	// 确保密钥和IV的长度符合要求
 	$key = substr(hash('sha256', $set['shif']), 0, 32);
-	$iv = substr(hash('sha256', $ua), 0, 16);
+	$iv = substr(hash('sha256', $id . $ua), 0, 16);
 
 	// 返回Base64编码的加密数据
 	return base64_encode(openssl_encrypt($str, 'AES-256-CBC', $key, 0, $iv));
@@ -61,7 +61,7 @@ function cookie_decrypt($str, $id = 0) {
 
 	// 确保密钥和IV的长度符合要求
 	$key = substr(hash('sha256', $set['shif']), 0, 32);
-	$iv = substr(hash('sha256', $ua), 0, 16);
+	$iv = substr(hash('sha256', $id . $ua), 0, 16);
 	
 	// 解密数据并返回
 	return openssl_decrypt(base64_decode($str), 'AES-256-CBC', $key, 0, $iv);
