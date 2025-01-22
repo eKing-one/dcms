@@ -10,14 +10,14 @@ if ($l == '/') {
 $_SESSION['page'] = 1;
 include_once '../sys/inc/thead.php';
 title();
-// Файл который перемещаем
+// 我们移动的文件
 if (isset($_GET['trans'])) $trans = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id` = '" . intval($_GET['trans']) . "' AND `id_user` = '{$user['id']}' LIMIT 1"));
-// Загрузка файла
+// 下载文件
 include 'inc/upload_act.php';
-// Действие над папкой
+// 对文件夹的操作
 include 'inc/admin_act.php';
 err();
-aut(); // форма авторизации
+aut(); // 授权表格
 if ($l != '/') {
 	echo '<div class="foot">';
 	echo '<img src="/style/icons/up_dir.gif" alt="*"> <a href="/down/">下载中心</a> &gt; ' . down_path($l) . '<br />';
@@ -52,16 +52,15 @@ $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
 
 if (isset($dir_id['upload']) && $dir_id['upload'] == 1 && $k_post > 1 && !isset($_GET['trans'])) {
-	/*------------сортировка файлов--------------*/
+	/*------------对文件进行排序--------------*/
 	echo "<div id='comments' class='menus'>";
 	echo "<div class='webmenu'>";
-	echo "<a href='?komm&amp;page=$page&amp;sort_files=0' class='" . ($_SESSION['sort'] == 0 ? 'activ' : '') . "'>新的</a>";
+	echo "<a href='?komm&amp;page={$page}&amp;sort_files=0' class='" . ($_SESSION['sort'] == 0 ? 'activ' : '') . "'>新的</a>";
 	echo "</div>";
 	echo "<div class='webmenu'>";
-	echo "<a href='?komm&amp;page=$page&amp;sort_files=1' class='" . ($_SESSION['sort'] == 1 ? 'activ' : '') . "'>流行的</a>";
+	echo "<a href='?komm&amp;page={$page}&amp;sort_files=1' class='" . ($_SESSION['sort'] == 1 ? 'activ' : '') . "'>流行的</a>";
 	echo "</div>";
 	echo "</div>";
-	/*---------------alex-borisi---------------------*/
 }
 if (isset($user) && isset($dir_id['upload']) && $dir_id['upload'] == 1 && isset($_GET['trans'])) {
 	echo '<div class="mess">';
@@ -109,7 +108,7 @@ for ($i = $start; $i < $k_post && $i < $set['p_str'] * $page; $i++) {
 		$post = $list[$i]['post'];
 		$k_p = dbresult(dbquery("SELECT COUNT(*) FROM `downnik_komm` WHERE `id_file` = '$post[id]'"), 0);
 		$ras = $post['ras'];
-		$file = H . "files/down/$post[id].dat";
+		$file = H . "files/down/{$post['id']}.dat";
 		$name = $post['name'];
 		$size = $post['size'];
 		/*-----------代码-----------*/
@@ -122,17 +121,21 @@ for ($i = $start; $i < $k_post && $i < $set['p_str'] * $page; $i++) {
 		}
 		/*---------------------------*/
 		include 'inc/icon48.php';
-		if (test_file(H . 'style/themes/' . $set['set_them'] . '/loads/14/' . $ras . '.png'))
-			echo "<img src='/style/themes/$set[set_them]/loads/14/$ras.png' alt='$ras' /> ";
-		else
-			echo "<img src='/style/themes/$set[set_them]/loads/14/file.png' alt='file' /> ";
-		if ($set['echo_rassh'] == 1) $ras = $post['ras'];
-		else $ras = NULL;
-		echo '<a href="/down' . $dir_id['dir'] . $post['id'] . '.' . $post['ras'] . '?showinfo"><b>' . htmlspecialchars($post['name']) . '.' . $ras . '</b></a> (' . size_file($post['size']) . ') ';
+		if (test_file(H . 'style/themes/' . $set['set_them'] . '/loads/14/' . $ras . '.png')) {
+			echo "<img src='/style/themes/{$set['set_them']}/loads/14/{$ras}.png' alt='{$ras}' /> ";
+		} else {
+			echo "<img src='/style/themes/{$set['set_them']}/loads/14/file.png' alt='file' /> ";
+		}
+		if ($set['echo_rassh'] == 1) {
+			$ras = $post['ras'];
+		} else {
+			$ras = NULL;
+		}
+		echo '<a href="/down' . $dir_id['dir'] . $post['id'] . (!empty($post['ras']) ? '.' . $post['ras'] : '') . '?showinfo"><b>' . htmlspecialchars($post['name']) . (!empty($post['ras']) ? '.' . $post['ras'] : '') . '</b></a> (' . size_file($post['size']) . ') ';
 		if ($post['metka'] == 1) echo '<font color=red><b>(18+)</b></font> ';
 		echo '<br />';
 		if ($post['opis']) echo rez_text(htmlspecialchars($post['opis'])) . '<br />';
-		echo '<a href="/down' . $dir_id['dir'] . $post['id'] . '.' . $post['ras'] . '?showinfo&amp;komm">评论</a> (' . $k_p . ')<br />';
+		echo '<a href="/down' . $dir_id['dir'] . $post['id'] . (!empty($post['ras']) ? '.' . $post['ras'] : '') . '?showinfo&amp;komm">评论</a> (' . $k_p . ')<br />';
 		echo '</div>';
 	}
 }

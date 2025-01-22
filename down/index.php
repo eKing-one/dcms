@@ -53,13 +53,13 @@ if ($l == '/') {
 // 处理文件
 if (isset($_GET['f'])) {
 	$f = esc(urldecode($_GET['f']));
-	$name = preg_replace('#.[^.]*$#', '', $f); // 不带扩展名的文件名 
-	$ras = strtolower(preg_replace('#^.*.#', '', $f));
+	$name = pathinfo($f, PATHINFO_FILENAME);	// 不带扩展名的文件名
+	$ras = pathinfo($f, PATHINFO_EXTENSION);	// 获取文件扩展名
 	$ras = str_replace('jad', 'jar', $ras);
-	if (dbresult(dbquery("SELECT COUNT(`id`) FROM `downnik_files` WHERE `id_dir` = '$id_dir' AND `id`='" . intval($_GET['f']) . "' LIMIT 1"), 0) != 0) {
-		$file_id = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id_dir` = '$id_dir' AND `id`='" . intval($_GET['f']) . "'"));
+	if (dbresult(dbquery("SELECT COUNT(`id`) FROM `downnik_files` WHERE `id_dir` = '{$id_dir}' AND `id`='" . intval($_GET['f']) . "' LIMIT 1"), 0) != 0) {
+		$file_id = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id_dir` = '{$id_dir}' AND `id`='" . intval($_GET['f']) . "'"));
 		$ras = $file_id['ras'];
-		$file = H . "files/down/$file_id[id].dat";
+		$file = H . "files/down/{$file_id['id']}.dat";
 		$name = $file_id['name'];
 		$size = $file_id['size'];
 		$file_id['name'] = str_replace('_', ' _', $file_id['name']);
@@ -74,7 +74,7 @@ if (isset($_GET['f'])) {
 				$jad = preg_replace("#(MIDlet-Jar-Size:( )*[^(n|r)]*)(n|r)#i", NULL, $jad);
 				$jad = trim($jad);
 				$jad .= "rnMIDlet-Jar-Size: " . filesize(H . 'files/down/' . $file_id['id'] . '.dat') . "";
-				$jad .= "rnMIDlet-Jar-URL: /down$dir_id[dir]$file_id[id].$file_id[ras]";
+				$jad .= "rnMIDlet-Jar-URL: /down{$dir_id['dir']}{$file_id['id']}.{$file_id['ras']}";
 				$jad = br($jad, "rn");
 				header('Content-Type: text/vnd.sun.j2me.app-descriptor');
 				header('Content-Disposition: attachment; filename="' . $file_id['name'] . '.jad";');
@@ -82,12 +82,11 @@ if (isset($_GET['f'])) {
 				exit;
 			}
 			$avtor = user::get_user($file_id['id_user']);
-			if (isset($user) && $_SESSION['file_' . $file_id['id'] . ''] == 0)
-				dbquery("UPDATE `user` SET `rating_tmp` = '" . ($avtor['rating_tmp'] + 1) . "' WHERE `id` = '$file_id[id_user]' LIMIT 1");
+			if (isset($user) && $_SESSION['file_' . $file_id['id'] . ''] == 0) dbquery("UPDATE `user` SET `rating_tmp` = '" . ($avtor['rating_tmp'] + 1) . "' WHERE `id` = '$file_id[id_user]' LIMIT 1");
 			$_SESSION['file_' . $file_id['id'] . ''] = 1;
 			dbquery("UPDATE `downnik_files` SET `k_loads` = '" . ($file_id['k_loads'] + 1) . "' WHERE `id` = '$file_id[id]' LIMIT 1");
 			include_once '../sys/inc/downloadfile.php';
-			DownloadFile(H . 'files/down/' . $file_id['id'] . '.dat', retranslit($file_id['name']) . '_' . $_SERVER['HTTP_HOST'] . '.' . $ras, ras_to_mime($ras));
+			DownloadFile(H . 'files/down/' . $file_id['id'] . '.dat', retranslit($file_id['name']) . (!empty($ras) ? '.' . $ras : ''), ras_to_mime($ras));
 			exit;
 		}
 
@@ -163,12 +162,12 @@ if (isset($_GET['f'])) {
 			}
 			aut();
 			err();
-			if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'down_komm'"), 0) == 0) {
+			if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '{$user['id']}' AND `id_spam` = '{$spamer['id']}' AND `razdel` = 'down_komm'"), 0) == 0) {
 				echo "<div class='mess'>虚假信息会导致昵称被屏蔽。
 					  如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
-				echo "<form class='nav1' method='post' action='/down$dir_id[dir]$file_id[id].$file_id[ras]?showinfo&spam=$mess[id]&page=" . intval($_GET['page']) . "'>";
+				echo "<form class='nav1' method='post' action='/down{$dir_id['dir']}{$file_id['id']}" . (!empty($file_id['ras']) ? '.' . $file_id['ras'] : '') . "?showinfo&spam={$mess['id']}&page=" . intval($_GET['page']) . "'>";
 				echo "<b>用户:</b> ";
-				echo " " . user::avatar($spamer['id']) . "  " . group($spamer['id']) . " <a href='/user/info.php?id=$spamer[id]>$spamer[nick]</a>";
+				echo " " . user::avatar($spamer['id']) . "  " . group($spamer['id']) . " <a href='/user/info.php?id={$spamer['id']}>{$spamer['nick']}</a>";
 				echo "" . medal($spamer['id']) . " " . online($spamer['id']) . " (" . vremja($mess['time']) . ") ";
 				echo "<b>违规行为:</b> <font color='green'>" . output_text($mess['msg']) . "</font> ";
 				echo "原因:<select name='types'>";
@@ -182,15 +181,15 @@ if (isset($_GET['f'])) {
 				echo "<input value='发送' type='submit'/>";
 				echo "</form>";
 			} else {
-				echo "<div class='mess'>投诉有关<font color='green'>$spamer[nick]</font> 它将在不久的将来考虑。</div>";
+				echo "<div class='mess'>投诉有关<font color='green'>{$spamer['nick']}</font> 它将在不久的将来考虑。</div>";
 			}
 			echo "<div class='foot'>";
-			echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/down$dir_id[dir]$file_id[id].$file_id[ras]?showinfo&page=" . intval($_GET['page']) . "'>返回</a>";
+			echo "<img src='/style/icons/str2.gif' alt='*'> <a href='/down{$dir_id['dir']}{$file_id['id']}" . (!empty($file_id['ras']) ? '.' . $file_id['ras'] : '') . "?showinfo&page=" . intval($_GET['page']) . "'>返回</a>";
 			echo "</div>";
 			include_once '../sys/inc/tfoot.php';
 			exit;
 		}
-		if (isset($user)) dbquery("UPDATE `notification` SET `read` = '1' WHERE `type` = 'down_komm' AND `id_user` = '$user[id]' AND `id_object` = '$file_id[id]'");
+		if (isset($user)) dbquery("UPDATE `notification` SET `read` = '1' WHERE `type` = 'down_komm' AND `id_user` = '{$user['id']}' AND `id_object` = '{$file_id['id']}'");
 		if (isset($_POST['msg']) && isset($user)) {
 			$msg = $_POST['msg'];
 			if (isset($_POST['translit']) && $_POST['translit'] == 1) $msg = translit($msg);
@@ -200,7 +199,7 @@ if (isset($_GET['f'])) {
 				$err[] = '信息太长了';
 			} elseif (strlen2($msg) < 2) {
 				$err[] = '短消息';
-			} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `downnik_komm` WHERE `id_file` = '$file_id[id]' AND `id_user` = '$user[id]' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
+			} elseif (dbresult(dbquery("SELECT COUNT(*) FROM `downnik_komm` WHERE `id_file` = '{$file_id['id']}' AND `id_user` = '{$user['id']}' AND `msg` = '" . my_esc($msg) . "' LIMIT 1"), 0) != 0) {
 				$err = '您的消息重复前一个';
 			} elseif (!isset($err)) {
 				$ank = user::get_user($file_id['id_user']);
@@ -212,32 +211,32 @@ if (isset($_GET['f'])) {
 				$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $file_id['id_user'] . "' AND `i` = '1' AND `frend` != '$user[id]'");
 				while ($f = dbarray($q)) {
 					$a = user::get_user($f['frend']);
-					$discSet = dbarray(dbquery("SELECT * FROM `discussions_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // Общая настройка обсуждений
-					if ($f['disc_forum'] == 1 && $discSet['disc_forum'] == 1) /* Фильтр рассылки */ {
-						// друзьям автора 
-						if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions` WHERE `id_user` = '$a[id]' AND `type` = 'down' AND `id_sim` = '$file_id[id]' LIMIT 1"), 0) == 0) {
+					$discSet = dbarray(dbquery("SELECT * FROM `discussions_set` WHERE `id_user` = '" . $a['id'] . "' LIMIT 1")); // 一般讨论设置
+					if ($f['disc_forum'] == 1 && $discSet['disc_forum'] == 1) /* 邮件过滤器 */ {
+						// 致作者的朋友们
+						if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions` WHERE `id_user` = '{$a['id']}' AND `type` = 'down' AND `id_sim` = '{$file_id['id']}' LIMIT 1"), 0) == 0) {
 							if ($file_id['id_user'] != $a['id'] || $a['id'] != $user['id'])
-								dbquery("INSERT INTO `discussions` (`id_user`, `avtor`, `type`, `time`, `id_sim`, `count`) values('$a[id]', '$file_id[id_user]', 'down', '$time', '$file_id[id]', '1')");
+								dbquery("INSERT INTO `discussions` (`id_user`, `avtor`, `type`, `time`, `id_sim`, `count`) values('{$a['id']}', '{$file_id['id_user']}', 'down', '{$time}', '{$file_id['id']}', '1')");
 						} else {
-							$disc = dbarray(dbquery("SELECT * FROM `discussions` WHERE `id_user` = '$file_id[id_user]' AND `type` = 'down' AND `id_sim` = '$file_id[id]' LIMIT 1"));
+							$disc = dbarray(dbquery("SELECT * FROM `discussions` WHERE `id_user` = '{$file_id['id_user']}' AND `type` = 'down' AND `id_sim` = '{$file_id[id]}' LIMIT 1"));
 							if ($file_id['id_user'] != $a['id'] || $a['id'] != $user['id'])
-								dbquery("UPDATE `discussions` SET `count` = '" . ($disc['count'] + 1) . "', `time` = '$time' WHERE `id_user` = '$a[id]' AND `type` = 'down' AND `id_sim` = '$file_id[id]' LIMIT 1");
+								dbquery("UPDATE `discussions` SET `count` = '" . ($disc['count'] + 1) . "', `time` = '{$time}' WHERE `id_user` = '{$a['id']}' AND `type` = 'down' AND `id_sim` = '{$file_id['id']}' LIMIT 1");
 						}
 					}
 				}
 				// 发送给作者
 				if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions` WHERE `id_user` = '$file_id[id_user]' AND `type` = 'down' AND `id_sim` = '$file_id[id]' LIMIT 1"), 0) == 0) {
 					if ($file_id['id_user'] != $user['id'])
-						dbquery("INSERT INTO `discussions` (`id_user`, `avtor`, `type`, `time`, `id_sim`, `count`) values('$file_id[id_user]', '$file_id[id_user]', 'down', '$time', '$file_id[id]', '1')");
+						dbquery("INSERT INTO `discussions` (`id_user`, `avtor`, `type`, `time`, `id_sim`, `count`) values('{$file_id['id_user']}', '{$file_id['id_user']}', 'down', '{$time}', '{$file_id['id']}', '1')");
 				} else {
-					$disc = dbarray(dbquery("SELECT * FROM `discussions` WHERE `id_user` = '$file_id[id_user]' AND `type` = 'down' AND `id_sim` = '$file_id[id]' LIMIT 1"));
+					$disc = dbarray(dbquery("SELECT * FROM `discussions` WHERE `id_user` = '{$file_id['id_user']}' AND `type` = 'down' AND `id_sim` = '{$file_id['id']}' LIMIT 1"));
 					if ($file_id['id_user'] != $user['id'])
-						dbquery("UPDATE `discussions` SET `count` = '" . ($disc['count'] + 1) . "', `time` = '$time' WHERE `id_user` = '$file_id[id_user]' AND `type` = 'down' AND `id_sim` = '$file_id[id]' LIMIT 1");
+						dbquery("UPDATE `discussions` SET `count` = '" . ($disc['count'] + 1) . "', `time` = '{$time}' WHERE `id_user` = '{$file_id['id_user']}' AND `type` = 'down' AND `id_sim` = '{$file_id['id']}' LIMIT 1");
 				}
-				dbquery("INSERT INTO `downnik_komm` (`id_file`, `id_user`, `time`, `msg`) values('$file_id[id]', '$user[id]', '$time', '" . my_esc($msg) . "')");
-				dbquery("UPDATE `user` SET `balls` = '" . ($user['balls'] + 1) . "', `rating_tmp` = '" . ($user['rating_tmp'] + 1) . "' WHERE `id` = '$user[id]' LIMIT 1");
+				dbquery("INSERT INTO `downnik_komm` (`id_file`, `id_user`, `time`, `msg`) values('{$file_id['id']}', '{$user['id']}', '{$time}', '" . my_esc($msg) . "')");
+				dbquery("UPDATE `user` SET `balls` = '" . ($user['balls'] + 1) . "', `rating_tmp` = '" . ($user['rating_tmp'] + 1) . "' WHERE `id` = '{$user['id']}' LIMIT 1");
 				$_SESSION['message'] = '消息已成功添加';
-				header("Location: /down$dir_id[dir]$file_id[id].$file_id[ras]?showinfo");
+				header("Location: /down{$dir_id['dir']}{$file_id['id']}" . (!empty($file_id['ras']) ? '.' . $file_id['ras'] : '') . "?showinfo");
 				exit;
 			}
 		}
@@ -258,8 +257,8 @@ if (isset($_GET['f'])) {
 			}
 			if (!user_access('down_dir_edit') && ($user['id'] != $avtor['id'] && $_SESSION['pass'] != $my_dir['pass'])) {
 				echo '<form action="?showinfo" method="POST">密码:  
-		<input type="pass" name="password" value="" /> 
-		<input type="submit" value="进入"/></form>';
+				      <input type="pass" name="password" value="" /> 
+				      <input type="submit" value="进入"/></form>';
 				include_once '../sys/inc/tfoot.php';
 				exit;
 			}
@@ -269,10 +268,10 @@ if (isset($_GET['f'])) {
 		include 'inc/file_form.php';
 		echo '<div class="main">';
 		include_once 'inc/icon14.php';
-		echo output_text($file_id['name']) . '.' . $ras . ' ';
+		echo output_text($file_id['name']) . (!empty($ras) ? '.' . $ras : '') . ' ';
 		if ($file_id['metka']  ==  1) echo ' <font color=red><b>(18+)</b></font>';
 		echo '</div>';
-		if (($user['abuld']  ==  1 || $file_id['metka']  ==  0 || $file_id['id_user']  ==  $user['id'])) // Метка 18+ 
+		if (($user['abuld']  ==  1 || $file_id['metka']  ==  0 || $file_id['id_user']  ==  $user['id'])) // 标签 18+
 		{
 			echo '<div class="main">';
 			if (test_file("inc/file/$ras.php")) include "inc/file/$ras.php";
@@ -288,24 +287,24 @@ if (isset($_GET['f'])) {
 			echo '<div class="mess">';
 			echo '<img src="/style/icons/small_adult.gif" alt="*"> 
 			      此文件包含色情性质的图像。
-			      如果这不会打扰你，你是18岁或以上，那么你可以<a href="/down' . $dir_id['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '?showinfo&sess_abuld=1">继续浏览</a>.  
+			      如果这不会打扰你，你是18岁或以上，那么你可以<a href="/down' . $dir_id['dir'] . $file_id['id'] . (!empty($file_id['ras']) ? '.' . $file_id['ras'] : '') . '?showinfo&sess_abuld=1">继续浏览</a>.  
 			      或者您可以在<a href="/user/info/settings.php">设置</a>.';
 			echo '</div>';
 		}
-		//----------------------листинг-------------------// 
+		//----------------------清单-------------------// 
 		$listr = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id_dir` = '$dir_id[id]' AND `id` < '$file_id[id]' ORDER BY `id` DESC LIMIT 1"));
 		$list = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id_dir` = '$dir_id[id]' AND `id` > '$file_id[id]' ORDER BY `id`  ASC LIMIT 1"));
 		echo '<div class="c2" style="text-align: center;">';
-		if (isset($list['id'])) echo '<span class="page">' . ($list['id'] ? '<a href="/down' . $dir_id['dir'] . $list['id'] . '.' . $list['ras'] . '?showinfo">&laquo; 上一页</a> ' : '&laquo; 上一页 ') . '</span>';
+		if (isset($list['id'])) echo '<span class="page">' . ($list['id'] ? '<a href="/down' . $dir_id['dir'] . $list['id'] . (!empty($list['ras']) ? '.' . $list['ras'] : '') . '?showinfo">&laquo; 上一页</a> ' : '&laquo; 上一页 ') . '</span>';
 		$k_1 = dbresult(dbquery("SELECT COUNT(*) FROM `downnik_files` WHERE `id` > '$file_id[id]' AND `id_dir` = '$id_dir'"), 0) + 1;
 		$k_2 = dbresult(dbquery("SELECT COUNT(*) FROM `downnik_files` WHERE `id_dir` = '$id_dir'"), 0);
 		echo ' (第' . $k_1 . '页 共' . $k_2 . '页) ';
-		if (isset($listr['id'])) echo '<span class="page">' . ($listr['id'] ? '<a href="/down' . $dir_id['dir'] . $listr['id'] . '.' . $listr['ras'] . '?showinfo">下一页 &raquo;</a>' : ' 下一页 &raquo;') . '</span>';
+		if (isset($listr['id'])) echo '<span class="page">' . ($listr['id'] ? '<a href="/down' . $dir_id['dir'] . $listr['id'] . (!empty($listr['ras']) ? '.' . $listr['ras'] : '') . '?showinfo">下一页 &raquo;</a>' : ' 下一页 &raquo;') . '</span>';
 		echo '</div>';
 		//----------------------plugins---------------// 
-		if (($user['abuld']  ==  1 || $file_id['metka']  ==  0 || $file_id['id_user']  ==  $user['id'])) // Метка 18+ 
+		if (($user['abuld']  ==  1 || $file_id['metka']  ==  0 || $file_id['id_user']  ==  $user['id'])) // 标签 18+
 		{
-			/*----------------Действия над файлом-------------*/
+			/*----------------对文件执行的操作-------------*/
 			if (user_access('down_file_edit') || $user['id'] == $file_id['id_user']) {
 				echo '<div class="main">';
 				echo '<img src="/style/icons/edit.gif" alt="*"> <a href="?showinfo&act=edit">编辑</a>';
@@ -313,13 +312,13 @@ if (isset($_GET['f'])) {
 				echo '</div>';
 			}
 			//----------------------plugins---------------/
-			//*------------------Мне нравится------------------*/ 
+			//*------------------我喜欢------------------*/ 
 			echo '<div class="main">';
 			$l1 = dbresult(dbquery("SELECT COUNT(*) FROM `like_object` WHERE `id_object` = '$file_id[id]' AND `type` = 'down' AND `like` = '1'"), 0);
 			$l2 = dbresult(dbquery("SELECT COUNT(*) FROM `like_object` WHERE `id_object` = '$file_id[id]' AND `type` = 'down' AND `like` = '0'"), 0);
 			if (isset($user) && $avtor['id'] != $user['id'] && dbresult(dbquery("SELECT COUNT(*) FROM `like_object` WHERE `id_object` = '$file_id[id]' AND `type` = 'down' AND `id_user` = '$user[id]'"), 0) == 0) {
 				echo '<img src="/style/icons/thumbu.png" alt="*"> <a href="/down' . $dir_id['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '?showinfo&like=1">我喜欢</a> (' . ($l1 - $l2) . ') ';
-				echo '<a href="/down' . $dir_id['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '?showinfo&like=0"><img src="/style/icons/thumbd.png" alt="*"></a>';
+				echo '<a href="/down' . $dir_id['dir'] . $file_id['id'] . (!empty($file_id['ras']) ? '.' . $file_id['ras'] : '') . '?showinfo&like=0"><img src="/style/icons/thumbd.png" alt="*"></a>';
 			} else {
 				echo '<img src="/style/icons/thumbu.png" alt="*"> (' . ($l1 - $l2) . ') ';
 				echo ' <img src="/style/icons/thumbd.png" alt="*"> ';
@@ -329,18 +328,20 @@ if (isset($_GET['f'])) {
 				$markinfo = dbresult(dbquery("SELECT COUNT(`id`) FROM `bookmarks` WHERE `id_object` = '" . $file_id['id'] . "' AND `type`='file'"), 0);
 				echo "<div class='main'>";
 				echo "<img src='/style/icons/add_fav.gif' alt='*' /> ";
-				if (dbresult(dbquery("SELECT COUNT(`id`) FROM `bookmarks` WHERE `id_user` = '" . $user['id'] . "' AND `id_object` = '" . $file_id['id'] . "' AND `type`='file' LIMIT 1"), 0)  ==  0)
+				if (dbresult(dbquery("SELECT COUNT(`id`) FROM `bookmarks` WHERE `id_user` = '" . $user['id'] . "' AND `id_object` = '" . $file_id['id'] . "' AND `type`='file' LIMIT 1"), 0)  ==  0) {
 					echo "<a href='?showinfo&fav=1'>添加到书签</a>";
-				else
+				} else {
 					echo "<a href='?showinfo&fav=0'>从书签中删除</a>";
-				echo "<br/><img src='/style/icons/add_fav.gif' alt='*' /'> 在书签中 <a href='?showinfo&markinfo'>$markinfo</a> 用户.";
+				}
+				echo "<br/><img src='/style/icons/add_fav.gif' alt='*' /'> 在书签中 <a href='?showinfo&markinfo'>{$markinfo}</a> 用户.";
 				echo "</div>";
 			}
 			echo '<div class="main">';
-			if ($file_id['ras'] == 'jar')
+			if ($file_id['ras'] == 'jar') {
 				echo '<img src="/style/icons/d.gif" alt="*"> <a href="/down' . $dir_id['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '">下载JAR (' . size_file($size) . ')</a> <a href="/down' . $dir_id['dir'] . $file_id['id'] . '.jad">JAD</a>  ';
-			else
-				echo '<img src="/style/icons/d.gif" alt="*"> <a href="/down' . $dir_id['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '">下载 (' . size_file($size) . ')</a> ';
+			} else {
+				echo '<img src="/style/icons/d.gif" alt="*"> <a href="/down' . $dir_id['dir'] . $file_id['id'] . (!empty($file_id['ras']) ? '.' . $file_id['ras'] : '') . '">下载 (' . size_file($size) . ')</a> ';
+			}
 			echo '<br/>已下载 (' . $file_id['k_loads'] . ')';
 			echo '</div>';
 		}
@@ -349,7 +350,7 @@ if (isset($_GET['f'])) {
 		echo ' <span style="color:#666;">' . vremja($file_id['time']) . '</span><br/>';
 		echo '返回文件夹: <a href="/user/personalfiles/' . $avtor['id'] . '/' . $my_dir['id'] . '/">' . text($my_dir['name']) . '</a>';
 		echo '</div>';
-		/*-------------------Моя музыка---------------------*/
+		/*-------------------我的音乐---------------------*/
 		if (isset($user) && ($file_id['ras'] == 'mp3' || $file_id['ras'] == 'wav' || $file_id['ras'] == 'ogg')) {
 			echo '<div class="main">';
 			if ($music == 0)
