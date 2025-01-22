@@ -38,21 +38,25 @@ if (isset($_POST['name']) && isset($user)) {
 		exit;
 	}
 }
+
 $set['title'] = '创建文件夹';
 include_once '../../sys/inc/thead.php';
 title();
 aut();
 err();
+
 echo "<div class='foot'>";
 echo "<img src='/style/icons/up_dir.gif' alt='*'> " . ($dir['osn'] == 1 ? '档案' : '') . " " . user_files($dir['id_dires']) . " " . ($dir['osn'] == 1 ? '' : '&gt; ' . htmlspecialchars($dir['name'])) . "";
 echo "</div>";
 echo '<form class="mess" name="message" action="?add" method="post">';
 echo '文件夹名称:<br/><input type="text" name="name" maxlength="30" value="" /><br />';
-if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php')) {
-	include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
+
+if ($set['web'] && is_file(H . "style/themes/{$set['set_them']}/altername_post_form.php")) {
+	include_once H . "style/themes/{$set['set_them']}/altername_post_form.php";
 } else {
 	echo $tPanel . '<textarea name="msg"></textarea><br />';
 }
+
 echo '密码:<br/><input type="pass" name="pass" maxlength="12" value="" /><br />';
 echo '<input type="submit" name="sub" value="创建"/></form>';
 echo "<div class='foot'>";
@@ -61,4 +65,5 @@ echo "</div>";
 echo "<div class='foot'>";
 echo "<img src='/style/icons/up_dir.gif' alt='*'> " . ($dir['osn'] == 1 ? '档案' : '') . " " . user_files($dir['id_dires']) . " " . ($dir['osn'] == 1 ? '' : '&gt; ' . htmlspecialchars($dir['name'])) . "";
 echo "</div>";
-include_once('../../sys/inc/tfoot.php');
+
+include_once '../../sys/inc/tfoot.php';

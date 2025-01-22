@@ -14,6 +14,7 @@ ICQ：587863132
 http://dcms-social.ru
 =======================================
 */
+
 if (isset($_GET['edit_folder'])) {
 	$folder = dbassoc(dbquery("SELECT * FROM `user_files`  WHERE `id` = '" . intval($_GET['edit_folder']) . "' LIMIT 1"));
 	if ($folder['id_user'] != $user['id'] && !user_access('down_dir_edit')) {
@@ -56,5 +57,4 @@ if (isset($_GET['edit_folder'])) {
 	echo "<img src='/style/icons/up_dir.gif' alt='*'> " . ($dir['osn'] == 1 ? '<a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">档案</a>' : '') . " " . user_files($dir['id_dires']) . " " . ($dir['osn'] == 1 ? '' : '&gt; <a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">' . text($dir['name']) . '</a>') . "";
 	echo "</div>";
 	include_once '../../sys/inc/tfoot.php';
-	exit;
 }
