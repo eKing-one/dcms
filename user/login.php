@@ -35,10 +35,10 @@ if (isset($_GET['id']) && isset($_GET['pass'])) {
 		$user = user::get_user($user['id']);
 		// 在COOKIE中保存数据
 		if (isset($_POST['aut_save']) && $_POST['aut_save']) {
-			setcookie('id_user', $user['id'], time() + 60 * 60 * 24 * 365);
-			setcookie('auth_token', cookie_encrypt($_POST['pass'], $user['id']), time() + 60 * 60 * 24 * 365);
+			setcookie('id_user', $user['id'], time() + 60 * 60 * 24 * 365, '/');
+			setcookie('auth_token', cookie_encrypt($_POST['pass'], $user['id']), time() + 60 * 60 * 24 * 365, '/');
 		}
-		dbquery("UPDATE `user` SET `date_aut` = '$time', `date_last` = '$time' WHERE `id` = '$user[id]' LIMIT 1");
+		dbquery("UPDATE `user` SET `date_aut` = '{$time}', `date_last` = '{$time}' WHERE `id` = '{$user['id']}' LIMIT 1");
 		dbquery("INSERT INTO `user_log` (`id_user`, `date`, `ua`, `ip`, `method`) values('{$user['id']}', '" . date('Y-m-d H:i:s') . "', '{$user['ua']}' , '{$user['ip']}', '1')");
 	} else {
 		$_SESSION['err'] = '用户名或密码不正确';
@@ -47,14 +47,15 @@ if (isset($_GET['id']) && isset($_GET['pass'])) {
 	// 从数据库获取用户信息
 	$user = dbassoc(dbquery("SELECT `id`, `pass` FROM `user` WHERE `id` = " . intval($_COOKIE['id_user']) . " LIMIT 1"));
 
-	if ($user && password_verify(cookie_decrypt($_COOKIE['auth_token'], intval($_COOKIE['id_user'])), $user['auth_token'])) {
+	if ($user && password_verify(cookie_decrypt($_COOKIE['auth_token'], intval($_COOKIE['id_user'])), $user['pass'])) {
 		$_SESSION['id_user'] = $user['id'];
-		dbquery("UPDATE `user` SET `date_aut` = '$time', `date_last` = '$time' WHERE `id` = '$user[id]' LIMIT 1");
+		dbquery("UPDATE `user` SET `date_aut` = '{$time}', `date_last` = '{$time}' WHERE `id` = '{$user['id']}' LIMIT 1");
 		$user['type_input'] = 'cookie';
 	} else {
 		$_SESSION['err'] = 'COOKIE授权错误';
-		setcookie('id_user');
-		setcookie('auth_token');
+		// 清除COOKIE
+		setcookie('id_user', '', 0, '/');
+		setcookie('auth_token', '', 0, '/');
 	}
 } else {
 	$_SESSION['err'] = '授权错误';
