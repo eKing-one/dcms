@@ -11,7 +11,7 @@ $_SESSION['page'] = 1;
 include_once '../sys/inc/thead.php';
 title();
 // Файл который перемещаем
-if (isset($_GET['trans'])) $trans = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id` = '" . intval($_GET['trans']) . "' AND `id_user` = '$user[id]' LIMIT 1"));
+if (isset($_GET['trans'])) $trans = dbassoc(dbquery("SELECT * FROM `downnik_files` WHERE `id` = '" . intval($_GET['trans']) . "' AND `id_user` = '{$user['id']}' LIMIT 1"));
 // Загрузка файла
 include 'inc/upload_act.php';
 // Действие над папкой
@@ -27,18 +27,18 @@ if (!isset($_GET['act']) && !isset($_GET['trans'])) {
 	echo '<div class="foot">';
 	echo '<img src="/style/icons/search.gif" alt="*"> <a href="/down/search.php">档案搜寻</a> ';
 	if (isset($user) && $dir_id['upload'] == 1) {
-		$dir_user = dbassoc(dbquery("SELECT * FROM `user_files`  WHERE `id_user` = '$user[id]' AND `osn` = '1'"));
-		echo ' | <a href="/user/personalfiles/' . $user['id'] . '/' . $dir_user['id'] . '/?down_dir=' . $dir_id['id'] . '">添加文件</a>';
+		$dir_user = dbassoc(dbquery("SELECT * FROM `user_files`  WHERE `id_user` = '{$user['id']}' AND `osn` = '1'"));
+		if (isset($dir_user['id'])) echo ' | <a href="/user/personalfiles/' . $user['id'] . '/' . $dir_user['id'] . '/?down_dir=' . $dir_id['id'] . '">添加文件</a>';
 	}
 	echo '</div>';
 }
 echo '<table class="post">';
-$q = dbquery("SELECT * FROM `downnik_dir` WHERE `dir_osn` = '/$l' OR `dir_osn` = '$l/' OR `dir_osn` = '$l' " . (user_access('down_dir_edit') ? "" : "AND `my` = '0'") . " ORDER BY `name`,`num` ASC");
+$q = dbquery("SELECT * FROM `downnik_dir` WHERE `dir_osn` = '/{$l}' OR `dir_osn` = '{$l}/' OR `dir_osn` = '{$l}' " . (user_access('down_dir_edit') ? "" : "AND `my` = '0'") . " ORDER BY `name`,`num` ASC");
 while ($post = dbassoc($q)) {
 	$set['p_str'] = 50;
 	$list[] = array('dir' => 1, 'post' => $post);
 }
-$q = dbquery("SELECT * FROM `downnik_files` WHERE `id_dir` = '$id_dir' ORDER BY `$sort_files` DESC");
+$q = dbquery("SELECT * FROM `downnik_files` WHERE `id_dir` = '{$id_dir}' ORDER BY `{$sort_files}` DESC");
 while ($post = dbassoc($q)) {
 	$list[] = array('dir' => 0, 'post' => $post);
 }
