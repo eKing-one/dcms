@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * 主要用户功能
@@ -74,11 +74,11 @@ class user
 		}
 		// 在线图标输出
 		if ($user != 0 && $ank['date_last'] > time() - 600 && $on == true) {
-			if ($ank['browser'] == 'wap')
-
+			if ($ank['browser'] == 'wap') {
 				$online = ' <img src="/style/icons/online.gif" alt="WAP" /> ';
-			else
+			} else {
 				$online = ' <img src="/style/icons/online_web.gif" alt="WEB" /> ';
+			}
 		}
 		// 奖牌输出
 		$R = $ank['rating'];
@@ -150,8 +150,8 @@ class user
 			$ank['group_name'] = '系统机器人';
 			$ank['ank_o_sebe'] = '为通知创建';
 			return $ank;
-		} else {
 
+		} else {
 			$user_id = intval($ID);
 			$ank[0] = FALSE;
 			if (!isset($ank[$user_id])) {

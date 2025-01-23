@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 -- Step 2: 插入数据到新表
 INSERT INTO `user` (
+  `id`,
   `nick`, 
   `pass`, 
   `sess`, 
@@ -117,6 +118,7 @@ INSERT INTO `user` (
   `money`
 )
 SELECT 
+  `id`,
   `nick`, 
   `pass`, 
   `sess`, 
@@ -174,3 +176,7 @@ FROM `user_old`; -- 旧表的表名（假设旧表名为 `user_old`）
 
 -- Step 3: 删除旧表
 DROP TABLE `user_old`;
+
+UPDATE `user`
+SET `group_access` = 1
+WHERE `group_access` = 0;

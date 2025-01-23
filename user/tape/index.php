@@ -99,13 +99,13 @@ else $lenta = null;
 
 echo "<div id='comments' class='menus'>";
 echo "<div class='webmenu'>";
-echo "<a href='/user/tape/' class='activ'>信息中心 $lenta</a>";
+echo "<a href='/user/tape/' class='activ'>信息中心 {$lenta}</a>";
 echo "</div>";
 echo "<div class='webmenu'>";
-echo "<a href='/user/discussions/' >讨论  $discuss</a>";
+echo "<a href='/user/discussions/' >讨论  {$discuss}</a>";
 echo "</div>";
 echo "<div class='webmenu'>";
-echo "<a href='/user/notification/'> 关于我的 $k_notif</a>";
+echo "<a href='/user/notification/'> 关于我的 {$k_notif}</a>";
 echo "</div>";
 echo "</div>";
 
