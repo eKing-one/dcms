@@ -7,7 +7,6 @@ include_once '../sys/inc/settings.php';
 include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
-include_once '../sys/inc/shif.php';
 include_once '../sys/inc/user.php';
 include_once '../sys/inc/thead.php';
 title();

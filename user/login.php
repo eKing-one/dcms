@@ -7,7 +7,6 @@ include_once '../sys/inc/settings.php';
 include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
-include_once '../sys/inc/shif.php';
 $show_all=true; // 给大家看
 $input_page=true;
 include_once '../sys/inc/user.php';
@@ -54,14 +53,14 @@ if (isset($_GET['id']) && isset($_GET['pass'])) {
 	} else {
 		$_SESSION['err'] = 'COOKIE授权错误';
 		// 清除COOKIE
-		setcookie('id_user', '', 0, '/');
-		setcookie('auth_token', '', 0, '/');
+		setcookie('id_user', '', time() - 3600, '/');
+		setcookie('auth_token', '', time() - 3600, '/');
 	}
 } else {
 	$_SESSION['err'] = '授权错误';
 }
 
-// 检查用户是否已经登录
+// 检查用户是否登录失败
 if (!isset($user)) {
 	header('Location: /user/aut.php');
 	exit;
@@ -105,7 +104,9 @@ if (isset($user) && $user['rating_tmp'] > 1000) {
 	// 重新设定
 	dbquery("update `user` set `rating_tmp` = '{$col}' where `id` = '{$user['id']}' limit 1");
 }
-if (isset($_GET['return']))
-header('Location: '.urldecode($_GET['return']));
-else header("Location: /user/umenu.php?".SID);
+if (isset($_GET['return'])) {
+	header('Location: '.urldecode($_GET['return']));
+} else {
+	header("Location: /user/umenu.php?".SID);
+}
 exit;

@@ -502,8 +502,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 
 			$jwt = \Firebase\JWT\JWT::encode($payload, $set['shif'], 'HS256');
 
-			setcookie('id_user', $user['id'], $expiration);
-			setcookie('auth_token', $jwt, $expiration);
+			setcookie('id_user', $user['id'], $expiration, '/');
+			setcookie('auth_token', $jwt, $expiration, '/');
 
 			// 设置响应为成功
 			$response['status'] = 'success';
@@ -526,8 +526,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 
 } elseif (isset($_GET['action']) && $_GET['action'] == 'logout') {
 	// 退出登录
-	setcookie('id_user');
-	setcookie('auth_token');
+	setcookie('id_user', '', time() - 3600, '/');
+	setcookie('auth_token', '', time() - 3600, '/');
 	session_destroy();
 	$response['status'] = 'success';
 

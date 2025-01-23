@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS `downnik_dir` (
 -- Дамп данных таблицы `downnik_dir`
 --
 
---INSERT INTO `downnik_dir` (`id`, `num`, `name`, `ras`, `maxfilesize`, `dir`, `dir_osn`, `upload`, `my`) VALUES
---(1, 0, '个人档案', 'wmv;zip;rar;tar;avi;3gp;mp4;mp3;amr;txt;cab;thm;sdt;nth;mtf;col;scs;utz;gif;jpg;jpeg;bmp;png;wbmp;pic;ani;pco;mmf;mid;amr;mp3;wav;aac;seq;vox;dxm;imy;emy;pmd;rng;doc;docx;swf;tsk;apk;sis;sisx;jar', 33554432, '/Lichnye_fajly/', '/', '1', 1);
+-- INSERT INTO `downnik_dir` (`id`, `num`, `name`, `ras`, `maxfilesize`, `dir`, `dir_osn`, `upload`, `my`) VALUES
+-- (1, 0, '个人档案', 'wmv;zip;rar;tar;avi;3gp;mp4;mp3;amr;txt;cab;thm;sdt;nth;mtf;col;scs;utz;gif;jpg;jpeg;bmp;png;wbmp;pic;ani;pco;mmf;mid;amr;mp3;wav;aac;seq;vox;dxm;imy;emy;pmd;rng;doc;docx;swf;tsk;apk;sis;sisx;jar', 33554432, '/Lichnye_fajly/', '/', '1', 1);
 
 -- 默认不限制文件后缀
 INSERT INTO `downnik_dir` (`id`, `num`, `name`, `ras`, `maxfilesize`, `dir`, `dir_osn`, `upload`, `my`) VALUES (1, 0, '个人档案', '*', 33554432, '/Lichnye_fajly/', '/', '1', 1);

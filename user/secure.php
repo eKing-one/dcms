@@ -7,7 +7,6 @@ include_once '../sys/inc/settings.php';
 include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
-include_once '../sys/inc/shif.php';
 include_once '../sys/inc/user.php';
 only_reg();
 $set['title'] = '安全';
@@ -42,7 +41,7 @@ if (isset($_POST['save'])) {
 		// 使用 password_hash 来加密新密码
 		$hashedPassword = password_hash($_POST['pass1'], PASSWORD_DEFAULT);
 		dbquery("UPDATE `user` SET `pass` = '$hashedPassword' WHERE `id` = '$user[id]' LIMIT 1");
-		setcookie('auth_token', cookie_encrypt($_POST['pass1'], $user['id']), time() + 60 * 60 * 24 * 365);
+		setcookie('auth_token', cookie_encrypt($_POST['pass1'], $user['id']), time() + 60 * 60 * 24 * 365, '/');
 		msg('密码更改成功');
 	}
 }

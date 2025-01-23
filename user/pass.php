@@ -7,7 +7,6 @@ include_once '../sys/inc/settings.php';
 include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
-include_once '../sys/inc/shif.php';
 $show_all = true; //为大家展示
 include_once '../sys/inc/user.php';
 only_unreg();
@@ -47,9 +46,9 @@ if (isset($_GET['id']) && isset($_GET['set_new']) && strlen($_GET['set_new']) ==
 			if (strlen2($_POST['pass1']) > 32) $err = '密码长度超过32个字符';
 		} else $err = '新密码与确认不符';
 		if (!isset($err)) {
-			setcookie('id_user', $user2['id'], time() + 60 * 60 * 24 * 365);
+			setcookie('id_user', $user2['id'], time() + 60 * 60 * 24 * 365, '/');
 			dbquery("UPDATE `user` SET `pass` = '" . password_hash($_POST['pass1'], PASSWORD_DEFAULT) . "' WHERE `id` = '$user2[id]' LIMIT 1");
-			setcookie('auth_token', cookie_encrypt($_POST['pass1'], $user2['id']), time() + 60 * 60 * 24 * 365);
+			setcookie('auth_token', cookie_encrypt($_POST['pass1'], $user2['id']), time() + 60 * 60 * 24 * 365, '/');
 			msg('密码更改成功');
 		}
 	}
