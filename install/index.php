@@ -5,7 +5,7 @@ include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
 include_once '../sys/inc/home.php';
-include_once '../sys/inc/shif.php';
+include_once '../sys/fnc/shif.php';
 
 //include_once '../sys/fnc/output_text.php';
 include_once '../sys/fnc/strlen2.php';

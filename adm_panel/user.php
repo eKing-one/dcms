@@ -7,7 +7,6 @@ include_once '../sys/inc/settings.php';
 include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
-include_once '../sys/inc/shif.php';
 include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
 user_access('user_prof_edit', null, 'index.php?' . SID);

@@ -10,14 +10,23 @@ require 'classes/class.user.php';
 
 
 // 用户的定义
-if (isset($_SESSION['id_user']) && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '$_SESSION[id_user]' LIMIT 1"), 0) == 1) {
-	$user = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $_SESSION[id_user] LIMIT 1"));
-	dbquery("UPDATE `user` SET `date_last` = '$time' WHERE `id` = '$user[id]' LIMIT 1");
-	$user['type_input'] = 'session';
-} elseif (!isset($input_page) && isset($_COOKIE['id_user']) && isset($_COOKIE['auth_token']) && $_COOKIE['id_user'] && $_COOKIE['auth_token']) {
-	if (!isset($_POST['token'])) {
-		header("Location: /user/login.php?return=" . urlencode($_SERVER['REQUEST_URI']) . "&$passgen");
-		exit;
+if (!isset($_SESSION['id_user']) && !isset($input_page) && isset($_COOKIE['id_user']) && isset($_COOKIE['auth_token']) && $_COOKIE['id_user'] && $_COOKIE['auth_token']) {
+	// 从数据库获取用户信息
+	$cookie_user = dbassoc(dbquery("SELECT `id`, `pass` FROM `user` WHERE `id` = " . intval($_COOKIE['id_user']) . " LIMIT 1"));
+	if ($cookie_user && password_verify(cookie_decrypt($_COOKIE['auth_token'], intval($_COOKIE['id_user'])), $cookie_user['pass'])) {
+		$_SESSION['id_user'] = $cookie_user['id'];
+		dbquery("UPDATE `user` SET `date_aut` = '{$time}', `date_last` = '{$time}' WHERE `id` = '{$cookie_user['id']}' LIMIT 1");
+	} else {
+		// COOKIE 错误
+		setcookie('id_user', '', time() - 3600, '/');
+		setcookie('auth_token', '', time() - 3600, '/');
+	}
+}
+if (isset($_SESSION['id_user']) && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '{$_SESSION['id_user']}' LIMIT 1"), 0) == 1) {
+	$user = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = {$_SESSION['id_user']} LIMIT 1"));
+	if (!empty($user)) {
+		dbquery("UPDATE `user` SET `date_last` = '{$time}' WHERE `id` = '{$user['id']}' LIMIT 1");
+		$user['type_input'] = 'session';
 	}
 }
 
@@ -31,7 +40,7 @@ if (isset($user['activation']) && $user['activation'] != NULL) {
 }
 
 
-if (isset($user)) {
+if (!empty($user)) {
 	$tmp_us = dbassoc(dbquery("SELECT `level` FROM `user_group` WHERE `id` = '$user[group_access]' LIMIT 1"));
 	if (isset($tmp_us['level'])) {
 		$user['level'] = $tmp_us['level'];

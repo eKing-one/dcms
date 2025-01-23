@@ -9,7 +9,6 @@ include_once '../sys/inc/settings.php';
 include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
-include_once '../sys/inc/shif.php';
 $show_all = true; // 为游客开放
 include_once '../sys/inc/user.php';
 only_unreg();
@@ -103,8 +102,8 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 		dbquery("INSERT INTO `notification_set` (`id_user`) VALUES ('$user[id]')");
 		if (isset($_SESSION['http_referer'])) dbquery("INSERT INTO `user_ref` (`time`, `id_user`, `type_input`, `url`) VALUES ('$time', '$user[id]', 'reg', '" . my_esc($_SESSION['http_referer']) . "')");
 		$_SESSION['id_user'] = $user['id'];
-		setcookie('id_user', $user['id'], time() + 60 * 60 * 24 * 365);
-		setcookie('auth_token', cookie_encrypt($_POST['pass1'], $user['id']), time() + 60 * 60 * 24 * 365);
+		setcookie('id_user', $user['id'], time() + 60 * 60 * 24 * 365, '/');
+		setcookie('auth_token', cookie_encrypt($_POST['pass1'], $user['id']), time() + 60 * 60 * 24 * 365, '/');
 
 		if ($set['reg_select'] == 'open_mail') {
 			msg('您需要使用发送到电子邮件的链接激活您的帐户');
