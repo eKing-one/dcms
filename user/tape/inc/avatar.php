@@ -27,15 +27,18 @@ if ($type == 'avatar') {
 	if ($photo['id']) echo '<b>' . text($photo['name']) . '</b>';
 	if (isset($avatar['id']) && $avatar['id']) echo ' &raquo; <b>' . text($avatar['name']) . '</b>';
 	if (isset($avatar['id']) && $avatar['id'] || $photo['id'])echo '<br />';
-	if ($photo['id']) echo '<a href="/photo/' . $avtor['id'] . '/' . $gallery['id'] . '/' . $photo['id'] . '/">';
-	echo '<img style=" max-width:50px; margin:3px;" src="/photo/photo50/' . $post['id_file'] . '.jpg" alt="*" />';
-	if ($photo['id']) echo '</a>';
+
 	if ($post['avatar']) {
-		echo ' <img src="/style/icons/arRt2.png" alt="*"/> ';
 		if ($avatar['id']) echo '<a href="/photo/' . $avtor['id'] . '/' . $gallery2['id'] . '/' . $avatar['id'] . '/">';
 		echo '<img style="max-width:50px; margin:3px;" src="/photo/photo50/' . $post['avatar'] . '.jpg" alt="*" />';
 		if ($avatar['id']) echo '</a>';
+		echo ' <img src="/style/icons/arRt2.png" alt="*"/> ';
 	}
+
+	if ($photo['id']) echo '<a href="/photo/' . $avtor['id'] . '/' . $gallery['id'] . '/' . $photo['id'] . '/">';
+	echo '<img style=" max-width:50px; margin:3px;" src="/photo/photo50/' . $post['id_file'] . '.jpg" alt="*" />';
+	if ($photo['id']) echo '</a>';
+
 	echo '<br />';
 	if ($photo['id']) echo '<a href="/photo/' . $avtor['id'] . '/' . $gallery['id'] . '/' . $photo['id'] . '/"><img src="/style/icons/bbl5.png" alt="*"/> (' . dbresult(dbquery("SELECT COUNT(*) FROM `gallery_komm` WHERE `id_photo` = '$photo[id]'"),0) . ')</a> ';
 }
