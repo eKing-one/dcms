@@ -29,7 +29,7 @@ $set['title'] = '删除用户 "' . $ank['nick'] . '"';
 include_once '../sys/inc/thead.php';
 title();
 if (isset($_POST['delete'])) {
-	if (function_exists('set_time_limit')) @set_time_limit(600);
+	if (function_exists('set_time_limit')) set_time_limit(600);
 	$mass[0] = $ank['id'];
 	$collisions = user_collision($mass, 1);
 	dbquery("DELETE FROM `user` WHERE `id` = '$ank[id]' LIMIT 1");
@@ -72,6 +72,7 @@ if (isset($_POST['delete'])) {
 	dbquery("DELETE FROM `tape` WHERE `id_user` = '$ank[id]'");
 	dbquery("DELETE FROM `tape` WHERE `avtor` = '$ank[id]'");
 	dbquery("DELETE FROM `tape` WHERE `id_file` = '$ank[id]' AND `type` = 'frend'");
+	dbquery("DELETE FROM `checkin_records` WHERE `user_id` = '$ank[id]'");
 	$opdirbase = @opendir(H . 'sys/add/delete_user_act');
 	while ($filebase = @readdir($opdirbase))
 		if (preg_match('#\.php$#i', $filebase))

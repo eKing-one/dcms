@@ -1,0 +1,4 @@
+CREATE TABLE checkin_records (
+	user_id INT NOT NULL PRIMARY KEY,
+	checkin_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
