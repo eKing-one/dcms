@@ -205,7 +205,7 @@ if ($dir['pass'] != NULL) {
 	}
 	if (!user_access('down_dir_edit') && ($user['id'] != $ank['id'] && $_SESSION['pass'] != $dir['pass'])) {
 		echo '<form action="?id_file=' . $file_id['id'] . '" method="POST">密码: <br />		<input type="pass" name="password" value="" /><br />		
-<input type="submit" value="登录"/></form>';
+		      <input type="submit" value="登录"/></form>';
 		echo "<div class='foot'>";
 		echo "<img src='/style/icons/up_dir.gif' alt='*'> " . ($dir['osn'] == 1 ? '文件' : '') . " " . user_files($dir['id_dires']) . " " . ($dir['osn'] == 1 ? '' : '&gt; ' . htmlspecialchars($dir['name'])) . "";
 		echo "</div>";
@@ -215,29 +215,29 @@ if ($dir['pass'] != NULL) {
 }
 /*---------------------------------------------------------*/
 // Includim 编辑器
-if (isset($user) && user_access('down_file_edit') || $ank['id'] == $user['id'])
-	include "inc/file.edit.php";
+if (isset($user) && user_access('down_file_edit') || $ank['id'] == $user['id']) include "inc/file.edit.php";
 // Includim 去除
-if (isset($user) && user_access('down_file_delete') || $ank['id'] == $user['id'])
-	include "inc/file.delete.php";
+if (isset($user) && user_access('down_file_delete') || $ank['id'] == $user['id']) include "inc/file.delete.php";
 echo '<div class="main">';
 if ($dir_id['my'] != 1) {
-	if ($user['id'] == $file_id['id_user'])
+	if ($user['id'] == $file_id['id_user']) {
 		echo '<img src="/style/icons/z.gif" alt="*"> 文件夹 <a href="/down' . $dir_id['dir'] . '">' . $dir_id['name'] . '</a> <a href="/down/?trans=' . $file_id['id'] . '"><img src="/style/icons/edit.gif" alt="*"></a><br />';
-	else
+	} else {
 		echo '<img src="/style/icons/z.gif" alt="*"> 文件夹： <a href="/down' . $dir_id['dir'] . '">' . $dir_id['name'] . '</a><br /> ';
+	}
 }
 include_once H . 'down/inc/icon14.php';
-echo htmlspecialchars($file_id['name']) . '.' . $ras . ' ';
+echo htmlspecialchars($file_id['name']) . (!empty($ras) ? '.' . $ras : '') . ' ';
 if ($file_id['metka'] == 1) echo '<font color=red><b>(18+)</b></font> ';
 echo vremja($file_id['time']) . '<br />';
 echo '</div>';
-if (($user['abuld'] == 1 || $file_id['metka'] == 0 || $file_id['id_user'] == $user['id'])) // Метка 18+ 
-{
+if (($user['abuld'] == 1 || $file_id['metka'] == 0 || $file_id['id_user'] == $user['id'])) {	// 标签 18+
 	echo '<div class="main">';
-	if (test_file(H . "down/inc/file/$ras.php")) include H . "down/inc/file/$ras.php";
-	else
+	if (test_file(H . "down/inc/file/{$ras}.php")) {
+		include H . "down/inc/file/{$ras}.php";
+	} else {
 		include_once H . 'down/inc/file.php';
+	}
 	echo '</div>';
 } elseif (!isset($user)) {
 	echo '<div class="mess">';
@@ -247,9 +247,9 @@ if (($user['abuld'] == 1 || $file_id['metka'] == 0 || $file_id['id_user'] == $us
 } else {
 	echo '<div class="mess">';
 	echo '<img src="/style/icons/small_adult.gif" alt="*"><br /> 
-该文件包含略微的色情内容。
-	如果你不介意，而且你已经满 18 岁或 18 岁以上，你可以<a href="?id_file=' . $file_id['id'] . '&amp;sess_abuld=1">继续查看</a>。
-	你也可以直接在<a href="/user/info/settings.php">设置</a>中禁用该警告。';
+	      该文件包含略微的色情内容。
+	      如果你不介意，而且你已经满 18 岁或 18 岁以上，你可以<a href="?id_file=' . $file_id['id'] . '&amp;sess_abuld=1">继续查看</a>。
+	      你也可以直接在<a href="/user/info/settings.php">设置</a>中禁用该警告。';
 	echo '</div>';
 }
 /*----------------------清单-------------------*/
@@ -276,26 +276,26 @@ if (($user['abuld'] == 1 || $file_id['metka'] == 0 || $file_id['id_user'] == $us
 		echo '[<img src="/style/icons/like.gif" alt="*"> <a href="?id_file=' . $file_id['id'] . '&amp;like=1">我喜欢</a>] ';
 		echo '[<a href="?id_file=' . $file_id['id'] . '&amp;like=0"><img src="/style/icons/dlike.gif" alt="*"></a>]';
 	} else {
-		echo '[<img src="/style/icons/like.gif" alt="*"> 
-' . dbresult(dbquery("SELECT COUNT(*) FROM `like_object` WHERE `id_object` = '$file_id[id]' AND `type` = 'down' AND `like` = '1'"), 0) . '] ';
-		echo '[<img src="/style/icons/dlike.gif" alt="*"> 
-' . dbresult(dbquery("SELECT COUNT(*) FROM `like_object` WHERE `id_object` = '$file_id[id]' AND `type` = 'down' AND `like` = '0'"), 0) . ']';
+		echo '[<img src="/style/icons/like.gif" alt="*">' . dbresult(dbquery("SELECT COUNT(*) FROM `like_object` WHERE `id_object` = '$file_id[id]' AND `type` = 'down' AND `like` = '1'"), 0) . '] ';
+		echo '[<img src="/style/icons/dlike.gif" alt="*">' . dbresult(dbquery("SELECT COUNT(*) FROM `like_object` WHERE `id_object` = '$file_id[id]' AND `type` = 'down' AND `like` = '0'"), 0) . ']';
 	}
 	echo '</div>';
 	echo '<div class="main">';
-	if ($file_id['ras'] == 'jar')
+	if ($file_id['ras'] == 'jar') {
 		echo '<img src="/style/icons/d.gif" alt="*"> <a href="/down' . $dir_id['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '">下载 JAR (' . size_file($size) . ')</a> <a href="/down' . $dir_id['dir'] . $file_id['id'] . '.jad">JAD</a> <br />';
-	else
-		echo '<img src="/style/icons/d.gif" alt="*"> <a href="/down' . $dir_id['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '">下载 (' . size_file($size) . ')</a><br />';
+	} else {
+		echo '<img src="/style/icons/d.gif" alt="*"> <a href="/down' . $dir_id['dir'] . $file_id['id'] . (!empty($file_id['ras']) ? '.' . $file_id['ras'] : '') . '">下载 (' . size_file($size) . ')</a><br />';
+	}
 	echo '下载 (' . $file_id['k_loads'] . ')';
 	echo '</div>';
 	/*-------------------我的音乐---------------------*/
 	if (isset($user) && ($file_id['ras'] == 'mp3' || $file_id['ras'] == 'wav' || $file_id['ras'] == 'ogg')) {
 		echo '<div class="main">';
-		if ($music == 0)
+		if ($music == 0) {
 			echo '<a href="?id_file=' . $file_id['id'] . '&amp;play=1"><img src="/style/icons/play.png" alt="*"></a> (' . $music_people . ')';
-		else
+		} else {
 			echo '<a href="?id_file=' . $file_id['id'] . '&amp;play=0"><img src="/style/icons/play.png" alt="*"></a> (' . $music_people . ') <img src="/style/icons/ok.gif" alt="*">';
+		}
 		echo '</div>';
 	}
 	/*--------------------------------------------------*/
