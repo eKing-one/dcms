@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 =======================================
 Подарки для Dcms-Social
@@ -27,34 +27,35 @@ if (!$ank || $ank['id'] == 0 || $ank['id'] == $user['id']) {
 	header("Location: /index.php?" . SID);
 	exit;
 }
-$set['title'] = "送给 $ank[nick] 的礼物";
+$set['title'] = "送给 {$ank['nick']} 的礼物";
 include_once '../../sys/inc/thead.php';
 title();
 aut();
+
 /*
 ==================================
-Дарим подарок
+我们送礼物
 ==================================
 */
 if (isset($_GET['gift']) && isset($_GET['category'])) {
-	// Категория
+	// 类别
 	$category = dbassoc(dbquery("SELECT * FROM `gift_categories` WHERE `id` = '" . intval($_GET['category']) . "' LIMIT 1"));
-	// Подарок
+	// 礼物
 	$gift = dbassoc(dbquery("SELECT * FROM `gift_list` WHERE `id` = '" . intval($_GET['gift']) . "' LIMIT 1"));
 	if (isset($_GET['ok'])) {
 		if ($user['money'] >= $gift['money']) {
-			$msg = my_esc($_POST['msg']);  // Комментарий
-			dbquery("UPDATE `user` SET `money` = '" . ($user['money'] - $gift['money']) . "' WHERE `id` = '$user[id]'");
-			dbquery("INSERT INTO `gifts_user` (`id_user`, `id_ank`, `id_gift`, `coment`, `time`) values('$ank[id]', '$user[id]', '$gift[id]', '$msg', '$time')");
+			$msg = my_esc($_POST['msg']);  // 评论
+			dbquery("UPDATE `user` SET `money` = '" . ($user['money'] - $gift['money']) . "' WHERE `id` = '{$user['id']}'");
+			dbquery("INSERT INTO `gifts_user` (`id_user`, `id_ank`, `id_gift`, `coment`, `time`) values('{$ank['id']}', '{$user['id']}', '{$gift['id']}', '{$msg}', '{$time}')");
 			$id_gift = dbinsertid();
 			/*
-		==========================
-		Уведомления о подарках
-		==========================
-		*/
-			dbquery("INSERT INTO `notification` (`avtor`, `id_user`, `id_object`, `type`, `time`) VALUES ('$user[id]', '$ank[id]', '$id_gift', 'new_gift', '$time')");
+			==========================
+			礼品通知
+			==========================
+			*/
+			dbquery("INSERT INTO `notification` (`avtor`, `id_user`, `id_object`, `type`, `time`) VALUES ('{$user['id']}', '{$ank['id']}', '{$id_gift}', 'new_gift', '{$time}')");
 			$_SESSION['message'] = '您的礼物已成功送出';
-			header("Location: /user/info.php?id=$ank[id]");
+			header("Location: /user/info.php?id={$ank['id']}");
 			exit;
 		} else {
 			$err = '您的帐户中没有足够的资金';
@@ -79,14 +80,13 @@ if (isset($_GET['gift']) && isset($_GET['category'])) {
 	echo '<div class="foot">';
 	echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?id=' . $ank['id'] . '">分类</a> |  <a href="?category=' . $category['id'] . '&amp;id=' . $ank['id'] . '">' . htmlspecialchars($category['name']) . '</a> | <b>' . htmlspecialchars($gift['name']) . '</b><br />';
 	echo '</div>';
-} else
+} elseif (isset($_GET['category'])) {
 	/*
-==================================
-Вывод подарков
-==================================
-*/
-	if (isset($_GET['category'])) {
-		// Категория
+	==================================
+	礼物的输出
+	==================================
+	*/
+		// 类别
 		$category = dbassoc(dbquery("SELECT * FROM `gift_categories` WHERE `id` = '" . intval($_GET['category']) . "' LIMIT 1"));
 		if (!$category) {
 			$_SESSION['message'] = '没有这样的分类';
@@ -96,7 +96,7 @@ if (isset($_GET['gift']) && isset($_GET['category'])) {
 		echo '<div class="foot">';
 		echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?id=' . $ank['id'] . '">分类</a> | <b>' . htmlspecialchars($category['name']) . '</b><br />';
 		echo '</div>';
-		// Список подарков
+		// 礼品清单
 		$k_post = dbresult(dbquery("SELECT COUNT(id) FROM `gift_list` WHERE `id_category` = '$category[id]'"), 0);
 		if ($k_post == 0) {
 			echo '<div class="mess">';
@@ -126,12 +126,12 @@ if (isset($_GET['gift']) && isset($_GET['category'])) {
 		echo '<div class="foot">';
 		echo '<img src="/style/icons/str2.gif" alt="*" />  <a href="?id=' . $ank['id'] . '">分类</a> | <b>' . htmlspecialchars($category['name']) . '</b><br />';
 		echo '</div>';
-	} else
-	/*
-==================================
-类别推断
-==================================
-*/ {
+	} else {
+		/*
+		==================================
+		类别推断
+		==================================
+		*/
 		echo '<div class="foot">';
 		echo '<img src="/style/icons/str2.gif" alt="*" /> '.user::nick($ank['id'],1,0,0).' | <b>类别</b>';
 		echo '</div>';

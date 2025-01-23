@@ -101,7 +101,7 @@ if (isset($_GET['edit_gift']) && isset($_GET['category'])) {
 				$file_id = dbinsertid();
 				copy($_FILES['gift']['tmp_name'], H . 'sys/gift/' . $file_id . '.png');
 				@chmod(H . 'sys/gift/' . $file_id . '.png', 0777);
-				$_SESSION['message'] = 'Подарок успешно добавлен';
+				$_SESSION['message'] = '已成功添加礼品';
 				header("Location: ?category=" . $category['id']);
 				exit;
 			}
