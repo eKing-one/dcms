@@ -1,7 +1,7 @@
 <?
 // 如果没有设置用户且没有通过GET方式传递用户ID，则重定向到/photo/页面
 if (!isset($user) && !isset($_GET['id_user'])) {
-	header("Location: /photo/?" . SID);
+	header("Location: /photo/?" . session_id());
 	exit;
 }
 // 如果设置了用户，则将用户ID赋值给ank数组
@@ -12,12 +12,12 @@ if (isset($_GET['id_user'])) $ank['id'] = intval($_GET['id_user']);
 $ank = user::get_user($ank['id']);
 // 如果获取用户信息失败，则重定向到/photo/页面
 if (!$ank) {
-	header("Location: /photo/?" . SID);
+	header("Location: /photo/?" . session_id());
 	exit;
 }
 // 如果用户被禁止访问相册
 if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'photo' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-	header('Location: /user/ban.php?' . SID);
+	header('Location: /user/ban.php?' . session_id());
 	exit;
 }
 // 设置网页标题

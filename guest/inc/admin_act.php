@@ -13,7 +13,7 @@ if (user_access('guest_clear')) {
 		admin_log('留言板', '清洁', '已删除 ' . $del_th . ' 帖子');
 		dbquery("OPTIMIZE TABLE `guest`", $db);
 		$_SESSION['message'] = '已删除 ' . $del_th . ' 帖子';
-		header('Location: index.php' . SID);
+		header('Location: index.php' . session_id());
 		exit;
 	}
 }

@@ -13,17 +13,17 @@ if (isset($_GET['id']))$ank['id'] = intval($_GET['id']);
 $ank = user::get_user($ank['id']);
 if ($ank['id'] == 0)
 {
-	header("Location: /index.php?" . SID);exit;
+	header("Location: /index.php?" . session_id());exit;
 	exit;
 }
 if (isset($user) && isset($_GET['delete']) && $user['id'] == $ank['id'])
 {
 dbquery("DELETE FROM `bookmarks` WHERE `id_object` = '" . intval($_GET['delete']) . "' AND `id_user` = '$user[id]' AND `type`='forum' LIMIT 1");
 	$_SESSION['message'] = '删除书签';
-	header("Location: ?page=" . intval($_GET['page']) . "" . SID);exit;
+	header("Location: ?page=" . intval($_GET['page']) . "" . session_id());exit;
 	exit;
 }
-if( !$ank ){ header("Location: /index.php?".SID); exit; }
+if( !$ank ){ header("Location: /index.php?".session_id()); exit; }
 $set['title'] = '书签 - 论坛';
 include_once '../../sys/inc/thead.php';
 title();

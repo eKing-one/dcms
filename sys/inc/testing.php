@@ -1,28 +1,28 @@
 <?php
-echo "版本 DCMS-Social v.$set[dcms_version] $set[dcms_state] " . ((!isset($license) || $license == false) ? '' : '(延长)') . "<br />";
+echo "版本 DCMS-Social v.{$set['dcms_version']} {$set['dcms_state']} " . ((!isset($license) || $license == false) ? '' : '(延长)') . "<br />";
 
 // 输出 PHP 版本
 list($php_ver1, $php_ver2, $php_ver3) = explode('.', strtok(strtok(phpversion(), '-'), ' '), 3);
-if ($php_ver1 == 5 or $php_ver1 == 7 or $php_ver1 == 8) {
-	echo "<span class='on'>PHP版本: $php_ver1.$php_ver2.$php_ver3 (OK)</span><br />";
+if ($php_ver1 == 8) {
+	echo "<span class='on'>PHP版本: {$php_ver1}.{$php_ver2}.{$php_ver3} (OK)</span><br />";
 } else {
-	echo "<span class='off'>PHP版本: $php_ver1.$php_ver2.$php_ver3</span><br />";
+	echo "<span class='off'>PHP版本: {$php_ver1}.{$php_ver2}.{$php_ver3}</span><br />";
 	$err[] = "测试php版本 $php_ver1.$php_ver2.$php_ver3 未实施";
 }
 
 if (function_exists('disk_free_space') && function_exists('disk_total_space')) {
-	$free_space=disk_free_space(H);
-	$total_space=disk_total_space(H);
+	$free_space = disk_free_space(H);
+	$total_space = disk_total_space(H);
 
 	if ($free_space !== false && $total_space !== false) {
-		if ($free_space>1024*1024*5) {
-			echo "<span class='on'>剩余空间:</span> ".size_file($free_space).' 可用，共 '.size_file($total_space)."<br />";
+		if ($free_space > 1024 * 1024 * 5) {
+			echo "<span class='on'>剩余空间:</span> " . size_file($free_space) . ' 可用，共 ' . size_file($total_space) . "<br />";
 		} else {
-			echo "<span class='off'>剩余空间:</span> ".size_file($free_space).' 可用，共 '.size_file($total_space)."<br />";
-			$err[]='存储空间不足';
+			echo "<span class='off'>剩余空间:</span> " . size_file($free_space) . ' 可用，共 ' . size_file($total_space) . "<br />";
+			$err[] = '存储空间不足';
 		}
 	} else {
-		$err[]='无法获取存储的剩余空间信息';
+		$err[] = '无法获取存储的剩余空间信息';
 	}
 }
 

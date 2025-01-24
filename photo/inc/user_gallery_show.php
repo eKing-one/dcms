@@ -1,7 +1,7 @@
 <?php
 // 如果没有设置用户且没有通过GET请求传递用户ID，则重定向到首页并退出
 if (!isset($user) && !isset($_GET['id_user'])) {
-	header("Location: /photo/?" . SID);
+	header("Location: /photo/?" . session_id());
 	exit;
 }
 // 如果设置了用户，则将用户ID赋值给ank数组
@@ -14,13 +14,13 @@ $ank = user::get_user($ank['id']);
 
 // 如果没有获取到用户信息，则重定向到首页并退出
 if (!$ank) {
-	header('Location: /photo/?' . SID);
+	header('Location: /photo/?' . session_id());
 	exit;
 }
 
 // 如果用户被Ban
 if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'photo' AND `id_user` = '{$user['id']}' AND (`time` > '{$time}' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-	header('Location: /user/ban.php?' . SID);
+	header('Location: /user/ban.php?' . session_id());
 	exit;
 }
 
@@ -29,7 +29,7 @@ $gallery['id'] = intval($_GET['id_gallery']);
 
 // 如果相册不存在或者不属于当前用户，则重定向到用户相册页面并退出
 if (dbresult(dbquery("SELECT COUNT(*) FROM `gallery` WHERE `id` = '$gallery[id]' AND `id_user` = '$ank[id]' LIMIT 1"), 0) == 0) {
-	header('Location: /photo/' . $ank['id'] . '/?' . SID);
+	header('Location: /photo/' . $ank['id'] . '/?' . session_id());
 	exit;
 }
 

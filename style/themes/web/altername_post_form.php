@@ -19,6 +19,7 @@
 <?
 echo "<table width='100%'>";
 echo "<tr>";
+if (isset($insert) && empty($msg2)) $msg2 = $insert;
 if (!isset($msg2)) $msg2 = NULL;
 ?>
 <div id='comments' class='tpanel'>

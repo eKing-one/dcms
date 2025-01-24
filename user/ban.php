@@ -16,11 +16,11 @@ title();
 err();
 aut();
 if (!isset($user)) {
-	header("Location: /index.php?" . SID);
+	header("Location: /index.php?" . session_id());
 	exit;
 }
 if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0')"), 0) == 0) {
-	header('Location: /index.php?' . SID);
+	header('Location: /index.php?' . session_id());
 	exit;
 }
 dbquery("UPDATE `ban` SET `view` = '1' WHERE `id_user` = '$user[id]'"); // 看到了BAN的原因

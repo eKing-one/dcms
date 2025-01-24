@@ -18,17 +18,17 @@ if (!$set['web']) {
 	$ol_guest = dbresult(dbquery("SELECT COUNT(*) FROM `guests` WHERE `date_last` > ".(time()-600)." AND `pereh` > '0'"), 0);
 	//在线游客
 	echo '<div class="title">
-	<center>
-	<a href="/user/online.php" title="在线" style="color:#cdcecf; text-decoration: none">
-	<font color="#fee300" size="2">在线 </font>
-	<font color="#ffffff">'.$ol_user.'</font>
-	</a>
-	<font color="#fee300" size="2"> (</font>
-	<font color="#ffffff">+'.$ol_guest.'</font>
-	<font color="#fee300" size="2"> 游客 )</font>
-	</center>
-	</div>
-	<div class="main_menu">';
+	      <center>
+	      <a href="/user/online.php" title="在线" style="color:#cdcecf; text-decoration: none">
+	      <font color="#fee300" size="2">在线 </font>
+	      <font color="#ffffff">'.$ol_user.'</font>
+	      </a>
+	      <font color="#fee300" size="2"> (</font>
+	      <font color="#ffffff">+'.$ol_guest.'</font>
+	      <font color="#fee300" size="2"> 游客 )</font>
+	      </center>
+	      </div>
+	      <div class="main_menu">';
 
 	if (isset($user)) {
 		echo '<div align="right">

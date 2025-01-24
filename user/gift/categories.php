@@ -24,7 +24,7 @@ $width = ($webbrowser == 'web' ? '100' : '70'); // Размер подарков
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
 $ank = user::get_user($ank['id']);
 if (!$ank || $ank['id'] == 0 || $ank['id'] == $user['id']) {
-	header("Location: /index.php?" . SID);
+	header("Location: /index.php?" . session_id());
 	exit;
 }
 $set['title'] = "送给 {$ank['nick']} 的礼物";

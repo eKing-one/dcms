@@ -27,7 +27,7 @@ if ($set['antidos']) {
 	dbquery("INSERT INTO ip_requests (`ip`) VALUES ('$ip')");
 
 	// 查询该 IP 在过去 5 秒内的请求次数，如果请求次数超过 100，则封禁 IP
-	if (dbresult(dbquery("SELECT COUNT(*) FROM ip_requests WHERE ip = '$ip' AND time > '$time' - 5"), 0) > 100) {
+	if (dbresult(dbquery("SELECT COUNT(*) FROM ip_requests WHERE ip = '$ip' AND time > FROM_UNIXTIME('$time' - 5)"), 0) > 100) {
 		// 如果请求次数超过 100，则封禁 IP
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `ban_ip` WHERE `min` <= '$ip' AND `max` >= '$ip'"), 0) == 0) {
 			dbquery("INSERT INTO `ban_ip` (`min`, `max`, `prich`) values('$ip', '$ip', 'AntiDos')");
@@ -63,7 +63,7 @@ function antimat($str) {
 	// 			$timeban = $time + 60 * 60; // бан на час
 	// 			dbquery("INSERT INTO `ban` (`id_user`, `id_ban`, `prich`, `time`) VALUES ('$user[id]', '0', '$prich', '$timeban')");
 	// 			admin_log('用户', '禁令', "用户禁令 '[url=/amd_panel/ban.php?id=$user[id]]$user[nick][/url]' (id#$user[id]) 以前 " . vremja($timeban) . " 这是有原因的 '$prich'");
-	// 			header('Location: /user/ban.php?' . SID);
+	// 			header('Location: /user/ban.php?' . session_id());
 	// 			exit;
 	// 		}
 	// 		return $censure;
@@ -351,7 +351,7 @@ function vremja($time = NULL) {
 function only_reg($link = NULL) {
 	global $user;
 	if (!isset($user)) {
-		if ($link == NULL) $link = '/index.php?' . SID;
+		if ($link == NULL) $link = '/index.php?' . session_id();
 		header("Location: $link");
 		exit;
 	}
@@ -362,7 +362,7 @@ function only_reg($link = NULL) {
 function only_unreg($link = NULL) {
 	global $user;
 	if (isset($user)) {
-		if ($link == NULL) $link = '/index.php?' . SID;
+		if ($link == NULL) $link = '/index.php?' . session_id();
 		header("Location: $link");
 		exit;
 	}
@@ -373,7 +373,7 @@ function only_unreg($link = NULL) {
 function only_level($level = 0, $link = NULL) {
 	global $user;
 	if (!isset($user) || $user['level'] < $level) {
-		if ($link == NULL) $link = '/index.php?' . SID;
+		if ($link == NULL) $link = '/index.php?' . session_id();
 		header("Location: $link");
 		exit;
 	}

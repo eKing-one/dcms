@@ -14,7 +14,7 @@ echo "</form>";
 if (isset($_SESSION['mysql_ok']) && $_SESSION['mysql_ok'] == true) {
 	if (isset($_GET['step']) && $_GET['step'] == '4') {
 		$_SESSION['install_step']++;
-		header("Location: index.php?$passgen&" . SID);
+		header("Location: index.php?$passgen&" . session_id());
 		exit;
 	}
 } elseif (isset($_POST['host']) && isset($_POST['user']) && isset($_POST['pass']) && isset($_POST['db'])) {

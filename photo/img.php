@@ -1,6 +1,6 @@
 <?php
 include_once '../sys/inc/start.php';
-include_once '../sys/inc/compress.php';
+//include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
 include_once '../sys/inc/home.php';
 include_once '../sys/inc/settings.php';
@@ -9,6 +9,7 @@ include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/downloadfile.php';
 include_once '../sys/inc/user.php';
+
 header("Expires: ".gmdate("D, d M Y H:i:s", time() + 3600)." GMT");
 header("Cache-Control: max-age=3600");
 if (!isset($_GET['id']) || !isset($_GET['size'])) exit;

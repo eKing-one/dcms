@@ -11,7 +11,7 @@ include_once '../sys/inc/user.php';
 
 /* 封禁的用户 */
 if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'guest' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0')"), 0) != 0) {
-	header('Location: /user/ban.php?' . SID);
+	header('Location: /user/ban.php?' . session_id());
 	exit;
 }
 
@@ -49,7 +49,7 @@ if (isset($_POST['msg']) && isset($user)) {
 		}
 		dbquery("INSERT INTO `guest` (id_user, time, msg) values('$user[id]', '$time', '" . my_esc($msg) . "')");
 		$_SESSION['message'] = '信息已成功添加';
-		header("Location: index.php" . SID);
+		header("Location: index.php" . session_id());
 		exit;
 	}
 
@@ -74,7 +74,7 @@ if (isset($_POST['msg']) && isset($user)) {
 		$_SESSION['antiflood'] = $time;
 		dbquery("INSERT INTO `guest` (id_user, time, msg) values('0', '$time', '" . my_esc($msg) . "')");
 		$_SESSION['message'] = '信息已成功添加';
-		header("Location: index.php" . SID);
+		header("Location: index.php" . session_id());
 		exit;
 	}
 }

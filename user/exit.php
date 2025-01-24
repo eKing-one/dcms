@@ -16,7 +16,7 @@ if (setget('exit', 1) == 1) {
 			setcookie('id_user', '', time() - 3600, '/');
 			setcookie('auth_token', '', time() - 3600, '/');
 			session_destroy();
-			header('Location: /?' . SID);
+			header('Location: /?' . session_id());
 			exit();
 		} else {
 			header('Location: ' . $_POST['return']);
@@ -27,7 +27,7 @@ if (setget('exit', 1) == 1) {
 	setcookie('id_user', '', time() - 3600, '/');
 	setcookie('auth_token', '', time() - 3600, '/');
 	session_destroy();
-	header('Location: /?' . SID);
+	header('Location: /?' . session_id());
 	exit();
 }
 

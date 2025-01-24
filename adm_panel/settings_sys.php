@@ -4,50 +4,55 @@ include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
 include_once '../sys/inc/home.php';
 include_once '../sys/inc/settings.php';
-$temp_set=$set;
+$temp_set = $set;
 include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
-user_access('adm_set_sys',null,'index.php?'.SID);
+user_access('adm_set_sys', null, 'index.php?' . session_id());
 adm_check();
-$set['title']='系统设置';
+$set['title'] = '系统设置';
 include_once '../sys/inc/thead.php';
 title();
 
 if (isset($_POST['save'])) {
 	// Shaman
-	$temp_set['title']=esc(stripcslashes(htmlspecialchars($_POST['title'])),1);
+	$temp_set['title'] = esc(stripcslashes(htmlspecialchars($_POST['title'])), 1);
 	// 这是我的末日
-	$temp_set['mail_backup']=esc($_POST['mail_backup']);
-	$temp_set['p_str']=intval($_POST['p_str']);
+	$temp_set['mail_backup'] = esc($_POST['mail_backup']);
+	$temp_set['p_str'] = intval($_POST['p_str']);
 	dbquery("ALTER TABLE `user` CHANGE `set_p_str` `set_p_str` INT( 11 ) DEFAULT '$temp_set[p_str]'");
-	if (!preg_match('#\.\.#',$_POST['set_them']) && is_dir(H.'style/themes/'.$_POST['set_them'])) {
-		$temp_set['set_them']=$_POST['set_them'];
-		dbquery("ALTER TABLE `user` CHANGE `set_them` `set_them` VARCHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '$temp_set[set_them]'");
+	if (!preg_match('#\.\.#', $_POST['set_them']) && is_dir(H . 'style/themes/' . $_POST['set_them'])) {
+		$temp_set['set_them'] = $_POST['set_them'];
+		dbquery("ALTER TABLE `user` CHANGE `set_them` `set_them` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '$temp_set[set_them]'");
 	}
-	if (!preg_match('#\.\.#',$_POST['set_them2']) && is_dir(H.'style/themes/'.$_POST['set_them2'])) {
-		$temp_set['set_them2']=$_POST['set_them2'];
-		dbquery("ALTER TABLE `user` CHANGE `set_them2` `set_them2` VARCHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '$temp_set[set_them2]'");
+	if (!preg_match('#\.\.#', $_POST['set_them2']) && is_dir(H . 'style/themes/' . $_POST['set_them2'])) {
+		$temp_set['set_them2'] = $_POST['set_them2'];
+		dbquery("ALTER TABLE `user` CHANGE `set_them2` `set_them2` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '$temp_set[set_them2]'");
 	}
-	if ($_POST['show_err_php']==1 || $_POST['show_err_php']==0) {
-		$temp_set['show_err_php']=intval($_POST['show_err_php']);
+	if ($_POST['show_err_php'] == 1 || $_POST['show_err_php'] == 0) {
+		$temp_set['show_err_php'] = intval($_POST['show_err_php']);
 	}
-	if (isset($_POST['antidos']) && $_POST['antidos']==1)
-	$temp_set['antidos']=1; else $temp_set['antidos']=0;
-	if (isset($_POST['antimat']) && $_POST['antimat']==1)
-	$temp_set['antimat']=1; else $temp_set['antimat']=0;
-	$temp_set['meta_keywords']=esc(stripcslashes(htmlspecialchars($_POST['meta_keywords'])),1);
+	if (isset($_POST['antidos']) && $_POST['antidos'] == 1) {
+		$temp_set['antidos'] = 1;
+	} else {
+		$temp_set['antidos'] = 0;
+	}
+	if (isset($_POST['antimat']) && $_POST['antimat'] == 1) {
+		$temp_set['antimat'] = 1;
+	} else {
+		$temp_set['antimat'] = 0;
+	}
+	$temp_set['meta_keywords'] = esc(stripcslashes(htmlspecialchars($_POST['meta_keywords'])), 1);
 	$temp_set['background'] = esc(stripcslashes(htmlspecialchars($_POST['background'])), 1);
-	$temp_set['meta_description']=esc(stripcslashes(htmlspecialchars($_POST['meta_description'])),1);
+	$temp_set['meta_description'] = esc(stripcslashes(htmlspecialchars($_POST['meta_description'])), 1);
 	$temp_set['api'] = intval($_POST['api']);
 	$temp_set['toolbar'] = intval($_POST['toolbar']);
 	$temp_set['exit'] = intval($_POST['exit']);
 	$temp_set['timeadmin'] = intval($_POST['timeadmin']);
 	$temp_set['job'] = intval($_POST['job']);
 	$temp_set['replace'] = intval($_POST['replace']);
-	if ($_POST['replace'] != 1) {}
 	$temp_set['main'] = esc(stripcslashes(htmlspecialchars(($_POST['main']))));
 	$temp_set['header'] = esc(stripcslashes(htmlspecialchars(($_POST['header']))));
 	if (save_settings($temp_set)) {
@@ -64,9 +69,9 @@ err();
 aut();
 
 echo "<form method=\"post\" action=\"?\">";
-echo "网站名称:<br /><input name=\"title\" value=\"$temp_set[title]\" type=\"text\" /><br />";
-echo "每页显示:<br /><input name=\"p_str\" value=\"$temp_set[p_str]\" type=\"text\" /><br />";
-echo "主页:<br /><input name=\"main\" value=\"".setget('main',"")."\" type=\"text\" /><br />";
+echo "网站名称:<br /><input name=\"title\" value=\"{$temp_set['title']}\" type=\"text\" /><br />";
+echo "每页显示:<br /><input name=\"p_str\" value=\"{$temp_set['p_str']}\" type=\"text\" /><br />";
+echo "主页:<br /><input name=\"main\" value=\"" . setget('main', "") . "\" type=\"text\" /><br />";
 
 echo "API:<br />
 <select name='api'>
@@ -82,7 +87,7 @@ echo "Admin Toolbar:<br />
 </select>
 <br />";
 
-echo "管理会话超时秒数:<br /><input name=\"timeadmin\" value='".setget('timeadmin',1000)."' type=\"text\" /><br />";
+echo "管理会话超时秒数:<br /><input name=\"timeadmin\" value='" . setget('timeadmin', 1000) . "' type=\"text\" /><br />";
 
 /*
 echo '网站背景:<br />

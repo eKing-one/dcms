@@ -27,7 +27,7 @@ include_once '../../sys/inc/user.php';
 
 /* 禁止封禁用户访问 */
 if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'files' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-	header('Location: /user/ban.php?' . SID);
+	header('Location: /user/ban.php?' . session_id());
 	exit;
 }
 
@@ -61,7 +61,7 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `user_files` WHERE `id_user` = '{$ank
 	$t = dbquery("INSERT INTO `user_files` (`id_user`, `name`,  `osn`) values('{$ank['id']}', '文件', '1')");	// 在数据库中插入主文件夹记录
 
 	$dir = dbassoc(dbquery("SELECT * FROM `user_files`  WHERE `id_user` = '{$ank['id']}' AND `osn` = '1'"));	// 获取刚创建的主文件夹信息
-	header("Location: /user/personalfiles/{$ank['id']}/{$dir['id']}/" . SID);	// 跳转到新创建的主文件夹页面
+	header("Location: /user/personalfiles/{$ank['id']}/{$dir['id']}/" . session_id());	// 跳转到新创建的主文件夹页面
 }
 
 // 主文件夹信息

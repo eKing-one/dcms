@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * 主要用户功能
@@ -74,11 +74,11 @@ class user
 		}
 		// 在线图标输出
 		if ($user != 0 && $ank['date_last'] > time() - 600 && $on == true) {
-			if ($ank['browser'] == 'wap')
-
+			if ($ank['browser'] == 'wap') {
 				$online = ' <img src="/style/icons/online.gif" alt="WAP" /> ';
-			else
+			} else {
 				$online = ' <img src="/style/icons/online_web.gif" alt="WEB" /> ';
+			}
 		}
 		// 奖牌输出
 		$R = $ank['rating'];
@@ -124,11 +124,14 @@ class user
 			if (empty($avatars[$user])) {
 				$avatar = dbarray(dbquery("SELECT id,ras FROM `gallery_photo` WHERE `id_user` = '$user' AND `avatar` = '1' LIMIT 1"));
 				$avatars[$user] = $avatar;
-			} else $avatar = $avatars[$user];
-			if (isset($avatar['id']) && test_file(H . 'sys/gallery/50/' . $avatar['id'] . '.' . $avatar['ras']))
-				$AVATAR = ' <img class="avatar" src="/photo/photo50/' . $avatar['id'] . '.' . $avatar['ras'] . '" alt="Avatar" /> ';
-			else
+			} else {
+				$avatar = $avatars[$user];
+			}
+			if (isset($avatar['id']) && test_file(H . 'sys/gallery/50/' . $avatar['id'] . '.jpg')) {
+				$AVATAR = ' <img class="avatar" src="/photo/photo50/' . $avatar['id'] . '.jpg" alt="Avatar" /> ';
+			} else {
 				$AVATAR = '<img class="avatar" src="/style/user/avatar.gif" height= "50" width="50" alt="No Avatar" />';
+			}
 		}
 		return $AVATAR;
 	}
@@ -150,8 +153,8 @@ class user
 			$ank['group_name'] = '系统机器人';
 			$ank['ank_o_sebe'] = '为通知创建';
 			return $ank;
-		} else {
 
+		} else {
 			$user_id = intval($ID);
 			$ank[0] = FALSE;
 			if (!isset($ank[$user_id])) {

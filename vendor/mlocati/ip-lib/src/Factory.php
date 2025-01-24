@@ -222,7 +222,7 @@ class Factory
      *
      * @since 1.2.0
      */
-    protected static function rangeFromBoundaryAddresses(AddressInterface $from = null, AddressInterface $to = null)
+    protected static function rangeFromBoundaryAddresses(?AddressInterface $from = null, ?AddressInterface $to = null)
     {
         if ($from === null && $to === null) {
             $result = null;
