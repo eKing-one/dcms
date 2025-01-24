@@ -17,10 +17,11 @@
 	}
 </script>
 <?
+
 echo "<table width='100%'>";
 echo "<tr>";
-if (isset($insert) && empty($msg2)) $msg2 = $insert;
 if (!isset($msg2)) $msg2 = NULL;
+
 ?>
 <div id='comments' class='tpanel'>
 	<div class='tmenu'>
@@ -40,10 +41,8 @@ if (!isset($msg2)) $msg2 = NULL;
 	<a href="javascript:tag('[green]', '[/green]')"><img src="/style/value/gr.png" alt="green" title="绿色"/></a>
 	<a href="javascript:tag('[blue]', '[/blue]')"><img src="/style/value/bl.png" alt="blue" title="蓝色"/></a>
 </div>
-<textarea name="msg" 
-		  onselect="storeCaret(this);"
-		  onclick="storeCaret(this);"
-		  onkeyup="storeCaret(this);"><?= $otvet . $msg2 ?></textarea>
+
+<textarea name="msg" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);"><?= $otvet . $msg2 ?></textarea>
 <br />
 <script>
 	$.fx.speeds._default = 1000;

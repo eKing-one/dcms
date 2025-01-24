@@ -83,6 +83,7 @@ class MP3_Id
 	* @var string
 	*/
 	var $debugend = '</DIV>';
+
 	/*
 	* creates a new id3 object
 	* and loads a tag from a file.
@@ -92,10 +93,12 @@ class MP3_Id
 	*                          slow this down.
 	* @access public
 	*/
+	public $study;
 	function __construct($study = false) {
 		if (defined('ID3_SHOW_DEBUG')) $this->debug = true;
 		$this->study = ($study || defined('ID3_AUTO_STUDY'));
 	} // id3()
+
 	/**
 	* reads the given file and parse it
 	*
@@ -109,6 +112,7 @@ class MP3_Id
 		if ($this->debug) print($this->debugend);
 		return $this->_read_v1();
 	}
+
 	/**
 	* sets a field
 	*
@@ -135,6 +139,7 @@ class MP3_Id
 			$this -> $name = $value ;
 		}
 	}
+
 	/**
 	* get the value of a tag
 	*
@@ -152,6 +157,7 @@ class MP3_Id
 			return $this -> $name ;
 		}
 	}
+
 	/**
 	* update the id3v1 tags on the file.
 	* Note: If/when ID3v2 is implemented this method will probably get another
@@ -168,6 +174,7 @@ class MP3_Id
 		}
 		if ($this->debug) print($this->debugend);
 	} // write()
+
 	/**
 	* study() - does extra work to get the MPEG frame info.
 	*
@@ -177,6 +184,7 @@ class MP3_Id
 		$this->studied = true;
 		$this->_readframe();
 	} // study()
+
 	/**
 	* copy($from) - set's the ID3 fields to the same as the fields in $from
 	*
@@ -195,6 +203,7 @@ class MP3_Id
 		$this->genreno  = $from->genreno;
 		if ($this->debug) print($this->debugend);
 	} // copy($from)
+
 	/**
 	* remove - removes the id3 tag(s) from a file.
 	*
@@ -213,56 +222,97 @@ class MP3_Id
 		}
 		if ($this->debug) print($this->debugend);
 	} // remove
+
 	/**
-	* read a ID3 v1 or v1.1 tag from a file
-	*
-	* $file should be the path to the mp3 to look for a tag.
-	* When in doubt use the full path.
-	*
-	* @return mixed    PEAR_Error if fails
-	* @access private
-	*/
+	 * 从文件中读取 ID3 v1 或 v1.1 标签
+	 *
+	 * $file 应该是要查找标签的 MP3 文件的路径。
+	 * 如果不确定路径，最好使用完整路径。
+	 *
+	 * @return mixed    如果失败，返回 PEAR_Error
+	 * @access private
+	 */
 	function _read_v1() {
+		// 如果启用了调试，打印函数调用的调试信息
 		if ($this->debug) print($this->debugbeg . "_read_v1()<HR>");
-		$mqr = get_magic_quotes_runtime();
-		set_magic_quotes_runtime(0);
-		if (! ($f = @fopen($this->file, 'rb')) ) {
-			return PEAR::raiseError( "Unable to open " . $this->file, PEAR_MP3_ID_FNO);
+		
+		// 判断 PHP 版本，只有在 PHP 版本小于 5.4 时执行相关操作，虽然DCMS永远不可能在 PHP 5.4 以下的版本运行了
+		if (version_compare(PHP_VERSION, '5.4.0', '<')) {
+			// 获取当前的 magic_quotes_runtime 设置，并禁用它
+			$mqr = get_magic_quotes_runtime();
+			set_magic_quotes_runtime(0);
 		}
+
+		// 尝试以二进制模式打开文件，如果失败，返回错误
+		if (!($f = @fopen($this->file, 'rb'))) {
+			return PEAR::raiseError("无法打开文件 " . $this->file, PEAR_MP3_ID_FNO);
+		}
+
+		// 将文件指针移动到文件末尾前128个字节，读取 ID3 标签
 		if (fseek($f, -128, SEEK_END) == -1) {
-			return PEAR::raiseError( 'Unable to see to end - 128 of ' . $this->file, PEAR_MP3_ID_RE);
+			return PEAR::raiseError('无法定位文件末尾的128个字节 - ' . $this->file, PEAR_MP3_ID_RE);
 		}
+		
+		// 读取 128 字节的标签数据
 		$r = fread($f, 128);
 		fclose($f);
-		set_magic_quotes_runtime($mqr);
+
+		if (version_compare(PHP_VERSION, '5.4.0', '<')) {
+			// 恢复原始的 magic_quotes_runtime 设置
+			set_magic_quotes_runtime($mqr);
+		}
+
+		// 如果启用了调试，输出标签数据的十六进制表示
 		if ($this->debug) {
 			$unp = unpack('H*raw', $r);
 			print_r($unp);
 		}
+
+		// 创建 PEAR 对象来存储解析结果
 		$id3tag = new PEAR;
+		
+		// 如果标签解析成功，提取 ID3v1 或 v1.1 标签中的数据
 		if ($id3tag->isError($id3tag)) {
 			$this->id3v1 = true;
+			
+			// 提取歌曲名称
 			$tmp = explode(Chr(0), $id3tag['NAME']);
 			$this->name = $tmp[0];
+			
+			// 提取艺术家信息
 			$tmp = explode(Chr(0), $id3tag['ARTISTS']);
 			$this->artists = $tmp[0];
+			
+			// 提取专辑信息
 			$tmp = explode(Chr(0), $id3tag['ALBUM']);
 			$this->album = $tmp[0];
+			
+			// 提取年份
 			$tmp = explode(Chr(0), $id3tag['YEAR']);
 			$this->year = $tmp[0];
+			
+			// 提取评论
 			$tmp = explode(Chr(0), $id3tag['COMMENT']);
 			$this->comment = $tmp[0];
+			
+			// 如果存在 v1.1 标签的 track 信息，提取它
 			if (isset($id3tag['TRACK'])) {
 				$this->id3v11 = true;
 				$this->track = $id3tag['TRACK'];
 			}
+			
+			// 提取流派编号和流派名称
 			$this->genreno = $id3tag['GENRENO'];
 			$this->genre = $id3tag['GENRE'];
 		} else {
-			return $id3tag ;
+			// 如果 ID3 标签解析失败，返回错误
+			return $id3tag;
 		}
+
+		// 如果启用了调试，打印函数结束时的调试信息
 		if ($this->debug) print($this->debugend);
 	} // _read_v1()
+
 	/**
 	* decodes that ID3v1 or ID3v1.1 tag
 	*
@@ -292,6 +342,7 @@ class MP3_Id
 		if ($this->debug) print($this->debugend);
 		return $id3tag;
 	} // _decode_v1()
+
 	/**
 	* writes a ID3 v1 or v1.1 tag to a file
 	*
@@ -330,6 +381,7 @@ class MP3_Id
 		set_magic_quotes_runtime($mqr);
 		if ($this->debug) print($this->debugend);
 	} // _write_v1()
+
 	/*
 	* encode the ID3 tag
 	*
@@ -374,6 +426,7 @@ class MP3_Id
 		if ($this->debug) print($this->debugend);
 		return $newtag;
 	} // _encode_v1()
+
 	/**
 	* if exists it removes an ID3v1 or v1.1 tag
 	*
@@ -392,8 +445,12 @@ class MP3_Id
 		if (fseek($f, -128, SEEK_END) == -1) {
 			return PEAR::raiseError( 'Unable to see to end - 128 of ' . $file, PEAR_MP3_ID_RE);
 		}
-		$mqr = get_magic_quotes_runtime();
-		set_magic_quotes_runtime(0);
+		// 判断 PHP 版本，只有在 PHP 版本小于 5.4 时执行相关操作，虽然DCMS永远不可能在 PHP 5.4 以下的版本运行了
+		if (version_compare(PHP_VERSION, '5.4.0', '<')) {
+			// 获取当前的 magic_quotes_runtime 设置，并禁用它
+			$mqr = get_magic_quotes_runtime();
+			set_magic_quotes_runtime(0);
+		}
 		$r = fread($f, 128);
 		$success = false;
 		if ( !PEAR::isError( $this->_decode_v1($r))) {
@@ -408,6 +465,7 @@ class MP3_Id
 		if ($this->debug) print($this->debugend);
 		return $success;
 	} // _remove_v1()
+
 	/**
 	* reads a frame from the file
 	*
@@ -417,8 +475,14 @@ class MP3_Id
 	function _readframe() {
 		if ($this->debug) print($this->debugbeg . "_readframe()<HR>");
 		$file = $this->file;
-		$mqr = get_magic_quotes_runtime();
-		set_magic_quotes_runtime(0);
+
+		// 判断 PHP 版本，只有在 PHP 版本小于 5.4 时执行相关操作，虽然DCMS永远不可能在 PHP 5.4 以下的版本运行了
+		if (version_compare(PHP_VERSION, '5.4.0', '<')) {
+			// 获取当前的 magic_quotes_runtime 设置，并禁用它
+			$mqr = get_magic_quotes_runtime();
+			set_magic_quotes_runtime(0);
+		}
+
 		if (! ($f = fopen($file, 'rb')) ) {
 			if ($this->debug) print($this->debugend);
 			return PEAR::raiseError( "Unable to open " . $file, PEAR_MP3_ID_FNO) ;
@@ -530,7 +594,11 @@ class MP3_Id
 				$this->frames = $this->frames[1];
 		}
 		fclose($f);
-		set_magic_quotes_runtime($mqr);
+		// 判断 PHP 版本，只有在 PHP 版本小于 5.4 时执行相关操作，虽然DCMS永远不可能在 PHP 5.4 以下的版本运行了
+		if (version_compare(PHP_VERSION, '5.4.0', '<')) {
+			// 恢复原始的 magic_quotes_runtime 设置
+			set_magic_quotes_runtime($mqr);
+		}
 		if ($bits[11] == 0) {
 			$this->mpeg_ver = "2.5";
 			$bitrates = array(
@@ -653,6 +721,7 @@ class MP3_Id
 		}
 		if ($this->debug) print($this->debugend);
 	} // _readframe()
+
 	/**
 	* getGenre - return the name of a genre number
 	*
@@ -679,6 +748,7 @@ class MP3_Id
 		if ($this->debug) print($this->debugend);
 		return $genre;
 	} // getGenre($genreno)
+
 	/*
 	* getGenreNo - return the number of the genre name
 	*
@@ -707,6 +777,7 @@ class MP3_Id
 		if ($this->debug) print($this->debugend);
 		return $genreno;
 	} // getGenreNo($genre, $default = 0xff)
+
 	/*
 	* genres - returns an array of the ID3v1 genres
 	*
@@ -867,4 +938,3 @@ class MP3_Id
 		);
 	} // genres
 } // end of id3
-?>

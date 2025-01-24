@@ -80,11 +80,11 @@ if (isset($_POST['view']) && !isset($err)) {
 echo '<form class="mess" method="post" name="message" action="?id=' . $news['id'] . '">';
 echo '新闻标题:<br /><input name="title" size="16" maxlength="32" value="' . text($news['title']) . '" type="text" /><br />';
 
-$insert = text($news['msg']);
+$msg2 = text($news['msg']);
 if (is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php')) {
 	include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
 } else {
-	echo '信息:' . $tPanel . '<textarea name="msg">' . $insert . '</textarea><br />';
+	echo '信息:' . $tPanel . '<textarea name="msg">' . $msg2 . '</textarea><br />';
 }
 echo '链接:<br /><input name="link" size="16" maxlength="64" value="' . text($news['link']) . '" type="text" /><br />';
 echo '在主页显示时间:<br />';

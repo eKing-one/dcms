@@ -678,7 +678,7 @@ if ($vote_c != 0) {
                     if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
                         include H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
                     else
-                        echo "$tPanel<textarea name=\"msg\">$otvet$msg2</textarea><br />";
+                        echo "{$tPanel}<textarea name=\"msg\">{$otvet}{$msg2}</textarea><br />";
                     if ($user['set_files'] == 1) {
                         if (isset($_SESSION['file'])) {
                             echo "附加档案:<br />";
