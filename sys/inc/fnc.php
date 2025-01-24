@@ -27,7 +27,7 @@ if ($set['antidos']) {
 	dbquery("INSERT INTO ip_requests (`ip`) VALUES ('$ip')");
 
 	// 查询该 IP 在过去 5 秒内的请求次数，如果请求次数超过 100，则封禁 IP
-	if (dbresult(dbquery("SELECT COUNT(*) FROM ip_requests WHERE ip = '$ip' AND time > '$time' - 5"), 0) > 100) {
+	if (dbresult(dbquery("SELECT COUNT(*) FROM ip_requests WHERE ip = '$ip' AND time > FROM_UNIXTIME('$time' - 5)"), 0) > 100) {
 		// 如果请求次数超过 100，则封禁 IP
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `ban_ip` WHERE `min` <= '$ip' AND `max` >= '$ip'"), 0) == 0) {
 			dbquery("INSERT INTO `ban_ip` (`min`, `max`, `prich`) values('$ip', '$ip', 'AntiDos')");
