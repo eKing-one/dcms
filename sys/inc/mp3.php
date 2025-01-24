@@ -236,9 +236,12 @@ class MP3_Id
 		// 如果启用了调试，打印函数调用的调试信息
 		if ($this->debug) print($this->debugbeg . "_read_v1()<HR>");
 		
-		// 获取当前的 magic_quotes_runtime 设置，并禁用它
-		$mqr = get_magic_quotes_runtime();
-		set_magic_quotes_runtime(0);
+		// 判断 PHP 版本，只有在 PHP 版本小于 5.4 时执行相关操作，虽然DCMS永远不可能在 PHP 5.4 以下的版本运行了
+		if (version_compare(PHP_VERSION, '5.4.0', '<')) {
+			// 获取当前的 magic_quotes_runtime 设置，并禁用它
+			$mqr = get_magic_quotes_runtime();
+			set_magic_quotes_runtime(0);
+		}
 
 		// 尝试以二进制模式打开文件，如果失败，返回错误
 		if (!($f = @fopen($this->file, 'rb'))) {
@@ -254,8 +257,10 @@ class MP3_Id
 		$r = fread($f, 128);
 		fclose($f);
 
-		// 恢复原始的 magic_quotes_runtime 设置
-		set_magic_quotes_runtime($mqr);
+		if (version_compare(PHP_VERSION, '5.4.0', '<')) {
+			// 恢复原始的 magic_quotes_runtime 设置
+			set_magic_quotes_runtime($mqr);
+		}
 
 		// 如果启用了调试，输出标签数据的十六进制表示
 		if ($this->debug) {
@@ -440,8 +445,12 @@ class MP3_Id
 		if (fseek($f, -128, SEEK_END) == -1) {
 			return PEAR::raiseError( 'Unable to see to end - 128 of ' . $file, PEAR_MP3_ID_RE);
 		}
-		$mqr = get_magic_quotes_runtime();
-		set_magic_quotes_runtime(0);
+		// 判断 PHP 版本，只有在 PHP 版本小于 5.4 时执行相关操作，虽然DCMS永远不可能在 PHP 5.4 以下的版本运行了
+		if (version_compare(PHP_VERSION, '5.4.0', '<')) {
+			// 获取当前的 magic_quotes_runtime 设置，并禁用它
+			$mqr = get_magic_quotes_runtime();
+			set_magic_quotes_runtime(0);
+		}
 		$r = fread($f, 128);
 		$success = false;
 		if ( !PEAR::isError( $this->_decode_v1($r))) {
@@ -466,8 +475,14 @@ class MP3_Id
 	function _readframe() {
 		if ($this->debug) print($this->debugbeg . "_readframe()<HR>");
 		$file = $this->file;
-		$mqr = get_magic_quotes_runtime();
-		set_magic_quotes_runtime(0);
+
+		// 判断 PHP 版本，只有在 PHP 版本小于 5.4 时执行相关操作，虽然DCMS永远不可能在 PHP 5.4 以下的版本运行了
+		if (version_compare(PHP_VERSION, '5.4.0', '<')) {
+			// 获取当前的 magic_quotes_runtime 设置，并禁用它
+			$mqr = get_magic_quotes_runtime();
+			set_magic_quotes_runtime(0);
+		}
+
 		if (! ($f = fopen($file, 'rb')) ) {
 			if ($this->debug) print($this->debugend);
 			return PEAR::raiseError( "Unable to open " . $file, PEAR_MP3_ID_FNO) ;
@@ -579,7 +594,11 @@ class MP3_Id
 				$this->frames = $this->frames[1];
 		}
 		fclose($f);
-		set_magic_quotes_runtime($mqr);
+		// 判断 PHP 版本，只有在 PHP 版本小于 5.4 时执行相关操作，虽然DCMS永远不可能在 PHP 5.4 以下的版本运行了
+		if (version_compare(PHP_VERSION, '5.4.0', '<')) {
+			// 恢复原始的 magic_quotes_runtime 设置
+			set_magic_quotes_runtime($mqr);
+		}
 		if ($bits[11] == 0) {
 			$this->mpeg_ver = "2.5";
 			$bitrates = array(
