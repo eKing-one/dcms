@@ -79,7 +79,7 @@ if ($ank['id'] == 0) {
 // 检查用户是否存在
 $ank = user::get_user($ank['id']);
 if (!$ank) {
-	header("Location: /index.php?" . SID);
+	header("Location: /index.php?" . session_id());
 	exit;
 }
 //----------------------//

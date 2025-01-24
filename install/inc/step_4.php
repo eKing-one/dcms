@@ -25,7 +25,7 @@ if (isset($_SESSION['adm_reg_ok']) && $_SESSION['adm_reg_ok'] == true) {
 		if (save_settings($tmp_set)) {
 			unset($_SESSION['install_step'], $_SESSION['host'], $_SESSION['user'], $_SESSION['pass'], $_SESSION['db'], $_SESSION['adm_reg_ok'], $_SESSION['mysql_ok']);
 			if ($_SERVER["SERVER_ADDR"] != '127.0.0.1') delete_dir(H . 'install/');
-			header("Location: /index.php?" . SID);
+			header("Location: /index.php?" . session_id());
 			exit;
 		} else {
 			$msg['无法保存系统设置'];

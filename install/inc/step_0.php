@@ -8,7 +8,7 @@ $set['title']='安装向导';
 include_once 'inc/head.php'; // 设计主题的顶部
 if(isset($_GET['yes']) && $_GET['step']=='1') {
 	$_SESSION['install_step']++;
-	header("Location: index.php?$passgen&".SID);
+	header("Location: index.php?$passgen&".session_id());
 	exit;
 }
 if (isset($_GET['no'])) {echo '<div class="err">必须接受这一条件</div>';}

@@ -11,7 +11,7 @@ include_once '../../sys/inc/user.php';
 $sid = $user['id'];
 $ank = user::get_user($sid);
 if (!isset($user)) {
-	header("Location: /index.php?" . SID);
+	header("Location: /index.php?" . session_id());
 	exit;
 }
 $set['title'] = "好友申请"; //网页标题

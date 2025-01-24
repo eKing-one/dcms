@@ -10,7 +10,7 @@ include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 /* Бан пользователя */
 if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'notes' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-    header('Location: /user/ban.php?' . SID);
+    header('Location: /user/ban.php?' . session_id());
     exit;
 }
 only_reg();
@@ -19,7 +19,7 @@ include_once '../../sys/inc/thead.php';
 title();
 aut();
 if (dbresult(dbquery("SELECT COUNT(*) FROM `notes` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1", $db), 0) == 0) {
-    header("Location: index.php?" . SID);
+    header("Location: index.php?" . session_id());
     exit;
 }
 $notes = dbarray(dbquery("select * from `notes` where `id` = '" . intval($_GET['id']) . "'"));
@@ -40,7 +40,7 @@ if (user_access('notes_edit') || $user['id'] == $notes['id_user']) {
         if (!isset($err)) {
             dbquery("UPDATE `notes` SET `name` = '" . my_esc($name) . "', `type` = '$type', `id_dir` = '$id_dir', `msg` = '$msg', `private` = '$privat', `private_komm` = '$privat_komm' WHERE `id`='" . intval($_GET['id']) . "'");
             $_SESSION['message'] = '已成功接受更改';
-            header("Location: list.php?id=" . intval($_GET['id']) . "" . SID);
+            header("Location: list.php?id=" . intval($_GET['id']) . "" . session_id());
             exit;
         }
     }

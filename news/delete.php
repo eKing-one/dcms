@@ -19,7 +19,7 @@ if (isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `news_komm` WHE
 	if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != NULL)
 			header("Location: " . htmlspecialchars($_SERVER['HTTP_REFERER']));
 		else
-			header("Location: index.php?".SID);
+			header("Location: index.php?".session_id());
 		exit;
 	}
 /* Удаление новости */
@@ -32,7 +32,7 @@ if (isset($_GET['news_id']) && dbresult(dbquery("SELECT COUNT(*) FROM `news` WHE
 		dbquery("DELETE FROM `news_komm` WHERE `id_news` = '$post[id]'");
 		$_SESSION['message'] = '新闻被成功删除';
 	}
-	header("Location: index.php?".SID);
+	header("Location: index.php?".session_id());
 	exit;
 }
 ?>

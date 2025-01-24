@@ -8,7 +8,7 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
-user_access('adm_news',null,'index.php?'.SID);
+user_access('adm_news',null,'index.php?'.session_id());
 // Переменные по умолчанию
 if (isset($_POST['view']))
 {

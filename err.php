@@ -56,6 +56,6 @@ if (isset($_GET['err']) && is_numeric($_GET['err'])) {
 	echo "</div></div></body></html>";
 	exit;
 } else {
-	header ("Location: /index.php?".SID);
+	header ("Location: /index.php?" . session_id());
 }
 exit;

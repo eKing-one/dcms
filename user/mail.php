@@ -15,12 +15,12 @@ if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL)
 )
 	$_SESSION['refer'] = str_replace('&', '&amp;', preg_replace('#^http://[^/]*/#', '/', $_SERVER['HTTP_REFERER']));
 if (!isset($_GET['id'])) {
-	header("Location: /user/conts.php?" . SID);
+	header("Location: /user/conts.php?" . session_id());
 	exit;
 }
 $ank = user::get_user($_GET['id']);
 if (!$ank) {
-	header("Location: /user/conts.php?" . SID);
+	header("Location: /user/conts.php?" . session_id());
 	exit;
 }
 // помечаем сообщения как прочитанные
@@ -108,7 +108,7 @@ if ($user['add_konts'] == 2 && dbresult(dbquery("SELECT COUNT(*) FROM `users_kon
 // обновление сведений о контакте
 dbquery("UPDATE `users_konts` SET `new_msg` = '0' WHERE `id_kont` = '$ank[id]' AND `id_user` = '$user[id]' LIMIT 1");
 if (isset($_POST['refresh'])) {
-	header("Location: /user/mail.php?id=$ank[id]" . SID);
+	header("Location: /user/mail.php?id=$ank[id]" . session_id());
 	exit;
 }
 if (isset($_POST['msg']) && $ank['id'] != 0 && !isset($_GET['spam'])) {

@@ -10,12 +10,12 @@ include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
 // Если нет id шлем на главную
 if (!isset($_GET['id']) && !is_numeric($_GET['id'])) {
-	header("Location: index.php?" . SID);
+	header("Location: index.php?" . session_id());
 	exit;
 }
 // Cуществование новости
 if (dbresult(dbquery("SELECT COUNT(*) FROM `news` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1", $db), 0) == 0) {
-	header("Location: index.php?" . SID);
+	header("Location: index.php?" . session_id());
 	exit;
 }
 // Определение записи новости

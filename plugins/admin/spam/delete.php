@@ -87,4 +87,4 @@ dbquery("DELETE FROM `spamus` WHERE `id` = '$post[id]'");
 if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']!=NULL)
 header("Location: ".$_SERVER['HTTP_REFERER']);
 else
-header("Location: index.php?".SID);
+header("Location: index.php?".session_id());

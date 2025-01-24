@@ -14,12 +14,12 @@ include_once '../../sys/inc/user.php';
 if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
 if ($ank['id'] == 0) {
-    header("Location: /index.php?" . SID);
+    header("Location: /index.php?" . session_id());
     exit;
 }
 $ank = user::get_user($ank['id']);
 if (!$ank) {
-    header("Location: /index.php?" . SID);
+    header("Location: /index.php?" . session_id());
     exit;
 }
 $set['title'] =  $ank['nick'] . '的书签'; //网页标题

@@ -75,7 +75,7 @@ if (!empty($user)) {
 
 	if (!isset($banpage)) {	// 用户封禁
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'all' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-			header('Location: /user/ban.php?' . SID);
+			header('Location: /user/ban.php?' . session_id());
 			exit;
 		}
 	}

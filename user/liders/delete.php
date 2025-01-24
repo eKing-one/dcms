@@ -19,6 +19,6 @@ if (isset($_GET['id']) && dbresult(dbquery("SELECT COUNT(*) FROM `liders` WHERE 
 if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']!=NULL)
 header("Location: " . $_SERVER['HTTP_REFERER']);
 else
-header("Location: index.php?".SID);
+header("Location: index.php?".session_id());
 exit;
 ?>

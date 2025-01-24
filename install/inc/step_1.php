@@ -22,7 +22,7 @@ if (isset($err)) {
 	}
 } elseif (isset($_GET['step']) && $_GET['step'] == '2') {
 	$_SESSION['install_step']++;
-	header("Location: index.php?" . passgen() . "&" . SID);
+	header("Location: index.php?" . passgen() . "&" . session_id());
 	exit;
 }
 ?>
