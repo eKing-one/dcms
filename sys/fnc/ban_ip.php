@@ -27,5 +27,6 @@ function checkBanIp($ip) {
 }
 
 if (checkBanIp($ip)) {
-	die("IP地址 $ip 被封禁");
+	header('Location: /user/ban_ip.php');
+	exit;
 }

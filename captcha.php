@@ -109,8 +109,8 @@ class captcha
 		for ($x = 0; $x < $width; $x++) {
 			for ($y = 0; $y < $height; $y++) {
 				// 计算波浪变换后的像素坐标
-				$sx = $x + (sin($x * $rand1 + $rand5) + sin($y * $rand3 + $rand6)) * $rand9;
-				$sy = $y + (sin($x * $rand2 + $rand7) + sin($y * $rand4 + $rand8)) * $rand10;
+				$sx = floor($x + (sin($x * $rand1 + $rand5) + sin($y * $rand3 + $rand6)) * $rand9);
+				$sy = floor($y + (sin($x * $rand2 + $rand7) + sin($y * $rand4 + $rand8)) * $rand10);
 
 				// 如果变换后的坐标超出图像边界
 				if ($sx < 0 || $sy < 0 || $sx >= $width - 1 || $sy >= $height - 1) {
@@ -184,9 +184,7 @@ try {
 	session_name('SESS');
 	session_start();
 	// 随机生成5位数字
-	for ($i = 0; $i < 5; $i++) {
-		$captcha_code .= mt_rand(0, 9);
-	}
+	$captcha_code = (string)rand(10000, 99999);
 	$_SESSION['captcha'] = $captcha_code;
 }
 

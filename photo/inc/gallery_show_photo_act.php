@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 * 设置头像
 */
@@ -6,17 +6,18 @@ if (isset($_GET['act']) && $_GET['act'] == 'avatar') {
 	if ($user['id'] == $ank['id']) {
 		/* 发送头像更改到动态 */
 		$avatar = dbarray(dbquery("SELECT * FROM `gallery_photo` WHERE `avatar` = '1' AND `id_user` = '$user[id]' LIMIT 1"));
-		if ($avatar['id'] != $photo['id']) {
+		if (empty($avatar['id']) || $avatar['id'] != $photo['id']) {
 			/*---------通知朋友--------------*/
 			$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $gallery['id_user'] . "' AND `i` = '1'");
 			while ($f = dbarray($q)) {
 				$a = user::get_user($f['frend']);
-				if ($a['id'] != $user['id'] && $photo['id'] != $avatar['id'] && $f['lenta_avatar'] == 1)
-					dbquery("INSERT INTO `tape` (`id_user`, `avtor`, `type`, `time`, `id_file`, `count`, `avatar`) values('$a[id]', '$gallery[id_user]', 'avatar', '$time', '$photo[id]', '1', '$avatar[id]')");
+				if ($a['id'] != $user['id'] && (empty($avatar['id']) || $photo['id'] != $avatar['id']) && $f['lenta_avatar'] == 1) {
+					dbquery("INSERT INTO `tape` (`id_user`, `avtor`, `type`, `time`, `id_file`, `count`, `avatar`) values('$a[id]', '$gallery[id_user]', 'avatar', '$time', '$photo[id]', '1', '" . ($avatar['id'] ?? 0) . "')");
+				}
 			}
 			dbquery("UPDATE `gallery_photo` SET `avatar` = '0' WHERE `id_user` = '$user[id]'");
 			dbquery("UPDATE `gallery_photo` SET `avatar` = '1' WHERE `id` = '$photo[id]' LIMIT 1");
-			dbquery("INSERT INTO `stena` (`id_user`,`id_stena`,`time`,`info`,`info_1`,`type`) values('" . $user['id'] . "','" . $user['id'] . "','" . $time . "','новый аватар','" . $photo['id'] . "','photo')");
+			dbquery("INSERT INTO `stena` (`id_user`,`id_stena`,`time`,`info`,`info_1`,`type`) values('" . $user['id'] . "','" . $user['id'] . "','" . $time . "','新头像','" . $photo['id'] . "','photo')");
 			$_SESSION['message'] = '已成功将照片设置为头像！';
 		}
 		header("Location: ?");

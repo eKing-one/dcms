@@ -1,6 +1,6 @@
 <?php
-$q = dbquery("SELECT * FROM `news` WHERE `main_time` > '".time()."' ORDER BY `id` DESC LIMIT 1");
-if (dbrows($q) == 1 && !$set['web'] && $user['news_read'] == 0) {
+$q = dbquery("SELECT * FROM `news` WHERE `main_time` > '" . time() . "' ORDER BY `id` DESC LIMIT 1");
+if (isset($user) && dbrows($q) == 1 && !$set['web'] && $user['news_read'] == 0) {
 	$news = dbassoc($q);
 	echo '<div class="mess">';
 	echo '<img src="/style/icons/blogi.png" alt="*" /> <a href="/news/news.php?id=' . $news['id'] . '">' . text($news['title']) . '</a><br/> ';
