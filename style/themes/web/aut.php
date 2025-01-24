@@ -7,7 +7,7 @@ echo '<div class="user_menu">';
 
     if (isset($user)) {
         if (!isset($user) && !isset($_GET['id'])) {
-            header("Location: /index.php?" . SID);
+            header("Location: /index.php?" . session_id());
         }
         if (isset($user)) $ank['id'] = $user['id'];
         echo "<div class='avatar'>";

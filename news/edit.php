@@ -8,14 +8,14 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
-user_access('adm_news',null,'index.php?'.SID);
+user_access('adm_news',null,'index.php?'.session_id());
 
 if (!isset($_GET['id']) && !is_numeric($_GET['id'])) {
-	header("Location: index.php?".SID);
+	header("Location: index.php?".session_id());
 	exit;
 }
 if (dbresult(dbquery("SELECT COUNT(*) FROM `news` WHERE `id` = '".intval($_GET['id'])."' LIMIT 1",$db), 0) == 0) {
-	header("Location: index.php?".SID);
+	header("Location: index.php?".session_id());
 	exit;
 }
 

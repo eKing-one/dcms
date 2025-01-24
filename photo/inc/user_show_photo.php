@@ -1,7 +1,7 @@
 <?php
 // 如果没有设置用户且没有通过GET请求传递用户ID，则重定向到照片页面并退出。
 if (!isset($user) && !isset($_GET['id_user'])) {
-	header("Location: /photo/?" . SID);
+	header("Location: /photo/?" . session_id());
 	exit;
 }
 // 如果设置了用户，则将用户ID赋值给ank数组。
@@ -12,21 +12,21 @@ if (isset($_GET['id_user'])) $ank['id'] = intval($_GET['id_user']);
 $ank = user::get_user($ank['id']);
 // 如果获取用户信息失败，则重定向到照片页面并退出。
 if (!$ank) {
-	header("Location: /photo/?" . SID);
+	header("Location: /photo/?" . session_id());
 	exit;
 }
 
 /* 禁止用户 */
 // 如果用户被禁止访问照片，则重定向到用户禁止页面并退出。
 if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'photo' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-	header('Location: /user/ban.php?' . SID);
+	header('Location: /user/ban.php?' . session_id());
 	exit;
 }
 // 将画廊ID转换为整数。
 $gallery['id'] = intval($_GET['id_gallery']);
 // 如果画廊不存在，则重定向到用户照片页面并退出。
 if (dbresult(dbquery("SELECT COUNT(*) FROM `gallery` WHERE `id` = '$gallery[id]' AND `id_user` = '$ank[id]' LIMIT 1"), 0) == 0) {
-	header("Location: /photo/$ank[id]/?" . SID);
+	header("Location: /photo/$ank[id]/?" . session_id());
 	exit;
 }
 // 获取画廊信息。
@@ -34,7 +34,7 @@ $gallery = dbassoc(dbquery("SELECT * FROM `gallery` WHERE `id` = '$gallery[id]' 
 $photo['id'] = intval($_GET['id_photo']);
 // 如果照片不存在，则重定向到画廊页面并退出。
 if (dbresult(dbquery("SELECT COUNT(*) FROM `gallery_photo` WHERE `id` = '$photo[id]' LIMIT 1"), 0) == 0) {
-	header("Location: /photo/$ank[id]/$gallery[id]/?" . SID);
+	header("Location: /photo/$ank[id]/$gallery[id]/?" . session_id());
 	exit;
 }
 // 获取照片信息。

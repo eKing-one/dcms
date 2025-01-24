@@ -15,7 +15,7 @@ title();
 if (isset($user)) $ank['id'] = $user['id'];
 $ank = user::get_user($ank['id']);
 if (!$ank) {
-    header("Location: /index.php?" . SID);
+    header("Location: /index.php?" . session_id());
     exit;
 }
 err();

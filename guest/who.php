@@ -11,7 +11,7 @@ include_once '../sys/inc/user.php';
 /* Бан пользователя */ 
 if (isset($user) && dbresult(dbquery("SELECT COUNT(id) FROM `ban` WHERE `razdel` = 'guest' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0)
 {
-	header('Location: /user/ban.php?' . SID);
+	header('Location: /user/ban.php?' . session_id());
 	exit;
 }
 $set['title'] = '留言板'; //网页标题

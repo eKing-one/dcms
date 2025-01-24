@@ -72,7 +72,7 @@ if (isset($_GET['delete_folder']) && isset($_GET['ok'])) {
         echo $post['name'] . '<br />';
     }
     $_SESSION['message'] = "已删除 \"文件夹 $a \" и \"档案 $b\"";
-    header("Location: ?" . SID);
+    header("Location: ?" . session_id());
     exit;
 }
 /*------------------------------------------------------------*/

@@ -107,6 +107,6 @@ if (isset($user) && $user['rating_tmp'] > 1000) {
 if (isset($_GET['return'])) {
 	header('Location: '.urldecode($_GET['return']));
 } else {
-	header("Location: /user/umenu.php?".SID);
+	header("Location: /user/umenu.php?".session_id());
 }
 exit;

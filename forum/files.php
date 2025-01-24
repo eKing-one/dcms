@@ -22,7 +22,7 @@ unlink(H.'sys/forum/files/'.$file['id'].'.frf');
 if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']!=NULL)
 header("Location: $_SERVER[HTTP_REFERER]");
 else
-header("Location: /forum/index.php?".SID);
+header("Location: /forum/index.php?".session_id());
 }
 elseif (is_file(H.'sys/forum/files/'.$file['id'].'.frf'))
 {

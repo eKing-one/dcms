@@ -1,4 +1,4 @@
-<? //返回管理面板
+<?php
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -9,13 +9,14 @@ include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
-user_access('adm_banlist', null, 'index.php?' . SID);
+user_access('adm_banlist', null, 'index.php?' . session_id());
 adm_check();
 $set['title'] = '禁止名单';
 include_once '../sys/inc/thead.php';
 title();
 err();
 aut();
+
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `time` > '$time' OR `navsegda`='1' "), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
@@ -42,7 +43,7 @@ while ($ban = dbassoc($q)) {
         echo "  </td>";
     }
     echo "  <td class='p_t'>";
-    echo "<a href='/user/info.php?id=$ank[id]'>$ank[nick]</a>" . online($ank['id']) . "";
+    echo "<a href='/user/info.php?id={$ank['id']}'>{$ank['nick']}</a>" . online($ank['id']) . "";
     echo "  </td>";
     echo "   </tr>";
     echo "   <tr>";
@@ -57,6 +58,7 @@ while ($ban = dbassoc($q)) {
     echo "   </tr>";
 }
 echo "</table>";
+
 if ($k_page > 1) str("?", $k_page, $page); // 输出页数
 if (user_access('adm_panel_show')) {
     echo "<div class='foot'>";
@@ -64,5 +66,3 @@ if (user_access('adm_panel_show')) {
     echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
-
-?>

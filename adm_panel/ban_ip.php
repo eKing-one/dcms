@@ -9,7 +9,7 @@ include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
-user_access('adm_ban_ip', null, 'index.php?' . SID);
+user_access('adm_ban_ip', null, 'index.php?' . session_id());
 $opsos = NULL;
 $set['title'] = 'IP地址';
 include_once '../sys/inc/thead.php';

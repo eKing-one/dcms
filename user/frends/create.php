@@ -26,7 +26,7 @@ if (isset($_GET['no']))
 		*/
 		dbquery("INSERT INTO `notification` (`avtor`, `id_user`, `id_object`, `type`, `time`) VALUES ('$user[id]', '$no', '$user[id]', 'no_frend', '$time')");
 	$_SESSION['message']="Заявка отклонена";
-	header("Location: new.php?".SID);
+	header("Location: new.php?".session_id());
 	exit;
 }
 if (isset($_GET['ok']))
@@ -85,7 +85,7 @@ if (isset($_GET['ok']))
     dbquery("OPTIMIZE TABLE `frends_new`");
 	}		
 	$_SESSION['message']="用户已添加到好友列表";
-	header("Location: new.php?".SID);
+	header("Location: new.php?".session_id());
 	exit;
 	}
 }
@@ -138,10 +138,10 @@ exit;
 if (isset($_GET['add']))
 {
 $ank['id']=intval($_GET['add']);
-if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '$ank[id]' LIMIT 1"),0)==0){header("Location: index.php?".SID);exit;}
-if (dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$ank[id]') OR (`user` = '$ank[id]' AND `frend` = '$user[id]') LIMIT 1"),0)==1){header("Location: index.php?".SID);exit;}
-if (dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[id]' AND `to` = '$ank[id]') OR (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"),0)==1){header("Location: index.php?".SID);exit;}
-if ($ank['id']==$user['id']){header("Location: index.php?".SID);exit;}
+if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '$ank[id]' LIMIT 1"),0)==0){header("Location: index.php?".session_id());exit;}
+if (dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$ank[id]') OR (`user` = '$ank[id]' AND `frend` = '$user[id]') LIMIT 1"),0)==1){header("Location: index.php?".session_id());exit;}
+if (dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[id]' AND `to` = '$ank[id]') OR (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"),0)==1){header("Location: index.php?".session_id());exit;}
+if ($ank['id']==$user['id']){header("Location: index.php?".session_id());exit;}
 dbquery("INSERT INTO `frends_new` (`user`, `to`, `time`) values('$user[id]', '$ank[id]', '$time')");
 dbquery("OPTIMIZE TABLE `frends_new`");
 $_SESSION['message']="好友申请已发送";

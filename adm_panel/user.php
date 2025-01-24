@@ -9,21 +9,21 @@ include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
-user_access('user_prof_edit', null, 'index.php?' . SID);
+user_access('user_prof_edit', null, 'index.php?' . session_id());
 adm_check();
 if (isset($_GET['id'])) {
 	$ank['id'] = intval($_GET['id']);
 } else {
-	header("Location: /index.php?" . SID);
+	header("Location: /index.php?" . session_id());
 	exit;
 }
 if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '$ank[id]' LIMIT 1"), 0) == 0) {
-	header("Location: /index.php?" . SID);
+	header("Location: /index.php?" . session_id());
 	exit;
 }
 $ank = user::get_user($ank['id']);
 if ($user['level'] <= $ank['level']) {
-	header("Location: /index.php?" . SID);
+	header("Location: /index.php?" . session_id());
 	exit;
 }
 

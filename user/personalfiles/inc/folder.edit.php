@@ -18,7 +18,7 @@ http://dcms-social.ru
 if (isset($_GET['edit_folder'])) {
 	$folder = dbassoc(dbquery("SELECT * FROM `user_files`  WHERE `id` = '" . intval($_GET['edit_folder']) . "' LIMIT 1"));
 	if ($folder['id_user'] != $user['id'] && !user_access('down_dir_edit')) {
-		header("Location: /?" . SID);
+		header("Location: /?" . session_id());
 		exit;
 	}
 	if (isset($_POST['name']) && isset($user)) {
@@ -40,7 +40,7 @@ if (isset($_GET['edit_folder'])) {
 		if (!isset($err)) {
 			dbquery("UPDATE `user_files` SET `name` = '" . my_esc($name) . "',  `pass` = '" . my_esc($pass) . "', `msg` = '" . my_esc($msg) . "' WHERE `id` = '$folder[id]' LIMIT 1");
 			$_SESSION['message'] = '接受的更改';
-			header("Location: ?" . SID);
+			header("Location: ?" . session_id());
 			exit;
 		}
 	}

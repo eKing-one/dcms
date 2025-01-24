@@ -10,9 +10,9 @@ include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
-user_access('adm_news',null,'index.php?'.SID);
+user_access('adm_news',null,'index.php?' . session_id());
 adm_check();
-$set['title']='新闻设置';
+$set['title'] = '新闻设置';
 include_once '../sys/inc/thead.php';
 title();
 
@@ -31,8 +31,8 @@ if (isset($_POST['save'])) {
 echo "<form method=\"post\" action=\"?\">
     	每日新闻：<br />
     	<select name='daily_news'>
-			<option ".(setget('daily_news',1)==1? " selected ":null)." value='1'>已启用</option>
-			<option ".(setget('daily_news',1)==0? " selected ":null)." value='0'>已禁用</option>
+			<option ".(setget('daily_news',1)==1? " selected " : null) . " value='1'>已启用</option>
+			<option ".(setget('daily_news',1)==0? " selected " : null) . " value='0'>已禁用</option>
 		</select>
 		<br />
 		<input value=\"修改\" name='save' type=\"submit\" />

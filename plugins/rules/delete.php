@@ -20,5 +20,5 @@ if (isset($_GET['del']) && dbresult(dbquery("SELECT COUNT(*) FROM `rules_p` WHER
 if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']!=NULL)
 header("Location: ".$_SERVER['HTTP_REFERER']);
 else
-header("Location: post.php?".SID);
+header("Location: post.php?".session_id());
 ?>

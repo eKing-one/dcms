@@ -170,11 +170,11 @@ if (isset($_GET['set'])) {
 			$_SESSION['message'] = '更改已成功接受';
 			dbquery("UPDATE `user` SET `rating_tmp` = '".($user['rating_tmp']+1)."' WHERE `id` = '$user[id]' LIMIT 1");
 			if (isset($_GET['act']) && $_GET['act']=='ank') {
-				header("Location: /user/info/anketa.php?".SID);
+				header("Location: /user/info/anketa.php?".session_id());
 			} elseif (isset($_GET['act']) && $_GET['act']=='ank_web') {
-				header("Location: /user/info.php".SID);
+				header("Location: /user/info.php".session_id());
 			} else {
-				header("Location: /user/info/edit.php?".SID);
+				header("Location: /user/info/edit.php?".session_id());
 			}
 			exit;
 		}
