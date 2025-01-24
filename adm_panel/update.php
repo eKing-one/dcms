@@ -1,4 +1,4 @@
-<?
+<?php
 ini_set('max_execution_time', 180);
 header('Content-Type: text/html; charset=utf-8');
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -12,9 +12,8 @@ include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
-//user_access('adm_mysql', NULL, 'index.php?' . SID);
 adm_check();
-user_access('adm_set_sys', NULL, 'index.php?' . SID);
+user_access('adm_set_sys', NULL, 'index.php?' . session_id());
 $temp_set = $set;
 $set['title'] = '引擎升级(Alpha)';
 include_once '../sys/inc/thead.php';
@@ -45,8 +44,7 @@ if (isset($_POST['update']) && false) {			// 暂时禁用自动升级功能
 		}
 		if (!file_exists($backup . ".htaccess")) {
 			$f = fopen($backup . ".htaccess", "a+");
-			fwrite($f, "Options All -Indexes
-deny from all");
+			fwrite($f, "Options All -Indexes \n deny from all");
 			fclose($f);
 		}
 		$version = $temp_set['dcms_version'];

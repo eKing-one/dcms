@@ -1,4 +1,4 @@
-<? //返回管理面板
+<?php
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -9,11 +9,12 @@ include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
-user_access('adm_mysql', null, 'index.php?' . SID);
+user_access('adm_mysql', null, 'index.php?' . session_id());
 adm_check();
 $set['title'] = 'MySQL 请求';
 include_once '../sys/inc/thead.php';
 title();
+
 if (isset($_GET['set']) && $_GET['set'] == 'set' && isset($_POST['query'])) {
     $sql = trim($_POST['query']);
     if ($conf['phpversion'] == 5) {
@@ -33,19 +34,22 @@ if (isset($_GET['set']) && $_GET['set'] == 'set' && isset($_POST['query'])) {
         }
     }
     if ($k_z_ok > 0) {
-        if ($k_z_ok == 1 && $k_z = 1)
+        if ($k_z_ok == 1 && $k_z = 1) {
             msg("请求成功完成");
-        else
+        } else {
             msg("完成了 $k_z_ok 来自 $k_z");
+        }
         admin_log('管理面板', 'MySQL', "完成了 $k_z_ok 要求(s)");
     }
 }
 err();
 aut();
+
 echo "<form method=\"post\" action=\"mysql.php?set=set\">";
 echo "<textarea name=\"query\" ></textarea><br />";
 echo "<input value=\"执行\" type=\"submit\" />";
 echo "</form>";
+
 if (user_access('adm_panel_show')) {
     echo "<div class='foot'>";
     echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
@@ -53,5 +57,3 @@ if (user_access('adm_panel_show')) {
     echo "</div>";
 }
 include_once '../sys/inc/tfoot.php';
-
-?>

@@ -9,7 +9,8 @@ include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
-user_access('adm_panel_show', null, '/index.php?' . SID);
+user_access('adm_panel_show', null, '/index.php?' . session_id());
+
 if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth'] > $time || isset($_SESSION['captcha']) && isset($_POST['chislo']) && $_SESSION['captcha'] == $_POST['chislo']) {
 	// 验证通过
 	$_SESSION['adm_auth'] = $time + setget("timeadmin", 1000);
@@ -25,7 +26,7 @@ if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth'] > $time || isset($_SES
 
 	$status_version_data = getLatestStableRelease();
 	echo "<div class='mess'>";
-	echo "<center><span style='font-size:16px;'><strong>DCMS-Social v.$set[dcms_version]</strong></span></center>";
+	echo "<center><span style='font-size:16px;'><strong>DCMS-Social v.{$set['dcms_version']}</strong></span></center>";
 	echo "<center><span style='font-size:14px;'> 官方支持网站 <a href='https://dcms-social.ru'>https://dcms-social.ru</a></span></center>";
 	echo "";
 	if (version_compare($set['dcms_version'], $status_version_data['version']) >= 0) {
@@ -95,8 +96,8 @@ if (isset($_SESSION['adm_auth']) && $_SESSION['adm_auth'] > $time || isset($_SES
 	title();
 	err();
 	aut();
-	echo "<form method='post' action='?gen=$passgen&amp;" . (isset($_GET['go']) ? "go=$_GET[go]" : null) . "'>";
-	echo "<img src='/captcha.php?$passgen&amp;SESS=$sess' width='100' height='30' alt='验证码' /><br />从图片中输入数字:<br //><input name='chislo' size='5' maxlength='5' value='' type='text' /><br/>";
+	echo "<form method='post' action='?gen={$passgen}&amp;" . (isset($_GET['go']) ? "go={$_GET['go']}" : null) . "'>";
+	echo "<img src='/captcha.php?{$passgen}&amp;SESS={$sess}' width='100' height='30' alt='验证码' /><br />从图片中输入数字:<br //><input name='chislo' size='5' maxlength='5' value='' type='text' /><br/>";
 	echo "<input type='submit' value='下一步' />";
 	echo "</form>";
 }
