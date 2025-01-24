@@ -92,6 +92,7 @@ class MP3_Id
 	*                          slow this down.
 	* @access public
 	*/
+	public $study;
 	function __construct($study = false) {
 		if (defined('ID3_SHOW_DEBUG')) $this->debug = true;
 		$this->study = ($study || defined('ID3_AUTO_STUDY'));
@@ -867,4 +868,3 @@ class MP3_Id
 		);
 	} // genres
 } // end of id3
-?>
