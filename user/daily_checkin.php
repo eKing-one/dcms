@@ -39,7 +39,7 @@ if (dbresult(dbquery("SELECT * FROM checkin_records WHERE user_id = '{$user['id'
 		$coins = 10;
 		dbquery("UPDATE `user` SET `balls` = `balls` + $points, `money` = `money` + $coins WHERE `id` = '{$user['id']}' LIMIT 1");
 	} else {
-		$points = ($streak > 1) ? 300 : 200;
+		$points = ($streak > 1) ? 200 : 100;
 		dbquery("UPDATE `user` SET `balls` = `balls` + $points WHERE `id` = '{$user['id']}' LIMIT 1");
 	}
 
