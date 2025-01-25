@@ -3,7 +3,7 @@ $url = '/down' . $dir_id['dir'] . $file_id['id'] . '.' . $file_id['ras'] . '';
 
 // 检查是否存在缩略图
 if (test_file(H . "files/screens/128/{$file_id['id']}.gif")) {
-	echo "<img src='/files/screens/128/{$file_id['id']}.gif' alt='scr...' /><br />";
+	echo "<img src='/files/screens/128/{$file_id['id']}.gif' alt='缩略图...' /><br />";
 } else {
 	// 尝试使用 ffmpeg_movie
 	if (class_exists('ffmpeg_movie')) {
@@ -23,7 +23,7 @@ if (test_file(H . "files/screens/128/{$file_id['id']}.gif")) {
 				chmod(H . "files/screens/128/{$file_id['id']}.gif", 0777);
 				imagedestroy($des_img);
 				imagedestroy($s_img);
-				echo "<img src='/files/screens/128/{$file_id['id']}.gif' alt='scr...' /><br />";
+				echo "<img src='/files/screens/128/{$file_id['id']}.gif' alt='缩略图...' /><br />";
 			}
 		}
 	}
@@ -48,7 +48,7 @@ if (test_file(H . "files/screens/128/{$file_id['id']}.gif")) {
 					chmod(H . "files/screens/128/{$file_id['id']}.gif", 0777);
 					imagedestroy($des_img);
 					imagedestroy($sourceImage);
-					echo "<img src='/files/screens/128/{$file_id['id']}.gif' alt='scr...' /><br />";
+					echo "<img src='/files/screens/128/{$file_id['id']}.gif' alt='缩略图...' /><br />";
 				}
 			}
 		}
@@ -72,32 +72,37 @@ if ($file_id['opis'] != NULL) {
 // 获取视频信息
 if (class_exists('ffmpeg_movie')) {
 	$media = new ffmpeg_movie($file);
-	echo '许可: ' . $media->GetFrameWidth() . 'x' . $media->GetFrameHeight() . "пикс<br />";
+	echo '分辨率: ' . $media->GetFrameWidth() . 'x' . $media->GetFrameHeight() . "像素<br />";
 	echo '帧速率: ' . $media->getFrameRate() . "<br />";
 	echo '编解码器(视频): ' . $media->getVideoCodec() . "<br />";
 	if (intval($media->getDuration()) > 3599)
-		echo '时间: ' . intval($media->getDuration() / 3600) . ":" . date('s', fmod($media->getDuration() / 60, 60)) . ":" . date('s', fmod($media->getDuration(), 3600)) . "<br />";
+		echo '时长: ' . intval($media->getDuration() / 3600) . ":" . date('s', fmod($media->getDuration() / 60, 60)) . ":" . date('s', fmod($media->getDuration(), 3600)) . "<br />";
 	elseif (intval($media->getDuration()) > 59)
-		echo '时间: ' . intval($media->getDuration() / 60) . ":" . date('s', fmod($media->getDuration(), 60)) . "<br />";
+		echo '时长: ' . intval($media->getDuration() / 60) . ":" . date('s', fmod($media->getDuration(), 60)) . "<br />";
 	else
-		echo '时间: ' . intval($media->getDuration()) . " 秒<br />";
+		echo '时长: ' . intval($media->getDuration()) . " 秒<br />";
 	echo "比特率: " . ceil(($media->getBitRate()) / 1024) . " Kbps<br />";
 } elseif (class_exists('getID3')) {
 	$getID3 = new getID3();
 	$fileInfo = $getID3->analyze($file);
 
 	if (isset($fileInfo['video'])) {
-		echo '许可: ' . $fileInfo['video']['resolution_x'] . 'x' . $fileInfo['video']['resolution_y'] . "пикс<br />";
+		echo '分辨率: ' . $fileInfo['video']['resolution_x'] . 'x' . $fileInfo['video']['resolution_y'] . "像素<br />";
 		echo '帧速率: ' . $fileInfo['video']['frame_rate'] . "<br />";
-		echo '编解码器(视频): ' . $fileInfo['video']['codec'] . "<br />";
+		if (isset($fileInfo['video']['codec'])) {
+			echo '编解码器(视频): ' . $fileInfo['video']['codec'] . "<br />";
+		} else {
+			echo '编解码器(视频): N/A<br />';
+		}		
 		if (isset($fileInfo['playtime_seconds'])) {
 			$duration = $fileInfo['playtime_seconds'];
-			if ($duration > 3599)
-				echo '时间: ' . intval($duration / 3600) . ":" . date('s', fmod($duration / 60, 60)) . ":" . date('s', fmod($duration, 3600)) . "<br />";
-			elseif ($duration > 59)
-				echo '时间: ' . intval($duration / 60) . ":" . date('s', fmod($duration, 60)) . "<br />";
-			else
-				echo '时间: ' . intval($duration) . " 秒<br />";
+			if ($duration > 3599) {
+				echo '时长: ' . intval(round($duration / 3600)) . ":" . date('s', round(fmod($duration / 60, 60))) . ":" . date('s', round(fmod($duration, 3600))) . "<br />";
+			} elseif ($duration > 59) {
+				echo '时长: ' . intval(round($duration / 60)) . ":" . date('s', round(fmod($duration, 60))) . "<br />";
+			} else {
+				echo '时长: ' . intval(round($duration)) . " 秒<br />";
+			}
 		}
 		if (isset($fileInfo['bitrate']))
 			echo "比特率: " . ceil($fileInfo['bitrate'] / 1024) . " Kbps<br />";
