@@ -70,7 +70,7 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - [MobileDetect](https://mobiledetect.net)
 - [PHP-JWT](https://github.com/firebase/php-jwt)
 - [PHPMailer](https://github.com/PHPMailer/PHPMailer)
-- [getID3()](https://www.getid3.org)    此依赖库可删除
+- [getID3()](https://www.getid3.org) ----- (可选，此依赖库可删除)
 
 ## 待办事项
 
