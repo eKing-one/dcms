@@ -20,14 +20,14 @@ only_reg();
 
 if (isset($_GET['likestatus'])) {
 
-	// Статус пользователя
+	// 用户状态
 	$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '" . intval($_GET['likestatus']) . "' LIMIT 1"));
 	$ank = user::get_user($status['id_user']);
 	if ($user['id'] != $ank['id'] && dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
 		dbquery("INSERT INTO `status_like` (`id_user`, `time`, `id_status`) values('$user[id]', '$time', '$status[id]')");
 		/*
 		===================================
-		Лента
+		乐队
 		===================================
 		*/
 
@@ -82,20 +82,29 @@ title();
 err();
 aut();
 
-$k_notif = dbresult(dbquery("SELECT COUNT(`read`) FROM `notification` WHERE `id_user` = '$user[id]' AND `read` = '0'"), 0); // Уведомления
+$k_notif = dbresult(dbquery("SELECT COUNT(`read`) FROM `notification` WHERE `id_user` = '$user[id]' AND `read` = '0'"), 0); // 通知
 
-if ($k_notif > 0) $k_notif = '<font color=red>(' . $k_notif . ')</font>';
-else $k_notif = null;
+if ($k_notif > 0) {
+	$k_notif = '<font color=red>(' . $k_notif . ')</font>';
+} else {
+	$k_notif = null;
+}
 
-$discuss = dbresult(dbquery("SELECT COUNT(`count`) FROM `discussions` WHERE `id_user` = '$user[id]' AND `count` > '0' "), 0); // Обсуждения
+$discuss = dbresult(dbquery("SELECT COUNT(`count`) FROM `discussions` WHERE `id_user` = '$user[id]' AND `count` > '0' "), 0); // 讨论
 
-if ($discuss > 0) $discuss = '<font color=red>(' . $discuss . ')</font>';
-else $discuss = null;
+if ($discuss > 0) {
+	$discuss = '<font color=red>(' . $discuss . ')</font>';
+} else {
+	$discuss = null;
+}
 
-$lenta = dbresult(dbquery("SELECT COUNT(`read`) FROM `tape` WHERE `id_user` = '$user[id]' AND `read` = '0' "), 0); // Лента
+$lenta = dbresult(dbquery("SELECT COUNT(`read`) FROM `tape` WHERE `id_user` = '$user[id]' AND `read` = '0' "), 0); // 乐队
 
-if ($lenta > 0) $lenta = '<font color=red>(' . $lenta . ')</font>';
-else $lenta = null;
+if ($lenta > 0) {
+	$lenta = '<font color=red>(' . $lenta . ')</font>';
+} else {
+	$lenta = null;
+}
 
 echo "<div id='comments' class='menus'>";
 echo "<div class='webmenu'>";
