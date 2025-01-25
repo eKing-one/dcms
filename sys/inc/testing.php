@@ -7,7 +7,7 @@ if ($php_ver1 == 8) {
 	echo "<span class='on'>PHP版本: {$php_ver1}.{$php_ver2}.{$php_ver3} (OK)</span><br />";
 } else {
 	echo "<span class='off'>PHP版本: {$php_ver1}.{$php_ver2}.{$php_ver3}</span><br />";
-	$err[] = "测试php版本 $php_ver1.$php_ver2.$php_ver3 未实施";
+	$err[] = "测试php版本 {$php_ver1}.{$php_ver2}.{$php_ver3} 未实施";
 }
 
 if (function_exists('disk_free_space') && function_exists('disk_total_space')) {
@@ -79,7 +79,7 @@ if (ini_get('arg_separator.output') == '&amp;') {
 }
 
 // 测试URL重写是否正常工作
-if (trim(file_get_contents("http://$_SERVER[HTTP_HOST]/sys/inc/mod_rewrite.test")) == 'mod_rewrite-ok') {
+if (trim(file_get_contents(get_http_type() . "://{$_SERVER['HTTP_HOST']}/sys/inc/mod_rewrite.test")) == 'mod_rewrite-ok') {
 	echo "<span class='on'>mod_rewrite: OK</span><br />";
 } elseif (function_exists('apache_get_modules')) {
 	$apache_mod = apache_get_modules();
