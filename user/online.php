@@ -82,7 +82,7 @@ while ($ank = dbassoc($q)) {
 		// 用户 IP
 		if ($ank['ip'] != NULL) {
 			if (user_access('user_show_ip') && $ank['ip'] != 0) {
-				echo '<span class="ank_n">IP:</span> <span class="ank_d">' . long2ip($ank['ip']) . '</span>';
+				echo '<span class="ank_n">IP:</span> <span class="ank_d">' . $ank['ip'] . '</span>';
 				if (user_access('adm_ban_ip'))
 					echo ' [<a href="/adm_panel/ban_ip.php?min=' . $ank['ip'] . '">禁令</a>]';
 				echo '<br />';

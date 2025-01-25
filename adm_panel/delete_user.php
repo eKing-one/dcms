@@ -61,7 +61,7 @@ if (isset($_POST['delete'])) {
 	dbquery("DELETE FROM `forum_p` WHERE `id_user` = '$ank[id]'");
 	dbquery("DELETE FROM `forum_zakl` WHERE `id_user` = '$ank[id]'");
 	dbquery("DELETE FROM `guest` WHERE `id_user` = '$ank[id]'");
-	dbquery("DELETE FROM `loads_komm` WHERE `id_user` = '$ank[id]'");
+	dbquery("DELETE FROM `downnik_komm` WHERE `id_user` = '$ank[id]'");
 	dbquery("DELETE FROM `news_komm` WHERE `id_user` = '$ank[id]'");
 	dbquery("DELETE FROM `user_files` WHERE `id_user` = '$ank[id]'");
 	dbquery("DELETE FROM `user_music` WHERE `id_user` = '$ank[id]'");
@@ -103,7 +103,7 @@ if (isset($_POST['delete'])) {
 			dbquery("DELETE FROM `forum_p` WHERE `id_user` = '$collisions[$i]'");
 			dbquery("DELETE FROM `forum_zakl` WHERE `id_user` = '$collisions[$i]'");
 			dbquery("DELETE FROM `guest` WHERE `id_user` = '$collisions[$i]'");
-			dbquery("DELETE FROM `loads_komm` WHERE `id_user` = '$collisions[$i]'");
+			dbquery("DELETE FROM `downnik_komm` WHERE `id_user` = '$collisions[$i]'");
 			dbquery("DELETE FROM `news_komm` WHERE `id_user` = '$collisions[$i]'");
 			$q5 = dbquery("SELECT * FROM `downnik_files` WHERE `id_user` = '$collisions[$i]'");
 			while ($post5 = dbassoc($q5)) {
@@ -209,11 +209,11 @@ if (count($collisions) > 1 && isset($_GET['all'])) {
 }
 echo "<span class=\"ank_n\">私人讯息:</span> <span class=\"ank_d\">$mail</span><br />";
 
-$komm_loads = dbresult(dbquery("SELECT COUNT(*) FROM `loads_komm` WHERE `id_user` = '$ank[id]'"), 0);
+$komm_loads = dbresult(dbquery("SELECT COUNT(*) FROM `downnik_komm` WHERE `id_user` = '$ank[id]'"), 0);
 if (count($collisions) > 1 && isset($_GET['all'])) {
 	$komm_loads_coll = 0;
 	for ($i = 1; $i < count($collisions); $i++) {
-		$komm_loads_coll += dbresult(dbquery("SELECT COUNT(*) FROM `loads_komm` WHERE `id_user` = '$collisions[$i]'"), 0);
+		$komm_loads_coll += dbresult(dbquery("SELECT COUNT(*) FROM `downnik_komm` WHERE `id_user` = '$collisions[$i]'"), 0);
 	}
 	if ($komm_loads_coll != 0) $komm_loads = "$komm_loads +$komm_loads_coll*";
 }
