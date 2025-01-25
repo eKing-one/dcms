@@ -83,8 +83,8 @@ if (user_access('adm_panel_show')) {
 			echo "<font color='red'>论坛</font> | ";
 			echo " <a href='/forum/$them[id_forum]/$them[id_razdel]/$them[id]/'>" . htmlspecialchars($them['name']) . "</a><br />";
 		}
-		if ($post['razdel'] == 'loads_komm') {  // Загрузки
-			$komm = dbassoc(dbquery("SELECT * FROM `loads_komm` WHERE `id` = '$post[id_object]' LIMIT 1"));
+		if ($post['razdel'] == 'downnik_komm') {  // Загрузки
+			$komm = dbassoc(dbquery("SELECT * FROM `downnik_komm` WHERE `id` = '$post[id_object]' LIMIT 1"));
 			$file = dbassoc(dbquery("SELECT * FROM `loads_list` WHERE `name` = '$komm[file]' LIMIT 1"));
 			echo "<font color='red'>装料</font> | ";
 			echo " <a href='/loads/?komm&d=$file[path]&f=$file[name]'>" . htmlspecialchars($file['name']) . "</a><br />";

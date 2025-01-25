@@ -607,7 +607,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 			$subject = "帐户激活";
 			$regmail = "你好！ {$_POST['reg_nick']}<br />
 						要激活您的帐户，请点击链接:<br />
-						<a href='http://{$_SERVER['HTTP_HOST']}/user/reg.php?id=$id_reg&amp;activation=$activation'>点击激活帐户</a><br />
+						<a href='" . get_http_type() . "://{$_SERVER['HTTP_HOST']}/user/reg.php?id=$id_reg&amp;activation=$activation'>点击激活帐户</a><br />
 						如果帐户在24小时内未激活，它将被删除。<br />
 						真诚的，网站管理团队";
 	

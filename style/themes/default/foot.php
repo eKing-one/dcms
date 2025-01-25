@@ -6,7 +6,7 @@ if ($_SERVER['PHP_SELF'] != '/index.php'): ?>
 	</div>
 <?php endif; ?>
 <div class="copy">
-	&copy; <a href="http://<?=text($_SERVER['HTTP_HOST'])?>" style="text-transform: capitalize;"><?=text($_SERVER['HTTP_HOST'])?></a> - <?=date('Y');?> 
+	&copy; <a href="<?php echo get_http_type(); ?>://<?=text($_SERVER['HTTP_HOST'])?>" style="text-transform: capitalize;"><?=text($_SERVER['HTTP_HOST'])?></a> - <?=date('Y');?> 
 </div>
 <div class="foot">
 	在网站上: 

@@ -193,26 +193,26 @@ while ($post = dbassoc($q)) {
 
 	/*
 	===============================
-	Дневники коментарии
+	日记、评论
 	===============================
 	*/
 	if ($type == 'notes_komm') {
 		if ($post['read'] == 0) dbquery("UPDATE `notification` SET `read` = '1' WHERE `id` = '$post[id]'");
 		$notes = dbassoc(dbquery("SELECT * FROM `notes` WHERE `id` = '" . $post['id_object'] . "' LIMIT 1"));
-		if ($notes['id']) {
+		if (isset($notes['id']) && $notes['id']) {
 			echo user::nick($avtor['id'], 1, 1, 0) . " $name ";
 			echo " <img src='/style/icons/zametki.gif' alt='*'> ";
 			echo '<a href="/plugins/notes/list.php?id=' . $notes['id'] . '&amp;page=' . $pageEnd . '"><b>' . htmlspecialchars($notes['name']) . '</b></a> ';
 			echo "  $s1 " . vremja($post['time']) . " $s2";
 		} else {
-			echo " 这本日记已经被删除了=(  $s1 " . vremja($post['time']) . " $s2";
+			echo " 这本日记已经被删除了=(  {$s1} " . vremja($post['time']) . " {$s2}";
 		}
-		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
+		echo "<div style='text-align:right;'><a href='?komm&amp;del={$post['id']}&amp;page={$page}'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
 
 	/*
 	===============================
-	Файлы коментарии
+	注释文件
 	===============================
 	*/
 	if ($type == 'files_komm' || $type == 'down_komm') {
@@ -228,12 +228,12 @@ while ($post = dbassoc($q)) {
 		} else {
 			echo "这个" . (!$file['id'] ? "文件" : "用户" ) . "已经被删除 =( $s1 " . vremja($post['time']) . " $s2";
 		}
-		echo "<div style='text-align:right;'><a href='?komm&amp;del=$post[id]&amp;page=$page'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
+		echo "<div style='text-align:right;'><a href='?komm&amp;del={$post['id']}&amp;page={$page}'><img src='/style/icons/delete.gif' alt='*' /></a></div>";
 	}
 	
 	/*
 	===============================
-	Фото коментарии
+	图片评论
 	===============================
 	*/
 	if ($type == 'photo_komm') {
@@ -252,7 +252,7 @@ while ($post = dbassoc($q)) {
 
 	/*
 	===============================
-	Форум коментарии
+	论坛评论
 	===============================
 	*/
 	if ($type == 'them_komm') {
@@ -270,7 +270,7 @@ while ($post = dbassoc($q)) {
 
 	/*
 	===============================
-	Стена юзера
+	用户墙
 	===============================
 	*/
 	if ($type == 'stena_komm') {
@@ -294,7 +294,7 @@ while ($post = dbassoc($q)) {
 
 	/*
 	===============================
-	Стасус коментарии
+	Stasus讨论
 	===============================
 	*/
 	if ($type == 'status_komm') {
@@ -340,7 +340,7 @@ while ($post = dbassoc($q)) {
 
 	/*
 	===============================
-	Админ чат
+	管理员聊天
 	===============================
 	*/
 	if ($type == 'adm_komm') {
