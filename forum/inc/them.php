@@ -361,9 +361,9 @@ if (isset($_GET['act']) && $_GET['act'] == 'vote' && (user_access('forum_them_ed
         function sub($str, $ch)
         {
             if ($ch < strlen($str)) {
-                $str = iconv('UTF-8', 'windows-1251', $str);
+                $str = iconv('UTF-8', 'windows-1252', $str);
                 $str = substr($str, 0, $ch);
-                $str = iconv('windows-1251', 'UTF-8', $str);
+                $str = iconv('windows-1252', 'UTF-8', $str);
                 $str .= '...';
             }
             return $str;

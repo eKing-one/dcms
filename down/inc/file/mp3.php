@@ -32,11 +32,7 @@ if (class_exists('ffmpeg_movie')) {
 	}
 	echo ' | ' . $media->getAudioSampleRate() . " Hz";
 	if (($media->getArtist()) <> "") {
-		if (function_exists('iconv')) {
-			echo ' | ' . iconv('windows-1251', 'utf-8', $media->getArtist());
-		} else {
-			echo ' | ' . $media->getArtist();
-		}
+		echo ' | ' . $media->getArtist();
 	}
 	if (($media->getGenre()) <> "") echo ' | ' . $media->getGenre();
 } elseif (class_exists('getID3')) {			// 检查 getID3 是否已加载
@@ -85,22 +81,12 @@ if (class_exists('ffmpeg_movie')) {
 
 	// 输出专辑名称（album）
 	if (isset($file_info['tags']['id3v2']['album']) && !empty($file_info['tags']['id3v2']['album'][0])) {
-		$album = $file_info['tags']['id3v2']['album'][0];
-		if (function_exists('iconv')) {
-			echo ' | ' . iconv('windows-1251', 'utf-8', $album);
-		} else {
-			echo ' | ' . $album;
-		}
+		echo ' | ' . $file_info['tags']['id3v2']['album'][0];
 	}
 
 	// 输出艺术家（artists）
 	if (isset($file_info['tags']['id3v2']['artist']) && !empty($file_info['tags']['id3v2']['artist'][0])) {
-		$artists = $file_info['tags']['id3v2']['artist'][0];
-		if (function_exists('iconv')) {
-			echo ' | ' . iconv('windows-1251', 'utf-8', $artists);
-		} else {
-			echo ' | ' . $artists;
-		}
+		echo ' | ' . $file_info['tags']['id3v2']['artist'][0];
 	}
 
 	// 输出音乐类型（genre）
@@ -125,16 +111,10 @@ if (class_exists('ffmpeg_movie')) {
 		echo ' | ' . $id3->getTag('frequency') . " Hz";
 	}
 	if (($id3->getTag('album')) <> "") {
-		if (function_exists('iconv'))
-			echo ' | ' . iconv('windows-1251', 'utf-8', $id3->getTag('album'));
-		else
-			echo ' | ' . $id3->getTag('album');
+		echo ' | ' . $id3->getTag('album');
 	}
 	if (($id3->getTag('artists')) <> "") {
-		if (function_exists('iconv'))
-			echo ' | ' . iconv('windows-1251', 'utf-8', $id3->getTag('artists'));
-		else
-			echo ' | ' . $id3->getTag('artists');
+		echo ' | ' . $id3->getTag('artists');
 	}
 	if (($id3->getTag('genre')) <> "") {
 		echo ', ' . $id3->getTag('genre');

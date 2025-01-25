@@ -1348,7 +1348,7 @@ class getid3_lib
 			case 'shift_jis':
 			case 'sjis':
 			case 'win-1251':
-			case 'windows-1251':
+			case 'windows-1252':
 			case 'windows-1252':
 				$HTMLstring = htmlentities($string, ENT_COMPAT, $charset);
 				break;

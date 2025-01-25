@@ -96,7 +96,7 @@ class getID3
 	public $encoding_id3v1  = 'ISO-8859-1';
 
 	/**
-	 * ID3v1 should always be 'ISO-8859-1', but some tags may be written in other encodings such as 'Windows-1251' or 'KOI8-R'. If true attempt to detect these encodings, but may return incorrect values for some tags actually in ISO-8859-1 encoding
+	 * ID3v1 should always be 'ISO-8859-1', but some tags may be written in other encodings such as 'windows-1252' or 'KOI8-R'. If true attempt to detect these encodings, but may return incorrect values for some tags actually in ISO-8859-1 encoding
 	 *
 	 * @var bool
 	 */
