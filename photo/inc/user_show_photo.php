@@ -18,10 +18,11 @@ if (!$ank) {
 
 /* 禁止用户 */
 // 如果用户被禁止访问照片，则重定向到用户禁止页面并退出。
-if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'photo' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
+if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'photo' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
 	header('Location: /user/ban.php?' . session_id());
 	exit;
 }
+
 // 将画廊ID转换为整数。
 $gallery['id'] = intval($_GET['id_gallery']);
 // 如果画廊不存在，则重定向到用户照片页面并退出。
@@ -39,6 +40,7 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `gallery_photo` WHERE `id` = '$photo[
 }
 // 获取照片信息。
 $photo = dbassoc(dbquery("SELECT * FROM `gallery_photo` WHERE `id` = '$photo[id]'  LIMIT 1"));
+
 
 /*
 ================================
@@ -83,6 +85,7 @@ if (isset($user)) {
 }
 /*---------------------------------------------------------*/
 
+
 /*
 ==========================
 评价照片
@@ -105,6 +108,7 @@ if (isset($user) && $user['id'] != $ank['id'] && dbresult(dbquery("SELECT COUNT(
 		exit;
 	}
 }
+
 
 /*
 ==========================
@@ -172,24 +176,33 @@ if (isset($_POST['msg']) && isset($user)) {
 		exit;
 	}
 }
-if ((user_access('photo_komm_del') || $ank['id'] == $user['id']) && isset($_GET['delete']) && dbresult(dbquery("SELECT COUNT(*) FROM `gallery_komm` WHERE `id`='" . intval($_GET['delete']) . "' AND `id_photo`='$photo[id]' LIMIT 1"), 0) != 0) {
+
+
+// 删除照片
+if ((user_access('photo_komm_del') || (isset($user) && $ank['id'] == $user['id'])) && isset($_GET['delete']) && dbresult(dbquery("SELECT COUNT(*) FROM `gallery_komm` WHERE `id`='" . intval($_GET['delete']) . "' AND `id_photo`='$photo[id]' LIMIT 1"), 0) != 0) {
 	dbquery("DELETE FROM `gallery_komm` WHERE `id`='" . intval($_GET['delete']) . "' LIMIT 1");
-	admin_log('相册', '照片', "删除照片上的评论 [url=/user/info.php?id=$ank[id]]" . user::nick($ank['id'], 1, 0, 0) . "[/url]");
+	admin_log('相册', '照片', "删除照片上的评论 [url=/user/info.php?id={$ank['id']}]" . user::nick($ank['id'], 1, 0, 0) . "[/url]");
 	$_SESSION['message'] = '评论成功删除';
 	header("Location: ?page=" . intval($_GET['page']));
 	exit;
 }
+
+
 $set['title'] = text($gallery['name']) . ' - ' . text($photo['name']);	//网页标题
 include_once '../sys/inc/thead.php';
 title();
 err();
 aut();
+
+
 echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'], 1, 0, 0) . ' | <a href="/photo/' . $ank['id'] . '/">相册</a> | ';
 echo '<a href="/photo/' . $ank['id'] . '/' . $gallery['id'] . '/">' . text($gallery['name']) . '</a> | ';
 echo '<b>' . text($photo['name']) . '</b>';
 if ($photo['metka'] == 1) echo ' <font color=red>(18+)</font>';
 echo '</div>';
+
+
 // 包含隐私页面
 include H . 'sys/add/user.privace.php';
 /*
@@ -207,7 +220,7 @@ if ($gallery['privat'] == 1 && ($frend != 2 || !isset($user)) && $user['level'] 
 	$block_photo = true;
 }
 /*--------------------密码保护的相册------------------*/
-if ($user['id'] != $ank['id'] && $gallery['pass'] != NULL) {
+if ((empty($user) || $user['id'] != $ank['id']) && $gallery['pass'] != NULL) {
 	if (isset($_POST['password'])) {
 		$_SESSION['pass'] = my_esc($_POST['password']);
 		if ($_SESSION['pass'] != $gallery['pass']) {
@@ -226,18 +239,19 @@ if ($user['id'] != $ank['id'] && $gallery['pass'] != NULL) {
 		exit;
 	}
 }
+
+
 /*---------------------------------------------------------*/
 if (!isset($block_photo)) {
 	// +5 评分
 	$rat = dbresult(dbquery("SELECT COUNT(*) FROM `gallery_rating` WHERE `id_photo` = $photo[id] AND `like` = '6'"), 0);
-	if (($user['abuld'] == 1 || $photo['metka'] == 0 || $photo['id_user'] == $user['id'])) // 标记为18+
-	{
+	if ((isset($user) && ($user['abuld'] == 1 || $photo['id_user'] == $user['id'])) || $photo['metka'] == 0) {	// 标记为18+
 		echo '<div class="nav2">';
 		if ($webbrowser == 'web' && $w > 128) {
-			echo "<a href='/photo/photo0/{$photo['id']}.{$photo['ras']}' title='下载原文'><img style='max-width:90%' src='/photo/photo640/{$photo['id']}.jpg'/></a>";
+			echo "<a href='/photo/photo0/{$photo['id']}.{$photo['ras']}' title='下载图片'><img style='max-width:90%' src='/photo/photo640/{$photo['id']}.jpg'/></a>";
 			if ($rat > 0) echo "<div style='display:inline;margin-left:-45px;vertical-align:top;'><img style='padding-top:15px;' src='/style/icons/5_plus.png'/></div>";
 		} else {
-			echo "<a href='/photo/photo0/{$photo['id']}.{$photo['ras']}' title='下载原文'><img src='/photo/photo128/{$photo['id']}.jpg'/></a>";
+			echo "<a href='/photo/photo0/{$photo['id']}.{$photo['ras']}' title='下载图片'><img src='/photo/photo128/{$photo['id']}.jpg'/></a>";
 			if ($rat > 0) echo "<div style='display:inline;margin-left:-25px;vertical-align:top;'><img style='padding-top:10px;' src='/style/icons/6.png'/></div>";
 		}
 		echo '</div>';
@@ -270,8 +284,8 @@ if (!isset($block_photo)) {
 	} else {
 		echo '<div class="mess">';
 		echo '<img src="/style/icons/small_adult.gif" alt="*"><br /> 
-		此图像包含与性有关的内容/性行为的刻画/性器官的接触与接合等/使人联想起性行为的事物。只有年龄达到18岁以上的用户才能查看此类图像。 
-		如果你的年龄达到18岁及以上，那么你可以 <a href="?sess_abuld=1">继续浏览</a>.';
+		      此图像包含与性有关的内容/性行为的刻画/性器官的接触与接合等/使人联想起性行为的事物。只有年龄达到18岁以上的用户才能查看此类图像。 
+		      如果你的年龄达到18岁及以上，那么你可以 <a href="?sess_abuld=1">继续浏览</a>.';
 		echo '</div>';
 	}
 	/*----------------------列表------------------*/
@@ -285,7 +299,7 @@ if (!isset($block_photo)) {
 	if (isset($listr['id']))	echo '<span class="page">' . ($listr['id'] ? "<a href='/photo/$ank[id]/$gallery[id]/$listr[id]/'>下一页 &raquo;</a>" : "下一页 &raquo;") . '</span>';
 	echo '</div>';
 	/*----------------------alex-borisi---------------*/
-	if (($user['abuld'] == 1 || $photo['metka'] == 0 || $photo['id_user'] == $user['id'])) {
+	if ((isset($user) && ($user['abuld'] == 1 || $photo['id_user'] == $user['id'])) || $photo['metka'] == 0) {
 		if (isset($user)) {
 			echo '<div class="nav1">';
 			echo '<img src="/style/icons/fav.gif" alt="*" /> ';
@@ -369,11 +383,13 @@ if (!isset($block_photo)) {
 		echo '</form>';
 	}
 }
+
+
 echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'], 1, 0, 0) . ' | <a href="/photo/' . $ank['id'] . '/">相册</a> | ';
 echo '<a href="/photo/' . $ank['id'] . '/' . $gallery['id'] . '/">' . text($gallery['name']) . '</a> | ';
 echo '<b>' . text($photo['name']) . '</b>';
 if ($photo['metka'] == 1) echo ' <font color=red>(18+)</font>';
 echo '</div>';
+
 include_once '../sys/inc/tfoot.php';
-exit;
