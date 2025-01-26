@@ -121,13 +121,7 @@ while ($post = dbassoc($q)) {
 	echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 	$num++;
 
-	if (empty($ank['id'])) {
-		echo '<img class="avatar" src="/style/user/avatar.gif" height="50" width="50" alt="No Avatar">';
-		echo '<img src="/style/user/5.png" alt="" class="icon" id="icon_group">';
-		echo '[已删除] ';
-	} else {
-		echo ($post['id_user'] != '0' ? user::avatar($ank['id'], 0) . user::nick($ank['id'], 1, 1, 0) : user::avatar(0, 0) . ' <b>' . '游客' . '</b> ');
-	}
+	echo ($post['id_user'] != '0' ? user::avatar($post['id_user'], 0) . user::nick($post['id_user'], 1, 1, 0) : user::avatar(0, 0) . ' <b>' . '游客' . '</b> ');
 	if (isset($user) && isset($ank['id']) && $user['id'] != $ank['id']) {
 		echo ' <a href="?page=' . $page . '&amp;response=' . $ank['id'] . '">[@]</a> ';
 	}

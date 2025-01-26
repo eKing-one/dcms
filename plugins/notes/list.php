@@ -19,7 +19,10 @@ if (!isset($notes['id'])) {
 	header('Location: index.php');
 	exit;
 }
-$avtor = user::get_user($notes['id_user']);
+$query_result = dbquery("SELECT id FROM `user` WHERE id = {$notes['id_user']} LIMIT 1");
+if (dbrows($query_result) > 0) {
+    $avtor = user::get_user($notes['id_user']);
+}
 if (isset($user))
 	$count = dbresult(dbquery("SELECT COUNT(*) FROM `notes_count` WHERE `id_user` = '" . $user['id'] . "' AND `id_notes` = '" . $notes['id'] . "' LIMIT 1"), 0);
 // 书签
@@ -120,10 +123,10 @@ if (isset($_POST['msg']) && isset($user)) {
 				dbquery("INSERT INTO `notification` (`avtor`, `id_user`, `id_object`, `type`, `time`) VALUES ('$user[id]', '$ank_otv[id]', '$notes[id]', 'notes_komm', '$time')");
 		}
 		/*
-====================================
-评论
-====================================
-*/
+		====================================
+		评论
+		====================================
+		*/
 		$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $notes['id_user'] . "' AND `i` = '1'");
 		while ($f = dbarray($q)) {
 			$a = user::get_user($f['frend']);
@@ -158,10 +161,9 @@ if (isset($_POST['msg']) && isset($user)) {
 		exit;
 	}
 }
-if (isset($user))
-	$frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$avtor[id]') OR (`user` = '$avtor[id]' AND `frend` = '$user[id]') LIMIT 1"), 0);
+if (isset($user) && isset($avtor['id'])) $frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$avtor[id]') OR (`user` = '$avtor[id]' AND `frend` = '$user[id]') LIMIT 1"), 0);
 title();
-aut(); // форма авторизации
+aut(); // 授权表格
 err();
 if ($notes['private'] == 1 && $user['id'] != $avtor['id'] && $frend != 2  && !user_access('notes_delete')) {
 	msg('日记只提供给朋友');
@@ -223,12 +225,13 @@ if (isset($user)) {
 	}
 }
 echo "<div class=\"foot\">";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a> | <a href='/user/info.php?id=$avtor[id]'>$avtor[nick]</a>";
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a> | ";
+echo user::nick($notes['id_user'], 1, 0, 0);
 echo ' | <b>' . output_text($notes['name']) . '</b>';
 echo "</div>";
 echo "<div class='main'>";
-echo "<table style='width:110%;'><td style='width:4%;'>" . user::avatar($avtor['id']) . "</td>";
-echo "<td style='width:96%;'> 作者: " . user::nick($avtor['id'], 1, 1, 0) . " ";
+echo "<table style='width:110%;'><td style='width:4%;'>" . (empty($avtor['id']) ? '<img class="avatar" src="/style/user/avatar.gif" height="50" width="50" alt="No Avatar">' : user::avatar($avtor['id'])) . "</td>";
+echo "<td style='width:96%;'> 作者: " . user::nick($notes['id_user'], 1, 1, 0) . " ";
 echo "(<img src='/style/icons/them_00.png'>  " . vremja($notes['time']) . ")<br/>";
 echo "<img src='/style/icons/eye.png'> 预览: " . $notes['count'] . "</td></table></div>";
 $stat1 = $notes['msg'];
@@ -272,7 +275,7 @@ if (isset($user) && (user_access('notes_delete') || $user['id'] == $avtor['id'])
 echo "</div><div class='main'>";
 $l1 = dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `like` = '0' AND `id_notes` = '" . $notes['id'] . "' LIMIT 1"), 0);
 $l2 = dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `like` = '1' AND `id_notes` = '" . $notes['id'] . "' LIMIT 1"), 0);
-if (isset($user) && $user['id'] != $avtor['id']) {
+if (isset($user) && isset($avtor['id']) && $user['id'] != $avtor['id']) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `notes_like` WHERE `id_user` = '" . $user['id'] . "' AND `id_notes` = '" . $notes['id'] . "' LIMIT 1"), 0) == 0)
 		echo "<a href='list.php?id=$notes[id]&amp;like=1'><img src='/style/icons/thumbu.png' alt='*' /> </a> (" . ($l2 - $l1) . ") <a href='list.php?id=$notes[id]&amp;like=0'><img src='/style/icons/thumbd.png' alt='*' /></a>";
 	else
@@ -334,19 +337,18 @@ while ($post = dbassoc($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	echo user::nick($ank['id'], 1, 1, 0);
-	if (isset($user) && $ank['id'] != $user['id']) echo "<a href='?id=$notes[id]&amp;response=$ank[id]'>[@]</a> ";
+	echo user::nick($post['id_user'], 1, 1, 0);
+	if (isset($user) && $post['id_user'] != $user['id']) echo "<a href='?id={$notes['id']}&amp;response={$post['id_user']}'>[@]</a> ";
 	echo " (" . vremja($post['time']) . ")<br />";
-	$postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'notes') AND `post` = '1' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
-	if ($postBan == 0) // 消息块
-	{
+	$postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'notes') AND `post` = '1' AND `id_user` = '{$post['id_user']}' AND (`time` > '{$time}' OR `navsegda` = '1')"), 0);
+	if ($postBan == 0) {	// 消息块
 		echo output_text($post['msg']) . "<br />";
 	} else {
 		echo output_text($banMess) . '<br />';
 	}
 	if (isset($user)) {
 		echo '<div style="text-align:right;">';
-		if ($ank['id'] != $user['id'])
+		if ($post['id_user'] != $user['id'])
 			echo "<a href=\"?id=$notes[id]&amp;page=$page&amp;spam=$post[id]\"><img src='/style/icons/blicon.gif' alt='*'>举报</a> ";
 		if (isset($user) && (user_access('notes_delete') || $user['id'] == $notes['id_user']))
 			echo '<a href="delete.php?komm=' . $post['id'] . '"><img src="/style/icons/delete.gif" alt="*">删除</a>';
@@ -382,7 +384,7 @@ if (isset($user)) {
 	echo "</form>";
 }
 echo "<div class=\"foot\">";
-echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a> | ". user::nick($avtor['id'], 1, 0, 0);
+echo "<img src='/style/icons/str2.gif' alt='*'> <a href='index.php'>日记</a> | ". (empty($avtor['id']) ? '[已删除]' : user::nick($avtor['id'], 1, 0, 0));
 echo ' | <b>' . output_text($notes['name']) . '</b>';
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';

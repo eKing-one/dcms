@@ -8,7 +8,12 @@ if (!isset($user) && !isset($_GET['id_user'])) {
 if (isset($user)) $ank['id'] = $user['id'];
 // 如果通过GET请求传递了用户ID，则将其转换为整数并赋值给ank数组。
 if (isset($_GET['id_user'])) $ank['id'] = intval($_GET['id_user']);
+
 // 通过用户ID获取用户信息。
+if (dbrows(dbquery("SELECT id FROM `user` WHERE id = {$ank['id']} LIMIT 1")) > 0) {
+    $ank = user::get_user($ank['id']);
+}
+
 $ank = user::get_user($ank['id']);
 // 如果获取用户信息失败，则重定向到照片页面并退出。
 if (!$ank) {

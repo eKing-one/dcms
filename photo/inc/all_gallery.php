@@ -27,18 +27,23 @@ if ($k_post == 0) {
 
 $q = dbquery("SELECT * FROM `gallery` ORDER BY `time` DESC LIMIT $start, $set[p_str]");
 while ($post = dbassoc($q)) {
-	$ank = user::get_user($post['id_user']);
 	// 梯子
 	echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
+	// 通过用户ID获取用户信息。
+	if (dbrows(dbquery("SELECT id FROM `user` WHERE id = {$post['id_user']} LIMIT 1")) > 0) {
+		$ank = user::get_user($post['id_user']);
+	}
 	$num++;
 	echo '<img src="/style/themes/' . $set['set_them'] . '/loads/14/' . ($post['pass'] != null || $post['privat'] != 0 ? 'lock.gif' : 'dir.png') . '" alt="*" /> ';
-	echo '<a href="/photo/' . $ank['id'] . '/' . $post['id'] . '/">' . text($post['name']) . '</a> (' . dbresult(dbquery("SELECT COUNT(*) FROM `gallery_photo` WHERE `id_gallery` = '$post[id]'"), 0) . ' 照片)<br />';
-	if ($post['opis'] == null)
+	echo '<a href="/photo/' . $post['id_user'] . '/' . $post['id'] . '/">';
+	echo text($post['name']) . '</a> (' . dbresult(dbquery("SELECT COUNT(*) FROM `gallery_photo` WHERE `id_gallery` = '$post[id]'"), 0) . ' 照片)<br />';
+	if ($post['opis'] == null) {
 		echo '无描述<br />';
-	else
+	} else {
 		echo output_text($post['opis']) . '<br />';
+	}
 	echo '创建时间: ' . vremja($post['time_create']) . '<br />';
-	echo '作者: ' . user::nick($ank['id'], 1, 1, 0). '</div>';
+	echo '作者: ' . user::nick($post['id_user'], 1, 1, 0). '</div>';
 }
 echo '</table>';
 
