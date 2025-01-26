@@ -120,12 +120,20 @@ while ($post = dbassoc($q)) {
 
 	echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 	$num++;
-	echo ($post['id_user'] != '0' ? user::avatar($ank['id'], 0) . user::nick($ank['id'], 1, 1, 0) : user::avatar(0, 0) . ' <b>' . '游客' . '</b> ');
-	if (isset($user) && $user['id'] != $ank['id']) {
-		echo ' <a href="?page=' . $page . '&amp;response=' . $ank['id'] . '">[@]</a> (' . vremja($post['time']) . ')<br />';
+
+	if (empty($ank['id'])) {
+		echo '<img class="avatar" src="/style/user/avatar.gif" height="50" width="50" alt="No Avatar">';
+		echo '<img src="/style/user/5.png" alt="" class="icon" id="icon_group">';
+		echo '[已删除] ';
+	} else {
+		echo ($post['id_user'] != '0' ? user::avatar($ank['id'], 0) . user::nick($ank['id'], 1, 1, 0) : user::avatar(0, 0) . ' <b>' . '游客' . '</b> ');
 	}
-	echo output_text($post['msg']) . '<br />';
-	if (isset($user) && ($user['level'] > $ank['level'] || $user['level'] != 0 && $user['id'] == $ank['id']) && user_access('guest_delete')) {
+	if (isset($user) && isset($ank['id']) && $user['id'] != $ank['id']) {
+		echo ' <a href="?page=' . $page . '&amp;response=' . $ank['id'] . '">[@]</a> ';
+	}
+	echo '(' . vremja($post['time']) . ')';
+	echo '<br />' . output_text($post['msg']) . '<br />';
+	if (isset($user) && (((empty($ank['id']) || $user['level'] > $ank['level']) && $user['level'] != 0) || $user['id'] == $ank['id'] || user_access('guest_delete'))) {
 		echo '<div class="right">';
 		echo '<a href="delete.php?id=' . $post['id'] . '"><img src="/style/icons/delete.gif" alt="*"></a>';
 		echo '</div>';
