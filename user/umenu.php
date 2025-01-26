@@ -39,7 +39,7 @@ if (isset($_GET['nick']) && isset($_GET['pass'])) {
 <img src='/style/my_menu/ank.png' alt='' /> <a href='/user/info/anketa.php'>个人资料</a> [<a href='user/info/edit.php'>编辑.</a>]<br />
 </div>
 <div class="main" id="umenu">
-<img src="/style/my_menu/secure.png" alt="" /> <a href="/user/secure.php">更改密码</a><br />
+<img src="/style/my_menu/secure.png" alt="" /> <a href="/user/info/secure.php">更改密码</a><br />
 </div>
 <div class="main" id="umenu">
 <img src="/style/my_menu/rules.png" alt="" /> <a href="/user/rules.php">规则</a><br />

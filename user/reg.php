@@ -74,16 +74,21 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 			dbquery("INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_last`, `group_access`,`pol`, `activation`, `email`) values('" . $_SESSION['reg_nick'] . "', '" . password_hash($_POST['pass1'], PASSWORD_DEFAULT) . "', '$time', '$time', '1', '" . intval($_POST['pol']) . "', '$activation', '" . my_esc($_POST['email']) . "')", $db);
 			$id_reg = dbinsertid();
 			$subject = "帐户激活";
-			$regmail = "你好！ $_SESSION[reg_nick]<br />
+			$regmail = "你好！ {$_SESSION['reg_nick']}<br />
 			            要激活您的帐户，请点击链接:<br />
-			            <a href='http://$_SERVER[HTTP_HOST]/user/reg.php?id=$id_reg&amp;activation=$activation'>http://$_SERVER[HTTP_HOST]/user/reg.php?id=" . dbinsertid() . "&amp;activation=$activation</a><br />
+			            <a href='" . get_http_type() . "://{$set['hostname']}/user/reg.php?id={$id_reg}&amp;activation={$activation}'>" . get_http_type() . "://{$set['hostname']}/user/reg.php?id=" . dbinsertid() . "&amp;activation={$activation}</a><br />
 			            如果帐户在24小时内未激活，它将被删除<br />
 			            真诚的，网站管理<br />";
-			$adds = "From: \"password@$_SERVER[HTTP_HOST]\" <password@$_SERVER[HTTP_HOST]>";
-			//$adds = "From: <$set[reg_mail]>";
-			//$adds .= "X-sender: <$set[reg_mail]>";
-			$adds .= "Content-Type: text/html; charset=utf-8";
-			mail($_POST['email'], '=?utf-8?B?' . base64_encode($subject) . '?=', $regmail, $adds);
+
+			$emailResult = sendEmail($subject, $regmail, $_POST['email'], $_SESSION['reg_nick']);
+			if ($emailResult['status'] == 'success') {
+				// 如果邮件发送成功
+				msg("已发送到电子邮件 {$_POST['email']}");
+			} else {
+				// 如果邮件发送失败
+				$err[] = $emailResult['message'];
+				err();
+			}
 		} else {
 			// 未开启邮箱验证，直接注册
 			dbquery("INSERT INTO `user` (`nick`, `pass`, `date_reg`, `date_last`, `group_access`, `pol`) values('" . $_SESSION['reg_nick'] . "', '" . password_hash($_POST['pass1'], PASSWORD_DEFAULT) . "', '$time', '$time', '1', '" . intval($_POST['pol']) . "')", $db);
@@ -113,10 +118,8 @@ if (isset($_SESSION['step']) && $_SESSION['step'] == 1 && dbresult(dbquery("SELE
 
 		msg('注册成功！');
 
-		$http_type = ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1)) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https' : 'http';
-
 		echo "如果您的浏览器不支持Cookie，您可以创建一个自动登录书签<br />";
-		echo "<input type='text' value='{$http_type}://{$_SERVER['SERVER_NAME']}/user/login.php?id={$user['id']}&amp;pass=" . htmlspecialchars($_POST['pass1']) . "' /><br />";
+		echo "<input type='text' value='" . get_http_type() . "://{$_SERVER['SERVER_NAME']}/user/login.php?id={$user['id']}&amp;pass=" . htmlspecialchars($_POST['pass1']) . "' /><br />";
 		if ($set['reg_select'] == 'open_mail') unset($user);
 		echo "<div class='foot'>";
 		echo "&raquo;<a href='info/settings.php'>我的设置</a><br />";

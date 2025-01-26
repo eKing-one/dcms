@@ -35,6 +35,7 @@ if (isset($_POST['write']) && isset($_POST['write2'])) {
 		dbquery("DELETE FROM `blog_list` WHERE `id_user` = '$ank[id]'");
 		dbquery("DELETE FROM `blog_komm` WHERE `id_user` = '$ank[id]'");
 		dbquery("DELETE FROM `stena` WHERE `id_user` = '$ank[id]'");
+		dbquery("DELETE FROM `password_reset_tokens` WHERE `id_user` = '$ank[id]'");
 		dbquery("DELETE FROM `stena_like` WHERE `id_user` = '$ank[id]'");
 		dbquery("DELETE FROM `status_like` WHERE `id_user` = '$ank[id]'");
 		dbquery("DELETE FROM `status` WHERE `id_user` = '$ank[id]'");	

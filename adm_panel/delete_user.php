@@ -43,6 +43,7 @@ if (isset($_POST['delete'])) {
 	dbquery("DELETE FROM `gifts_user` WHERE `id_user` = '$ank[id]' OR `id_ank` = '$ank[id]'");
 	dbquery("DELETE FROM `frends` WHERE `user` = '$ank[id]' OR `frend` = '$ank[id]'");
 	dbquery("DELETE FROM `frends_new` WHERE `user` = '$ank[id]' OR `to` = '$ank[id]'");
+	dbquery("DELETE FROM `password_reset_tokens` WHERE `id_user` = '$ank[id]'");
 	dbquery("DELETE FROM `stena` WHERE `id_user` = '$ank[id]'");
 	dbquery("DELETE FROM `stena_like` WHERE `id_user` = '$ank[id]'");
 	dbquery("DELETE FROM `status_like` WHERE `id_user` = '$ank[id]'");

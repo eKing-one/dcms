@@ -391,6 +391,9 @@ if (!isset($hard_process)) {
 		dbquery("DELETE FROM `chat_post` WHERE `time` < '" . (time() - 60 * 60 * 24) . "'"); // 删除旧的聊天帖子
 		dbquery("DELETE FROM `user` WHERE `activation` != null AND `date_reg` < '" . (time() - 60 * 60 * 24) . "'"); // 删除未激活的账户
 
+		// 删除过期的 password reset token
+		dbquery("DELETE FROM `password_reset_tokens` WHERE `created_at` < '" . date('Y-m-d H:i:s') . "'");
+
 		// 删除所有一个多月前标记为删除的联系人
 		$qd = dbquery("SELECT * FROM `users_konts` WHERE `type` = 'deleted' AND `time` < " . ($time - 60 * 60 * 24 * 30));
 		while ($deleted = dbarray($qd)) {

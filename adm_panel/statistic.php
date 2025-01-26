@@ -18,12 +18,12 @@ err();
 aut();
 
 for ($i=0; $i<24; $i++) {
-	$hit=dbresult(dbquery("SELECT COUNT(*) FROM `visit_today` WHERE `time` >= '" . mktime($i, 0, 0) . "' AND `time` < '" . mktime($i + 1, 0, 0) . "'"), 0);
-	$host=dbresult(dbquery("SELECT COUNT(DISTINCT `ip`) FROM `visit_today` WHERE `time` >= '" . mktime($i,0,0) . "' AND `time` < '" . mktime($i + 1, 0, 0) . "'"), 0);
-	$user_reg=dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `date_reg` >= '" . mktime($i, 0, 0) . "' AND `date_reg` < '" . mktime($i + 1, 0, 0) . "'"), 0);
-	$forum_them=dbresult(dbquery("SELECT COUNT(*) FROM `forum_t` WHERE `time_create` >= '" . mktime($i, 0, 0) . "' AND `time_create` < '" . mktime($i + 1, 0, 0) . "'"), 0);
-	$forum_post=dbresult(dbquery("SELECT COUNT(*) FROM `forum_p` WHERE `time` >= '" . mktime($i, 0, 0) . "' AND `time` < '" . mktime($i + 1, 0, 0) . "'"), 0);
-	$stat[]=array('hit'=>$hit, 'host'=>$host, 'time'=>mktime($i, 0, 0), 'for_th'=>$forum_them, 'for_p'=>$forum_post, 'user'=>$user_reg);
+	$hit = dbresult(dbquery("SELECT COUNT(*) FROM `visit_today` WHERE `time` >= '" . mktime($i, 0, 0) . "' AND `time` < '" . mktime($i + 1, 0, 0) . "'"), 0);
+	$host2 = dbresult(dbquery("SELECT COUNT(DISTINCT `ip`) FROM `visit_today` WHERE `time` >= '" . mktime($i,0,0) . "' AND `time` < '" . mktime($i + 1, 0, 0) . "'"), 0);
+	$user_reg = dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `date_reg` >= '" . mktime($i, 0, 0) . "' AND `date_reg` < '" . mktime($i + 1, 0, 0) . "'"), 0);
+	$forum_them = dbresult(dbquery("SELECT COUNT(*) FROM `forum_t` WHERE `time_create` >= '" . mktime($i, 0, 0) . "' AND `time_create` < '" . mktime($i + 1, 0, 0) . "'"), 0);
+	$forum_post = dbresult(dbquery("SELECT COUNT(*) FROM `forum_p` WHERE `time` >= '" . mktime($i, 0, 0) . "' AND `time` < '" . mktime($i + 1, 0, 0) . "'"), 0);
+	$stat[] = array('hit'=>$hit, 'host'=>$host2, 'time'=>mktime($i, 0, 0), 'for_th'=>$forum_them, 'for_p'=>$forum_post, 'user'=>$user_reg);
 }
 
 echo "当前日期:<br />";

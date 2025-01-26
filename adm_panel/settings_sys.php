@@ -17,58 +17,70 @@ include_once '../sys/inc/thead.php';
 title();
 
 if (isset($_POST['save'])) {
-	// Shaman
-	$temp_set['title'] = esc(stripcslashes(htmlspecialchars($_POST['title'])), 1);
-	// 这是我的末日
-	$temp_set['mail_backup'] = esc($_POST['mail_backup']);
-	$temp_set['p_str'] = intval($_POST['p_str']);
-	dbquery("ALTER TABLE `user` CHANGE `set_p_str` `set_p_str` INT( 11 ) DEFAULT '$temp_set[p_str]'");
-	if (!preg_match('#\.\.#', $_POST['set_them']) && is_dir(H . 'style/themes/' . $_POST['set_them'])) {
-		$temp_set['set_them'] = $_POST['set_them'];
-		dbquery("ALTER TABLE `user` CHANGE `set_them` `set_them` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '$temp_set[set_them]'");
+	try {
+		if (empty($_POST['hostname'])) {
+			$temp_set['hostname'] = NULL;
+		} elseif (filter_var($_POST['hostname'], FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME)) {
+			$temp_set['hostname'] = esc($_POST['hostname']);
+		} else {
+			throw new Exception('无效的域名');
+		}
+		// Shaman
+		$temp_set['title'] = esc(stripcslashes(htmlspecialchars($_POST['title'])), 1);
+		// 这是我的末日
+		$temp_set['mail_backup'] = esc($_POST['mail_backup']);
+		$temp_set['p_str'] = intval($_POST['p_str']);
+		dbquery("ALTER TABLE `user` CHANGE `set_p_str` `set_p_str` INT( 11 ) DEFAULT '$temp_set[p_str]'");
+		if (!preg_match('#\.\.#', $_POST['set_them']) && is_dir(H . 'style/themes/' . $_POST['set_them'])) {
+			$temp_set['set_them'] = $_POST['set_them'];
+			dbquery("ALTER TABLE `user` CHANGE `set_them` `set_them` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '$temp_set[set_them]'");
+		}
+		if (!preg_match('#\.\.#', $_POST['set_them2']) && is_dir(H . 'style/themes/' . $_POST['set_them2'])) {
+			$temp_set['set_them2'] = $_POST['set_them2'];
+			dbquery("ALTER TABLE `user` CHANGE `set_them2` `set_them2` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '$temp_set[set_them2]'");
+		}
+		if ($_POST['show_err_php'] == 1 || $_POST['show_err_php'] == 0) {
+			$temp_set['show_err_php'] = intval($_POST['show_err_php']);
+		}
+		if (isset($_POST['antidos']) && $_POST['antidos'] == 1) {
+			$temp_set['antidos'] = 1;
+		} else {
+			$temp_set['antidos'] = 0;
+		}
+		if (isset($_POST['antimat']) && $_POST['antimat'] == 1) {
+			$temp_set['antimat'] = 1;
+		} else {
+			$temp_set['antimat'] = 0;
+		}
+		$temp_set['meta_keywords'] = esc(stripcslashes(htmlspecialchars($_POST['meta_keywords'])), 1);
+		$temp_set['background'] = esc(stripcslashes(htmlspecialchars($_POST['background'])), 1);
+		$temp_set['meta_description'] = esc(stripcslashes(htmlspecialchars($_POST['meta_description'])), 1);
+		$temp_set['api'] = intval($_POST['api']);
+		$temp_set['toolbar'] = intval($_POST['toolbar']);
+		$temp_set['exit'] = intval($_POST['exit']);
+		$temp_set['timeadmin'] = intval($_POST['timeadmin']);
+		$temp_set['job'] = intval($_POST['job']);
+		$temp_set['replace'] = intval($_POST['replace']);
+		$temp_set['main'] = esc(stripcslashes(htmlspecialchars(($_POST['main']))));
+		$temp_set['header'] = esc(stripcslashes(htmlspecialchars(($_POST['header']))));
+		if (save_settings($temp_set)) {
+			admin_log('设置', '系统', '更改系统设置');
+			msg('已成功接受设置');
+		} else {
+			throw new Exception('更改配置文件失败');
+		}
+		header( "Location: " . $_SERVER["REQUEST_URI"]);
+		exit();
+	} catch (Exception $e) {
+		$err[] = $e->getMessage();
 	}
-	if (!preg_match('#\.\.#', $_POST['set_them2']) && is_dir(H . 'style/themes/' . $_POST['set_them2'])) {
-		$temp_set['set_them2'] = $_POST['set_them2'];
-		dbquery("ALTER TABLE `user` CHANGE `set_them2` `set_them2` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '$temp_set[set_them2]'");
-	}
-	if ($_POST['show_err_php'] == 1 || $_POST['show_err_php'] == 0) {
-		$temp_set['show_err_php'] = intval($_POST['show_err_php']);
-	}
-	if (isset($_POST['antidos']) && $_POST['antidos'] == 1) {
-		$temp_set['antidos'] = 1;
-	} else {
-		$temp_set['antidos'] = 0;
-	}
-	if (isset($_POST['antimat']) && $_POST['antimat'] == 1) {
-		$temp_set['antimat'] = 1;
-	} else {
-		$temp_set['antimat'] = 0;
-	}
-	$temp_set['meta_keywords'] = esc(stripcslashes(htmlspecialchars($_POST['meta_keywords'])), 1);
-	$temp_set['background'] = esc(stripcslashes(htmlspecialchars($_POST['background'])), 1);
-	$temp_set['meta_description'] = esc(stripcslashes(htmlspecialchars($_POST['meta_description'])), 1);
-	$temp_set['api'] = intval($_POST['api']);
-	$temp_set['toolbar'] = intval($_POST['toolbar']);
-	$temp_set['exit'] = intval($_POST['exit']);
-	$temp_set['timeadmin'] = intval($_POST['timeadmin']);
-	$temp_set['job'] = intval($_POST['job']);
-	$temp_set['replace'] = intval($_POST['replace']);
-	$temp_set['main'] = esc(stripcslashes(htmlspecialchars(($_POST['main']))));
-	$temp_set['header'] = esc(stripcslashes(htmlspecialchars(($_POST['header']))));
-	if (save_settings($temp_set)) {
-		admin_log('设置', '系统', '更改系统设置');
-		msg('已成功接受设置');
-	} else {
-		$err = '无权更改配置文件';
-	}
-	header( "Location: " . $_SERVER [ "REQUEST_URI" ]);
-	exit();
 }
 
 err();
 aut();
 
 echo "<form method=\"post\" action=\"?\">";
+echo "网站域名:<br /><input name=\"hostname\" value=\"" . ($set_dinamic['hostname'] ?? NULL) . "\" type=\"text\" /><br />";
 echo "网站名称:<br /><input name=\"title\" value=\"{$temp_set['title']}\" type=\"text\" /><br />";
 echo "每页显示:<br /><input name=\"p_str\" value=\"{$temp_set['p_str']}\" type=\"text\" /><br />";
 echo "主页:<br /><input name=\"main\" value=\"" . setget('main', "") . "\" type=\"text\" /><br />";

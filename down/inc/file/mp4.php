@@ -91,9 +91,7 @@ if (class_exists('ffmpeg_movie')) {
 		echo '帧速率: ' . $fileInfo['video']['frame_rate'] . "<br />";
 		if (isset($fileInfo['video']['codec'])) {
 			echo '编解码器(视频): ' . $fileInfo['video']['codec'] . "<br />";
-		} else {
-			echo '编解码器(视频): N/A<br />';
-		}		
+		}	
 		if (isset($fileInfo['playtime_seconds'])) {
 			$duration = $fileInfo['playtime_seconds'];
 			if ($duration > 3599) {

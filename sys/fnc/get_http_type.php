@@ -5,7 +5,7 @@ function get_http_type() {
 	$http_type = 'http';
 	
 	// 检查 HTTPS 是否开启
-	if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+	if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1)) {
 		$http_type = 'https';
 	} elseif ($set['get_ip_from_header'] != 'disabled') {	// 检查 X-Forwarded-Proto 或 Forwarded 头部
 		if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
