@@ -1,17 +1,17 @@
-<?
+<?php
 /*
-* $name описание действий объекта 
+* $name 对象操作的描述
 */
-if ($type == 'notes' && $post['avtor'] != $user['id']) // дневники
-{
+if ($type == 'notes' && $post['avtor'] != $user['id']) {	// 日记
 	$name = '创建' . ($avtor['pol'] == 1 ? null : "а") . ' 新日记';
 }
+
 /*
-* Вывод блока с содержимым 
+* 包含内容的块的输出
 */
 if ($type  ==  'notes') {
 	$notes = dbassoc(dbquery("SELECT * FROM `notes` WHERE `id` = '" . $post['id_file'] . "' LIMIT 1"));
-	if ($notes['id']) {
+	if (isset($notes['id']) && $notes['id']) {
 		echo '<div class="nav1">';
 		echo user::nick($avtor['id'], 0, 0, 0) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a> ' . $name . '
 		<b>' . text($notes['name']) . '</b> ' . $s1 . vremja($post['time']) . $s2 . '<br />';

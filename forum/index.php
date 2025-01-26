@@ -135,9 +135,9 @@ if (
 	将通知标记为已读
 	===============================
 	*/
-	dbquery("UPDATE `notification` SET `read` = '1' WHERE `id_object` = '$them[id]' AND `type` = 'them_komm' AND `id_user` = '$user[id]'");
 	/*------------清除这个讨论的柜台-------------*/
 	if (isset($user)) {
+		dbquery("UPDATE `notification` SET `read` = '1' WHERE `id_object` = '$them[id]' AND `type` = 'them_komm' AND `id_user` = '$user[id]'");
 		dbquery("UPDATE `discussions` SET `count` = '0' WHERE `id_user` = '$user[id]' AND `type` = 'them' AND `id_sim` = '$them[id]' LIMIT 1");
 	}
 	/*---------------------------------------------------------*/

@@ -64,3 +64,47 @@
         "message": "退出登录成功"
     }
     ```
+
+### 1.4 用邮箱找回密码
+
+- **请求URL**: `?action=forgot-password`
+- **请求方式**: POST
+- **请求参数**:
+
+    ```x-www-form-urlencoded
+    nick=<string>&email=<string>&captcha=<string>&captcha_token=<string>
+    ```
+
+- **响应内容**:
+
+    ```json
+    {
+        "status": "success",
+        "message": "密码重置邮件已发送，请查收您的邮箱",
+        "data": {
+            "email": "<string>"
+        }
+    }
+    ```
+
+### 1.5 重置密码
+
+- **请求URL**: `?action=reset-password`
+- **请求方式**: POST
+- **请求参数**:
+
+    ```x-www-form-urlencoded
+    nick=<string>&email=<string>&token=<string>&password=<string>
+    ```
+
+- **响应内容**:
+
+    ```json
+    {
+        "status": "success",
+        "message": "密码重置成功",
+        "data": {
+            "user_id": "int"
+        }
+    }
+    ```

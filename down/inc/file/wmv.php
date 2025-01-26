@@ -24,7 +24,7 @@ elseif (class_exists('ffmpeg_movie'))
 			imagedestroy($des_img);
 			imagedestroy($s_img);
 			if (function_exists('iconv'))
-			echo "<img src='".iconv('windows-1251', 'utf-8',"/files/screens/128/$file_id[id].gif")."' alt='scr...' /><br />";
+			echo "<img src='".iconv('windows-1252', 'utf-8',"/files/screens/128/$file_id[id].gif")."' alt='scr...' /><br />";
 			else
 			echo "<img src='/files/screens/128/$file_id[id].gif' alt='scr...' /><br />";
 		}

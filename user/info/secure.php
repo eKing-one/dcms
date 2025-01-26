@@ -9,7 +9,7 @@ include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 only_reg();
-$set['title'] = '安全';
+$set['title'] = '更改密码';
 include_once '../../sys/inc/thead.php';
 title();
 
