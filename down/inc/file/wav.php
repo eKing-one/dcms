@@ -29,7 +29,7 @@ if (class_exists('ffmpeg_movie'))
 	if(($media->getArtist())<>"")
 	{
 		if (function_exists('iconv'))
-		echo '遗嘱执行人: '.iconv('windows-1251', 'utf-8', $media->getArtist())."<br />";
+		echo '遗嘱执行人: '.iconv('windows-1252', 'utf-8', $media->getArtist())."<br />";
 		else
 		echo '遗嘱执行人: '.$media->getArtist()."<br />";
 	}

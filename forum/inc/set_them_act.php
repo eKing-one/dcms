@@ -1,4 +1,4 @@
-<?
+<?php
 /* PluginS Dcms-Social.Ru */
 
 /*==== 移动主题*****/
@@ -21,7 +21,7 @@ if (isset($_GET['act']) && isset($_GET['ok']) && $_GET['act'] == 'mesto' && isse
 }
 
 /**** 删除主题 ****/
-if ((user_access('forum_them_del') || $ank2['id'] == $user['id']) &&  isset($_GET['act']) && isset($_GET['ok']) && $_GET['act'] == 'delete') {
+if ((user_access('forum_them_del') || (isset($user) && $ank2['id'] == $user['id'])) &&  isset($_GET['act']) && isset($_GET['ok']) && $_GET['act'] == 'delete') {
 	/*
 	* 删除主题文件
 	*/

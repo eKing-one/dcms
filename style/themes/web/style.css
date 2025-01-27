@@ -462,6 +462,7 @@ textarea:focus {
 	}
 
 	input[type="text"],
+	input[type="email"],
 	input[type="password"] {
 		background-color: #2A2A2A; /* 输入框背景色变暗 */
 		border: 1px solid #555; /* 边框颜色变暗 */
@@ -470,6 +471,7 @@ textarea:focus {
 	}
 
 	input[type="text"]:disabled,
+	input[type="email"]:disabled,
 	input[type="password"]:disabled {
 		border-color: #555; /* 禁用时的边框颜色加深 */
 		background-color: #333; /* 背景颜色变暗 */
@@ -477,6 +479,7 @@ textarea:focus {
 	}
 
 	input[type="text"]:focus,
+	input[type="email"]:focus,
 	input[type="password"]:focus,
 	textarea:focus {
 		border-color: #777; /* 焦点时边框颜色变暗 */
@@ -718,7 +721,7 @@ b.count {
 		background-color: #1d1d1d;
 	}
 	.main {
-		color: white;
+		color: #e8e6e3;
 		background: url("images/bgs_dark.png") repeat-x #4C6F97;
 		border: 1px solid #252525;
 	}
@@ -727,6 +730,7 @@ b.count {
 	}
 	.main2 {
 		background: url("images/ma2_dark.png") repeat-y #000;
+		color: #e8e6e3;
 	}
 	.menu {
 		background-color: #030303;

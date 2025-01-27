@@ -315,7 +315,7 @@ function get_client_details() {
  */
 $clientDetails = get_client_details();
 
-
+// 检查用户是否登录
 function checkLoginStatus() {
 	global $db;
 	global $set;
@@ -388,7 +388,7 @@ function checkLoginStatus() {
 	return $user;
 }
 
-
+// 核对验证码
 function validateCaptchaToken($user_input, $captcha_token) {
 	global $set;
 	global $db;
@@ -451,6 +451,62 @@ function getStringLength($str) {
 		return strlen($str);
 	}
 }
+
+
+/**
+ * 发送邮件的函数
+ *
+ * @param string $subject 邮件主题
+ * @param string $body 邮件内容（HTML格式）
+ * @param string $recipientEmail 收件人的电子邮件地址
+ * @param string $recipientName 收件人的姓名
+ * @return array 发送邮件的结果，包含状态和消息
+ */
+function sendEmail($subject, $body, $recipientEmail, $recipientName) {
+	global $set;
+	if ($set['mail_transport_type'] == 'smtp') {
+		// 创建 PHPMailer 实例
+		$mail = new PHPMailer\PHPMailer\PHPMailer(true);
+		try {
+			// 服务器设置
+			$mail->isSMTP();
+			$mail->Host = $set['smtp_host'];											// SMTP 服务器（替换为你自己的 SMTP 服务器）
+			$mail->SMTPAuth = ($set['smtp_auth'] == '1' ? true : false);				// 启用 SMTP 验证
+			$mail->Username = $set['smtp_username'];									// SMTP 用户名
+			$mail->Password = $set['smtp_password'];									// SMTP 密码
+			if ($set['smtp_secure'] == 'tls') {
+				$mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS; // 使用 TLS 加密
+			} elseif ($set['smtp_secure'] == 'ssl') {
+				$mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SSL;      // 使用 SSL 加密
+			} else {
+				$mail->SMTPSecure = NULL;                                               // 不加密，使用纯文本传输
+			}
+			$mail->Port = (int)$set['smtp_port'];										// SMTP 端口号
+
+			// 发件人设置
+			$mail->setFrom($set['set_email_from'], $set['set_email_from_name'] ?? '');
+			$mail->addReplyTo($set['set_email_reply_to'], $set['set_email_reply_to_name'] ?? '');
+
+			// 收件人设置
+			$mail->addAddress($recipientEmail, $recipientName);
+
+			// 内容设置
+			$mail->isHTML(true);  // 邮件内容为 HTML 格式
+			$mail->Subject = '=?utf-8?B?' . base64_encode($subject) . '?=';
+			$mail->Body = $body;
+
+			// 发送邮件
+			$mail->send();
+			return ['status' => 'success', 'message' => '邮件已成功发送。'];
+
+		} catch (PHPMailer\PHPMailer\Exception $e) {
+			return ['status' => 'error', 'message' => '邮件发送失败: ' . $mail->ErrorInfo];
+		}
+	} else {
+		mail($recipientEmail, '=?utf-8?B?' . base64_encode($subject), $body);
+	}
+}
+
 
 
 // 删除过期的captcha_token
@@ -610,16 +666,20 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 						<a href='" . get_http_type() . "://{$_SERVER['HTTP_HOST']}/user/reg.php?id=$id_reg&amp;activation=$activation'>点击激活帐户</a><br />
 						如果帐户在24小时内未激活，它将被删除。<br />
 						真诚的，网站管理团队";
-	
-			$headers = [
-				'From' => "password@{$_SERVER['HTTP_HOST']}",
-				'Content-Type' => 'text/html; charset=utf-8',
-			];
-	
-			// 使用 PHP 的 mail() 函数发送激活邮件
-			// 之后会考虑替换为 PHPMailer 来提升邮件的可靠性
-			mail($_POST['email'], '=?utf-8?B?' . base64_encode($subject) . '?=', $regmail, $headers);
-			$response['message'] = '已发送电子邮件，等待验证';
+
+
+			// 调用封装的发送邮件函数
+			$emailResult = sendEmail($subject, $regmail, $_POST['email'], $user2['nick']);
+			
+			if ($emailResult['status'] == 'success') {
+				// 如果邮件发送成功
+				$response['status'] = 'success';
+				$response['message'] = "已发送电子邮件到 {$_POST['email']}，等待验证";
+			} else {
+				// 如果邮件发送失败
+				$response['status'] = 'error';
+				$response['message'] = $emailResult['message'];
+			}
 		} else {
 			// 如果没有开启邮箱验证，直接注册
 			$response['message'] = '注册成功';
@@ -682,8 +742,63 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 			$response['status'] = 'success';
 			$response['message'] = "账号 {$user['nick']} 已激活";
 		}
+	} else {
+		$response['status'] = 'error';
+		$response['message'] = '缺少参数';
 	}
 
+
+} elseif (isset($_GET['action']) && $_GET['action'] == 'forgot-password') {
+	// 忘记密码
+	if (isset($_POST['nick']) && isset($_POST['email']) && isset($_POST['captcha']) && isset($_POST['captcha_token'])) {
+		$result = $db->query("SELECT COUNT(*) FROM `user` WHERE `nick` = :nick", [':nick' => $_POST['nick']]);
+
+		if ($result && $result['COUNT(*)'] == 1) {
+			$result = $db->query("SELECT COUNT(*) FROM `user` WHERE `nick` = :nick AND `email` = :email", [
+				':nick' => $_POST['nick'],
+				':email' => $_POST['email']
+			]);
+			if ($result && $result['COUNT(*)'] == 1) {
+				// 生成链接Token
+				$token = bin2hex(random_bytes(32));
+				// 插入数据库，存储 token 和创建时间
+				$db->query("INSERT INTO `password_reset_tokens` (`user_id`, `token`) VALUES (:user_id, :token)", [
+					':user_id' => $userId,
+					':token' => $token
+				]);
+
+				$user2 = $db->query("SELECT * FROM `user` WHERE `nick` = :nick LIMIT 1", [':nick' => $_POST['nick']]);
+				$subject = "密码恢复";
+				$regmail = "你好！ $user2[nick]<br />
+							您已激活密码恢复<br />
+							要设置新密码，请点击链接:<br />
+							<a href='http://{$set['hostname']}/user/pass.php?id={$user2['id']}&amp;token={$token}'>http://{$set['hostname']}/user/pass.php?id={$user2['id']}&amp;token={$token}</a><br />
+							此链接有效，直到您的用户名下的第一个授权({$user2['nick']})<br />真诚的，网站管理<br />";
+
+				// 调用封装的发送邮件函数
+				$emailResult = sendEmail($subject, $regmail, $user2['email'], $user2['nick']);
+
+				if ($emailResult['status'] == 'success') {
+					// 如果邮件发送成功
+					$response['status'] = 'success';
+					$response['message'] = "设置新密码的链接已发送到电子邮件 $user2[email]";
+				} else {
+					// 如果邮件发送失败
+					$response['status'] = 'error';
+					$response['message'] = $emailResult['message'];
+				}
+			} else {
+				$response['status'] = 'error';
+				$response['message'] = '无效的电子邮件地址或丢失的电子邮件信息';
+			}
+		} else {
+			$response['status'] = 'error';
+			$response['message'] = '使用此用户名的用户未注册';
+		}
+	} else {
+		$response['status'] = 'error';
+		$response['message'] = '缺少参数';
+	}
 
 
 } else {
