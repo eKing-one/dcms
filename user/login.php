@@ -7,7 +7,7 @@ include_once '../sys/inc/settings.php';
 include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
-$show_all=true; // 给大家看
+$show_all=true; 
 $input_page=true;
 include_once '../sys/inc/user.php';
 only_unreg();
@@ -72,7 +72,7 @@ dbquery("UPDATE `user` SET `ip` = '{$ip}' WHERE `id` = '{$user['id']}' LIMIT 1")
 // 记录用户的 ua
 if ($ua) dbquery("UPDATE `user` SET `ua` = '" . my_esc($ua) . "' WHERE `id` = '{$user['id']}' LIMIT 1");
 
-// Непонятная сессия
+//  更新会话信息
 dbquery("UPDATE `user` SET `sess` = '$sess' WHERE `id` = '$user[id]' LIMIT 1");
 // 浏览器类型
 dbquery("UPDATE `user` SET `browser` = '" . ($webbrowser == true ? "wap" : "web") . "' WHERE `id` = '{$user['id']}' LIMIT 1");

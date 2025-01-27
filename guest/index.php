@@ -48,7 +48,7 @@ if (isset($_POST['msg']) && isset($user)) {
 				dbquery("INSERT INTO `notification` (`avtor`, `id_user`, `type`, `time`) VALUES ('$user[id]', '$ank_reply[id]', 'guest', '$time')");
 		}
 		dbquery("INSERT INTO `guest` (id_user, time, msg) values('$user[id]', '$time', '" . my_esc($msg) . "')");
-		$_SESSION['message'] = '信息已成功添加';
+		$_SESSION['message'] = '留言添加成功';
 		header('Location: index.php');
 		exit;
 	}
@@ -73,7 +73,7 @@ if (isset($_POST['msg']) && isset($user)) {
 	} elseif (!isset($err)) {
 		$_SESSION['antiflood'] = $time;
 		dbquery("INSERT INTO `guest` (id_user, time, msg) values('0', '$time', '" . my_esc($msg) . "')");
-		$_SESSION['message'] = '信息已成功添加';
+		$_SESSION['message'] = '留言添加成功';
 		header('Location: index.php');
 		exit;
 	}
@@ -111,7 +111,7 @@ if (isset($user) || (isset($set['write_guest']) && $set['write_guest'] == 1 && (
 echo '<table class="post">';
 if ($k_post == 0) {
 	echo '<div class="mess" id="no_object">';
-	echo '没有评论';
+	echo '没有留言';
 	echo '</div>';
 }
 $q = dbquery("SELECT * FROM `guest` ORDER BY id DESC LIMIT $start, $set[p_str]");

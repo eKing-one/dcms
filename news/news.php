@@ -8,24 +8,24 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
-// Если нет id шлем на главную
+// 无法获取id跳转至主页
 if (!isset($_GET['id']) && !is_numeric($_GET['id'])) {
 	header("Location: index.php?" . session_id());
 	exit;
 }
-// Cуществование новости
+// 获取新闻
 if (dbresult(dbquery("SELECT COUNT(*) FROM `news` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1", $db), 0) == 0) {
 	header("Location: index.php?" . session_id());
 	exit;
 }
-// Определение записи новости
+// 获取ID新闻记录
 $news = dbassoc(dbquery("SELECT * FROM `news` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1"));
-// Автор новости
+// 新闻作者
 $author = user::get_user($news['id_user']);
-// Отмечаем уведомления
+// 处理通知
 if (isset($user))
 	dbquery("UPDATE `notification` SET `read` = '1' WHERE `type` = 'news_komm' AND `id_user` = '$user[id]' AND `id_object` = '$news[id]'");
-/*------------------------Мне нравится------------------------*/
+/*------------------------点赞------------------------*/
 if (
 	isset($user) && isset($_GET['like']) && ($_GET['like'] == 1 || $_GET['like'] == 0)
 	&& dbresult(dbquery("SELECT COUNT(*) FROM `like_object` WHERE `id_object` = '$news[id]' AND `type` = 'news' AND `id_user` = '$user[id]'"), 0) == 0
@@ -60,7 +60,7 @@ if (isset($_POST['msg']) && isset($user)) {
 			if ($notifiacation['komm'] == 1 && $ank_reply['id'] != $user['id'])
 				dbquery("INSERT INTO `notification` (`avtor`, `id_user`, `id_object`, `type`, `time`) VALUES ('$user[id]', '$ank_reply[id]', '$news[id]', 'news_komm', '$time')");
 		}
-		$_SESSION['message'] = '您的评论已被成功接受';
+		$_SESSION['message'] = '发送成功';
 		header('Location: ?id=' . intval($_GET['id']) . '&page=' . intval($_GET['page']));
 		exit;
 	}
