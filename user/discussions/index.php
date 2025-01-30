@@ -18,7 +18,7 @@ $all = null;
 if (isset($_GET['read']) && $_GET['read'] == 'all') {
 	if (isset($user)) {
 		dbquery("UPDATE `discussions` SET `count` = '0' WHERE `id_user` = '$user[id]'");
-		$_SESSION['message'] = '已读所有';
+		$_SESSION['message'] = '已读全部';
 		header("Location: ?");
 		exit;
 	}
