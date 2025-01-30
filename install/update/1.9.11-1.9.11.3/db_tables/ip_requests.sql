@@ -1,6 +1,0 @@
-CREATE TABLE `ip_requests` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `ip` VARCHAR(39) NOT NULL,
-    `time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    KEY (`ip`, `time`)
-);
