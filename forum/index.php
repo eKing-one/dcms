@@ -14,6 +14,7 @@ if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` 
 	header('Location: /user/ban.php?' . session_id());
 	exit;
 }
+
 if (
 	isset($_GET['id_forum']) && dbresult(dbquery("SELECT COUNT(*) FROM `forum_f` WHERE" . ((!isset($user) || $user['level'] == 0) ? " `adm` = '0' AND" : null) . " `id` = '" . intval($_GET['id_forum']) . "'"), 0) == 1
 	&& isset($_GET['id_razdel']) && dbresult(dbquery("SELECT COUNT(*) FROM `forum_r` WHERE `id` = '" . intval($_GET['id_razdel']) . "' AND `id_forum` = '" . intval($_GET['id_forum']) . "'"), 0) == 1
@@ -29,13 +30,13 @@ if (
 		$ank = user::get_user($post['id_user']);
 		if (
 			isset($_GET['act']) && $_GET['act'] == 'edit' && isset($_POST['msg']) && isset($_POST['post']) &&
-			// редактирование поста
+			// 帖子编辑
 			(
 				(user_access('forum_post_ed'))
-				// права группы на редактирование
+				// 群组编辑权限
 				||
 				(isset($user) && $user['id'] == $post['id_user'] && $post['time'] > time() - 600 && $post['id_user'] == $post2['id_user'])
-				// право на редактирование своего поста, если он поседний в теме
+				// 编辑帖子的权利（如果主题中的帖子是灰色的）
 			)
 		) {
 			$msg = $_POST['msg'];
@@ -122,6 +123,8 @@ if (
 		}
 	}
 }
+
+
 if (
 	isset($_GET['id_forum']) && dbresult(dbquery("SELECT COUNT(*) FROM `forum_f` WHERE" . ((!isset($user) || $user['level'] == 0) ? " `adm` = '0' AND" : null) . " `id` = '" . intval($_GET['id_forum']) . "'"), 0) == 1
 	&& isset($_GET['id_razdel']) && dbresult(dbquery("SELECT COUNT(*) FROM `forum_r` WHERE `id` = '" . intval($_GET['id_razdel']) . "' AND `id_forum` = '" . intval($_GET['id_forum']) . "'"), 0) == 1
@@ -153,6 +156,8 @@ if (
 	echo "</div>";
 	include_once '../sys/inc/tfoot.php';
 }
+
+
 if (
 	isset($_GET['id_forum']) && dbresult(dbquery("SELECT COUNT(*) FROM `forum_f` WHERE" . ((!isset($user) || $user['level'] == 0) ? " `adm` = '0' AND" : null) . " `id` = '" . intval($_GET['id_forum']) . "'"), 0) == 1
 	&& isset($_GET['id_razdel']) && dbresult(dbquery("SELECT COUNT(*) FROM `forum_r` WHERE `id` = '" . intval($_GET['id_razdel']) . "' AND `id_forum` = '" . intval($_GET['id_forum']) . "'"), 0) == 1
@@ -175,6 +180,8 @@ if (
 	}
 	include_once '../sys/inc/tfoot.php';
 }
+
+
 if (isset($_GET['id_forum']) && dbresult(dbquery("SELECT COUNT(*) FROM `forum_f` WHERE" . ((!isset($user) || $user['level'] == 0) ? " `adm` = '0' AND" : null) . " `id` = '" . intval($_GET['id_forum']) . "'"), 0) == 1) {
 	$forum = dbassoc(dbquery("SELECT * FROM `forum_f` WHERE `id` = '" . intval($_GET['id_forum']) . "' LIMIT 1"));
 	$set['title'] = '论坛- ' . text($forum['name']); //网页标题
@@ -188,6 +195,8 @@ if (isset($_GET['id_forum']) && dbresult(dbquery("SELECT COUNT(*) FROM `forum_f`
 	echo "</div>";
 	include_once '../sys/inc/tfoot.php';
 }
+
+
 $set['title'] = '论坛'; //网页标题
 include_once '../sys/inc/thead.php';
 title();
@@ -249,6 +258,8 @@ echo "</table>";
 echo "<div class='foot'>";
 echo "<img src='/style/icons/soob114.gif'> <a href='on-forum.php'>谁在论坛？</a> | <a href='/user/admin.user.php?forum'>版主</a>";
 echo "</div>";
+
+
 if (user_access('forum_for_create') && (isset($_GET['act']) && $_GET['act'] == 'new' || dbresult(dbquery("SELECT COUNT(*) FROM `forum_f`"), 0) == 0)) {
 	echo "<form method=\"post\" action=\"/forum/index.php?act=new&amp;ok\">";
 	echo "子论坛的名称:<br />";
@@ -276,6 +287,8 @@ if (user_access('forum_for_create') && (isset($_GET['act']) && $_GET['act'] == '
 	echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">取消</a><br />";
 	echo "</form>";
 }
+
+
 if (user_access('forum_for_create') && dbresult(dbquery("SELECT COUNT(*) FROM `forum_f`"), 0) > 0) {
 	echo "<div class=\"foot\">";
 	echo "<img src='/style/icons/str.gif' alt='*'> <a href=\"/forum/?act=new\">新的子论坛</a><br />";

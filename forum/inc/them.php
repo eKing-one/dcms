@@ -574,7 +574,11 @@ if (isset($user) && (((!isset($_GET['act']) || $_GET['act'] != 'post_delete') &&
 	echo "</div>";
 }
 
-
+/**
+ * ==================================
+ * 评论区
+ * ==================================
+ */
 echo "<div class='foot'>评论：</div>";
 /*------------时间排序--------------*/
 if (isset($user)) {
@@ -613,13 +617,13 @@ while ($post = dbassoc($q)) {
 		echo '<input type="checkbox" name="post_' . $post['id'] . '" value="1" />';
 	}
 	echo user::avatar($post['id_user']);
-	echo user::nick($ank['id'], 1, 1, 0) . ' <span style="float:right;color:#666;">' . vremja($post['time']) . '</span><br/>';
-	$postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'forum') AND `post` = '1' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
+	echo user::nick($post['id_user'], 1, 1, 0) . ' <span style="float:right;color:#666;">' . vremja($post['time']) . '</span><br/>';
+	$postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'forum') AND `post` = '1' AND `id_user` = '{$post['id_user']}' AND (`time` > '{$time}' OR `navsegda` = '1')"), 0);
 	if ($postBan == 0) { // 报文部分
 		if ($them['id_user'] == $post['id_user']) // 标记主题作者
 			echo '<font color="#999">主题作者</font><br />';
 		/*------------状态显示-------------*/
-		$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `pokaz` = '1' AND `id_user` = '$ank[id]' LIMIT 1"));
+		$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `pokaz` = '1' AND `id_user` = '{$post['id_user']}' LIMIT 1"));
 		if (isset($status['id']) && $set['st'] == 1) {
 			echo "<div class='st_1'></div>";
 			echo "<div class='st_2'>";
@@ -644,19 +648,20 @@ while ($post = dbassoc($q)) {
 	}
 	if (isset($user)) {
 		if ($them['close'] == 0) {
-			if (isset($user) &&  $user['id'] != $ank['id'] && $ank['id'] != 0) {
-				echo '<a href="/forum/' . $forum['id'] . '/' . $razdel['id'] . '/' . $them['id'] . '/?response=' . $ank['id'] . '&amp;page=' . $page . '" title="回复 ' . $ank['nick'] . '">回复</a> | ';
+			if (isset($user) && isset($ank['nick']) &&  $user['id'] != $post['id_user'] && $post['id_user'] != 0) {
+				echo '<a href="/forum/' . $forum['id'] . '/' . $razdel['id'] . '/' . $them['id'] . '/?response=' . $post['id_user'] . '&amp;page=' . $page . '" title="回复 ' . $ank['nick'] . '">回复</a> | ';
 				echo '<a href="/forum/' . $forum['id'] . '/' . $razdel['id'] . '/' . $them['id'] . '/' . $post['id'] . '/cit" title="引用 ' . $ank['nick'] . '">引用</a>';
 			}
 		}
 		echo '<span style="float:right;">';
 		if ($them['close'] == 0) {	// 当主题关闭时隐藏按钮 。
-			if (user_access('forum_post_ed') && ($ank['level'] <= $user['level'] || $ank['level'] == $user['level'] &&  $post['id_user'] == $user['id']))
-				echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit\" title='修改岗位$ank[nick]'  class='link_s'><img src='/style/icons/edit.gif' alt='*'> </a> ";
-			elseif ($user['id'] == $post['id_user'] && $post['time'] > time() - 600)
-				echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit\" title='修改我的职位。'  class='link_s'><img src='/style/icons/edit.gif' alt='*'> (" . ($post['time'] + 600 - time()) . " sec)</a> ";
-			if ($user['id'] != $ank['id'] && $ank['id'] != 0) {	// 帖子制定者及系统除外
-				echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?spam=$post[id]&amp;page=$page\" title='垃圾邮件'  class='link_s'><img src='/style/icons/blicon.gif' alt='*'>举报</a>";
+			if (user_access('forum_post_ed') && (empty($ank['level']) || ($ank['level'] <= $user['level'] || $ank['level'] == $user['level'] &&  $post['id_user'] == $user['id']))) {
+				echo "<a href=\"/forum/{$forum['id']}/{$razdel['id']}/{$them['id']}/{$post['id']}/edit\" title='修改 " . ($ank['nick'] ?? '[已删除]') . " 的评论'  class='link_s'><img src='/style/icons/edit.gif' alt='*'> </a> ";
+			} elseif ($user['id'] == $post['id_user'] && $post['time'] > time() - 600) {
+				echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit\" title='修改评论'  class='link_s'><img src='/style/icons/edit.gif' alt='*'> (" . ($post['time'] + 600 - time()) . " sec)</a> ";
+			}
+			if ($user['id'] != $post['id_user'] && $post['id_user'] != 0) {	// 帖子制定者及系统除外
+				echo "<a href=\"/forum/$forum[id]/$razdel[id]/$them[id]/?spam=$post[id]&amp;page=$page\" title='垃圾评论'  class='link_s'><img src='/style/icons/blicon.gif' alt='*'>举报</a>";
 			}
 		}
 		if (user_access('forum_post_ed')) {	// 删除帖子
