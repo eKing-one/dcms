@@ -54,6 +54,7 @@ if (dbresult(dbquery("SELECT * FROM checkin_records WHERE user_id = '{$user['id'
 	} else {
 		echo "签到成功，获得 $points 积分";
 	}
+	echo "</div>";
 }
 
 include_once '../sys/inc/tfoot.php';
