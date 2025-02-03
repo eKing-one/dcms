@@ -59,7 +59,7 @@ function DownloadFile($filename, $name, $mimetype = NULL) {
 	if (fseek($f, $from, SEEK_SET) !== 0) {
 		http_response_code(500);
 		error_log('文件读取失败: ' . $filename);
-		die('文件读取失败');
+		exit;
 	}
 
 	// 启动下载，分块传输

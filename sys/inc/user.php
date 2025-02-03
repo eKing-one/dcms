@@ -250,7 +250,7 @@ if (isset($user) && isset($_GET['t'])) {
 */
 
 if (isset($user) && isset($_GET['sort']) && ($_GET['sort'] == '0' || $_GET['sort'] == '1')) {
-	dbquery("update `user` set `sort` = 'my_esc($_GET[sort])' where `id` = '$user[id]' limit 1");
+	dbquery("update `user` set `sort` = '" . my_esc($_GET['sort']) . "' where `id` = '$user[id]' limit 1");
 	header('Location: ' . htmlspecialchars($_SERVER['HTTP_REFERER']));
 }
 

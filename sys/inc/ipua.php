@@ -111,10 +111,8 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
 	// 使用 uap-php 库解析 User-Agent
 	$result = UAParser\Parser::create()->parse($ua);
 	// 特殊处理 Opera Mini 手机型号
-	if (isset($_SERVER['HTTP_X_OPERAMINI_PHONE_UA']) && stripos($ua, 'Opera') !== false) {
-		$ua_om = preg_replace('#[^a-z_\. 0-9\-]#iu', null, strtolower($_SERVER['HTTP_X_OPERAMINI_PHONE_UA']));
-		$ua = $result->toString();
-		$ua = $ua . '(' . $ua_om . ')';
+	if (isset($_SERVER['HTTP_X_OPERAMINI_PHONE']) && stripos($ua, 'Opera') !== false) {
+		$ua = $result->ua->toString() . " ({$_SERVER['HTTP_X_OPERAMINI_PHONE']})";
 	} else {
 		$ua = $result->toString();
 	}

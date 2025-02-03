@@ -41,7 +41,7 @@ class user
 		if ($user == 0) {
 			$ank = array('id' => '0', 'nick' => '系统', 'pol' => '1', 'rating' => '0', 'browser' => 'wap', 'date_last' => time());
 		} elseif (!$ank) {
-			$ank = array('id' => '0', 'nick' => '[已删除]', 'pol' => '1', 'rating' => '0', 'browser' => 'wap', 'date_last' => time());
+			$ank = array('id' => '0', 'nick' => '[已删除]', 'pol' => '1', 'rating' => '0', 'browser' => 'wap');
 		}
 		if ($url == true) {
 			$nick = ' <a href="/user/info.php?id=' . $user . '">' . text($ank['nick']) . '</a> ';
@@ -77,7 +77,7 @@ class user
 			}
 		}
 		// 在线图标输出
-		if ($user != 0 && $ank['date_last'] > time() - 600 && $on == true) {
+		if ($user != 0 && isset($ank['date_last']) && $ank['date_last'] > time() - 600 && $on == true) {
 			if ($ank['browser'] == 'wap') {
 				$online = ' <img src="/style/icons/online.gif" alt="WAP" /> ';
 			} else {
@@ -160,11 +160,17 @@ class user
 
 		} else {
 			$user_id = intval($ID);
+			if (empty($ank) || !is_array($ank)) {
+				$ank = [];  // 初始化为一个空数组
+			}
 			$ank[0] = FALSE;
 			if (!isset($ank[$user_id])) {
 				$ank[$user_id] = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$user_id' LIMIT 1"));
 
-				if ($ank[$user_id]['id'] != 0) {
+				if (empty($ank[$user_id]['id'])) {
+					// 用户不存在
+					$ank[$user_id] = FALSE;
+				} elseif ($ank[$user_id]['id'] != 0) {
 
 					$tmp_us = dbassoc(dbquery("SELECT `level`,`name` AS `group_name` FROM `user_group` WHERE `id` = '" . $ank[$user_id]['group_access'] . "' LIMIT 1"));
 

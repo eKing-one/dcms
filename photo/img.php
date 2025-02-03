@@ -59,10 +59,9 @@ if ($size == 0) {
 	$file_path = H . "sys/gallery/photo/{$if_photo}.{$photo['ras']}";
 	// 检查文件是否存在
 	if (is_file($file_path)) {
-		header("Last-Modified: " . gmdate("D, d M Y H:i:s", filemtime($file_path)) . " GMT");
+		header('Access-Control-Allow-Origin: *');
 		// 输出文件
 		DownloadFile($file_path, "photo_{$if_photo}.{$photo['ras']}", ras_to_mime($photo['ras']));
-		exit;
 	} else {
 		error_log("[photo/img.php] Error: File not found at path: $file_path");
 		http_response_code(404);
@@ -71,10 +70,9 @@ if ($size == 0) {
 	$file_path = H . "sys/gallery/{$size}/{$if_photo}.jpg";
 	// 检查文件是否存在
 	if (is_file($file_path)) {
-		header("Last-Modified: " . gmdate("D, d M Y H:i:s", filemtime($file_path)) . " GMT");
+		header('Access-Control-Allow-Origin: *');
 		// 输出文件
 		DownloadFile($file_path, "photo_{$if_photo}.jpg", ras_to_mime('jpg'));
-		exit;
 	} else {
 		error_log("[photo/img.php] Error: File not found at path: $file_path");
 		http_response_code(404);
