@@ -13,7 +13,6 @@ only_reg();
 if (setget('exit', 1) == 1) {
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if (isset($_POST['confirm_yes'])) {
-			setcookie('id_user', '', time() - 3600, '/');
 			setcookie('auth_token', '', time() - 3600, '/');
 			session_destroy();
 			header('Location: /?' . session_id());
@@ -24,7 +23,6 @@ if (setget('exit', 1) == 1) {
 		}
 	}
 } else {
-	setcookie('id_user', '', time() - 3600, '/');
 	setcookie('auth_token', '', time() - 3600, '/');
 	session_destroy();
 	header('Location: /?' . session_id());

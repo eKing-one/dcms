@@ -39,6 +39,7 @@ if (isset($_SESSION['captcha']) && isset($_POST['chislo'])) {
 err();
 ?>
 
+当前登录方式为：<?php echo $user['type_input'] ?? 'N/A' ?><br>
 当前设备类型为：<?php echo $webbrowser ? 'PC' : 'NoPC'; ?><br>
 当前设备UA为：<?php echo $ua; ?><br>
 当前设备IP为：<?php echo $ip; ?><br>

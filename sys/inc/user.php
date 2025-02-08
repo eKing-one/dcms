@@ -8,26 +8,12 @@
 require 'classes/class.user.php';
 
 
-
-// 用户的定义
-if (!isset($_SESSION['id_user']) && !isset($input_page) && isset($_COOKIE['id_user']) && isset($_COOKIE['auth_token']) && $_COOKIE['id_user'] && $_COOKIE['auth_token']) {
-	// 从数据库获取用户信息
-	$cookie_user = dbassoc(dbquery("SELECT `id`, `pass` FROM `user` WHERE `id` = " . intval($_COOKIE['id_user']) . " LIMIT 1"));
-	if ($cookie_user && password_verify(cookie_decrypt($_COOKIE['auth_token'], intval($_COOKIE['id_user'])), $cookie_user['pass'])) {
-		$_SESSION['id_user'] = $cookie_user['id'];
-		dbquery("UPDATE `user` SET `date_aut` = '{$time}', `date_last` = '{$time}' WHERE `id` = '{$cookie_user['id']}' LIMIT 1");
-	} else {
-		// COOKIE 错误
-		setcookie('id_user', '', time() - 3600, '/');
-		setcookie('auth_token', '', time() - 3600, '/');
-	}
-}
-if (isset($_SESSION['id_user']) && dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '{$_SESSION['id_user']}' LIMIT 1"), 0) == 1) {
-	$user = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = {$_SESSION['id_user']} LIMIT 1"));
-	if (!empty($user)) {
-		dbquery("UPDATE `user` SET `date_last` = '{$time}' WHERE `id` = '{$user['id']}' LIMIT 1");
-		$user['type_input'] = 'session';
-	}
+$user = checkLoginStatus();
+if ($user['status'] == 'true') {
+	$user = $user['data'];
+} else {
+	die(json_encode($user));
+	unset($user);
 }
 
 
@@ -112,15 +98,18 @@ if (!empty($user)) {
 	}
 
 	// 记录用户的 ip
+	dbquery("UPDATE `user_log` SET `ip` = '{$ip}' WHERE `id` = '{$user['login_id']}' LIMIT 1");
 	dbquery("UPDATE `user` SET `ip` = '{$ip}' WHERE `id` = '$user[id]' LIMIT 1");
 
 	// 记录用户的 ua
+	if ($ua) dbquery("UPDATE `user_log` SET `ua` = '" . my_esc($ua) . "' WHERE `id` = '{$user['login_id']}' LIMIT 1");
 	if ($ua) dbquery("UPDATE `user` SET `ua` = '" . my_esc($ua) . "' WHERE `id` = '$user[id]' LIMIT 1");
 
 	// 难以理解的会话
 	dbquery("UPDATE `user` SET `sess` = '$sess' WHERE `id` = '$user[id]' LIMIT 1");
 
 	// 浏览器类型
+	dbquery("UPDATE `user_log` SET `browser` = '" . ($webbrowser == true ? "web" : "wap") . "' WHERE `id` = '{$user['login_id']}' LIMIT 1");
 	dbquery("UPDATE `user` SET `browser` = '" . ($webbrowser == true ? "web" : "wap") . "' WHERE `id` = '$user[id]' LIMIT 1");
 
 	// 检查相似的昵称
