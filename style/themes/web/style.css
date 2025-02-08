@@ -166,7 +166,7 @@ body {
 @media (prefers-color-scheme: dark) {
 	body {
 		background-color: #0A0A0A;
-		color: #eee;
+		color: rgba(255, 255, 255, 0.87);
 	}
 }
 
@@ -907,6 +907,7 @@ img.sto500 {
 		border-color: transparent transparent #343461 transparent;
 	}
 	.st_2 {
+		color: rgba(255, 255, 255, 0.87);
 		background-color: #343461;
 	}
 }
