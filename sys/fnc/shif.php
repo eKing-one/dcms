@@ -12,7 +12,6 @@ function shif($str) {
 	// 触发弃用警告
 	trigger_error("Function 'shif' is deprecated and insecure. Please avoid using it.", E_USER_DEPRECATED);
 
-
 	// 引入全局变量 $set
 	global $set;
 	// 获取加密所使用的密钥，来自全局变量 $set
@@ -25,7 +24,10 @@ function shif($str) {
 	return md5($key . $str1 . $str2 . $key);
 }
 
+
 /**
+ * 此函数已弃用！！！！
+ * 
  * 对传入的字符串进行加密处理。
  *
  * 使用 mcrypt 或 openssl 进行加密，并返回经过 Base64 编码的加密字符串。
@@ -36,6 +38,9 @@ function shif($str) {
  * @return string 返回加密后的字符串，经过 Base64 编码。
  */
 function cookie_encrypt($str, $id = 0) {
+	// 触发弃用警告
+	trigger_error("Function 'cookie_encrypt' is deprecated and insecure. Please avoid using it.", E_USER_DEPRECATED);
+
 	global $set, $ua;
 
 	// 确保密钥和IV的长度符合要求
@@ -46,7 +51,10 @@ function cookie_encrypt($str, $id = 0) {
 	return base64_encode(openssl_encrypt($str, 'AES-256-CBC', $key, 0, $iv));
 }
 
+
 /**
+ * 此函数已弃用！！！！
+ * 
  * 对加密的字符串进行解密操作。
  *
  * 使用 mcrypt 或 openssl 进行解密，返回解密后的原始字符串。
@@ -57,6 +65,9 @@ function cookie_encrypt($str, $id = 0) {
  * @return string 返回解密后的字符串。
  */
 function cookie_decrypt($str, $id = 0) {
+	// 触发弃用警告
+	trigger_error("Function 'cookie_decrypt' is deprecated and insecure. Please avoid using it.", E_USER_DEPRECATED);
+
 	global $set, $ua;
 
 	// 确保密钥和IV的长度符合要求
