@@ -52,10 +52,11 @@ if (
 			title();
 			echo "<div class='nav2'><form method='post' name='message' action='/forum/$forum[id]/$razdel[id]/$them[id]/$post[id]/edit'>";
 			$msg2 = output_text($post['msg'], false, true, false, false, false);
-			if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
+			if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php')) {
 				include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
-			else
-				echo "通信:<br /><textarea name=\"msg\">" . $msg2 . "</textarea><br />";
+			} else {
+				echo '通信:<br /><textarea name="msg">' . $msg2 . '</textarea><br />';
+			}
 			echo "<input name='post' value='修改' type='submit' /><br />";
 			echo "</form></div>";
 			echo "<div class=\"foot\">";
@@ -76,10 +77,11 @@ if (
 			echo "<div class='nav2'><form method='post' name='message' action='/forum/$forum[id]/$razdel[id]/$them[id]/new'>";
 			echo "<a href='/user/info.php?id=$ank[id]'>查看资料</a><br />";
 			$msg2 = $ank['nick'] . ', ';
-			if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
+			if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php')) {
 				include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
-			else
+			} else {
 				echo "信息:<br /><textarea name=\"msg\">$ank[nick], </textarea><br />";
+			}
 			echo "<input name='post' value='发送信息' type='submit' /><br />";
 			echo "</form></div>";
 			echo "<div class=\"foot\">";
@@ -107,10 +109,11 @@ if (
 			echo "<form method='post' name='message' action='/forum/$forum[id]/$razdel[id]/$them[id]/new'>";
 			echo "<input name='cit' value='$post[id]' type='hidden' />";
 			$msg2 = $ank['nick'] . ', ';
-			if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
+			if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php')) {
 				include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
-			else
+			} else {
 				echo "信息:<br /><textarea name=\"msg\">$ank[nick], </textarea><br />";
+			}
 			echo "<input name='post' value='发送信息' type='submit' /><br />";
 			echo "</form></div>";
 			echo "<div class=\"foot\">";
@@ -125,6 +128,11 @@ if (
 }
 
 
+/**
+ * ============================
+ * 输出论坛帖子内容
+ * ============================
+ */
 if (
 	isset($_GET['id_forum']) && dbresult(dbquery("SELECT COUNT(*) FROM `forum_f` WHERE" . ((!isset($user) || $user['level'] == 0) ? " `adm` = '0' AND" : null) . " `id` = '" . intval($_GET['id_forum']) . "'"), 0) == 1
 	&& isset($_GET['id_razdel']) && dbresult(dbquery("SELECT COUNT(*) FROM `forum_r` WHERE `id` = '" . intval($_GET['id_razdel']) . "' AND `id_forum` = '" . intval($_GET['id_forum']) . "'"), 0) == 1
@@ -138,19 +146,22 @@ if (
 	将通知标记为已读
 	===============================
 	*/
-	/*------------清除这个讨论的柜台-------------*/
+	/*--------------------清除这个讨论的柜台---------------------*/
 	if (isset($user)) {
 		dbquery("UPDATE `notification` SET `read` = '1' WHERE `id_object` = '$them[id]' AND `type` = 'them_komm' AND `id_user` = '$user[id]'");
 		dbquery("UPDATE `discussions` SET `count` = '0' WHERE `id_user` = '$user[id]' AND `type` = 'them' AND `id_sim` = '$them[id]' LIMIT 1");
 	}
 	/*---------------------------------------------------------*/
+
 	$set['title'] = '论坛- ' . text($them['name']); //网页标题
 	include_once '../sys/inc/thead.php';
 	title();
 	$ank2 = user::get_user($them['id_user']);
+
 	include 'inc/set_them_act.php';
 	include 'inc/them.php';
 	include 'inc/set_them_form.php';
+
 	echo "<div class=\"foot\">";
 	echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">论坛</a> | <a href=\"/forum/$forum[id]/\" title='到子论坛'>" . text($forum['name']) . "</a> | <a href=\"/forum/$forum[id]/$razdel[id]/\" title='至该组'>" . text($razdel['name']) . "</a><br />";
 	echo "</div>";
@@ -165,7 +176,7 @@ if (
 	$forum = dbassoc(dbquery("SELECT * FROM `forum_f` WHERE `id` = '" . intval($_GET['id_forum']) . "' LIMIT 1"));
 	$razdel = dbassoc(dbquery("SELECT * FROM `forum_r` WHERE `id` = '" . intval($_GET['id_razdel']) . "' AND `id_forum` = '" . intval($_GET['id_forum']) . "' LIMIT 1"));
 	if (isset($user) && isset($_GET['act']) && $_GET['act'] == 'new' && (!isset($_SESSION['time_c_t_forum']) || $_SESSION['time_c_t_forum'] < $time - 600 || $user['level'] > 0))
-		include 'inc/new_t.php'; // создание новой темы
+		include 'inc/new_t.php'; // 创建新主题
 	else {
 		$set['title'] = '论坛 - ' . text($razdel['name']); //网页标题
 		include_once '../sys/inc/thead.php';
@@ -187,9 +198,9 @@ if (isset($_GET['id_forum']) && dbresult(dbquery("SELECT COUNT(*) FROM `forum_f`
 	$set['title'] = '论坛- ' . text($forum['name']); //网页标题
 	include_once '../sys/inc/thead.php';
 	title();
-	include 'inc/set_forum_act.php'; // действия над подфорумом
-	include 'inc/forum.php'; // содержимое
-	include 'inc/set_forum_form.php'; // формы действий над подфорумом
+	include 'inc/set_forum_act.php'; // 子论坛作
+	include 'inc/forum.php'; // 内容
+	include 'inc/set_forum_form.php'; // 子论坛上的作形式
 	echo "<div class=\"foot\">";
 	echo "<img src='/style/icons/str2.gif' alt='*'> <a href=\"/forum/\">论坛</a><br />";
 	echo "</div>";
@@ -197,6 +208,14 @@ if (isset($_GET['id_forum']) && dbresult(dbquery("SELECT COUNT(*) FROM `forum_f`
 }
 
 
+
+
+
+/**
+ * ======================================
+ * 论坛首页
+ * ======================================
+ */
 $set['title'] = '论坛'; //网页标题
 include_once '../sys/inc/thead.php';
 title();

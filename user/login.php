@@ -7,8 +7,7 @@ include_once '../sys/inc/settings.php';
 include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
-$show_all=true; 
-$input_page=true;
+$show_all=true;
 include_once '../sys/inc/user.php';
 only_unreg();
 
@@ -16,7 +15,7 @@ only_unreg();
 if (isset($_GET['id']) && isset($_GET['pass'])) {
 	// 从数据库获取用户信息
 	$user = dbassoc(dbquery("SELECT `id`, `pass` FROM `user` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1"));
-	
+
 	if ($user && password_verify($_GET['pass'], $user['pass'])) {
 		$_SESSION['id_user'] = $user['id'];
 		dbquery("UPDATE `user` SET `date_aut` = " . time() . " WHERE `id` = '$user[id]' LIMIT 1");
@@ -32,29 +31,26 @@ if (isset($_GET['id']) && isset($_GET['pass'])) {
 	if ($user && password_verify($_POST['pass'], $user['pass'])) {
 		$_SESSION['id_user'] = $user['id'];
 		$user = user::get_user($user['id']);
+		dbquery("UPDATE `user` SET `date_aut` = '{$time}', `date_last` = '{$time}' WHERE `id` = '{$user['id']}' LIMIT 1");
+		dbquery("INSERT INTO `user_log` (`id_user`, `date`, `expire_date`, `last_online`, `ua`, `ip`, `method`) values('{$user['id']}', '" . date('Y-m-d H:i:s') . "', '" . date('Y-m-d H:i:s', $expiration) . "', '" . date('Y-m-d H:i:s') . "', '{$user['ua']}' , '{$user['ip']}', '1')");
+		$log_id = dbinsertid();
+		$_SESSION['login_id'] = $log_id;
+
 		// 在COOKIE中保存数据
 		if (isset($_POST['aut_save']) && $_POST['aut_save']) {
-			setcookie('id_user', $user['id'], time() + 60 * 60 * 24 * 365, '/');
-			setcookie('auth_token', cookie_encrypt($_POST['pass'], $user['id']), time() + 60 * 60 * 24 * 365, '/');
+			$expiration = time() + 60 * 60 * 24 * 365;
+			$payload = array(
+				"iat" => time(),
+				"exp" => $expiration,
+				"jwt_id" => $log_id,
+				"user_id" => $user['id'],
+				"username" => $_POST['nick']
+			);
+			$jwt = \Firebase\JWT\JWT::encode($payload, $set['shif'], 'HS256');
+			setcookie('auth_token', $jwt, $expiration, '/');
 		}
-		dbquery("UPDATE `user` SET `date_aut` = '{$time}', `date_last` = '{$time}' WHERE `id` = '{$user['id']}' LIMIT 1");
-		dbquery("INSERT INTO `user_log` (`id_user`, `date`, `ua`, `ip`, `method`) values('{$user['id']}', '" . date('Y-m-d H:i:s') . "', '{$user['ua']}' , '{$user['ip']}', '1')");
 	} else {
 		$_SESSION['err'] = '用户名或密码不正确';
-	}
-} elseif (isset($_COOKIE['id_user']) && isset($_COOKIE['auth_token']) && $_COOKIE['id_user'] && $_COOKIE['auth_token']) {
-	// 从数据库获取用户信息
-	$user = dbassoc(dbquery("SELECT `id`, `pass` FROM `user` WHERE `id` = " . intval($_COOKIE['id_user']) . " LIMIT 1"));
-
-	if ($user && password_verify(cookie_decrypt($_COOKIE['auth_token'], intval($_COOKIE['id_user'])), $user['pass'])) {
-		$_SESSION['id_user'] = $user['id'];
-		dbquery("UPDATE `user` SET `date_aut` = '{$time}', `date_last` = '{$time}' WHERE `id` = '{$user['id']}' LIMIT 1");
-		$user['type_input'] = 'cookie';
-	} else {
-		$_SESSION['err'] = 'COOKIE授权错误';
-		// 清除COOKIE
-		setcookie('id_user', '', time() - 3600, '/');
-		setcookie('auth_token', '', time() - 3600, '/');
 	}
 } else {
 	$_SESSION['err'] = '授权错误';

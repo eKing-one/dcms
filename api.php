@@ -315,7 +315,10 @@ function get_client_details() {
  */
 $clientDetails = get_client_details();
 
-// 检查用户是否登录
+/**
+ * 检查用户是否登录
+ * @return array
+ */
 function checkLoginStatus() {
 	global $db;
 	global $set;
@@ -325,67 +328,92 @@ function checkLoginStatus() {
 		try {
 			$decoded = \Firebase\JWT\JWT::decode($jwt, new \Firebase\JWT\Key($set['shif'], 'HS256'));
 		} catch (Exception $e) {
-			return false; // 解码失败，返回 false
+			// 解码失败，返回 false
+			return ['status' => 'false', 'message' => 'Failed to decode JWT: ' . $e->getMessage()];
 		}
 
 		// 检查 JWT 是否过期
-		if ($decoded->exp > time()) {
-			// 查询用户是否存在
-			return get_user_info($decoded->user_id, $decoded->jwt_id, $db);
-		} else {
-			return false; // JWT 过期，返回 false
+		if ($decoded->exp <= time()) {
+			// JWT 过期，返回 false
+			return ['status' => 'false', 'message' => 'JWT expired'];
 		}
+		// 查询用户是否存在并检测登录记录是否可用
+		return get_user_info($decoded->user_id, $decoded->jwt_id, $db);
 	}
 
 
 	function get_user_info($user_id, $log_id, $db) {
 		// 查询用户是否存在
-		$result = $db->query("SELECT COUNT(*) FROM `user` WHERE `id` = :id LIMIT 1", [':id' => $user_id]);
-		if ($result && $result['COUNT(*)'] == 1) {
-			// 检查数据库中的登录日志，确保 JWT 对应的 log_id 没有标记为"ban"
-			$user_log = $db->query("SELECT * FROM `user_log` WHERE `id` = :log_id AND `id_user` = :user_id", [
-				'log_id' => $log_id,
-				'user_id' => $user_id
-			]);
-			if ($user_log && $user_log['ban'] == '0') {
-				// 验证通过，说明用户已经登录
-				// 更新用户的最后登录时间
-				$db->update("UPDATE `user` SET `date_last` = :time WHERE `id` = :id LIMIT 1", [
-					':time' => time(),
-					':id' => $user_log['id_user']
-				]);
-
-				// 返回用户数据
-				return $db->query("SELECT * FROM `user` WHERE `id` = :id LIMIT 1", [':id' => $user_id]);
-			} else {
-				return false; // 登录记录被 ban，返回 false
-			}
-		} else {
-			return false; // 用户不存在，返回 false
+		$user_data = $db->query("SELECT * FROM `user` WHERE `id` = :id LIMIT 1", [':id' => $user_id]);
+		if (!$user_data) {
+			return ['status' => 'false', 'message' => 'User does not exist'];
 		}
+
+		// 检查数据库中的登录日志，确保 JWT 对应的 log_id 没有标记为"ban"
+		$user_log = $db->query("SELECT ban FROM `user_log` WHERE `id` = :log_id AND `id_user` = :user_id", [
+			'log_id' => $log_id,
+			'user_id' => $user_id
+		]);
+		if (!$user_log) {
+			// 找不到此登录记录
+			return ['status' => 'false', 'message' => 'Login log not found'];
+		}
+		if ($user_log['ban'] != '0') {
+			// 登录记录被 ban
+			return ['status' => 'false', 'message' => 'Login log is banned'];
+		}
+
+		// 验证通过，说明用户已经登录
+		// 更新用户的最后登录时间
+		$db->update("UPDATE `user_log` SET `last_online` = :last_online WHERE `id` = :id LIMIT 1", [
+			':last_online' => date('Y-m-d H:i:s'),
+			':id' => $log_id
+		]);
+		$db->update("UPDATE `user` SET `date_last` = :time WHERE `id` = :id LIMIT 1", [
+			':time' => time(),
+			':id' => $user_id
+		]);
+		$user = $db->query("SELECT * FROM `user` WHERE `id` = :id LIMIT 1", [':id' => $user_id]);
+		$user['login_id'] = $log_id;
+		return [
+			'status' => 'true',
+			'info' => $user
+		];
 	}
 
 
-	// 检查 Authorization 头部中是否有 Bearer Token
-	if (isset($_SERVER['HTTP_AUTHORIZATION']) && strpos($_SERVER['HTTP_AUTHORIZATION'], 'Bearer ') === 0) {
-		// 提取 JWT（去掉 "Bearer " 前缀）
-		$user = jwt_get_user_info(preg_split('/\s+/', $_SERVER['HTTP_AUTHORIZATION'])[1], $set, $db);
-		// 设置用户类型为 token
-		if ($user) $user['type_input'] = 'token';
-	} elseif (isset($_COOKIE['auth_token'])) {
-		// 从 Cookie 提取 JWT
-		$user = jwt_get_user_info($_COOKIE['auth_token'], $set, $db);
-		// 设置用户类型为 cookie
-		if ($user) $user['type_input'] = 'cookie';
-	} elseif (isset($_SESSION['id_user']) && isset($_SESSION['login_id'])) {
+	if (isset($_SESSION['id_user'], $_SESSION['login_id'])) {
 		// 使用 session 检测登录状态
 		$user = get_user_info($_SESSION['id_user'], $_SESSION['login_id'], $db);
-		// 设置用户类型为 session
-		if ($user) $user['type_input'] = 'session';
-	} else {
-		return false;
+		if ($user['status'] === 'true') {
+			$user['info']['type_input'] = 'session';
+			return ['status' => 'true', 'data' => $user['info']];
+		}
+		session_unset();
+		return ['status' => 'false', 'message' => 'Session error: ' . $user['message']];
 	}
-	return $user;
+
+	if (isset($_COOKIE['auth_token'])) {	// 从Cookie获取Tocken
+		$user = jwt_get_user_info($_COOKIE['auth_token'], $set, $db);
+		if ($user['status'] === 'true') {
+			$user['info']['type_input'] = 'cookie';
+			return ['status' => 'true', 'data' => $user['info']];
+		}
+		setcookie('auth_token', '', time() - 3600, '/');
+		return ['status' => 'false', 'message' => 'Cookie error: ' . $user['message']];
+	}
+
+	if (!empty($_SERVER['HTTP_AUTHORIZATION']) && strpos($_SERVER['HTTP_AUTHORIZATION'], 'Bearer ') === 0) {	// 检查 Authorization 头部中是否有 Bearer Token
+		$jwt = preg_split('/\s+/', $_SERVER['HTTP_AUTHORIZATION'])[1];
+		$user = jwt_get_user_info($jwt, $set, $db);
+		if ($user['status'] === 'true') {
+			$user['info']['type_input'] = 'authorization';
+			return ['status' => 'true', 'data' => $user['info']];
+		}
+		return ['status' => 'false', 'message' => 'JWT invalid: ' . $user['message']];
+	}
+
+	return ['status' => 'false', 'message' => 'No parameters'];
 }
 
 // 核对验证码
@@ -510,7 +538,7 @@ function sendEmail($subject, $body, $recipientEmail, $recipientName) {
 
 
 // 删除过期的captcha_token
-$db->query("DELETE FROM captcha_tokens WHERE expires_at < NOW()");
+$db->query("DELETE FROM captcha_tokens WHERE expires_at < :date", ['date' => date("Y-m-d H:i:s")]);
 
 
 
@@ -523,30 +551,33 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 		if ($user && password_verify($_POST['password'], $user['pass'])) {	// 比较密码
 			// 登录成功
 
-
 			// 更新用户的登录时间
 			$updateQuery = "UPDATE `user` SET `date_aut` = :time, `date_last` = :time WHERE `id` = :id LIMIT 1";
 			$db->update($updateQuery, ['time' => time(), 'id' => $user['id']]);
-
-			// 记录登录日志
-			$logQuery = "INSERT INTO `user_log` (`id_user`, `date`, `ua`, `ip`, `method`) VALUES (:id_user, :date, :ua, :ip, '1')";
-			$log_id = $db->insert($logQuery, [
-				'id_user' => $user['id'],
-				'date' => date('Y-m-d H:i:s'),
-				'ua' => $clientDetails['ua'],	// 从客户端获取 User-Agent
-				'ip' => $clientDetails['ip']			// 从客户端获取 IP 地址
-			]);
-
-			// 在 session 存储用户ID与登录记录ID
-			$_SESSION['id_user'] = $user['id'];
-			$_SESSION['login_id'] = $log_id;
 
 			// 选择了“记住我”
 			if (isset($_POST['aut_save']) && $_POST['aut_save']) {
 				$expiration = time() + 60 * 60 * 24 * 365;
 			} else {
-				$expiration = time() + 3600;
+				$expiration = time() + 3600 * 24;
 			}
+
+
+			// 记录登录日志
+			$logQuery = "INSERT INTO `user_log` (`id_user`, `date`, `expire_date`, `last_online`, `ua`, `ip`, `method`) VALUES (:id_user, :date, :expire_date, :last_online, :ua, :ip, '1')";
+			// 设置默认值：如果没有指定 `last_online`，就用 `date`
+			$log_id = $db->insert($logQuery, [
+				'id_user' => $user['id'],
+				'date' => date('Y-m-d H:i:s'),						// 当前时间
+				'expire_date' => date('Y-m-d H:i:s', $expiration),	// 转换过期时间戳为 MySQL 时间格式
+				'last_online' => date('Y-m-d H:i:s'),				// 如果没有指定 last_online，就设置为 date 字段的当前时间
+				'ua' => $clientDetails['ua'],						// 从客户端获取 User-Agent
+				'ip' => $clientDetails['ip']						// 从客户端获取 IP 地址
+			]);
+
+			// 在 session 存储用户ID与登录记录ID
+			$_SESSION['id_user'] = $user['id'];
+			$_SESSION['login_id'] = $log_id;
 
 			$payload = array(
 				"iat" => time(),
@@ -558,7 +589,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 
 			$jwt = \Firebase\JWT\JWT::encode($payload, $set['shif'], 'HS256');
 
-			setcookie('id_user', $user['id'], $expiration, '/');
 			setcookie('auth_token', $jwt, $expiration, '/');
 
 			// 设置响应为成功
@@ -582,7 +612,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 
 } elseif (isset($_GET['action']) && $_GET['action'] == 'logout') {
 	// 退出登录
-	setcookie('id_user', '', time() - 3600, '/');
 	setcookie('auth_token', '', time() - 3600, '/');
 	session_destroy();
 	$response['status'] = 'success';
@@ -803,10 +832,16 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 
 } else {
 	// 检查登录状态
-	$user_info = checkLoginStatus();
-	if ($user_info) {
+	$user = checkLoginStatus();
+	if ($user['status'] == 'true') {
+		$user = $user['data'];
+		// 更新数据库的用户在线时间
+	} else {
+		unset($user);
+	}
+	if (isset($user)) {
 		$response['status'] = 'success';
-		$response['message'] = "Hello {$user_info['nick']}";
+		$response['message'] = "Hello {$user['nick']}";
 	} else {
 		$response['status'] = 'error';
 	}

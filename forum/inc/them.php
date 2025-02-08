@@ -574,6 +574,7 @@ if (isset($user) && (((!isset($_GET['act']) || $_GET['act'] != 'post_delete') &&
 	echo "</div>";
 }
 
+
 /**
  * ==================================
  * 评论区
@@ -672,10 +673,18 @@ while ($post = dbassoc($q)) {
 	}
 	echo ' ' . ($webbrowser ? null : '<br/>') . ' </div>';
 }
+
 if ((user_access('forum_post_ed') || isset($user) && $ank2['id'] == $user['id']) && isset($_GET['act']) && $_GET['act'] == 'post_delete') {
 } elseif ($k_page > 1) {
 	str("/forum/$forum[id]/$razdel[id]/$them[id]/?", $k_page, $page); // 输出页数
 }
+
+
+/**
+ * =========================
+ * 发布评论的HTML表单
+ * =========================
+ */
 if ((user_access('forum_post_ed') || isset($user) && $ank2['id'] == $user['id']) && isset($_GET['act']) && $_GET['act'] == 'post_delete') {
 } elseif (isset($user) && ($them['close'] == 0 || $them['close'] == 1 && user_access('forum_post_close'))) {
 	if (isset($user)) {
