@@ -1,4 +1,9 @@
 <?php
+/**
+ * 图片详情页
+ */
+
+
 // 如果没有设置用户且没有通过GET请求传递用户ID，则重定向到照片页面并退出。
 if (!isset($user) && !isset($_GET['id_user'])) {
 	header("Location: /photo/?" . session_id());
