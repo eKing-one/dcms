@@ -1,4 +1,9 @@
 <?php
+/**
+ * 图片详情页
+ */
+
+
 // 如果没有设置用户且没有通过GET请求传递用户ID，则重定向到照片页面并退出。
 if (!isset($user) && !isset($_GET['id_user'])) {
 	header("Location: /photo/?" . session_id());
@@ -218,7 +223,7 @@ if ($gallery['privat'] == 1 && ($frend != 2 || !isset($user)) && $user['level'] 
 	echo '只有用户的朋友才能查看相册！';
 	echo '</div>';
 	$block_photo = true;
-} elseif ($gallery['privat'] == 2 && $user['id'] != $ank['id'] && $user['level'] <= $ank['level']) {
+} elseif ($gallery['privat'] == 2 && (empty($user) || ($user['id'] != $ank['id'] && $user['level'] <= $ank['level']))) {
 	echo '<div class="mess">';
 	echo '用户已禁止观看此相册！';
 	echo '</div>';

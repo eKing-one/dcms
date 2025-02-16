@@ -1,9 +1,10 @@
-<?
+<?php
 // 如果没有设置用户且没有通过GET方式传递用户ID，则重定向到/photo/页面
 if (!isset($user) && !isset($_GET['id_user'])) {
 	header("Location: /photo/?" . session_id());
 	exit;
 }
+
 // 如果设置了用户，则将用户ID赋值给ank数组
 if (isset($user)) $ank['id'] = $user['id'];
 // 如果通过GET方式传递了用户ID，则将该ID转换为整数并赋值给ank数组
@@ -15,11 +16,13 @@ if (!$ank) {
 	header("Location: /photo/?" . session_id());
 	exit;
 }
+
 // 如果用户被禁止访问相册
-if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'photo' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
+if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'photo' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
 	header('Location: /user/ban.php?' . session_id());
 	exit;
 }
+
 // 设置网页标题
 $set['title'] = $ank['nick'] . ' - 相册';
 // 包含创建新相册的相关代码
@@ -28,21 +31,25 @@ include_once '../sys/inc/thead.php';
 title();
 aut();
 err();
+
 // 包含创建相册表单的代码
 include 'inc/gallery_form.php';
 echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'],1,0,0) . ' | <b>相册</b></div>';
+
 // 如果当前登录用户是相册主人，则显示创建新相册的链接
-if ($ank['id'] == $user['id'])
-	echo '<div class="mess"><a href="/photo/' . $ank['id'] . '/?act=create"><img src="/style/icons/apply14.png"> 新相册</a></div>';
+if (isset($user) && $ank['id'] == $user['id']) echo '<div class="mess"><a href="/photo/' . $ank['id'] . '/?act=create"><img src="/style/icons/apply14.png"> 新相册</a></div>';
+
 // 包含隐私设置的代码
 include H . 'sys/add/user.privace.php';
+
 // 获取该用户相册的数量
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `gallery` WHERE `id_user` = '$ank[id]'"), 0);
 // 计算分页信息
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
+
 echo '<table class="post">';
 // 如果用户没有相册，则显示提示信息
 if ($k_post == 0) {

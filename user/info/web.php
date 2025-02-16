@@ -25,7 +25,7 @@ if (isset($user) && isset($_GET['frends'])  && $frend_new == 0 && $frend == 0) {
 	}
 }
 /*---------------------------------------------------------*/
-// Должность на сайте
+// 在网站上的位置
 if ($ank['group_access'] > 1) {
 	echo "<div class='err'>$ank[group_name]</div>";
 } ?>
@@ -33,11 +33,11 @@ if ($ank['group_access'] > 1) {
 	<tr>
 		<td class='block_menu'>
 			<?
-			// Аватар 
+			// 化身
 			echo "<div class='mains'>";
 			echo user::avatar($ank['id']);
 			echo "</div>";
-			// Рейтинг
+			// 额定值
 			echo "<div class='main'>";
 			if ($ank['rating'] >= 0 && $ank['rating'] <= 100) {
 				echo "<div style='background-color: #73a8c7; width: 200px; height: 17px;'>
@@ -342,6 +342,8 @@ if ($ank['group_access'] > 1) {
 					echo "</div>";
 				}
 			}
+
+
 			/*
 			===============================
 			最近添加的照片
@@ -361,6 +363,8 @@ if ($ank['group_access'] > 1) {
 				}
 				echo "</div>";
 			}
+
+
 			/*
 			=====================================
 			用户问卷，如果作者
