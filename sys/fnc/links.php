@@ -3,10 +3,8 @@
 function img_preg($arr) {
 	global $set;
 	if (preg_match('#^http://' . preg_quote($_SERVER['HTTP_HOST']) . '#', $arr[1]) || !preg_match('#://#', $arr[1]) || $set['bb_external_img'] == '1') {
-		if (preg_match('/\.(?:jp(?:e?g|e|2)|gif|png|tiff?|bmp|ico)$/i', $arr[1])) {
-			if (true) {
-				return '<a href="/go.php?go=' . base64_encode(html_entity_decode($arr[1])) . '"><img decoding=async style="max-width:240px; max-height:320px;" src="' . text($arr[1]) . '" alt="img" /></a>';
-			}
+		if (true) {	// 意义不明而且毫无作用的判断
+			return '<a href="/go.php?go=' . base64_encode(html_entity_decode($arr[1])) . '"><img decoding=async style="max-width:240px; max-height:320px;" src="' . text($arr[1]) . '" alt="img" /></a>';
 		} else {
 			return '<img style="max-width:240px;" src="/style/no_image.png" alt="No Image" />';
 		}

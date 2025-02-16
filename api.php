@@ -426,7 +426,7 @@ function validateCaptchaToken($user_input, $captcha_token) {
 		// captcha_token 格式错误
 		return [
 			'status' => 'error',
-			'message' => 'captcha_token 格式错误'
+			'message' => 'captcha_token format error'
 		];
 	}
 
@@ -435,19 +435,20 @@ function validateCaptchaToken($user_input, $captcha_token) {
 	if (count($decrypted_captcha_token) !== 2) {
 		return [
 			'status' => 'error',
-			'message' => 'captcha_token 格式不正确'
+			'message' => 'captcha_token format error'
 		];
 	} elseif ($decrypted_captcha_token[1] < time()) {
 		return [
 			'status' => 'error',
-			'message' => 'captcha_token 已过期'
+			'message' => 'captcha_token expired'
 		];
 	}
 	// 查询数据库，检查 token 是否存在且未使用
 	$token_record = $db->query("SELECT * FROM captcha_tokens WHERE captcha_token = ? AND status = 'unused'", [$captcha_token]);
 
 	if (!$token_record) {
-		return ['status' => 'error', 'message' => 'captcha_token 无效或已被使用'];
+		// captcha_token 无效或已使用
+		return ['status' => 'error', 'message' => 'captcha_token invalid or used'];
 	}
 	// 验证解密后的验证码是否正确（与用户输入的验证码比较）
 	if ($decrypted_captcha_token[0] === $user_input) {
@@ -460,7 +461,7 @@ function validateCaptchaToken($user_input, $captcha_token) {
 		// 验证失败
 		return [
 			'status' => 'error',
-			'message' => '验证码错误'
+			'message' => 'incorrect verification code'
 		];
 	}
 }
@@ -525,10 +526,10 @@ function sendEmail($subject, $body, $recipientEmail, $recipientName) {
 
 			// 发送邮件
 			$mail->send();
-			return ['status' => 'success', 'message' => '邮件已成功发送。'];
+			return ['status' => 'success', 'message' => 'email sent successfully'];
 
 		} catch (PHPMailer\PHPMailer\Exception $e) {
-			return ['status' => 'error', 'message' => '邮件发送失败: ' . $mail->ErrorInfo];
+			return ['status' => 'error', 'message' => 'email sending failed: ' . $mail->ErrorInfo];
 		}
 	} else {
 		mail($recipientEmail, '=?utf-8?B?' . base64_encode($subject), $body);
@@ -593,19 +594,19 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 
 			// 设置响应为成功
 			$response['status'] = 'success';
-			$response['message'] = '登录成功';
+			$response['message'] = 'login successful';
 			$response['data']['user_id'] = $user['id'];
 			$response['data']['token'] = $jwt;
 		} else {
 			// 登录失败
 			http_response_code(403);
 			$response['status'] = 'error';
-			$response['message'] = '用户名或密码不正确';
+			$response['message'] = 'incorrect username or password';
 		}
 	} else {
 		http_response_code(403);
 		$response['status'] = 'error';
-		$response['message'] = '缺少必要参数';
+		$response['message'] = 'missing required parameters';
 	}
 
 
@@ -623,12 +624,12 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 	try {
 		if ($set['reg_select'] == 'close') {
 			// 管理员已关闭注册
-			throw new Exception('已关闭注册');
+			throw new Exception('registration is closed');
 		}
 
 		// 验证验证码
 		if (!isset($_POST['captcha']) || !isset($_POST['captcha_token'])) {
-			throw new Exception('验证码不能为空');
+			throw new Exception('verification code is required');
 		}
 	
 		// 优化验证码验证逻辑
@@ -639,39 +640,42 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 	
 		// 检查必要参数
 		if (!isset($_POST['reg_nick'])) {
-			throw new Exception('缺少昵称');
+			// 缺少昵称参数
+			throw new Exception('nick is missing');
 		}
 		if (!isset($_POST['password'])) {
-			throw new Exception('缺少密码');
+			// 缺少密码参数
+			throw new Exception('password is missing');
 		}
 	
 		// 先检查邮箱（如果启用了邮件验证）
 		if ($set['reg_select'] == 'open_mail' && empty($_POST['email'])) {
-			throw new Exception('缺少电子邮件');
+			throw new Exception('email is missing');
 		}
 		if (isset($_POST['email']) && !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-			throw new Exception('无效的电子邮件');
+			throw new Exception('invalid email address');
 		}
 	
 		// 检查昵称
 		if (!preg_match("#^([A-Za-z0-9\-\_\ ])+$#", $_POST['reg_nick'])) {
-			throw new Exception('用户名包含非法字符');
+			// 昵称含有非法字符
+			throw new Exception('invalid characters in nick');
 		}
 		$nickLength = getStringLength($_POST['reg_nick']);
-		if ($nickLength < 3) throw new Exception('昵称短于3个字符');
-		if ($nickLength > 32) throw new Exception('昵称长度超过32个字符');
+		if ($nickLength < 3) throw new Exception('nick too short');
+		if ($nickLength > 32) throw new Exception('nick too long');
 	
 		// 检查用户昵称和电子邮件是否已存在
 		if ($db->query("SELECT COUNT(*) FROM `user` WHERE `nick` = ?", [$_POST['reg_nick']])['COUNT(*)'] > 0) {
-			throw new Exception('用户名已注册');
+			throw new Exception('nick already registered');
 		} elseif (isset($_POST['email']) && $db->query("SELECT COUNT(*) FROM `reg_mail` WHERE `mail` = ?", [$_POST['email']])['COUNT(*)'] != 0) {
-			throw new Exception('电子邮件已注册');
+			throw new Exception('email already registered');
 		}
 	
 		// 检查密码
 		$passwordLength = getStringLength($_POST['password']);
-		if ($passwordLength < 6) throw new Exception('密码长度不能短于6个字符');
-		if ($passwordLength > 32) throw new Exception('密码长度超过32个字符');
+		if ($passwordLength < 6) throw new Exception('password too short');
+		if ($passwordLength > 32) throw new Exception('password too long');
 	
 		// 如果开启了邮箱验证，创建激活码
 		if ($set['reg_select'] == 'open_mail') $activation = md5(passgen());
@@ -703,7 +707,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 			if ($emailResult['status'] == 'success') {
 				// 如果邮件发送成功
 				$response['status'] = 'success';
-				$response['message'] = "已发送电子邮件到 {$_POST['email']}，等待验证";
+				$response['data']['user_id'] = $id_reg;
+				$response['message'] = "verification email sent";
 			} else {
 				// 如果邮件发送失败
 				$response['status'] = 'error';
@@ -711,12 +716,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 			}
 		} else {
 			// 如果没有开启邮箱验证，直接注册
-			$response['message'] = '注册成功';
+			$response['message'] = 'registration successful';
+			$response['data']['user_id'] = $id_reg;
+			$response['status'] = 'success';
 		}
-	
-		$response['status'] = 'success';
-		$response['data']['user_id'] = $id_reg;
-	
 	} catch (Exception $e) {
 		$response['status'] = 'error';
 		$response['message'] = $e->getMessage();
@@ -752,7 +755,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 
 	if ($set['reg_select'] == 'close') {
 		$response['status'] = 'error';
-		$response['message'] = "已关闭注册";
+		$response['message'] = "Registration is closed";
 	} elseif (isset($_GET['id']) && isset($_GET['activation'])) {
 		if ($db->query("SELECT COUNT(*) FROM `user` WHERE `id` = :id AND `activation` = :activation", [':id' => intval($_GET['id']), ':activation' => $_GET['activation']])['COUNT(*)'] == 1) {
 			// 更新激活状态
@@ -769,11 +772,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 	
 			// 显示激活成功消息并设置会话
 			$response['status'] = 'success';
-			$response['message'] = "账号 {$user['nick']} 已激活";
+			$response['message'] = "account activated";
 		}
 	} else {
 		$response['status'] = 'error';
-		$response['message'] = '缺少参数';
+		$response['message'] = 'missing parameters';
 	}
 
 
@@ -810,7 +813,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 				if ($emailResult['status'] == 'success') {
 					// 如果邮件发送成功
 					$response['status'] = 'success';
-					$response['message'] = "设置新密码的链接已发送到电子邮件 $user2[email]";
+					$response['message'] = "password reset email sent";
 				} else {
 					// 如果邮件发送失败
 					$response['status'] = 'error';
@@ -818,15 +821,15 @@ if (isset($_GET['action']) && $_GET['action'] == 'login') {	// 检查用户是�
 				}
 			} else {
 				$response['status'] = 'error';
-				$response['message'] = '无效的电子邮件地址或丢失的电子邮件信息';
+				$response['message'] = 'invalid email address';
 			}
 		} else {
 			$response['status'] = 'error';
-			$response['message'] = '使用此用户名的用户未注册';
+			$response['message'] = 'nick not found';
 		}
 	} else {
 		$response['status'] = 'error';
-		$response['message'] = '缺少参数';
+		$response['message'] = 'missing parameters';
 	}
 
 
