@@ -108,9 +108,9 @@ if ($ank['group_access'] > 1) {
 			echo "<img src='/style/icons/anketa.gif' alt='*' /> <a href='/user/info/anketa.php?id=$ank[id]'>个人资料</a> ";
 			if (isset($user) && $user['id'] == $ank['id']) {
 				echo "[<img src='/style/icons/edit.gif' alt='*' /> <a href='/user/info/edit.php'>编辑</a>]";
+				echo "<br />"; 
+				echo "<img src='/style/icons/apply14.png' alt='' /> <a href='/user/daily_checkin.php'>每日签到</a>";
 			}
-			echo "<br />";
-			echo "<img src='/style/icons/apply14.png' alt='' /> <a href='/user/daily_checkin.php'>每日签到</a>";
 			echo "</div>";
 			/*---------------------------------------*/
 			/*------------------------客人---------------------------*/
