@@ -1,75 +1,104 @@
 <?php
+// 如果没有设置用户且没有通过GET请求传递用户ID，则重定向到首页并退出
 if (!isset($user) && !isset($_GET['id_user'])) {
-	header("Location: /photo/?" . SID);
+	header("Location: /photo/?" . session_id());
 	exit;
 }
+// 如果设置了用户，则将用户ID赋值给ank数组
 if (isset($user)) $ank['id'] = $user['id'];
+// 如果通过GET请求传递了用户ID，则将该ID转换为整数并赋值给ank数组
 if (isset($_GET['id_user'])) $ank['id'] = intval($_GET['id_user']);
 
-// Автор альбома
+// 获取相册主人的信息
 $ank = user::get_user($ank['id']);
 
+// 如果没有获取到用户信息，则重定向到首页并退出
 if (!$ank) {
-	header('Location: /photo/?' . SID);
+	header('Location: /photo/?' . session_id());
 	exit;
 }
 
-// Если вы в бане 
-if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'photo' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-	header('Location: /user/ban.php?' . SID);
+// 如果用户被Ban
+if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'photo' AND `id_user` = '{$user['id']}' AND (`time` > '{$time}' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
+	header('Location: /user/ban.php?' . session_id());
 	exit;
 }
 
-// Альбом
+// 获取相册信息
 $gallery['id'] = intval($_GET['id_gallery']);
 
+// 如果相册不存在或者不属于当前用户，则重定向到用户相册页面并退出
 if (dbresult(dbquery("SELECT COUNT(*) FROM `gallery` WHERE `id` = '$gallery[id]' AND `id_user` = '$ank[id]' LIMIT 1"), 0) == 0) {
-	header('Location: /photo/' . $ank['id'] . '/?' . SID);
+	header('Location: /photo/' . $ank['id'] . '/?' . session_id());
 	exit;
 }
 
 $gallery = dbassoc(dbquery("SELECT * FROM `gallery` WHERE `id` = '$gallery[id]' AND `id_user` = '$ank[id]' LIMIT 1"));
 
-//网页标题
+// 设置网页标题
 $set['title'] = $ank['nick'] . ' - ' . text($gallery['name']);
 
-// Редактирование альбома и загрузка фото
+// 包含编辑相册和上传照片的脚本
 include 'inc/gallery_show_act.php';
 
+// 包含头部文件
 include_once '../sys/inc/thead.php';
 title();
 aut();
 err();
 
-// Формы
+// 包含表单脚本
 include 'inc/gallery_show_form.php';
 
+// 显示页脚信息
 echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($ank['id'],1,0,0) . ' | <a href="/photo/' . $ank['id'] . '/">相册</a> | <b>' . text($gallery['name']) . '</b></div>';
 
-
-// Подключаем приватность стр. 
+// 包含隐私设置文件
 include H . 'sys/add/user.privace.php';
 
 /*
-* Если установлена приватность альбома
+* 如果相册设置了隐私
 */
-if ($gallery['privat'] == 1 && ($frend != 2 || !isset($user)) && $user['level'] <= $ank['level'] && $user['id'] != $ank['id']) {
-	echo '<div class="mess">';
-	echo '只有该用户的好友才能查看该用户的相册';
-	echo '</div>';
+if ($gallery['privat'] == 1) {
+	// 相册设置为仅好友可查看
+	if (isset($user)) {
+		if ($frend != 2 && $user['level'] <= $ank['level'] && $user['id'] != $ank['id']) {
+			echo '<div class="mess">';
+			echo '只有用户的好友才能查看用户的相册！';
+			echo '</div>';
 
-	$block_photo = true;
-} elseif ($gallery['privat'] == 2 && $user['id'] != $ank['id'] && $user['level'] <= $ank['level']) {
-	echo '<div class="mess">';
-	echo '用户已禁止查看此相册！';
-	echo '</div>';
+			$block_photo = true;
+		}
+	} else {
+		echo '<div class="mess">';
+		echo '只有用户的好友才能查看用户的相册！';
+		echo '</div>';
 
-	$block_photo = true;
+		$block_photo = true;
+	}
+}
+if ($gallery['privat'] == 2) {
+	if (isset($user)) {
+		if ($gallery['privat'] == 2 && $user['id'] != $ank['id'] && $user['level'] <= $ank['level']) {
+			echo '<div class="mess">';
+			echo '用户已禁止查看此相册！';
+			echo '</div>';
+
+			$block_photo = true;
+		}
+	} else {
+		echo '<div class="mess">';
+		echo '用户已禁止查看此相册！';
+		echo '</div>';
+
+		$block_photo = true;
+	}
 }
 
-/*--------------------Альбом под паролем-------------------*/
-if ($user['id'] != $ank['id'] && $gallery['pass'] != NULL) {
+/*--------------------如果相册有密码-------------------*/
+
+if ((!isset($user) || $user['id'] != $ank['id']) && $gallery['pass'] != NULL) {
 	if (isset($_POST['password'])) {
 		$_SESSION['pass'] = my_esc($_POST['password']);
 
@@ -89,7 +118,6 @@ if ($user['id'] != $ank['id'] && $gallery['pass'] != NULL) {
 		echo '</div>';
 
 		include_once '../sys/inc/tfoot.php';
-		exit;
 	}
 }
 /*---------------------------------------------------------*/
@@ -111,7 +139,7 @@ if (!isset($block_photo)) {
 	$q = dbquery("SELECT * FROM `gallery_photo` WHERE `id_gallery` = '$gallery[id]' ORDER BY `id` DESC LIMIT $start, $set[p_str]");
 
 	while ($post = dbassoc($q)) {
-		// Лесенка
+		// 交替显示的类名
 		echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
 		$num++;
 

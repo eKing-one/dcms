@@ -27,7 +27,7 @@ $set['title'] = '状态 - 评论';
 include_once '../../sys/inc/thead.php';
 title();
 if (dbresult(dbquery("SELECT COUNT(*) FROM `status` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1", $db), 0) == 0) {
-	header("Location: index.php?" . SID);
+	header("Location: index.php?" . session_id());
 	exit;
 }
 // Статус

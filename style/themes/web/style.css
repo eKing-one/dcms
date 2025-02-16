@@ -98,6 +98,14 @@ a.activ {
 	a {
 		color: #95b8ff;
 	}
+	.plug {
+		background: #004117;
+		background: -webkit-gradient(linear, left top, left bottom, from(#004117), to(#001603));
+		background: -moz-linear-gradient(top, #004117, #001603);
+		background: -o-linear-gradient(top, #004117, #001603);
+		background: -ms-linear-gradient(top, #004117, #001603);
+		filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#004117', endColorstr='#001603');
+	}
 	.accordion-heading {
 		background-color: #0d0d0d;
 		background-image: -moz-linear-gradient(top, #000, #191919);
@@ -454,6 +462,7 @@ textarea:focus {
 	}
 
 	input[type="text"],
+	input[type="email"],
 	input[type="password"] {
 		background-color: #2A2A2A; /* 输入框背景色变暗 */
 		border: 1px solid #555; /* 边框颜色变暗 */
@@ -462,6 +471,7 @@ textarea:focus {
 	}
 
 	input[type="text"]:disabled,
+	input[type="email"]:disabled,
 	input[type="password"]:disabled {
 		border-color: #555; /* 禁用时的边框颜色加深 */
 		background-color: #333; /* 背景颜色变暗 */
@@ -469,6 +479,7 @@ textarea:focus {
 	}
 
 	input[type="text"]:focus,
+	input[type="email"]:focus,
 	input[type="password"]:focus,
 	textarea:focus {
 		border-color: #777; /* 焦点时边框颜色变暗 */
@@ -615,7 +626,7 @@ b.count {
 	-moz-border-radius: 3px;
 }
 .menu_razd {
-	/* Разделитель меню */
+	/* 菜单分隔符 */
 	
 	padding: 4px;
 	background-color: #E0E6FF;
@@ -625,7 +636,7 @@ b.count {
 	margin: 7px;
 }
 .main {
-	/* Дивы навигации */
+	/* 导航 Divas */
 	
 	color: black;
 	background: url("images/bgs.png") repeat-x #4C6F97;
@@ -636,7 +647,7 @@ b.count {
 	box-shadow: 0px 0px 9px 2px rgba(71, 79, 87, 0.149);
 }
 .mains {
-	/* Дивы навигации */
+	/* 导航 Divas */
 	
 	color: black;
 	background: url("images/nature-background.jpg") repeat-x #4C6F97;
@@ -710,7 +721,7 @@ b.count {
 		background-color: #1d1d1d;
 	}
 	.main {
-		color: white;
+		color: #e8e6e3;
 		background: url("images/bgs_dark.png") repeat-x #4C6F97;
 		border: 1px solid #252525;
 	}
@@ -719,6 +730,11 @@ b.count {
 	}
 	.main2 {
 		background: url("images/ma2_dark.png") repeat-y #000;
+		color: #e8e6e3;
+	}
+	.menu {
+		background-color: #030303;
+		border-color: #00191F;
 	}
 	.mm_counter {
 		background-color: #12181E;

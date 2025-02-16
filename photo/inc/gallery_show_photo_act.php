@@ -1,45 +1,47 @@
-<?
+<?php
 /*
-* Установка аватара на главной
+* 设置头像
 */
 if (isset($_GET['act']) && $_GET['act'] == 'avatar') {
 	if ($user['id'] == $ank['id']) {
-		/* Отправляем в ленту смену аватара */
+		/* 发送头像更改到动态 */
 		$avatar = dbarray(dbquery("SELECT * FROM `gallery_photo` WHERE `avatar` = '1' AND `id_user` = '$user[id]' LIMIT 1"));
-		if ($avatar['id'] != $photo['id']) {
-			/*---------друзьям автора--------------*/
+		if (empty($avatar['id']) || $avatar['id'] != $photo['id']) {
+			/*---------通知朋友--------------*/
 			$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $gallery['id_user'] . "' AND `i` = '1'");
 			while ($f = dbarray($q)) {
 				$a = user::get_user($f['frend']);
-				if ($a['id'] != $user['id'] && $photo['id'] != $avatar['id'] && $f['lenta_avatar'] == 1)
-					dbquery("INSERT INTO `tape` (`id_user`, `avtor`, `type`, `time`, `id_file`, `count`, `avatar`) values('$a[id]', '$gallery[id_user]', 'avatar', '$time', '$photo[id]', '1', '$avatar[id]')");
+				if ($a['id'] != $user['id'] && (empty($avatar['id']) || $photo['id'] != $avatar['id']) && $f['lenta_avatar'] == 1) {
+					dbquery("INSERT INTO `tape` (`id_user`, `avtor`, `type`, `time`, `id_file`, `count`, `avatar`) values('$a[id]', '$gallery[id_user]', 'avatar', '$time', '$photo[id]', '1', '" . ($avatar['id'] ?? 0) . "')");
+				}
 			}
 			dbquery("UPDATE `gallery_photo` SET `avatar` = '0' WHERE `id_user` = '$user[id]'");
 			dbquery("UPDATE `gallery_photo` SET `avatar` = '1' WHERE `id` = '$photo[id]' LIMIT 1");
-			dbquery("INSERT INTO `stena` (`id_user`,`id_stena`,`time`,`info`,`info_1`,`type`) values('" . $user['id'] . "','" . $user['id'] . "','" . $time . "','новый аватар','" . $photo['id'] . "','photo')");
+			dbquery("INSERT INTO `stena` (`id_user`,`id_stena`,`time`,`info`,`info_1`,`type`) values('" . $user['id'] . "','" . $user['id'] . "','" . $time . "','新头像','" . $photo['id'] . "','photo')");
 			$_SESSION['message'] = '已成功将照片设置为头像！';
 		}
 		header("Location: ?");
 		exit;
 	}
 }
+
 /*
-* Удаление фотографии
+* 删除照片
 */
 if ((user_access('photo_photo_edit') || isset($user) && $user['id'] == $ank['id']) && isset($_GET['act']) && $_GET['act'] == 'delete' && isset($_GET['ok'])) {
-	if ($user['id'] != $ank['id'])
-		admin_log('图片集锦', '照片', "删除用户的照片 '[url=/user/info.php?id=$ank[id]]" . user::nick($ank['id'], 1, 0, 0) . "[/url]'");
-	@unlink(H . "files/gallery/48/$photo[id].jpg");
-	@unlink(H . "files/gallery/128/$photo[id].jpg");
-	@unlink(H . "files/gallery/640/$photo[id].jpg");
-	@unlink(H . "files/gallery/photo/$photo[id].jpg");
+	if ($user['id'] != $ank['id']) admin_log('图片集锦', '照片', "删除用户的照片 '[url=/user/info.php?id=$ank[id]]" . user::nick($ank['id'], 1, 0, 0) . "[/url]'");
+	@unlink(H . "sys/gallery/48/$photo[id].jpg");
+	@unlink(H . "sys/gallery/128/$photo[id].jpg");
+	@unlink(H . "sys/gallery/640/$photo[id].jpg");
+	@unlink(H . "sys/gallery/photo/$photo[id].jpg");
 	dbquery("DELETE FROM `gallery_photo` WHERE `id` = '$photo[id]' LIMIT 1");
 	$_SESSION['message'] = '照片已成功删除';
 	header("Location: /photo/$ank[id]/$gallery[id]/");
 	exit;
 }
+
 /*
-* Редактирование фотографии
+* 编辑照片
 */
 if ((user_access('photo_photo_edit') || isset($user) && $user['id'] == $ank['id']) && isset($_GET['act']) && $_GET['act'] == 'rename' && isset($_GET['ok']) && isset($_POST['name']) && isset($_POST['opis'])) {
 	$name = esc(stripcslashes(htmlspecialchars($_POST['name'])), 1);

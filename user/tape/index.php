@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -16,18 +16,18 @@ $all = null;
 
 only_reg();
 
-/* Класс к статусу */
+/* 状态点赞 */
 
 if (isset($_GET['likestatus'])) {
 
-	// Статус пользователя
+	// 用户状态
 	$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '" . intval($_GET['likestatus']) . "' LIMIT 1"));
 	$ank = user::get_user($status['id_user']);
 	if ($user['id'] != $ank['id'] && dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '$status[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
 		dbquery("INSERT INTO `status_like` (`id_user`, `time`, `id_status`) values('$user[id]', '$time', '$status[id]')");
 		/*
 		===================================
-		Лента
+		乐队
 		===================================
 		*/
 
@@ -58,7 +58,7 @@ include_once '../../sys/inc/thead.php';
 if (isset($_GET['read']) && $_GET['read'] == 'all') {
 	if (isset($user)) {
 		dbquery("UPDATE `tape` SET `read` = '1' WHERE `id_user` = '$user[id]'");
-		$_SESSION['message'] = '已全部已读';
+		$_SESSION['message'] = '已读全部';
 		header("Location: ?page=" . intval($_GET['page']) . "");
 		exit;
 	}
@@ -82,30 +82,39 @@ title();
 err();
 aut();
 
-$k_notif = dbresult(dbquery("SELECT COUNT(`read`) FROM `notification` WHERE `id_user` = '$user[id]' AND `read` = '0'"), 0); // Уведомления
+$k_notif = dbresult(dbquery("SELECT COUNT(`read`) FROM `notification` WHERE `id_user` = '$user[id]' AND `read` = '0'"), 0); // 通知
 
-if ($k_notif > 0) $k_notif = '<font color=red>(' . $k_notif . ')</font>';
-else $k_notif = null;
+if ($k_notif > 0) {
+	$k_notif = '<font color=red>(' . $k_notif . ')</font>';
+} else {
+	$k_notif = null;
+}
 
-$discuss = dbresult(dbquery("SELECT COUNT(`count`) FROM `discussions` WHERE `id_user` = '$user[id]' AND `count` > '0' "), 0); // Обсуждения
+$discuss = dbresult(dbquery("SELECT COUNT(`count`) FROM `discussions` WHERE `id_user` = '$user[id]' AND `count` > '0' "), 0); // 讨论
 
-if ($discuss > 0) $discuss = '<font color=red>(' . $discuss . ')</font>';
-else $discuss = null;
+if ($discuss > 0) {
+	$discuss = '<font color=red>(' . $discuss . ')</font>';
+} else {
+	$discuss = null;
+}
 
-$lenta = dbresult(dbquery("SELECT COUNT(`read`) FROM `tape` WHERE `id_user` = '$user[id]' AND `read` = '0' "), 0); // Лента
+$lenta = dbresult(dbquery("SELECT COUNT(`read`) FROM `tape` WHERE `id_user` = '$user[id]' AND `read` = '0' "), 0); // 乐队
 
-if ($lenta > 0) $lenta = '<font color=red>(' . $lenta . ')</font>';
-else $lenta = null;
+if ($lenta > 0) {
+	$lenta = '<font color=red>(' . $lenta . ')</font>';
+} else {
+	$lenta = null;
+}
 
 echo "<div id='comments' class='menus'>";
 echo "<div class='webmenu'>";
-echo "<a href='/user/tape/' class='activ'>信息中心 $lenta</a>";
+echo "<a href='/user/tape/' class='activ'>信息中心 {$lenta}</a>";
 echo "</div>";
 echo "<div class='webmenu'>";
-echo "<a href='/user/discussions/' >讨论  $discuss</a>";
+echo "<a href='/user/discussions/' >讨论  {$discuss}</a>";
 echo "</div>";
 echo "<div class='webmenu'>";
-echo "<a href='/user/notification/'> 关于我的 $k_notif</a>";
+echo "<a href='/user/notification/'> 关于我的 {$k_notif}</a>";
 echo "</div>";
 echo "</div>";
 
@@ -118,7 +127,7 @@ $start = $set['p_str'] * $page - $set['p_str'];
 
 
 echo '<div class="foot">';
-echo '<a href="?page=' . $page . '&amp;read=all"><img src="/style/icons/ok.gif"> 一键清除消息/已读</a>';
+echo '<a href="?page=' . $page . '&amp;read=all"><img src="/style/icons/ok.gif"> 一键已读</a>';
 echo '</div>';
 
 

@@ -11,7 +11,7 @@ include_once '../../sys/inc/user.php';
 only_reg();
 if (isset($user))$ank['id'] = intval($_GET['id']);
 $ank=user::get_user($ank['id']);
-if(!$ank || $user['id'] == $ank['id']){header("Location: /index.php?".SID);exit;}
+if(!$ank || $user['id'] == $ank['id']){header("Location: /index.php?".session_id());exit;}
 if (isset($_GET['act']) && $_POST['money'])
 {
 $money=abs(intval($_POST['money']));

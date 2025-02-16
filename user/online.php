@@ -10,15 +10,18 @@ include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
 // 显示模式
 if (isset($_GET['admin']) && user_access('user_collisions')) {
-	if ($_GET['admin'] == 'close')
+	if ($_GET['admin'] == 'close') {
 		$_SESSION['admin'] = null;
-	else
+	} else {
 		$_SESSION['admin'] = true;
+	}
 }
 $set['title'] = '在线用户'; //网页标题
 include_once '../sys/inc/thead.php';
+
 title();
 aut();
+
 /*
 ==============================================
 这个脚本输出 1 个随机的“领导者”和
@@ -36,17 +39,20 @@ if ($k_lider > 0) {
 	echo '<img src="/style/icons/lider.gif" alt="S"/> <a href="/user/liders/">所有领导者</a> (' . $k_lider . ')';
 	echo '</div>';
 }
+
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `date_last` > '" . (time() - 600) . "'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
-$q = dbquery("SELECT id, ank_city, pol, ank_d_r, ank_m_r, ank_g_r, ank_o_sebe, url, level, ip, ip_xff, ip_cl, ua, date_last FROM `user` WHERE `date_last` > '" . (time() - 600) . "' ORDER BY `date_last` DESC LIMIT $start, $set[p_str]");
+$q = dbquery("SELECT id, ank_city, pol, ank_d_r, ank_m_r, ank_g_r, ank_o_sebe, url, level, ip, ua, date_last FROM `user` WHERE `date_last` > '" . (time() - 600) . "' ORDER BY `date_last` DESC LIMIT $start, $set[p_str]");
+
 echo '<table class="post">';
 if ($k_post == 0) {
 	echo '<div class="mess">';
 	echo '现在网站上没有人';
 	echo '</div>';
 }
+
 while ($ank = dbassoc($q)) {
 	$ank['ank_age'] = null;
 	if ($ank['ank_d_r'] != NULL && $ank['ank_m_r'] != NULL && $ank['ank_g_r'] != NULL) {
@@ -76,39 +82,17 @@ while ($ank = dbassoc($q)) {
 		// 用户 IP
 		if ($ank['ip'] != NULL) {
 			if (user_access('user_show_ip') && $ank['ip'] != 0) {
-				echo '<span class="ank_n">IP:</span> <span class="ank_d">' . long2ip($ank['ip']) . '</span>';
+				echo '<span class="ank_n">IP:</span> <span class="ank_d">' . $ank['ip'] . '</span>';
 				if (user_access('adm_ban_ip'))
 					echo ' [<a href="/adm_panel/ban_ip.php?min=' . $ank['ip'] . '">禁令</a>]';
 				echo '<br />';
 			}
 		}
-		// 客户端 IP
-		if ($ank['ip_cl'] != NULL) {
-			if (user_access('user_show_ip') && $ank['ip_cl'] != 0) {
-				echo '<span class="ank_n">IP (CLIENT):</span> <span class="ank_d">' . long2ip($ank['ip_cl']) . '</span>';
-				if (user_access('adm_ban_ip'))
-					echo ' [<a href="/adm_panel/ban_ip.php?min=' . $ank['ip_cl'] . '">禁令</a>]';
-				echo '<br />';
-			}
-		}
-		// IP (XFF)
-		if ($ank['ip_xff'] != NULL) {
-			if (user_access('user_show_ip') && $ank['ip_xff'] != 0) {
-				echo '<span class="ank_n">IP (XFF):</span> <span class="ank_d">' . long2ip($ank['ip_xff']) . '</span>';
-				if (user_access('adm_ban_ip'))
-					echo ' [<a href="/adm_panel/ban_ip.php?min=' . $ank['ip_xff'] . '">举报</a>]';
-				echo '<br />';
-			}
-		}
-		// 浏览器
+		// 浏览器 UA
 		if (user_access('user_show_ua') && $ank['ua'] != NULL)
 			echo '<span class="ank_n">浏览器:</span> <span class="ank_d">' . $ank['ua'] . '</span><br />';
 		if (user_access('user_show_ip') && opsos($ank['ip']))
 			echo '<span class="ank_n">IP:</span> <span class="ank_d">' . opsos($ank['ip']) . '</span><br />';
-		if (user_access('user_show_ip') && opsos($ank['ip_cl']))
-			echo '<span class="ank_n">IP (CL):</span> <span class="ank_d">' . opsos($ank['ip_cl']) . '</span><br />';
-		if (user_access('user_show_ip') && opsos($ank['ip_xff']))
-			echo '<span class="ank_n">IP (XFF):</span> <span class="ank_d">' . opsos($ank['ip_xff']) . '</span><br />';
 		if ($user['level'] > $ank['level'] && $user['id'] != $ank['id']) {
 			if (user_access('user_prof_edit'))
 				echo '[<a href="/adm_panel/user.php?id=' . $ank['id'] . '"><img src="/style/icons/edit.gif" alt="*" /> 编辑</a>] ';
@@ -133,12 +117,15 @@ while ($ank = dbassoc($q)) {
 }
 echo '</table>';
 if ($k_page > 1) str("?", $k_page, $page); // 输出页数
-if (user_access('user_collisions')) {
-?>
+
+if (user_access('user_collisions')): ?>
 	<div class="foot">
-		<?= (!isset($_SESSION['admin']) ? '<a href="?admin">高级模式</a> | <b>正常模式</b>' : '<b>高级模式</b> | <a href="?admin=close">正常模式</a>') ?>
+		<?php if (!isset($_SESSION['admin'])): ?>
+			<a href="?admin">高级模式</a> | <b>正常模式</b>
+		<?php else: ?>
+			<b>高级模式</b> | <a href="?admin=close">正常模式</a>
+		<?php endif; ?>
 	</div>
-<?
-}
+<?php endif;
+
 include_once '../sys/inc/tfoot.php';
-?>

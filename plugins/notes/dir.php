@@ -26,7 +26,7 @@ include_once '../../sys/inc/adm_check.php';
 include_once '../../sys/inc/user.php';
 /* Бан пользователя */
 if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'notes' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-    header('Location: /user/ban.php?' . SID);
+    header('Location: /user/ban.php?' . session_id());
     exit;
 }
 $set['title'] = '类别';
@@ -51,7 +51,7 @@ if (isset($_POST['title']) && user_access('notes_edit')) {
         dbquery("INSERT INTO `notes_dir` (`msg`, `name`) values('$msg', '$title')");
         dbquery("OPTIMIZE TABLE `notes_dir`");
         $_SESSION['message'] = '成功创建类别';
-        header("Location: dir.php?" . SID);
+        header("Location: dir.php?" . session_id());
         exit;
     }
 }

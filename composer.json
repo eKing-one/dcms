@@ -1,0 +1,10 @@
+{
+    "require": {
+        "ua-parser/uap-php": "^3.9",
+        "mlocati/ip-lib": "^1.18",
+        "mobiledetect/mobiledetectlib": "^4.8",
+        "firebase/php-jwt": "^6.10",
+        "phpmailer/phpmailer": "^6.9",
+        "james-heinrich/getid3": "^1.9"
+    }
+}

@@ -10,7 +10,7 @@ include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
 /* 用户封禁 */
 if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'files' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-	header('Location: /user/ban.php?' . SID);
+	header('Location: /user/ban.php?' . session_id());
 	exit;
 }
 include_once '../../sys/inc/thead.php';
@@ -23,7 +23,7 @@ if ($ank['id'] == 0) {
 // 播放列表作者的 ID
 $ank = user::get_user($ank['id']);
 if (!$ank) {
-	header("Location: /index.php?" . SID);
+	header("Location: /index.php?" . session_id());
 	exit;
 }
 $set['title'] = '音乐 ' . $ank['nick'];

@@ -8,7 +8,7 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
-user_access('adm_news',null,'index.php?'.SID);
+user_access('adm_news',null,'index.php?'.session_id());
 // Переменные по умолчанию
 if (isset($_POST['view']))
 {
@@ -49,10 +49,10 @@ if (isset($_POST['title']) && isset($_POST['msg']) && isset($_POST['link']) && i
 	dbquery("UPDATE `user` SET `news_read` = '0'");
 	if (isset($_POST['mail'])) // Расслылка новостей на майл
 	{
-		$q = dbquery("SELECT `ank_mail` FROM `user` WHERE `set_news_to_mail` = '1' AND `ank_mail` <> ''");
+		$q = dbquery("SELECT `email` FROM `user` WHERE `set_news_to_mail` = '1' AND `email` <> ''");
 		while ($ank = dbassoc($q))
 		{
-			dbquery("INSERT INTO `mail_to_send` (`mail`, `them`, `msg`) values('$ank[ank_mail]', '新闻', '".trim(br(bbcode(links(stripcslashes(htmlspecialchars($msg))))))."')");
+			dbquery("INSERT INTO `mail_to_send` (`mail`, `them`, `msg`) values('$ank[email]', '新闻', '".trim(br(bbcode(links(stripcslashes(htmlspecialchars($msg))))))."')");
 		}
 	}
 	$_SESSION['message'] = '新闻创建成功';

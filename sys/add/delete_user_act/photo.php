@@ -5,10 +5,10 @@ while ($gallery = dbassoc($gallery_q))
 $q=dbquery("SELECT * FROM `gallery_photo` WHERE `id_gallery` = '$gallery[id]'");
 while ($post = dbassoc($q))
 {
-@unlink(H."files/gallery/48/$post[id].jpg");
-@unlink(H."files/gallery/128/$post[id].jpg");
-@unlink(H."files/gallery/640/$post[id].jpg");
-@unlink(H."files/gallery/photo/$post[id].jpg");
+@unlink(H."sys/gallery/48/$post[id].jpg");
+@unlink(H."sys/gallery/128/$post[id].jpg");
+@unlink(H."sys/gallery/640/$post[id].jpg");
+@unlink(H."sys/gallery/photo/$post[id].jpg");
 dbquery("DELETE FROM `gallery_photo` WHERE `id` = '$post[id]' LIMIT 1");
 dbquery("DELETE FROM `gallery_komm` WHERE `id_photo` = '$post[id]'");
 dbquery("DELETE FROM `gallery_rating` WHERE `id_photo` = '$post[id]'");
@@ -26,10 +26,10 @@ while ($gallery = dbassoc($gallery_q))
 $q=dbquery("SELECT * FROM `gallery_photo` WHERE `id_gallery` = '$gallery[id]'");
 while ($post = dbassoc($q))
 {
-@unlink(H."files/gallery/48/$post[id].jpg");
-@unlink(H."files/gallery/128/$post[id].jpg");
-@unlink(H."files/gallery/640/$post[id].jpg");
-@unlink(H."files/gallery/photo/$post[id].jpg");
+@unlink(H."sys/gallery/48/$post[id].jpg");
+@unlink(H."sys/gallery/128/$post[id].jpg");
+@unlink(H."sys/gallery/640/$post[id].jpg");
+@unlink(H."sys/gallery/photo/$post[id].jpg");
 dbquery("DELETE FROM `gallery_photo` WHERE `id` = '$post[id]' LIMIT 1");
 dbquery("DELETE FROM `gallery_komm` WHERE `id_photo` = '$post[$i]'");
 dbquery("DELETE FROM `gallery_rating` WHERE `id_photo` = '$post[$i]'");

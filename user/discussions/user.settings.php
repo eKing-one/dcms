@@ -12,13 +12,13 @@ if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
 $ank = user::get_user($ank['id']);
 if (!$ank || $ank['id'] == 0) {
-	header('Location: /index.php?' . SID);
+	header('Location: /index.php?' . session_id());
 	exit;
 }
 only_reg();
 $frend = dbassoc(dbquery("SELECT * FROM `frends` WHERE `user` = '" . $user['id'] . "' AND `frend` = '$ank[id]' AND `i` = '1'", $db));
 if (!isset($frend['user'])) {
-	header('Location: index.php?' . SID);
+	header('Location: index.php?' . session_id());
 	exit;
 }
 if (isset($_POST['save'])) {

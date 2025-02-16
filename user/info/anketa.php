@@ -9,6 +9,8 @@ include_once '../../sys//inc/db_connect.php';
 include_once '../../sys//inc/ipua.php';
 include_once '../../sys//inc/fnc.php';
 include_once '../../sys//inc/user.php';
+
+// 检查用户是否登录
 if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
 if ($ank['id'] == 0) {
@@ -16,18 +18,18 @@ if ($ank['id'] == 0) {
 	$set['title'] = $ank['nick'] . ' - 个人资料 '; //网页标题
 	include_once '../../sys/inc/thead.php';
 	title();
-	aut();/*
-==================================
-用户的页面隐私
-禁止查看个人资料
-==================================
-*/
+	aut();
+	/*
+	==================================
+	用户的页面隐私
+	禁止查看个人资料
+	==================================
+	*/
 	$uSet = dbarray(dbquery("SELECT * FROM `user_set` WHERE `id_user` = '$ank[id]'  LIMIT 1"));
 	$frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$ank[id]') OR (`user` = '$ank[id]' AND `frend` = '$user[id]') LIMIT 1"), 0);
 	$frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[id]' AND `to` = '$ank[id]') OR (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"), 0);
 	if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
-		if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) // 如果页面有私人设置，则开始输出
-		{
+		if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) {	// 如果页面有私人设置，则开始输出
 			if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
 			echo "<div class='nav1'>";
 			echo group($ank['id']) . " $ank[nick] ";
@@ -73,9 +75,11 @@ if ($ank['id'] == 0) {
 	include_once '../../sys//inc/tfoot.php';
 	exit;
 }
+
+// 检查用户是否存在
 $ank = user::get_user($ank['id']);
 if (!$ank) {
-	header("Location: /index.php?" . SID);
+	header("Location: /index.php?" . session_id());
 	exit;
 }
 //----------------------//
@@ -354,13 +358,13 @@ if ($ank['ank_icq'] != NULL && $ank['ank_icq'] != 0)
 else
 	echo "$icq<span class=\"ank_n\">QQ:</span>$a<br />";
 echo "$mail E-Mail:$a";
-if ($ank['ank_mail'] != NULL && ($ank['set_show_mail'] == 1 || isset($user) && ($user['level'] > $ank['level'] || $user['level'] == 4))) {
+if ($ank['email'] != NULL && ($ank['set_show_mail'] == 1 || isset($user) && ($user['level'] > $ank['level'] || $user['level'] == 4))) {
 	if ($ank['set_show_mail'] == 0) $hide_mail = ' (隐藏)';
 	else $hide_mail = NULL;
-	if (preg_match("#(@mail\.ru$)|(@bk\.ru$)|(@inbox\.ru$)|(@list\.ru$)#", $ank['ank_mail']))
-		echo " <a href=\"mailto:$ank[ank_mail]\" title=\"写信\" class=\"ank_d\">$ank[ank_mail]</a>$hide_mail<br />";
+	if (preg_match("#(@mail\.ru$)|(@bk\.ru$)|(@inbox\.ru$)|(@list\.ru$)#", $ank['email']))
+		echo " <a href=\"mailto:$ank[email]\" title=\"写信\" class=\"ank_d\">$ank[email]</a>$hide_mail<br />";
 	else
-		echo " <a href=\"mailto:$ank[ank_mail]\" title=\"写信\" class=\"ank_d\">$ank[ank_mail]</a>$hide_mail<br />";
+		echo " <a href=\"mailto:$ank[email]\" title=\"写信\" class=\"ank_d\">$ank[email]</a>$hide_mail<br />";
 } else {
 	echo "<br />";
 }
@@ -369,9 +373,9 @@ if ($ank['ank_n_tel'] != NULL)
 else
 	echo "$mobile<span class=\"ank_n\">电话:</span>$a<br />";
 if ($ank['ank_skype'] != NULL)
-	echo "$skype<span class=\"ank_n\">微信:</span>$a <span class=\"ank_d\">$ank[ank_skype]</span><br />";
+	echo "$skype<span class=\"ank_n\">Skype:</span>$a <span class=\"ank_d\">$ank[ank_skype]</span><br />";
 else
-	echo "$skype<span class=\"ank_n\">微信:</span>$a<br />";
+	echo "$skype<span class=\"ank_n\">Skype:</span>$a<br />";
 echo "</div>";
 //--------------------管理用户----------------------//
 echo "<div class='nav1'>";
@@ -390,30 +394,14 @@ echo "</div>";
 if ($user['level'] > $ank['level']) {
 	if (isset($_GET['info'])) {
 		echo "<div class='foot'>";
-		echo "<img src='/style/icons/str.gif' alt='*' /> <a href='?id=$ank[id]'>隐藏</a><br />";
+		echo "<img src='/style/icons/str.gif' alt='*' /> <a href='?id={$ank['id']}'>隐藏</a><br />";
 		echo "</div>";
 		echo "<div class='p_t'>";
 		if ($ank['ip'] != NULL) {
 			if (user_access('user_show_ip') && $ank['ip'] != 0) {
-				echo "<span class=\"ank_n\">IP:</span> <span class=\"ank_d\">" . long2ip($ank['ip']) . "</span>";
+				echo "<span class=\"ank_n\">IP:</span> <span class=\"ank_d\">{$ank['ip']}</span>";
 				if (user_access('adm_ban_ip'))
-					echo " [<a href='/adm_panel/ban_ip.php?min=$ank[ip]'>禁止</a>]";
-				echo "<br />";
-			}
-		}
-		if ($ank['ip_cl'] != NULL) {
-			if (user_access('user_show_ip') && $ank['ip_cl'] != 0) {
-				echo "<span class=\"ank_n\">IP (CLIENT):</span> <span class=\"ank_d\">" . long2ip($ank['ip_cl']) . "</span>";
-				if (user_access('adm_ban_ip'))
-					echo " [<a href='/adm_panel/ban_ip.php?min=$ank[ip_cl]'>禁止</a>]";
-				echo "<br />";
-			}
-		}
-		if ($ank['ip_xff'] != NULL) {
-			if (user_access('user_show_ip') && $ank['ip_xff'] != 0) {
-				echo "<span class=\"ank_n\">IP (XFF):</span> <span class=\"ank_d\">" . long2ip($ank['ip_xff']) . "</span>";
-				if (user_access('adm_ban_ip'))
-					echo " [<a href='/adm_panel/ban_ip.php?min=$ank[ip_xff]'>禁止</a>]";
+					echo " [<a href='/adm_panel/ban_ip.php?min={$ank['ip']}'>禁止</a>]";
 				echo "<br />";
 			}
 		}
@@ -421,10 +409,6 @@ if ($user['level'] > $ank['level']) {
 			echo "<span class=\"ank_n\">UA:</span> <span class=\"ank_d\">$ank[ua]</span><br />";
 		if (user_access('user_show_ip') && opsos($ank['ip']))
 			echo "<span class=\"ank_n\">IP:</span> <span class=\"ank_d\">" . opsos($ank['ip']) . "</span><br />";
-		if (user_access('user_show_ip') && opsos($ank['ip_cl']))
-			echo "<span class=\"ank_n\">IP (CL):</span> <span class=\"ank_d\">" . opsos($ank['ip_cl']) . "</span><br />";
-		if (user_access('user_show_ip') && opsos($ank['ip_xff']))
-			echo "<span class=\"ank_n\">IP (XFF):</span> <span class=\"ank_d\">" . opsos($ank['ip_xff']) . "</span><br />";
 		if ($ank['show_url'] == 1) {
 			if (otkuda($ank['url'])) echo "<span class=\"ank_n\">URL:</span> <span class=\"ank_d\"><a href='$ank[url]'>" . otkuda($ank['url']) . "</a></span><br />";
 		}

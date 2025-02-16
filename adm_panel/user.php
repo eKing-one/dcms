@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -7,23 +7,23 @@ include_once '../sys/inc/settings.php';
 include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
-include_once '../sys/inc/shif.php';
 include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
-user_access('user_prof_edit', null, 'index.php?' . SID);
+user_access('user_prof_edit', null, 'index.php?' . session_id());
 adm_check();
-if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
-else {
-	header("Location: /index.php?" . SID);
+if (isset($_GET['id'])) {
+	$ank['id'] = intval($_GET['id']);
+} else {
+	header("Location: /index.php?" . session_id());
 	exit;
 }
 if (dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `id` = '$ank[id]' LIMIT 1"), 0) == 0) {
-	header("Location: /index.php?" . SID);
+	header("Location: /index.php?" . session_id());
 	exit;
 }
 $ank = user::get_user($ank['id']);
 if ($user['level'] <= $ank['level']) {
-	header("Location: /index.php?" . SID);
+	header("Location: /index.php?" . session_id());
 	exit;
 }
 
@@ -100,16 +100,15 @@ if (isset($_POST['save'])) {
 	} else $err = '无效的ICQ格式';
 	if (isset($_POST['ank_skype']) && preg_match('#^([A-z0-9 \-]*)$#ui', $_POST['ank_skype'])) {
 		$ank['ank_skype'] = $_POST['ank_skype'];
-		if ($ank['ank_skype'] == null) $ank['ank_skype'] = 'null';
 		dbquery("UPDATE `user` SET `ank_skype` = '" . my_esc($ank['ank_skype']) . "' WHERE `id` = '$ank[id]' LIMIT 1");
-	} else $err[] = "无效的Skype登录";
+	} else $err[] = "无效的Skype账号";
 	if (isset($_POST['ank_n_tel']) && (is_numeric($_POST['ank_n_tel']) && strlen($_POST['ank_n_tel']) >= 5 && strlen($_POST['ank_n_tel']) <= 11 || $_POST['ank_n_tel'] == NULL)) {
 		$ank['ank_n_tel'] = $_POST['ank_n_tel'];
 		dbquery("UPDATE `user` SET `ank_n_tel` = '$ank[ank_n_tel]' WHERE `id` = '$ank[id]' LIMIT 1");
 	} else $err = '无效的电话号码格式';
-	if (isset($_POST['ank_mail']) && ($_POST['ank_mail'] == null || preg_match('#^[A-z0-9-\._]+@[A-z0-9]{2,}\.[A-z]{2,4}$#ui', $_POST['ank_mail']))) {
-		$ank['ank_mail'] = $_POST['ank_mail'];
-		dbquery("UPDATE `user` SET `ank_mail` = '$ank[ank_mail]' WHERE `id` = '$ank[id]' LIMIT 1");
+	if (isset($_POST['email']) && ($_POST['email'] == null || preg_match('#^[A-z0-9-\._]+@[A-z0-9]{2,}\.[A-z]{2,4}$#ui', $_POST['email']))) {
+		$ank['email'] = $_POST['email'];
+		dbquery("UPDATE `user` SET `email` = '$ank[email]' WHERE `id` = '$ank[id]' LIMIT 1");
 	} else $err[] = '无效电子邮件';
 	if (isset($_POST['ank_o_sebe']) && preg_match('#^([A-zА-я \-]*)$#ui', $_POST['ank_o_sebe'])) {
 		$ank['ank_o_sebe'] = esc(stripcslashes(htmlspecialchars($_POST['ank_o_sebe'])));
@@ -117,12 +116,14 @@ if (isset($_POST['save'])) {
 	} else $err = '你在这个领域犯了一个关于你自己的错误';
 	if (isset($_POST['new_pass']) && strlen2($_POST['new_pass']) > 5) {
 		admin_log('用户', '更改密码', "给用户 '$ank[nick]' 已设置新密码");
-		dbquery("UPDATE `user` SET `pass` = '" . shif($_POST['new_pass']) . "' WHERE `id` = '$ank[id]' LIMIT 1");
+		dbquery("UPDATE `user` SET `pass` = '" . password_hash($_POST['new_pass'], PASSWORD_DEFAULT) . "' WHERE `id` = '$ank[id]' LIMIT 1");
 	}
 	if (user_access('user_change_group') && isset($_POST['group_access'])) {
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `user_group` WHERE `id` = '" . intval($_POST['group_access']) . "' AND `level` < '$user[level]'"), 0) == 1) {
 			if ($ank['group_access'] != intval($_POST['group_access'])) {
-				admin_log('用户', '状态更改', "用户 '$ank[nick]': 状况 '$ank[group_name]' 改为 '" . dbresult(dbquery("SELECT `name` FROM `user_group` WHERE `id` = '" . intval($_POST['group_access']) . "'"), 0) . "'");
+				$user_new_group_name = dbresult(dbquery("SELECT `name` FROM `user_group` WHERE `id` = '" . intval($_POST['group_access']) . "'"), 0);
+				admin_log('用户', '状态更改', "用户 “{$ank['nick']}”: 由 “{$ank['group_name']}” 改为 “{$user_new_group_name}”");
+				//admin_log('用户', '状态更改', "用户 '{$ank['nick']}': 状况 '{$ank['group_name']}' 改为 '" . dbresult(dbquery("SELECT `name` FROM `user_group` WHERE `id` = '" . intval($_POST['group_access']) . "'"), 0) . "'");
 				$ank['group_access'] = intval($_POST['group_access']);
 				dbquery("UPDATE `user` SET `group_access` = '$ank[group_access]' WHERE `id` = '$ank[id]' LIMIT 1");
 			}
@@ -134,11 +135,13 @@ if (isset($_POST['save'])) {
 		$ank['balls'] = intval($_POST['balls']);
 		dbquery("UPDATE `user` SET `balls` = '$ank[balls]' WHERE `id` = '$ank[id]' LIMIT 1");
 	}
-	admin_log('用户', '个人资料', "编辑用户个人资料 '$ank[nick]' (id#$ank[id])");
+	admin_log('用户', '个人资料', "编辑用户个人资料 “{$ank['nick']}” (id#{$ank['id']})");
 	if (!isset($err)) msg('更改已成功接受');
 }
+
 err();
 aut();
+
 echo "<form method='post' action='user.php?id=$ank[id]'>
 用户名:<br /><input" . (user_access('user_change_nick') ? null : ' disabled="disabled"') . " type='text' name='nick' value='$ank[nick]' maxlength='32' /><br />
 	真实姓名:<br /><input type='text' name='ank_name' value='$ank[ank_name]' maxlength='32' /><br />";
@@ -199,7 +202,7 @@ echo "城市:<br /><input type='text' name='ank_city' value='$ank[ank_city]' max
 	ICQ:<br /><input type='text' name='ank_icq' value='$ank[ank_icq]' maxlength='9' /><br />
 	Skype 账号<br />
 		<input type='text' name='ank_skype' value='$ank[ank_skype]' maxlength='16' /><br />
-	E-mail:<br /><input type='text' name='ank_mail' value='$ank[ank_mail]' maxlength='32' /><br />
+	E-mail:<br /><input type='text' name='email' value='$ank[email]' maxlength='32' /><br />
 	电话号码:<br /><input type='text' name='ank_n_tel' value='$ank[ank_n_tel]' maxlength='11' /><br />
 	关于我:<br /><input type='text' name='ank_o_sebe' value='$ank[ank_o_sebe]' maxlength='512' /><br />";
 echo "聊天中自动更新:<br /><input type='text' name='set_time_chat' value='$ank[set_time_chat]' maxlength='3' /><br />";
@@ -247,12 +250,10 @@ echo "</select><br />";
 echo "新密码:<br /><input type='text' name='new_pass' value='' /><br />";
 echo "<input type='submit' name='save' value='保存' />";
 echo "</form>";
+
 echo "<div class='foot'>";
 echo "&raquo;<a href=\"/user/mail.php?id=$ank[id]\">写一封信</a><br />";
 echo "&laquo;<a href=\"/user/info.php?id=$ank[id]\">返回资料</a><br />";
-if (user_access('adm_panel_show'))
-	echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
+if (user_access('adm_panel_show')) echo "&laquo;<a href='/adm_panel/'>返回管理面板</a><br />";
 echo "</div>";
 include_once '../sys/inc/tfoot.php';
-
-?>

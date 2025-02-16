@@ -11,7 +11,7 @@ include_once '../../sys/inc/adm_check.php';
 include_once '../../sys/inc/user.php';
 /* Бан пользователя */ 
 if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'notes' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0)!=0) {
-	header('Location: /ban.php?'.SID);
+	header('Location: /ban.php?'.session_id());
 	exit;
 }
 $set['title']='新日记';
@@ -57,15 +57,20 @@ if (isset($_POST['title']) && isset($_POST['msg'])) {
 			}
 			/*
 			===================================
-			Лента
+			乐队
 			===================================
 			*/
 			$q = dbquery("SELECT * FROM `frends` WHERE `user` = '".$user['id']."' AND `i` = '1'");
 			while ($f = dbarray($q)) {
 				$a=user::get_user($f['frend']);
-				$lentaSet = dbarray(dbquery("SELECT * FROM `tape_set` WHERE `id_user` = '".$a['id']."' LIMIT 1")); // Общая настройка ленты
-				if ($f['lenta_notes'] == 1 && $lentaSet['lenta_notes'] == 1 ) // фильтр рассылки
-				dbquery("INSERT INTO `tape` (`id_user`,`avtor`, `type`, `time`, `id_file`) values('$a[id]', '$user[id]', 'notes', '$time', '$st')");
+				$lentaSet = dbarray(dbquery("SELECT * FROM `tape_set` WHERE `id_user` = '".$a['id']."' LIMIT 1")); // 常规功能区设置
+				if ($f['lenta_notes'] == 1 && $lentaSet['lenta_notes'] == 1 ) // 邮件过滤器
+				if (dbresult(dbquery("SELECT COUNT(*) FROM `tape` WHERE `id_user` = '$a[id]' AND `type` = 'notes' AND `id_file` = '$st' LIMIT 1"), 0) == 0) {
+					dbquery("INSERT INTO `tape` (`id_user`, `avtor`, `type`, `time`, `id_file`, `count`) values('$a[id]', '$user[id]', 'notes', '$time', '$st', '1')");
+				} else {
+					$tape = dbarray(dbquery("SELECT * FROM `tape` WHERE `type` = 'notes' AND `id_file` = '$st'"));
+					dbquery("UPDATE `tape` SET `count` = '" . ($tape['count'] + 1) . "', `read` = '0', `time` = '$time' WHERE `id_user` = '$a[id]' AND `type` = 'notes' AND `id_file` = '$st' LIMIT 1");
+				}
 			}
 			dbquery("OPTIMIZE TABLE `notes`");
 			$_SESSION['message'] = '日记创建成功';

@@ -1,1 +1,13 @@
+# Deny access to all files by default
 #Deny from all
+
+# Allow access to specific file
+<Files "mod_rewrite_test.php">
+	Allow from all
+</Files>
+# Enable mod_rewrite if available
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	# RewriteBase physical-directory-path
+	RewriteRule ^mod_rewrite.test$ mod_rewrite_test.php 
+</IfModule>

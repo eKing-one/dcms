@@ -33,7 +33,7 @@ dbquery("DELETE FROM `notes_count` WHERE `id_notes` = '$post[id]'");
 dbquery("DELETE FROM `notes_komm` WHERE `id_notes` = '$post[id]'");
 dbquery("DELETE FROM `mark_notes` WHERE `id_list` = '$post[id]'");
 $_SESSION['message']='日记被成功删除';
-header("Location: index.php?".SID);
+header("Location: index.php?".session_id());
 exit;
 }
 }else{

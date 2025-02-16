@@ -12,9 +12,11 @@ if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
 $ank = user::get_user($ank['id']);
 if (!$ank) {
-	header("Location: /index.php?" . SID);
+	header("Location: /index.php?" . session_id());
 	exit;
 }
+
+
 if ($ank['id'] == 0) {
 	$ank = user::get_user($ank['id']);
 	$set['title'] = $ank['nick'] . ' - 个人主页 '; //网页标题
@@ -28,6 +30,8 @@ if ($ank['id'] == 0) {
 	include_once '../sys/inc/tfoot.php';
 	exit;
 }
+
+
 /* 查看封禁用户的主页 */
 if ((!isset($user) || $user['group_access'] == 0) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'all' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0) != 0) {
 	$set['title'] = $ank['nick'] . ' - 个人主页 '; //网页标题
@@ -49,6 +53,8 @@ if (isset($_GET['delete_post']) && dbresult(dbquery("SELECT COUNT(*) FROM `stena
 		$_SESSION['message'] = '动态已成功删除';
 	}
 }
+
+
 /*-------------------------游客查看主页----------------------*/
 if (isset($user) && $user['id'] != $ank['id'] && !isset($_SESSION['guest_' . $ank['id']])) {
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `my_guests` WHERE `id_ank` = '$ank[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
@@ -62,6 +68,8 @@ if (isset($user) && $user['id'] != $ank['id'] && !isset($_SESSION['guest_' . $an
 		$_SESSION['guest_' . $ank['id']] = 1;
 	}
 }
+
+
 /*----------------------------------------------------*/
 /*------------------------动态-----------------------*/
 if (isset($user) && isset($_GET['wall']) && $_GET['wall'] == 1) {
@@ -105,6 +113,7 @@ if (isset($_POST['msg']) && isset($user)) {
 		}
 	}
 }
+
 /*-----------------------评价通知----------------------------*/
 if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL)
 	&& isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != NULL &&
@@ -126,6 +135,7 @@ if (isset($_POST['rating']) && isset($user)  && $user['id'] != $ank['id'] && $us
 		dbquery("INSERT INTO `mail` (`id_user`, `id_kont`, `msg`, `time`) values('0', '$ank[id]', '$user[nick] 保持中立 [url=/who_rating.php]你的个人资料[/url]', '$time')");
 	msg('对用户的评价已修改');
 }
+
 //-------------状态添加-----------//
 if (isset($_POST['status']) && isset($user) && $user['id'] == $ank['id']) {
 	$msg = $_POST['status'];
@@ -156,6 +166,7 @@ if (isset($_POST['status']) && isset($user) && $user['id'] == $ank['id']) {
 		exit;
 	}
 }
+
 if (isset($_GET['off'])) {
 	if ($ank['id'] == $user['id']) {
 		dbquery("UPDATE `status` SET `pokaz` = '0' WHERE `id_user` = '$user[id]'");
@@ -182,6 +193,9 @@ if (isset($_GET['like']) && $user['id'] != $ank['id'] && dbresult(dbquery("SELEC
 	header("Location: ?id=$ank[id]");
 	exit;
 }
+
+
+
 /*
 =================================
 书签
@@ -199,12 +213,15 @@ if (isset($_GET['fav']) && isset($user)) {
 	header("Location: /user/info.php?id=$ank[id]");
 	exit;
 }
-/*------------------------статус like-----------------------*/
+/*------------------------喜欢-----------------------*/
 if (isset($user) && isset($_GET['like']) && ($_GET['like'] == 0 || $_GET['like'] == 1) && dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_user` = '$user[id]' AND `id_status`='$status[id]' LIMIT 1"), 0) == 0 && $user['id'] != $ank['id']) {
 	dbquery("INSERT INTO `status_like` (`id_user`, `id_status`, `like`) VALUES ('$user[id]', '$status[id]', '" . intval($_GET['like']) . "')");
 	dbquery("UPDATE `user` SET `balls` = '" . ($ank['balls'] + 3) . "' ,`rating_tmp` = '" . ($ank['rating_tmp'] + 3) . "' WHERE `id` = '$ank[id]' LIMIT 1");
 }
 /*----------------------------------------------------------*/
+
+
+
 /*
 ================================
 用户举报
@@ -262,6 +279,9 @@ if (isset($_GET['spam'])  && $ank['id'] != 0 && isset($user)) {
 	echo "</div>";
 	include_once '../sys/inc/tfoot.php';
 }
+
+
+
 /*
 ==================================
 尾部
@@ -271,32 +291,36 @@ $set['title'] = $ank['nick'] . ' - 个人主页 '; //网页标题
 include_once '../sys/inc/thead.php';
 title();
 aut();
+
+
+
 /*
 ==================================
 用户页面的隐私
 ==================================
 */
+// 获取用户设置
 $uSet = dbarray(dbquery("SELECT * FROM `user_set` WHERE `id_user` = '$ank[id]'  LIMIT 1"));
-$frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$ank[id]') OR (`user` = '$ank[id]' AND `frend` = '$user[id]') LIMIT 1"), 0);
-$frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[id]' AND `to` = '$ank[id]') OR (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"), 0);
-if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
-	if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) // 页面有个人设置时开始打印
-	{
-		if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
-		echo "<div class='nav1'>";
-		echo user::nick($ank['id'], 1, 1, 1);
-		echo "</div>";
-		echo "<div class='nav2'>";
-		echo user::avatar($ank['id']);
-		echo "<br />";
-	}
-	if ($uSet['privat_str'] == 2 && $frend != 2) // 仅允许好友查看
-	{
-		echo '<div class="mess">';
-		echo '由于用户的隐私设置，只有该用户的好友才能查看主页'; 
-		echo '</div>';
-		// В друзья
-		if (isset($user)) {
+// 如果用户登录，检查是否是好友
+if (isset($user)) {
+	$frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '{$user['id']}' AND `frend` = '{$ank['id']}') OR (`user` = '{$ank['id']}' AND `frend` = '{$user['id']}') LIMIT 1"), 0);
+	$frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '{$user['id']}' AND `to` = '{$ank['id']}') OR (`user` = '{$ank['id']}' AND `to` = '{$user['id']}') LIMIT 1"), 0);
+}
+
+
+if ($uSet['privat_str'] == 2) {
+	if (isset($user)) {
+		if ($ank['id'] != $user['id'] && $frend != 2 && $user['group_access'] <= 1 && $user['group_access'] <= $ank['group_access']) {
+			if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
+			echo "<div class='nav1'>";
+			echo user::nick($ank['id'], 1, 1, 1);
+			echo "</div>";
+			echo "<div class='nav2'>";
+			echo user::avatar($ank['id']);
+			echo "<br />";
+			echo '<div class="mess">';
+			echo '由于用户的隐私设置，只有该用户的好友才能查看主页'; 
+			echo '</div>';
 			echo '<div class="nav1">';
 			if ($frend_new == 0 && $frend == 0) {
 				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=" . $ank['id'] . "'>添加到朋友</a><br />";
@@ -306,21 +330,57 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>从朋友中删除</a><br />";
 			}
 			echo "</div>";
+			include_once '../sys/inc/tfoot.php';
 		}
+	} else {
+		if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
+		echo "<div class='nav1'>";
+		echo user::nick($ank['id'], 1, 1, 1);
+		echo "</div>";
+		echo "<div class='nav2'>";
+		echo user::avatar($ank['id']);
+		echo "<br />";
+		echo '<div class="mess">';
+		echo '由于用户的隐私设置，只有该用户的好友才能查看主页'; 
+		echo '</div>';
 		include_once '../sys/inc/tfoot.php';
-		exit;
 	}
-	if ($uSet['privat_str'] == 0) // 关闭查看主页
-	{
+}
+
+
+if ($uSet['privat_str'] == 0) {
+	if (isset($user)) {
+		if ($ank['id'] != $user['id'] && $user['group_access'] <= 1 && $user['group_access'] <= $ank['group_access']) {
+			if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
+			echo "<div class='nav1'>";
+			echo user::nick($ank['id'], 1, 1, 1);
+			echo "</div>";
+			echo "<div class='nav2'>";
+			echo user::avatar($ank['id']);
+			echo "<br />";
+			echo '<div class="mess">';
+			echo '由于用户的隐私设置，已禁止查看这位用户的主页';
+			echo '</div>';
+			include_once '../sys/inc/tfoot.php';
+		}
+	} else {
+		if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
+		echo "<div class='nav1'>";
+		echo user::nick($ank['id'], 1, 1, 1);
+		echo "</div>";
+		echo "<div class='nav2'>";
+		echo user::avatar($ank['id']);
+		echo "<br />";
 		echo '<div class="mess">';
 		echo '由于用户的隐私设置，已禁止查看这位用户的主页';
 		echo '</div>';
 		include_once '../sys/inc/tfoot.php';
-		exit;
 	}
 }
-if ($set['web'] == true)
+
+if ($set['web'] == true) {
 	include_once H . "user/info/web.php";
-else
+} else {
 	include_once H . "user/info/wap.php";
+}
 include_once '../sys/inc/tfoot.php';

@@ -9,15 +9,18 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
-/* 用户厢式货车 */
-if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'chat' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-    header('Location: /user/ban.php?' . SID);
+
+/* 封禁的用户 */
+if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'chat' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
+    header('Location: /user/ban.php?' . session_id());
     exit;
 }
+
 $set['title'] = '聊天室-谁在这里？'; // 页面标题
 include_once '../sys/inc/thead.php';
 title();
 aut();
+
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `user` WHERE `date_last` > '" . (time() - 100) . "' AND `url` like '/chat/%'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);

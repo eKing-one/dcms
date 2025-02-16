@@ -8,15 +8,16 @@ include_once '../../sys/inc/db_connect.php';
 include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
-/* Бан пользователя */
+/* 用户封禁 */
 if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'notes' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
-	header('Location: /user/ban.php?' . SID);
+	header('Location: /user/ban.php?' . session_id());
 	exit;
 }
 $set['title'] = '日记';
 include_once '../../sys/inc/thead.php';
 title();
-aut(); // форма авторизации
+aut(); // 授权表格
+
 echo "<div id='comments' class='menus'>";
 echo "<div class='webmenu'>";
 echo "<a href='index.php' >日记</a>";
@@ -28,25 +29,27 @@ echo "<div class='webmenu'>";
 echo "<a href='search.php' class='activ'>搜索</a>";
 echo "</div>";
 echo "</div>";
-$usearch = NULL;
-if (isset($_SESSION['usearch'])) $usearch = $_SESSION['usearch'];
-if (isset($_POST['usearch'])) $usearch = $_POST['usearch'];
-if ($usearch == NULL)
-	unset($_SESSION['usearch']);
-else
-	$_SESSION['usearch'] = $usearch;
-$usearch = preg_replace("#( ){1,}#", "", $usearch);
-$order = 'order by `time` desc';
-echo "<form method=\"post\" action=\"search.php?go\">日记搜索<br />";
-$usearch = stripcslashes(htmlspecialchars($usearch));
-echo "<input type=\"text\" name=\"usearch\" maxlength=\"16\" value=\"$usearch\" /><br />";
+
+if (isset($_GET['go'])) {
+	$usearch = $_GET['go'];
+	$usearch = preg_replace("#( ){1,}#", "", $usearch);
+	$usearch = stripcslashes(htmlspecialchars($usearch));
+} else {
+	$usearch = '';
+}
+
+echo "<form method=\"get\" action=\"search.php\">日记搜索<br />";
+echo "<input type=\"text\" name=\"go\" maxlength=\"16\" value=\"{$usearch}\" /><br />";
 echo "<input type=\"submit\" value=\"寻找\" />";
 echo "</form>";
+
+
 if (isset($_GET['go'])) {
 	$k_post = dbresult(dbquery("SELECT COUNT(*) FROM `notes` where `name` like '%" . my_esc($usearch) . "%'"), 0);
 	$k_page = k_page($k_post, $set['p_str']);
 	$page = page($k_page);
 	$start = $set['p_str'] * $page - $set['p_str'];
+	$order = 'order by `time` desc';
 	$q = dbquery("SELECT * FROM `notes` WHERE `name` like '%" . my_esc($usearch) . "%' $order LIMIT $start, $set[p_str]");
 	echo "<table class='post'>";
 	if ($k_post == 0) {

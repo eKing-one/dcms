@@ -21,26 +21,32 @@ if (!function_exists('file_put_contents')) {
 	}
 }
 
-if ($set['antidos']) { // 来自单个 IP 的频繁请求保护
-	$antidos[] = array('time' => $time);
-	$k_loads = 0;
-	if (test_file(H . 'sys/tmp/antidos_' . $iplong . '.dat')) {
-		$antidos_dat = unserialize(file_get_contents(H . 'sys/tmp/antidos_' . $iplong . '.dat'));
-		for ($i = 0; $i < 150 && $i < sizeof($antidos_dat); $i++) {
-			if ($antidos_dat[$i]['time'] > $time - 5) {
-				$k_loads++;
-				$antidos[] = $antidos_dat[$i];
-			}
+// DOS攻击防护
+if ($set['antidos']) {
+	// 插入当前请求记录
+	dbquery("INSERT INTO ip_requests (`ip`) VALUES ('$ip')");
+
+	// 查询该 IP 在过去 5 秒内的请求次数，如果请求次数超过 100，则封禁 IP
+	if (dbresult(dbquery("SELECT COUNT(*) FROM ip_requests WHERE ip = '$ip' AND time > FROM_UNIXTIME('$time' - 5)"), 0) > 100) {
+		// 如果请求次数超过 100，则封禁 IP
+		if (dbresult(dbquery("SELECT COUNT(*) FROM `ban_ip` WHERE `min` <= '$ip' AND `max` >= '$ip'"), 0) == 0) {
+			dbquery("INSERT INTO `ban_ip` (`min`, `max`, `prich`) values('$ip', '$ip', 'AntiDos')");
 		}
 	}
-	if ($k_loads > 100) {
-		if (dbresult(dbquery("SELECT COUNT(*) FROM `ban_ip` WHERE `min` <= '$iplong' AND `max` >= '$iplong'"), 0) == 0) {
-			dbquery("INSERT INTO `ban_ip` (`min`, `max`, `prich`) values('$iplong', '$iplong', 'AntiDos')", $db);
-		}
-	}
-	@file_put_contents(H . 'sys/tmp/antidos_' . $iplong . '.dat', serialize($antidos));
-	@chmod(H . 'sys/tmp/antidos_' . $iplong . '.dat', 0777);
+
+	// 定期清理过期的请求记录
+	dbquery("DELETE FROM ip_requests WHERE time < '" . date('Y-m-d H:i:s', $time - 3600) . "'");  // 删除 1 小时之前的记录
+
 }
+
+/**
+ * 删除超过一小时的 IP 封禁记录
+ * 
+ * 仅删除 `prich` 字段为 `AntiDos` 且 `created_at` 早于一天前的记录
+ */
+dbquery("DELETE FROM `ban_ip` WHERE `prich` = 'AntiDos' AND `created_at` < '" . date('Y-m-d H:i:s', time() - 3600 * 24) . "'");
+dbquery("DELETE FROM `ban_ip` WHERE `prich` = 'Inject' AND `created_at` < '" . date('Y-m-d H:i:s', time() - 3600 * 24) . "'");
+
 
 // 禁止文字antimat会自动发出警告，然后禁止
 function antimat($str) {
@@ -57,7 +63,7 @@ function antimat($str) {
 	// 			$timeban = $time + 60 * 60; // бан на час
 	// 			dbquery("INSERT INTO `ban` (`id_user`, `id_ban`, `prich`, `time`) VALUES ('$user[id]', '0', '$prich', '$timeban')");
 	// 			admin_log('用户', '禁令', "用户禁令 '[url=/amd_panel/ban.php?id=$user[id]]$user[nick][/url]' (id#$user[id]) 以前 " . vremja($timeban) . " 这是有原因的 '$prich'");
-	// 			header('Location: /user/ban.php?' . SID);
+	// 			header('Location: /user/ban.php?' . session_id());
 	// 			exit;
 	// 		}
 	// 		return $censure;
@@ -73,19 +79,19 @@ function delete_dir($dir) {
 		while ($rd = readdir($od)) {
 			if ($rd == '.' || $rd == '..') continue;
 			if (is_dir("$dir/$rd")) {
-				@chmod("$dir/$rd", 0777);
+				chmod("$dir/$rd", 0777);
 				delete_dir("$dir/$rd");
 			} else {
-				@chmod("$dir/$rd", 0777);
-				@unlink("$dir/$rd");
+				chmod("$dir/$rd", 0777);
+				unlink("$dir/$rd");
 			}
 		}
 		closedir($od);
-		@chmod("$dir", 0777);
-		return @rmdir("$dir");
+		chmod("$dir", 0777);
+		return rmdir("$dir");
 	} else {
-		@chmod("$dir", 0777);
-		@unlink("$dir");
+		chmod("$dir", 0777);
+		unlink("$dir");
 	}
 }
 
@@ -149,7 +155,32 @@ function get_curl($url, $post_data=null, $referer=null, $cookie=null, $header=fa
 	return $ret;
 }
 
-// 获取ip位置信息（暂时弃用）
+/**
+ * 检查一个IP地址是否位于给定的最小IP和最大IP之间
+ *
+ * 该函数验证传入的 `minIp`、`maxIp` 和 `detectIp` 是否是有效的IP地址，
+ * 然后判断 `detectIp` 是否在 `minIp` 和 `maxIp` 之间的范围内。
+ * 
+ * @param string $detectIp 要检测的IP地址
+ * @param string $minIp 最小IP地址（范围的下限）
+ * @param string $maxIp 最大IP地址（范围的上限）
+ * @return bool 如果 `detectIp` 在给定范围内，返回 `true`，否则返回 `false`。
+ * 
+ * @throws InvalidArgumentException 如果任何IP地址无效，将返回 `false`。
+ */
+function isIpInRangeBetweenBounds($detectIp, $minIp, $maxIp) {
+	if ((filter_var($detectIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) || filter_var($detectIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) && (filter_var($minIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) || filter_var($minIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) && (filter_var($maxIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) || filter_var($maxIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6))) {
+		if (\IPLib\Factory::parseAddressString($detectIp)->matches(\IPLib\Factory::getRangeFromBoundaries($minIp, $maxIp))) {
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		return false;
+	}
+}
+
+// 获取ip位置信息
 function get_ip_address($ip) {
 	$url = 'http://ip-api.com/json/';
 	$otherParameters = '?fields=status,message,country,countryCode,region,regionName,city,district,lat,lon,isp,org,as,reverse,mobile,proxy,hosting&lang=zh-CN';
@@ -177,15 +208,14 @@ function get_ip_address($ip) {
 
 //反黑客攻击行为
 if (!defined("ADMIN")) {
-	$hackparam = $_SERVER['QUERY_STRING'];
-	$hackparam = htmlspecialchars($hackparam);
+	$hackparam = htmlspecialchars((string) ($_SERVER['QUERY_STRING'] ?? ''));
 
 	$hackcmd = array('chr(', 'r57shell', 'remview', '%27', 'config=', 'OUTFILE%20', 'spnuke_authors', 'spnuke_admins', 'uname%20', 'netstat%20', 'rpm%20', 'passwd', '%20', 'del%20', 'deltree%20', 'format%20', 'start%20', 'wget', 'group_access', '%3E', '%3С',  'select%20', 'SELECT', 'cmd=', 'rush=', 'union', 'javascript:', 'UNION', 'echr(', 'esystem(', 'cp%20', 'mdir%20', 'mcd%20', 'mrd%20', 'rm%20', 'mv%20', 'rmdir%20', 'chmod(', 'chmod%20', 'chown%20', 'chgrp%20', 'locate%20', 'diff%20', 'kill%20', 'kill(', 'killall', 'cmd', 'command', 'fetch', 'whereis', 'grep%20', 'ls -', 'lynx', 'su%20root', 'test', 'etc/passwd',  "'", '%60', '%00', '%F20', 'echo', 'write(', 'killall', 'passwd%20', 'telnet%20', 'vi(', 'vi%20', 'INSERT%20INTO', 'SELECT%20', 'javascript', 'fopen', 'fwrite', '$_REQUEST', '$_GET', '<script>', 'alert', '&lt', '&gt'); //禁用参数和值
 
 	$checkcmd = str_replace($hackcmd, 'X', $hackparam);
 
 	if ($hackparam != $checkcmd) {
-		dbquery("INSERT INTO ban_ip (min, max) VALUES(\"$iplong\", \"$iplong\");");
+		dbquery("INSERT INTO ban_ip (min, max, prich) VALUES(\"$ip\", \"$ip\", \"Inject\");");
 		dbquery('INSERT INTO mail (id_user, id_kont, msg, time) VALUES("0", "1", "IP: '.$ip.' UA: '.$ua.' 位置: '.get_ip_address($ip).' 正在进行黑客攻击", "'.$time.'");');
 		die('<h2>检测到攻击！</h2><br>你的浏览器：<b>'.$ua.'</b><br>你的IP： <b>'.$ip.'</b><br><b>已被记录，不要尝试违法操作！</b><br><br>有这时间多休息吧！！！');
 	}
@@ -217,18 +247,19 @@ if (!isset($hard_process)) {
 }
 // 统计数据汇总
 
+// 每日访问记录
 if (!isset($hard_process)) {
 	$q = dbquery("SELECT * FROM `cron` WHERE `id` = 'visit' LIMIT 1");
 	if (dbrows($q) == 0) dbquery("INSERT INTO `cron` (`id`, `time`) VALUES ('visit', '$time')");
 	$visit = dbassoc($q);
 	if (!isset($visit['time']) || isset($visit['time']) && $visit['time'] < time() - 60 * 60 * 24) {
-		if (function_exists('set_time_limit')) @set_time_limit(600); // Ставим ограничение на 10 минут
-		$last_day = mktime(0, 0, 0, date('m'), date('d') - 1); // начало вчерашних суток
-		$today_time = mktime(0, 0, 0); // начало сегодняшних суток
+		if (function_exists('set_time_limit')) @set_time_limit(600); // 将限制设置为 10 分钟
+		$last_day = mktime(0, 0, 0, date('m'), date('d') - 1); // 昨天的开始
+		$today_time = mktime(0, 0, 0); // 今天的开始
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `visit_everyday` WHERE `time` = '$last_day'"), 0) == 0) {
 			$hard_process = true;
-			// записываем общие данные за вчерашние сутки в отдельную таблицу
-			dbquery("INSERT INTO `visit_everyday` (`host` , `host_ip_ua`, `hit`, `time`) VALUES ((SELECT COUNT(DISTINCT `ip`) FROM `visit_today` WHERE `time` < '$today_time'),(SELECT COUNT(DISTINCT `ip`, `ua`) FROM `visit_today` WHERE `time` < '$today_time'),(SELECT COUNT(*) FROM `visit_today` WHERE `time` < '$today_time'),'$last_day')");
+			// 在单独的表中记下昨天的一般数据
+			dbquery("INSERT INTO `visit_everyday` (`host` , `host_ip_ua`, `hit`, `time`) VALUES ((SELECT COUNT(DISTINCT `ip`) FROM `visit_today` WHERE `time` < '$today_time'),(SELECT COUNT(DISTINCT `ip`, `ua_hash`) FROM `visit_today` WHERE `time` < '$today_time'),(SELECT COUNT(*) FROM `visit_today` WHERE `time` < '$today_time'),'$last_day')");
 			dbquery('DELETE FROM `visit_today` WHERE `time` < ' . $today_time);
 		}
 	}
@@ -245,27 +276,46 @@ function br($msg, $br = '<br />') {
 
 function esc($text, $br = NULL) { // 过滤所有不可读字符
 	if ($br != NULL) {
-		for ($i = 0; $i <= 31; $i++) $text = str_replace(chr($i), NULL, $text);
+		for ($i = 0; $i <= 31; $i++) $text = str_replace(chr($i), '', $text);
 	} else {
-		for ($i = 0; $i < 10; $i++) $text = str_replace(chr($i), NULL, $text);
-		for ($i = 11; $i < 20; $i++) $text = str_replace(chr($i), NULL, $text);
-		for ($i = 21; $i <= 31; $i++) $text = str_replace(chr($i), NULL, $text);
+		for ($i = 0; $i < 10; $i++) $text = str_replace(chr($i), '', $text);
+		for ($i = 11; $i < 20; $i++) $text = str_replace(chr($i), '', $text);
+		for ($i = 21; $i <= 31; $i++) $text = str_replace(chr($i), '', $text);
 	}
 	return $text;
 }
 
-
-
-// 语句定义
+/**
+ * 根据给定的 IP 地址查询数据库，检查其是否在某个 IP 范围内，如果在范围内则返回对应的 'opsos' 字段值。
+ * 
+ * 该函数首先检查传入的 IP 地址 `$ips` 是否有效，如果没有传入参数，则使用全局变量 `$ip`。
+ * 然后，它会查询数据库中所有的 IP 范围（`min` 到 `max`）以及与之相关联的 `opsos` 字段。
+ * 对于每一条记录，使用 `isIpInRangeBetweenBounds` 函数判断传入的 IP 是否在当前记录的 `min` 和 `max` 范围内。
+ * 如果 IP 在范围内，则返回对应的 `opsos` 值；否则，继续检查下一条记录。
+ * 如果没有找到匹配的记录，返回 `false`。
+ * 
+ * @param string $ips 要查询的 IP 地址。若未提供，则使用全局变量 `$ip`。
+ * @return mixed 如果找到符合条件的记录，返回经过 `htmlspecialchars` 和 `stripcslashes` 处理的 `opsos` 字段值；否则返回 `false`。
+ */
 function opsos($ips = NULL) {
 	global $ip;
+	// 如果没有传入 IP 地址，使用全局变量 $ip
 	if ($ips == NULL) $ips = $ip;
-	$ipl = ip2long($ips);
-	if (dbresult(dbquery("SELECT COUNT(*) FROM `opsos` WHERE `min` <= '$ipl' AND `max` >= '$ipl'"), 0) != 0) {
-		$opsos = dbassoc(dbquery("SELECT opsos FROM `opsos` WHERE `min` <= '$ipl' AND `max` >= '$ipl' LIMIT 1"));
-		return stripcslashes(htmlspecialchars($opsos['opsos']));
-	} else return false;
+
+	// 查询数据库，获取所有的 min、max 和 opsos 字段
+	$result = dbquery("SELECT min, max, opsos FROM `opsos`");
+	// 遍历查询结果
+	while ($row = dbassoc($result)) {
+		// 使用 isIpInRangeBetweenBounds 判断 IP 是否在当前记录的 min 和 max 范围内
+		if (isIpInRangeBetweenBounds($ips, $row['min'], $row['max'])) {
+			// 如果 IP 在范围内，返回处理后的 opsos 值
+			return stripcslashes(htmlspecialchars($row['opsos']));
+		}
+	}
+	// 如果没有找到符合条件的记录，返回 false
+	return false;
 }
+
 // 时间输出
 function vremja($time = NULL) {
 	global $user;
@@ -301,7 +351,7 @@ function vremja($time = NULL) {
 function only_reg($link = NULL) {
 	global $user;
 	if (!isset($user)) {
-		if ($link == NULL) $link = '/index.php?' . SID;
+		if ($link == NULL) $link = '/index.php?' . session_id();
 		header("Location: $link");
 		exit;
 	}
@@ -312,7 +362,7 @@ function only_reg($link = NULL) {
 function only_unreg($link = NULL) {
 	global $user;
 	if (isset($user)) {
-		if ($link == NULL) $link = '/index.php?' . SID;
+		if ($link == NULL) $link = '/index.php?' . session_id();
 		header("Location: $link");
 		exit;
 	}
@@ -323,7 +373,7 @@ function only_unreg($link = NULL) {
 function only_level($level = 0, $link = NULL) {
 	global $user;
 	if (!isset($user) || $user['level'] < $level) {
-		if ($link == NULL) $link = '/index.php?' . SID;
+		if ($link == NULL) $link = '/index.php?' . session_id();
 		header("Location: $link");
 		exit;
 	}
@@ -335,26 +385,29 @@ if (!isset($hard_process)) {
 	$everyday = dbassoc($q);
 	if (!isset($everyday['time']) || isset($everyday['time']) && $everyday['time'] < time() - 60 * 60 * 24) {
 		$hard_process = true;
-		if (function_exists('set_time_limit')) @set_time_limit(600); // Ставим ограничение на 10 минут
+		if (function_exists('set_time_limit')) set_time_limit(600); // 将限制设置为 10 分钟
 		dbquery("UPDATE `cron` SET `time` = '" . time() . "' WHERE `id` = 'everyday'");
 		dbquery("DELETE FROM `guests` WHERE `date_last` < '" . (time() - 600) . "'");
-		dbquery("DELETE FROM `chat_post` WHERE `time` < '" . (time() - 60 * 60 * 24) . "'"); // удаление старых постов в чате
-		dbquery("DELETE FROM `user` WHERE `activation` != null AND `time_reg` < '" . (time() - 60 * 60 * 24) . "'"); // удаление неактивированных аккаунтов
+		dbquery("DELETE FROM `chat_post` WHERE `time` < '" . (time() - 60 * 60 * 24) . "'"); // 删除旧的聊天帖子
+		dbquery("DELETE FROM `user` WHERE `activation` != null AND `date_reg` < '" . (time() - 60 * 60 * 24) . "'"); // 删除未激活的账户
+
+		// 删除过期的 password reset token
+		dbquery("DELETE FROM `password_reset_tokens` WHERE `created_at` < '" . date('Y-m-d H:i:s') . "'");
 
 		// 删除所有一个多月前标记为删除的联系人
 		$qd = dbquery("SELECT * FROM `users_konts` WHERE `type` = 'deleted' AND `time` < " . ($time - 60 * 60 * 24 * 30));
 		while ($deleted = dbarray($qd)) {
-			dbquery("DELETE FROM `users_konts` WHERE `id_user` = '$deleted[id_user]' AND `id_kont` = '$deleted[id_kont]'");
+			dbquery("DELETE FROM `users_konts` WHERE `id_user` = '{$deleted['id_user']}' AND `id_kont` = '{$deleted['id_kont']}'");
 
-			if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_kont` = '$deleted[id_user]' AND `id_user` = '$deleted[id_kont]'"), 0) == 0) {
-				// если юзер не находится в контакте у другого, то удаляем и все сообщения
-				dbquery("DELETE FROM `mail` WHERE `id_user` = '$deleted[id_user]' AND `id_kont` = '$deleted[id_kont]' OR `id_kont` = '$deleted[id_user]' AND `id_user` = '$deleted[id_kont]'");
+			if (dbresult(dbquery("SELECT COUNT(*) FROM `users_konts` WHERE `id_kont` = '{$deleted['id_user']}' AND `id_user` = '{$deleted['id_kont']}'"), 0) == 0) {
+				// 如果用户未与其他人联系，则删除所有消息
+				dbquery("DELETE FROM `mail` WHERE `id_user` = '{$deleted['id_user']}' AND `id_kont` = '{$deleted['id_kont']}' OR `id_kont` = '{$deleted['id_user']}' AND `id_user` = '{$deleted['id_kont']}'");
 			}
 		}
-		// $tab = dbquery('SHOW TABLES FROM ' . $set['mysql_db_name']);
-		// for ($i = 0; $i < dbrows($tab); $i++) {
-		// 	dbquery("OPTIMIZE TABLE `" . $tab . "`"); // 表的优化
-		// }
+		$tab = dbquery('SHOW TABLES FROM ' . $set['mysql_db_name']);
+		while ($table = mysqli_fetch_row($tab)) {
+			dbquery("OPTIMIZE TABLE `{$table[0]}`"); // 表的优化
+		}
 	}
 }
 
@@ -365,14 +418,14 @@ function err() {
 	if (isset($err)) {
 		if (is_array($err)) {
 			foreach ($err as $key => $value) {
-				echo "<div class='err'>$value</div>";
+				echo "<div class='err'>{$value}</div>";
 			}
-		} else echo "<div class='err'>$err</div>";
+		} else echo "<div class='err'>{$err}</div>";
 	}
 }
 
 function msg($msg) {
-	echo "<div class='msg'>$msg</div>";
+	echo "<div class='msg'>{$msg}</div>";
 } // 消息输出
 
 
@@ -400,10 +453,10 @@ function save_settings($set) {
 	$filePath = H . 'sys/dat/settings.php';
 
 	// 尝试打开文件写入内容
-	if ($fopen = @fopen($filePath, 'w')) {
-		@fputs($fopen, $configContent);
-		@fclose($fopen);
-		@chmod($filePath, 0777);
+	if ($fopen = fopen($filePath, 'w')) {
+		fputs($fopen, $configContent);
+		fclose($fopen);
+		chmod($filePath, 0777);
 		return true;
 	} else {
 		return false;
@@ -439,7 +492,7 @@ while ($filebase = readdir($opdirbase)) {
 }
 
 // 参观记录
-dbquery("INSERT INTO `visit_today` (`ip` , `ua`, `time`) VALUES ('$iplong', '" . @my_esc($_SERVER['HTTP_USER_AGENT']) . "', '$time')");
+dbquery("INSERT INTO `visit_today` (`ip`, `ua`, `ua_hash`, `time`) VALUES ('$ip', '" . my_esc(isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '') . "', '" . md5(isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '') . "', '$time')");
 
 
 function ages($age) {
@@ -460,7 +513,7 @@ function t_toolbar_html() {
 
 	$status_version_data = getLatestStableRelease();
 	echo '<div class="mess">
-	  <b>Admin Tool</b> :: <a href="/">网站主页</a>  |<a href="/plugins/admin/">管理员</a> | <a href="/adm_panel/">控制面板</a> |<a target="_blank" href="https://dcms-social.ru">DCMS-Social.ru</a>
+	  <b>Admin Tool</b> :: <a href="/">网站首页</a> | <a href="/plugins/admin/">管理员</a> | <a href="/adm_panel/">控制面板</a>
 	   v' . $set['dcms_version'];
 	if (version_compare($set['dcms_version'], $status_version_data['version']) < 0) {
 		echo '<center><font color="red">有一个新版本 - ' . $status_version_data['version'] . '! <a href="/adm_panel/update.php">详细</a></font></center>';
@@ -479,83 +532,4 @@ function header_html($add = null) {
 		//   var_dump($header);
 		echo "" . $header;
 	} else $header = $add;
-}
-
-/**
- * 获取最新的发行版稳定版本信息
- *
- * @return array 包含最新版本信息或错误信息的数组
- */
-function getLatestStableRelease() {
-	// 设置API的URL
-	$api_url = "https://free.guguan.us.kg/api/dcms_github_releases.php";
-	
-	// 初始化cURL会话
-	$ch = curl_init();
-
-	// 设置cURL选项
-	curl_setopt($ch, CURLOPT_URL, $api_url);         // 设置请求的URL
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  // 返回作为字符串，而不是直接输出
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 忽略SSL证书检查（如果使用的是https）
-
-	// 执行cURL请求并获取响应数据
-	$response = curl_exec($ch);
-
-	// 检查是否有错误
-	if (curl_errno($ch)) {
-		$error_message = 'cURL Error: ' . curl_error($ch);
-		curl_close($ch);
-		return [
-			'success' => false,
-			'error' => $error_message
-		];
-	}
-
-	// 关闭cURL会话
-	curl_close($ch);
-
-	// 解析JSON响应数据
-	$release_data = json_decode($response, true);
-
-	// 检查响应是否有效
-	if (!is_array($release_data) || count($release_data) === 0) {
-		return [
-			'success' => false,
-			'error' => 'No release data found.'
-		];
-	}
-
-	// 初始化变量以保存最新稳定版本的数据
-	$latest_stable_release = null;
-	$latest_published_time = null;
-
-	// 遍历所有发布，查找最新的稳定版本
-	foreach ($release_data as $release) {
-		// 检查该版本是否为非预发布且非草稿
-		if (!$release['prerelease'] && !$release['draft']) {
-			// 获取发布时间
-			$published_at = strtotime($release['published_at']);
-
-			// 如果这是第一个找到的稳定版本，或发布时间比当前保存的更晚，则更新
-			if ($latest_stable_release === null || $published_at > $latest_published_time) {
-				$latest_stable_release = $release;
-				$latest_published_time = $published_at;
-			}
-		}
-	}
-
-	// 检查是否找到了稳定版本
-	if ($latest_stable_release !== null) {
-		// 返回最新稳定版本的版本号和ZIP源码包下载链接
-		return [
-			'success' => true,
-			'version' => $latest_stable_release['tag_name'],
-			'zip_url' => $latest_stable_release['zipball_url']
-		];
-	} else {
-		return [
-			'success' => false,
-			'error' => 'No stable release found.'
-		];
-	}
 }
