@@ -106,3 +106,4 @@ DCMS 原是俄罗斯的社交网站和 CMS，后由 [eKing](https://github.com/e
 - [ ] 将`user`数据表的`browser`、`ip`、`ua`、`time`和`sess`字段迁移到`user_log`数据表
 - [ ] 远程取消某个设备的登录状态
 - [ ] 修复 user\info\web.php 的图片展示不受相册隐私设置控制
+- [ ] OAuth 支持
