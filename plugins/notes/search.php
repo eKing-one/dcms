@@ -40,7 +40,7 @@ if (isset($_GET['go'])) {
 
 echo "<form method=\"get\" action=\"search.php\">日记搜索<br />";
 echo "<input type=\"text\" name=\"go\" maxlength=\"16\" value=\"{$usearch}\" /><br />";
-echo "<input type=\"submit\" value=\"寻找\" />";
+echo "<input type=\"submit\" value=\"搜索\" />";
 echo "</form>";
 
 

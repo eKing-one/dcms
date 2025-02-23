@@ -8,21 +8,25 @@ include_once '../../sys/inc/db_connect.php';
 include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
-/* Бан пользователя */
+
+/* 用户面板 */
 if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'notes' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0) != 0) {
         header('Location: /user/ban.php?' . session_id());
         exit;
 }
+
 $set['title'] = '日记';
 include_once '../../sys/inc/thead.php';
 title();
-aut(); // форма авторизации
-/*** Поле поиска ****/
-echo "<div class='foot'><form method=\"post\" action=\"search.php?go\">";
-echo "<table><td><input style='width:95%;' type=\"text\" name=\"usearch\" maxlength=\"16\" /></td><td> ";
+aut(); // 授权形式
+
+/*** 搜索框 ****/
+echo "<div class='foot'><form method=\"get\" action=\"search.php\">";
+echo "<table><td><input style='width:95%;' type=\"text\" name=\"go\" maxlength=\"16\" /></td><td> ";
 echo "<input type=\"submit\" value=\"搜索\" /></td></table>";
 echo "</form></div>";
-/**** Панель навигации ****/
+
+/**** 导航面板 ****/
 echo "<div id='comments' class='menus'>";
 echo "<div class='webmenu'>";
 echo "<a href='index.php' class='activ'>日记</a>";
@@ -30,13 +34,15 @@ echo "</div>";
 echo "<div class='webmenu last'>";
 echo "<a href='dir.php'>类别</a>";
 echo "</div>";
+
 if (isset($user)) {
         echo "<div class='webmenu last'>";
         echo "<a href='user.php?id=" . $user['id'] . "'>我的</a>";
         echo "</div>";
 }
 echo "</div>";
-/**** Сортировка*****/
+
+/**** 排序 ****/
 $sortir = isset($_GET['sort']) ? $_GET['sort'] : NULL;
 switch ($sortir) {
         case 't':
@@ -46,7 +52,7 @@ switch ($sortir) {
         case 'c':
                 $order = 'order by `count` desc';
                 echo "<div class='foot'><a href='?sort=t'>新的</a> | <b>热门的</b></div>";
-                /* Сортировка популярных дневников по времени */
+                /* 按时间排序热门日记 */
                 echo "<div class='nav2'>";
                 if (isset($_GET['new']) && $_GET['new'] == 't') {
                         echo "<b>最新的</b> | <a href='?sort=c&new=m'>每月</a> | <a href='?sort=c&new=v'>长期</a>";
@@ -64,7 +70,7 @@ switch ($sortir) {
                         $new = null;
                 }
                 echo "</div>";
-                /* Сортировка популярных дневников по времени */
+                /* 按时间排序热门日记 */
                 break;
         default:
                 $order = 'order by `time` desc';
