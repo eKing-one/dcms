@@ -47,7 +47,6 @@ if (isset($_POST['write']) && isset($_POST['write2'])) {
 		dbquery("DELETE FROM `forum_t` WHERE `id_user` = '$ank[id]'");
 		dbquery("DELETE FROM `forum_p` WHERE `id_user` = '$ank[id]'");
 		dbquery("DELETE FROM `forum_zakl` WHERE `id_user` = '$ank[id]'");
-		dbquery("DELETE FROM `guest` WHERE `id_user` = '$ank[id]'");
 		dbquery("DELETE FROM `downnik_komm` WHERE `id_user` = '$ank[id]'");
 		dbquery("DELETE FROM `news_komm` WHERE `id_user` = '$ank[id]'");
 		dbquery("DELETE FROM `user_files` WHERE `id_user` = '$ank[id]'");
