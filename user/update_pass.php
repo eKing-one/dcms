@@ -7,6 +7,7 @@ include_once '../sys/inc/settings.php';
 include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
+$show_all=true;
 include_once '../sys/inc/user.php';
 include_once '../sys/inc/thead.php';
 title();
@@ -71,6 +72,6 @@ if (isset($_POST['nick'])&& isset($_POST['pass'])) {
     }
 }
 ?>
-<form method='post'>输入用户名：<input name='nick' type='text' /><br/>输入密码：<input name='pass' type='password' /><br/><input type='submit' value='更新' /></form>
+<form method='post'>输入昵称：<input name='nick' type='text' /><br/>输入密码：<input name='pass' type='password' /><br/><input type='submit' value='更新' /></form>
 <?php
 include_once '../sys/inc/tfoot.php';

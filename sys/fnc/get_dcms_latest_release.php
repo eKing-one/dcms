@@ -7,33 +7,19 @@
 function getLatestStableRelease() {
 	// 设置API的URL
 	$api_url = "https://api.guguan.us.kg/dcms_github_releases.php";
-	
-	// 初始化cURL会话
-	$ch = curl_init();
-
-	// 设置cURL选项
-	curl_setopt($ch, CURLOPT_URL, $api_url);         // 设置请求的URL
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  // 返回作为字符串，而不是直接输出
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 忽略SSL证书检查（如果使用的是https）
 
 	// 执行cURL请求并获取响应数据
-	$response = curl_exec($ch);
-
-	// 检查是否有错误
-	if (curl_errno($ch)) {
-		$error_message = 'cURL Error: ' . curl_error($ch);
-		curl_close($ch);
-		return [
-			'success' => false,
-			'error' => $error_message
-		];
-	}
-
-	// 关闭cURL会话
-	curl_close($ch);
+	$response = execute_curl_request($api_url);
 
 	// 解析JSON响应数据
-	$release_data = json_decode($response, true);
+	if (isset($response['error'])) {
+		return [
+			'success' => false,
+			'error' => 'Failed to fetch release data.'
+		];
+	} else {
+		$release_data = json_decode($response, true);
+	}
 
 	// 检查响应是否有效
 	if (!is_array($release_data) || count($release_data) === 0) {
