@@ -1,9 +1,9 @@
-<?
+<?php
 // 我们对图像施加版权，如果有的话。
 // 版权大小根据图像动态变化
 function img_copyright($img) {
 	global $set;
-	if (isset($set['copy_path']) && $set['copy_path'] != null && $copy = @imagecreatefromstring(file_get_contents(H.$set['copy_path']))) {
+	if (isset($set['copy_path']) && $set['copy_path'] != null && $copy = @imagecreatefromstring(file_get_contents(H . $set['copy_path']))) {
 		$img_x = imagesx($img);
 		$img_y = imagesy($img);
 		$copy_x = imagesx($copy);

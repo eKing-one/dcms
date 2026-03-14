@@ -39,6 +39,6 @@ echo "<label><input type='checkbox' name='stena_photo'" . ($user['stena_photo'] 
 	<div class='foot'>
 	&raquo;<a href='anketa.php'>查看资料</a><br />";
 if (isset($_SESSION['refer']) && $_SESSION['refer'] != NULL && otkuda($_SESSION['refer']))
-	echo "&laquo;<a href='$_SESSION[refer]'>" . otkuda($_SESSION['refer']) . "</a><br />";
+	echo "&laquo;<a href='$_SESSION[refer]'> 上一页</a><br />";
 echo "&laquo;<a href='/user/my_aut.php'>我的菜单</a><br /></div>";
 include_once '../../sys/inc/tfoot.php';

@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `tape` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
-  `count` int(11) NOT NULL,
+  `count` int(11) NOT NULL DEFAULT '0',
   `id_file` int(11) NOT NULL,
   `avtor` int(11) NOT NULL,
   `time` int(11) NOT NULL,
@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `tape` (
   KEY `id_user` (`id_user`,`avtor`),
   KEY `read` (`read`)
 ) ENGINE=MyISAM  DEFAULT CHARSET utf8mb4 COLLATE  utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
+
 CREATE TABLE IF NOT EXISTS `tape_set` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,

@@ -23,6 +23,7 @@ if (user_access('down_dir_edit') && isset($_GET['act']) && $_GET['act']=='set') 
 	echo '[<img src="/style/icons/delete.gif" alt="*"> <a href="?">取消</a>]<br />';
 	echo '</form>';
 }
+
 if (user_access('down_dir_create') && isset($_GET['act']) && $_GET['act']=='mkdir') {
 	echo '<form class="foot" action="?act=mkdir&amp;ok&amp;page='.$page.'" method="post">';
 	echo '文件夹名称:<br />';
@@ -42,6 +43,7 @@ if (user_access('down_dir_create') && isset($_GET['act']) && $_GET['act']=='mkdi
 	echo '[<img src="/style/icons/delete.gif" alt="*"> <a href="?">取消</a>]<br />';
 	echo '</form>';
 }
+
 if (user_access('down_dir_edit') && isset($_GET['act']) && $_GET['act']=='rename' && $l!='/') {
 	echo '<form class="foot" action="?act=rename&amp;ok&amp;page='.$page.'" method="post">';
 	echo '文件夹名称:<br />';
@@ -50,6 +52,7 @@ if (user_access('down_dir_edit') && isset($_GET['act']) && $_GET['act']=='rename
 	echo '[<img src="/style/icons/delete.gif" alt="*"> <a href="?">取消</a>]<br />';
 	echo '</form>';
 }
+
 if (user_access('down_dir_edit') && isset($_GET['act']) && $_GET['act']=='mesto' && $l!='/') {
 	echo '<form class="foot" action="?act=mesto&amp;ok&amp;page='.$page.'" method="post">';
 	echo '新的名称:<br />';
@@ -64,6 +67,7 @@ if (user_access('down_dir_edit') && isset($_GET['act']) && $_GET['act']=='mesto'
 	echo '[<img src="/style/icons/delete.gif" alt="*"> <a href="?">取消</a>]<br />';
 	echo '</form>';
 }
+
 if (user_access('down_dir_delete') && isset($_GET['act']) && $_GET['act']=='delete' && $l!='/') {
 	echo '<div class="mess">';
 	echo '删除当前文件夹 ('.$dir_id['name'].')?<br />';
@@ -71,6 +75,7 @@ if (user_access('down_dir_delete') && isset($_GET['act']) && $_GET['act']=='dele
 	echo '[<a href="?page='.$page.'"><img src="/style/icons/delete.gif" alt="*"> 取消</a>]<br />';
 	echo '</div>';
 }
+
 if (user_access('down_dir_edit') || user_access('down_dir_delete') || user_access('down_dir_create')) {
 	echo '<div class="foot">';
 	if (user_access('down_dir_create'))
@@ -86,4 +91,3 @@ if (user_access('down_dir_edit') || user_access('down_dir_delete') || user_acces
 	}
 	echo '</div>';
 }
-?>

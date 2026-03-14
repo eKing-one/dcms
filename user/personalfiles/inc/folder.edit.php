@@ -14,10 +14,11 @@ ICQ：587863132
 http://dcms-social.ru
 =======================================
 */
+
 if (isset($_GET['edit_folder'])) {
 	$folder = dbassoc(dbquery("SELECT * FROM `user_files`  WHERE `id` = '" . intval($_GET['edit_folder']) . "' LIMIT 1"));
 	if ($folder['id_user'] != $user['id'] && !user_access('down_dir_edit')) {
-		header("Location: /?" . SID);
+		header("Location: /?" . session_id());
 		exit;
 	}
 	if (isset($_POST['name']) && isset($user)) {
@@ -39,7 +40,7 @@ if (isset($_GET['edit_folder'])) {
 		if (!isset($err)) {
 			dbquery("UPDATE `user_files` SET `name` = '" . my_esc($name) . "',  `pass` = '" . my_esc($pass) . "', `msg` = '" . my_esc($msg) . "' WHERE `id` = '$folder[id]' LIMIT 1");
 			$_SESSION['message'] = '接受的更改';
-			header("Location: ?" . SID);
+			header("Location: ?" . session_id());
 			exit;
 		}
 	}
@@ -56,5 +57,4 @@ if (isset($_GET['edit_folder'])) {
 	echo "<img src='/style/icons/up_dir.gif' alt='*'> " . ($dir['osn'] == 1 ? '<a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">档案</a>' : '') . " " . user_files($dir['id_dires']) . " " . ($dir['osn'] == 1 ? '' : '&gt; <a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">' . text($dir['name']) . '</a>') . "";
 	echo "</div>";
 	include_once '../../sys/inc/tfoot.php';
-	exit;
 }

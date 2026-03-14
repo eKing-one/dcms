@@ -1,4 +1,4 @@
-<?
+<?php
 ini_set('max_execution_time', 180);
 header('Content-Type: text/html; charset=utf-8');
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -12,9 +12,8 @@ include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/adm_check.php';
 include_once '../sys/inc/user.php';
-//user_access('adm_mysql', NULL, 'index.php?' . SID);
 adm_check();
-user_access('adm_set_sys', NULL, 'index.php?' . SID);
+user_access('adm_set_sys', NULL, 'index.php?' . session_id());
 $temp_set = $set;
 $set['title'] = '引擎升级(Alpha)';
 include_once '../sys/inc/thead.php';
@@ -45,8 +44,7 @@ if (isset($_POST['update']) && false) {			// 暂时禁用自动升级功能
 		}
 		if (!file_exists($backup . ".htaccess")) {
 			$f = fopen($backup . ".htaccess", "a+");
-			fwrite($f, "Options All -Indexes
-deny from all");
+			fwrite($f, "Options All -Indexes \n deny from all");
 			fclose($f);
 		}
 		$version = $temp_set['dcms_version'];
@@ -136,25 +134,29 @@ deny from all");
 	}
 }
 
-$data = getLatestStableRelease();
+$status_version_data = getLatestStableRelease();
+if (!$status_version_data['success']) {
+	$err = '无法获取最新版本信息';
+	err();
+}
 echo "<div class='mess'>";
 echo "<center><span style='font-size:16px;'><strong>DCMS-Social v.$set[dcms_version]</strong></span></center>";
 echo "<center><span style='font-size:14px;'> 官方支持网站 <a href='https://dcms-social.ru'>https://dcms-social.ru</a></span></center>";
-echo "";
-if (version_compare($set['dcms_version'], $data['version']) >= 0) {
-	echo "<div class='mess'> 当前版本为最新版 v" . $data['version'] . "，你可以在CN_DCMS-Social的<a target='_blank' href='https://github.com/zzyh1145/CN_DCMS-Social'>GitHub仓库</a>上手动查看新版本</div>";
-} else {
-	echo "<div class='mess' style='font-size: 16px; background-color: #9aff9a' >有个新版本 - " . $data['version'] . "! 需要升级，新发布的信息可以在 <a target='_blank' href='https://github.com/zzyh1145/CN_DCMS-Social'>GitHub仓库</a> 仓库，你可以在此页面上自动更新引擎。</div>";
+if ($status_version_data['success'] && version_compare($set['dcms_version'], $status_version_data['version']) <= 0) {
+	echo "<div class='mess'> 当前版本为最新版 v" . $set['dcms_version'] . "，你可以在CN_DCMS-Social的<a target='_blank' href='https://github.com/guguan123/CN_DCMS-Social'>GitHub仓库</a>上手动查看新版本</div>";
+} elseif ($status_version_data['success']) {
+	echo "<style>.update-mess-special-link:link,.update-mess-special-link:visited {color: #3b5998;} .update-mess-special-link:hover {color: #ff8700;}</style><div class='mess' style='font-size: 16px; background-color: #9aff9a; color: black;' >有个新版本 - " . $status_version_data['version'] . "! 需要升级，新发布的信息可以在 <a target='_blank' class='update-mess-special-link' href='https://github.com/guguan123/CN_DCMS-Social'>GitHub仓库</a> ，你可以在此页面上自动更新引擎。</div>";
 }
 
 // 更新按钮和相关提示
 echo "<div class='mess'> <h3 style='color: red'>注意！这是自动更新的 Alpha 版本，明智地使用！在 /replace/ 文件夹之外对原始引擎文件所做的所有手动更改都将丢失，请做备份！</h3>  </div>";
 echo "<form method='post' >";
 echo "<label><input type='checkbox' name='backup'> 备份文件到 /sys/backup/</label></br> ";
-if (version_compare($set['dcms_version'], $data['version']) < 0)
+if ($status_version_data['success'] && version_compare($set['dcms_version'], $status_version_data['version']) <= 0) {
 	echo "<input type='submit' name='update' value='更新!' />";
-else
+} else {
 	echo "<input type='submit' name='update' value='重新安装当前版本！' />";
+}
 echo "</form>";
 
 // 页脚

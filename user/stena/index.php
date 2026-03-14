@@ -1,15 +1,15 @@
-<?
+<?php
 $set['p_str'] = 5;
 if (isset($_GET['likepost'])) {
     $stena = dbassoc(dbquery("SELECT * FROM `stena` WHERE `id` = '" . intval($_GET['likepost']) . "' LIMIT 1"));
     $ank3 = user::get_user($stena['id_user']);
     $l = dbresult(dbquery("SELECT COUNT(*) FROM `stena_like` WHERE `id_stena` = '$stena[id]'"), 0);
-    if (isset($_GET['likepost']) && dbresult(dbquery("SELECT COUNT(*) FROM `stena_like` WHERE
- `id_stena` = '$stena[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
+    if (isset($_GET['likepost']) && dbresult(dbquery("SELECT COUNT(*) FROM `stena_like` WHERE `id_stena` = '$stena[id]' AND `id_user` = '$user[id]' LIMIT 1"), 0) == 0) {
         dbquery("INSERT INTO `stena_like` (`id_user`, `id_stena`) values('$user[id]', '$stena[id]')");
         dbquery("UPDATE `user` SET `balls` = '" . ($ank3['balls'] + 1) . "' WHERE `id` = '$ank3[id]' LIMIT 1");
     }
 }
+
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `stena` WHERE `id_stena` = '$ank[id]'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
@@ -32,6 +32,7 @@ if ($k_post == 0) {
     }
     /*---------------alex-borisi---------------------*/
 }
+
 $q = dbquery("SELECT * FROM `stena` WHERE `id_stena` = '$ank[id]' ORDER BY id $sort LIMIT $start, $set[p_str]");
 $num = 0;
 while ($post = dbassoc($q)) {
@@ -66,7 +67,9 @@ while ($post = dbassoc($q)) {
     }
     echo "</div>";
 }
+
 if ($k_page > 1) str('?id=' . $ank['id'] . '&', $k_page, $page); // 输出页数
+
 if (isset($user) || (isset($set['write_guest']) && $set['write_guest'] == 1 && (!isset($_SESSION['antiflood']) || $_SESSION['antiflood'] < $time - 300))) {
     echo "<form method=\"post\" name='message' action=\"?id=$ank[id]$go_otv\">";
     if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))

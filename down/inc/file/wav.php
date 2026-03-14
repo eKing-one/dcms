@@ -1,7 +1,7 @@
 <?
-if (test_file(H."files/screens/128/$file_id[id].gif"))
+if (test_file(H."files/down/screens/128/$file_id[id].gif"))
 {
-	echo "<img src='/files/screens/128/$file_id[id].gif' alt='屏幕...' /><br />";
+	echo "<img src='/files/down/screens/128/$file_id[id].gif' alt='屏幕...' /><br />";
 }
 
 if ($file_id['opis']!=NULL)
@@ -29,7 +29,7 @@ if (class_exists('ffmpeg_movie'))
 	if(($media->getArtist())<>"")
 	{
 		if (function_exists('iconv'))
-		echo '遗嘱执行人: '.iconv('windows-1251', 'utf-8', $media->getArtist())."<br />";
+		echo '遗嘱执行人: '.iconv('windows-1252', 'utf-8', $media->getArtist())."<br />";
 		else
 		echo '遗嘱执行人: '.$media->getArtist()."<br />";
 	}

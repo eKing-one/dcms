@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 =======================================
 Статусы юзеров для Dcms-Social
@@ -26,26 +26,26 @@ include_once '../../sys/inc/user.php';
 $set['title'] = '状态 - 评论';
 include_once '../../sys/inc/thead.php';
 title();
-if (dbresult(dbquery("SELECT COUNT(*) FROM `status` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1", $db), 0) == 0) {
-	header("Location: index.php?" . SID);
+if (dbresult(dbquery("SELECT COUNT(*) FROM `status` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1"), 0) == 0) {
+	header("Location: index.php?" . session_id());
 	exit;
 }
-// Статус
+
+// 地位
 $status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1"));
-// Автор
+// 作者
 $anketa = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $status[id_user] LIMIT 1"));
 /*
 ==================================
-Приватность станички пользователя
-Запрещаем просмотр статусов
+用户页面的隐私
+禁止查看状态
 ==================================
 */
 $uSet = dbarray(dbquery("SELECT * FROM `user_set` WHERE `id_user` = '$anketa[id]'  LIMIT 1"));
 $frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$anketa[id]') OR (`user` = '$anketa[id]' AND `frend` = '$user[id]') LIMIT 1"), 0);
 $frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[id]' AND `to` = '$anketa[id]') OR (`user` = '$anketa[id]' AND `to` = '$user[id]') LIMIT 1"), 0);
 if ($anketa['id'] != $user['id'] && $user['group_access'] == 0) {
-	if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) // Начинаем вывод если стр имеет приват настройки
-	{
+	if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) {	// 如果页面具有私有设置，则启动输出
 		if ($anketa['group_access'] > 1) echo "<div class='err'>$anketa[group_name]</div>";
 		echo "<div class='nav1'>";
 		echo group($anketa['id']) . " $anketa[nick] ";
@@ -55,40 +55,37 @@ if ($anketa['id'] != $user['id'] && $user['group_access'] == 0) {
 		user::avatar($anketa['id']);
 		echo "</div>";
 	}
-	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей
-	{
+	if ($uSet['privat_str'] == 2 && $frend != 2) {	// 如果只为了朋友
 		echo '<div class="mess">';
 		echo '根据用户的隐私设置，只有朋友可以评论用户的状态。';
 		echo '</div>';
-		// В друзья
+		// 朋友
 		if (isset($user)) {
 			echo '<div class="nav1">';
 			if ($frend_new == 0 && $frend == 0) {
-				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=" . $anketa['id'] . "'>添加到朋友</a><br />";
+				echo "<img src='../../style/icons/druzya.png' alt='*'/> <a href='../frends/create.php?add=" . $anketa['id'] . "'>添加到朋友</a><br />";
 			} elseif ($frend_new == 1) {
-				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$anketa[id]'>拒绝申请</a><br />";
+				echo "<img src='../../style/icons/druzya.png' alt='*'/> <a href='../frends/create.php?otm=$anketa[id]'>拒绝申请</a><br />";
 			} elseif ($frend == 2) {
-				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$anketa[id]'>从朋友中删除</a><br />";
+				echo "<img src='../../style/icons/druzya.png' alt='*'/> <a href='../frends/create.php?del=$anketa[id]'>从朋友中删除</a><br />";
 			}
 			echo "</div>";
 		}
 		include_once '../../sys/inc/tfoot.php';
-		exit;
 	}
-	if ($uSet['privat_str'] == 0) // Если закрыта
-	{
+	if ($uSet['privat_str'] == 0) {	// 如果关闭
 		echo '<div class="mess">';
 		echo '根据用户的隐私设置，状态评论功能已被禁止。';
 		echo '</div>';
 		include_once '../../sys/inc/tfoot.php';
-		exit;
 	}
 }
+
 /*
 ================================
-Модуль жалобы на пользователя
-и его сообщение либо контент
-в зависимости от раздела
+用户报告模块
+及其消息或内容
+取决于部分
 ================================
 */
 // 下面是有翻译残余的举报页代码
@@ -115,8 +112,7 @@ if (isset($_GET['spam'])  && isset($user)) {
 	aut();
 	err();
 	if (dbresult(dbquery("SELECT COUNT(*) FROM `spamus` WHERE `id_user` = '$user[id]' AND `id_spam` = '$spamer[id]' AND `razdel` = 'status_komm'"), 0) == 0) {
-		echo "<div class='mess'>虚假信息会导致昵称被屏蔽。 
-如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
+		echo "<div class='mess'>虚假信息会导致昵称被屏蔽。如果你经常被一个写各种讨厌的东西的人惹恼，你可以把他加入黑名单。</div>";
 		echo "<form class='nav1' method='post' action='?id=$status[id]&amp;spam=$mess[id]&amp;page=" . intval($_GET['page']) . "'>";
 		echo "<b>用户:</b> ";
 		echo " " . user::avatar($spamer['id']) . "  " . user::nick($spamer['id'], 1, 1, 0) . " (" . vremja($mess['time']) . ")<br />";
@@ -135,17 +131,17 @@ if (isset($_GET['spam'])  && isset($user)) {
 		echo "<div class='mess'>投诉有关<font color='green'>$spamer[nick]</font> 它将在不久的将来考虑。</div>";
 	}
 	echo "<div class='foot'>";
-	echo "<img src='/style/icons/str2.gif' alt='*'> <a href='?id=$status[id]&page=" . intval($_GET['page']) . "'>返回</a><br />";
+	echo "<img src='../../style/icons/str2.gif' alt='*'> <a href='?id=$status[id]&page=" . intval($_GET['page']) . "'>返回</a><br />";
 	echo "</div>";
 	include_once '../../sys/inc/tfoot.php';
-	exit;
 }
 /*
 ==================================
 The End
 ==================================
 */
-/*------------очищаем счетчик этого обсуждения-------------*/
+
+/*------------清除此讨论的计数器-------------*/
 if (isset($user)) {
 	dbquery("UPDATE `discussions` SET `count` = '0' WHERE `id_user` = '$user[id]' AND `type` = 'status' AND `id_sim` = '$status[id]' LIMIT 1");
 }
@@ -166,7 +162,7 @@ if (isset($_POST['msg']) && isset($user)) {
 	} elseif (!isset($err)) {
 		/*
 		==========================
-		Уведомления об ответах
+		回复通知
 		==========================
 		*/
 		if (isset($user) && $respons == TRUE) {
@@ -175,10 +171,10 @@ if (isset($_POST['msg']) && isset($user)) {
 				dbquery("INSERT INTO `notification` (`avtor`, `id_user`, `id_object`, `type`, `time`) VALUES ('$user[id]', '$ank_otv[id]', '$status[id]', 'status_komm', '$time')");
 		}
 		/*
-====================================
-Обсуждения
-====================================
-*/
+		====================================
+		讨论
+		====================================
+		*/
 		$q = dbquery("SELECT * FROM `frends` WHERE `user` = '" . $status['id_user'] . "' AND `i` = '1'");
 		while ($f = dbarray($q)) {
 			$a = user::get_user($f['frend']);
@@ -195,7 +191,7 @@ if (isset($_POST['msg']) && isset($user)) {
 				}
 			}
 		}
-		// отправляем автору
+		// 发送给作者
 		if (dbresult(dbquery("SELECT COUNT(*) FROM `discussions` WHERE `id_user` = '$status[id_user]' AND `type` = 'status' AND `id_sim` = '$status[id]' LIMIT 1"), 0) == 0) {
 			if ($status['id_user'] != $user['id'])
 				dbquery("INSERT INTO `discussions` (`id_user`, `avtor`, `type`, `time`, `id_sim`, `count`) values('$status[id_user]', '$status[id_user]', 'status', '$time', '$status[id]', '1')");
@@ -212,10 +208,12 @@ if (isset($_POST['msg']) && isset($user)) {
 	}
 }
 err();
-aut(); // форма авторизации
+aut(); // 授权表格
+
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> " . user::nick($anketa['id'], 1, 0, 0) . " | <a href='index.php?id=" . $status['id_user'] . "'>状态</a> | <b>评论</b>";
+echo "<img src='../../style/icons/str2.gif' alt='*'> " . user::nick($anketa['id'], 1, 0, 0) . " | <a href='index.php?id=" . $status['id_user'] . "'>状态</a> | <b>评论</b>";
 echo "</div>";
+
 echo '<div class="main">';
 echo user::avatar($anketa['id']);
 echo user::nick($anketa['id'], 1, 1, 0) . " <br />";
@@ -226,9 +224,7 @@ if ($status['id']) {
 	echo "</div>";
 }
 echo "</div>";
-echo "<div class='foot'>";
-echo "评论：";
-echo "</div>";
+echo "<div class='foot'>评论：</div>";
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `status_komm` WHERE `id_status` = '" . intval($_GET['id']) . "'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
@@ -236,9 +232,7 @@ $start = $set['p_str'] * $page - $set['p_str'];
 $q = dbquery("SELECT * FROM `status_komm` WHERE `id_status` = '" . intval($_GET['id']) . "' ORDER BY `id` DESC LIMIT $start, $set[p_str]");
 echo "<table class='post'>";
 if ($k_post == 0) {
-	echo "<div class='mess'>";
-	echo "没有评论";
-	echo "</div>";
+	echo "<div class='mess'>没有评论</div>";
 }
 while ($post = dbassoc($q)) {
 	/*-----------代码-----------*/
@@ -255,16 +249,15 @@ while ($post = dbassoc($q)) {
 	if (isset($user) && $ank['id'] != $user['id']) echo "<a href='?id=$status[id]&amp;response=$ank[id]'>[@]</a> ";
 	echo " (" . vremja($post['time']) . ")<br />";
 	$postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all') AND `post` = '1' AND `id_user` = '$ank[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
-	if ($postBan == 0) // Блок сообщения
-	{
+	if ($postBan == 0) {	// 消息块
 		echo output_text($post['msg']) . "<br />";
 	} else {
 		echo output_text($banMess) . '<br />';
 	}
 	if (isset($user) && ($user['level'] > $ank['level'] ||  $user['id'] == $ank['id'])) {
 		echo "<div style='text-align:right;'>";
-		if ($ank['id'] != $user['id']) echo "<a href=\"?id=$status[id]&amp;spam=$post[id]&amp;page=$page\"><img src='/style/icons/blicon.gif' alt='*'>举报</a> ";
-		echo " <a href='delete_komm.php?id=$post[id]'><img src='/style/icons/delete.gif' alt='*'>删除</a>";
+		if ($ank['id'] != $user['id']) echo "<a href=\"?id=$status[id]&amp;spam=$post[id]&amp;page=$page\"><img src='../../style/icons/blicon.gif' alt='*'>举报</a> ";
+		echo " <a href='delete_komm.php?id=$post[id]'><img src='../../style/icons/delete.gif' alt='*'>删除</a>";
 		echo "</div>";
 	}
 	echo "</div>";
@@ -272,14 +265,15 @@ while ($post = dbassoc($q)) {
 if ($k_page > 1) str("komm.php?id=" . intval($_GET['id']) . '&amp;', $k_page, $page); // 输出页数
 if (isset($user)) {
 	echo "<form method=\"post\" name='message' action=\"?id=" . intval($_GET['id']) . "&amp;page=$page" . $go_otv . "\">";
-	if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
-		include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
-	else
+	if ($set['web'] && is_file('../../style/themes/' . $set['set_them'] . '/altername_post_form.php')) {
+		include_once '../../style/themes/' . $set['set_them'] . '/altername_post_form.php';
+	} else {
 		echo "$tPanel<textarea name=\"msg\">$otvet</textarea><br />";
+	}
 	echo "<input value=\"发送\" type=\"submit\" />";
 	echo "</form>";
 }
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> " . user::nick($anketa['id'], 1, 0, 0)." | <a href='index.php?id=" . $status['id_user'] . "'>状态</a> | <b>评论</b>";
+echo "<img src='../../style/icons/str2.gif' alt='*'> " . user::nick($anketa['id'], 1, 0, 0)." | <a href='index.php?id=" . $status['id_user'] . "'>状态</a> | <b>评论</b>";
 echo "</div>";
 include_once '../../sys/inc/tfoot.php';

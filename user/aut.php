@@ -1,18 +1,14 @@
 <?php
-// Dcms-Social
-// http://dcms-social.ru
-// Искатель
-
-include_once '../sys/inc/start.php';
-include_once '../sys/inc/compress.php';
-include_once '../sys/inc/sess.php';
-include_once '../sys/inc/home.php';
-include_once '../sys/inc/settings.php';
-include_once '../sys/inc/db_connect.php';
-include_once '../sys/inc/ipua.php';
-include_once '../sys/inc/fnc.php';
-$show_all = true; //为大家展示
-include_once '../sys/inc/user.php';
+require_once '../sys/inc/start.php';
+require_once '../sys/inc/compress.php';
+require_once '../sys/inc/sess.php';
+require_once '../sys/inc/home.php';
+require_once '../sys/inc/settings.php';
+require_once '../sys/inc/db_connect.php';
+require_once '../sys/inc/ipua.php';
+require_once '../sys/inc/fnc.php';
+$show_all = true; //所有人可见
+require_once '../sys/inc/user.php';
 only_unreg();
 
 if (isset($_GET['pass']) && $_GET['pass'] = 'ok') {
@@ -24,7 +20,7 @@ if ($set['guest_select'] == '1') {
 }
 
 $set['title'] = '登录账号';
-include_once '../sys/inc/thead.php';
+require_once '../sys/inc/thead.php';
 title();
 aut();
 
@@ -35,18 +31,18 @@ if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL) && isset($_SERVER
 ?>
 
 <form class="mess" method="post" action="/user/login.php">
-	账号:<br />
-	<input type="text" name="login" maxlength="32" /><br />
+	用户名:<br />
+	<input type="text" name="nick" maxlength="32" /><br />
 	密码:<br />
 	<input type="password" name="pass" maxlength="32" /><br />
-	<label><input type="checkbox" name="aut_save" value="1" />记住我</label><br />
+	<label><input type="checkbox" name="aut_save" value="1" />保存cookie</label><br />
 	<input type="submit" value="登录" />
 </form>
-<div class="foot">尚未登记？ <br />
+<div class="foot">尚未注册？ <br />
 	<a href="/user/reg.php">注册账号</a><br />
 </div>
 <div class="foot">忘记密码？<br />
 	<a href="/user/pass.php">密码恢复</a><br />
 </div>
 
-<?php include_once '../sys/inc/tfoot.php'; ?>
+<?php require_once '../sys/inc/tfoot.php';

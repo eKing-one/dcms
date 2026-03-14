@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 =======================================
 DCMS-Social 用户个人文件
@@ -14,6 +14,7 @@ ICQ：587863132
 http://dcms-social.ru
 =======================================
 */
+
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `downnik_komm` WHERE `id_file` = '$file_id[id]'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
@@ -26,7 +27,7 @@ if ($k_post == 0) {
 	echo '<div class="mess">';
 	echo "没有评论";
 	echo '</div>';
-} else if (isset($user)) {
+} elseif (isset($user)) {
 	/*------------сортировка по времени--------------*/
 	if (isset($user)) {
 		echo "<div id='comments' class='menus'>";
@@ -40,6 +41,7 @@ if ($k_post == 0) {
 	}
 	/*---------------alex-borisi---------------------*/
 }
+
 $q = dbquery("SELECT * FROM `downnik_komm` WHERE `id_file` = '$file_id[id]' ORDER BY `id` $sort LIMIT $start, $set[p_str]");
 while ($post = dbassoc($q)) {
 	$anketa = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$post[id_user]' LIMIT 1"));
@@ -56,8 +58,7 @@ while ($post = dbassoc($q)) {
 	if (isset($user) && $anketa['id'] != $user['id']) echo ' <a href="?id_file=' . $file_id['id'] . '&amp;page=' . $page . '&amp;response=' . $anketa['id'] . '">[@]</a> ';
 	echo " (" . vremja($post['time']) . ")<br />";
 	$postBan = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE (`razdel` = 'all' OR `razdel` = 'files') AND `post` = '1' AND `id_user` = '$anketa[id]' AND (`time` > '$time' OR `navsegda` = '1')"), 0);
-	if ($postBan == 0) // Блок сообщения
-	{
+	if ($postBan == 0) { // Блок сообщения
 		echo esc(trim(br(bbcode(smiles(links(stripcslashes(htmlspecialchars($post['msg'])))))))) . "<br />";
 	} else {
 		echo output_text($banMess) . '<br />';
@@ -65,9 +66,9 @@ while ($post = dbassoc($q)) {
 	if (isset($user)) {
 		echo '<div style="text-align:right;">';
 		if ($anketa['id'] != $user['id'])
-			echo "<a href=\"?id_file=$file_id[id]&amp;page=$page&amp;spam=$post[id]\"><img src='/style/icons/blicon.gif' alt='*' title='Это спам'>举报</a> ";
-		if (user_access('down_komm_del') || $anketa['id'] == $user['id'])
-			echo '<a href="?id_file=' . $file_id['id'] . '&amp;page=' . $page . '&amp;del_post=' . $post['id'] . '"><img src="/style/icons/delete.gif" alt="*">删除</a>';
+			echo "<a href=\"?id_file=$file_id[id]&amp;page=$page&amp;spam=$post[id]\"><img src='../../../../style/icons/blicon.gif' alt='*' title='Это спам'>举报</a> ";
+		if (user_access('down_komm_del') || $anketa['id'] == $user['id'] || $file_id['id_user'] == $user['id'])
+			echo '<a href="?id_file=' . $file_id['id'] . '&amp;page=' . $page . '&amp;del_post=' . $post['id'] . '"><img src="../../../../style/icons/delete.gif" alt="*">删除</a>';
 		echo "   </div>";
 	}
 	echo "   </div>";
@@ -76,10 +77,11 @@ echo "</table>";
 if ($k_page > 1) str('?id_file=' . $file_id['id'] . '&amp;', $k_page, $page); // 输出页数
 if (isset($user)) {
 	echo "<form method=\"post\" name='message' action=\"?id_file=$file_id[id]" . $go_otv . "\">";
-	if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
+	if ($set['web'] && is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php')) {
 		include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
-	else
+	} else {
 		echo "$tPanel<textarea name=\"msg\">$respons_msg</textarea><br />";
+	}
 	echo "<input value=\"发送\" type=\"submit\" />";
 	echo "</form>";
 }

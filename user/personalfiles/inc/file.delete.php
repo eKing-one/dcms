@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 =======================================
 DCMS-Social 用户个人文件
@@ -20,16 +20,16 @@ if (isset($_GET['delete'])) {
 	if (isset($_GET['ok'])) {
 		dbquery("DELETE FROM `user_music` WHERE `id_file` = '$file_id[id]' AND `dir` = 'down'");
 		dbquery("DELETE FROM `downnik_files` WHERE `id` = '$file_id[id]'");
-		unlink(H . 'files/down/' . $file_id['id'] . '.dat');
-		unlink(H . 'files/screens/128/' . $file_id['id'] . '.gif');
-		unlink(H . 'files/screens/128/' . $file_id['id'] . '.png');
-		unlink(H . 'files/screens/128/' . $file_id['id'] . '.jpg');
-		unlink(H . 'files/screens/128/' . $file_id['id'] . '.jpeg');
-		unlink(H . 'files/screens/48/' . $file_id['id'] . '.gif');
-		unlink(H . 'files/screens/48/' . $file_id['id'] . '.png');
-		unlink(H . 'files/screens/48/' . $file_id['id'] . '.jpg');
-		unlink(H . 'files/screens/48/' . $file_id['id'] . '.jpeg');
-		unlink(H . 'files/down/' . $file_id['id'] . '.dat');
+		unlink(H . 'files/down/data/' . $file_id['id'] . '.dat');
+		unlink(H . 'files/down/screens/128/' . $file_id['id'] . '.gif');
+		unlink(H . 'files/down/screens/128/' . $file_id['id'] . '.png');
+		unlink(H . 'files/down/screens/128/' . $file_id['id'] . '.jpg');
+		unlink(H . 'files/down/screens/128/' . $file_id['id'] . '.jpeg');
+		unlink(H . 'files/down/screens/48/' . $file_id['id'] . '.gif');
+		unlink(H . 'files/down/screens/48/' . $file_id['id'] . '.png');
+		unlink(H . 'files/down/screens/48/' . $file_id['id'] . '.jpg');
+		unlink(H . 'files/down/screens/48/' . $file_id['id'] . '.jpeg');
+		unlink(H . 'files/down/data/' . $file_id['id'] . '.dat');
 		$_SESSION['message'] = '该文件已成功删除';
 		header("Location: ?page=" . intval($_GET['page']) . "");
 		exit;
@@ -42,5 +42,4 @@ if (isset($_GET['delete'])) {
 	echo '[<a href="?page=' . intval($_GET['page']) . '&amp;id_file=' . $file_id['id'] . '"><img src="/style/icons/delete.gif" alt="*"> 取消</a>]';
 	echo '</div>';
 	include_once '../../sys/inc/tfoot.php';
-	exit;
 }

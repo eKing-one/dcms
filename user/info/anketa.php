@@ -1,33 +1,35 @@
 <?php
 //个人资料页面
-include_once '../../sys//inc/start.php';
-include_once '../../sys//inc/compress.php';
-include_once '../../sys//inc/sess.php';
-include_once '../../sys//inc/home.php';
-include_once '../../sys//inc/settings.php';
-include_once '../../sys//inc/db_connect.php';
-include_once '../../sys//inc/ipua.php';
-include_once '../../sys//inc/fnc.php';
-include_once '../../sys//inc/user.php';
+require_once '../../sys//inc/start.php';
+require_once '../../sys//inc/compress.php';
+require_once '../../sys//inc/sess.php';
+require_once '../../sys//inc/home.php';
+require_once '../../sys//inc/settings.php';
+require_once '../../sys//inc/db_connect.php';
+require_once '../../sys//inc/ipua.php';
+require_once '../../sys//inc/fnc.php';
+require_once '../../sys//inc/user.php';
+
+// 检查用户是否登录
 if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
 if ($ank['id'] == 0) {
 	$ank = user::get_user($ank['id']);
 	$set['title'] = $ank['nick'] . ' - 个人资料 '; //网页标题
-	include_once '../../sys/inc/thead.php';
+	require_once '../../sys/inc/thead.php';
 	title();
-	aut();/*
-==================================
-用户的页面隐私
-禁止查看个人资料
-==================================
-*/
+	aut();
+	/*
+	==================================
+	用户的页面隐私
+	禁止查看个人资料
+	==================================
+	*/
 	$uSet = dbarray(dbquery("SELECT * FROM `user_set` WHERE `id_user` = '$ank[id]'  LIMIT 1"));
 	$frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$ank[id]') OR (`user` = '$ank[id]' AND `frend` = '$user[id]') LIMIT 1"), 0);
 	$frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[id]' AND `to` = '$ank[id]') OR (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"), 0);
 	if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
-		if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) // 如果页面有私人设置，则开始输出
-		{
+		if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) {	// 如果页面有私人设置，则开始输出
 			if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
 			echo "<div class='nav1'>";
 			echo group($ank['id']) . " $ank[nick] ";
@@ -37,8 +39,7 @@ if ($ank['id'] == 0) {
 			echo user::avatar($ank['id'], true, 128, 128);
 			echo "<br />";
 		}
-		if ($uSet['privat_str'] == 2 && $frend != 2) // 如果只是为了朋友
-		{
+		if ($uSet['privat_str'] == 2 && $frend != 2) {	// 如果只是为了朋友
 			echo '<div class="mess">';
 			echo '只有他的朋友才能查看用户的页面！';
 			echo '</div>';
@@ -46,40 +47,38 @@ if ($ank['id'] == 0) {
 			if (isset($user)) {
 				echo '<div class="nav1">';
 				if ($frend_new == 0 && $frend == 0) {
-					echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=" . $ank['id'] . "'>添加到朋友</a><br />";
+					echo "<img src='../../style/icons/druzya.png' alt='*'/> <a href='../frends/create.php?add=" . $ank['id'] . "'>添加到朋友</a><br />";
 				} elseif ($frend_new == 1) {
-					echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?otm=$ank[id]'>拒绝申请</a><br />";
+					echo "<img src='../../style/icons/druzya.png' alt='*'/> <a href='../frends/create.php?otm=$ank[id]'>拒绝申请</a><br />";
 				} elseif ($frend == 2) {
-					echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>从朋友中删除</a><br />";
+					echo "<img src='../../style/icons/druzya.png' alt='*'/> <a href='../frends/create.php?del=$ank[id]'>从朋友中删除</a><br />";
 				}
 				echo "</div>";
 			}
-			include_once '../../sys/inc/tfoot.php';
-			exit;
+			require_once '../../sys/inc/tfoot.php';
 		}
-		if ($uSet['privat_str'] == 0) // Если закрыта
-		{
+		if ($uSet['privat_str'] == 0) {	// 如果关闭
 			echo '<div class="mess">';
 			echo '用户已禁止查看他的页面！';
 			echo '</div>';
-			include_once '../../sys/inc/tfoot.php';
-			exit;
+			require_once '../../sys/inc/tfoot.php';
 		}
 	}
 	echo "<span class=\"err\">$ank[group_name]</span><br />";
 	if ($ank['ank_o_sebe'] != NULL) echo "<span class=\"ank_n\">关于自己:</span> <span class=\"ank_d\">$ank[ank_o_sebe]</span><br />";
 	if (isset($_SESSION['refer']) && $_SESSION['refer'] != NULL && otkuda($_SESSION['refer']))
-		echo "<div class='foot'>&laquo;<a href='$_SESSION[refer]'>" . otkuda($_SESSION['refer']) . "</a><br /></div>";
-	include_once '../../sys//inc/tfoot.php';
-	exit;
+		echo "<div class='foot'>&laquo;<a href='$_SESSION[refer]'> 上一页</a><br /></div>";
+	require_once '../../sys/inc/tfoot.php';
 }
+
+// 检查用户是否存在
 $ank = user::get_user($ank['id']);
 if (!$ank) {
-	header("Location: /index.php?" . SID);
+	header("Location: ../../index.php?" . session_id());
 	exit;
 }
 //----------------------//
-$timediff = dbresult(dbquery("SELECT `time` FROM `user` WHERE `id` = '$ank[id]' LIMIT 1", $db), 0);
+$timediff = dbresult(dbquery("SELECT `time` FROM `user` WHERE `id` = '$ank[id]' LIMIT 1"), 0);
 $oneMinute = 60;
 $oneHour = 60 * 60;
 $hourfield = floor(($timediff) / $oneHour);
@@ -128,7 +127,7 @@ $displaystring = "" .
 	$sMinsText . " ";
 if ($timediff < 0) $displaystring = '日期已经到了';
 $set['title'] = $ank['nick'] . ' - 个人资料 '; //网页标题
-include_once '../../sys/inc/thead.php';
+require_once '../../sys/inc/thead.php';
 title();
 if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL)
 	&& isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != NULL &&
@@ -137,15 +136,15 @@ if ((!isset($_SESSION['refer']) || $_SESSION['refer'] == NULL)
 	$_SESSION['refer'] = str_replace('&', '&amp;', preg_replace('#^http://[^/]*/#', '/', $_SERVER['HTTP_REFERER']));
 aut();
 if (isset($user) && $ank['id'] == $user['id']) {
-	$name = "<a href='/user/info/edit.php?act=ank&amp;set=name'>";
-	$date = "<a href='/user/info/edit.php?act=ank&amp;set=date'>";
-	$gorod = "<a href='/user/info/edit.php?act=ank&amp;set=gorod'>";
-	$osebe = "<a href='/user/info/edit.php?act=ank&amp;set=osebe'>";
-	$pol = "<a href='/user/info/edit.php?act=ank&amp;set=pol'>";
-	$mail = "<a href='/user/info/edit.php?act=ank&amp;set=mail'>";
-	$icq = "<a href='/user/info/edit.php?act=ank&amp;set=icq'>";
-	$skype = "<a href='/user/info/edit.php?act=ank&amp;set=skype'>";
-	$mobile = "<a href='/user/info/edit.php?act=ank&amp;set=mobile'>";
+	$name = "<a href='edit.php?act=ank&amp;set=name'>";
+	$date = "<a href='edit.php?act=ank&amp;set=date'>";
+	$gorod = "<a href='edit.php?act=ank&amp;set=gorod'>";
+	$osebe = "<a href='edit.php?act=ank&amp;set=osebe'>";
+	$pol = "<a href='edit.php?act=ank&amp;set=pol'>";
+	$mail = "<a href='edit.php?act=ank&amp;set=mail'>";
+	$icq = "<a href='edit.php?act=ank&amp;set=icq'>";
+	$xmpp = "<a href='edit.php?act=ank&amp;set=xmpp'>";
+	$mobile = "<a href='edit.php?act=ank&amp;set=mobile'>";
 	$a = "</a>";
 } else {
 	$name = "<font style='color : #005ba8; padding:1px;'>";
@@ -155,13 +154,13 @@ if (isset($user) && $ank['id'] == $user['id']) {
 	$pol =   "<font style='color : #005ba8; padding:1px;'>";
 	$mail =   "<font style='color : #005ba8; padding:1px;'>";
 	$icq =   "<font style='color : #005ba8; padding:1px;'>";
-	$skype =   "<font style='color : #005ba8; padding:1px;'>";
+	$xmpp =   "<font style='color : #005ba8; padding:1px;'>";
 	$mobile =   "<font style='color : #005ba8; padding:1px;'>";
 	$a = "</font>";
 }
 if ($ank['group_access'] > 1) echo "<div class='err'>$ank[group_name]</div>";
 echo "<div class='nav2'>";
-echo "<span class=\"ank_n\">最后登录:</span> <span class=\"ank_d\">" . vremja($ank['date_last']) . "</span><br />";
+if (isset($ank['date_last'])) echo "<span class=\"ank_n\">最后登录:</span> <span class=\"ank_d\">" . vremja($ank['date_last']) . "</span><br />";
 echo "</div>";
 echo "<div class='nav1'>";
 echo user::avatar($ank['id'], true, 128, 128);
@@ -226,23 +225,27 @@ if ($ank['rating'] >= 0 && $ank['rating'] <= 100) {
 <div style=' background-color: #064a91; height:17px; width:$rat%;'></div>
 <span style='position:relative; top:-17px; left:45%; right:57%; color:#ffffff;'>$ank[rating]%</span>
 </div>";
+
 }
 //-------------alex-borisi---------------//
 if (isset($user) && $user['id'] != $ank['id']) {
 	echo "<div class='nav2'>";
-	echo "<img src='/style/icons/pochta.gif' alt='*' /> <a href=\"/user/mail.php?id=$ank[id]\"><b>私聊</b></a>";
+	echo "<img src='../../style/icons/pochta.gif' alt='*' /> <a href=\"../mail.php?id=$ank[id]\"><b>私聊</b></a>";
 	echo "</div>";
 }
+
 echo "<div class='nav2'>";
-echo "<img src='/style/icons/photo.png' alt='*' /> <a href='/photo/$ank[id]/'><b>相片册</b></a><br />";
+echo "<img src='../../style/icons/photo.png' alt='*' /> <a href='../../photo/$ank[id]/'><b>相片册</b></a><br />";
 echo "</div>";
+
 //-----------------积分、金币----------------//
 echo "<div class='nav2'>";
 echo "<b>ID: $ank[id]</b><br /> ";
 echo "积分 (<font color='green'>$ank[balls]</font>)<br /> ";
 echo $sMonet[2] . ' (' . $ank['money'] . ')<br />';
-echo "<img src='/style/icons/time.png' alt='*' width='14'/> ($displaystring)<br />  ";
+echo "<img src='../../style/icons/time.png' alt='*' width='14'/> ($displaystring)<br />  ";
 echo "</div>";
+
 //---------------------------------------------//
 //------------------个人信息-------------------//
 echo "<div class='nav1'>";
@@ -340,13 +343,16 @@ if ($ank['ank_d_r'] >= 19 && $ank['ank_m_r'] == 1) {
 	echo "| 摩羯座<br />";
 }
 echo "</div>";
+
 //--------------关于我自己--------------//
 echo "<div class='nav1'>";
-if ($ank['ank_o_sebe'] != NULL)
+if ($ank['ank_o_sebe'] != NULL) {
 	echo "$osebe<span class=\"ank_n\">关于你自己：</span>$a <span class=\"ank_d\">" . output_text($ank['ank_o_sebe']) . "</span><br />";
-else
+} else {
 	echo "$osebe<span class=\"ank_n\">关于你自己：</span>$a<br />";
+}
 echo "</div>";
+
 //-------------联系方式----------------//
 echo "<div class='nav2'>";
 if ($ank['ank_icq'] != NULL && $ank['ank_icq'] != 0)
@@ -354,25 +360,28 @@ if ($ank['ank_icq'] != NULL && $ank['ank_icq'] != 0)
 else
 	echo "$icq<span class=\"ank_n\">QQ:</span>$a<br />";
 echo "$mail E-Mail:$a";
-if ($ank['ank_mail'] != NULL && ($ank['set_show_mail'] == 1 || isset($user) && ($user['level'] > $ank['level'] || $user['level'] == 4))) {
+if ($ank['email'] != NULL && ($ank['set_show_mail'] == 1 || isset($user) && ($user['level'] > $ank['level'] || $user['level'] == 4))) {
 	if ($ank['set_show_mail'] == 0) $hide_mail = ' (隐藏)';
 	else $hide_mail = NULL;
-	if (preg_match("#(@mail\.ru$)|(@bk\.ru$)|(@inbox\.ru$)|(@list\.ru$)#", $ank['ank_mail']))
-		echo " <a href=\"mailto:$ank[ank_mail]\" title=\"写信\" class=\"ank_d\">$ank[ank_mail]</a>$hide_mail<br />";
+	if (preg_match("#(@mail\.ru$)|(@bk\.ru$)|(@inbox\.ru$)|(@list\.ru$)#", $ank['email']))
+		echo " <a href=\"mailto:$ank[email]\" title=\"写信\" class=\"ank_d\">$ank[email]</a>$hide_mail<br />";
 	else
-		echo " <a href=\"mailto:$ank[ank_mail]\" title=\"写信\" class=\"ank_d\">$ank[ank_mail]</a>$hide_mail<br />";
+		echo " <a href=\"mailto:$ank[email]\" title=\"写信\" class=\"ank_d\">$ank[email]</a>$hide_mail<br />";
 } else {
 	echo "<br />";
 }
-if ($ank['ank_n_tel'] != NULL)
+if ($ank['ank_n_tel'] != NULL) {
 	echo "$mobile<span class=\"ank_n\">电话:</span>$a <span class=\"ank_d\">$ank[ank_n_tel]</span><br />";
-else
+} else {
 	echo "$mobile<span class=\"ank_n\">电话:</span>$a<br />";
-if ($ank['ank_skype'] != NULL)
-	echo "$skype<span class=\"ank_n\">微信:</span>$a <span class=\"ank_d\">$ank[ank_skype]</span><br />";
-else
-	echo "$skype<span class=\"ank_n\">微信:</span>$a<br />";
+}
+if ($ank['ank_xmpp'] != NULL) {
+	echo "$xmpp<span class=\"ank_n\">XMPP:</span>$a <a href=\"xmpp:$ank[ank_xmpp]\" title=\"发送消息\" class=\"ank_d\">$ank[ank_xmpp]</a><br />";
+} else {
+	echo "$xmpp<span class=\"ank_n\">XMPP:</span>$a<br />";
+}
 echo "</div>";
+
 //--------------------管理用户----------------------//
 echo "<div class='nav1'>";
 if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$ank[id]' AND `time` > '$time'"), 0) != 0) {
@@ -387,46 +396,28 @@ if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$ank[id]' AN
 }
 echo "<span class=\"ank_n\">注册时间:</span> <span class=\"ank_d\">" . vremja($ank['date_reg']) . "</span><br />";
 echo "</div>";
-if ($user['level'] > $ank['level']) {
+if (isset($user['level']) && $user['level'] > $ank['level']) {
 	if (isset($_GET['info'])) {
 		echo "<div class='foot'>";
-		echo "<img src='/style/icons/str.gif' alt='*' /> <a href='?id=$ank[id]'>隐藏</a><br />";
+		echo "<img src='../../style/icons/str.gif' alt='*' /> <a href='?id={$ank['id']}'>隐藏</a><br />";
 		echo "</div>";
 		echo "<div class='p_t'>";
-		if ($ank['ip'] != NULL) {
+		if (isset($ank['ip']) && $ank['ip'] != NULL) {
 			if (user_access('user_show_ip') && $ank['ip'] != 0) {
-				echo "<span class=\"ank_n\">IP:</span> <span class=\"ank_d\">" . long2ip($ank['ip']) . "</span>";
+				echo "<span class=\"ank_n\">IP:</span> <span class=\"ank_d\">{$ank['ip']}</span>";
 				if (user_access('adm_ban_ip'))
-					echo " [<a href='/adm_panel/ban_ip.php?min=$ank[ip]'>禁止</a>]";
+					echo " [<a href='../../adm_panel/ban_ip.php?min={$ank['ip']}'>禁止</a>]";
 				echo "<br />";
 			}
 		}
-		if ($ank['ip_cl'] != NULL) {
-			if (user_access('user_show_ip') && $ank['ip_cl'] != 0) {
-				echo "<span class=\"ank_n\">IP (CLIENT):</span> <span class=\"ank_d\">" . long2ip($ank['ip_cl']) . "</span>";
-				if (user_access('adm_ban_ip'))
-					echo " [<a href='/adm_panel/ban_ip.php?min=$ank[ip_cl]'>禁止</a>]";
-				echo "<br />";
-			}
-		}
-		if ($ank['ip_xff'] != NULL) {
-			if (user_access('user_show_ip') && $ank['ip_xff'] != 0) {
-				echo "<span class=\"ank_n\">IP (XFF):</span> <span class=\"ank_d\">" . long2ip($ank['ip_xff']) . "</span>";
-				if (user_access('adm_ban_ip'))
-					echo " [<a href='/adm_panel/ban_ip.php?min=$ank[ip_xff]'>禁止</a>]";
-				echo "<br />";
-			}
-		}
-		if (user_access('user_show_ua') && $ank['ua'] != NULL)
+		if (user_access('user_show_ua') && isset($ank['ua']) && $ank['ua'] != NULL) {
 			echo "<span class=\"ank_n\">UA:</span> <span class=\"ank_d\">$ank[ua]</span><br />";
-		if (user_access('user_show_ip') && opsos($ank['ip']))
+		}
+		if (user_access('user_show_ip') && isset($ank['ip']) && opsos($ank['ip'])) {
 			echo "<span class=\"ank_n\">IP:</span> <span class=\"ank_d\">" . opsos($ank['ip']) . "</span><br />";
-		if (user_access('user_show_ip') && opsos($ank['ip_cl']))
-			echo "<span class=\"ank_n\">IP (CL):</span> <span class=\"ank_d\">" . opsos($ank['ip_cl']) . "</span><br />";
-		if (user_access('user_show_ip') && opsos($ank['ip_xff']))
-			echo "<span class=\"ank_n\">IP (XFF):</span> <span class=\"ank_d\">" . opsos($ank['ip_xff']) . "</span><br />";
-		if ($ank['show_url'] == 1) {
-			if (otkuda($ank['url'])) echo "<span class=\"ank_n\">URL:</span> <span class=\"ank_d\"><a href='$ank[url]'>" . otkuda($ank['url']) . "</a></span><br />";
+		}
+		if ($ank['show_url'] == 1 && !empty($ank['url'])) {
+			if (otkuda($ank['url'])) echo "<span class=\"ank_n\">URL:</span> <span class=\"ank_d\"> " . otkuda($ank['url']) . " </span><br />";
 		}
 		if (user_access('user_collisions') && $user['level'] > $ank['level']) {
 			$mass[0] = $ank['id'];
@@ -446,36 +437,37 @@ if ($user['level'] > $ank['level']) {
 			echo "访问的网站:<br />";
 			while ($url = dbassoc($q)) {
 				$site = htmlentities($url['url'], ENT_QUOTES, 'UTF-8');
-				echo "<a" . ($set['web'] ? " target='_blank'" : null) . " href='/go.php?go=" . base64_encode("http://$site") . "'>$site</a> (" . vremja($url['time']) . ")<br />";
+				echo "<a" . ($set['web'] ? " target='_blank'" : null) . " href='../../go.php?go=" . base64_encode("http://$site") . "'>$site</a> (" . vremja($url['time']) . ")<br />";
 			}
 		}
 		if (user_access('user_delete')) {
 			if (count(user_collision($mass, 1)) > 1)
-				echo "！！！删除 (<a href='/adm_panel/delete_user.php?id=$ank[id]&amp;all'>所有账号</a>)";
+				echo "！！！删除 (<a href='../../adm_panel/delete_user.php?id=$ank[id]&amp;all'>所有账号</a>)";
 			echo "<br />";
 		}
 		echo "</div>";
 	} else {
 		echo "<div class='foot'>";
-		echo "<img src='/style/icons/str.gif' alt='*' /> <a href='?id=$ank[id]&amp;info'>其他信息</a><br />";
+		echo "<img src='../../style/icons/str.gif' alt='*' /> <a href='?id=$ank[id]&amp;info'>其他信息</a><br />";
 		echo "</div>";
 	}
 }
+
 echo "<div class='foot'>";
-if (isset($user) && $user['id'] == $ank['id']) echo "<img src='/style/icons/str.gif' alt='*' /> <a href=\"edit.php\">修改资料</a><br />";
-if ($user['level'] > $ank['level']) {
+if (isset($user) && $user['id'] == $ank['id']) echo "<img src='../../style/icons/str.gif' alt='*' /> <a href=\"edit.php\">修改资料</a><br />";
+if (isset($user['level']) && $user['level'] > $ank['level']) {
 	if (user_access('user_prof_edit'))
-		echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/user.php?id=$ank[id]'>编辑资料</a><br />";
+		echo "<img src='../../style/icons/str.gif' alt='*' /> <a href='../../adm_panel/user.php?id=$ank[id]'>编辑资料</a><br />";
 	if ($user['id'] != $ank['id']) {
 		if (user_access('user_ban_set') || user_access('user_ban_set_h') || user_access('user_ban_unset'))
-			echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/ban.php?id=$ank[id]'>加入黑名单</a><br />";
+			echo "<img src='../../style/icons/str.gif' alt='*' /> <a href='../../adm_panel/ban.php?id=$ank[id]'>加入黑名单</a><br />";
 		if (user_access('user_delete')) {
-			echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/delete_user.php?id=$ank[id]'>删除用户</a>";
+			echo "<img src='../../style/icons/str.gif' alt='*' /> <a href='../../adm_panel/delete_user.php?id=$ank[id]'>删除用户</a>";
 			echo "<br />";
 		}
 	}
 }
 if (user_access('adm_log_read') && $ank['level'] != 0 && ($ank['id'] == $user['id'] || $ank['level'] < $user['level']))
-	echo "<img src='/style/icons/str.gif' alt='*' /> <a href='/adm_panel/adm_log.php?id=$ank[id]'>管理日志</a><br />";
+	echo "<img src='../../style/icons/str.gif' alt='*' /> <a href='../../adm_panel/adm_log.php?id=$ank[id]'>管理日志</a><br />";
 echo "</div>";
-include_once '../../sys//inc/tfoot.php';
+require_once '../../sys//inc/tfoot.php';

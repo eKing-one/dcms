@@ -1,106 +1,80 @@
-<?
-include_once '../../sys/inc/start.php';
-include_once '../../sys/inc/compress.php';
-include_once '../../sys/inc/sess.php';
-include_once '../../sys/inc/home.php';
-include_once '../../sys/inc/settings.php';
-include_once '../../sys/inc/db_connect.php';
-include_once '../../sys/inc/ipua.php';
-include_once '../../sys/inc/fnc.php';
-include_once '../../sys/inc/adm_check.php';
-include_once '../../sys/inc/user.php';
-$set['title'] = '领导者';
-include_once '../../sys/inc/thead.php';
+<?php
+require_once '../../sys/inc/start.php';
+require_once '../../sys/inc/compress.php';
+require_once '../../sys/inc/sess.php';
+require_once '../../sys/inc/home.php';
+require_once '../../sys/inc/settings.php';
+require_once '../../sys/inc/db_connect.php';
+require_once '../../sys/inc/ipua.php';
+require_once '../../sys/inc/fnc.php';
+require_once '../../sys/inc/adm_check.php';
+require_once '../../sys/inc/user.php';
+$set['title'] = '加入优先展示';
+require_once '../../sys/inc/thead.php';
 title();
-if (!isset($user))
-header("location: /index.php?");
+
+if (!isset($user)) header("location: ../../index.php?");
 err();
 aut();
-if (isset($user))
-{
-if (isset($_POST['stav']) && isset($_POST['msg']))
-{
-if ($_POST['stav']==1)
-{
-	$st=1;
-	$tm=$time+86400;
-}
-else if ($_POST['stav']==2)
-{
-	$st=2;
-	$tm=$time+172800;
-}
-else if ($_POST['stav']==3)
-{
-	$st=3;
-	$tm=$time+259200;
-}
-else if ($_POST['stav']==4)
-{
-	$st=4;
-	$tm=$time+345600;
-}
-else if ($_POST['stav']==5)
-{
-	$st=5;
-	$tm=$time+432000;
-}
-else if ($_POST['stav']==6)
-{
-	$st=6;
-	$tm=$time+518400;
-}
-else if ($_POST['stav']==7)
-{
-	$st=7;
-	$tm=$time+604800;
-}
-$msg=my_esc($_POST['msg']);
-if ($user['money']>=$st)
-{
-if (dbresult(dbquery("SELECT COUNT(*) FROM `liders` WHERE `id_user` = '$user[id]'"), 0)==0)
-{
-	dbquery("INSERT INTO `liders` (`id_user`, `stav`, `msg`, `time`, `time_p`) values('$user[id]', '$st', '".$msg."', '$tm', '$time')");
-}
-else
-{
-	dbquery("UPDATE `liders` SET `time` = '$tm', `time_p` = '$time', `msg` = '$msg', `stav` = '$st' WHERE `id_user` = '$user[id]'");
-}
-dbquery("UPDATE `user` SET `money` = '".($user['money']-$st)."' WHERE `id` = '$user[id]' LIMIT 1");
-$_SESSION['message'] = '你已经成功地成为一个领导者';
-header("Location: /user/liders/index.php?ok");
-exit;
-}else{
-$err='你没有足够的资金';
-}
-}else{
-$err='信息字段不能为空';
+
+if (isset($user)):
+if (isset($_POST['stav']) && is_numeric($_POST['stav'])) {
+		if (isset($_POST['msg'])) {
+		$st = $_POST['stav'];
+		$tm = $time + 60 * 60 * 24 * $_POST['stav'];
+		$msg = my_esc($_POST['msg']);
+		if ($user['money'] >= $st) {
+			if (dbresult(dbquery("SELECT COUNT(*) FROM `liders` WHERE `id_user` = '$user[id]'"), 0) == 0) {
+				dbquery("INSERT INTO `liders` (`id_user`, `stav`, `msg`, `time`, `time_p`) values('$user[id]', '$st', '$msg', '$tm', '$time')");
+			} else {
+				dbquery("UPDATE `liders` SET `time` = '$tm', `time_p` = '$time', `msg` = '$msg', `stav` = '$st' WHERE `id_user` = '$user[id]'");
+			}
+			dbquery("UPDATE `user` SET `money` = '" . ($user['money'] - $st) . "' WHERE `id` = '$user[id]' LIMIT 1");
+			$_SESSION['message'] = '你已经成功地成为一个领导者';
+			header("Location: ./index.php?ok");
+			exit;
+		} else {
+			$err = '你没有足够的资金';
+		}
+	} else {
+		$err = '信息字段不能为空';
+	}
 }
 err();
-echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="S"/> <a href="/user/money/">附加服务</a> | <b>成为领导者</b>';
-echo '</div>';
-echo '<div class="mess">';
-echo '为了进入领导者，你至少需要 <b style="color:red;">1</b> <b style="color:green;">' . $sMonet[1] . '</b>, 这项服务将提供一定天 
-数在这上面的位置，具体取决于 ' . $sMonet[0] . ' 的数量（总停留时间）！ 
-此外，你的个人资料将在约会和搜索页面上展示！'; //“约会”是个什么东西？——Diamochang
-echo '</div>';
-echo '<form class="main" method="post" action="?">';
-	echo '花费: <select name="stav">
-	<option value="1">1</option>
-	<option value="2">2</option>
-	<option value="3">3</option>
-	<option value="4">4</option>
-	<option value="5">5</option>
-	<option value="6">6</option>
-	<option value="7">7</option>
-	</select> ' . $sMonet[0] . '<br />';
-echo '留言（215 字节）<textarea name="msg"></textarea><br />';
-echo '<input value="成为领导者" type="submit" />';
-echo '</form>';
-}
-echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="S"/> <a href="/user/money/">附加服务</a> | <b>成为领导者</b>';
-echo '</div>';
-include_once '../../sys/inc/tfoot.php';
 ?>
+
+<div class="foot">
+	<img src="../../style/icons/str2.gif" alt="S"/> <a href="./">附加服务</a> | <b>成为领导者</b>
+</div>
+<div class="mess">
+	至少需要<b style="color:red;"> 1 </b>
+	<b style="color:green;"><?php echo $sMonet[1]; ?></b>
+	你的个人资料将在在线列表优先展示！
+</div>
+<form class="main" method="post" action="?">
+	花费: 
+	<select name="stav">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+		<option value="7">7</option>
+	</select> 
+	<?php echo $sMonet[0]; ?>
+	<br />
+	留言（215 字节）
+	<textarea name="msg"></textarea>
+	<br />
+	<input value="加入优先展示" type="submit" />
+</form>
+
+<?php endif; ?>
+
+<div class="foot">
+	<img src="../../style/icons/str2.gif" alt="S"/> <a href="./">附加服务</a>
+</div>
+
+<?php
+require_once '../../sys/inc/tfoot.php';

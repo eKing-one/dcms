@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -8,34 +8,36 @@ include_once '../../sys/inc/db_connect.php';
 include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
+
 $sid = $user['id'];
 $ank = user::get_user($sid);
 if (!isset($user)) {
-	header("Location: /index.php?" . SID);
+	header("Location: /index.php?" . session_id());
 	exit;
 }
 $set['title'] = "好友申请"; //网页标题
 include_once '../../sys/inc/thead.php';
 title();
 aut();
+
 //---------------------Panel---------------------------------//
-$on_f = dbresult(dbquery("SELECT COUNT(*) FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'" . (time() - 600) . "'"), 0);
+// 获取在线好友数量
+$on_f = dbresult(dbquery("SELECT COUNT(DISTINCT ul.id_user) AS online_friends FROM `frends` f INNER JOIN `user_log` ul ON ul.id_user = f.frend WHERE f.user = '$ank[id]' AND f.i = '1' AND ul.last_online > NOW() - INTERVAL 10 MINUTE AND ul.ban = 0 AND ul.last_online = (SELECT MAX(last_online) FROM `user_log` ul2 WHERE ul2.id_user = ul.id_user AND ul2.last_online > NOW() - INTERVAL 10 MINUTE AND ul2.ban = 0 )"), 0);
 $f = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' AND `i` = '1'"), 0);
 $add = dbresult(dbquery("SELECT COUNT(id) FROM `frends_new` WHERE `to` = '$ank[id]' LIMIT 1"), 0);
-echo '<div style="background:white;"><div class="pnl2H">';
+echo '<div><div class="pnl2H">';
 echo '<div class="linecd"><span style="margin:9px;">';
 echo '' . ($ank['id'] == $user['id'] ? '我的好友' : ' 好友 ' . user::nick($ank['id'], 0, 0, 0)) . '';
 echo '</span> </div></div>';
 if ($set['web'] == true) {
-	echo '<div class="mb4">
-<nav class="acsw rnav_w"><ul class="rnav js-rnav  " style="padding-right: 45px;">';
+	echo '<div class="mb4"><nav class="acsw rnav_w"><ul class="rnav js-rnav  " style="padding-right: 45px;">';
 	echo '<li class="rnav_i"><a href="index.php?id=' . $ank['id'] . '" class="ai aslnk"><span class="wlnk"><span class="slnk">所有好友</span></span> 
-<i><font color="#999">' . $f . '</font></i></a></li>';
+	      <i><font color="#999">' . $f . '</font></i></a></li>';
 	echo '<li class="rnav_i"><a href="online.php?id=' . $ank['id'] . '" class="ai alnk"><span class="wlnk"><span class="lnk">在线
-<i><font color="#999">' . $on_f . '</font></i></a></span></span></li> ';
+	      <i><font color="#999">' . $on_f . '</font></i></a></span></span></li> ';
 	if ($ank['id'] == $user['id']) {
 		echo '<li class="rnav_i"><a href="new.php" class="ai alnk"><span class="wlnk"><span class="lnk">好友申请
-<i><font color="#999">' . $add . '</font></i></a></span></span> </li>';
+		      <i><font color="#999">' . $add . '</font></i></a></span></span> </li>';
 	}
 	echo '</ul></nav></div></div>';
 } else {
@@ -44,7 +46,7 @@ if ($set['web'] == true) {
 	echo "<a href='index.php?id=$ank[id]'>所有好友(" . dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' AND `i` = '1'"), 0) . ")</a>";
 	echo "</div>";
 	echo "<div class='webmenu last'>";
-	echo "<a href='online.php?id=$ank[id]'>在线的好友(" . dbresult(dbquery("SELECT COUNT(*) FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'" . (time() - 600) . "'"), 0) . ")</a>";
+	echo "<a href='online.php?id=$ank[id]'>在线的好友($on_f)</a>";
 	echo "</div>";
 	if ($ank['id'] == $user['id']) {
 		echo "<div class='webmenu last'>";
@@ -54,6 +56,7 @@ if ($set['web'] == true) {
 	echo "</div>";
 }
 //--------End Panel---------------------//
+
 $k_post = dbresult(dbquery("SELECT COUNT(id) FROM `frends_new` WHERE `to` = '$ank[id]' LIMIT 1"), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);

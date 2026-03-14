@@ -1,22 +1,23 @@
-<?
+<?php
 /*
 * $name 个体操作描述 
 */
-if ($type == 'status_like' && $post['avtor'] != $user['id']) // статус like
-{
+if ($type == 'status_like' && $post['avtor'] != $user['id']) {	// 喜欢
 	$name = '认为状态很酷';
 } else if ($type == 'status_like' && $post['avtor'] == $user['id']) {
 	$name = '认为你的状态很酷';
 } else if ($type == 'status' && $post['avtor'] != $user['id']) {
 	$name = '更新了' . ($avtor['pol'] == 1 ? null : "а") . ' 状态';
 }
+
+
 /*
 * 内容块输出 
 */
 if ($type == 'status_like' || $type == 'status') {
 	$status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '" . $post['id_file'] . "' LIMIT 1"));
 	$otkogo = user::get_user($post['ot_kogo']);
-	if ($status['id']) {
+	if (isset($status['id'])) {
 		echo '<div class="nav1">';
 		if ($post['ot_kogo']) {
 			echo user::nick($otkogo['id'], 0, 0, 0) . '  <a href="user.settings.php?id=' . $otkogo['id'] . '">[!]</a>';

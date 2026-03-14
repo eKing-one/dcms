@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * 主要用户功能
@@ -13,74 +13,97 @@ class user
 	 * / 参考文献及用户昵称
 	 */
 	// 所有用户字段
-	public static function user_db($user = 0)
-	{
+	public static function user_db($user = 0) {
 		static $nicks = [];
 		if (empty($nicks[$user])) {
 			$ank = dbassoc(dbquery('SELECT `nick`, `date_last`, `rating`, `browser` FROM `user` WHERE `id` = "' . $user . '" LIMIT 1 '));
+			$ank['date_last'] = dbresult(dbquery("SELECT ul.last_online
+			                         FROM `user_log` ul
+			                         WHERE ul.id_user = $user
+			                            AND ul.ban = '0'
+			                         ORDER BY ul.last_online DESC
+			                         LIMIT 1"), 0);
 			$nicks[$user] = $ank;
-		} else $ank = $nicks[$user];
+		} else {
+			$ank = $nicks[$user];
+		}
 	}
-	public static function nick($user = 0, $url = 1, $on = 0, $medal = 0)
-	{
+
+	public static function nick($user = 0, $url = 1, $on = 0, $medal = 0) {
 		/*
 		* $url == 0		只输出昵称
 		* $url == 1		输出昵称并链接到用户页的
 		* $on  == 1		显示 Nick 旁边的在线图标和用户组图标
 		* $medal == 1	在线输出图标旁边的奖牌
 		*/
+		global $set;
 		static $nicks = [];
 		if (empty($nicks[$user])) {
-			$ank = dbassoc(dbquery('SELECT `group_access`, `pol`, `nick`, `date_last`, `rating`, `browser` FROM `user` WHERE `id` = "' . $user . '" LIMIT 1 '));
+			$ank = dbassoc(dbquery('SELECT `id`, `group_access`, `pol`, `nick`, `rating` FROM `user` WHERE `id` = "' . $user . '" LIMIT 1 '));
+			if (isset($ank['id'])) {
+				$ank_login_lsat = dbassoc(dbquery("SELECT ul.last_online, ul.browser FROM `user_log` ul WHERE ul.id_user = $user AND ul.ban = '0' ORDER BY ul.last_online DESC LIMIT 1"));
+				if (isset($ank_login_lsat['last_online'])) {
+					$ank['date_last'] = strtotime($ank_login_lsat['last_online']);
+					$ank['browser'] = $ank_login_lsat['browser'];
+				}
+			}
 			$nicks[$user] = $ank;
-		} else $ank = $nicks[$user];
+		} else {
+			$ank = $nicks[$user];
+		}
 		$icon = null;
 		$nick = null;
 		$online = null;
 		$icon_medal = null;
 		// 用户名引线
-		if ($user == 0) $ank = array('id' => '0', 'nick' => '系统', 'pol' => '1', 'rating' => '0', 'browser' => 'wap', 'date_last' => time());
-		elseif (!$ank) $ank = array('id' => '0', 'nick' => '[已删除]', 'pol' => '1', 'rating' => '0', 'browser' => 'wap', 'date_last' => time());
-		if ($url == true)
-			$nick = ' <a href="/user/info.php?id=' . $user . '">' . text($ank['nick']) . '</a> ';
-		else
+		if ($user == 0) {
+			$ank = array('id' => '0', 'nick' => '系统', 'pol' => '1', 'rating' => '0', 'browser' => 'wap', 'date_last' => time());
+		} elseif (!$ank) {
+			$ank = array('id' => '0', 'nick' => '[已删除]', 'pol' => '1', 'rating' => '0', 'browser' => 'wap');
+		}
+		if ($url == true) {
+			$nick = ' <a href="' . $set['siteurl'] . '/user/info.php?id=' . $user . '">' . text($ank['nick']) . '</a> ';
+		} else {
 			$nick = text($ank['nick']);
+		}
 
 		// 用户组图标
-		if ($on == true) {
+		if ($on == 1) {
 			$is_ban = dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `id_user` = '$user' AND (`time` > 'time()' OR `navsegda` = '1')"), 0);
 			if ($is_ban != 0) {
-				$icon = ' <img src="/style/user/ban.png" alt="*" class="icon" id="icon_group" /> ';
+				$icon = ' <img src="' . $set['siteurl'] . '/style/user/ban.png" alt="*" class="icon" id="icon_group" /> ';
 			} else {
 				if (isset($ank['group_access']) && ($ank['group_access'] > 7 && ($ank['group_access'] < 10 || $ank['group_access'] > 14))) {
 					if ($ank['pol'] == 1) {
-						$icon = '<img src="/style/user/1.png" alt="*" class="icon" id="icon_group" /> ';
+						$icon = '<img src="' . $set['siteurl'] . '/style/user/1.png" alt="*" class="icon" id="icon_group" /> ';
 					} else {
-						$icon = '<img src="/style/user/2.png" alt="" class="icon" id="icon_group"/> ';
+						$icon = '<img src="' . $set['siteurl'] . '/style/user/2.png" alt="" class="icon" id="icon_group"/> ';
 					}
 				} elseif (isset($ank['group_access']) && (($ank['group_access'] > 1 && $ank['group_access'] <= 7) || ($ank['group_access'] > 10 && $ank['group_access'] <= 14))) {
 					if ($ank['pol'] == 1) {
-						$icon = '<img src="/style/user/3.png" alt="*" class="icon" id="icon_group" /> ';
+						$icon = '<img src="' . $set['siteurl'] . '/style/user/3.png" alt="*" class="icon" id="icon_group" /> ';
 					} else {
-						$icon = '<img src="/style/user/4.png" alt="*" class="icon" id="icon_group" /> ';
+						$icon = '<img src="' . $set['siteurl'] . '/style/user/4.png" alt="*" class="icon" id="icon_group" /> ';
 					}
 				} else {
 					if (isset($ank['pol']) && $ank['pol'] == 1) {
-						$icon = '<img src="/style/user/5.png" alt="" class="icon" id="icon_group" /> ';
+						$icon = '<img src="' . $set['siteurl'] . '/style/user/5.png" alt="" class="icon" id="icon_group" /> ';
 					} else {
-						$icon = '<img src="/style/user/6.png" alt="" class="icon" id="icon_group" /> ';
+						$icon = '<img src="' . $set['siteurl'] . '/style/user/6.png" alt="" class="icon" id="icon_group" /> ';
 					}
 				}
 			}
 		}
-		// 在线图标输出
-		if ($user != 0 && $ank['date_last'] > time() - 600 && $on == true) {
-			if ($ank['browser'] == 'wap')
 
-				$online = ' <img src="/style/icons/online.gif" alt="WAP" /> ';
-			else
-				$online = ' <img src="/style/icons/online_web.gif" alt="WEB" /> ';
+		// 在线图标输出
+		if ($user != 0 && !empty($ank['date_last']) && $ank['date_last'] > time() - 600 && $on == 1) {
+			if ($ank['browser'] == 'wap') {
+				$online = ' <img src="' . $set['siteurl'] . '/style/icons/online.gif" alt="WAP" /> ';
+			} else {
+				$online = ' <img src="' . $set['siteurl'] . '/style/icons/online_web.gif" alt="WEB" /> ';
+			}
 		}
+
 		// 奖牌输出
 		$R = $ank['rating'];
 		if ($medal == 1 && $R >= 6) {
@@ -99,15 +122,15 @@ class user
 			} elseif ($R >= 60) {
 				$img = 7;
 			}
-			$icon_medal = ' <img src="/style/medal/' . $img . '.png" alt="*" /> ';
+			$icon_medal = ' <img src="' . $set['siteurl'] . '/style/medal/' . $img . '.png" alt="*" /> ';
 		}
 		return $icon . $nick . $icon_medal . $online;
 	}
+
 	/**
 	 * / 本身，用户组图标
 	 */
-	public static function avatar($user = 0, $type = 1)
-	{
+	public static function avatar($user = 0, $type = 1) {
 		/*
 		* $type == 0 - 将头像和图标一起输出
 		* $type == 1 - 只输出头像
@@ -125,25 +148,28 @@ class user
 			if (empty($avatars[$user])) {
 				$avatar = dbarray(dbquery("SELECT id,ras FROM `gallery_photo` WHERE `id_user` = '$user' AND `avatar` = '1' LIMIT 1"));
 				$avatars[$user] = $avatar;
-			} else $avatar = $avatars[$user];
-			if (isset($avatar['id']) && test_file(H . 'files/gallery/50/' . $avatar['id'] . '.' . $avatar['ras']))
-				$AVATAR = ' <img class="avatar" src="/photo/photo50/' . $avatar['id'] . '.' . $avatar['ras'] . '" alt="Avatar" /> ';
-			else
-				$AVATAR = '<img class="avatar" src="/style/user/avatar.gif" height= "50" width="50" alt="No Avatar" />';
+			} else {
+				$avatar = $avatars[$user];
+			}
+			if (isset($avatar['id']) && test_file(H . 'files/gallery/50/' . $avatar['id'] . '.jpg')) {
+				$AVATAR = ' <img class="avatar" src="' . $set['siteurl'] . '/photo/photo50/' . $avatar['id'] . '.jpg" alt="Avatar" /> ';
+			} else {
+				$AVATAR = '<img class="avatar" src="' . $set['siteurl'] . '/style/user/avatar.gif" height= "50" width="50" alt="No Avatar" />';
+			}
 		}
 		return $AVATAR;
 	}
+
 	/**
 	 * / 用户数据采样功能
 	 * / 从用户表输出数据
 	 * / 并生成一个头像，奖章图标和在线阵列
 	 * 返回return
 	 */
-	static function get_user($ID = 0)
-	{
+	static function get_user($ID = 0) {
 		static $users; // 调用函数后不删除变量
 		if ($ID == 0) {
-			// бот
+			// 机器人
 			$ank['id'] = 0;
 			$ank['nick'] = '系统';
 			$ank['level'] = 999;
@@ -151,14 +177,38 @@ class user
 			$ank['group_name'] = '系统机器人';
 			$ank['ank_o_sebe'] = '为通知创建';
 			return $ank;
-		} else {
 
+		} else {
 			$user_id = intval($ID);
+			if (empty($ank) || !is_array($ank)) {
+				$ank = [];  // 初始化为一个空数组
+			}
 			$ank[0] = FALSE;
 			if (!isset($ank[$user_id])) {
 				$ank[$user_id] = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = '$user_id' LIMIT 1"));
 
-				if ($ank[$user_id]['id'] != 0) {
+				if (empty($ank[$user_id]['id'])) {
+					// 用户不存在
+					$ank[$user_id] = FALSE;
+				} elseif ($ank[$user_id]['id'] != 0) {
+
+					// 查询获取在user_log表中的用户数据
+					$query = dbquery("SELECT ul.last_online, ul.ip, ul.ua, ul.url
+					                  FROM `user_log` ul
+					                  WHERE ul.id_user = $user_id
+					                    AND ul.ban = '0'
+					                  ORDER BY ul.last_online DESC
+					                  LIMIT 1");
+					if ($row = dbassoc($query)) {
+						// 用户最后在线时间
+						$ank[$user_id]['date_last'] = strtotime($row['last_online']);
+						// 用户最后的IP
+						$ank[$user_id]['ip'] = $row['ip'];
+						// 用户最后的UA
+						$ank[$user_id]['ua'] = $row['ua'];
+						// 用户最后的URL
+						$ank[$user_id]['url'] = $row['url'];
+					}
 
 
 					$tmp_us = dbassoc(dbquery("SELECT `level`,`name` AS `group_name` FROM `user_group` WHERE `id` = '" . $ank[$user_id]['group_access'] . "' LIMIT 1"));
@@ -170,7 +220,9 @@ class user
 						$ank[$user_id]['level'] = $tmp_us['level'];
 						$ank[$user_id]['group_name'] = $tmp_us['group_name'];
 					}
-				} else $ank[$user_id] = FALSE;
+				} else {
+					$ank[$user_id] = FALSE;
+				}
 			}
 			return $ank[$user_id];
 		}

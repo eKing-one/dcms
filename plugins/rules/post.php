@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -15,7 +15,8 @@ include_once '../../sys/inc/thead.php';
 $post = dbassoc(dbquery("SELECT * FROM `rules` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1"));
 $set['title'] = htmlspecialchars($post['title']);
 title();
-aut(); // форма авторизации
+aut(); // 授权表格
+
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `rules`"), 0);
 if (!isset($_GET['id']) && !is_numeric($_GET['id']));
 if ($user['level'] > 2) {
@@ -51,6 +52,7 @@ if ($user['level'] > 2) {
 		exit;
 	}
 }
+
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `rules_p` WHERE `id_news` = '" . intval($_GET['id']) . "'"), 0);
 $q = dbquery("SELECT * FROM `rules_p` WHERE `id_news` = '" . intval($_GET['id']) . "' ORDER BY `pos` ASC");
 echo "<table class='post'>";
@@ -68,14 +70,15 @@ while ($post2 = dbassoc($q)) {
 	echo (($user['level'] > 2) ? $post2['pos'] . ") " : "");
 	echo output_text($post2['msg']) . '</br>';
 	if ($user['level'] > 2) {
-		echo '<a href="?ids=' . $post2['id'] . '&amp;id=' . $post['id'] . '&amp;act=up&amp;' . $passgen . '"><img src="/style/icons/up.gif" alt="*" /></a> | ';
-		echo '<a href="?ids=' . $post2['id'] . '&amp;id=' . $post['id'] . '&amp;act=down&amp;' . $passgen . '"><img src="/style/icons/down.gif" alt="*" /></a> | ';
-		echo '<a href="edit.php?id=' . $post2['id'] . '&amp;act=edit&amp;' . $passgen . '"><img src="/style/icons/edit.gif" alt="*" /></a> | ';
-		echo '<a href="delete.php?del=' . $post2['id'] . '"><img src="/style/icons/delete.gif" alt="*" /></a>';
+		echo '<a href="?ids=' . $post2['id'] . '&amp;id=' . $post['id'] . '&amp;act=up&amp;' . $passgen . '"><img src="../../style/icons/up.gif" alt="*" /></a> | ';
+		echo '<a href="?ids=' . $post2['id'] . '&amp;id=' . $post['id'] . '&amp;act=down&amp;' . $passgen . '"><img src="../../style/icons/down.gif" alt="*" /></a> | ';
+		echo '<a href="edit.php?id=' . $post2['id'] . '&amp;act=edit&amp;' . $passgen . '"><img src="../../style/icons/edit.gif" alt="*" /></a> | ';
+		echo '<a href="delete.php?del=' . $post2['id'] . '"><img src="../../style/icons/delete.gif" alt="*" /></a>';
 	}
 	echo '</div>';
 }
 echo '</table>';
+
 if ($user['level'] > 2) {
 	if (isset($_GET['new'])) {
 		echo '<form method="post" name="message" action="?id=' . intval($_GET['id']) . '">';
@@ -86,7 +89,9 @@ if ($user['level'] > 2) {
 		echo '<input value="添加" type="submit" />';
 		echo '</form>';
 	}
-	echo '<div class="foot"><img src="/style/icons/ok.gif" alt="*"/> <a href="post.php?id=' . intval($_GET['id']) . '&new">新回复</a></div>';
+	echo '<div class="foot"><img src="../../style/icons/ok.gif" alt="*"/> <a href="post.php?id=' . intval($_GET['id']) . '&new">新回复</a></div>';
 }
-echo '<div class="foot"><img src="/style/icons/str2.gif" alt="*"/> <a href="index.php">资料</a></div>';
+
+echo '<div class="foot"><img src="../../style/icons/str2.gif" alt="*"/> <a href="index.php">资料</a></div>';
+
 include_once '../../sys/inc/tfoot.php';

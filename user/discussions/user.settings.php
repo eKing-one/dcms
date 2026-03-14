@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -12,37 +12,38 @@ if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
 $ank = user::get_user($ank['id']);
 if (!$ank || $ank['id'] == 0) {
-	header('Location: /index.php?' . SID);
+	header('Location: ../../index.php?' . session_id());
 	exit;
 }
 only_reg();
-$frend = dbassoc(dbquery("SELECT * FROM `frends` WHERE `user` = '" . $user['id'] . "' AND `frend` = '$ank[id]' AND `i` = '1'", $db));
+
+$frend = dbassoc(dbquery("SELECT * FROM `frends` WHERE `user` = '" . $user['id'] . "' AND `frend` = '$ank[id]' AND `i` = '1'"));
 if (!isset($frend['user'])) {
-	header('Location: index.php?' . SID);
+	header('Location: index.php?' . session_id());
 	exit;
 }
 if (isset($_POST['save'])) {
-	// Обсуждения фото
+	// 图片讨论
 	if (isset($_POST['disc_photo']) && ($_POST['disc_photo'] == 0 || $_POST['disc_photo'] == 1)) {
 		$disc = (int) $_POST['disc_photo'];
 		dbquery("UPDATE `frends` SET `disc_photo` = '" . $disc . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
 	}
-	// Обсуждения файлов
+	// 文件讨论
 	if (isset($_POST['disc_down']) && ($_POST['disc_down'] == 0 || $_POST['disc_down'] == 1)) {
 		$disc = (int) $_POST['disc_down'];
 		dbquery("UPDATE `frends` SET `disc_down` = '" . $disc . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
 	}
-	// Обсуждения статусов
+	// 状态讨论
 	if (isset($_POST['disc_status']) && ($_POST['disc_status'] == 0 || $_POST['disc_status'] == 1)) {
 		$disc = (int) $_POST['disc_status'];
 		dbquery("UPDATE `frends` SET `disc_status` = '" . $disc . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
 	}
-	// Обсуждения дневников
+	// 期刊讨论
 	if (isset($_POST['disc_notes']) && ($_POST['disc_notes'] == 0 || $_POST['disc_notes'] == 1)) {
 		$disc = (int) $_POST['disc_notes'];
 		dbquery("UPDATE `frends` SET `disc_notes` = '" . $disc . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
 	}
-	// Обсуждения форум
+	// 讨论、论坛
 	if (isset($_POST['disc_forum']) && ($_POST['disc_forum'] == 0 || $_POST['disc_forum'] == 1)) {
 		$disc = (int) $_POST['disc_forum'];
 		dbquery("UPDATE `frends` SET `disc_forum` = '" . $disc . "' WHERE `user` = '$user[id]' AND `frend` = '$ank[id]'");
@@ -51,6 +52,7 @@ if (isset($_POST['save'])) {
 	header('Location: index.php');
 	exit;
 }
+
 $set['title'] = '设置供稿 ' . $ank['nick'];
 include_once '../../sys/inc/thead.php';
 title();
@@ -105,6 +107,5 @@ aut();
 		<input type="submit" name="save" value="保存" />
 	</div>
 </form>
-<?
+<?php
 include_once '../../sys/inc/tfoot.php';
-?>

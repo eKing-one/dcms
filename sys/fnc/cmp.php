@@ -1,14 +1,15 @@
-<?
-function cmp2 ($a, $b) 
-{
-    if ($a['2'] == $b['2']) return 0;
-    return ($a['2'] > $b['2']) ? -1 : 1;
+<?php
+/**
+ * 根据两个数组的 '2' 索引值进行降序比较。
+ *
+ * 此函数通常用作排序函数（如 usort()）的回调函数。
+ * 它会比较两个数组在 '2' 索引处的值，并返回一个负数、零或正数来确定它们的顺序。
+ *
+ * @param array $a 第一个待比较的数组，必须包含 '2' 索引
+ * @param array $b 第二个待比较的数组，必须包含 '2' 索引
+ * @return int 如果 $a['2'] 较大返回 -1，如果 $b['2'] 较大返回 1，相等则返回 0
+ */
+function cmp2 ($a, $b) {
+	if ($a['2'] == $b['2']) return 0;
+	return ($a['2'] > $b['2']) ? -1 : 1;
 }
-if (isset($_POST))
-{
-	foreach($_POST as $key => $value)
-	{
-		$_POST[$key] = fiera($value);
-	}
-}
-?>

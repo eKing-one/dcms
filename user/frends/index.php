@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -15,33 +15,25 @@ $set['title'] = "朋友 " . $ank['nick'] . ""; //网页标题
 include_once '../../sys/inc/thead.php';
 title();
 aut();
+
 /*
 ==================================
-Приватность станички пользователя
-Запрещаем просмотр друзей
+用户页面的隐私
+阻止好友查看
 ==================================
 */
 $uSet = dbarray(dbquery("SELECT * FROM `user_set` WHERE `id_user` = '$ank[id]'  LIMIT 1"));
-$frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$ank[id]') OR (`user` = '$ank[id]' AND `frend` = '$user[id]') LIMIT 1"), 0);
-$frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[id]' AND `to` = '$ank[id]') OR (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"), 0);
-if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
-	if (($uSet['privat_str'] == 2 && $frend != 2) || $uSet['privat_str'] == 0) // Начинаем вывод если стр имеет приват настройки
-	{
-		if ($ank['group_access'] > 1) echo "<div class='err'>" . $ank['group_name'] . "</div>";
-		echo "<div class='nav1'>";
-		echo user::nick($ank['id'], 1, 1, 0);
-		echo "</div>";
-		echo "<div class='nav2'>";
-		user::avatar($ank['id']);
-		echo "</div>";
-	}
-	if ($uSet['privat_str'] == 2 && $frend != 2) // Если только для друзей
-	{
-		echo '<div class="mess">';
-		echo '只有用户的好友才能查看用户的好友！';
-		echo '</div>';
-		// В друзья
-		if (isset($user)) {
+if (isset($user)) {
+	$frend = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$ank[id]') OR (`user` = '$ank[id]' AND `frend` = '$user[id]') LIMIT 1"), 0);
+	$frend_new = dbresult(dbquery("SELECT COUNT(*) FROM `frends_new` WHERE (`user` = '$user[id]' AND `to` = '$ank[id]') OR (`user` = '$ank[id]' AND `to` = '$user[id]') LIMIT 1"), 0);
+}
+
+if ($uSet['privat_str'] == 2) {
+	if (isset($user)) {
+		if ($ank['id'] != $user['id'] && $frend != 2 && $user['group_access'] <= 1 && $ank['group_access'] > $user['group_access']) {
+			echo '<div class="mess">';
+			echo '只有用户的好友才能查看用户的好友！';
+			echo '</div>';
 			echo '<div class="nav1">';
 			if ($frend_new == 0 && $frend == 0) {
 				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?add=" . $ank['id'] . "'>添加到朋友</a><br />";
@@ -51,20 +43,34 @@ if ($ank['id'] != $user['id'] && $user['group_access'] == 0) {
 				echo "<img src='/style/icons/druzya.png' alt='*'/> <a href='/user/frends/create.php?del=$ank[id]'>从朋友中删除</a><br />";
 			}
 			echo "</div>";
+			include_once '../sys/inc/tfoot.php';
 		}
+	} else {
+		echo '<div class="mess">';
+		echo '只有用户的好友才能查看用户的好友！';
+		echo '</div>';
 		include_once '../sys/inc/tfoot.php';
-		exit;
 	}
-	if ($uSet['privat_str'] == 0) // Если закрыта
-	{
+}
+
+if ($uSet['privat_str'] == 0) {
+	if (isset($user)) {
+		if ($ank['id'] != $user['id'] && $user['group_access'] <= 1 && $ank['group_access'] > $user['group_access']) {
+			echo '<div class="mess">';
+			echo '用户已禁止查看他的朋友！';
+			echo '</div>';
+			include_once '../sys/inc/tfoot.php';
+		}
+	} else {
 		echo '<div class="mess">';
 		echo '用户已禁止查看他的朋友！';
 		echo '</div>';
 		include_once '../sys/inc/tfoot.php';
-		exit;
 	}
 }
-//--------------------отмеченные---------------------//
+
+
+//--------------------著名的---------------------//
 if (isset($user) && $user['id'] == $ank['id']) {
 	if (isset($_GET['delete'])) {
 		foreach ($_POST as $key => $value) {
@@ -81,10 +87,10 @@ if (isset($user) && $user['id'] == $ank['id']) {
 					else {
 						if (dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE (`user` = '$user[id]' AND `frend` = '$delpost[$q]') OR (`user` = '$delpost[$q]' AND `frend` = '$user[id]')"), 0) > 0) {
 							/*
-		==========================
-		Уведомления друзьям
-		==========================
-		*/
+							==========================
+							给朋友的通知
+							==========================
+							*/
 							dbquery("INSERT INTO `notification` (`avtor`, `id_user`, `id_object`, `type`, `time`) VALUES ('$user[id]', '$delpost[$q]', '$user[id]', 'del_frend', '$time')");
 							dbquery("DELETE FROM `frends` WHERE `user` = '$user[id]' AND `frend` = '$delpost[$q]'");
 							dbquery("DELETE FROM `frends` WHERE `user` = '$delpost[$q]' AND `frend` = '$user[id]'");
@@ -106,11 +112,14 @@ if (isset($user) && $user['id'] == $ank['id']) {
 		}
 	}
 }
-//---------------------Panel---------------------------------//
-$on_f = dbresult(dbquery("SELECT COUNT(*) FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'" . (time() - 600) . "'"), 0);
+
+//---------------------面板---------------------------------//
+// 获取在线好友数量
+$on_f = dbresult(dbquery("SELECT COUNT(DISTINCT ul.id_user) AS online_friends FROM `frends` f INNER JOIN `user_log` ul ON ul.id_user = f.frend WHERE f.user = '$ank[id]' AND f.i = '1' AND ul.last_online > NOW() - INTERVAL 10 MINUTE AND ul.ban = 0 AND ul.last_online = (SELECT MAX(last_online) FROM `user_log` ul2 WHERE ul2.id_user = ul.id_user AND ul2.last_online > NOW() - INTERVAL 10 MINUTE AND ul2.ban = 0 )"), 0);
 $f = dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' AND `i` = '1'"), 0);
 $add = dbresult(dbquery("SELECT COUNT(id) FROM `frends_new` WHERE `to` = '$ank[id]' LIMIT 1"), 0);
-/*echo '<div style="background:white;"><div class="pnl2H">';
+/*
+echo '<div style="background:white;"><div class="pnl2H">';
 echo '<div class="linecd"><span style="margin:9px;">';
 echo ''.($ank['id']==$user['id'] ? '我的朋友们' : ' 友人 '.group($ank['id']).' '.user::nick($ank['id'],1,1,1).'').''; 
 echo '</span> </div></div>';*/
@@ -130,12 +139,12 @@ echo '</ul></nav></div></div>'; }
 */
 echo "<div id='comments' class='menus'>";
 echo "<div class='webmenu'>";
-echo "<a href='index.php?id=$ank[id]' class='activ'>全部 (" . dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' AND `i` = '1'"), 0) . ")</a>";
+echo "<a href='index.php?id={$ank['id']}' class='activ'>全部 (" . dbresult(dbquery("SELECT COUNT(*) FROM `frends` WHERE `user` = '$ank[id]' AND `i` = '1'"), 0) . ")</a>";
 echo "</div>";
 echo "<div class='webmenu last'>";
-echo "<a href='online.php?id=$ank[id]'>在线 (" . dbresult(dbquery("SELECT COUNT(*) FROM `frends` INNER JOIN `user` ON `frends`.`frend`=`user`.`id` WHERE `frends`.`user` = '$ank[id]' AND `frends`.`i` = '1' AND `user`.`date_last`>'" . (time() - 600) . "'"), 0) . ")</a>";
+echo "<a href='online.php?id={$ank['id']}'>在线 ({$on_f})</a>";
 echo "</div>";
-if ($ank['id'] == $user['id']) {
+if (isset($user) && $ank['id'] == $user['id']) {
 	echo "<div class='webmenu last'>";
 	echo "<a href='new.php'>添加好友 (" . dbresult(dbquery("SELECT COUNT(id) FROM `frends_new` WHERE `to` = '$ank[id]' LIMIT 1"), 0) . ")</a>";
 	echo "</div>";
@@ -153,7 +162,7 @@ if (isset($user) && $user['id'] == $ank['id']) {
 }
 if ($k_post == 0) {
 	echo '<div class="mess">';
-	echo ' ' . ($ank['id'] == $user['id'] ? '你 ' : '在 ' . $ank['nick'] . ' ') . ' 没有朋友.';
+	echo ' ' . (isset($user) && $ank['id'] == $user['id'] ? '你 ' : '在 ' . $ank['nick'] . '') . ' 没有朋友.';
 	echo '</div>';
 }
 while ($frend = dbassoc($q)) {
@@ -177,8 +186,9 @@ while ($frend = dbassoc($q)) {
 	}
 	echo '</td><td style="width:80%;">';
 	if (isset($user) && $user['id'] == $ank['id']) echo " <input type='checkbox' name='post_$frend[id]' value='1' /> ";
-	echo user::nick($frend['id'], 1, 1, 0);
-	echo '<br/><img src="/style/icons/alarm.png"> ' . ($webbrowser ? '最后在线:' : null) . ' ' . vremja($frend['date_last']) . ' </td><td style="width:18px;">';
+	echo user::nick($frend['id'], 1, 1, 0) . '<br/>';
+	if (isset($frend['date_last'])) echo '<img src="/style/icons/alarm.png"> ' . ($webbrowser ? '最后在线:' : null) . ' ' . vremja($frend['date_last']);
+	echo ' </td><td style="width:18px;">';
 	if (isset($user)) {
 		echo "<a href=\"/user/mail.php?id=$frend[id]\"><img src='/style/icons/pochta.gif' alt='*' /></a><br/>";
 		if ($ank['id'] == $user['id'])			echo "<a href='create.php?del=$frend[id]'><img src='/style/icons/delete.gif' alt='*' /></a>";

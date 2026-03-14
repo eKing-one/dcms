@@ -12,24 +12,22 @@ body {
 	-moz-border-radius: 7px;
 }
 
-
-
 .rating1 {
-background-color: #E7FFF7;
-width: 100%; 
-height: 25px;
-border-radius:4px;
+	background-color: #E7FFF7;
+	width: 100%; 
+	height: 25px;
+	border-radius:4px;
 }
 .rating2 {
-background-color: #10FFB8;
-box-shadow: 0 0 3px 1px #9EFFE2;
-height:25px;
-border-radius:4px;
+	background-color: #10FFB8;
+	box-shadow: 0 0 3px 1px #9EFFE2;
+	height:25px;
+	border-radius:4px;
 }
 .rating3 {
-position:relative;
-top:-21px;
-left:45%; right:57%;
+	position:relative;
+	top:-21px;
+	left:45%; right:57%;
 }
 a:link, a:visited {
 	color: #007bff;
@@ -61,7 +59,7 @@ form label {
 	margin: 1px 0px 1px 0px;
 }
 
-/* кнопки */
+/* 按钮 */
 input[type="submit"] {
 	color: #ffffff;
 	background: #4C82F6;
@@ -75,7 +73,7 @@ input[type="submit"]:hover {
 	border-radius: 4px;
 }
 
-/* текстовое поле */
+/* 文本字段 */
 textarea {
 	width: 98%;
 	height: 6pc;
@@ -95,7 +93,7 @@ input, select{
 }
 
 
-/* логотип на главной */
+/* 主页上的徽标 */
 .logo {
 	margin: 0px;
 	padding: 2px;
@@ -103,7 +101,7 @@ input, select{
 	background: #3b5998;
 }
 
-/* верняя панель */
+/* 返回面板 */
 .auts {
 	font-weight: bold;
 	overflow: hidden;
@@ -118,7 +116,7 @@ input, select{
 	background-color: #85ABFF;
 }
 
-/* титл страницы */
+/* 页面标题 */
 .title {
 	margin: 0px;
 	padding: 5px;
@@ -134,7 +132,7 @@ input, select{
 	color: #FFFFFF;
 }
 
-/* ссылка на главную */
+/* 链接到主页 */
 .titles {
 	margin: 5px;
 	padding: 5px;
@@ -166,7 +164,7 @@ input, select{
 	margin: 2px;
 }
 
-/* Уведомление зелёным */
+/* 绿色通知 */
 .msg {
 	text-align: center;
 	font-weight: bold;
@@ -178,7 +176,7 @@ input, select{
 	margin: 2px;
 }
 
-/* уведомление в жолтой рамке */
+/* 黄框通知 */
 .mess {
 	padding: 7px;
 	background: #fff;
@@ -187,18 +185,18 @@ input, select{
 	border-radius: 4px;
 }
 
-/* Цытата */
+/* 报价 */
 .cit {
-    margin-bottom: 6px;
-    border: 1px solid #c1c1c1;
-    border-left: 7px solid #c1c1c1;
-    padding: 3px 10px;
-    color: #878787;
+	margin-bottom: 6px;
+	border: 1px solid #c1c1c1;
+	border-left: 7px solid #c1c1c1;
+	padding: 3px 10px;
+	color: #878787;
 	font-size: 12px;	
 }
 
 
-/* Шапка статуса */
+/* 状态标头 */
 .st_1 {
 	margin-left: 20px;
 	margin-bottom: 0;
@@ -210,7 +208,7 @@ input, select{
 }
 
 
-/* Тело статуса */
+/* 状态正文 */
 .st_2 {
 	margin: 3px;
 	margin-top: 0;
@@ -224,7 +222,7 @@ input, select{
 	word-wrap: normal;
 }
 
-/* блок постраничной навигации */
+/* 逐页导航单元 */
 .c2 {
 	color: #1D222C;
 	background: #f5f5f5;
@@ -234,7 +232,7 @@ input, select{
 	padding: 10px;
 }
 
-/* активная страница */
+/* 活动页面 */
 .str {
 	border: 1px solid #4C82F6;
 	border-radius: 4px;
@@ -243,7 +241,7 @@ input, select{
 	color: #000;
 }
 
-/* кнопки пагинации */
+/* 分页按钮 */
 .page a {
 	background: #4C82F6;
 	border-radius: 4px;
@@ -255,7 +253,7 @@ input, select{
 	background: #85ABFF;
 }
 
-/* блок панели у textarea */
+/* textArea 处的 panel 块 */
 .tpanel {
 	display: table;
 	border: 0;
@@ -264,7 +262,7 @@ input, select{
 	color: #fff;
 }
 
-/* кнопки панели у textarea */
+/* 文本区域面板按钮 */
 .tmenu {
 	float: left;
 	display: inline;
@@ -286,14 +284,14 @@ input, select{
 }
 
 
-/* блок кнопок в настройках, дневниках и тд */
+/* 设置、日记等中的按钮块 */
 .menus {
 	display: table;
 	width: 99%;
 	background-color: #E6EDFA;
 	border: 1px #E6EBF9 solid;
 }
-/* кнопки блока */
+/* 块按钮 */
 .webmenu {
 	float: left;
 	display: inline;
@@ -328,21 +326,25 @@ a.activ {
 	color:#fff;
 }
 
-/* лесенка 1 */
+/* 阶梯 1 */
 .nav1 {
 	background-color: #f5f5f5;
 	padding: 7px;
 	border-bottom: 1px solid #e0e0e0;
 }
 
-/* лесенка 2 */
-.nav2 { background-color: #FFFFFF;
+/* 阶梯 2 */
+.nav2 {
+	background-color: #FFFFFF;
 	padding: 7px;
 	border-bottom: 1px solid #e0e0e0;
 }
 
+.main_no_notes_nav2 {
+	color: #666;
+}
 
-/* ссылки главного меню */
+/* 主菜单链接 */
 .main_menu, .main2 {
 	color: #000;
 	background: #fff;
@@ -350,7 +352,7 @@ a.activ {
 	border-bottom: 1px solid #e0e0e0;
 }
 
-/* Раздел главного меню  */
+/* 主菜单部分  */
 .menu_razd {
 	padding: 6px;
 	background-color: #85ABFF;
@@ -359,7 +361,7 @@ a.activ {
 	font-weight: bold;
 }
 
-/* Меню в почте и профили внизу, реклама */
+/* 邮件中的菜单和底部的个人资料，广告 */
 .main, .rekl {
 	color: #1D222C;
 	background: #E6EDFA;
@@ -369,7 +371,11 @@ a.activ {
 	padding: 8px;
 }
 
-/* шапка в списке гостей */
+.rekl {
+	text-align: center;
+}
+
+/* 嘉宾名单上的帽子 */
 .p_t {
 	border-top: 0px #D6E6F2 solid;
 	background-color: #E3EFFF;
@@ -377,7 +383,7 @@ a.activ {
 	margin: 0px;
 	width: 100%;
 }
-/* тело в списке гостей */
+/* 嘉宾名单上的正文 */
 .p_m {
 	border-bottom: 1px #e5fdfd solid;
 	background-color: #f2ffff;
@@ -386,30 +392,31 @@ a.activ {
 	width: 100%;
 }
 
-/* выделение пункта в анкете */
+/* 突出显示调查问卷中的项目 */
 .ank_n {
 	font-weight: bold;
 	color: #555;
 }
 
-/* вариант в анкете */
+/* 调查问卷中的变体 */
 .ank_d {
 	margin: 5px;
 }
 
-/* копирайт внизу сайта */
+/* 网站底部的版权标识 */
 .copy {
 	padding: 7px;
 	text-align: center;
 	background-color: #85ABFF;
 	border:1px solid #4C82F6;
 	color: #f5f5f5;
+	text-align: center;
 }
 .copy a {
 	color: #fff;
 }
 
-/* самый низ меню */
+/* 菜单的最底部 */
 .foot_page {
 	margin-top: 1px;
 	border-top: 1px #A8C1CE solid;
@@ -417,7 +424,7 @@ a.activ {
 	background-color: #9ee1f2;
 }
 
-/* низ сайта */
+/* 网站底部 */
 .foot {
 	margin: 1px;
 	border: 1px #BFECDC solid;
@@ -425,7 +432,7 @@ a.activ {
 	background: #D0F2E7;
 }
 
-/* кнопки на форуме */
+/* 论坛按钮 */
 .link_s {
 	background: #FFF5E1;
 	font-size:12px;
@@ -572,3 +579,154 @@ img.stenka:hover {
 
 .on {color: #1c9044;}
 .off {color: #FF0000;}
+
+.user-count-online-link {
+	text-decoration: none;
+}
+
+.user-count {
+	color: #ffffff;
+}
+
+.user-count-small-text {
+	color: #fee300;
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color:black;
+		color: #e8e6e3;
+		border-color: #2f2f2f;
+	}
+	.rating1 {
+		background-color: #080018;
+	}
+	a:link, a:visited {
+		color: rgb(51, 162, 255);
+	}
+	a:hover {
+		color: #0078f8;
+	}
+	table {
+		border-color: #545b5e;
+	}
+	input[type="submit"] {
+		color: rgb(232, 230, 227);
+		background-color: rgb(8, 55, 156);
+	}
+	input[type="submit"]:hover {
+		color: rgb(232, 230, 227);
+		background-color: #0b255e;
+	}
+	textarea {
+		border:1px solid rgb(60, 65, 68);
+		color: rgb(181, 175, 165);
+		background-color: rgb(18, 20, 20);
+	}
+	input, select {
+		border-color: rgb(60, 65, 68);
+		background-color: rgb(18, 20, 20);
+		color: rgb(181, 175, 165);
+	}
+	.logo {
+		background-color: rgb(47, 71, 122);
+	}
+	.auts {
+		background-color: rgb(8, 55, 156);
+		border-color: rgb(54, 81, 138);
+	}
+	.auts:hover {
+		background-color: #02205f;
+	}
+	.title {
+		background-color: #0443ab;
+		color: rgb(255, 235, 26);
+	}
+	.titles {
+		background-color: rgb(4, 67, 171);
+		border-bottom-color: rgb(12, 136, 177);
+		color: rgb(255, 235, 26);
+		border-right-color: rgb(50, 83, 155);
+	}
+	.titles a {
+		color: rgb(141, 178, 218);
+	}
+	.titles a:hover {
+		color: #c9c9c9;
+	}
+	.err {
+		background-color: rgb(57, 4, 23);
+		border-color: rgb(141, 15, 53);
+		color: rgb(238, 96, 140);
+	}
+	.msg {
+		background-color: rgb(15, 56, 53);
+		border-color: rgb(1, 201, 192);
+		color: #01afa7;
+	}
+	.mess {
+		background: black;
+		border-color: #a17e00;
+	}
+	.c2 {
+		color: rgb(209, 205, 199);
+		background-color: rgb(30, 32, 33);
+		border-color: rgb(52, 57, 59);
+	}
+	.tmenu a {
+		color: rgb(232, 230, 227);
+		background-color: rgb(8, 55, 156);
+	}
+	.tmenu a:hover {
+		background: #132957;
+	}
+	.menus {
+		background-color: rgb(32, 35, 37);
+		border-color: rgb(22, 39, 90);
+	}
+	a.activ {
+		background-color: rgb(8, 55, 156);
+		color:rgb(232, 230, 227);
+	}
+	.nav1 {
+		background-color: rgb(30, 32, 33);
+		border-bottom-color: rgb(57, 61, 64);
+	}
+	.nav2 {
+		background-color: rgb(24, 26, 27);
+		border-bottom-color: rgb(57, 61, 64);
+	}
+	.main_menu, .main2 {
+		color: rgb(232, 230, 227);
+		background: black;
+		border-bottom-color: rgb(57, 61, 64);
+	}
+	.main, .rekl {
+		color: rgb(209, 205, 199);
+		background-color: rgb(32, 35, 37);
+		border-color: rgb(22, 39, 90);
+	}
+	.p_t {
+		border-top-color: rgb(28, 63, 90);
+		background-color: rgb(32, 35, 36);
+	}
+	.p_m {
+		border-bottom-color: rgb(28, 63, 90);
+		background-color: rgb(0, 59, 59);
+	}
+	.ank_n {
+		color: rgb(178, 172, 162);
+	}
+	.copy {
+		background-color: rgb(0, 39, 124);
+		border-color: rgb(8, 53, 151);
+		color: rgb(226, 223, 219);
+	}
+	.copy a {
+		color: rgb(232, 230, 227);
+	}
+	.foot {
+		border-color: rgb(29, 98, 73);
+		background-color: rgb(19, 68, 56);
+	}
+}

@@ -1,28 +1,34 @@
 <?
-include_once '../../sys/inc/start.php';
-include_once '../../sys/inc/compress.php';
-include_once '../../sys/inc/sess.php';
-include_once '../../sys/inc/home.php';
-include_once '../../sys/inc/settings.php';
-include_once '../../sys/inc/db_connect.php';
-include_once '../../sys/inc/ipua.php';
-include_once '../../sys/inc/fnc.php';
-include_once '../../sys/inc/user.php';
+require_once '../../sys/inc/start.php';
+require_once '../../sys/inc/compress.php';
+require_once '../../sys/inc/sess.php';
+require_once '../../sys/inc/home.php';
+require_once '../../sys/inc/settings.php';
+require_once '../../sys/inc/db_connect.php';
+require_once '../../sys/inc/ipua.php';
+require_once '../../sys/inc/fnc.php';
+require_once '../../sys/inc/user.php';
+
 only_reg();
+
 // Очистка гостей
 if (isset($_GET['truncate'])) {
 	dbquery("DELETE FROM `my_guests` WHERE `id_ank` = '$user[id]'");
 	$_SESSION['message'] = '清除访问列表';
 }
+
 //网页标题
 $set['title'] = '谁来看我？';
-include_once '../../sys/inc/thead.php';
+
+require_once '../../sys/inc/thead.php';
 title();
 aut();
+
 echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($user['id'],1,0,0) . ' | ';
 echo '<b>谁来看我？</b>';
 echo '</div>';
+
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `my_guests` WHERE `id_ank` = '$user[id]'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
@@ -45,18 +51,22 @@ while ($post = dbarray($q)) {
 		$num = 0;
 	}
 	/*---------------------------*/
-	echo user::nick($ank['id'],1,1,0);
-	if ($post['read'] == 1)
+	echo user::nick($post['id_user'], 1, 1, 0);
+	if ($post['read'] == 1) {
 		echo ' <span class="time" style="color:red">' . vremja($post['time']) . '</span><br />';
-	else
+	} else {
 		echo ' <span>' . vremja($post['time']) . '</span><br />';
+	}
 	echo '<a href="/user/mail.php?id=' . $ank['id'] . '"><img src="/style/icons/pochta.gif" alt="*" /> 信息</a> ';
 	echo '</div>';
+
 	// 帖子显示为已读
 	dbquery("UPDATE `my_guests` SET `read` = '0' WHERE `id` = '$post[id]' LIMIT 1");
 }
 echo '</table>';
+
 if ($k_page > 1) str("?", $k_page, $page);
+
 echo '<div class="foot">';
 echo '<img src="/style/icons/delete.gif" alt="*"> <a href="?truncate">清除列表</a><br />';
 echo '</div>';
@@ -64,4 +74,5 @@ echo '<div class="foot">';
 echo '<img src="/style/icons/str2.gif" alt="*"> ' . user::nick($user['id'],1,0,0) .' | ';
 echo '<b>谁来看我？</b>';
 echo '</div>';
-include_once '../../sys/inc/tfoot.php';
+
+require_once '../../sys/inc/tfoot.php';

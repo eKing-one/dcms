@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../sys/inc/start.php';
 include_once '../sys/inc/compress.php';
 include_once '../sys/inc/sess.php';
@@ -8,34 +8,37 @@ include_once '../sys/inc/db_connect.php';
 include_once '../sys/inc/ipua.php';
 include_once '../sys/inc/fnc.php';
 include_once '../sys/inc/user.php';
-// Если нет id шлем на главную
+
+// 无法获取id跳转至主页
 if (!isset($_GET['id']) && !is_numeric($_GET['id'])) {
-	header("Location: index.php?" . SID);
+	header("Location: index.php?" . session_id());
 	exit;
 }
-// Cуществование новости
-if (dbresult(dbquery("SELECT COUNT(*) FROM `news` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1", $db), 0) == 0) {
-	header("Location: index.php?" . SID);
+
+// 获取新闻
+if (dbresult(dbquery("SELECT COUNT(*) FROM `news` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1"), 0) == 0) {
+	header("Location: index.php?" . session_id());
 	exit;
 }
-// Определение записи новости
+
+// 获取ID新闻记录
 $news = dbassoc(dbquery("SELECT * FROM `news` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1"));
-// Автор новости
+// 新闻作者
 $author = user::get_user($news['id_user']);
-// Отмечаем уведомления
+// 处理通知
 if (isset($user))
 	dbquery("UPDATE `notification` SET `read` = '1' WHERE `type` = 'news_komm' AND `id_user` = '$user[id]' AND `id_object` = '$news[id]'");
-/*------------------------Мне нравится------------------------*/
+/*------------------------点赞------------------------*/
 if (
 	isset($user) && isset($_GET['like']) && ($_GET['like'] == 1 || $_GET['like'] == 0)
 	&& dbresult(dbquery("SELECT COUNT(*) FROM `like_object` WHERE `id_object` = '$news[id]' AND `type` = 'news' AND `id_user` = '$user[id]'"), 0) == 0
 ) {
 	dbquery("INSERT INTO `like_object` (`id_user`, `id_object`, `type`, `like`) VALUES ('$user[id]', '$news[id]', 'news', '" . abs(intval($_GET['like'])) . "')");
-	// Начисление баллов за активность
-	include_once H . 'sys/add/user.active.php';
+	// 活动积分的累积
+	include_once '../sys/add/user.active.php';
 }
 /*------------------------------------------------------------*/
-// Комментарий 
+// 旨趣 
 if (isset($_POST['msg']) && isset($user)) {
 	$msg = $_POST['msg'];
 	$mat = antimat($msg);
@@ -48,11 +51,11 @@ if (isset($_POST['msg']) && isset($user)) {
 		$err = '你的留言重复了上一条';
 	} elseif (!isset($err)) {
 		dbquery("INSERT INTO `news_komm` (`id_user`, `time`, `msg`, `id_news`) values('$user[id]', '$time', '" . my_esc($msg) . "', '" . intval($_GET['id']) . "')");
-		// Начисление баллов за активность
-		include_once H . 'sys/add/user.active.php';
+		// 活动积分的累积
+		include_once '../sys/add/user.active.php';
 		/*
 		==========================
-		Уведомления об ответах
+		回复通知
 		==========================
 		*/
 		if (isset($ank_reply['id'])) {
@@ -60,7 +63,7 @@ if (isset($_POST['msg']) && isset($user)) {
 			if ($notifiacation['komm'] == 1 && $ank_reply['id'] != $user['id'])
 				dbquery("INSERT INTO `notification` (`avtor`, `id_user`, `id_object`, `type`, `time`) VALUES ('$user[id]', '$ank_reply[id]', '$news[id]', 'news_komm', '$time')");
 		}
-		$_SESSION['message'] = '您的评论已被成功接受';
+		$_SESSION['message'] = '发送成功';
 		header('Location: ?id=' . intval($_GET['id']) . '&page=' . intval($_GET['page']));
 		exit;
 	}
@@ -70,38 +73,40 @@ include_once '../sys/inc/thead.php';
 title();
 aut();
 err();
-// Название
+// 名字
 echo '<div class="nav1" id="news_title">';
-echo '<img src="/style/icons/news.png" alt="*" /> ' . text($news['title']);
+echo '<img src="../style/icons/news.png" alt="*" /> ' . text($news['title']);
 echo '</div>';
-// Текст новости
+// 新闻文本
 echo '<div class="nav2" id="news_content">';
 echo output_text($news['msg']);
 echo "</div>";
-// Мне нравится и автор
+// 我也喜欢这位作者
 echo '<div class="nav2" id="like">';
 if (isset($user) && dbresult(dbquery("SELECT COUNT(*) FROM `like_object` WHERE `id_object` = '$news[id]' AND `type` = 'news' AND `id_user` = '$user[id]'"), 0) == 0) {
-	echo '[<img src="/style/icons/like.gif" alt="*"> <a href="?id=' . $news['id'] . '&amp;like=1">我喜欢</a>] ';
-	echo '[<a href="?id=' . $news['id'] . '&amp;like=0"><img src="/style/icons/dlike.gif" alt="*"></a>]';
+	echo '[<img src="../style/icons/like.gif" alt="*"> <a href="?id=' . $news['id'] . '&amp;like=1">我喜欢</a>] ';
+	echo '[<a href="?id=' . $news['id'] . '&amp;like=0"><img src="../style/icons/dlike.gif" alt="*"></a>]';
 } else {
-	echo '[<img src="/style/icons/like.gif" alt="*"> ' . dbresult(dbquery("SELECT COUNT(*) FROM `like_object` WHERE `id_object` = '$news[id]' AND `type` = 'news' AND `like` = '1'"), 0) . '] ';
-	echo '[<img src="/style/icons/dlike.gif" alt="*"> ' . dbresult(dbquery("SELECT COUNT(*) FROM `like_object` WHERE `id_object` = '$news[id]' AND `type` = 'news' AND `like` = '0'"), 0) . ']';
+	echo '[<img src="../style/icons/like.gif" alt="*"> ' . dbresult(dbquery("SELECT COUNT(*) FROM `like_object` WHERE `id_object` = '$news[id]' AND `type` = 'news' AND `like` = '1'"), 0) . '] ';
+	echo '[<img src="../style/icons/dlike.gif" alt="*"> ' . dbresult(dbquery("SELECT COUNT(*) FROM `like_object` WHERE `id_object` = '$news[id]' AND `type` = 'news' AND `like` = '0'"), 0) . ']';
 }
 echo '<br />';
-// Автор 
+// 作者 
 echo '作者: '. user::nick($author['id'],1,1,0).'</div>';
-// Кнопки соц сетей
+// 社交媒体按钮
 echo '<div class="nav2" id="news_share">';
 echo '分享:';
 echo '</div>';
-// Панелька управления
+
+// 控制面板
 if (user_access('adm_news')) {
 	echo '<div class="nav1" id="news_edit">';
-	echo '[<img src="/style/icons/edit.gif" alt="*"> <a href="edit.php?id=' . $news['id'] . '">编辑</a>] ';
-	echo '[<img src="/style/icons/delete.gif" alt="*"> <a href="delete.php?news_id=' . $news['id'] . '">删除</a>] ';
+	echo '[<img src="../style/icons/edit.gif" alt="*"> <a href="edit.php?id=' . $news['id'] . '">编辑</a>] ';
+	echo '[<img src="../style/icons/delete.gif" alt="*"> <a href="delete.php?news_id=' . $news['id'] . '">删除</a>] ';
 	echo '</div>';
 }
-/*----------------------листинг-------------------*/
+
+/*----------------------清单-------------------*/
 $listr = dbassoc(dbquery("SELECT * FROM `news` WHERE `id` < '$news[id]' ORDER BY `id` DESC LIMIT 1"));
 $list = dbassoc(dbquery("SELECT * FROM `news` WHERE `id` > '$news[id]' ORDER BY `id`  ASC LIMIT 1"));
 echo '<div class="c2" style="text-align: center;">';
@@ -112,23 +117,26 @@ echo ' (第' . $k_1 . '页 共' . $k_2 . '页) ';
 if (isset($list['id'])) echo '<span class="page">' . ($listr['id'] ? '<a href="?id=' . $listr['id'] . '">下一页 &raquo;</a>' : ' 下一页 &raquo;') . '</span>';
 echo '</div>';
 /*----------------------alex-borisi---------------*/
+
 echo '<div class="foot" id="news_komm">';
 echo '评论：';
 echo '</div>';
-// Колличество комментариев
+
+// 获取评论数量
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `news_komm` WHERE `id_news` = '" . intval($_GET['id']) . "' "), 0);
 $k_page = k_page($k_post, $set['p_str']);
 $page = page($k_page);
 $start = $set['p_str'] * $page - $set['p_str'];
-// Выборка постов
-$q = dbquery("SELECT * FROM `news_komm` WHERE `id_news` = '" . intval($_GET['id']) . "' ORDER BY `id` $sort LIMIT $start, $set[p_str]");
+// 帖子选择
+
+// 展示评论
 echo '<table class="post">';
 if ($k_post == 0) {
 	echo '<div class="mess" id="no_object">';
 	echo '没有评论';
 	echo '</div>';
 } else {
-	/*------------сортировка по времени--------------*/
+	/*------------按时间排序--------------*/
 	if (isset($user)) {
 		echo '<div id="comments" class="menus">';
 		echo '<div class="webmenu">';
@@ -140,40 +148,47 @@ if ($k_post == 0) {
 		echo '</div>';
 	}
 	/*---------------alex-borisi---------------------*/
-}
-while ($post = dbassoc($q)) {
-	$ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
-	// Лесенка
-	echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
-	$num++;
-	echo user::nick($ank['id'],1,1,0);
-	if (isset($user) && $user['id'] != $ank['id']){
-		echo ' <a href="?id=' . $news['id'] . '&amp;page=' . $page . '&amp;response=' . $ank['id'] . '">[@]</a> ';
-	}
-	echo '(' . vremja($post['time']) . ')<br />';
-	echo output_text($post['msg']) . '<br />';
-	if (isset($user)) {
-		echo '<div class="right">';
-		if (isset($user) && ($user['level'] > $ank['level'] || $user['level'] != 0 && $user['id'] == $ank['id']))
-			echo '<a href="delete.php?id=' . $post['id'] . '"><img src="/style/icons/delete.gif" alt="*"></a>';
+	$q = dbquery("SELECT * FROM `news_komm` WHERE `id_news` = '" . intval($_GET['id']) . "' ORDER BY `id` $sort LIMIT $start, $set[p_str]");
+	while ($post = dbassoc($q)) {
+		$ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
+		// 楼梯
+		echo '<div class="' . ($num % 2 ? "nav1" : "nav2") . '">';
+		$num++;
+		echo user::nick($ank['id'],1,1,0);
+		if (isset($user) && $user['id'] != $ank['id']){
+			echo ' <a href="?id=' . $news['id'] . '&amp;page=' . $page . '&amp;response=' . $ank['id'] . '">[@]</a> ';
+		}
+		echo '(' . vremja($post['time']) . ')<br />';
+		echo output_text($post['msg']) . '<br />';
+		if (isset($user)) {
+			if (isset($user) && (($user['level'] > $ank['level'] || $user['level'] != 0 && $user['id'] == $ank['id'])) || $user['id'] == $post['id_user']) {
+				echo '<div class="right">';
+				echo '<a href="delete.php?id=' . $post['id'] . '"><img src="../style/icons/delete.gif" alt="*"></a>';
+				echo '</div>';
+			}
+		}
 		echo '</div>';
 	}
-	echo '</div>';
 }
 echo '</table>';
+
 // 输出页数
 if ($k_page > 1) str("news.php?id=" . intval($_GET['id']) . '&amp;', $k_page, $page);
-// 征求意见表
+
+// 方式评论表单
 if (isset($user)) {
 	echo '<form method="post" name="message" action="?id=' . intval($_GET['id']) . '&amp;page=' . $page . REPLY . '">';
-	if (is_file(H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php'))
-		include_once H . 'style/themes/' . $set['set_them'] . '/altername_post_form.php';
-	else
+	if (is_file('../style/themes/' . $set['set_them'] . '/altername_post_form.php')) {
+		include_once '../style/themes/' . $set['set_them'] . '/altername_post_form.php';
+	} else {
 		echo $tPanel . '<textarea name="msg">' . $insert . '</textarea><br />';
+	}
 	echo '<input value="发送" type="submit" />';
 	echo '</form>';
 }
+
 echo '<div class="foot">';
-echo '<img src="/style/icons/str2.gif" alt="*"> <a href="index.php">新闻中心</a><br />';
+echo '<img src="../style/icons/str2.gif" alt="*"> <a href="index.php">新闻中心</a><br />';
 echo '</div>';
+
 include_once '../sys/inc/tfoot.php';

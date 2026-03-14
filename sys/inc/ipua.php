@@ -1,37 +1,28 @@
 <?php
-$ipa = false;
-if(isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR']!='127.0.0.1' && preg_match("#^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$#",$_SERVER['HTTP_X_FORWARDED_FOR']))
-{
-	$ip2['xff'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
-	$ipa[] = $_SERVER['HTTP_X_FORWARDED_FOR'];
-}
-if(isset($_SERVER['HTTP_CLIENT_IP']) && $_SERVER['HTTP_CLIENT_IP']!='127.0.0.1' && preg_match("#^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$#",$_SERVER['HTTP_CLIENT_IP']))
-{
-	$ip2['cl'] = $_SERVER['HTTP_CLIENT_IP'];
-	$ipa[] = $_SERVER['HTTP_CLIENT_IP'];
-}
-if(isset($_SERVER['REMOTE_ADDR']) && preg_match("#^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$#",$_SERVER['REMOTE_ADDR']))
-{
-	$ip2['add'] = $_SERVER['REMOTE_ADDR'];
-	$ipa[] = $_SERVER['REMOTE_ADDR'];
-}
-$ip = $ipa[0];
-$iplong = ip2long($ip);
-if (isset($_SERVER['HTTP_USER_AGENT']))
-{
-	$ua = $_SERVER['HTTP_USER_AGENT'];
-	$ua = strtok($ua, '/');
-	$ua = strtok($ua, '('); // 我们只留下括号前的内容
-	$ua = preg_replace('#[^a-z_\./ 0-9\-]#iu', null, $ua); // 我们剪掉了所有的"左"字符
-	// Opera mini还会发送有关手机的数据 :)
-	if (isset($_SERVER['HTTP_X_OPERAMINI_PHONE_UA']) && preg_match('#Opera#i',$ua))
-	{
-		$ua_om = $_SERVER['HTTP_X_OPERAMINI_PHONE_UA'];
-		$ua_om = strtok($ua_om, '/');
-		$ua_om = strtok($ua_om, '(');
-		$ua_om = preg_replace('#[^a-z_\. 0-9\-]#iu', null, $ua_om);
-		$ua = 'Opera Mini ('.$ua_om.')';
-	}
-}
-else $ua = 'N/A';
-?>
+/*
+ * MIT License
+ * 
+ * Copyright (c) 2025 GuGuan123
+ * 
+ * 本软件基于 MIT 许可证发布。具体许可条款如下：
+ * 
+ * 允许在本软件及其附带文档文件（以下简称“软件”）的基础上进行修改、复制、分发及/或销售，
+ * 且在提供软件的副本时，需附上此许可证声明和版权声明。
+ * 
+ * 本软件按“原样”提供，不作任何形式的明示或暗示的担保，包括但不限于对适销性、适合某一特定用途的担保。
+ * 在任何情况下，无论是在合同诉讼、侵权或其他诉讼中，作者或版权持有者对因使用本软件或其他交易的结果
+ * 所产生的任何索赔、损害或其他责任不承担任何责任。
+ * 
+ * 你可以在 https://choosealicense.com/licenses/mit/ 查看详细的 MIT 原始许可证条款。
+ */
+
+/**
+ * 使用方式
+ * 
+ * 获取 IP 和 User-Agent
+ * $ip = $clientDetails['ip'];
+ * $ua = $clientDetails['ua'];
+ */
+$clientDetails = (new GuGuan123\dcms\Utils\ClientDetails($set ?? null, $db ?? null))->getClientDetails();
+$ua = $clientDetails['ua'];
+$ip = $clientDetails['ip'];

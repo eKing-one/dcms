@@ -1,12 +1,11 @@
-<?
+<?php
 /*
-* $name описание действий объекта 
+* $name 对象作的描述
 */
-if ($type == 'album' && $post['avtor'] != $user['id']) {
-	$name = '相册中的新照片';
-}
+if ($type == 'album' && $post['avtor'] != $user['id']) $name = '相册中的新照片';
+
 /*
-* Вывод блока с содержимым 
+* 包含内容的块的输出
 */
 if ($type  ==  'album') {
 	$gallery = dbassoc(dbquery("SELECT * FROM `gallery` WHERE `id` = '" . $post['id_file'] . "' LIMIT 1"));
@@ -16,7 +15,7 @@ if ($type  ==  'album') {
 	} else {
 		$kol = $post['count'];
 	}
-	if ($gallery['id']) {
+	if (isset($gallery['id']) && $gallery['id']) {
 		echo '<div class="nav1">';
 		echo user::nick($avtor['id'], 1, 1, 0) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a> ' . $name . ' <img src="/style/icons/camera.png" alt=""/>  <a href="/photo/' . $avtor['id'] . '/' . $gallery['id'] . '/"><b>' . text($gallery['name']) . '</b></a> ';
 		echo $s1 . vremja($post['time']) . $s2;
@@ -29,6 +28,10 @@ if ($type  ==  'album') {
 		if (isset($kol2)) echo '和更多' . $kol2 . ' 照片';
 	} else {
 		echo '<div class="nav1">';
-		echo "删除相册 =(";
+		echo user::nick($avtor['id'], 1, 1, 0) . ' <a href="user.settings.php?id=' . $avtor['id'] . '">[!]</a> ' . $name . ' ';
+		echo $s1 . vremja($post['time']) . $s2;
+		echo '</div>';
+		echo '<div class="nav2">';
+		echo "相册已删除 =(";
 	}
 }

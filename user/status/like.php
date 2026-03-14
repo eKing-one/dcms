@@ -26,18 +26,20 @@ include_once '../../sys/inc/user.php';
 $set['title'] = '喜欢状态';
 include_once '../../sys/inc/thead.php';
 title();
-if (dbresult(dbquery("SELECT COUNT(*) FROM `status` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1", $db), 0) == 0) {
-	header("Location: index.php?" . SID);
+
+if (dbresult(dbquery("SELECT COUNT(*) FROM `status` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1"), 0) == 0) {
+	header("Location: index.php?" . session_id());
 	exit;
 }
-// Статус
+
+// 地位
 $status = dbassoc(dbquery("SELECT * FROM `status` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1"));
-// Автор
+// 作者
 $anketa = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $status[id_user] LIMIT 1"));
 err();
-aut(); // форма авторизации
+aut(); // 授权表格
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> " . user::nick($anketa['id'], 1, 0, 0) . " | <a href='index.php?id=" . $anketa['id'] . "'>状态</a> | <b>积分</b>";
+echo "<img src='../../style/icons/str2.gif' alt='*'> " . user::nick($anketa['id'], 1, 0, 0) . " | <a href='index.php?id=" . $anketa['id'] . "'>状态</a> | <b>积分</b>";
 echo "</div>";
 $k_post = dbresult(dbquery("SELECT COUNT(*) FROM `status_like` WHERE `id_status` = '" . intval($_GET['id']) . "'"), 0);
 $k_page = k_page($k_post, $set['p_str']);
@@ -46,9 +48,7 @@ $start = $set['p_str'] * $page - $set['p_str'];
 $q = dbquery("SELECT * FROM `status_like` WHERE `id_status` = '" . intval($_GET['id']) . "' ORDER BY `id` DESC LIMIT $start, $set[p_str]");
 echo "<table class='post'>";
 if ($k_post == 0) {
-	echo "<div class='mess'>";
-	echo "还没有人给这个状态点赞";
-	echo "</div>";
+	echo "<div class='mess'>还没有人给这个状态点赞</div>";
 }
 while ($post = dbassoc($q)) {
 	$ank = dbassoc(dbquery("SELECT * FROM `user` WHERE `id` = $post[id_user] LIMIT 1"));
@@ -66,14 +66,17 @@ while ($post = dbassoc($q)) {
 	if ($status['id']) {
 		echo '<div class="st_1"></div>';
 		echo '<div class="st_2">';
-		echo "<a href='/user/status/komm.php?id=$status[id]'>" . output_text($status['msg']) . "</a>";
+		echo "<a href='komm.php?id=$status[id]'>" . output_text($status['msg']) . "</a>";
 		echo "</div>";
 	}
 	echo "</div>";
 }
 echo "</table>";
+
 if ($k_page > 1) str("like.php?id=" . intval($_GET['id']) . '&amp;', $k_page, $page); // 输出页数
+
 echo "<div class='foot'>";
-echo "<img src='/style/icons/str2.gif' alt='*'> " . user::nick($anketa['id'], 1, 0, 0) . " | <a href='index.php?id=" . $anketa['id'] . "'>状态</a> | <b>积分</b>";
+echo "<img src='../../style/icons/str2.gif' alt='*'> " . user::nick($anketa['id'], 1, 0, 0) . " | <a href='index.php?id=" . $anketa['id'] . "'>状态</a> | <b>积分</b>";
 echo "</div>";
+
 include_once '../../sys/inc/tfoot.php';

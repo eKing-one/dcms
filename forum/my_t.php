@@ -11,7 +11,7 @@ include_once '../sys/inc/user.php';
 /* Бан пользователя */ 
 if (dbresult(dbquery("SELECT COUNT(*) FROM `ban` WHERE `razdel` = 'forum' AND `id_user` = '$user[id]' AND (`time` > '$time' OR `view` = '0' OR `navsegda` = '1')"), 0)!=0)
 {
-	header('Location: /ban.php?'.SID);
+	header('Location: /ban.php?'.session_id());
 	exit;
 }
 //网页标题

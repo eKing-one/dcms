@@ -11,7 +11,7 @@ include_once '../sys/inc/user.php';
 if (isset($_GET['id']) && is_numeric($_GET['id']) && dbresult(dbquery("SELECT COUNT(`id`) FROM `stena` WHERE `id` = '" . intval($_GET['id']) . "' LIMIT 1"), 0) != 0) {
      $id = abs(intval($_GET['id']));
      $post = dbassoc(dbquery("SELECT * FROM `stena` WHERE `id`='$id' LIMIT 1"));
-     $set['title'] = ' 对该帖子的评论';
+     $set['title'] = '动态评论';
      include_once '../sys/inc/thead.php';
      title();
      if (isset($_POST['msg']) && isset($user)) {
@@ -67,7 +67,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id']) && dbresult(dbquery("SELECT CO
      echo "<div class='main'><b>评论：</b> (" . $k_post . ")</div>";
      if ($k_post == 0) {
           echo '<div class="mess">';
-          echo '<font color=grey>还没有人对录音发表评论。</font>';
+          echo '<font color=grey>此动态无评论</font>';
           echo '</div>';
      }
      while ($komm = dbassoc($q)) {

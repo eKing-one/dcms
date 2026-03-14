@@ -1,27 +1,15 @@
 <?php
-/*
-=======================================
-DCMS-Social 用户个人文件
-作者：探索者
----------------------------------------
-此脚本在许可下被破坏
-DCMS-Social 引擎。
-使用时，指定引用到
-网址 http://dcms-social.ru
----------------------------------------
-接点
-ICQ：587863132
-http://dcms-social.ru
-=======================================
-*/
 if (isset($_GET['edit'])) {
 	if (isset($_GET['ok'])) {
 		$name = my_esc($_POST['name']);
 		$opis = my_esc($_POST['opis']);
 		if (strlen2($name) < 2) $err[] = '短名';
 		if (strlen2($name) > 128) $err[] = '长名';
-		if ($_POST['metka'] == 0 || $_POST['metka'] == 1) $metka = $_POST['metka'];
-		else $err = '标签错误 +18';
+		if (isset($_POST['metka']) && ($_POST['metka'] == 0 || $_POST['metka'] == 1)) {
+			$metka = $_POST['metka'];
+		} else {
+			$metka = 0;
+		}
 		if (!isset($err)) {
 			dbquery("UPDATE `downnik_files` SET `metka` = '" . my_esc($metka) . "', `name` = '" . $name . "',`opis` = '" . $opis . "' WHERE `id` = '$file_id[id]' LIMIT 1");
 			$_SESSION['message'] = '该文件已成功编辑';
@@ -43,5 +31,4 @@ if (isset($_GET['edit'])) {
 	echo "<img src='/style/icons/up_dir.gif' alt='*'> " . ($dir['osn'] == 1 ? '<a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">档案</a>' : '') . " " . user_files($dir['id_dires']) . " " . ($dir['osn'] == 1 ? '' : '&gt; <a href="/user/personalfiles/' . $ank['id'] . '/' . $dir['id'] . '/">' . text($dir['name']) . '</a>') . "";
 	echo "</div>";
 	include_once '../../sys/inc/tfoot.php';
-	exit;
 }

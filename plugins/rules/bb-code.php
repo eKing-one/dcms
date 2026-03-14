@@ -1,4 +1,4 @@
-<?
+<?php
 include_once '../../sys/inc/start.php';
 include_once '../../sys/inc/compress.php';
 include_once '../../sys/inc/sess.php';
@@ -8,11 +8,12 @@ include_once '../../sys/inc/db_connect.php';
 include_once '../../sys/inc/ipua.php';
 include_once '../../sys/inc/fnc.php';
 include_once '../../sys/inc/user.php';
-$set['title']='BBCode 使用';
+$set['title'] = 'BBCode 使用';
 include_once '../../sys/inc/thead.php';
 title();
 err();
 aut();
+
 echo "<div class='foot'>";
 echo '文本样式：<br />';
 echo "</div>";
@@ -33,7 +34,7 @@ echo "<input type='text' value='[white]你的文字[/white]' /></a><font color='
 echo "<div class='foot'>";
 echo '链接：<br />';
 echo "</div>";
-echo "<input type='text' value='[url=http://网站]标题[/url]' /></a><br /><a href='bb-code.php'>链接</a><br />";
-echo "<input type='text' value='[u=用户id]用户昵称[/u]'/></a><br /><a href='/user/info.php?id=1'>用户</a><br />";
+echo "<input type='text' value='[url=" . get_http_type() . "://网站]标题[/url]' /></a><br /><a href='bb-code.php'>链接</a><br />";
+echo "<input type='text' value='[u=用户id]用户昵称[/u]'/></a><br /><a href='../../user/info.php?id=1'>用户</a><br />";
+
 include_once '../../sys/inc/tfoot.php';
-?>

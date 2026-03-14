@@ -12,19 +12,19 @@ if (isset($user)) $ank['id'] = $user['id'];
 if (isset($_GET['id'])) $ank['id'] = intval($_GET['id']);
 $ank = user::get_user($ank['id']);
 if ($ank['id'] == 0) {
-	header("Location: /index.php?" . SID);
+	header("Location: /index.php?" . session_id());
 	exit;
 	exit;
 }
 if (isset($user) && isset($_GET['delete']) && $user['id'] == $ank['id']) {
 	dbquery("DELETE FROM `bookmarks` WHERE `id` = '" . intval($_GET['delete']) . "' AND `id_user` = '$user[id]' AND `type`='file' LIMIT 1");
 	$_SESSION['message'] = '删除书签';
-	header("Location: ?page=" . intval($_GET['page']) . "" . SID);
+	header("Location: ?page=" . intval($_GET['page']) . "" . session_id());
 	exit;
 	exit;
 }
 if (!$ank) {
-	header("Location: /index.php?" . SID);
+	header("Location: /index.php?" . session_id());
 	exit;
 }
 $set['title'] = '书签 - 档案 - ' . $ank['nick'] . ''; //网页标题

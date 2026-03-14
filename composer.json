@@ -1,0 +1,26 @@
+{
+	"name": "guguan123/dcms",
+	"description": "手机网站内容管理系统",
+	"type": "project",
+	"license": "MIT",
+	"autoload": {
+		"psr-4": {
+			"GuGuan123\\dcms\\": "src/"
+		}
+	},
+	"authors": [
+		{
+			"name": "GuGuan123",
+			"email": "admin@guguan.us.kg"
+		}
+	],
+	"require": {
+		"ua-parser/uap-php": "^3.9",
+		"mlocati/ip-lib": "^1.18",
+		"mobiledetect/mobiledetectlib": "^4.8",
+		"firebase/php-jwt": "^6.10",
+		"phpmailer/phpmailer": "^6.9",
+		"james-heinrich/getid3": "^1.9",
+		"intervention/image": "^3.11"
+	}
+}
